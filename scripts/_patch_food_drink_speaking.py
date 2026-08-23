@@ -37,58 +37,62 @@ esc = _gen.esc
 PASSAGES: dict[str, list[tuple[str, str]]] = {
     "A1": [
         (
-            "I’m a big fan of simple food at home. Most days start with breakfast — "
-            "maybe bread with butter and jam, or an egg with a little cheese. "
+            "Yes, absolutely — I’m keen on simple food at home. "
+            "Most days start with breakfast: maybe bread with butter and jam, or an egg with a little cheese. "
             "I drink tea or coffee, and sometimes chocolate milk if I want something sweet. "
             "A glass of cold milk works too when I’m in a hurry.",
-            "Tôi rất thích đồ ăn đơn giản ở nhà. Hầu hết các ngày bắt đầu bằng breakfast — "
-            "có thể là bread với butter và jam, hoặc egg với chút cheese. "
+            "Chắc chắn rồi — tôi khá mê đồ ăn đơn giản ở nhà. "
+            "Hầu hết các ngày bắt đầu bằng breakfast: có thể bread với butter và jam, hoặc egg với chút cheese. "
             "Tôi uống tea hoặc coffee, và đôi khi chocolate milk nếu muốn ngọt. "
             "Một ly milk lạnh cũng ổn khi tôi đang vội.",
         ),
         (
-            "For lunch I usually make a sandwich or a bowl of rice with chicken and a fresh vegetable salad. "
+            "I prefer a homemade lunch to eating out. "
+            "I usually make a sandwich or a bowl of rice with chicken and a fresh vegetable salad. "
             "Cucumber, tomato, carrot, onion, and a bit of pepper make it taste better. "
             "I don’t add too much salt or sugar — I want the meal to feel light.",
-            "Với lunch tôi thường làm sandwich hoặc một tô rice với chicken và salad vegetable tươi. "
+            "Tôi thích lunch tự nấu hơn đi ăn ngoài. "
+            "Tôi thường làm sandwich hoặc một tô rice với chicken và salad vegetable tươi. "
             "Cucumber, tomato, carrot, onion, và một chút pepper làm món ngon hơn. "
             "Tôi không cho quá nhiều salt hay sugar — tôi muốn meal nhẹ nhàng.",
         ),
         (
-            "In the evening, dinner is my favourite meal of the day. "
+            "How often do I cook dinner? Almost every evening — it’s my favourite meal of the day. "
             "Sometimes we share pizza, sometimes we cook soup with potato and meat, "
             "or fish when we want something lighter. "
             "A glass of water or fresh juice is enough for me with dinner.",
-            "Buổi tối, dinner là meal yêu thích trong ngày. "
+            "Tôi nấu dinner bao lâu một lần? Hầu như mỗi tối — đó là meal yêu thích trong ngày. "
             "Đôi khi chúng tôi chia pizza, đôi khi nấu soup với potato và meat, "
             "hoặc fish khi muốn món nhẹ hơn. "
             "Một ly water hoặc juice tươi là đủ với dinner.",
         ),
         (
-            "After meals I love fruit — an apple, an orange, a banana, a peach, a grape, or a slice of lemon in my drink. "
+            "Looking back on weekends, what I enjoy after meals is fruit — "
+            "an apple, an orange, a banana, a peach, a grape, or a slice of lemon in my drink. "
             "On weekends there is cake or a cookie, and ice cream with cream if friends come over. "
-            "Honestly, honey on warm bread is still my favourite small treat.",
-            "Sau các bữa ăn tôi thích fruit — apple, orange, banana, peach, grape, hoặc lát lemon trong đồ uống. "
+            "To be honest, honey on warm bread is still my favourite small treat.",
+            "Nhìn lại cuối tuần, thứ tôi thích sau bữa ăn là fruit — "
+            "apple, orange, banana, peach, grape, hoặc lát lemon trong đồ uống. "
             "Cuối tuần có cake hoặc cookie, và ice cream với cream nếu bạn bè tới chơi. "
             "Thành thật mà nói, honey trên bread nóng vẫn là món nhỏ yêu thích của tôi.",
         ),
     ],
     "A2": [
         (
-            "I’d like to talk about a weekend on my uncle’s farm. "
-            "Farming there is slow and peaceful — we plant seeds, water the soil, pick ripe fruit, "
+            "If I had to describe a peaceful weekend, it would have to be a weekend on my uncle’s farm. "
+            "Farming there is slow and calm — we plant seeds, water the soil, pick ripe fruit, "
             "and grow vegetables that we can produce and feed the family with all summer.",
-            "Tôi muốn nói về một cuối tuần ở farm của chú. "
-            "Farming ở đó chậm rãi và yên — chúng tôi plant hạt, water đất, pick trái chín, "
+            "Nếu phải kể về một cuối tuần yên bình, chắc chắn là cuối tuần ở farm của chú. "
+            "Farming ở đó chậm rãi và êm — chúng tôi plant hạt, water đất, pick trái chín, "
             "và grow rau để produce và feed cả nhà suốt mùa hè.",
         ),
         (
-            "In the garden I picked strawberry, blueberry, watermelon, pear, pineapple, mango, kiwi, avocado, and grapefruit. "
+            "What kind of fruit did I pick? In the garden: strawberry, blueberry, watermelon, pear, pineapple, mango, kiwi, avocado, and grapefruit. "
             "Between the fruit trees there were flowers too — a rose, a lily, an orchid, a sunflower, and even a small cactus. "
-            "I love how soft fruit smells sweet, while a hard nut needs more work before you can taste it.",
-            "Trong vườn tôi hái strawberry, blueberry, watermelon, pear, pineapple, mango, kiwi, avocado, và grapefruit. "
+            "Soft fruit smells sweet, while a hard nut needs more work before you can taste it.",
+            "Loại fruit nào tôi hái? Trong vườn: strawberry, blueberry, watermelon, pear, pineapple, mango, kiwi, avocado, và grapefruit. "
             "Giữa các cây còn có hoa — rose, lily, orchid, sunflower, và cả cactus nhỏ. "
-            "Tôi thích fruit mềm smell ngọt, còn nut hard thì cần thêm công trước khi taste.",
+            "Fruit mềm smell ngọt, còn nut hard thì cần thêm công trước khi taste.",
         ),
         (
             "For snacks we cracked peanut, walnut, hazelnut, almond, and pecan. "
@@ -99,40 +103,38 @@ PASSAGES: dict[str, list[tuple[str, str]]] = {
             "Chúng tôi giữ leftovers trong tủ cho rest của tuần sau khi đi grocery nhanh lấy sauce và pasta.",
         ),
         (
-            "On Sunday we went out. At the coffee shop I ordered hot chocolate, then we looked at the menu. "
+            "Generally speaking, Sunday is the best time to go out. At the coffee shop I ordered hot chocolate, then we looked at the menu. "
             "My friend is vegetarian, and her sister is vegan, so they chose broccoli, celery, eggplant, cabbage, spinach, pea, bean, and mushroom. "
             "I ordered a steak — medium, not rare and not well-done — because watery meat has a bad taste to me.",
-            "Chủ nhật chúng tôi đi chơi. Ở coffee shop tôi order hot chocolate, rồi xem menu. "
+            "Nhìn chung, Chủ nhật là thời điểm tốt nhất để đi chơi. Ở coffee shop tôi order hot chocolate, rồi xem menu. "
             "Bạn tôi là vegetarian, còn chị ấy vegan, nên họ chọn broccoli, celery, eggplant, cabbage, spinach, pea, bean, và mushroom. "
             "Tôi order steak — medium, không rare cũng không well-done — vì meat watery có taste tệ với tôi.",
         ),
         (
             "Someone asked for a spicy noodle bowl; someone else wanted salty French fries and a potato chip snack. "
-            "I prefer fresh flavor to bitter junk food, though a sweet dessert like pie or dark chocolate is fine after dinner. "
+            "I prefer fresh flavor to bitter junk food, while a sweet dessert like pie or dark chocolate is fine after dinner. "
             "They also serve hamburger, hot dog, sausage, toast, and delicious pasta with a tip jar by the door — yes, we did tip. "
             "Before I order, I always taste a sample to check the taste if the shop offers one.",
             "Ai đó gọi một tô noodle spicy; người khác muốn French fries salty và snack potato chip. "
-            "Tôi thích flavor fresh hơn junk food bitter, dù dessert sweet như pie hoặc dark chocolate thì ổn sau dinner. "
+            "Tôi thích flavor fresh hơn junk food bitter, còn dessert sweet như pie hoặc dark chocolate thì ổn sau dinner. "
             "Họ cũng serve hamburger, hot dog, sausage, toast, và pasta delicious với lọ tip gần cửa — đúng, chúng tôi có tip. "
             "Trước khi order, tôi luôn taste mẫu để kiểm tra taste nếu quán cho thử.",
         ),
         (
-            "Honestly, fast food is easy, but farm fruit still wins. "
+            "One thing I dislike about fast food is how easy it is to overdo — farm fruit still wins. "
             "If a dish tastes sour or too spicy, I just ask them to fry something milder next time. "
             "That weekend felt complete — from planting on the farm to one last order at the coffee shop.",
-            "Thành thật, fast food thì tiện, nhưng fruit từ farm vẫn thắng. "
+            "Một điều tôi không thích ở fast food là dễ ăn quá đà — fruit từ farm vẫn thắng. "
             "Nếu món taste sour hoặc quá spicy, tôi chỉ nhờ họ fry món nhẹ hơn lần sau. "
             "Cuối tuần đó trọn vẹn — từ planting trên farm đến order cuối ở coffee shop.",
         ),
     ],
     "B1": [
         (
-            "Yes, definitely. I’m a big fan of nonalcoholic beverages, especially in the morning. "
-            "My favourite drink is a latte made with a shot of espresso. "
+            "Yes, definitely — my favourite nonalcoholic beverage in the morning is a latte with a shot of espresso. "
             "This is because it gives me the chance to wake up slowly without feeling jittery. "
             "Honestly, a strong black espresso alone is a bit too intense for me.",
-            "Chắc chắn rồi. Tôi rất thích beverage nonalcoholic, đặc biệt buổi sáng. "
-            "Đồ uống yêu thích của tôi là latte với một shot espresso. "
+            "Chắc chắn rồi — beverage nonalcoholic yêu thích buổi sáng của tôi là latte với một shot espresso. "
             "Vì vậy tôi tỉnh dậy từ từ mà không bị kích thích quá. "
             "Thành thật, chỉ espresso đen đặc thôi thì hơi mạnh với tôi.",
         ),
@@ -159,13 +161,13 @@ PASSAGES: dict[str, list[tuple[str, str]]] = {
             "Giữ mọi thứ đơn giản với tôi là chuyện dễ như ăn bánh.",
         ),
         (
-            "I’d like to talk about a weekend brunch near my house. "
+            "I’m going to describe a weekend brunch near my house. "
             "First, I ordered crispy bacon and a soft-boiled egg so I could dip toast into the yolk while the white was just set. "
             "My friend preferred white meat, so she chose a grilled chicken breast and a wing. "
             "I usually avoid too much red meat, but that day I shared ribs and a small hamburger made from juicy flesh — "
             "plus turkey, ham, a meatball, and even duck for the adventurous ones. "
             "I’m still not into rabbit, veal, or goose, and a huge joint of meat feels too heavy for brunch.",
-            "Tôi muốn kể về brunch cuối tuần gần nhà. "
+            "Tôi sẽ mô tả brunch cuối tuần gần nhà. "
             "Đầu tiên tôi gọi bacon giòn và trứng luộc để chấm yolk khi white vừa đông. "
             "Bạn tôi thích white meat nên chọn breast gà nướng và vài wing. "
             "Tôi thường tránh red meat nhiều, nhưng hôm đó chia rib và hamburger nhỏ từ flesh mọng — "
@@ -209,12 +211,12 @@ PASSAGES: dict[str, list[tuple[str, str]]] = {
     ],
     "B2": [
         (
-            "Yes, definitely. I’m a big fan of exploring different kinds of cuisine. "
+            "What kind of cuisine am I into? These days I really enjoy exploring different kinds. "
             "My favourite weekend habit is to sip a cappuccino made with skim milk and then grab a bagel with goat cheese. "
             "This is because it feels light but still satisfying — not a heavy portion like a full beefsteak. "
             "I prefer herbal tea or ice tea with a straw and an ice cube or two to sugary drinks, "
             "while my friends often order a mojito, margarita, martini, or even a Bloody Mary.",
-            "Chắc chắn rồi. Tôi thích khám phá nhiều loại cuisine. "
+            "Tôi thích loại cuisine nào? Dạo này tôi khá mê khám phá nhiều loại. "
             "Thói quen cuối tuần yêu thích là sip cappuccino với skim milk rồi lấy bagel với goat cheese. "
             "Vì nó nhẹ mà vẫn đủ no — không phải portion nặng như beefsteak nguyên miếng. "
             "Tôi thích herbal tea hoặc ice tea với straw và vài ice cube hơn đồ ngọt, "
@@ -229,11 +231,11 @@ PASSAGES: dict[str, list[tuple[str, str]]] = {
             "Chewing gum, hard candy, hoặc lollipop giúp sau cà phê — hơi buồn cười nhưng hiệu quả.",
         ),
         (
-            "I’d like to talk about a family supper we cooked last month. "
-            "First, I heat the stove and open a recipe with every ingredient on the counter: "
+            "Looking back, the last family supper we cooked was last month. "
+            "At first I heat the stove and open a recipe with every ingredient on the counter: "
             "herb, spice, beet, green pepper, red pepper, zucchini, sweet potato, raspberry, and wheat flour for a baguette and soft roll. "
             "I used a scale for a cupful of flour, a pinch of salt, and a spoonful of tomato paste.",
-            "Tôi muốn kể về supper gia đình tháng trước. "
+            "Nhìn lại, lần supper gia đình gần nhất chúng tôi nấu là tháng trước. "
             "Đầu tiên tôi heat bếp và mở recipe với mọi ingredient trên counter: "
             "herb, spice, beet, green pepper, red pepper, zucchini, sweet potato, raspberry, và bột wheat cho baguette cùng roll mềm. "
             "Tôi dùng scale cho cupful bột, pinch muối, và spoonful tomato paste.",

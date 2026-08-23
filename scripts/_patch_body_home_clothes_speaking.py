@@ -46,21 +46,21 @@ PASSAGES: dict[str, dict[str, list[tuple[str, str]]]] = {
     "body-appearance": {
         "A1": [
             (
-                "Yes, definitely. I’m a big fan of learning body words for speaking. "
+                "Yes, absolutely — my favourite way to warm up speaking is naming body words. "
                 "My body has a head, a face, a neck, and hair that I brush every morning. "
                 "I look in the mirror and see my eye, nose, ear, cheek, chin, mouth, tooth, and lip. "
                 "Honestly, describing my face helps me sound more natural in English.",
-                "Chắc chắn rồi. Tôi thích học từ về body để speaking. "
+                "Chắc chắn rồi — cách khởi động speaking yêu thích của tôi là gọi tên từ về body. "
                 "Body tôi có head, face, neck, và hair tôi chải mỗi sáng. "
                 "Tôi nhìn gương thấy eye, nose, ear, cheek, chin, mouth, tooth, và lip. "
                 "Mô tả face giúp tôi nói tự nhiên hơn.",
             ),
             (
-                "I’d like to talk about the rest of my body. "
+                "What kind of body words do I still need? The rest of my body. "
                 "I raise my hand and stretch my arm on each side, then feel my back, stomach, and a strong leg. "
                 "My foot and knee help me walk; when I sit too long my back feels tired. "
                 "So that’s my simple A1 blog about the head and the body.",
-                "Tôi muốn nói về phần còn lại của body. "
+                "Loại từ body nào tôi còn cần? Phần còn lại của body. "
                 "Tôi có hand và arm mỗi bên, rồi back, stomach, và leg khỏe. "
                 "Foot và knee giúp đi; ngồi lâu thì back mệt. "
                 "Đó là blog A1 đơn giản về head và body.",
@@ -68,22 +68,22 @@ PASSAGES: dict[str, dict[str, list[tuple[str, str]]]] = {
         ],
         "A2": [
             (
-                "Yes, definitely. I’m a big fan of talking about appearance and personality. "
+                "I prefer kind descriptions of appearance and personality to rude jokes. "
                 "Some people look attractive, good-looking, handsome, pretty, or just cute. "
                 "Hair can be curly, wavy, or straight; someone blond or bald may also wear a beard or a mustache. "
                 "A male or female friend can look slim, skinny, fit, or tiny — I try to describe with kind words, not rude ones.",
-                "Chắc chắn rồi. Tôi thích nói về appearance và personality. "
+                "Tôi thích mô tả appearance và personality tử tế hơn đùa thô. "
                 "Có người attractive, good-looking, handsome, pretty, hoặc cute. "
                 "Hair có thể curly, wavy, hoặc straight; người blond hoặc bald cũng có thể có beard hay mustache. "
                 "Friend male hoặc female có thể slim, skinny, fit, hoặc tiny — tôi cố describe tử tế, không rude.",
             ),
             (
-                "I’d like to talk about behavior and character. "
+                "To be honest, behavior and character are harder to describe than looks. "
                 "My personality can feel shy or talkative, serious or funny, interesting or boring. "
                 "An exciting day feels wonderful, amazing, excellent, and awesome; a kind person is nice and great. "
                 "Sometimes life feels weird, strange, or tough; a unique, creative, brilliant idea can still look crazy. "
                 "I want to stay confident, helpful, fair, and quiet when I’m unsure — not jealous, foolish, or unhappy.",
-                "Tôi muốn nói về behavior và character. "
+                "Thành thật mà nói, behavior và character khó mô tả hơn vẻ ngoài. "
                 "Personality tôi có lúc shy hoặc talkative, serious hoặc funny, interesting hoặc boring. "
                 "Ngày exciting thì wonderful, amazing, excellent, awesome; người kind thì nice và great. "
                 "Đôi khi weird, strange, hoặc tough; ý tưởng unique, creative, brilliant vẫn có thể crazy. "
@@ -109,13 +109,13 @@ PASSAGES: dict[str, dict[str, list[tuple[str, str]]]] = {
         ],
         "B1": [
             (
-                "Yes, definitely. I’m a big fan of talking about figure and beauty without being cruel. "
+                "Generally speaking, I talk about figure and beauty without being cruel. "
                 "Attractiveness can look stunning or gorgeous; ugliness talk feels unattractive and mean. "
                 "Someone chubby, overweight, or obese needs respect; someone underweight does too. "
                 "A hairstyle can be thick, shiny, ginger, red, gray-haired, or fair after a haircut. "
                 "I comb carefully, sometimes shave, and ignore hairy jokes. "
                 "A pale expression, a frown, a grin, a spot, or a freckle still belongs to a well-dressed person of any race — even a little curious child.",
-                "Chắc chắn rồi. Tôi thích nói về figure và beauty mà không cruel. "
+                "Nhìn chung, tôi nói về figure và beauty mà không cruel. "
                 "Attractiveness có thể stunning hoặc gorgeous; nói ugliness thì unattractive và mean. "
                 "Người chubby, overweight, hoặc obese cần tôn trọng; underweight cũng vậy. "
                 "Hairstyle có thể thick, shiny, ginger, red, gray-haired, hoặc fair sau haircut. "
@@ -123,7 +123,7 @@ PASSAGES: dict[str, dict[str, list[tuple[str, str]]]] = {
                 "Expression pale, frown, grin, spot, freckle vẫn thuộc người well-dressed mọi race — kể cả child little curious.",
             ),
             (
-                "I’d like to talk about personal characteristics. "
+                "If I had to describe personal characteristics, it would have to start with friends. "
                 "A brave and honest friend feels loyal, responsible, and reliable; a stubborn bully can feel annoying or evil. "
                 "I admire people who are patient, keen, generous, gentle, understanding, skillful, and peaceful. "
                 "Ambitious, independent, outgoing, organized, and sociable energy feels warm and welcoming. "
@@ -131,7 +131,7 @@ PASSAGES: dict[str, dict[str, list[tuple[str, str]]]] = {
                 "Talent is a quality and a characteristic; nature can look positive or negative. "
                 "When I’m relaxed and easy, I don’t pretend or play a trick — I stay open, determined, and proud of small progress. "
                 "Horrible days happen; I stay experienced enough not to turn cruel or weak.",
-                "Tôi muốn nói về personal characteristics. "
+                "Nếu phải mô tả personal characteristics, chắc chắn bắt đầu từ bạn bè. "
                 "Friend brave và honest thì loyal, responsible, reliable; bully stubborn có thể annoying hoặc evil. "
                 "Tôi admire người patient, keen, generous, gentle, understanding, skillful, peaceful. "
                 "Năng lượng ambitious, independent, outgoing, organized, sociable thì warm và welcoming. "
@@ -155,13 +155,13 @@ PASSAGES: dict[str, dict[str, list[tuple[str, str]]]] = {
         ],
         "B2": [
             (
-                "Yes, definitely. I’m a big fan of describing bodily actions in real stories. "
+                "Looking back, the last time I described bodily actions was in a real story. "
                 "I can beat a drum, clap, drag a bag, grab a bottle, or punch a pillow for fun — carefully. "
                 "I bend, bow, lean, or slouch when I’m tired; I kneel, leap, tiptoe, crawl, or lie down at home. "
                 "Eyes blink, gaze, squint, stare, or wink; I chuckle, giggle, or smirk with friends. "
                 "Sometimes I march, nod, pace, or trip; kids give bunny ears in photos — books write [give] {sb} bunny ears. "
                 "I crouch to tie shoes and wake early for work.",
-                "Chắc chắn rồi. Tôi thích mô tả bodily actions trong chuyện thật. "
+                "Nhìn lại, lần gần nhất tôi mô tả bodily actions là trong chuyện thật. "
                 "Tôi beat trống, clap, drag túi, grab chai, hoặc punch gối vui — cẩn thận. "
                 "Tôi bend, bow, lean, hoặc slouch khi mệt; kneel, leap, tiptoe, crawl, hoặc lie down ở nhà. "
                 "Mắt blink, gaze, squint, stare, hoặc wink; tôi chuckle, giggle, hoặc smirk với bạn. "
@@ -205,23 +205,23 @@ PASSAGES: dict[str, dict[str, list[tuple[str, str]]]] = {
     "home-living": {
         "A1": [
             (
-                "Yes, definitely. I’m a big fan of talking about my home. "
+                "Yes, definitely — my favourite place to relax is my home. "
                 "I live in an apartment inside a building, but my dream is a quiet house with a garden. "
                 "Every room has a door, a window, a wall, a floor, a roof above, and a ceiling. "
                 "Upstairs and downstairs feel different; the living room, dining room, kitchen, bedroom, and bathroom make daily life easy.",
-                "Chắc chắn rồi. Tôi thích nói về home. "
+                "Chắc chắn rồi — nơi yêu thích để thư giãn là home của tôi. "
                 "Tôi sống trong apartment trong building, nhưng mơ house yên với garden. "
                 "Mỗi room có door, window, wall, floor, roof và ceiling. "
                 "Upstairs và downstairs khác nhau; living room, dining room, kitchen, bedroom, bathroom làm đời dễ.",
             ),
             (
-                "I’d like to talk about furniture. "
+                "What kind of furniture do I use every day? "
                 "I have a desk, a chair, a table, a sofa, a bed, and a cabinet near the refrigerator, television, and stove. "
                 "In the closet I keep a box; in the yard there is no elevator, just open space. "
                 "On the table I put a dish, spoon, fork, knife, plate, glass, bottle, and cup. "
                 "Soap, a brush, and a toothbrush stay in the bathroom; a pillow is on the bed; a trash can holds trash. "
                 "A ball and a doll are little thing for fun — that’s part of my home story.",
-                "Tôi muốn nói về furniture. "
+                "Loại furniture nào tôi dùng mỗi ngày? "
                 "Tôi có desk, chair, table, sofa, bed, cabinet gần refrigerator, television, stove. "
                 "Trong closet có box; yard không có elevator, chỉ khoảng trống. "
                 "Trên table có dish, spoon, fork, knife, plate, glass, bottle, cup. "
@@ -231,12 +231,12 @@ PASSAGES: dict[str, dict[str, list[tuple[str, str]]]] = {
         ],
         "A2": [
             (
-                "I’d like to talk about my cozy neighborhood apartment. "
+                "I’m going to describe my cozy neighborhood apartment. "
                 "The entrance has a gate, a fence, a mailbox, and sometimes an emergency exit sign. "
                 "Inside the hall, a stair takes you to each level; a light and a light bulb need a switch and an outlet. "
                 "The landlord and tenant signed a lease for rent; utilities like electricity, gas, heat, and cable matter every month. "
                 "I live here now; I will move in with more furniture and maybe move out later.",
-                "Tôi muốn nói về apartment cozy trong neighborhood. "
+                "Tôi sẽ mô tả apartment cozy trong neighborhood. "
                 "Entrance có gate, fence, mailbox, đôi khi biển emergency exit. "
                 "Trong hall, stair đưa lên từng level; light và light bulb cần switch và outlet. "
                 "Landlord và tenant ký lease cho rent; utility như electricity, gas, heat, cable quan trọng mỗi tháng. "
@@ -261,12 +261,12 @@ PASSAGES: dict[str, dict[str, list[tuple[str, str]]]] = {
         ],
         "B1": [
             (
-                "Yes, definitely. I’m a big fan of describing houses and buildings. "
+                "These days houses and buildings have changed a lot where I live. "
                 "Some people dream of a palace; I prefer a cabin, a studio, a guest house, a country house, or a simple apartment building. "
                 "A resident needs good accommodations; rent is paid every month — yes, rent again if you share. "
                 "Inside: floor, step, fireplace, chimney, driveway, corridor, drain, walkway, back door, front door, "
                 "family room, guest room, storeroom, study, shelf, porch, and maybe a swimming pool.",
-                "Chắc chắn rồi. Tôi thích mô tả houses và buildings. "
+                "Dạo này houses và buildings nơi tôi ở đã đổi nhiều. "
                 "Có người mơ palace; tôi thích cabin, studio, guest house, country house, hoặc apartment building đơn giản. "
                 "Resident cần accommodations tốt; rent trả mỗi tháng — đúng, rent lần nữa nếu share. "
                 "Bên trong: floor, step, fireplace, chimney, driveway, corridor, drain, walkway, back door, front door, "
@@ -285,14 +285,14 @@ PASSAGES: dict[str, dict[str, list[tuple[str, str]]]] = {
         ],
         "B2": [
             (
-                "I’d like to talk about property and city structures. "
+                "One thing I dislike about some city property is how crowded it feels — still, structures fascinate me. "
                 "A mortgage on a skyscraper condo sounds heavy; a mansion, condominium, penthouse, duplex, complex, "
                 "housing development, row house, or houseboat each has a different vibe. "
                 "An attic, basement, cellar, nursery, patio, and rooftop change how a household uses space. "
                 "Doorbell, doorstep, doorway, air conditioning, central heating, and a smoke alarm matter for safety. "
                 "A bureau with a drawer, a garbage can, and daily chore like mop, scrub, sweep, vacuum, and wipe keep things clean. "
                 "We furnish with care, follow a blueprint, and avoid an abandoned ruin.",
-                "Tôi muốn nói về property và city structures. "
+                "Một điều tôi không thích ở một số property thành phố là đông — nhưng city structures vẫn cuốn. "
                 "Mortgage cho skyscraper nặng; mansion, condominium, penthouse, duplex, complex, "
                 "housing development, row house, hoặc houseboat mỗi kiểu một vibe. "
                 "Attic, basement, cellar, nursery, patio, rooftop đổi cách dùng không gian. "
@@ -329,13 +329,13 @@ PASSAGES: dict[str, dict[str, list[tuple[str, str]]]] = {
     "clothes-fashion": {
         "A1": [
             (
-                "Yes, definitely. I’m a big fan of simple clothes. "
+                "Yes, absolutely. My favourite clothes are simple ones. "
                 "Most days I wear a shirt or a T-shirt, pants or jeans, and a comfortable shoe or sock. "
                 "In cold weather I add a coat, jacket, or sweater; for work I may choose a suit and a tie. "
                 "A dress or a skirt feels nice for events; a hat and a purse finish the look. "
                 "At home I change into pajamas; underwear and a swimsuit stay for private or beach days. "
                 "A boot is for rain — that’s my A1 fashion speaking blog.",
-                "Chắc chắn rồi. Tôi thích clothes đơn giản. "
+                "Chắc chắn rồi. Clothes yêu thích của tôi là kiểu đơn giản. "
                 "Hầu hết ngày tôi mặc shirt hoặc T-shirt, pants hoặc jeans, và shoe hoặc sock. "
                 "Trời lạnh thêm coat, jacket, hoặc sweater; đi làm có thể suit và tie. "
                 "Dress hoặc skirt hợp sự kiện; hat và purse hoàn thiện. "
@@ -345,13 +345,13 @@ PASSAGES: dict[str, dict[str, list[tuple[str, str]]]] = {
         ],
         "A2": [
             (
-                "I’d like to talk about fashion and clothing. "
+                "How often do I think about fashion and clothing? Almost every morning. "
                 "A blouse, shorts, a uniform, or a belt can change a look; a pocket and a button are small but useful. "
                 "Accessories matter: a watch, glasses, sunglasses, briefcase, cap, bracelet, wallet, chain, "
                 "earring, ring, necklace, jewelry, perfume, and an umbrella. "
                 "Clothes may feel loose or tight; I try on items, put on what fits, take off what feels worn-out, and change if needed. "
                 "That’s how I speak about style at A2.",
-                "Tôi muốn nói về fashion và clothing. "
+                "Tôi nghĩ về fashion và clothing bao lâu một lần? Hầu như mỗi sáng. "
                 "Blouse, shorts, uniform, hoặc belt đổi diện mạo; pocket và button nhỏ nhưng hữu ích. "
                 "Accessory quan trọng: watch, glasses, sunglasses, briefcase, cap, bracelet, wallet, chain, "
                 "earring, ring, necklace, jewelry, perfume, umbrella. "
@@ -378,13 +378,13 @@ PASSAGES: dict[str, dict[str, list[tuple[str, str]]]] = {
         ],
         "B2": [
             (
-                "I’d like to talk about advanced clothes and fashion. "
+                "The best time to talk about advanced clothes and fashion is before a night out. "
                 "An apron, badge, bathrobe, bikini, cardigan, helmet, mask, or miniskirt changes the outfit mood. "
                 "A jersey, sandal, vest, hood, and zipper sit next to fabric like denim, lace, lining, silk, or wooly knit. "
                 "A designer collection for modeling can look glamorous, stylish, sporty, striped, plain, casual, or matching. "
                 "My wardrobe helps me dress up for a masquerade or stay undressed comfort at home after work. "
                 "When colors match, the whole look feels complete — that’s my B2 speaking blog on clothes.",
-                "Tôi muốn nói về clothes và fashion nâng cao. "
+                "Thời điểm tốt nhất để nói về clothes và fashion nâng cao là trước khi đi chơi tối. "
                 "Apron, badge, bathrobe, bikini, cardigan, helmet, mask, hoặc miniskirt đổi mood outfit. "
                 "Jersey, sandal, vest, hood, zipper cạnh fabric như denim, lace, lining, silk, hoặc wooly. "
                 "Collection của designer cho modeling có thể glamorous, stylish, sporty, striped, plain, casual, hoặc matching. "

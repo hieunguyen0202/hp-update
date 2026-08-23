@@ -29,11 +29,11 @@ wrap_exercise = _gen.wrap_exercise
 PASSAGES: dict[str, list[tuple[str, str]]] = {
     "A1": [
         (
-            "Yes, definitely. I’m a big fan of talking about people and family. "
+            "Yes, definitely — greetings matter every day when I talk about people and family. "
             "Hello — or just hi — is how I start every conversation, and goodbye or bye is how I finish. "
             "Good morning, good afternoon, and good evening feel polite; good night is for the end of the day. "
             "I always say thank you or thanks, please, and sorry when I need to, and welcome when someone visits.",
-            "Chắc chắn rồi. Tôi thích nói về people và family. "
+            "Chắc chắn rồi — lời chào quan trọng mỗi ngày khi nói về people và family. "
             "Hello — hoặc hi — là cách tôi bắt đầu, goodbye hoặc bye là cách kết thúc. "
             "Good morning, good afternoon, good evening lịch sự; good night cho cuối ngày. "
             "Tôi luôn nói thank you hoặc thanks, please, sorry khi cần, và welcome khi có khách.",
@@ -49,11 +49,11 @@ PASSAGES: dict[str, list[tuple[str, str]]] = {
             "Tôi vẫn single, chưa married.",
         ),
         (
-            "I’d like to talk about my family. My father — I also say dad — and my mother — mom — are my favourite parent pair. "
+            "If I had to describe my family, it would have to be this. My father — I also say dad — and my mother — mom — are my favourite parent pair. "
             "I have one sister and one brother. My grandmother and grandfather love every grandchild. "
             "I also have an aunt, an uncle, a niece, a nephew, and a cousin who visits every summer. "
             "My uncle’s wife and my aunt’s husband sometimes bring their child, a baby boy or a little girl.",
-            "Tôi muốn nói về family. Father — cũng gọi dad — và mother — mom — là parent yêu thích. "
+            "Nếu phải mô tả family, chắc chắn là thế này. Father — cũng gọi dad — và mother — mom — là parent yêu thích. "
             "Tôi có một sister và một brother. Grandmother và grandfather yêu mọi grandchild. "
             "Tôi còn aunt, uncle, niece, nephew, và cousin đến mỗi hè. "
             "Wife của chú và husband của dì đôi khi mang child — baby boy hoặc girl nhỏ.",
@@ -93,12 +93,12 @@ PASSAGES: dict[str, list[tuple[str, str]]] = {
     ],
     "A2": [
         (
-            "I’d like to talk about friends and family from many places. "
+            "Generally speaking, my friends and family come from many places. "
             "My neighbor is Vietnamese from Vietnam; another dude in my group is Australian from Australia. "
             "A Swiss guy from Switzerland and an Austrian girl from Austria joined our class. "
             "Someone Dutch from the Netherlands, a Norwegian from Norway, and a Swedish friend from Sweden shared photos. "
             "A polish student from Poland — wait, Polish — also came, plus an Egyptian from Egypt and a Turkish classmate from Turkey.",
-            "Tôi muốn nói về bạn bè và family từ nhiều nơi. "
+            "Nhìn chung, bạn bè và family tôi đến từ nhiều nơi. "
             "Neighbor tôi Vietnamese từ Vietnam; một dude trong group là Australian từ Australia. "
             "Guy Swiss từ Switzerland và girl Austrian từ Austria vào lớp. "
             "Ai đó Dutch từ the Netherlands, Norwegian từ Norway, và friend Swedish từ Sweden khoe ảnh. "
@@ -127,22 +127,22 @@ PASSAGES: dict[str, list[tuple[str, str]]] = {
     ],
     "B1": [
         (
-            "Yes, definitely. I’m a big fan of talking about relationship, friendship, and family. "
+            "How often do I talk about relationship, friendship, and family? Quite a lot these days. "
             "Motherhood and fatherhood changed how my parents see every relative on the family tree. "
             "Some people stay unmarried; others get engaged, then celebrate marriage with a bride and a groom. "
             "A spouse can be a partner for life, while a single parent or an only child faces a different daily rhythm.",
-            "Chắc chắn rồi. Tôi thích nói về relationship, friendship, và family. "
+            "Tôi nói về relationship, friendship và family bao lâu một lần? Khá nhiều dạo này. "
             "Motherhood và fatherhood đổi cách bố mẹ nhìn mọi relative trên family tree. "
             "Có người unmarried; người khác engaged rồi marriage với bride và groom. "
             "Spouse có thể là bạn đời, còn single parent hoặc only child thì nhịp ngày khác.",
         ),
         (
-            "I’d like to talk about in-laws. My mother-in-law and father-in-law are kind; "
+            "Looking back on holiday dinners, I want to describe my in-laws. My mother-in-law and father-in-law are kind; "
             "my sister-in-law and brother-in-law joke a lot. "
             "A daughter-in-law and a son-in-law join parents-in-law at dinners across each generation. "
             "We try not to abandon anyone, bring up children with care, and never cheat or leave without a real talk. "
             "If a couple must separate or stay separated, I hope they remain close if they are still related by respect.",
-            "Tôi muốn nói về bên chồng/vợ. Mother-in-law và father-in-law tốt bụng; "
+            "Nhìn lại bữa tối ngày lễ, tôi muốn mô tả bên chồng/vợ. Mother-in-law và father-in-law tốt bụng; "
             "sister-in-law và brother-in-law hay đùa. "
             "Daughter-in-law và son-in-law gặp parents-in-law qua từng generation. "
             "Chúng tôi không abandon ai, bring up con cẩn thận, không cheat hay leave thiếu nói chuyện. "
@@ -194,13 +194,13 @@ PASSAGES: dict[str, list[tuple[str, str]]] = {
     ],
     "B2": [
         (
-            "Yes, definitely. I’m a big fan of talking about family bonds in a modern household. "
+            "When I was a child I hardly ever heard about complicated family bonds; nowadays they are common in a modern household. "
             "An affair can destroy trust; a divorce — and the choice to divorce — leaves an ex and a long separation. "
             "Still, lineage and every ancestor matter to folks in an extended family. "
             "A foster parent may adopt a stepchild; a stepfather or stepmother can raise a stepdaughter, stepson, "
             "stepbrother, or stepsister with a brotherly heart. "
             "Identical twin siblings and in-law relatives make a close-knit home when people stand by each other.",
-            "Chắc chắn rồi. Tôi thích nói về bond gia đình trong household hiện đại. "
+            "Khi còn nhỏ tôi hầu như không nghe về bond gia đình phức tạp; ngày nay thì phổ biến trong household hiện đại. "
             "Affair phá niềm tin; divorce — và quyết định divorce — để lại ex và separation dài. "
             "Nhưng lineage và mọi ancestor vẫn quan trọng với folks trong extended family. "
             "Foster parent có thể adopt stepchild; stepfather hoặc stepmother nuôi stepdaughter, stepson, "
@@ -208,7 +208,7 @@ PASSAGES: dict[str, list[tuple[str, str]]] = {
             "Sibling identical twin và in-law tạo nhà close-knit khi mọi người stand by nhau.",
         ),
         (
-            "I’d like to talk about love. My beloved is committed and loving; she is adorable when she is enchanted by small gifts. "
+            "One thing I truly enjoy is talking about love. My beloved is committed and loving; she is adorable when she is enchanted by small gifts. "
             "Some call their partner hot eye candy; I prefer a significant other, my other half — or better half — and real lovebirds energy. "
             "Puppy love fades; a love affair without respect breaks a broken heart. "
             "On our anniversary I may propose with a proposal speech, give an engagement ring, and later a wedding ring. "
@@ -216,7 +216,7 @@ PASSAGES: dict[str, list[tuple[str, str]]] = {
             "I have a crush on kindness more than drama; woo with words, not a hickey joke. "
             "Prince Charming stories are cute, but a bridegroom should be an admirer who is loved and never lovesick for attention only. "
             "Textbooks write [fall] in love and [have] a crush on {sb}; I just say fall in love and have a crush on someone.",
-            "Tôi muốn nói về tình yêu. Beloved của tôi committed và loving; adorable khi enchanted bởi quà nhỏ. "
+            "Một điều tôi thật sự thích là nói về tình yêu. Beloved của tôi committed và loving; adorable khi enchanted bởi quà nhỏ. "
             "Có người gọi partner là hot eye candy; tôi thích significant other, other half — better half — và vibe lovebirds. "
             "Puppy love qua nhanh; love affair thiếu tôn trọng gây broken heart. "
             "Anniversary tôi có thể propose với proposal speech, tặng engagement ring rồi wedding ring. "
