@@ -4,7 +4,7 @@
   "vietnameseName": "Nguyễn Xuân Hiếu",
   "role": "System / DevOps Engineer",
   "location": "Tan Phu District, Ho Chi Minh City, Vietnam",
-  "email": "nguyenxxuanhieu.bd@gmail.com",
+  "email": "nguyenxuanhieu.bd@gmail.com",
   "phone": "+84 799 230 769",
   "education": {
     "school": "HCMUT — VNU HCMC",
@@ -15,8 +15,8 @@
   "languages": "VI / EN · TOEIC 855",
   "summary": "System/DevOps Engineer specializing in Linux, Kubernetes, and Azure/AWS. Skilled at streamlining CI/CD, reducing downtime, and cutting operational cost through infrastructure automation.",
   "stats": [
-    { "value": 2, "suffix": "+", "label": "yrs experience" },
-    { "value": 99.95, "suffix": "%", "label": "uptime" },
+    { "value": 3, "suffix": "+", "label": "yrs experience" },
+    { "value": 99.9, "suffix": "%", "label": "uptime" },
     { "value": 4, "suffix": "×", "label": "faster deploys" },
     { "value": 70, "suffix": "%", "label": "vulns reduced" }
   ]
