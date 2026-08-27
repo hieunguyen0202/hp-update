@@ -93,7 +93,18 @@
       <ul class="nested">${children}</ul>
     </li>`;
 
-  if (navEl && sidebar?.dataset.nav === "kubestronaut") {
+  if (navEl && sidebar?.dataset.nav === "tech-hub") {
+    const r = root;
+    const link = (id, label) => {
+      const href = id === "overview" ? r : `${r}${id}/`;
+      const cls = id === active || (id === "overview" && active === "overview") ? "active" : "";
+      return `<li><a class="${cls}" href="${href}">${label}</a></li>`;
+    };
+    navEl.innerHTML = [
+      link("overview", "Overview"),
+      link("etcd", "etcd · backup &amp; APISIX"),
+    ].join("");
+  } else if (navEl && sidebar?.dataset.nav === "kubestronaut") {
     const r = root;
     const cert = sidebar.dataset.cert || "cks";
     const certItem = (path, label) => {

@@ -43,6 +43,7 @@ def wrap_chrome(*, title: str, desc: str, home: str, body: str, shell: str = "do
       <a href="{blog}web-security/">DevSecOps</a>
       <a href="{blog}kubestronaut/">Kubestronaut</a>
       <a class="active" href="{english_href}">English</a>
+      <a href="{blog}tech-hub/">Tech Hub</a>
     </nav>
     <span class="docs-topbar-spacer"></span>
     <a class="docs-top-link" href="{home}#blogs">blogs</a>

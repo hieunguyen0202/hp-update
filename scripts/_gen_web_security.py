@@ -198,6 +198,7 @@ def wrap(slug: str, crumb: str, title: str, body: str) -> str:
       <a class="active" href="{href("overview")}">DevSecOps</a>
       <a href="{'../../kubestronaut/' if nested else '../kubestronaut/'}">Kubestronaut</a>
       <a href="{'../../english/' if nested else '../english/'}">English</a>
+      <a href="{'../../tech-hub/' if nested else '../tech-hub/'}">Tech Hub</a>
     </nav>
     <span class="docs-topbar-spacer"></span>
     <a class="docs-top-link" href="{home}#blogs">blogs</a>

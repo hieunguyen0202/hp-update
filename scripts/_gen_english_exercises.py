@@ -528,6 +528,7 @@ def wrap_exercise(topic: dict, level: str, words: list[dict], sentences: list[di
       <a href="{home}blog/web-security/">DevSecOps</a>
       <a href="{home}blog/kubestronaut/">Kubestronaut</a>
       <a class="active" href="../../">English</a>
+      <a href="{home}blog/tech-hub/">Tech Hub</a>
     </nav>
     <span class="docs-topbar-spacer"></span>
     <a class="docs-top-link" href="{home}#blogs">blogs</a>

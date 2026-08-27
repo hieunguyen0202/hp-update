@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech Hub — Hieu Nguyen</title>
+  <meta name="description" content="Tech Hub — notes thực chiến về Kubernetes, platform, và hạ tầng: etcd, gateway, observability…">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/docs.css">
+</head>
+<body class="docs">
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <canvas id="matrix-canvas"></canvas>
+  <div class="grid-bg"></div>
+  <header class="docs-topbar">
+    <button class="docs-menu-btn" id="docsMenuBtn" type="button">menu</button>
+    <a class="docs-brand" href="../../"><span>✦</span> The Quiet Corner <span>✦</span></a>
+    <nav class="docs-series">
+      <a href="../web-security/">DevSecOps</a>
+      <a href="../kubestronaut/">Kubestronaut</a>
+      <a href="../english/">English</a>
+      <a class="active" href="./">Tech Hub</a>
+    </nav>
+    <span class="docs-topbar-spacer"></span>
+    <a class="docs-top-link" href="../../#blogs">blogs</a>
+  </header>
+  <div class="docs-shell-hub">
+    <article class="docs-main">
+      <div class="docs-breadcrumb">
+        <a href="../../">Home</a>
+        <span>›</span>
+        <a href="../../#blogs">Blogs</a>
+        <span>›</span>
+        <span>Tech Hub</span>
+      </div>
+      <h1>Tech Hub</h1>
+      <p class="lede">
+        Nơi gom các bài viết kỹ thuật theo chủ đề — không phải lộ trình chứng chỉ,
+        mà là notes vận hành: etcd, gateway, platform, và những thứ hay gặp trên production.
+      </p>
+      <div class="docs-meta">
+        <span><strong>Focus:</strong> Platform · Kubernetes · Gateway</span>
+        <span><strong>Posts:</strong> 1 live</span>
+        <span><strong>Style:</strong> Deep-dive + runbook</span>
+      </div>
+
+      <div class="vocab-topic-grid">
+        <a class="vocab-topic-card" href="etcd/">
+          <span class="vocab-topic-card__num">01</span>
+          <div class="vocab-topic-card__img" style="display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:#22d3ee;letter-spacing:0.04em;">etcd</div>
+          <div class="vocab-topic-card__body">
+            <h2>etcd: backup, restore &amp; APISIX</h2>
+            <p>
+              Snapshot an toàn, restore control plane, và cách APISIX dùng etcd làm
+              config store — từ tài liệu Kubernetes / etcd / Apache APISIX.
+            </p>
+            <div class="vocab-topic-card__meta">
+              <span>Kubernetes · etcd · APISIX</span>
+              <span>Runbook</span>
+            </div>
+            <span class="vocab-topic-card__cta">Đọc bài →</span>
+          </div>
+        </a>
+      </div>
+    </article>
+  </div>
+  <script src="../../js/docs.js"></script>
+</body>
+</html>

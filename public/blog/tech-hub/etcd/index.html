@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>etcd: backup, restore &amp; APISIX — Tech Hub</title>
+  <meta name="description" content="Deep-dive etcd trong Kubernetes: snapshot, verify, restore HA, và dùng etcd làm key-value store cho Apache APISIX.">
+  <link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../css/docs.css">
+</head>
+<body class="docs">
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <canvas id="matrix-canvas"></canvas>
+  <div class="grid-bg"></div>
+  <header class="docs-topbar">
+    <button class="docs-menu-btn" id="docsMenuBtn" type="button">menu</button>
+    <a class="docs-brand" href="../../../"><span>✦</span> The Quiet Corner <span>✦</span></a>
+    <nav class="docs-series">
+      <a href="../../web-security/">DevSecOps</a>
+      <a href="../../kubestronaut/">Kubestronaut</a>
+      <a href="../../english/">English</a>
+      <a class="active" href="../">Tech Hub</a>
+    </nav>
+    <span class="docs-topbar-spacer"></span>
+    <a class="docs-top-link" href="../../../#blogs">blogs</a>
+  </header>
+  <div class="docs-shell">
+    <aside class="docs-sidebar" id="docsSidebar" data-docs-root="../" data-nav="tech-hub" data-active="etcd">
+      <div class="docs-nav-label">Tech Hub</div>
+      <ul class="docs-nav" id="docsNav"></ul>
+    </aside>
+    <article class="docs-main">
+      <div class="docs-breadcrumb">
+        <a href="../../../">Home</a>
+        <span>›</span>
+        <a href="../../../#blogs">Blogs</a>
+        <span>›</span>
+        <a href="../">Tech Hub</a>
+        <span>›</span>
+        <span>etcd</span>
+      </div>
+      <div id="top"></div>
+      <header>
+        <h1>etcd: backup, restore &amp; APISIX as config store</h1>
+      </header>
+      <p class="lede">
+        etcd là “bộ nhớ dài hạn” của Kubernetes — và cũng là nơi Apache APISIX giữ routes,
+        upstreams, plugins. Bài này gom lại những gì tài liệu chính thức và các runbook
+        production hay nhắc: snapshot đúng cách, verify, restore control plane, rồi nhìn
+        etcd dưới góc gateway.
+      </p>
+      <div class="docs-meta">
+        <span><strong>Level:</strong> Platform / SRE</span>
+        <span><strong>Stack:</strong> Kubernetes · etcd · APISIX</span>
+        <span><strong>Updated:</strong> 2026-08</span>
+      </div>
+
+      <h2 id="tai-sao-etcd-quan-trong">Tại sao etcd quan trọng?</h2>
+      <p>
+        Theo <a href="https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/" target="_blank" rel="noopener noreferrer">Kubernetes docs</a>,
+        etcd là consistent, highly-available key-value store dùng làm backing store cho
+        <strong>toàn bộ cluster data</strong>. Mất etcd trên mọi control-plane node gần như
+        đồng nghĩa với mất desired state: Pods, Services, Secrets, ConfigMaps, CRDs, RBAC…
+      </p>
+      <p>Hai hệ quả vận hành bạn cần nhớ:</p>
+      <ul>
+        <li><strong>Backup không chỉ là “có file”</strong> — phải lấy được snapshot khi API đã chết (off-cluster / NFS / object storage độc lập).</li>
+        <li><strong>Restore không phải copy file vào chỗ cũ</strong> — phải dừng API server, dựng lại member nhất quán, rồi mới mở lại control plane.</li>
+      </ul>
+      <hr>
+
+      <h2 id="etcdctl-vs-etcdutl">etcdctl vs etcdutl</h2>
+      <p>Từ etcd 3.5 trở đi, vai trò được tách rõ hơn (Kubernetes cũng khuyến nghị tương tự):</p>
+      <ul>
+        <li><code>etcdctl</code> — client mạng: health, member list, <code>snapshot save</code> từ member đang chạy.</li>
+        <li><code>etcdutl</code> — thao tác trên file dữ liệu: <code>snapshot status</code>, <code>snapshot restore</code>, defrag offline…</li>
+      </ul>
+      <p>
+        <code>etcdctl snapshot status|restore</code> đã deprecated; hãy quen với
+        <code>etcdutl</code> trước khi etcd 3.6 gỡ hẳn.
+      </p>
+      <hr>
+
+      <h2 id="backup-snapshot">Backup: lấy snapshot đúng cách</h2>
+      <h3 id="live-snapshot">1) Live snapshot bằng etcdctl</h3>
+      <p>
+        Snapshot từ một member đang sống <strong>không làm chậm đáng kể</strong> member đó
+        (theo docs Kubernetes). Trên kubeadm, endpoint + cert thường nằm trong static Pod
+        <code>etcd</code>:
+      </p>
+<pre><code class="language-bash">export ETCDCTL_API=3
+export ENDPOINT=https://127.0.0.1:2379
+
+etcdctl --endpoints="$ENDPOINT" \
+  --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+  --cert=/etc/kubernetes/pki/etcd/server.crt \
+  --key=/etc/kubernetes/pki/etcd/server.key \
+  snapshot save /var/backups/etcd/snapshot-$(date +%Y%m%d-%H%M%S).db
+</code></pre>
+      <h3 id="verify-snapshot">2) Verify trước khi tin</h3>
+<pre><code class="language-bash">etcdutl --write-out=table snapshot status /var/backups/etcd/snapshot-….db
+</code></pre>
+      <p>Bạn cần thấy hash, revision, total keys, size. Snapshot “im lặng thành công” nhưng
+        size ~0 hoặc status lỗi = chưa phải backup.</p>
+
+      <h3 id="tan-suat-va-luu-tru">3) Tần suất &amp; nơi lưu</h3>
+      <ul>
+        <li><strong>RPO</strong>: nhiều team chọn 1–6 giờ tùy tốc độ thay đổi cluster. Cluster deploy dày → snapshot dày hơn.</li>
+        <li><strong>Off-site</strong>: đẩy sang S3 / GCS / NFS ngoài cluster. Backup chỉ reachable qua API đang chết thì không phải backup.</li>
+        <li><strong>Bảo mật</strong>: snapshot chứa Secrets — mã hóa at-rest, permission <code>0600</code>, hạn chế ai pull được.</li>
+        <li><strong>Thời điểm</strong>: tránh peak I/O; backup trước/sau upgrade control plane; với OpenShift, tránh snapshot trong cửa sổ xoay cert 24h đầu (theo guidance Red Hat).</li>
+      </ul>
+      <p>
+        Volume snapshot (EBS/CSI) là lớp bổ sung, không thay thế snapshot logic của etcd
+        nếu bạn cần restore có kiểm soát revision / membership.
+      </p>
+      <hr>
+
+      <h2 id="restore-control-plane">Restore control plane</h2>
+      <blockquote>
+        <p>
+          <strong>Caution (Kubernetes):</strong> nếu API server còn chạy, đừng restore etcd
+          “xen vào”. Quy trình chuẩn: <em>stop mọi API server → restore etcd → start lại
+          API server</em>. Nên restart thêm scheduler, controller-manager, kubelet để tránh
+          stale cache.
+        </p>
+      </blockquote>
+
+      <h3 id="single-member">Single-member / lab (kubeadm stacked)</h3>
+      <ol>
+        <li>Dừng <code>kube-apiserver</code> (và etcd) trên control plane — thường bằng cách move/rename manifest trong <code>/etc/kubernetes/manifests</code>.</li>
+        <li>Restore vào <strong>data-dir mới</strong> (đừng ghi đè DB đang bị process giữ):</li>
+      </ol>
+<pre><code class="language-bash">etcdutl --data-dir=/var/lib/etcd-restore snapshot restore snapshot.db
+</code></pre>
+      <ol start="3">
+        <li>Trỏ volume <code>etcd-data</code> trong manifest etcd sang thư mục vừa restore (hoặc thay thế <code>/var/lib/etcd</code> một cách có kiểm soát sau khi process đã dừng).</li>
+        <li>Đưa manifest trở lại, đợi static Pod healthy, kiểm tra <code>kubectl get nodes</code> / objects trước snapshot quay lại.</li>
+      </ol>
+      <p>
+        Mẹo hay gặp trên lab: chỉ đổi <code>--data-dir</code> bên trong container mà quên
+        retarget <code>hostPath</code> → etcd lên với DB rỗng, trông như “restore thất bại bí ẩn”.
+      </p>
+
+      <h3 id="ha-restore">HA restore (3/5 members)</h3>
+      <p>Các runbook production (và etcd disaster recovery) hội tụ quanh một pattern:</p>
+      <ol>
+        <li>Restore snapshot <strong>một lần</strong> trên member đầu, coi như single-member cluster mới.</li>
+        <li><code>etcdctl member add</code> từng node còn lại; joiner dùng <code>--initial-cluster-state=existing</code> và <code>--initial-cluster</code> khớp membership.</li>
+        <li>Chờ member mới healthy / catch-up trước khi add tiếp — tránh mất quorum giữa chừng.</li>
+        <li>Khi rewind revision, dùng cặp flag restore hiện đại (etcd gần đây):
+          <code>--bump-revision</code> + <code>--mark-compacted</code> để buộc informer re-list, tránh controller sống với cache “tương lai”.</li>
+      </ol>
+      <p>
+        <code>--initial-cluster-token</code> nên set tường minh khi bootstrap lại (etcd 3.6
+        siết hơn về việc này) để tránh hai cụm “gặp nhau” nhầm.
+      </p>
+      <hr>
+
+      <h2 id="nhung-gi-khong-nam-trong-snapshot">Những gì không nằm trong snapshot</h2>
+      <p>Snapshot etcd khôi phục <em>API state</em>. Nó <strong>không</strong> mang theo:</p>
+      <ul>
+        <li>Dữ liệu PersistentVolume / disk workload</li>
+        <li>Image trên node / registry</li>
+        <li>DNS ngoài cluster, load balancer cloud, IAM…</li>
+      </ul>
+      <p>
+        DR plan phải tách lớp: etcd (control plane) + Velero/CSI (apps &amp; volumes) +
+        infra-as-code (cloud resources).
+      </p>
+      <hr>
+
+      <h2 id="apisix-etcd">etcd trong Apache APISIX</h2>
+      <p>
+        APISIX không lưu routes trên từng data plane node theo kiểu file tĩnh một chiều.
+        Trong mô hình traditional, <code>config_provider: etcd</code> — mọi runtime config
+        (routes, upstreams, consumers, SSL, plugin metadata) nằm dưới một prefix (mặc định
+        <code>/apisix</code>). Các instance APISIX <strong>watch</strong> etcd và cập nhật
+        routing động khi Admin API / Dashboard ghi thay đổi.
+      </p>
+
+      <h3 id="apisix-config">Cấu hình tối thiểu</h3>
+<pre><code class="language-yaml">deployment:
+  role: traditional
+  role_traditional:
+    config_provider: etcd
+  etcd:
+    host:
+      - "https://etcd-0.etcd:2379"
+      - "https://etcd-1.etcd:2379"
+      - "https://etcd-2.etcd:2379"
+    prefix: "/apisix"
+    timeout: 30
+</code></pre>
+      <ul>
+        <li><strong>Production:</strong> Helm chart khuyến nghị tắt built-in Bitnami etcd (dev/test) và nối <em>external</em> etcd do bạn vận hành.</li>
+        <li><strong>Multi-tenant config:</strong> nhiều cụm APISIX có thể chia một etcd nếu dùng <code>prefix</code> khác nhau.</li>
+        <li><strong>mTLS:</strong> cấu hình <code>deployment.etcd.tls.cert/key</code> (+ CA tin cậy) khi etcd bắt buộc client cert — xem
+          <a href="https://apisix.apache.org/docs/apisix/mtls/" target="_blank" rel="noopener noreferrer">APISIX mTLS docs</a>.</li>
+      </ul>
+
+      <h3 id="apisix-backup">Backup APISIX = backup prefix etcd</h3>
+      <p>
+        Mất etcd của APISIX = mất toàn bộ control-plane config gateway (routes/upstreams),
+        dù data plane process vẫn có thể còn cache tạm. Thực tế:
+      </p>
+      <ul>
+        <li>Snapshot cả cụm etcd (giống K8s), <em>hoặc</em></li>
+        <li>Export định kỳ qua Admin API / GitOps nguồn sự thật (IaC) — snapshot vẫn là lớp DR cuối.</li>
+      </ul>
+      <p>
+        Đừng nhầm hai cụm etcd: <strong>etcd của Kubernetes</strong> và
+        <strong>etcd của APISIX</strong> thường là hai lifecycle riêng. Backup một cái không
+        cứu được cái kia.
+      </p>
+      <hr>
+
+      <h2 id="checklist">Checklist mang đi làm</h2>
+      <ul>
+        <li>☐ Có snapshot tự động + verify (<code>etcdutl snapshot status</code>)</li>
+        <li>☐ Có ít nhất một đường lấy backup <em>không</em> phụ thuộc API cluster</li>
+        <li>☐ Snapshot được mã hóa / ACL chặt</li>
+        <li>☐ Đã diễn tập restore trên lab (single rồi mới HA)</li>
+        <li>☐ Biết dừng API server trước khi restore</li>
+        <li>☐ APISIX: etcd external + mTLS + prefix rõ ràng + backup riêng</li>
+        <li>☐ DR phủ cả PV / registry / DNS — không chỉ etcd</li>
+      </ul>
+      <hr>
+
+      <h2 id="tham-khao">Tham khảo</h2>
+      <ul>
+        <li><a href="https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/" target="_blank" rel="noopener noreferrer">Kubernetes — Operating etcd clusters</a></li>
+        <li><a href="https://etcd.io/docs/latest/op-guide/recovery/" target="_blank" rel="noopener noreferrer">etcd — Disaster recovery</a></li>
+        <li><a href="https://apisix.apache.org/docs/apisix/mtls/" target="_blank" rel="noopener noreferrer">Apache APISIX — mTLS / etcd TLS</a></li>
+        <li><a href="https://github.com/apache/apisix-helm-chart/blob/master/charts/apisix/values.yaml" target="_blank" rel="noopener noreferrer">apisix-helm-chart — etcd / externalEtcd values</a></li>
+        <li>Runbook cộng đồng hữu ích: ComputingForgeeks etcd DR, GoLinuxCloud etcdctl/etcdutl walkthrough, Abhishek Pareek (HA restore + bump-revision).</li>
+      </ul>
+
+      <div class="docs-pager">
+        <a href="../">← Tech Hub</a>
+        <span></span>
+      </div>
+    </article>
+    <aside class="docs-toc">
+      <div class="docs-toc-label">On this page</div>
+      <nav>
+        <a href="#tai-sao-etcd-quan-trong">Tại sao etcd quan trọng</a>
+        <a href="#etcdctl-vs-etcdutl">etcdctl vs etcdutl</a>
+        <a href="#backup-snapshot">Backup snapshot</a>
+        <a href="#restore-control-plane">Restore control plane</a>
+        <a href="#nhung-gi-khong-nam-trong-snapshot">Ngoài snapshot</a>
+        <a href="#apisix-etcd">APISIX + etcd</a>
+        <a href="#checklist">Checklist</a>
+        <a href="#tham-khao">Tham khảo</a>
+      </nav>
+    </aside>
+  </div>
+  <script src="../../../js/docs.js"></script>
+</body>
+</html>
