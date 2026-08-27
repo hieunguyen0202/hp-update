@@ -24,6 +24,14 @@ mark_sentence = _gen.mark_sentence
 wrap_exercise = _gen.wrap_exercise
 prepare_pair = _gen.prepare_pair
 
+_ba_spec = importlib.util.spec_from_file_location(
+    "body_appearance_passages",
+    Path(__file__).with_name("_passages_body_appearance.py"),
+)
+_ba = importlib.util.module_from_spec(_ba_spec)
+assert _ba_spec and _ba_spec.loader
+_ba_spec.loader.exec_module(_ba)
+
 
 def verify_coverage(words: list[dict], sentences: list[dict]) -> list[str]:
     """Like generator verify, but decode HTML entities from mark_sentence()."""
@@ -44,165 +52,7 @@ def verify_coverage(words: list[dict], sentences: list[dict]) -> list[str]:
 
 # PASSAGES[slug][level] = list[(en, vi)]
 PASSAGES: dict[str, dict[str, list[tuple[str, str]]]] = {
-    "body-appearance": {
-        "A1": [
-            (
-                "Yes, absolutely — my favourite way to warm up speaking is naming body words. "
-                "My body has a head, a face, a neck, and hair that I brush every morning. "
-                "I look in the mirror and see my eye, nose, ear, cheek, chin, mouth, tooth, and lip. "
-                "Honestly, describing my face helps me sound more natural in English.",
-                "Chắc chắn rồi — cách khởi động speaking yêu thích của tôi là gọi tên từ về body. "
-                "Body tôi có head, face, neck, và hair tôi chải mỗi sáng. "
-                "Tôi nhìn gương thấy eye, nose, ear, cheek, chin, mouth, tooth, và lip. "
-                "Mô tả face giúp tôi nói tự nhiên hơn.",
-            ),
-            (
-                "What kind of body words do I still need? The rest of my body. "
-                "I raise my hand and stretch my arm on each side, then feel my back, stomach, and a strong leg. "
-                "My foot and knee help me walk; when I sit too long my back feels tired. "
-                "So that’s my simple A1 blog about the head and the body.",
-                "Loại từ body nào tôi còn cần? Phần còn lại của body. "
-                "Tôi có hand và arm mỗi bên, rồi back, stomach, và leg khỏe. "
-                "Foot và knee giúp đi; ngồi lâu thì back mệt. "
-                "Đó là blog A1 đơn giản về head và body.",
-            ),
-        ],
-        "A2": [
-            (
-                "I prefer kind descriptions of appearance and personality to rude jokes. "
-                "Some people look attractive, good-looking, handsome, pretty, or just cute. "
-                "Hair can be curly, wavy, or straight; someone blond or bald may also wear a beard or a mustache. "
-                "A male or female friend can look slim, skinny, fit, or tiny — I try to describe with kind words, not rude ones.",
-                "Tôi thích mô tả appearance và personality tử tế hơn đùa thô. "
-                "Có người attractive, good-looking, handsome, pretty, hoặc cute. "
-                "Hair có thể curly, wavy, hoặc straight; người blond hoặc bald cũng có thể có beard hay mustache. "
-                "Friend male hoặc female có thể slim, skinny, fit, hoặc tiny — tôi cố describe tử tế, không rude.",
-            ),
-            (
-                "To be honest, behavior and character are harder to describe than looks. "
-                "My personality can feel shy or talkative, serious or funny, interesting or boring. "
-                "An exciting day feels wonderful, amazing, excellent, and awesome; a kind person is nice and great. "
-                "Sometimes life feels weird, strange, or tough; a unique, creative, brilliant idea can still look crazy. "
-                "I want to stay confident, helpful, fair, and quiet when I’m unsure — not jealous, foolish, or unhappy.",
-                "Thành thật mà nói, behavior và character khó mô tả hơn vẻ ngoài. "
-                "Personality tôi có lúc shy hoặc talkative, serious hoặc funny, interesting hoặc boring. "
-                "Ngày exciting thì wonderful, amazing, excellent, awesome; người kind thì nice và great. "
-                "Đôi khi weird, strange, hoặc tough; ý tưởng unique, creative, brilliant vẫn có thể crazy. "
-                "Tôi muốn confident, helpful, fair, và quiet khi unsure — không jealous, foolish, hay unhappy.",
-            ),
-            (
-                "About the human body: under the skin there is blood, bone, and muscle. "
-                "My chest rises with every breath and breathing feels easy when I’m active and strong, not weak. "
-                "I can show my palm, forearm, wrist, elbow, and finger; my thigh, heel, and throat work hard when I run. "
-                "The skull protects the brain; gum and eyelash are small but useful. "
-                "Physically I’m fine — I brush my hair, smile, look friendly, and hide stress when I appear calm. "
-                "Other people may look similar; each individual still has their own mild or scary mood. "
-                "A perfect day is when I feel normal, certain, and ready to describe how I appear.",
-                "Về human body: dưới skin có blood, bone, và muscle. "
-                "Chest nhịp theo breath và breathing dễ khi active và strong, không weak. "
-                "Tôi show palm, forearm, wrist, elbow, finger; thigh, heel, throat làm việc khi chạy. "
-                "Skull bảo vệ brain; gum và eyelash nhỏ nhưng hữu ích. "
-                "Physically tôi ổn — brush hair, smile, look thân thiện, hide stress khi appear bình tĩnh. "
-                "Other người có thể similar; mỗi individual vẫn own mild hoặc scary. "
-                "Ngày perfect là khi normal, certain, và sẵn sàng describe cách mình appear. "
-                "Còn fat trên body thì tôi nói nhẹ nhàng thôi.",
-            ),
-        ],
-        "B1": [
-            (
-                "Generally speaking, I talk about figure and beauty without being cruel. "
-                "Attractiveness can look stunning or gorgeous; ugliness talk feels unattractive and mean. "
-                "Someone chubby, overweight, or obese needs respect; someone underweight does too. "
-                "A hairstyle can be thick, shiny, ginger, red, gray-haired, or fair after a haircut. "
-                "I comb carefully, sometimes shave, and ignore hairy jokes. "
-                "A pale expression, a frown, a grin, a spot, or a freckle still belongs to a well-dressed person of any race — even a little curious child.",
-                "Nhìn chung, tôi nói về figure và beauty mà không cruel. "
-                "Attractiveness có thể stunning hoặc gorgeous; nói ugliness thì unattractive và mean. "
-                "Người chubby, overweight, hoặc obese cần tôn trọng; underweight cũng vậy. "
-                "Hairstyle có thể thick, shiny, ginger, red, gray-haired, hoặc fair sau haircut. "
-                "Tôi comb cẩn thận, đôi khi shave, bỏ qua joke hairy. "
-                "Expression pale, frown, grin, spot, freckle vẫn thuộc người well-dressed mọi race — kể cả child little curious.",
-            ),
-            (
-                "If I had to describe personal characteristics, it would have to start with friends. "
-                "A brave and honest friend feels loyal, responsible, and reliable; a stubborn bully can feel annoying or evil. "
-                "I admire people who are patient, keen, generous, gentle, understanding, skillful, and peaceful. "
-                "Ambitious, independent, outgoing, organized, and sociable energy feels warm and welcoming. "
-                "I try not to be selfish, miserable, needy, childish, or doubtful; I appreciate wise, slow, cool, and mysterious calm. "
-                "Talent is a quality and a characteristic; nature can look positive or negative. "
-                "When I’m relaxed and easy, I don’t pretend or play a trick — I stay open, determined, and proud of small progress. "
-                "Horrible days happen; I stay experienced enough not to turn cruel or weak.",
-                "Nếu phải mô tả personal characteristics, chắc chắn bắt đầu từ bạn bè. "
-                "Friend brave và honest thì loyal, responsible, reliable; bully stubborn có thể annoying hoặc evil. "
-                "Tôi admire người patient, keen, generous, gentle, understanding, skillful, peaceful. "
-                "Năng lượng ambitious, independent, outgoing, organized, sociable thì warm và welcoming. "
-                "Tôi tránh selfish, miserable, needy, childish, doubtful; appreciate sự wise, slow, cool, mysterious. "
-                "Talent là quality và characteristic; nature có thể positive hoặc negative. "
-                "Khi relaxed và easy, tôi không pretend hay trick — open, determined, proud với tiến bộ nhỏ. "
-                "Ngày horrible vẫn tới; tôi đủ experienced để không cruel hay weak. "
-                "Concern về hình ảnh thì có, nhưng tôi muốn individual dependent vào giá trị thật.",
-            ),
-            (
-                "About the body in B1: armpit, hip, temple, thumb, toenail, fingernail, joint, rib, and sole are useful words. "
-                "An eyeball helps sight; I breathe for circulation while hearing, touch, smell, and taste work as a sense. "
-                "My waist moves when I dance; a tear can fall; blood sugar, a kidney, a lung, a hormone, tissue, and a nerve keep me alive. "
-                "A small gesture says a lot — that’s my speaking blog for human characteristics.",
-                "Về body B1: armpit, hip, temple, thumb, toenail, fingernail, joint, rib, và sole rất hữu ích. "
-                "Eyeball giúp sight; tôi breathe cho circulation trong khi hearing, touch, smell, taste là sense. "
-                "Waist chuyển động khi nhảy; tear có thể rơi; blood sugar, kidney, lung, hormone, tissue, nerve giữ tôi sống. "
-                "Gesture nhỏ nói nhiều — đó là blog speaking về human characteristics. "
-                "Talent và silly moments vẫn thuộc về tôi; talented friends inspire me.",
-            ),
-        ],
-        "B2": [
-            (
-                "Looking back, the last time I described bodily actions was in a real story. "
-                "I can beat a drum, clap, drag a bag, grab a bottle, or punch a pillow for fun — carefully. "
-                "I bend, bow, lean, or slouch when I’m tired; I kneel, leap, tiptoe, crawl, or lie down at home. "
-                "Eyes blink, gaze, squint, stare, or wink; I chuckle, giggle, or smirk with friends. "
-                "Sometimes I march, nod, pace, or trip; kids give bunny ears in photos — books write [give] {sb} bunny ears. "
-                "I crouch to tie shoes and wake early for work.",
-                "Nhìn lại, lần gần nhất tôi mô tả bodily actions là trong chuyện thật. "
-                "Tôi beat trống, clap, drag túi, grab chai, hoặc punch gối vui — cẩn thận. "
-                "Tôi bend, bow, lean, hoặc slouch khi mệt; kneel, leap, tiptoe, crawl, hoặc lie down ở nhà. "
-                "Mắt blink, gaze, squint, stare, hoặc wink; tôi chuckle, giggle, hoặc smirk với bạn. "
-                "Đôi khi march, nod, pace, hoặc trip; trẻ give bunny ears — sách ghi [give] {sb} bunny ears. "
-                "Tôi crouch buộc giày và wake sớm đi làm.",
-            ),
-            (
-                "Personality words matter too. I try to stay caring, decent, easy-going, energetic, enthusiastic, and dynamic. "
-                "I dislike arrogant, dishonest, greedy, icy, impatient, nosy, violent, or tight-fisted behavior. "
-                "A bold, lively, logical, modest, moral, optimistic, passionate, practical, reasonable, and respectable attitude feels sincere. "
-                "Self-confident people can still be sensitive and sympathetic; moody, pessimistic, unreliable, unstable, or unsure days happen. "
-                "Strict or lenient teachers both shape us; tough weeks need a strong-willed plan, not forgetful chaos.",
-                "Từ personality cũng quan trọng. Tôi cố caring, decent, easy-going, energetic, enthusiastic, dynamic. "
-                "Không thích arrogant, dishonest, greedy, icy, impatient, nosy, violent, tight-fisted. "
-                "Thái độ bold, lively, logical, modest, moral, optimistic, passionate, practical, reasonable, respectable thì sincere. "
-                "Người self-confident vẫn có thể sensitive và sympathetic; ngày moody, pessimistic, unreliable, unstable, unsure vẫn tới. "
-                "Thầy strict hoặc lenient đều ảnh hưởng; tuần tough cần kế hoạch strong-willed, không forgetful.",
-            ),
-            (
-                "Self-care is part of my routine: electric razor or shaver, sunscreen, shampoo, conditioner, balm, lotion, and cosmetics. "
-                "Gel, hairspray, eyeliner, eyeshadow, blush, concealer, face powder, foundation, lip gloss, lipstick, mascara, and nail polish sit on the shelf. "
-                "A face mask, dye, tweezers, cologne, deodorant, mouthwash, dental floss, nail file, cotton swab, makeup, and nail clippers finish the kit. "
-                "I won’t detail every private item, but a tampon belongs to real adult talk too.",
-                "Self-care là routine: electric razor hoặc shaver, sunscreen, shampoo, conditioner, balm, lotion, cosmetics. "
-                "Gel, hairspray, eyeliner, eyeshadow, blush, concealer, face powder, foundation, lip gloss, lipstick, mascara, nail polish trên kệ. "
-                "Face mask, dye, tweezers, cologne, deodorant, mouthwash, dental floss, nail file, cotton swab, makeup, nail clippers hoàn thiện. "
-                "Tôi không đi sâu đồ riêng tư, nhưng tampon cũng thuộc nói chuyện người lớn.",
-            ),
-            (
-                "Anatomy helps advanced speaking: an organ, Adam's apple, artery, blood vessel, cell, heartbeat, and scalp. "
-                "Collarbone, breast, abdomen, digestive system, immune system, belly, belly button, intestine, gallbladder, bladder, and buttock are clinical but useful. "
-                "Spine, calf, shin, big toe, pinky, eyelid, jaw, vein, nostril, eyebrow — and a painful kidney stone — complete the picture. "
-                "That’s my B2 body-and-appearance blog for the exam room.",
-                "Anatomy giúp speaking nâng cao: organ, Adam's apple, artery, blood vessel, cell, heartbeat, scalp. "
-                "Collarbone, breast, abdomen, digestive system, immune system, belly, belly button, intestine, gallbladder, bladder, buttock hữu ích. "
-                "Spine, calf, shin, big toe, pinky, eyelid, jaw, vein, nostril, eyebrow — và kidney stone đau — hoàn thiện. "
-                "Đó là blog B2 body & appearance cho phòng thi.",
-            ),
-        ],
-    },
+    "body-appearance": _ba.BODY_APPEARANCE_PASSAGES,
     "home-living": {
         "A1": [
             (
