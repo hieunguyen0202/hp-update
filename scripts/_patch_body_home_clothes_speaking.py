@@ -22,6 +22,7 @@ TOPICS = _gen.TOPICS
 collect_words = _gen.collect_words
 mark_sentence = _gen.mark_sentence
 wrap_exercise = _gen.wrap_exercise
+prepare_pair = _gen.prepare_pair
 
 
 def verify_coverage(words: list[dict], sentences: list[dict]) -> list[str]:
@@ -413,7 +414,7 @@ def build_from_passages(slug: str, level: str, words: list[dict]) -> list[dict]:
     paras = PASSAGES[slug][level]
     sentences = []
     for en, vi in paras:
-        sentences.append({"en_html": mark_sentence(en, words), "vi": vi, "words": []})
+        sentences.append(prepare_pair(en, vi, words))
 
     missing = verify_coverage(words, sentences)
     if missing:
@@ -441,13 +442,7 @@ def build_from_passages(slug: str, level: str, words: list[dict]) -> list[dict]:
             for w in chunk:
                 if not re.search(rf"(?i)(?<![A-Za-z\[]){re.escape(w['form'])}(?![A-Za-z\]])", en):
                     en += f" ({w['form']})"
-            sentences.append(
-                {
-                    "en_html": mark_sentence(en, chunk),
-                    "vi": vi,
-                    "words": [w["word"] for w in chunk],
-                }
-            )
+            sentences.append(prepare_pair(en, vi, chunk))
     return sentences
 
 

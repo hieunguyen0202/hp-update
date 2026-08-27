@@ -24,6 +24,7 @@ collect_words = _gen.collect_words
 mark_sentence = _gen.mark_sentence
 verify_coverage = _gen.verify_coverage
 wrap_exercise = _gen.wrap_exercise
+prepare_pair = _gen.prepare_pair
 
 
 PASSAGES: dict[str, list[tuple[str, str]]] = {
@@ -269,7 +270,7 @@ def build_from_passages(level: str, words: list[dict]) -> list[dict]:
     paras = PASSAGES[level]
     sentences = []
     for en, vi in paras:
-        sentences.append({"en_html": mark_sentence(en, words), "vi": vi, "words": []})
+        sentences.append(prepare_pair(en, vi, words))
 
     missing = verify_coverage(words, sentences)
     if missing:
@@ -297,13 +298,7 @@ def build_from_passages(level: str, words: list[dict]) -> list[dict]:
                 if not re.search(rf"(?i)(?<![A-Za-z\[]){re.escape(w['form'])}(?![A-Za-z\]])", en):
                     # literal include for bracketed LanGeek lemmas
                     en += f" ({w['form']})"
-            sentences.append(
-                {
-                    "en_html": mark_sentence(en, chunk),
-                    "vi": vi,
-                    "words": [w["word"] for w in chunk],
-                }
-            )
+            sentences.append(prepare_pair(en, vi, chunk))
     return sentences
 
 

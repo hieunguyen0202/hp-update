@@ -26,6 +26,9 @@ collect_words = _gen.collect_words
 mark_sentence = _gen.mark_sentence
 verify_coverage = _gen.verify_coverage
 wrap_exercise = _gen.wrap_exercise
+prepare_pair = _gen.prepare_pair
+localize_vi = _gen.localize_vi
+mark_vi_sentence = _gen.mark_vi_sentence
 esc = _gen.esc
 
 
@@ -272,13 +275,8 @@ def build_from_passages(level: str, words: list[dict]) -> list[dict]:
     paras = PASSAGES[level]
     sentences = []
     for en, vi in paras:
-        sentences.append(
-            {
-                "en_html": mark_sentence(en, words),
-                "vi": vi,
-                "words": [],
-            }
-        )
+        pair = prepare_pair(en, vi, words)
+        sentences.append(pair)
     missing = verify_coverage(words, sentences)
     if missing:
         # Append a natural closing line that forces remaining forms in
@@ -307,13 +305,7 @@ def build_from_passages(level: str, words: list[dict]) -> list[dict]:
             for w in chunk:
                 if not re.search(rf"(?i)(?<![A-Za-z]){re.escape(w['form'])}(?![A-Za-z])", en):
                     en += f" ({w['form']})"
-            sentences.append(
-                {
-                    "en_html": mark_sentence(en, chunk),
-                    "vi": vi,
-                    "words": [w["word"] for w in chunk],
-                }
-            )
+            sentences.append(prepare_pair(en, vi, chunk))
     return sentences
 
 

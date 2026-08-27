@@ -75,28 +75,6 @@ def mark_sentence(en: str, used: list[dict]) -> str:
     Also accepts light inflections (plural / -ed / -ing) so blog prose can stay natural.
     """
 
-    def safe_subn(pattern: re.Pattern, repl, text: str, count: int = 1) -> tuple[str, int]:
-        out: list[str] = []
-        last = 0
-        n = 0
-        for m in pattern.finditer(text):
-            if n >= count:
-                break
-            before = text[: m.start()]
-            if before.rfind("<mark") > before.rfind("</mark>"):
-                continue
-            lt = before.rfind("<")
-            gt = before.rfind(">")
-            if lt > gt:
-                continue
-            piece = repl(m) if callable(repl) else repl
-            out.append(text[last : m.start()])
-            out.append(piece)
-            last = m.end()
-            n += 1
-        out.append(text[last:])
-        return "".join(out), n
-
     def patterns_for(form: str, word: str) -> list[re.Pattern]:
         f = form
         fl = form.lower()
@@ -142,7 +120,7 @@ def mark_sentence(en: str, used: list[dict]) -> str:
 
         n = 0
         for pattern in patterns_for(form, item["word"]):
-            result, n = safe_subn(pattern, repl, result, count=1)
+            result, n = _safe_subn(pattern, repl, result, count=1)
             if n:
                 break
     return result
@@ -150,6 +128,96 @@ def mark_sentence(en: str, used: list[dict]) -> str:
 
 def vi_gloss(item: dict) -> str:
     return item["vi"] if item["vi"] else item["form"]
+
+
+def _safe_subn(pattern: re.Pattern, repl, text: str, count: int = 1) -> tuple[str, int]:
+    """Replace outside existing <mark>…</mark> and outside raw HTML tags."""
+    out: list[str] = []
+    last = 0
+    n = 0
+    for m in pattern.finditer(text):
+        if n >= count:
+            break
+        before = text[: m.start()]
+        if before.rfind("<mark") > before.rfind("</mark>"):
+            continue
+        lt = before.rfind("<")
+        gt = before.rfind(">")
+        if lt > gt:
+            continue
+        piece = repl(m) if callable(repl) else repl
+        out.append(text[last : m.start()])
+        out.append(piece)
+        last = m.end()
+        n += 1
+    out.append(text[last:])
+    return "".join(out), n
+
+
+def localize_vi(vi: str, words: list[dict]) -> str:
+    """Replace leftover English vocab forms in the VI line with LanGeek Vietnamese glosses."""
+    result = vi
+    for item in sorted(words, key=lambda x: len(x.get("form") or ""), reverse=True):
+        form = (item.get("form") or "").strip()
+        gloss = (vi_gloss(item) or "").strip()
+        if not form or not gloss:
+            continue
+        if form.lower() == gloss.lower():
+            continue
+        # Skip tiny tokens that would wreck Vietnamese prose (a, I, to, …)
+        if len(form) <= 2 and " " not in form:
+            continue
+        pattern = re.compile(rf"(?<![A-Za-zÀ-ỹ]){re.escape(form)}(?![A-Za-zÀ-ỹ])", re.I)
+        result, _ = _safe_subn(pattern, gloss, result, count=20)
+    return result
+
+
+def mark_vi_sentence(vi: str, used: list[dict]) -> str:
+    """Highlight Vietnamese glosses in the translation (no IPA on VI side)."""
+    result = vi
+    # Longest gloss first so multi-word meanings win (and cover short tokens inside them)
+    ordered = sorted(
+        used,
+        key=lambda x: len(vi_gloss(x) or ""),
+        reverse=True,
+    )
+    # Token edge: start/end, whitespace, or punctuation (not only whitespace —
+    # otherwise "độc ác." never matches because "." is non-space).
+    edge = r"\s.,;:!?…/–—()\[\]\"'“”«»-"
+
+    for item in ordered:
+        gloss = (vi_gloss(item) or "").strip()
+        if not gloss:
+            continue
+        # Skip 1-letter noise; allow short real glosses like "đỏ"
+        if len(gloss.replace(" ", "")) < 2:
+            continue
+        pattern = re.compile(
+            rf"(?<![^{edge}]){re.escape(gloss)}(?![^{edge}])"
+        )
+
+        def repl(m, _w=item["word"]):
+            return f'<mark class="vocab" data-word="{esc(_w)}">{esc(m.group(0))}</mark>'
+
+        result, n = _safe_subn(pattern, repl, result, count=1)
+        if not n:
+            pattern_i = re.compile(
+                rf"(?<![^{edge}]){re.escape(gloss)}(?![^{edge}])",
+                re.I,
+            )
+            result, _ = _safe_subn(pattern_i, repl, result, count=1)
+    return result
+
+
+def prepare_pair(en: str, vi: str, words: list[dict]) -> dict:
+    """EN marked + VI localized (EN→nghĩa) and marked for display."""
+    vi_local = localize_vi(vi, words)
+    return {
+        "en_html": mark_sentence(en, words),
+        "vi": vi_local,
+        "vi_html": mark_vi_sentence(vi_local, words),
+        "words": [],
+    }
 
 
 def compose_chunk(chunk: list[dict], topic: str, level: str, idx: int) -> tuple[str, str]:
@@ -258,7 +326,15 @@ def build_sentences(words: list[dict], topic_name: str, level: str) -> list[dict
             extra_vi = ", ".join(vi_gloss(w) for w in missing)
             vi = vi.rstrip(".") + f" — đặc biệt là {extra_vi}."
         en_html = mark_sentence(en, chunk)
-        sentences.append({"en_html": en_html, "vi": vi, "words": [w["word"] for w in chunk]})
+        vi_local = localize_vi(vi, chunk)
+        sentences.append(
+            {
+                "en_html": en_html,
+                "vi": vi_local,
+                "vi_html": mark_vi_sentence(vi_local, chunk),
+                "words": [w["word"] for w in chunk],
+            }
+        )
     return sentences
 
 
@@ -286,7 +362,7 @@ def wrap_exercise(topic: dict, level: str, words: list[dict], sentences: list[di
         sent_html.append(
             f"""          <p class="ex-sent" data-sent="{i}">
             <span class="ex-en">{s["en_html"]}</span>
-            <span class="ex-vi">{esc(s["vi"])}</span>
+            <span class="ex-vi">{s.get("vi_html") or esc(s["vi"])}</span>
           </p>"""
         )
 
@@ -496,7 +572,8 @@ def main() -> None:
                     sentences.append(
                         {
                             "en_html": mark_sentence(en, chunk),
-                            "vi": vi,
+                            "vi": localize_vi(vi, chunk),
+                            "vi_html": mark_vi_sentence(localize_vi(vi, chunk), chunk),
                             "words": [w["word"] for w in chunk],
                         }
                     )
