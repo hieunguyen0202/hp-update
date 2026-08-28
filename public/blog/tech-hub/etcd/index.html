@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>etcd: backup, restore &amp; APISIX — Tech Hub</title>
-  <meta name="description" content="Deep-dive etcd trong Kubernetes: snapshot, verify, restore HA, và dùng etcd làm key-value store cho Apache APISIX.">
+  <title>etcd Production Cheatsheet — Tech Hub</title>
+  <meta name="description" content="Cheatsheet vận hành etcd production: Raft quorum, multi-member, TLS/mTLS, backup/restore, kops etcd-manager, APISIX — hands-on từ dễ đến khó.">
   <link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -44,189 +44,500 @@
       </div>
       <div id="top"></div>
       <header>
-        <h1>etcd: backup, restore &amp; APISIX as config store</h1>
+        <h1>etcd Production Cheatsheet</h1>
       </header>
       <p class="lede">
-        etcd là “bộ nhớ dài hạn” của Kubernetes — và cũng là nơi Apache APISIX giữ routes,
-        upstreams, plugins. Bài này gom lại những gì tài liệu chính thức và các runbook
-        production hay nhắc: snapshot đúng cách, verify, restore control plane, rồi nhìn
-        etcd dưới góc gateway.
+        Ghi chép hands-on về vận hành etcd trên production — tổng hợp từ
+        <a href="https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/" target="_blank" rel="noopener noreferrer">Kubernetes etcd ops</a>,
+        <a href="https://etcd.io/docs/latest/" target="_blank" rel="noopener noreferrer">etcd.io</a>,
+        <a href="https://kops.sigs.k8s.io/operations/etcd_administration/" target="_blank" rel="noopener noreferrer">kOps etcd-manager</a>,
+        và các runbook DR thực tế. Đọc theo level từ dễ → khó; mỗi level có lệnh chạy được ngay.
       </p>
       <div class="docs-meta">
         <span><strong>Level:</strong> Platform / SRE</span>
-        <span><strong>Stack:</strong> Kubernetes · etcd · APISIX</span>
+        <span><strong>Stack:</strong> Kubernetes · kOps · APISIX</span>
         <span><strong>Updated:</strong> 2026-08</span>
       </div>
 
-      <h2 id="tai-sao-etcd-quan-trong">Tại sao etcd quan trọng?</h2>
-      <p>
-        Theo <a href="https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/" target="_blank" rel="noopener noreferrer">Kubernetes docs</a>,
-        etcd là consistent, highly-available key-value store dùng làm backing store cho
-        <strong>toàn bộ cluster data</strong>. Mất etcd trên mọi control-plane node gần như
-        đồng nghĩa với mất desired state: Pods, Services, Secrets, ConfigMaps, CRDs, RBAC…
-      </p>
-      <p>Hai hệ quả vận hành bạn cần nhớ:</p>
-      <ul>
-        <li><strong>Backup không chỉ là “có file”</strong> — phải lấy được snapshot khi API đã chết (off-cluster / NFS / object storage độc lập).</li>
-        <li><strong>Restore không phải copy file vào chỗ cũ</strong> — phải dừng API server, dựng lại member nhất quán, rồi mới mở lại control plane.</li>
-      </ul>
+      <h2 id="lo-trinh">Lộ trình đọc (Level 1 → 8)</h2>
+      <table>
+        <thead><tr><th>Level</th><th>Chủ đề</th><th>Khi nào cần</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Mental model + Raft quorum</td><td>Hiểu vì sao cluster “đơ” khi mất 2/3 node</td></tr>
+          <tr><td>2</td><td>Triển khai: kubeadm vs kOps/etcd-manager</td><td>Biết ai quản lý etcd trên cluster của bạn</td></tr>
+          <tr><td>3</td><td>Hands-on hàng ngày</td><td>Health check, member list, đọc key debug</td></tr>
+          <tr><td>4</td><td>TLS / mTLS / auth</td><td>Bảo vệ etcd — quyền root của cluster</td></tr>
+          <tr><td>5</td><td>Backup &amp; restore</td><td>DR, upgrade, sự cố control plane</td></tr>
+          <tr><td>6</td><td>Membership: add / remove / replace</td><td>Thay node CP, mở rộng 3→5 members</td></tr>
+          <tr><td>7</td><td>kOps + etcd-manager sâu</td><td>Cluster AWS kOps, restore qua S3</td></tr>
+          <tr><td>8</td><td>Maintenance + APISIX + troubleshooting</td><td>Defrag, alarm, gateway config store</td></tr>
+        </tbody>
+      </table>
       <hr>
 
-      <h2 id="etcdctl-vs-etcdutl">etcdctl vs etcdutl</h2>
-      <p>Từ etcd 3.5 trở đi, vai trò được tách rõ hơn (Kubernetes cũng khuyến nghị tương tự):</p>
-      <ul>
-        <li><code>etcdctl</code> — client mạng: health, member list, <code>snapshot save</code> từ member đang chạy.</li>
-        <li><code>etcdutl</code> — thao tác trên file dữ liệu: <code>snapshot status</code>, <code>snapshot restore</code>, defrag offline…</li>
-      </ul>
+      <h2 id="level-1-mental-model">Level 1 — Mental model (đọc trước khi chạy lệnh)</h2>
       <p>
-        <code>etcdctl snapshot status|restore</code> đã deprecated; hãy quen với
-        <code>etcdutl</code> trước khi etcd 3.6 gỡ hẳn.
+        etcd là <strong>distributed key-value store</strong> dùng <strong>Raft consensus</strong>.
+        Mọi <em>write</em> phải được leader replicate và commit khi đạt <strong>quorum</strong>
+        (đa số members). Đó là lý do etcd “chậm mà chắc” — phù hợp lưu state quan trọng
+        (Kubernetes API objects), không phải cache throughput cao.
       </p>
-      <hr>
 
-      <h2 id="backup-snapshot">Backup: lấy snapshot đúng cách</h2>
-      <h3 id="live-snapshot">1) Live snapshot bằng etcdctl</h3>
+      <h3 id="quorum-bang">Bảng quorum (nhớ lòng)</h3>
+      <table>
+        <thead><tr><th>Members</th><th>Quorum cần</th><th>Chịu được mất</th><th>Ghi chú production</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>1</td><td>0</td><td>Chỉ lab / test</td></tr>
+          <tr><td>3</td><td>2</td><td>1</td><td>HA tối thiểu (kubeadm HA phổ biến)</td></tr>
+          <tr><td>5</td><td>3</td><td>2</td><td>K8s docs khuyến nghị production lớn</td></tr>
+          <tr><td>7</td><td>4</td><td>3</td><td>Hiếm; trade-off latency vs fault tolerance</td></tr>
+        </tbody>
+      </table>
       <p>
-        Snapshot từ một member đang sống <strong>không làm chậm đáng kể</strong> member đó
-        (theo docs Kubernetes). Trên kubeadm, endpoint + cert thường nằm trong static Pod
-        <code>etcd</code>:
+        Công thức: cluster <em>N</em> members chịu tối đa <code>(N-1)/2</code> member chết vĩnh viễn.
+        Mất <strong>quorum</strong> → cluster <strong>read-only hoặc không phục vụ write</strong> →
+        scheduler không schedule Pod mới, dù workload cũ có thể vẫn chạy.
       </p>
-<pre><code class="language-bash">export ETCDCTL_API=3
-export ENDPOINT=https://127.0.0.1:2379
 
-etcdctl --endpoints="$ENDPOINT" \
-  --cacert=/etc/kubernetes/pki/etcd/ca.crt \
-  --cert=/etc/kubernetes/pki/etcd/server.crt \
-  --key=/etc/kubernetes/pki/etcd/server.key \
-  snapshot save /var/backups/etcd/snapshot-$(date +%Y%m%d-%H%M%S).db
+      <h3 id="kien-truc-raft">Luồng write (Raft — đơn giản hóa)</h3>
+<pre><code class="language-text">Client (apiserver) ──write──► Leader etcd
+                                  │
+                    replicate log ├──► Follower 1
+                                  ├──► Follower 2
+                                  │
+                     commit khi ≥ quorum ACK
+                                  │
+                     trả success cho client
 </code></pre>
-      <h3 id="verify-snapshot">2) Verify trước khi tin</h3>
-<pre><code class="language-bash">etcdutl --write-out=table snapshot status /var/backups/etcd/snapshot-….db
-</code></pre>
-      <p>Bạn cần thấy hash, revision, total keys, size. Snapshot “im lặng thành công” nhưng
-        size ~0 hoặc status lỗi = chưa phải backup.</p>
 
-      <h3 id="tan-suat-va-luu-tru">3) Tần suất &amp; nơi lưu</h3>
+      <h3 id="khai-niem-quan-trong">Thuật ngữ hay gặp</h3>
       <ul>
-        <li><strong>RPO</strong>: nhiều team chọn 1–6 giờ tùy tốc độ thay đổi cluster. Cluster deploy dày → snapshot dày hơn.</li>
-        <li><strong>Off-site</strong>: đẩy sang S3 / GCS / NFS ngoài cluster. Backup chỉ reachable qua API đang chết thì không phải backup.</li>
-        <li><strong>Bảo mật</strong>: snapshot chứa Secrets — mã hóa at-rest, permission <code>0600</code>, hạn chế ai pull được.</li>
-        <li><strong>Thời điểm</strong>: tránh peak I/O; backup trước/sau upgrade control plane; với OpenShift, tránh snapshot trong cửa sổ xoay cert 24h đầu (theo guidance Red Hat).</li>
+        <li><strong>Revision</strong> — số phiên bản global của keyspace; snapshot ghi lại revision tại thời điểm backup.</li>
+        <li><strong>MVCC</strong> — etcd giữ lịch sử revision; DB phình theo thời gian → cần compaction + defrag.</li>
+        <li><strong>Client URL (:2379)</strong> — apiserver / etcdctl nói chuyện ở đây.</li>
+        <li><strong>Peer URL (:2380)</strong> — replication Raft giữa members.</li>
+        <li><strong>Stacked etcd</strong> — etcd chạy cùng control-plane node (static Pod kubeadm).</li>
+        <li><strong>External etcd</strong> — cụm etcd tách riêng; kubeadm trỏ <code>--etcd-servers</code> vào đó.</li>
       </ul>
-      <p>
-        Volume snapshot (EBS/CSI) là lớp bổ sung, không thay thế snapshot logic của etcd
-        nếu bạn cần restore có kiểm soát revision / membership.
-      </p>
-      <hr>
-
-      <h2 id="restore-control-plane">Restore control plane</h2>
       <blockquote>
         <p>
-          <strong>Caution (Kubernetes):</strong> nếu API server còn chạy, đừng restore etcd
-          “xen vào”. Quy trình chuẩn: <em>stop mọi API server → restore etcd → start lại
-          API server</em>. Nên restart thêm scheduler, controller-manager, kubelet để tránh
-          stale cache.
+          <strong>Production baseline (Kubernetes docs):</strong> etcd <code>3.4.29+</code> hoặc
+          <code>3.5.11+</code>; số members <strong>lẻ</strong>; disk I/O và network ổn định;
+          <strong>không</strong> autoscale etcd như worker node.
+        </p>
+      </blockquote>
+      <hr>
+
+      <h2 id="level-2-trien-khai">Level 2 — Ai đang quản lý etcd trên cluster?</h2>
+      <table>
+        <thead><tr><th>Pattern</th><th>Ai chạy etcd</th><th>Ai backup / membership</th><th>Đặc điểm</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>kubeadm stacked</strong></td>
+            <td>Static Pod <code>etcd</code> trên mỗi master</td>
+            <td>Bạn (CronJob / script / Velero không thay etcd snapshot)</td>
+            <td>Cert trong <code>/etc/kubernetes/pki/etcd/</code></td>
+          </tr>
+          <tr>
+            <td><strong>kubeadm external</strong></td>
+            <td>VM / cluster etcd riêng</td>
+            <td>Team platform + etcd ops</td>
+            <td>API server trỏ LB etcd</td>
+          </tr>
+          <tr>
+            <td><strong>kOps</strong></td>
+            <td><code>etcd-manager</code> spawn process etcd</td>
+            <td><strong>etcd-manager</strong> → S3 (main + events)</td>
+            <td>EBS volume / member; 2 cụm: <code>main</code> + <code>events</code></td>
+          </tr>
+          <tr>
+            <td><strong>Managed K8s</strong> (EKS/GKE/AKS)</td>
+            <td>Cloud provider</td>
+            <td>Provider backup policy</td>
+            <td>Bạn thường <em>không</em> ssh vào etcd</td>
+          </tr>
+          <tr>
+            <td><strong>APISIX</strong></td>
+            <td>etcd riêng (hoặc built-in dev)</td>
+            <td>Snapshot prefix <code>/apisix</code></td>
+            <td>Khác hẳn etcd của K8s</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr>
+
+      <h2 id="level-3-hands-on">Level 3 — Hands-on hàng ngày</h2>
+
+      <h3 id="alias-kubeadm">3.1 Alias etcdctl trên kubeadm (copy-paste)</h3>
+      <p>SSH vào control-plane node (hoặc <code>crictl exec</code> vào container etcd):</p>
+<pre><code class="language-bash">export ETCDCTL_API=3
+export ENDPOINT=https://127.0.0.1:2379
+export CACERT=/etc/kubernetes/pki/etcd/ca.crt
+export CERT=/etc/kubernetes/pki/etcd/server.crt
+export KEY=/etc/kubernetes/pki/etcd/server.key
+
+alias etcdctl='etcdctl --endpoints="$ENDPOINT" --cacert="$CACERT" --cert="$CERT" --key="$KEY"'
+</code></pre>
+
+      <h3 id="health-checks">3.2 Health &amp; membership</h3>
+<pre><code class="language-bash"># Member + role (leader có IS LEADER)
+etcdctl member list -w table
+
+# Health từng endpoint
+etcdctl endpoint health -w table
+
+# Chi tiết: DB size, leader, raft index…
+etcdctl endpoint status -w table
+
+# Alarm (NOSPACE = đầy quota → cluster read-only)
+etcdctl alarm list
+</code></pre>
+      <p>Output <code>endpoint health</code> mong đợi: mỗi endpoint <code>healthy: true</code>.
+        Nếu một member unhealthy nhưng quorum còn → replace member sớm (Level 6).</p>
+
+      <h3 id="doc-key-debug">3.3 Đọc key Kubernetes (chỉ khi troubleshoot)</h3>
+      <p>Prefix phổ biến: <code>/registry/</code>. Luôn dùng <code>--prefix</code> + limit:</p>
+<pre><code class="language-bash"># Đếm keys dưới /registry/pods (cẩn thận cluster lớn)
+etcdctl get /registry/pods --prefix --keys-only | head
+
+# Một key cụ thể (ví dụ sau khi biết path từ audit)
+etcdctl get /registry/namespaces/default -w json | jq .
+</code></pre>
+      <p>
+        <strong>Lưu ý:</strong> thao tác trực tiếp trên etcd có thể phá consistency với apiserver.
+        Ưu tiên <code>kubectl</code>; chỉ dùng etcdctl khi API không phản hồi hoặc forensic.
+      </p>
+
+      <h3 id="kops-etcdctl">3.4 kOps — vào etcd qua etcd-manager pod</h3>
+      <p>Theo <a href="https://kops.sigs.k8s.io/operations/etcd_administration/" target="_blank" rel="noopener noreferrer">kOps etcd administration</a>:</p>
+<pre><code class="language-bash"># Xem version etcd trong cluster spec
+kops get cluster --full -o yaml | grep -A5 etcdCluster
+
+CONTAINER=$(kubectl get pods -n kube-system \
+  | grep etcd-manager-main | head -1 | awk '{print $1}')
+kubectl exec -it -n kube-system "$CONTAINER" -- sh
+
+# Trong pod (version khớp cluster, port kOps thường 4001):
+ETCD_VERSION=3.5.13
+ETCDDIR=/opt/etcd-v$ETCD_VERSION
+CERTDIR=/rootfs/srv/kubernetes/kube-apiserver/
+alias etcdctl="ETCDCTL_API=3 $ETCDDIR/etcdctl \
+  --cacert=$CERTDIR/etcd-ca.crt \
+  --cert=$CERTDIR/etcd-client.crt \
+  --key=$CERTDIR/etcd-client.key \
+  --endpoints=https://127.0.0.1:4001"
+
+etcdctl member list
+</code></pre>
+      <hr>
+
+      <h2 id="level-4-security">Level 4 — Bảo mật &amp; authentication</h2>
+      <blockquote>
+        <p>
+          <strong>Kubernetes docs (quan trọng):</strong> “Access to etcd is equivalent to root
+          permission in the cluster.” Và: <em>“etcd authentication is not planned for Kubernetes.”</em>
+          — tức K8s dùng <strong>TLS client certificate</strong>, không dùng user/password etcd RBAC
+          cho apiserver.
         </p>
       </blockquote>
 
-      <h3 id="single-member">Single-member / lab (kubeadm stacked)</h3>
+      <h3 id="hai-lop-tls">4.1 Hai lớp TLS</h3>
+      <table>
+        <thead><tr><th>Lớp</th><th>Port</th><th>Cert thường gặp</th><th>Flags etcd</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Client ↔ etcd</strong></td>
+            <td>2379 (kOps: 4001)</td>
+            <td><code>server.crt</code> / apiserver client cert</td>
+            <td><code>--cert-file</code>, <code>--key-file</code>, <code>--client-cert-auth</code></td>
+          </tr>
+          <tr>
+            <td><strong>Peer ↔ peer</strong></td>
+            <td>2380</td>
+            <td><code>peer.crt</code></td>
+            <td><code>--peer-cert-file</code>, <code>--peer-client-cert-auth</code></td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <strong>mTLS peer:</strong> mỗi member verify cert của member kia — chống node giả
+        tham gia Raft. <strong>Client cert auth:</strong> chỉ client có cert ký bởi CA tin cậy
+        mới gọi được API etcd.
+      </p>
+
+      <h3 id="kubeadm-pki">4.2 kubeadm — ai được nói chuyện với etcd?</h3>
+      <p>kube-apiserver mount flags:</p>
+<pre><code class="language-text">--etcd-certfile=/etc/kubernetes/pki/apiserver-etcd-client.crt
+--etcd-keyfile=/etc/kubernetes/pki/apiserver-etcd-client.key
+--etcd-cafile=/etc/kubernetes/pki/etcd/ca.crt
+--etcd-servers=https://127.0.0.1:2379,...
+</code></pre>
+      <p>Thực hành production:</p>
+      <ul>
+        <li>Firewall: chỉ CP nodes + break-glass bastion tới 2379/2380.</li>
+        <li>Không expose etcd ra Internet; không mở NodePort “tạm debug”.</li>
+        <li>Theo dõi expiry cert etcd — kubeadm có <code>kubeadm certs check-expiration</code>.</li>
+        <li>Bật <a href="https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/" target="_blank" rel="noopener noreferrer">encryption at rest</a> trên apiserver (Secrets trong etcd được mã hóa thêm lớp).</li>
+      </ul>
+
+      <h3 id="etcd-rbac">4.3 etcd RBAC (khi etcd <em>không</em> phải K8s — ví dụ APISIX)</h3>
+      <p>
+        etcd hỗ trợ user/password + role (read/write trên prefix). APISIX production thường
+        dùng <strong>TLS + cert</strong> hoặc RBAC nếu bật <code>--auth-token</code>.
+        Tách biệt hoàn toàn với Kubernetes RBAC.
+      </p>
+<pre><code class="language-bash"># Ví dụ standalone etcd (lab) — KHÔNG dùng pattern này cho K8s control plane
+etcdctl user add apisix --new-user-password='***'
+etcdctl role add apisix-role
+etcdctl role grant-permission apisix-role readwrite /apisix
+etcdctl user grant-role apisix apisix-role
+etcdctl auth enable
+</code></pre>
+      <hr>
+
+      <h2 id="level-5-backup">Level 5 — Backup &amp; restore (DR)</h2>
+
+      <h3 id="etcdctl-vs-etcdutl">5.0 etcdctl vs etcdutl</h3>
+      <ul>
+        <li><code>etcdctl snapshot save</code> — chụp từ member đang chạy (qua mạng).</li>
+        <li><code>etcdutl snapshot status</code> — verify file backup.</li>
+        <li><code>etcdutl snapshot restore</code> — dựng data-dir mới từ file (offline).</li>
+      </ul>
+
+      <h3 id="backup-live">5.1 Live snapshot (kubeadm)</h3>
+<pre><code class="language-bash">etcdctl snapshot save "/var/backups/etcd/snapshot-$(date +%Y%m%d-%H%M%S).db"
+
+etcdutl --write-out=table snapshot status /var/backups/etcd/snapshot-*.db
+# Kiểm tra: HASH, REVISION, TOTAL KEYS, TOTAL SIZE &gt; 0
+</code></pre>
+
+      <h3 id="backup-offsite">5.2 Off-site &amp; RPO</h3>
+      <ul>
+        <li>Đẩy snapshot ra S3/GCS/NFS <strong>ngoài</strong> cluster — DR khi API chết vẫn lấy được file.</li>
+        <li>RPO 1h–6h tùy tần suất deploy; CronJob + systemd timer đều được.</li>
+        <li>Encrypt snapshot (chứa toàn bộ Secrets).</li>
+        <li>Backup <strong>trước và sau</strong> upgrade etcd / control plane.</li>
+      </ul>
+
+      <h3 id="restore-single">5.3 Restore single-member (lab kubeadm)</h3>
+      <blockquote>
+        <p><strong>Caution:</strong> stop <em>tất cả</em> kube-apiserver trước khi restore.</p>
+      </blockquote>
       <ol>
-        <li>Dừng <code>kube-apiserver</code> (và etcd) trên control plane — thường bằng cách move/rename manifest trong <code>/etc/kubernetes/manifests</code>.</li>
-        <li>Restore vào <strong>data-dir mới</strong> (đừng ghi đè DB đang bị process giữ):</li>
+        <li>Move manifest <code>kube-apiserver.yaml</code> và <code>etcd.yaml</code> ra khỏi <code>/etc/kubernetes/manifests/</code>.</li>
+        <li>Restore vào thư mục mới:</li>
       </ol>
-<pre><code class="language-bash">etcdutl --data-dir=/var/lib/etcd-restore snapshot restore snapshot.db
+<pre><code class="language-bash">etcdutl --data-dir=/var/lib/etcd-restored snapshot restore snapshot.db
 </code></pre>
       <ol start="3">
-        <li>Trỏ volume <code>etcd-data</code> trong manifest etcd sang thư mục vừa restore (hoặc thay thế <code>/var/lib/etcd</code> một cách có kiểm soát sau khi process đã dừng).</li>
-        <li>Đưa manifest trở lại, đợi static Pod healthy, kiểm tra <code>kubectl get nodes</code> / objects trước snapshot quay lại.</li>
+        <li>Sửa <code>hostPath</code> volume <code>etcd-data</code> → <code>/var/lib/etcd-restored</code>.</li>
+        <li>Đưa manifest lại; verify <code>kubectl get nodes</code>.</li>
       </ol>
       <p>
-        Mẹo hay gặp trên lab: chỉ đổi <code>--data-dir</code> bên trong container mà quên
-        retarget <code>hostPath</code> → etcd lên với DB rỗng, trông như “restore thất bại bí ẩn”.
+        <strong>Pitfall:</strong> đổi <code>--data-dir</code> trong container nhưng quên
+        <code>hostPath</code> → etcd lên DB trống.
       </p>
 
-      <h3 id="ha-restore">HA restore (3/5 members)</h3>
-      <p>Các runbook production (và etcd disaster recovery) hội tụ quanh một pattern:</p>
+      <h3 id="restore-ha">5.4 Restore HA (3/5 members)</h3>
       <ol>
-        <li>Restore snapshot <strong>một lần</strong> trên member đầu, coi như single-member cluster mới.</li>
-        <li><code>etcdctl member add</code> từng node còn lại; joiner dùng <code>--initial-cluster-state=existing</code> và <code>--initial-cluster</code> khớp membership.</li>
-        <li>Chờ member mới healthy / catch-up trước khi add tiếp — tránh mất quorum giữa chừng.</li>
-        <li>Khi rewind revision, dùng cặp flag restore hiện đại (etcd gần đây):
-          <code>--bump-revision</code> + <code>--mark-compacted</code> để buộc informer re-list, tránh controller sống với cache “tương lai”.</li>
+        <li>Stop API server trên <strong>mọi</strong> master.</li>
+        <li>Restore snapshot <strong>một lần</strong> trên master1 → single-member cluster.</li>
+        <li><code>etcdctl member add</code> master2, master3 — từng cái một; joiner:
+          <code>ETCD_INITIAL_CLUSTER_STATE=existing</code>.</li>
+        <li>Chờ member healthy trước khi add tiếp (tránh reject khi chưa catch-up).</li>
+        <li>Restore với revision rewind: dùng <code>--bump-revision</code> + <code>--mark-compacted</code>
+          (etcd mới) để controller/informer không giữ cache stale.</li>
+        <li>Start lại apiserver, scheduler, controller-manager; cân nhắc rolling restart kubelet.</li>
       </ol>
-      <p>
-        <code>--initial-cluster-token</code> nên set tường minh khi bootstrap lại (etcd 3.6
-        siết hơn về việc này) để tránh hai cụm “gặp nhau” nhầm.
-      </p>
-      <hr>
 
-      <h2 id="nhung-gi-khong-nam-trong-snapshot">Những gì không nằm trong snapshot</h2>
-      <p>Snapshot etcd khôi phục <em>API state</em>. Nó <strong>không</strong> mang theo:</p>
+      <h3 id="restore-kops">5.5 Restore trên kOps (etcd-manager-ctl)</h3>
+      <p>Theo <a href="https://kops.sigs.k8s.io/operations/etcd_backup_restore_encryption/" target="_blank" rel="noopener noreferrer">kOps backup/restore docs</a>:</p>
       <ul>
-        <li>Dữ liệu PersistentVolume / disk workload</li>
-        <li>Image trên node / registry</li>
-        <li>DNS ngoài cluster, load balancer cloud, IAM…</li>
+        <li>Backup <code>main</code> và <code>events</code> nằm trên S3 cùng cluster state.</li>
+        <li>Dùng <code>etcd-manager-ctl</code> (binary từ <a href="https://github.com/kubernetes-sigs/etcd-manager" target="_blank" rel="noopener noreferrer">kubernetes-sigs/etcd-manager</a>) — không cần chạy trong cluster nếu có quyền S3.</li>
+        <li>Restore là <strong>lệnh async</strong>: ghi vào work queue → restart etcd-manager trên các master
+          (<code>docker stop</code> / kill container <code>k8s_etcd-manager_*</code>) để pick up.</li>
+        <li>Tạo <strong>etcd cluster mới</strong> rồi restore backup lên — không restore “nóng” khi apiserver đang chạy.</li>
       </ul>
+<pre><code class="language-bash"># Liệt kê backup (ví dụ — xem docs etcd-manager-ctl cho flag chính xác theo version)
+etcd-manager-ctl --backup-store=s3://BUCKET/CLUSTER/ list-backups
+
+# Schedule restore (main cluster) — tham khảo kOps docs / version etcd-manager
+etcd-manager-ctl --backup-store=s3://... restore-backup &lt;backup-id&gt;
+</code></pre>
+      <hr>
+
+      <h2 id="level-6-membership">Level 6 — Multi-member: add / remove / replace</h2>
+      <p>Flow chuẩn khi <code>member1</code> chết (theo Kubernetes docs):</p>
+<pre><code class="language-bash"># 1) List members (từ endpoint còn sống)
+etcdctl --endpoints=https://10.0.0.2:2379,https://10.0.0.3:2379 member list
+
+# 2) Stop etcd trên node hỏng; stop traffic ghi vào node đó
+
+# 3) Remove member cũ
+etcdctl member remove &lt;MEMBER_ID&gt;
+
+# 4) Add member mới
+etcdctl member add member4 --peer-urls=https://10.0.0.4:2380
+
+# 5) Trên node mới — QUAN TRỌNG: state=existing
+export ETCD_NAME="member4"
+export ETCD_INITIAL_CLUSTER="member2=https://10.0.0.2:2380,member3=https://10.0.0.3:2380,member4=https://10.0.0.4:2380"
+export ETCD_INITIAL_CLUSTER_STATE=existing
+# start etcd với cert/flags đúng
+
+# 6) Cập nhật --etcd-servers trên apiserver nếu cần; restart apiserver
+</code></pre>
+      <p><strong>Lỗi kinh điển:</strong> joiner thiếu <code>--initial-cluster-state=existing</code>
+        → etcd bootstrap cluster mới → cluster ID mismatch.</p>
       <p>
-        DR plan phải tách lớp: etcd (control plane) + Velero/CSI (apps &amp; volumes) +
-        infra-as-code (cloud resources).
+        <strong>Scaling:</strong> K8s khuyến nghị <em>không</em> scale etcd linh hoạt; nếu cần,
+        3→5 members theo <a href="https://etcd.io/docs/latest/op-guide/runtime-configuration/" target="_blank" rel="noopener noreferrer">runtime reconfiguration</a> — một member một lần.
       </p>
       <hr>
 
-      <h2 id="apisix-etcd">etcd trong Apache APISIX</h2>
+      <h2 id="level-7-etcd-manager">Level 7 — kOps + etcd-manager (hiểu sâu)</h2>
       <p>
-        APISIX không lưu routes trên từng data plane node theo kiểu file tĩnh một chiều.
-        Trong mô hình traditional, <code>config_provider: etcd</code> — mọi runtime config
-        (routes, upstreams, consumers, SSL, plugin metadata) nằm dưới một prefix (mặc định
-        <code>/apisix</code>). Các instance APISIX <strong>watch</strong> etcd và cập nhật
-        routing động khi Admin API / Dashboard ghi thay đổi.
+        etcd-manager tồn tại vì <strong>vòng phụ thuộc</strong>: Kubernetes cần etcd, nhưng
+        etcd-operator kiểu chạy trong K8s lại cần API đã sẵn. kOps chạy etcd-manager như
+        static Pod / systemd trên master, <strong>ngoài</strong> vòng đời Deployment thông thường.
       </p>
 
-      <h3 id="apisix-config">Cấu hình tối thiểu</h3>
+      <h3 id="etcd-manager-vong-lap">Vòng lặp điều khiển (tóm tắt từ source etcd-manager)</h3>
+<pre><code class="language-text">Mỗi master chạy etcd-manager controller
+        │
+        ▼
+Gossip discovery + elect "weak leader" (ID thấp nhất)
+        │
+        ▼
+Leader loop:
+  • Peer nào đang host etcd?
+  • Chưa có cluster → bootstrap quorum trên subset peers
+  • Thiếu member → member add (qua Raft)
+  • Thừa / unhealthy member → member remove
+  • Đọc lệnh từ S3 work queue (restore…)
+  • Periodic backup → S3
+        │
+        ▼
+Mount EBS volume (tag) → chạy etcd child process trên node đó
+</code></pre>
+
+      <h3 id="kops-main-events">Hai cụm etcd trên kOps</h3>
+      <table>
+        <thead><tr><th>Cluster</th><th>Lưu gì</th><th>Volume</th></tr></thead>
+        <tbody>
+          <tr><td><code>main</code></td><td>Object K8s chính (Pods, Deployments, Secrets…)</td><td>1 EBS / member / AZ</td></tr>
+          <tr><td><code>events</code></td><td>Events (có thể lớn, churn cao)</td><td>EBS riêng</td></tr>
+        </tbody>
+      </table>
+      <p>
+        HA 3 master → thường <strong>6 volumes</strong>. etcd-manager đảm bảo volume gắn
+        đúng node và process etcd sống — bạn không ssh vào từng member để <code>member add</code>
+        thủ công như kubeadm.
+      </p>
+
+      <h3 id="kops-vs-kubeadm">So sánh vận hành thực tế</h3>
+      <table>
+        <thead><tr><th>Việc</th><th>kubeadm</th><th>kOps + etcd-manager</th></tr></thead>
+        <tbody>
+          <tr><td>Backup</td><td>Tự viết CronJob / script</td><td>Tự động → S3</td></tr>
+          <tr><td>Restore</td><td>etcdutl + sửa manifest</td><td>etcd-manager-ctl + restart manager</td></tr>
+          <tr><td>Replace master</td><td>Thủ công / kubeadm join</td><td>etcd-manager + volume attach</td></tr>
+          <tr><td>Upgrade etcd</td><td>Đổi image static Pod</td><td>etcd-manager rolling</td></tr>
+        </tbody>
+      </table>
+      <hr>
+
+      <h2 id="level-8-maintenance">Level 8 — Maintenance, APISIX, troubleshooting</h2>
+
+      <h3 id="defrag-compaction">8.1 Defrag &amp; compaction</h3>
+      <ul>
+        <li>MVCC làm DB phình → monitor <code>etcd_mvcc_db_total_size_in_bytes</code>.</li>
+        <li><code>etcdctl defrag</code> — tốn I/O; chạy theo lịch (CronJob / etcd-defrag).</li>
+        <li>Alarm <code>NOSPACE</code> → cluster từ chối write → defrag + tăng quota hoặc compaction.</li>
+      </ul>
+<pre><code class="language-bash">etcdctl defrag --endpoints=https://127.0.0.1:2379
+etcdctl alarm disarm  # sau khi xử lý nguyên nhân đầy disk
+</code></pre>
+
+      <h3 id="upgrade">8.2 Upgrade</h3>
+      <p>Luôn backup trước. Upgrade theo minor etcd docs; patch version thường tương thích restore chéo patch.</p>
+
+      <h3 id="apisix">8.3 APISIX — etcd là config store (tách biệt K8s)</h3>
 <pre><code class="language-yaml">deployment:
-  role: traditional
   role_traditional:
     config_provider: etcd
   etcd:
-    host:
-      - "https://etcd-0.etcd:2379"
-      - "https://etcd-1.etcd:2379"
-      - "https://etcd-2.etcd:2379"
+    host: ["https://etcd-0:2379", "https://etcd-1:2379"]
     prefix: "/apisix"
     timeout: 30
+    tls:
+      cert: /path/to/client.pem
+      key:  /path/to/client-key.pem
 </code></pre>
-      <ul>
-        <li><strong>Production:</strong> Helm chart khuyến nghị tắt built-in Bitnami etcd (dev/test) và nối <em>external</em> etcd do bạn vận hành.</li>
-        <li><strong>Multi-tenant config:</strong> nhiều cụm APISIX có thể chia một etcd nếu dùng <code>prefix</code> khác nhau.</li>
-        <li><strong>mTLS:</strong> cấu hình <code>deployment.etcd.tls.cert/key</code> (+ CA tin cậy) khi etcd bắt buộc client cert — xem
-          <a href="https://apisix.apache.org/docs/apisix/mtls/" target="_blank" rel="noopener noreferrer">APISIX mTLS docs</a>.</li>
-      </ul>
+      <p>
+        APISIX <strong>watch</strong> prefix → cập nhật route realtime. Production: external etcd
+        3/5 members, mTLS, backup snapshot riêng. Đừng dùng built-in Bitnami etcd của Helm chart
+        cho prod.
+      </p>
 
-      <h3 id="apisix-backup">Backup APISIX = backup prefix etcd</h3>
-      <p>
-        Mất etcd của APISIX = mất toàn bộ control-plane config gateway (routes/upstreams),
-        dù data plane process vẫn có thể còn cache tạm. Thực tế:
-      </p>
-      <ul>
-        <li>Snapshot cả cụm etcd (giống K8s), <em>hoặc</em></li>
-        <li>Export định kỳ qua Admin API / GitOps nguồn sự thật (IaC) — snapshot vẫn là lớp DR cuối.</li>
-      </ul>
-      <p>
-        Đừng nhầm hai cụm etcd: <strong>etcd của Kubernetes</strong> và
-        <strong>etcd của APISIX</strong> thường là hai lifecycle riêng. Backup một cái không
-        cứu được cái kia.
-      </p>
+      <h3 id="troubleshooting">8.4 Ma trận troubleshooting</h3>
+      <table>
+        <thead><tr><th>Triệu chứng</th><th>Nguyên nhân thường gặp</th><th>Hành động</th></tr></thead>
+        <tbody>
+          <tr><td><code>kubectl</code> timeout, scheduler không schedule</td><td>Mất quorum etcd</td><td><code>endpoint health</code>; restore từ snapshot</td></tr>
+          <tr><td>Chỉ 1 member <code>unhealthy</code></td><td>Disk chậm / network partition</td><td>Replace member (Level 6)</td></tr>
+          <tr><td><code>NOSPACE</code> alarm</td><td>Chưa defrag / quota nhỏ</td><td>defrag + compaction; mở rộng disk</td></tr>
+          <tr><td>Restore “thành công” nhưng cluster trống</td><td>Sai <code>hostPath</code> data-dir</td><td>Kiểm tra mount thực tế trong container</td></tr>
+          <tr><td>Joiner cluster ID mismatch</td><td><code>initial-cluster-state=new</code></td><td>Dùng <code>existing</code> + đúng member list</td></tr>
+          <tr><td>kOps restore không chạy</td><td>Chưa restart etcd-manager</td><td>kill container manager trên all masters</td></tr>
+          <tr><td>APISIX 503 sau etcd restart</td><td>Mất config prefix</td><td>Restore snapshot <code>/apisix</code> hoặc GitOps</td></tr>
+        </tbody>
+      </table>
+
+      <h3 id="ngoai-snapshot">Ngoài snapshot etcd</h3>
+      <p>Snapshot <strong>không</strong> chứa: PV data, image trên node, DNS/LB cloud. DR đầy đủ = etcd + Velero/CSI + IaC.</p>
       <hr>
 
-      <h2 id="checklist">Checklist mang đi làm</h2>
+      <h2 id="cheatsheet-nhanh">Cheatsheet một trang (in ra dán tủ)</h2>
+<pre><code class="language-bash"># === HEALTH ===
+etcdctl member list -w table
+etcdctl endpoint health -w table
+etcdctl endpoint status -w table
+etcdctl alarm list
+
+# === BACKUP ===
+etcdctl snapshot save /backups/etcd-$(date +%F-%H%M).db
+etcdutl --write-out=table snapshot status /backups/etcd-*.db
+
+# === RESTORE (offline — stop apiserver first) ===
+etcdutl --data-dir=/var/lib/etcd-new snapshot restore snapshot.db
+# retarget hostPath etcd-data → /var/lib/etcd-new
+
+# === MEMBER REPLACE ===
+etcdctl member remove &lt;id&gt;
+etcdctl member add NAME --peer-urls=https://IP:2380
+# join: ETCD_INITIAL_CLUSTER_STATE=existing
+
+# === MAINTENANCE ===
+etcdctl defrag --endpoints=...
+etcdctl alarm disarm
+
+# === KOPS ===
+etcd-manager-ctl --backup-store=s3://... list-backups
+# restore → restart etcd-manager pods on all masters
+</code></pre>
+
+      <h2 id="checklist-prod">Checklist production</h2>
       <ul>
-        <li>☐ Có snapshot tự động + verify (<code>etcdutl snapshot status</code>)</li>
-        <li>☐ Có ít nhất một đường lấy backup <em>không</em> phụ thuộc API cluster</li>
-        <li>☐ Snapshot được mã hóa / ACL chặt</li>
-        <li>☐ Đã diễn tập restore trên lab (single rồi mới HA)</li>
-        <li>☐ Biết dừng API server trước khi restore</li>
-        <li>☐ APISIX: etcd external + mTLS + prefix rõ ràng + backup riêng</li>
-        <li>☐ DR phủ cả PV / registry / DNS — không chỉ etcd</li>
+        <li>☐ 3 hoặc 5 members, không autoscale</li>
+        <li>☐ Snapshot tự động + verify + off-site + encrypt</li>
+        <li>☐ Đường lấy backup khi API chết</li>
+        <li>☐ Diễn tập restore (lab → staging)</li>
+        <li>☐ Monitor disk, defrag định kỳ, alert NOSPACE</li>
+        <li>☐ Cert rotation có kế hoạch</li>
+        <li>☐ Biết pattern của cluster: kubeadm vs kOps vs managed</li>
+        <li>☐ APISIX/etcd gateway: cụm riêng, backup riêng</li>
       </ul>
       <hr>
 
@@ -234,9 +545,13 @@ etcdctl --endpoints="$ENDPOINT" \
       <ul>
         <li><a href="https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/" target="_blank" rel="noopener noreferrer">Kubernetes — Operating etcd clusters</a></li>
         <li><a href="https://etcd.io/docs/latest/op-guide/recovery/" target="_blank" rel="noopener noreferrer">etcd — Disaster recovery</a></li>
-        <li><a href="https://apisix.apache.org/docs/apisix/mtls/" target="_blank" rel="noopener noreferrer">Apache APISIX — mTLS / etcd TLS</a></li>
-        <li><a href="https://github.com/apache/apisix-helm-chart/blob/master/charts/apisix/values.yaml" target="_blank" rel="noopener noreferrer">apisix-helm-chart — etcd / externalEtcd values</a></li>
-        <li>Runbook cộng đồng hữu ích: ComputingForgeeks etcd DR, GoLinuxCloud etcdctl/etcdutl walkthrough, Abhishek Pareek (HA restore + bump-revision).</li>
+        <li><a href="https://etcd.io/docs/latest/op-guide/security/" target="_blank" rel="noopener noreferrer">etcd — Transport security (TLS/mTLS)</a></li>
+        <li><a href="https://github.com/kubernetes-sigs/etcd-manager" target="_blank" rel="noopener noreferrer">kubernetes-sigs/etcd-manager</a></li>
+        <li><a href="https://kops.sigs.k8s.io/operations/etcd_backup_restore_encryption/" target="_blank" rel="noopener noreferrer">kOps — etcd backup, restore, encryption</a></li>
+        <li><a href="https://kops.sigs.k8s.io/operations/etcd_administration/" target="_blank" rel="noopener noreferrer">kOps — etcd administration</a></li>
+        <li><a href="https://github.com/kubernetes/kops/blob/master/docs/boot-sequence.md" target="_blank" rel="noopener noreferrer">kOps boot sequence (etcd bring-up)</a></li>
+        <li><a href="https://apisix.apache.org/docs/apisix/mtls/" target="_blank" rel="noopener noreferrer">Apache APISIX — mTLS / etcd</a></li>
+        <li>Ghi chú CKA ngắn: <a href="../../kubestronaut/cka/etcd/">Kubestronaut → etcd</a></li>
       </ul>
 
       <div class="docs-pager">
@@ -247,14 +562,17 @@ etcdctl --endpoints="$ENDPOINT" \
     <aside class="docs-toc">
       <div class="docs-toc-label">On this page</div>
       <nav>
-        <a href="#tai-sao-etcd-quan-trong">Tại sao etcd quan trọng</a>
-        <a href="#etcdctl-vs-etcdutl">etcdctl vs etcdutl</a>
-        <a href="#backup-snapshot">Backup snapshot</a>
-        <a href="#restore-control-plane">Restore control plane</a>
-        <a href="#nhung-gi-khong-nam-trong-snapshot">Ngoài snapshot</a>
-        <a href="#apisix-etcd">APISIX + etcd</a>
-        <a href="#checklist">Checklist</a>
-        <a href="#tham-khao">Tham khảo</a>
+        <a href="#lo-trinh">Lộ trình Level 1–8</a>
+        <a href="#level-1-mental-model">Level 1 — Mental model</a>
+        <a href="#level-2-trien-khai">Level 2 — Triển khai</a>
+        <a href="#level-3-hands-on">Level 3 — Hands-on</a>
+        <a href="#level-4-security">Level 4 — Security</a>
+        <a href="#level-5-backup">Level 5 — Backup/restore</a>
+        <a href="#level-6-membership">Level 6 — Membership</a>
+        <a href="#level-7-etcd-manager">Level 7 — etcd-manager</a>
+        <a href="#level-8-maintenance">Level 8 — Maintenance</a>
+        <a href="#cheatsheet-nhanh">Cheatsheet nhanh</a>
+        <a href="#checklist-prod">Checklist</a>
       </nav>
     </aside>
   </div>

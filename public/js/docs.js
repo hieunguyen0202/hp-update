@@ -102,7 +102,7 @@
     };
     navEl.innerHTML = [
       link("overview", "Overview"),
-      link("etcd", "etcd · backup &amp; APISIX"),
+      link("etcd", "etcd · production cheatsheet"),
     ].join("");
   } else if (navEl && sidebar?.dataset.nav === "kubestronaut") {
     const r = root;
