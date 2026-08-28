@@ -59,6 +59,13 @@
         <span><strong>Updated:</strong> 2026-08</span>
       </div>
 
+      <blockquote>
+        <p>
+          <strong>Sơ đồ trực quan:</strong> phần <a href="#so-do-truc-quan">Sơ đồ etcd cluster (kOps)</a>
+          bên dưới — chuyển từ canvas phân tích (Raft, etcd-manager, trashcan incident, restore S3 queue).
+        </p>
+      </blockquote>
+
       <h2 id="lo-trinh">Lộ trình đọc (Level 1 → 8)</h2>
       <table>
         <thead><tr><th>Level</th><th>Chủ đề</th><th>Khi nào cần</th></tr></thead>
@@ -71,8 +78,145 @@
           <tr><td>6</td><td>Membership: add / remove / replace</td><td>Thay node CP, mở rộng 3→5 members</td></tr>
           <tr><td>7</td><td>kOps + etcd-manager sâu</td><td>Cluster AWS kOps, restore qua S3</td></tr>
           <tr><td>8</td><td>Maintenance + APISIX + troubleshooting</td><td>Defrag, alarm, gateway config store</td></tr>
+          <tr><td>—</td><td><a href="#so-do-truc-quan">Sơ đồ kOps / etcd-manager</a></td><td>Đọc trước Level 7 nếu cluster kOps</td></tr>
+          <tr><td>—</td><td><a href="#labs">Labs thực hành</a></td><td>Backup/restore, HA etcd hands-on</td></tr>
         </tbody>
       </table>
+
+      <h2 id="so-do-truc-quan">Sơ đồ trực quan — etcd cluster (kOps + etcd-manager)</h2>
+      <p>
+        Tab dưới đây tóm tắt nội dung canvas phân tích: Raft quorum, kiến trúc kOps (main + events),
+        control loop, backup S3, sự cố trashcan, và luồng <code>restore-backup</code> qua S3 command queue.
+      </p>
+
+      <div class="etcd-diagrams" id="etcdDiagrams">
+        <div class="etcd-diagram-tabs" role="tablist">
+          <button type="button" class="etcd-diagram-tab is-active" data-panel="raft" role="tab">1. Raft</button>
+          <button type="button" class="etcd-diagram-tab" data-panel="kops" role="tab">2. kOps arch</button>
+          <button type="button" class="etcd-diagram-tab" data-panel="loop" role="tab">3. Control loop</button>
+          <button type="button" class="etcd-diagram-tab" data-panel="backup" role="tab">4. Backup S3</button>
+          <button type="button" class="etcd-diagram-tab" data-panel="incident" role="tab">5. Trashcan</button>
+          <button type="button" class="etcd-diagram-tab" data-panel="restore" role="tab">6. Restore queue</button>
+          <button type="button" class="etcd-diagram-tab" data-panel="compare" role="tab">7. So sánh</button>
+        </div>
+
+        <div class="etcd-diagram-panel is-active" id="panel-raft" role="tabpanel">
+          <h3>Raft write path — 3 member (quorum = 2)</h3>
+<pre><code class="language-text">kube-apiserver ──write──► etcd Leader (master-1)
+                                │
+                   AppendEntries ├──► Follower (master-2)
+                                └──► Follower (master-3)
+                                │
+                   commit khi ≥ 2/3 ACK (quorum)
+</code></pre>
+          <p>Mất 1 node → cluster vẫn hoạt động. Mất 2 node → mất quorum → API không nhận write mới.</p>
+          <div class="etcd-diagram-callout">3 masters chịu 1 failure. Không chạy 2 member (quorum=2, mất 1 là chết).</div>
+        </div>
+
+        <div class="etcd-diagram-panel" id="panel-kops" role="tabpanel">
+          <h3>3 master HA — 2 etcd cluster = 6 EBS volumes</h3>
+<pre><code class="language-text">master-1              master-2              master-3
+├─ kube-apiserver     ├─ kube-apiserver     ├─ kube-apiserver
+├─ etcd-mgr-main      ├─ etcd-mgr-main      ├─ etcd-mgr-main
+│  └─ etcd (Raft)     │  └─ etcd            │  └─ etcd
+│  └─ EBS: main       │  └─ EBS: main       │  └─ EBS: main
+├─ etcd-mgr-events    ├─ etcd-mgr-events    ├─ etcd-mgr-events
+   └─ EBS: events        └─ EBS: events        └─ EBS: events
+</code></pre>
+          <p>
+            etcd-manager mount EBS, spawn etcd child process. Tách <code>main</code> (object K8s) và
+            <code>events</code> (Events churn cao). Xem
+            <a href="https://github.com/kubernetes/kops/blob/master/docs/boot-sequence.md" target="_blank" rel="noopener noreferrer">kOps boot sequence</a>.
+          </p>
+        </div>
+
+        <div class="etcd-diagram-panel" id="panel-loop" role="tabpanel">
+          <h3>etcd-manager Leader control loop</h3>
+          <ol>
+            <li>Gossip + elect weak leader (member ID thấp nhất)</li>
+            <li>Query peers: ai đang host etcd process?</li>
+            <li>Start / add / remove member (qua Raft)</li>
+            <li>Đọc lệnh từ <strong>S3 work queue</strong> (<code>restore-backup</code>…)</li>
+            <li>Periodic backup → S3</li>
+          </ol>
+          <p>
+            Source:
+            <a href="https://github.com/kubernetes-sigs/etcd-manager" target="_blank" rel="noopener noreferrer">etcd-manager README</a>
+            — chạy <em>ngoài</em> vòng phụ thuộc Kubernetes API.
+          </p>
+        </div>
+
+        <div class="etcd-diagram-panel" id="panel-backup" role="tabpanel">
+          <h3>Backup pipeline → S3</h3>
+<pre><code class="language-text">etcd Leader ──snapshot──► gzip ──► S3
+                                    ├─ etcd.backup.gz
+                                    └─ _etcd_backup.meta (etcdVersion, clusterSpec)
+
+s3://&lt;cluster&gt;/backups/etcd/main/
+  control/                    ← spec + command queue
+  2024-05-07T18:28:01Z-000977/
+    etcd.backup.gz
+    _etcd_backup.meta
+</code></pre>
+          <p>
+            Trigger: định kỳ + trước mọi cluster modification. Format:
+            <a href="https://github.com/kubernetes-sigs/etcd-manager/blob/main/docs/backupstructure.md" target="_blank" rel="noopener noreferrer">backup structure</a>.
+          </p>
+        </div>
+
+        <div class="etcd-diagram-panel" id="panel-incident" role="tabpanel">
+          <h3>Sự cố trashcan — pattern production</h3>
+          <ul class="etcd-diagram-timeline">
+            <li><strong>Bình thường</strong> Leader backup định kỳ; 3 member Raft healthy.</li>
+            <li><strong>Trigger</strong> kOps upgrade / restart etcd-manager / mất <code>etcd-cluster-spec</code> trên S3.</li>
+            <li><strong>etcd-manager</strong> Thấy “no cluster” → seed cluster MỚI; move datadir cũ → <code>*-trashcan</code>.</li>
+            <li><strong>Hậu quả</strong> Cluster etcd mới = EMPTY → API mất K8s state.</li>
+            <li><strong>Cứu cánh</strong> Backup S3 gần nhất hoặc salvage từ trashcan → restore queue.</li>
+          </ul>
+<pre><code class="language-text">TRƯỚC:  /mnt/etcd-main/member/     (Raft data)
+SAU:    member/ (EMPTY)  +  member-trashcan/ (data cũ)
+</code></pre>
+          <div class="etcd-diagram-callout etcd-diagram-callout--danger">
+            Runbook thực tế:
+            <a href="https://github.com/kubernetes/kops/issues/16416" target="_blank" rel="noopener noreferrer">kops#16416 — trashcan recovery</a>.
+            Trashcan là plain copy, không phải snapshot chuẩn — cần convert nếu upload manual lên S3.
+          </div>
+        </div>
+
+        <div class="etcd-diagram-panel" id="panel-restore" role="tabpanel">
+          <h3><code>restore-backup</code> → S3 command queue (không gọi thẳng etcd)</h3>
+<pre><code class="language-text">Admin (etcd-manager-ctl restore-backup)
+        │
+        ▼ ghi file
+S3: control/&lt;ts&gt;-000000/_command.json
+        │
+        ▼ restart etcd-manager trên ALL masters
+Leader đọc queue → cluster MỚI → restore etcd.backup.gz
+        │
+        ▼
+kube-apiserver reconnect (data từ backup timestamp)
+</code></pre>
+          <p>
+            <code>restore-backup</code> chỉ <strong>enqueue</strong> lệnh — phải restart etcd-manager để pick up.
+            Restore cả <code>main</code> và <code>events</code> riêng. Chi tiết:
+            <a href="#restore-s3-queue">Level 5.5</a>.
+          </p>
+        </div>
+
+        <div class="etcd-diagram-panel" id="panel-compare" role="tabpanel">
+          <h3>kubeadm vs kOps etcd-manager vs external</h3>
+          <table>
+            <thead><tr><th></th><th>kubeadm</th><th>kOps</th><th>External</th></tr></thead>
+            <tbody>
+              <tr><td>Quản lý</td><td>Bạn (static Pod)</td><td>etcd-manager</td><td>Team riêng</td></tr>
+              <tr><td>Data</td><td>hostPath</td><td>EBS volume</td><td>Dedicated disk</td></tr>
+              <tr><td>Backup</td><td>CronJob tự viết</td><td>Tự động S3</td><td>Tool riêng</td></tr>
+              <tr><td>Restore</td><td>etcdutl manual</td><td>etcd-manager-ctl + S3 queue</td><td>etcdutl / vendor</td></tr>
+              <tr><td>Incident</td><td>Disk/WAL corrupt</td><td>Trashcan + seed new</td><td>Tùy ops</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
       <hr>
 
       <h2 id="level-1-mental-model">Level 1 — Mental model (đọc trước khi chạy lệnh)</h2>
@@ -350,21 +494,71 @@ etcdutl --write-out=table snapshot status /var/backups/etcd/snapshot-*.db
         <li>Start lại apiserver, scheduler, controller-manager; cân nhắc rolling restart kubelet.</li>
       </ol>
 
-      <h3 id="restore-kops">5.5 Restore trên kOps (etcd-manager-ctl)</h3>
+      <h3 id="restore-kops">5.5 Restore trên kOps (etcd-manager-ctl + S3 queue)</h3>
       <p>Theo <a href="https://kops.sigs.k8s.io/operations/etcd_backup_restore_encryption/" target="_blank" rel="noopener noreferrer">kOps backup/restore docs</a>:</p>
       <ul>
         <li>Backup <code>main</code> và <code>events</code> nằm trên S3 cùng cluster state.</li>
-        <li>Dùng <code>etcd-manager-ctl</code> (binary từ <a href="https://github.com/kubernetes-sigs/etcd-manager" target="_blank" rel="noopener noreferrer">kubernetes-sigs/etcd-manager</a>) — không cần chạy trong cluster nếu có quyền S3.</li>
-        <li>Restore là <strong>lệnh async</strong>: ghi vào work queue → restart etcd-manager trên các master
-          (<code>docker stop</code> / kill container <code>k8s_etcd-manager_*</code>) để pick up.</li>
-        <li>Tạo <strong>etcd cluster mới</strong> rồi restore backup lên — không restore “nóng” khi apiserver đang chạy.</li>
+        <li>Dùng <code>etcd-manager-ctl</code> (binary từ <a href="https://github.com/kubernetes-sigs/etcd-manager/releases" target="_blank" rel="noopener noreferrer">etcd-manager releases</a>) — không cần chạy trong cluster nếu có quyền S3.</li>
+        <li>Restore là <strong>lệnh async qua S3</strong> — không gọi thẳng etcd, không restart ngay khi gõ lệnh.</li>
+        <li>Tạo <strong>etcd cluster mới</strong> rồi restore backup lên — data sau backup timestamp bị mất.</li>
       </ul>
-<pre><code class="language-bash"># Liệt kê backup (ví dụ — xem docs etcd-manager-ctl cho flag chính xác theo version)
-etcd-manager-ctl --backup-store=s3://BUCKET/CLUSTER/ list-backups
 
-# Schedule restore (main cluster) — tham khảo kOps docs / version etcd-manager
-etcd-manager-ctl --backup-store=s3://... restore-backup &lt;backup-id&gt;
+      <h4 id="restore-s3-queue">5.5.1 <code>restore-backup</code> ghi gì lên S3?</h4>
+      <p>
+        <code>etcd-manager-ctl restore-backup &lt;timestamp&gt;</code> <strong>không</strong> SSH vào master.
+        Nó đọc <code>control/etcd-cluster-spec</code>, rồi ghi file lệnh:
+      </p>
+<pre><code class="language-text">s3://&lt;bucket&gt;/&lt;cluster&gt;/backups/etcd/main/control/
+  2024-05-07T18:30:00Z-000000/
+    _command.json    ← restore_backup: { backup, cluster_spec }
 </code></pre>
+      <p>
+        Leader etcd-manager đọc <code>_command.json</code> trong control loop (sau khi bạn restart manager trên
+        <strong>tất cả</strong> master). Xem source
+        <a href="https://github.com/kubernetes-sigs/etcd-manager/blob/main/pkg/commands/vfs.go" target="_blank" rel="noopener noreferrer">pkg/commands/vfs.go</a>.
+      </p>
+
+      <h4 id="restore-s3-steps">5.5.2 Các bước restore (timeline)</h4>
+      <table>
+        <thead><tr><th>Bước</th><th>Lệnh / hành động</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><code>list-backups</code> cho <code>main</code> và <code>events</code></td></tr>
+          <tr><td>2</td><td><code>restore-backup &lt;timestamp&gt;</code> — enqueue vào S3 (chưa restore)</td></tr>
+          <tr><td>3</td><td><code>list-commands</code> — verify lệnh trong queue</td></tr>
+          <tr><td>4</td><td><code>crictl stop</code> etcd-manager trên <strong>cả 3 master</strong></td></tr>
+          <tr><td>5</td><td>Leader pick up → cluster mới + restore <code>etcd.backup.gz</code></td></tr>
+          <tr><td>6</td><td>apiserver up; follow-up: restart kubelet nếu pod không start</td></tr>
+        </tbody>
+      </table>
+
+<pre><code class="language-bash"># Liệt kê backup
+etcd-manager-ctl --backup-store=s3://BUCKET/CLUSTER/backups/etcd/main list-backups
+etcd-manager-ctl --backup-store=s3://BUCKET/CLUSTER/backups/etcd/events list-backups
+
+# Enqueue restore (main + events — timestamp khác nhau)
+etcd-manager-ctl --backup-store=s3://BUCKET/CLUSTER/backups/etcd/main \
+  restore-backup 2024-05-07T18:28:01Z-000977
+etcd-manager-ctl --backup-store=s3://BUCKET/CLUSTER/backups/etcd/events \
+  restore-backup 2024-05-07T18:28:05Z-000012
+
+# Verify queue
+etcd-manager-ctl --backup-store=s3://BUCKET/CLUSTER/backups/etcd/main list-commands
+
+# Trigger restore — trên mỗi master
+crictl ps | grep etcd-manager
+crictl stop &lt;container-id&gt;
+</code></pre>
+      <p>
+        Plan B (trashcan): scp <code>*-trashcan</code> →
+        <code>etcdctl snapshot restore --skip-hash-check</code> → upload manual backup lên S3 →
+        <code>restore-backup</code>. Tham khảo
+        <a href="https://github.com/kubernetes/kops/issues/16416" target="_blank" rel="noopener noreferrer">kops#16416</a> và
+        <a href="https://medium.com/@youest/kubernetes-ha-kops-etcd-cluster-recovery-4a71a1f1bc90" target="_blank" rel="noopener noreferrer">HA kOps etcd recovery (Medium)</a>.
+      </p>
+      <p>
+        Sau restore: apiserver có thể chậm (reconcile state) —
+        <a href="https://github.com/kubernetes-sigs/etcd-manager/blob/main/docs/restore-troubleshooting.md" target="_blank" rel="noopener noreferrer">restore troubleshooting</a>.
+      </p>
       <hr>
 
       <h2 id="level-6-membership">Level 6 — Multi-member: add / remove / replace</h2>
@@ -437,6 +631,7 @@ Mount EBS volume (tag) → chạy etcd child process trên node đó
       </p>
 
       <h3 id="kops-vs-kubeadm">So sánh vận hành thực tế</h3>
+      <p>Xem thêm tab <a href="#so-do-truc-quan">Sơ đồ → So sánh</a> và mục <a href="#su-co-trashcan">Sự cố trashcan</a>.</p>
       <table>
         <thead><tr><th>Việc</th><th>kubeadm</th><th>kOps + etcd-manager</th></tr></thead>
         <tbody>
@@ -446,6 +641,23 @@ Mount EBS volume (tag) → chạy etcd child process trên node đó
           <tr><td>Upgrade etcd</td><td>Đổi image static Pod</td><td>etcd-manager rolling</td></tr>
         </tbody>
       </table>
+
+      <h3 id="su-co-trashcan">Sự cố: etcd-manager seed cluster mới + trashcan</h3>
+      <p>
+        Khi mất file control trên S3 (<code>etcd-cluster-spec</code>, <code>etcd-cluster-created</code>) hoặc
+        etcd-manager restart sau upgrade, leader có thể coi cluster chưa tồn tại → bootstrap cluster
+        <strong>mới rỗng</strong>, archive datadir cũ vào <code>*-trashcan</code> trên EBS.
+        etcd-manager <strong>không hỏi</strong> trước khi làm việc này.
+      </p>
+      <ul>
+        <li>
+          <strong>Nguyên nhân phổ biến:</strong> S3 lifecycle xóa control files —
+          <a href="https://github.com/kopeio/etcd-manager/issues/299" target="_blank" rel="noopener noreferrer">etcd-manager#299</a>.
+        </li>
+        <li><strong>Dấu hiệu:</strong> API trống / cluster “mới”; log <code>no cluster spec set - must seed new cluster</code>.</li>
+        <li><strong>Cứu:</strong> <code>restore-backup</code> từ S3; hoặc salvage trashcan (<a href="https://github.com/kubernetes/kops/issues/16416" target="_blank" rel="noopener noreferrer">kops#16416</a>).</li>
+        <li><strong>Phòng:</strong> không lifecycle-delete <code>backups/etcd/*/control/</code>; monitor backup freshness.</li>
+      </ul>
       <hr>
 
       <h2 id="level-8-maintenance">Level 8 — Maintenance, APISIX, troubleshooting</h2>
@@ -496,7 +708,61 @@ etcdctl alarm disarm  # sau khi xử lý nguyên nhân đầy disk
       </table>
 
       <h3 id="ngoai-snapshot">Ngoài snapshot etcd</h3>
-      <p>Snapshot <strong>không</strong> chứa: PV data, image trên node, DNS/LB cloud. DR đầy đủ = etcd + Velero/CSI + IaC.</p>
+      <p>Snapshot <strong>không</strong> chứa: PV data, image trên node, DNS/LB cloud. DR đầy đủ = etcd + <a href="https://github.com/vmware-tanzu/velero" target="_blank" rel="noopener noreferrer">Velero</a> + IaC.</p>
+      <hr>
+
+      <h2 id="labs">Labs &amp; tài liệu thực hành</h2>
+      <p>Lộ trình gợi ý: lab backup/restore kubeadm → member add/remove → (nếu có) kOps restore qua S3.</p>
+      <table>
+        <thead><tr><th>Lab / tài liệu</th><th>Nội dung</th><th>Level</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><a href="https://devopsdynamo.com/labs/etcd-lab" target="_blank" rel="noopener noreferrer">DevOpsDynamo — etcd lab</a></td>
+            <td>Snapshot save/restore, cert flags, sửa manifest — simulator CKA-style</td>
+            <td>3–5</td>
+          </tr>
+          <tr>
+            <td><a href="https://luc.run/practice/cka/operations/" target="_blank" rel="noopener noreferrer">luc.run — CKA Operations</a></td>
+            <td>Day-2: upgrade, etcd backup/restore overview</td>
+            <td>3–5</td>
+          </tr>
+          <tr>
+            <td><a href="https://luc.run/practice/cka/operations/exercises/etcd/" target="_blank" rel="noopener noreferrer">luc.run — etcd exercise</a></td>
+            <td>Backup + restore hands-on (stop apiserver, đổi data-dir)</td>
+            <td>5</td>
+          </tr>
+          <tr>
+            <td><a href="https://go-cloud-native.com/kubernetes/cka-exam-task-backup-and-restore-etcd" target="_blank" rel="noopener noreferrer">Go Cloud Native — CKA etcd task</a></td>
+            <td>Backup/restore trên minikube</td>
+            <td>5</td>
+          </tr>
+          <tr>
+            <td><a href="https://killer.sh/" target="_blank" rel="noopener noreferrer">killer.sh</a></td>
+            <td>CKA/CKAD mock exam (có task etcd)</td>
+            <td>Exam prep</td>
+          </tr>
+          <tr>
+            <td><a href="https://alexsusanu.com/kb/k8s/cka_ha_cluster_guide/" target="_blank" rel="noopener noreferrer">Alex Susanu — HA cluster guide</a></td>
+            <td>Stacked vs external etcd, quorum, kubeadm HA</td>
+            <td>1–2, 6</td>
+          </tr>
+          <tr>
+            <td><a href="../../kubestronaut/cka/etcd/">Kubestronaut → etcd (CKA)</a></td>
+            <td>Ghi chú ngắn CKA curriculum</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td>VM + kubeadm (tự dựng)</td>
+            <td>3 CP stacked HA: member add, snapshot, restore HA pattern Level 5.4</td>
+            <td>5–6</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <strong>HA etcd lab path (4 tuần gợi ý):</strong> Tuần 1 — Raft + health trên 1 node;
+        Tuần 2 — kubeadm 3 CP + member list; Tuần 3 — backup/restore + member replace;
+        Tuần 4 — đọc kOps S3 restore docs + diễn tập trashcan scenario trên paper.
+      </p>
       <hr>
 
       <h2 id="cheatsheet-nhanh">Cheatsheet một trang (in ra dán tủ)</h2>
@@ -541,18 +807,84 @@ etcd-manager-ctl --backup-store=s3://... list-backups
       </ul>
       <hr>
 
-      <h2 id="tham-khao">Tham khảo</h2>
-      <ul>
-        <li><a href="https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/" target="_blank" rel="noopener noreferrer">Kubernetes — Operating etcd clusters</a></li>
-        <li><a href="https://etcd.io/docs/latest/op-guide/recovery/" target="_blank" rel="noopener noreferrer">etcd — Disaster recovery</a></li>
-        <li><a href="https://etcd.io/docs/latest/op-guide/security/" target="_blank" rel="noopener noreferrer">etcd — Transport security (TLS/mTLS)</a></li>
-        <li><a href="https://github.com/kubernetes-sigs/etcd-manager" target="_blank" rel="noopener noreferrer">kubernetes-sigs/etcd-manager</a></li>
-        <li><a href="https://kops.sigs.k8s.io/operations/etcd_backup_restore_encryption/" target="_blank" rel="noopener noreferrer">kOps — etcd backup, restore, encryption</a></li>
-        <li><a href="https://kops.sigs.k8s.io/operations/etcd_administration/" target="_blank" rel="noopener noreferrer">kOps — etcd administration</a></li>
-        <li><a href="https://github.com/kubernetes/kops/blob/master/docs/boot-sequence.md" target="_blank" rel="noopener noreferrer">kOps boot sequence (etcd bring-up)</a></li>
-        <li><a href="https://apisix.apache.org/docs/apisix/mtls/" target="_blank" rel="noopener noreferrer">Apache APISIX — mTLS / etcd</a></li>
-        <li>Ghi chú CKA ngắn: <a href="../../kubestronaut/cka/etcd/">Kubestronaut → etcd</a></li>
-      </ul>
+      <h2 id="tham-khao">Tham khảo &amp; link tổng hợp</h2>
+      <p>Tất cả nguồn dùng khi research bài này — etcd core, Kubernetes, kOps, etcd-manager, incident runbooks, labs.</p>
+
+      <div class="etcd-ref-grid">
+        <div>
+          <h3>etcd official</h3>
+          <ul>
+            <li><a href="https://etcd.io/docs/latest/" target="_blank" rel="noopener noreferrer">etcd.io — Documentation</a></li>
+            <li><a href="https://etcd.io/docs/v3.5/op-guide/recovery/" target="_blank" rel="noopener noreferrer">Disaster recovery (v3.5)</a></li>
+            <li><a href="https://etcd.io/docs/latest/op-guide/runtime-configuration/" target="_blank" rel="noopener noreferrer">Runtime reconfiguration (member add/remove)</a></li>
+            <li><a href="https://etcd.io/docs/latest/op-guide/security/" target="_blank" rel="noopener noreferrer">Transport security (TLS/mTLS)</a></li>
+            <li><a href="https://github.com/etcd-io/etcd/releases" target="_blank" rel="noopener noreferrer">etcd releases</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Kubernetes</h3>
+          <ul>
+            <li><a href="https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/" target="_blank" rel="noopener noreferrer">Operating etcd clusters</a></li>
+            <li><a href="https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/" target="_blank" rel="noopener noreferrer">Encryption at rest (Secrets)</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>kOps</h3>
+          <ul>
+            <li><a href="https://kops.sigs.k8s.io/operations/etcd_administration/" target="_blank" rel="noopener noreferrer">etcd administration</a></li>
+            <li><a href="https://kops.sigs.k8s.io/operations/etcd_backup_restore_encryption/" target="_blank" rel="noopener noreferrer">Backup, restore, encryption</a></li>
+            <li><a href="https://github.com/kubernetes/kops/blob/master/docs/boot-sequence.md" target="_blank" rel="noopener noreferrer">Boot sequence (etcd bring-up)</a></li>
+            <li><a href="https://github.com/kubernetes/kops/blob/master/docs/operations/etcd_backup_restore_encryption.md" target="_blank" rel="noopener noreferrer">etcd_backup_restore_encryption.md (source)</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>etcd-manager</h3>
+          <ul>
+            <li><a href="https://github.com/kubernetes-sigs/etcd-manager" target="_blank" rel="noopener noreferrer">kubernetes-sigs/etcd-manager</a></li>
+            <li><a href="https://github.com/kubernetes-sigs/etcd-manager/releases" target="_blank" rel="noopener noreferrer">etcd-manager-ctl releases</a></li>
+            <li><a href="https://github.com/kubernetes-sigs/etcd-manager/blob/main/docs/backupstructure.md" target="_blank" rel="noopener noreferrer">Backup structure (S3 format)</a></li>
+            <li><a href="https://github.com/kubernetes-sigs/etcd-manager/blob/main/docs/restore-troubleshooting.md" target="_blank" rel="noopener noreferrer">Restore troubleshooting</a></li>
+            <li><a href="https://github.com/kubernetes-sigs/etcd-manager/blob/main/pkg/commands/vfs.go" target="_blank" rel="noopener noreferrer">S3 command queue (source)</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Incident &amp; recovery runbooks</h3>
+          <ul>
+            <li><a href="https://github.com/kubernetes/kops/issues/16416" target="_blank" rel="noopener noreferrer">kops#16416 — trashcan recovery</a></li>
+            <li><a href="https://github.com/kopeio/etcd-manager/issues/299" target="_blank" rel="noopener noreferrer">etcd-manager#299 — mất cluster-spec</a></li>
+            <li><a href="https://github.com/coreos/etcd/issues/5418" target="_blank" rel="noopener noreferrer">coreos/etcd#5418 — etcd on clouds (kOps pattern)</a></li>
+            <li><a href="https://medium.com/@youest/kubernetes-ha-kops-etcd-cluster-recovery-4a71a1f1bc90" target="_blank" rel="noopener noreferrer">HA kOps etcd recovery (Medium)</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Gateway &amp; DR</h3>
+          <ul>
+            <li><a href="https://apisix.apache.org/docs/apisix/mtls/" target="_blank" rel="noopener noreferrer">Apache APISIX — mTLS / etcd</a></li>
+            <li><a href="https://github.com/vmware-tanzu/velero" target="_blank" rel="noopener noreferrer">Velero — cluster backup (ngoài etcd)</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Labs &amp; học thêm</h3>
+          <ul>
+            <li><a href="https://devopsdynamo.com/labs/etcd-lab" target="_blank" rel="noopener noreferrer">DevOpsDynamo etcd lab</a></li>
+            <li><a href="https://luc.run/practice/cka/operations/" target="_blank" rel="noopener noreferrer">luc.run — CKA operations</a></li>
+            <li><a href="https://luc.run/practice/cka/operations/exercises/etcd/" target="_blank" rel="noopener noreferrer">luc.run — etcd exercise</a></li>
+            <li><a href="https://go-cloud-native.com/kubernetes/cka-exam-task-backup-and-restore-etcd" target="_blank" rel="noopener noreferrer">Go Cloud Native — CKA etcd</a></li>
+            <li><a href="https://killer.sh/" target="_blank" rel="noopener noreferrer">killer.sh — mock exam</a></li>
+            <li><a href="https://alexsusanu.com/kb/k8s/cka_ha_cluster_guide/" target="_blank" rel="noopener noreferrer">HA cluster guide (Alex Susanu)</a></li>
+            <li><a href="../../kubestronaut/cka/etcd/">Kubestronaut CKA → etcd</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Trong blog này</h3>
+          <ul>
+            <li><a href="#so-do-truc-quan">Sơ đồ trực quan (7 tab)</a></li>
+            <li><a href="#restore-s3-queue">restore-backup → S3 queue</a></li>
+            <li><a href="#su-co-trashcan">Sự cố trashcan</a></li>
+            <li><a href="#labs">Labs thực hành</a></li>
+          </ul>
+        </div>
+      </div>
 
       <div class="docs-pager">
         <a href="../">← Tech Hub</a>
@@ -563,19 +895,42 @@ etcd-manager-ctl --backup-store=s3://... list-backups
       <div class="docs-toc-label">On this page</div>
       <nav>
         <a href="#lo-trinh">Lộ trình Level 1–8</a>
+        <a href="#so-do-truc-quan">Sơ đồ kOps</a>
         <a href="#level-1-mental-model">Level 1 — Mental model</a>
         <a href="#level-2-trien-khai">Level 2 — Triển khai</a>
         <a href="#level-3-hands-on">Level 3 — Hands-on</a>
         <a href="#level-4-security">Level 4 — Security</a>
         <a href="#level-5-backup">Level 5 — Backup/restore</a>
+        <a href="#restore-s3-queue">restore-backup S3 queue</a>
         <a href="#level-6-membership">Level 6 — Membership</a>
         <a href="#level-7-etcd-manager">Level 7 — etcd-manager</a>
+        <a href="#su-co-trashcan">Sự cố trashcan</a>
         <a href="#level-8-maintenance">Level 8 — Maintenance</a>
+        <a href="#labs">Labs</a>
         <a href="#cheatsheet-nhanh">Cheatsheet nhanh</a>
         <a href="#checklist-prod">Checklist</a>
+        <a href="#tham-khao">Tham khảo</a>
       </nav>
     </aside>
   </div>
   <script src="../../../js/docs.js"></script>
+  <script>
+    (function () {
+      var root = document.getElementById("etcdDiagrams");
+      if (!root) return;
+      var tabs = root.querySelectorAll(".etcd-diagram-tab");
+      var panels = root.querySelectorAll(".etcd-diagram-panel");
+      tabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          var id = tab.getAttribute("data-panel");
+          tabs.forEach(function (t) { t.classList.remove("is-active"); });
+          panels.forEach(function (p) { p.classList.remove("is-active"); });
+          tab.classList.add("is-active");
+          var panel = document.getElementById("panel-" + id);
+          if (panel) panel.classList.add("is-active");
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
