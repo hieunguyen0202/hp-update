@@ -1486,15 +1486,15 @@ body.docs::before {
 
 .ex-flash-deck {
   position: relative;
-  width: min(100%, 380px);
-  min-height: 420px;
+  width: min(100%, 420px);
+  min-height: 560px;
 }
 
 .ex-flash-card {
   position: relative;
   z-index: 2;
   width: 100%;
-  min-height: 420px;
+  min-height: 560px;
   border: 0;
   border-radius: 22px;
   background: transparent;
@@ -1689,7 +1689,7 @@ body.docs::before {
 
 .ex-flash-example {
   margin-top: 4px;
-  padding: 14px 14px 12px;
+  padding: 12px 12px 10px;
   border-radius: 14px;
   background: #e2e8f0;
 }
@@ -1702,7 +1702,7 @@ body.docs::before {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   font-size: 0.82rem;
   font-weight: 700;
   color: #0f172a;
@@ -1721,12 +1721,56 @@ body.docs::before {
   font-weight: 800;
 }
 
+.ex-flash-contexts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ex-flash-ctx {
+  padding: 10px 11px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+}
+
+.docs-main .ex-flash-ctx-title {
+  margin: 0 0 6px;
+  font-size: 0.84rem;
+  font-weight: 750;
+  line-height: 1.35;
+  color: #0f172a;
+}
+
+.docs-main .ex-flash-ctx-sit {
+  margin: 0 0 8px;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: #334155;
+}
+
+.docs-main .ex-flash-ctx-sit span,
+.docs-main .ex-flash-ctx-label {
+  font-weight: 700;
+  color: #0f172a;
+}
+
 .docs-main .ex-flash-example-en {
   margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.55;
+  font-size: 0.92rem;
+  line-height: 1.5;
   color: #020617;
   font-weight: 500;
+}
+
+.docs-main .ex-flash-hl {
+  background: #fde68a;
+  color: #0f172a;
+  font-weight: 750;
+  padding: 0 3px;
+  border-radius: 4px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 .ex-flash-example-speak {
@@ -1749,10 +1793,10 @@ body.docs::before {
 }
 
 .docs-main .ex-flash-example-vi {
-  margin: 8px 0 0;
-  font-size: 0.88rem;
-  line-height: 1.5;
-  color: #334155;
+  margin: 6px 0 0;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: #1e293b;
 }
 
 .ex-flash-grade {
@@ -1844,11 +1888,11 @@ body.docs::before {
 
 @media (max-width: 640px) {
   .ex-flash-deck {
-    min-height: 400px;
+    min-height: 520px;
   }
 
   .ex-flash-card {
-    min-height: 400px;
+    min-height: 520px;
   }
 
   .ex-flash-peek {

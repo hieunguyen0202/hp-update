@@ -582,29 +582,211 @@
     return POS_VI[key] || pos;
   };
 
-  const findExampleForWord = (w) => {
-    const keys = [w.word, w.form]
-      .map((s) => String(s || "").toLowerCase().trim())
-      .filter(Boolean);
-    if (!keys.length) return null;
-    for (const sent of root.querySelectorAll(".ex-sent")) {
-      const en = sent.querySelector(".ex-en");
-      const vi = sent.querySelector(".ex-vi");
-      if (!en) continue;
-      const marks = [...en.querySelectorAll("mark.vocab")];
-      const hit = marks.some((m) => {
-        const dw = String(m.dataset.word || m.textContent || "")
-          .toLowerCase()
-          .trim();
-        return keys.some((k) => dw === k || dw.includes(k) || k.includes(dw));
-      });
-      if (!hit) continue;
-      return {
-        en: plainFromEn(en),
-        vi: vi ? vi.textContent.replace(/\s+/g, " ").trim() : "",
-      };
+  const escapeRegExp = (s) => String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+  const aAn = (word) => (/^[aeiou]/i.test(String(word || "").trim()) ? "an" : "a");
+
+  const highlightWordHtml = (sentence, form) => {
+    const s = String(sentence || "");
+    const f = String(form || "").trim();
+    if (!s) return "";
+    if (!f) return escapeHtml(s);
+    const re = new RegExp(`\\b(${escapeRegExp(f)})\\b`, "gi");
+    let out = "";
+    let last = 0;
+    let m;
+    let hit = false;
+    while ((m = re.exec(s))) {
+      hit = true;
+      out += escapeHtml(s.slice(last, m.index));
+      out += `<mark class="ex-flash-hl">${escapeHtml(m[1])}</mark>`;
+      last = m.index + m[0].length;
     }
-    return null;
+    out += escapeHtml(s.slice(last));
+    if (!hit) {
+      const idx = s.toLowerCase().indexOf(f.toLowerCase());
+      if (idx >= 0) {
+        return (
+          escapeHtml(s.slice(0, idx)) +
+          `<mark class="ex-flash-hl">${escapeHtml(s.slice(idx, idx + f.length))}</mark>` +
+          escapeHtml(s.slice(idx + f.length))
+        );
+      }
+    }
+    return out;
+  };
+
+  /** Hand-tuned spoken contexts for words where templates feel wrong. */
+  const FLASH_OVERRIDES = {
+    chubby: [
+      {
+        title: "1. Trêu đùa vui vẻ giữa bạn bè (Về ngoại hình)",
+        situation: "Bạn nhận xét về cơ thể của chính mình hoặc bạn thân sau kỳ nghỉ lễ.",
+        en: "Look at me, I'm getting a bit chubby after all those Tet holidays!",
+        vi: "Nhìn tôi xem, mập lên một chút sau mấy ngày Tết rồi đây này!",
+      },
+      {
+        title: "2. Khen ngợi đáng yêu (Khen trẻ con hoặc thú cưng)",
+        situation: "Nhìn thấy một em bé hoặc chú cún cưng có thân hình mũm mĩm, tròn trịa.",
+        en: "Aww, look at those chubby little hands! So cute!",
+        vi: "Ôi, nhìn đôi bàn tay mũm mĩm kìa! Dễ thương quá!",
+      },
+      {
+        title: "3. Nói về các bộ phận trên cơ thể (Má, tay, chân)",
+        situation: "Nhận xét về đặc điểm cơ thể một cách gần gũi, không chê bai.",
+        en: "She has such a cute chubby face, it makes her look younger.",
+        vi: "Cậu ấy có khuôn mặt mũm mĩm trông rất đáng yêu, khiến cậu ấy trông trẻ hơn.",
+      },
+    ],
+  };
+
+  const buildSpokenContexts = (w) => {
+    const form = String(w.form || "").trim();
+    const vi = String(w.vi || form).trim();
+    const pos = String(w.pos || "")
+      .toLowerCase()
+      .trim();
+    const key = form.toLowerCase();
+    if (FLASH_OVERRIDES[key]) return FLASH_OVERRIDES[key];
+
+    const art = aAn(form);
+
+    if (pos === "adjective") {
+      return [
+        {
+          title: "1. Trêu đùa vui vẻ giữa bạn bè",
+          situation: "Bạn nhận xét vui về bản thân hoặc bạn thân trong hội thoại thường ngày.",
+          en: `Look at me — I'm getting a bit ${form} these days!`,
+          vi: `Nhìn tôi xem — dạo này hơi ${vi} rồi đây này!`,
+        },
+        {
+          title: "2. Khen ngợi nhẹ nhàng / đáng yêu",
+          situation: "Khen một người, em bé hoặc thú cưng một cách gần gũi, tích cực.",
+          en: `Aww, you look so ${form} today — I love that!`,
+          vi: `Ôi, hôm nay trông ${vi} quá — mình thích kiểu đó!`,
+        },
+        {
+          title: "3. Mô tả trung lập trong nói chuyện",
+          situation: "Miêu tả đặc điểm một cách tự nhiên, không công kích.",
+          en: `She has such a ${form} vibe; it makes her easy to talk to.`,
+          vi: `Cậu ấy mang vibe khá ${vi}, nên nói chuyện rất dễ chịu.`,
+        },
+      ];
+    }
+
+    if (pos === "verb") {
+      return [
+        {
+          title: "1. Kể về thói quen hàng ngày",
+          situation: "Bạn nói với bạn bè về việc mình thường làm.",
+          en: `I usually ${form} for a few minutes before I start work.`,
+          vi: `Mình thường ${vi} vài phút trước khi bắt đầu làm việc.`,
+        },
+        {
+          title: "2. Khuyên / gợi ý bạn bè",
+          situation: "Đưa lời khuyên ngắn trong hội thoại đời thường.",
+          en: `If you're tired, just ${form} a little — it really helps.`,
+          vi: `Nếu mệt thì cứ ${vi} một chút đi — giúp lắm đó.`,
+        },
+        {
+          title: "3. Kể lại một khoảnh khắc",
+          situation: "Kể chuyện ngắn với bạn: chuyện vừa xảy ra.",
+          en: `Yesterday I had to ${form} in front of everyone. So awkward!`,
+          vi: `Hôm qua mình phải ${vi} trước mọi người. Ngại hết sức!`,
+        },
+      ];
+    }
+
+    if (pos === "adverb") {
+      return [
+        {
+          title: "1. Kể cách mình làm việc gì đó",
+          situation: "Mô tả cách hành động trong nói chuyện hàng ngày.",
+          en: `I finished it ${form}, so don't worry.`,
+          vi: `Mình làm xong khá ${vi}, nên khỏi lo nhé.`,
+        },
+        {
+          title: "2. Làm mềm ý kiến với bạn",
+          situation: "Đưa ý kiến nhẹ nhàng, không cứng.",
+          en: `I ${form} disagree, but I see your point.`,
+          vi: `Mình ${vi} không đồng ý lắm, nhưng hiểu ý bạn.`,
+        },
+        {
+          title: "3. Thêm chi tiết khi kể chuyện",
+          situation: "Kể lại sự việc và nhấn cách thức diễn ra.",
+          en: `She answered ${form}, and everyone went quiet.`,
+          vi: `Cô ấy trả lời ${vi}, rồi cả phòng im hết.`,
+        },
+      ];
+    }
+
+    if (pos === "phrase" || form.includes(" ")) {
+      return [
+        {
+          title: "1. Nói chuyện đời thường với bạn",
+          situation: "Dùng cụm từ tự nhiên khi tán gẫu.",
+          en: `To be honest, I ${form} more than I planned.`,
+          vi: `Thật ra thì mình ${vi} nhiều hơn dự định.`,
+        },
+        {
+          title: "2. Hỏi / xác nhận nhanh",
+          situation: "Hỏi bạn trong tình huống thực tế.",
+          en: `Wait — did you just ${form}?`,
+          vi: `Khoan đã — bạn vừa ${vi} á?`,
+        },
+        {
+          title: "3. Kể trải nghiệm ngắn",
+          situation: "Chia sẻ trải nghiệm gần đây.",
+          en: `Last weekend I tried to ${form}, and it felt weird at first.`,
+          vi: `Cuối tuần trước mình thử ${vi}, lúc đầu thấy hơi lạ.`,
+        },
+      ];
+    }
+
+    if (pos === "interjection") {
+      return [
+        {
+          title: "1. Chào hỏi / bắt chuyện",
+          situation: "Mở lời với bạn hoặc đồng nghiệp.",
+          en: `${form}! Long time no see.`,
+          vi: `${vi}! Lâu rồi không gặp.`,
+        },
+        {
+          title: "2. Phản ứng nhanh trong hội thoại",
+          situation: "Đáp lại một tin vui hoặc bất ngờ.",
+          en: `${form}! That's awesome news.`,
+          vi: `${vi}! Tin vui quá đi.`,
+        },
+        {
+          title: "3. Kết thúc cuộc gọi / tạm biệt",
+          situation: "Kết thúc cuộc trò chuyện một cách tự nhiên.",
+          en: `Alright, ${form}! Talk later.`,
+          vi: `Thôi được, ${vi}! Nói chuyện sau nhé.`,
+        },
+      ];
+    }
+
+    // noun (default) + other POS
+    return [
+      {
+        title: "1. Nói về đời sống hàng ngày",
+        situation: "Bạn kể với bạn bè về thứ đang dùng / gặp trong ngày.",
+        en: `I always keep ${art} ${form} in my bag, just in case.`,
+        vi: `Mình luôn để ${vi} trong túi, phòng khi cần.`,
+      },
+      {
+        title: "2. Hỏi hoặc nhờ giúp thực tế",
+        situation: "Hỏi người khác trong tình huống gần gũi.",
+        en: `Hey, can I borrow your ${form} for a second?`,
+        vi: `Ê, cho mình mượn ${vi} một chút được không?`,
+      },
+      {
+        title: "3. Miêu tả cho bạn nghe",
+        situation: "Giải thích ngắn gọn khi kể chuyện.",
+        en: `The ${form} was smaller than I expected, but it worked fine.`,
+        vi: `${vi.charAt(0).toUpperCase()}${vi.slice(1)} nhỏ hơn mình nghĩ, nhưng dùng ổn.`,
+      },
+    ];
   };
 
   const speakText = (text) => {
@@ -646,7 +828,7 @@
         <div class="ex-flash-head">
           <div>
             <h2>Flashcards</h2>
-            <p class="ex-flash-hint">Lật thẻ kiểu LanGeek — xem từ / IPA, rồi định nghĩa + ví dụ. Đánh giá <strong>Chính xác</strong> hoặc <strong>Không chính xác</strong> để luyện từ mới.</p>
+            <p class="ex-flash-hint">Mỗi từ có <strong>3 ngữ cảnh nói hàng ngày</strong> (có highlight từ mới) — học nghĩa và cách dùng khi nói chuyện. Đánh giá <strong>Chính xác</strong> / <strong>Không chính xác</strong>.</p>
           </div>
           <div class="ex-flash-controls">
             <div class="ex-flash-stats" aria-live="polite">
@@ -666,6 +848,12 @@
       if (match) match.insertAdjacentElement("afterend", section);
       else if (vocabSec) vocabSec.insertAdjacentElement("beforebegin", section);
       else root.insertAdjacentElement("afterend", section);
+    } else {
+      const hint = section.querySelector(".ex-flash-hint");
+      if (hint) {
+        hint.innerHTML =
+          'Mỗi từ có <strong>3 ngữ cảnh nói hàng ngày</strong> (có highlight từ mới) — học nghĩa và cách dùng khi nói chuyện. Đánh giá <strong>Chính xác</strong> / <strong>Không chính xác</strong>.';
+      }
     }
 
     const stage = document.getElementById("flashStage");
@@ -705,6 +893,27 @@
       return deck[idx + 1];
     };
 
+    const renderContextsHtml = (w, contexts) => {
+      const items = contexts
+        .map((c, i) => {
+          const enHtml = highlightWordHtml(c.en, w.form);
+          return `<article class="ex-flash-ctx">
+            <h3 class="ex-flash-ctx-title">${escapeHtml(c.title)}</h3>
+            <p class="ex-flash-ctx-sit"><span>Tình huống:</span> ${escapeHtml(c.situation)}</p>
+            <p class="ex-flash-example-en">
+              <span class="ex-flash-ctx-label">Câu:</span> ${enHtml}
+              <button type="button" class="ex-flash-example-speak" data-speak-en="${escapeHtml(c.en)}" aria-label="Nghe ví dụ ${i + 1}">▶</button>
+            </p>
+            <p class="ex-flash-example-vi"><span class="ex-flash-ctx-label">Dịch:</span> ${escapeHtml(c.vi)}</p>
+          </article>`;
+        })
+        .join("");
+      return `<div class="ex-flash-example">
+        <div class="ex-flash-example-label">Ví dụ · 3 ngữ cảnh nói</div>
+        <div class="ex-flash-contexts">${items}</div>
+      </div>`;
+    };
+
     const renderCard = () => {
       const w = current();
       flipped = false;
@@ -723,7 +932,7 @@
 
       const pos = posLabel(w.pos);
       const ipa = w.ipa ? `/${w.ipa}/` : "";
-      const example = findExampleForWord(w);
+      const contexts = buildSpokenContexts(w);
       const next = peekWord();
 
       stage.innerHTML = `
@@ -759,25 +968,7 @@
                 <p class="ex-flash-gloss"><em>${escapeHtml(w.form)}</em>${
                   pos ? ` · ${escapeHtml(pos)}` : ""
                 }${ipa ? ` · ${escapeHtml(ipa)}` : ""}</p>
-                ${
-                  example
-                    ? `<div class="ex-flash-example">
-                        <div class="ex-flash-example-label">Ví dụ</div>
-                        <p class="ex-flash-example-en">
-                          ${escapeHtml(example.en)}
-                          <button type="button" class="ex-flash-example-speak" id="flashSpeakEx" aria-label="Nghe ví dụ">▶</button>
-                        </p>
-                        ${
-                          example.vi
-                            ? `<p class="ex-flash-example-vi">${escapeHtml(example.vi)}</p>`
-                            : ""
-                        }
-                      </div>`
-                    : `<div class="ex-flash-example ex-flash-example--empty">
-                        <div class="ex-flash-example-label">Gợi ý</div>
-                        <p class="ex-flash-example-en">Hãy tự đặt một câu với <strong>${escapeHtml(w.form)}</strong>.</p>
-                      </div>`
-                }
+                ${renderContextsHtml(w, contexts)}
               </div>
               <div class="ex-flash-grade">
                 <button type="button" class="ex-flash-grade-btn ex-flash-grade-btn--miss" id="flashMissBtn">
@@ -835,12 +1026,12 @@
           }
         });
 
-      const speakEx = document.getElementById("flashSpeakEx");
-      speakEx &&
-        speakEx.addEventListener("click", (e) => {
+      stage.querySelectorAll("[data-speak-en]").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
           e.stopPropagation();
-          if (example && example.en) speakText(example.en);
+          speakText(btn.getAttribute("data-speak-en") || "");
         });
+      });
 
       const advance = (ok) => {
         if (ok) known += 1;
