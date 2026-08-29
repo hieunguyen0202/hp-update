@@ -616,7 +616,7 @@
     return out;
   };
 
-  /** Hand-tuned spoken contexts for words where templates feel wrong. */
+  /** Hand-tuned spoken contexts — used when meaning is easy to get wrong. */
   const FLASH_OVERRIDES = {
     chubby: [
       {
@@ -638,155 +638,491 @@
         vi: "Cậu ấy có khuôn mặt mũm mĩm trông rất đáng yêu, khiến cậu ấy trông trẻ hơn.",
       },
     ],
+    spot: [
+      {
+        title: "1. So gương / chăm sóc da",
+        situation: "Bạn vừa thức khuya và nhìn thấy mụn trên mặt.",
+        en: "Ugh, I got a huge spot on my chin after staying up all night.",
+        vi: "Ước, mình lên một cái mụn to trên cằm sau khi thức trắng đêm.",
+      },
+      {
+        title: "2. Than thở với bạn thân",
+        situation: "Nhắn tin / nói chuyện về da trước buổi gặp mặt.",
+        en: "Please don't take close-up photos today — I've got a spot right on my nose.",
+        vi: "Hôm nay đừng chụp cận mặt mình nhé — đang có mụn ngay trên mũi.",
+      },
+      {
+        title: "3. Hỏi nhẹ về skincare",
+        situation: "Hỏi bạn từng bị mụn cách xử lý thế nào.",
+        en: "What do you use when you get a spot before an important meeting?",
+        vi: "Bạn dùng gì khi bị mụn trước một buổi họp quan trọng vậy?",
+      },
+    ],
+    childish: [
+      {
+        title: "1. Phàn nàn nhẹ với bạn thân",
+        situation: "Kể về người yêu / bạn bè phản ứng thiếu chín chắn.",
+        en: "He ignored my texts all day then got angry — that was so childish.",
+        vi: "Anh ấy cả ngày không trả lời tin nhắn rồi lại giận — trẻ con quá.",
+      },
+      {
+        title: "2. Nói về đồng nghiệp / nhóm làm việc",
+        situation: "Nhận xét hành vi thiếu chuyên nghiệp trong công việc.",
+        en: "Arguing about who gets the last snack in a meeting feels childish.",
+        vi: "Cãi nhau trong họp chỉ vì miếng snack cuối cùng trông rất trẻ con.",
+      },
+      {
+        title: "3. Tự nhận / đùa về bản thân",
+        situation: "Bạn tự nhận mình hơi nông nổi rồi cười trừ.",
+        en: "Okay, maybe I was being childish — I should just apologize.",
+        vi: "Thôi được, có lẽ mình hơi trẻ con — chắc nên xin lỗi thôi.",
+      },
+    ],
   };
 
-  const buildSpokenContexts = (w) => {
+  const shortenAroundWord = (text, form, maxLen = 130) => {
+    const s = String(text || "").replace(/\s+/g, " ").trim();
+    if (s.length <= maxLen) return s;
+    const f = String(form || "").toLowerCase();
+    const idx = s.toLowerCase().indexOf(f);
+    if (idx < 0) return `${s.slice(0, maxLen - 1)}…`;
+    const start = Math.max(0, idx - 40);
+    const end = Math.min(s.length, idx + f.length + 70);
+    let chunk = s.slice(start, end).trim();
+    if (start > 0) chunk = `…${chunk}`;
+    if (end < s.length) chunk = `${chunk}…`;
+    return chunk;
+  };
+
+  const passageContextsForWord = (w) => {
+    const form = String(w.form || "").trim();
+    const keys = [w.word, w.form]
+      .map((s) => String(s || "").toLowerCase().trim())
+      .filter(Boolean);
+    if (!keys.length) return [];
+    const out = [];
+    const titles = [
+      "1. Trong đoạn luyện đọc",
+      "2. Ngữ cảnh khác trong bài",
+      "3. Luyện nói lại câu trong bài",
+    ];
+    for (const sent of root.querySelectorAll(".ex-sent")) {
+      const enEl = sent.querySelector(".ex-en");
+      const viEl = sent.querySelector(".ex-vi");
+      if (!enEl) continue;
+      const marks = [...enEl.querySelectorAll("mark.vocab")];
+      const hit = marks.some((m) => {
+        const dw = String(m.dataset.word || m.textContent || "")
+          .toLowerCase()
+          .trim();
+        return keys.some((k) => dw === k || dw.includes(k) || k.includes(dw));
+      });
+      if (!hit && !keys.some((k) => plainFromEn(enEl).toLowerCase().includes(k))) {
+        continue;
+      }
+      const en = shortenAroundWord(plainFromEn(enEl), form);
+      const viRaw = viEl ? viEl.textContent.replace(/\s+/g, " ").trim() : "";
+      const vi = shortenAroundWord(viRaw, w.vi || form, 140);
+      if (!en) continue;
+      out.push({
+        title: titles[out.length] || `${out.length + 1}. Trong bài đọc`,
+        situation: "Câu lấy từ đoạn exercise — nói lại cho tự nhiên, đúng nghĩa từ.",
+        en,
+        vi,
+      });
+      if (out.length >= 3) break;
+    }
+    return out;
+  };
+
+  const classifySense = (w) => {
+    const form = String(w.form || "").toLowerCase();
+    const vi = String(w.vi || "").toLowerCase();
+    const pos = String(w.pos || "").toLowerCase();
+    const word = String(w.word || "").toLowerCase();
+    const blob = `${form} ${vi} ${word}`;
+
+    if (
+      /mụn|nốt mụn|trứng cá|\bpimple\b|\bacne\b|\bblemi\w*\b|\bblackhead\b|\bzit\b/.test(blob) ||
+      (form === "spot" && /mụn/.test(vi))
+    ) {
+      return "skin_blemish";
+    }
+    if (
+      form === "spot" &&
+      /chỗ|nơi|vị trí|địa điểm|place|location|area|seat/.test(vi)
+    ) {
+      return "place";
+    }
+    if (
+      /mũm|béo|gầy|mảnh|tròn trịa|thừa cân|gầy guộc|plump|chubby|skinny|slim|overweight|\bfat\b|\bthin\b|\blean\b/.test(
+        blob
+      )
+    ) {
+      return "body_size";
+    }
+    if (
+      pos === "adjective" &&
+      /trẻ con|ích kỷ|thô lỗ|kiêu|hách|bướng|ghen|cáu|đỏng đảnh|childish|selfish|rude|arrogant|mean|nasty|moody|stubborn|jealous|immature|petty/.test(
+        blob
+      )
+    ) {
+      return "adj_negative";
+    }
+    if (
+      pos === "adjective" &&
+      /đẹp|xinh|lộng lẫy|hấp dẫn|dễ thương|stunning|gorgeous|pretty|handsome|attractive|lovely|cute|charming|elegant/.test(
+        blob
+      )
+    ) {
+      return "adj_positive";
+    }
+    if (
+      pos === "adjective" &&
+      /vui|buồn|tức|lo|hạnh phúc|tức giận|happy|sad|angry|worried|excited|nervous|calm|stressed|afraid|scared/.test(
+        blob
+      )
+    ) {
+      return "adj_emotion";
+    }
+    if (
+      pos === "noun" &&
+      /tay|chân|mặt|tóc|mắt|mũi|miệng|vai|lưng|cằm|má|da|hand|face|hair|eye|leg|arm|skin|chin|cheek|nose|mouth|shoulder/.test(
+        blob
+      )
+    ) {
+      return "body_part";
+    }
+    if (pos === "noun" && /chỗ|nơi|vị trí|địa điểm|place|location|area|spot|seat|venue/.test(blob)) {
+      return "place";
+    }
+    if (pos === "verb") return "verb_action";
+    if (pos === "adverb") return "adverb";
+    if (pos === "adjective") return "adj_general";
+    if (pos === "interjection") return "interjection";
+    if (pos === "phrase" || form.includes(" ")) return "phrase";
+    if (pos === "noun") return "noun_thing";
+    return "generic";
+  };
+
+  const senseContexts = (w, sense) => {
     const form = String(w.form || "").trim();
     const vi = String(w.vi || form).trim();
-    const pos = String(w.pos || "")
-      .toLowerCase()
-      .trim();
-    const key = form.toLowerCase();
-    if (FLASH_OVERRIDES[key]) return FLASH_OVERRIDES[key];
-
     const art = aAn(form);
 
-    if (pos === "adjective") {
-      return [
+    const banks = {
+      skin_blemish: [
         {
-          title: "1. Trêu đùa vui vẻ giữa bạn bè",
-          situation: "Bạn nhận xét vui về bản thân hoặc bạn thân trong hội thoại thường ngày.",
-          en: `Look at me — I'm getting a bit ${form} these days!`,
-          vi: `Nhìn tôi xem — dạo này hơi ${vi} rồi đây này!`,
+          title: "1. So gương buổi sáng",
+          situation: "Bạn vừa ngủ dậy và thấy da có vấn đề.",
+          en: `Oh no — I've got ${art} ${form} right on my forehead.`,
+          vi: `Trời — mình lên ${vi} ngay trên trán rồi.`,
         },
         {
-          title: "2. Khen ngợi nhẹ nhàng / đáng yêu",
-          situation: "Khen một người, em bé hoặc thú cưng một cách gần gũi, tích cực.",
-          en: `Aww, you look so ${form} today — I love that!`,
-          vi: `Ôi, hôm nay trông ${vi} quá — mình thích kiểu đó!`,
+          title: "2. Than với bạn trước buổi gặp mặt",
+          situation: "Muốn trông gọn gàng nhưng da đang xấu.",
+          en: `Can you even see this ${form}? Makeup isn't covering it at all.`,
+          vi: `Bạn có thấy ${vi} này không? Makeup chẳng che được gì.`,
         },
         {
-          title: "3. Mô tả trung lập trong nói chuyện",
-          situation: "Miêu tả đặc điểm một cách tự nhiên, không công kích.",
-          en: `She has such a ${form} vibe; it makes her easy to talk to.`,
-          vi: `Cậu ấy mang vibe khá ${vi}, nên nói chuyện rất dễ chịu.`,
+          title: "3. Xin lời khuyên skincare",
+          situation: "Hỏi bạn / anh chị cách xử lý nhẹ nhàng.",
+          en: `Whenever I get ${art} ${form}, I just use a simple cream — what about you?`,
+          vi: `Hễ bị ${vi} là mình chỉ bôi kem đơn giản — còn bạn thì sao?`,
         },
-      ];
-    }
-
-    if (pos === "verb") {
-      return [
+      ],
+      body_size: [
         {
-          title: "1. Kể về thói quen hàng ngày",
-          situation: "Bạn nói với bạn bè về việc mình thường làm.",
-          en: `I usually ${form} for a few minutes before I start work.`,
-          vi: `Mình thường ${vi} vài phút trước khi bắt đầu làm việc.`,
+          title: "1. Trêu đùa vui về bản thân",
+          situation: "Nói vui sau kỳ nghỉ hoặc ăn uống nhiều.",
+          en: `I've been feeling a bit ${form} after the holidays.`,
+          vi: `Sau kỳ nghỉ mình thấy hơi ${vi} rồi.`,
         },
         {
-          title: "2. Khuyên / gợi ý bạn bè",
-          situation: "Đưa lời khuyên ngắn trong hội thoại đời thường.",
-          en: `If you're tired, just ${form} a little — it really helps.`,
-          vi: `Nếu mệt thì cứ ${vi} một chút đi — giúp lắm đó.`,
+          title: "2. Khen đáng yêu (trẻ nhỏ / thú cưng)",
+          situation: "Nhìn thấy hình dáng tròn trịa dễ thương.",
+          en: `Look at those ${form} cheeks — so adorable!`,
+          vi: `Nhìn má ${vi} kìa — đáng yêu quá!`,
         },
         {
-          title: "3. Kể lại một khoảnh khắc",
-          situation: "Kể chuyện ngắn với bạn: chuyện vừa xảy ra.",
-          en: `Yesterday I had to ${form} in front of everyone. So awkward!`,
-          vi: `Hôm qua mình phải ${vi} trước mọi người. Ngại hết sức!`,
+          title: "3. Mô tả trung lập, không công kích",
+          situation: "Nhắc đặc điểm ngoại hình một cách nhẹ nhàng.",
+          en: `He's always been a little ${form}, and it suits him.`,
+          vi: `Anh ấy vốn hơi ${vi}, mà trông cũng hợp.`,
         },
-      ];
-    }
-
-    if (pos === "adverb") {
-      return [
+      ],
+      adj_negative: [
         {
-          title: "1. Kể cách mình làm việc gì đó",
-          situation: "Mô tả cách hành động trong nói chuyện hàng ngày.",
-          en: `I finished it ${form}, so don't worry.`,
-          vi: `Mình làm xong khá ${vi}, nên khỏi lo nhé.`,
+          title: "1. Phàn nàn nhẹ với bạn thân",
+          situation: "Kể về hành vi làm bạn khó chịu.",
+          en: `Leaving me on read and then blaming me is pretty ${form}.`,
+          vi: `Bỏ đọc tin nhắn rồi đổ lỗi cho mình thì khá là ${vi}.`,
         },
         {
-          title: "2. Làm mềm ý kiến với bạn",
-          situation: "Đưa ý kiến nhẹ nhàng, không cứng.",
-          en: `I ${form} disagree, but I see your point.`,
+          title: "2. Nhận xét trong học tập / công việc",
+          situation: "Nói về thái độ thiếu chín chắn của ai đó.",
+          en: `Throwing a tantrum over feedback feels ${form} in a team.`,
+          vi: `Nổi cáu vì góp ý trong team trông rất ${vi}.`,
+        },
+        {
+          title: "3. Tự nhận và sửa sai",
+          situation: "Bạn thừa nhận mình hơi quá đà.",
+          en: `I was being ${form} earlier — sorry about that.`,
+          vi: `Lúc nãy mình hơi ${vi} — xin lỗi nhé.`,
+        },
+      ],
+      adj_positive: [
+        {
+          title: "1. Khen bạn / người thân",
+          situation: "Khen ngoại hình hoặc khí chất một cách chân thành.",
+          en: `You look really ${form} tonight — did you change your hair?`,
+          vi: `Tối nay bạn trông ${vi} quá — đổi kiểu tóc à?`,
+        },
+        {
+          title: "2. Nhận xét khi xem ảnh",
+          situation: "Comment vui trên ảnh bạn đăng.",
+          en: `This photo is so ${form} — you should post it!`,
+          vi: `Ảnh này ${vi} quá — đăng lên đi!`,
+        },
+        {
+          title: "3. Giới thiệu ai đó với bạn khác",
+          situation: "Miêu tả người mới một cách tích cực.",
+          en: `You'll like her — she's smart and genuinely ${form}.`,
+          vi: `Bạn sẽ thích cô ấy — vừa thông minh vừa ${vi} thật.`,
+        },
+      ],
+      adj_emotion: [
+        {
+          title: "1. Chia sẻ cảm xúc hôm nay",
+          situation: "Trả lời câu 'How are you?' một cách thật.",
+          en: `To be honest, I've been feeling ${form} all morning.`,
+          vi: `Thành thật thì sáng nay mình thấy khá ${vi}.`,
+        },
+        {
+          title: "2. Hỏi thăm bạn",
+          situation: "Thấy bạn khác thường và hỏi nhẹ.",
+          en: `You seem a bit ${form} — want to talk about it?`,
+          vi: `Trông bạn hơi ${vi} — muốn nói chuyện không?`,
+        },
+        {
+          title: "3. Kể lại phản ứng",
+          situation: "Kể chuyện vừa xảy ra và cảm xúc lúc đó.",
+          en: `When I heard the news, I felt suddenly ${form}.`,
+          vi: `Khi nghe tin, mình bỗng thấy ${vi}.`,
+        },
+      ],
+      adj_general: [
+        {
+          title: "1. Miêu tả tình huống thực tế",
+          situation: "Dùng tính từ để nói rõ hơn về việc đang bàn.",
+          en: `The whole situation feels ${form} if you ask me.`,
+          vi: `Theo mình thì cả chuyện này khá ${vi}.`,
+        },
+        {
+          title: "2. Hỏi ý kiến bạn",
+          situation: "Muốn xác nhận cảm nhận của mình.",
+          en: `Does this sound ${form} to you, or am I overthinking?`,
+          vi: `Bạn thấy chuyện này có ${vi} không, hay mình đang nghĩ nhiều?`,
+        },
+        {
+          title: "3. So sánh nhẹ trong hội thoại",
+          situation: "Đối chiếu hai lựa chọn / hai người.",
+          en: `This option is more ${form} than the last one.`,
+          vi: `Lựa chọn này ${vi} hơn cái trước.`,
+        },
+      ],
+      body_part: [
+        {
+          title: "1. Nói về khó chịu / đau nhẹ",
+          situation: "Than với bạn về cơ thể.",
+          en: `My ${form} still hurts from yesterday's workout.`,
+          vi: `${vi.charAt(0).toUpperCase()}${vi.slice(1)} mình vẫn đau vì tập hôm qua.`,
+        },
+        {
+          title: "2. Nhờ nhìn / kiểm tra giúp",
+          situation: "Hỏi bạn có thấy gì bất thường không.",
+          en: `Can you check my ${form}? It looks a bit red.`,
+          vi: `Nhìn giúp ${vi} mình với — đang hơi đỏ.`,
+        },
+        {
+          title: "3. Mô tả ngoại hình trung lập",
+          situation: "Nhắc đặc điểm cơ thể khi kể chuyện.",
+          en: `She covered her ${form} with a scarf because of the wind.`,
+          vi: `Cô ấy che ${vi} bằng khăn vì gió.`,
+        },
+      ],
+      place: [
+        {
+          title: "1. Rủ bạn gặp mặt",
+          situation: "Hẹn chỗ gặp trong thành phố.",
+          en: `Let's meet at our usual ${form} after work.`,
+          vi: `Tan làm gặp nhau ở ${vi} quen thuộc nhé.`,
+        },
+        {
+          title: "2. Hỏi đường / chỗ ngồi",
+          situation: "Đang tìm chỗ trong quán / sự kiện.",
+          en: `Is there a quiet ${form} near the window?`,
+          vi: `Gần cửa sổ còn ${vi} yên tĩnh không?`,
+        },
+        {
+          title: "3. Kể về chuyến đi",
+          situation: "Chia sẻ trải nghiệm vừa đi về.",
+          en: `That ${form} was crowded, but the view was worth it.`,
+          vi: `${vi.charAt(0).toUpperCase()}${vi.slice(1)} đông thật, nhưng view đáng lắm.`,
+        },
+      ],
+      noun_thing: [
+        {
+          title: "1. Giải thích nghĩa khi tán gẫu",
+          situation: "Bạn hỏi từ này nghĩa gì trong ngữ cảnh đang nói.",
+          en: `In this context, "${form}" basically means "${vi}".`,
+          vi: `Trong ngữ cảnh này, "${form}" đại khái nghĩa là "${vi}".`,
+        },
+        {
+          title: "2. Nhắc lại từ vừa học",
+          situation: "Tự luyện nói: dùng từ mới trong câu tự nhiên.",
+          en: `I just learned "${form}" — people use it when they talk about ${vi}.`,
+          vi: `Mình vừa học "${form}" — người ta dùng khi nói về ${vi}.`,
+        },
+        {
+          title: "3. Xác nhận cách dùng",
+          situation: "Hỏi bạn bản xứ / bạn giỏi tiếng Anh.",
+          en: `Would you say "${form}" here, or is there a more natural word?`,
+          vi: `Ở đây nói "${form}" có ổn không, hay có từ tự nhiên hơn?`,
+        },
+      ],
+      verb_action: [
+        {
+          title: "1. Kể thói quen",
+          situation: "Nói về việc mình thường làm.",
+          en: `I try to ${form} every morning if I have time.`,
+          vi: `Có thời gian là mình cố ${vi} mỗi sáng.`,
+        },
+        {
+          title: "2. Đưa lời khuyên ngắn",
+          situation: "Gợi ý bạn trong tình huống thực tế.",
+          en: `If that happens again, just ${form} and stay calm.`,
+          vi: `Nếu lại thế thì cứ ${vi} và giữ bình tĩnh.`,
+        },
+        {
+          title: "3. Kể chuyện vừa xảy ra",
+          situation: "Thuật lại một khoảnh khắc gần đây.",
+          en: `I had to ${form} quickly before anyone noticed.`,
+          vi: `Mình phải ${vi} thật nhanh trước khi ai để ý.`,
+        },
+      ],
+      adverb: [
+        {
+          title: "1. Mô tả cách làm việc",
+          situation: "Kể bạn mình hoàn thành việc ra sao.",
+          en: `I finished the report ${form}, so I went home early.`,
+          vi: `Mình làm xong report khá ${vi} nên về sớm.`,
+        },
+        {
+          title: "2. Làm mềm ý kiến",
+          situation: "Không đồng ý hoàn toàn nhưng lịch sự.",
+          en: `I ${form} disagree, but I get what you mean.`,
           vi: `Mình ${vi} không đồng ý lắm, nhưng hiểu ý bạn.`,
         },
         {
-          title: "3. Thêm chi tiết khi kể chuyện",
-          situation: "Kể lại sự việc và nhấn cách thức diễn ra.",
-          en: `She answered ${form}, and everyone went quiet.`,
-          vi: `Cô ấy trả lời ${vi}, rồi cả phòng im hết.`,
+          title: "3. Thêm chi tiết khi kể",
+          situation: "Nhấn mạnh cách sự việc diễn ra.",
+          en: `She answered ${form}, and the room went quiet.`,
+          vi: `Cô ấy trả lời ${vi}, rồi cả phòng im bặt.`,
         },
-      ];
-    }
+      ],
+      phrase: [
+        {
+          title: "1. Dùng cụm trong tán gẫu",
+          situation: "Nói chuyện đời thường với bạn.",
+          en: `I need to ${form} before the weekend gets busy.`,
+          vi: `Mình cần ${vi} trước khi cuối tuần bận rộn.`,
+        },
+        {
+          title: "2. Hỏi xác nhận",
+          situation: "Không chắc mình nghe đúng.",
+          en: `Sorry — did you say we should ${form}?`,
+          vi: `Khoan — bạn bảo mình nên ${vi} à?`,
+        },
+        {
+          title: "3. Chia sẻ trải nghiệm",
+          situation: "Kể việc vừa thử làm.",
+          en: `I tried to ${form} yesterday, and it actually helped.`,
+          vi: `Hôm qua mình thử ${vi}, hóa ra cũng hữu ích.`,
+        },
+      ],
+      interjection: [
+        {
+          title: "1. Chào / bắt chuyện",
+          situation: "Gặp bạn sau một thời gian.",
+          en: `${form}! I didn't expect to see you here.`,
+          vi: `${vi}! Không ngờ gặp bạn ở đây.`,
+        },
+        {
+          title: "2. Phản ứng nhanh",
+          situation: "Đáp lại tin vui hoặc bất ngờ.",
+          en: `${form}! That's great news.`,
+          vi: `${vi}! Tin vui quá.`,
+        },
+        {
+          title: "3. Kết thúc hội thoại",
+          situation: "Tạm biệt một cách tự nhiên.",
+          en: `Alright, ${form}! Message me later.`,
+          vi: `Thôi, ${vi}! Nhắn mình sau nhé.`,
+        },
+      ],
+      generic: [
+        {
+          title: "1. Học nghĩa trong hội thoại",
+          situation: "Bạn hỏi và bạn giải thích ngắn.",
+          en: `"${form}" means "${vi}" in the sentence we just read.`,
+          vi: `"${form}" trong câu vừa rồi nghĩa là "${vi}".`,
+        },
+        {
+          title: "2. Tự luyện nói",
+          situation: "Đặt câu tối giản để nhớ từ.",
+          en: `Today's word is ${form} — I should use it in a real chat.`,
+          vi: `Từ hôm nay là ${form} — mình nên dùng trong chat thật.`,
+        },
+        {
+          title: "3. Kiểm tra cách dùng",
+          situation: "Nhờ bạn chỉnh nếu nghe không tự nhiên.",
+          en: `Is it natural to use "${form}" when talking about ${vi}?`,
+          vi: `Dùng "${form}" khi nói về ${vi} có tự nhiên không?`,
+        },
+      ],
+    };
 
-    if (pos === "phrase" || form.includes(" ")) {
-      return [
-        {
-          title: "1. Nói chuyện đời thường với bạn",
-          situation: "Dùng cụm từ tự nhiên khi tán gẫu.",
-          en: `To be honest, I ${form} more than I planned.`,
-          vi: `Thật ra thì mình ${vi} nhiều hơn dự định.`,
-        },
-        {
-          title: "2. Hỏi / xác nhận nhanh",
-          situation: "Hỏi bạn trong tình huống thực tế.",
-          en: `Wait — did you just ${form}?`,
-          vi: `Khoan đã — bạn vừa ${vi} á?`,
-        },
-        {
-          title: "3. Kể trải nghiệm ngắn",
-          situation: "Chia sẻ trải nghiệm gần đây.",
-          en: `Last weekend I tried to ${form}, and it felt weird at first.`,
-          vi: `Cuối tuần trước mình thử ${vi}, lúc đầu thấy hơi lạ.`,
-        },
-      ];
-    }
+    return banks[sense] || banks.generic;
+  };
 
-    if (pos === "interjection") {
-      return [
-        {
-          title: "1. Chào hỏi / bắt chuyện",
-          situation: "Mở lời với bạn hoặc đồng nghiệp.",
-          en: `${form}! Long time no see.`,
-          vi: `${vi}! Lâu rồi không gặp.`,
-        },
-        {
-          title: "2. Phản ứng nhanh trong hội thoại",
-          situation: "Đáp lại một tin vui hoặc bất ngờ.",
-          en: `${form}! That's awesome news.`,
-          vi: `${vi}! Tin vui quá đi.`,
-        },
-        {
-          title: "3. Kết thúc cuộc gọi / tạm biệt",
-          situation: "Kết thúc cuộc trò chuyện một cách tự nhiên.",
-          en: `Alright, ${form}! Talk later.`,
-          vi: `Thôi được, ${vi}! Nói chuyện sau nhé.`,
-        },
-      ];
-    }
+  const buildSpokenContexts = (w) => {
+    const key = String(w.form || "")
+      .toLowerCase()
+      .trim();
+    if (FLASH_OVERRIDES[key]) return FLASH_OVERRIDES[key];
 
-    // noun (default) + other POS
-    return [
-      {
-        title: "1. Nói về đời sống hàng ngày",
-        situation: "Bạn kể với bạn bè về thứ đang dùng / gặp trong ngày.",
-        en: `I always keep ${art} ${form} in my bag, just in case.`,
-        vi: `Mình luôn để ${vi} trong túi, phòng khi cần.`,
-      },
-      {
-        title: "2. Hỏi hoặc nhờ giúp thực tế",
-        situation: "Hỏi người khác trong tình huống gần gũi.",
-        en: `Hey, can I borrow your ${form} for a second?`,
-        vi: `Ê, cho mình mượn ${vi} một chút được không?`,
-      },
-      {
-        title: "3. Miêu tả cho bạn nghe",
-        situation: "Giải thích ngắn gọn khi kể chuyện.",
-        en: `The ${form} was smaller than I expected, but it worked fine.`,
-        vi: `${vi.charAt(0).toUpperCase()}${vi.slice(1)} nhỏ hơn mình nghĩ, nhưng dùng ổn.`,
-      },
-    ];
+    const fromPassage = passageContextsForWord(w);
+    if (fromPassage.length >= 3) return fromPassage;
+
+    const sense = classifySense(w);
+    const fromSense = senseContexts(w, sense);
+    if (!fromPassage.length) return fromSense;
+
+    const merged = fromPassage.slice();
+    for (const item of fromSense) {
+      if (merged.length >= 3) break;
+      const dup = merged.some(
+        (m) => m.en.toLowerCase() === item.en.toLowerCase()
+      );
+      if (!dup) {
+        merged.push({
+          ...item,
+          title: `${merged.length + 1}. ${item.title.replace(/^\d+\.\s*/, "")}`,
+        });
+      }
+    }
+    return merged.slice(0, 3);
   };
 
   const speakText = (text) => {
