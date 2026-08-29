@@ -559,6 +559,323 @@
   };
   initMatchGame();
 
+  /* ── Flashcards (LanGeek-style front / back + self-grade) ───────────── */
+  const POS_VI = {
+    noun: "Danh từ",
+    verb: "Động từ",
+    adjective: "Tính từ",
+    adverb: "Trạng từ",
+    preposition: "Giới từ",
+    conjunction: "Liên từ",
+    pronoun: "Đại từ",
+    interjection: "Thán từ",
+    determiner: "Hạn định từ",
+    phrase: "Cụm từ",
+    numeral: "Số từ",
+  };
+
+  const posLabel = (pos) => {
+    const key = String(pos || "")
+      .toLowerCase()
+      .trim();
+    if (!key) return "";
+    return POS_VI[key] || pos;
+  };
+
+  const findExampleForWord = (w) => {
+    const keys = [w.word, w.form]
+      .map((s) => String(s || "").toLowerCase().trim())
+      .filter(Boolean);
+    if (!keys.length) return null;
+    for (const sent of root.querySelectorAll(".ex-sent")) {
+      const en = sent.querySelector(".ex-en");
+      const vi = sent.querySelector(".ex-vi");
+      if (!en) continue;
+      const marks = [...en.querySelectorAll("mark.vocab")];
+      const hit = marks.some((m) => {
+        const dw = String(m.dataset.word || m.textContent || "")
+          .toLowerCase()
+          .trim();
+        return keys.some((k) => dw === k || dw.includes(k) || k.includes(dw));
+      });
+      if (!hit) continue;
+      return {
+        en: plainFromEn(en),
+        vi: vi ? vi.textContent.replace(/\s+/g, " ").trim() : "",
+      };
+    }
+    return null;
+  };
+
+  const speakText = (text) => {
+    if (!text || !window.speechSynthesis) return;
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "en-US";
+    u.rate = rateRange ? Number(rateRange.value) : 0.95;
+    const pick = () => {
+      const list = speechSynthesis.getVoices().filter((v) => /^en/i.test(v.lang));
+      if (voiceSelect && list.length) {
+        const idx = Number(voiceSelect.value || 0);
+        if (list[idx]) return list[idx];
+      }
+      return list[0] || null;
+    };
+    const v = pick();
+    if (v) {
+      u.voice = v;
+      u.lang = v.lang || "en-US";
+    }
+    speechSynthesis.speak(u);
+  };
+
+  const initFlashcards = () => {
+    const vocab = loadVocab();
+    let section = document.getElementById("exFlash");
+    if (!vocab.length) {
+      if (section) section.hidden = true;
+      return;
+    }
+
+    if (!section) {
+      section = document.createElement("section");
+      section.className = "ex-flash";
+      section.id = "exFlash";
+      section.setAttribute("aria-label", "Vocabulary flashcards");
+      section.innerHTML = `
+        <div class="ex-flash-head">
+          <div>
+            <h2>Flashcards</h2>
+            <p class="ex-flash-hint">Lật thẻ kiểu LanGeek — xem từ / IPA, rồi định nghĩa + ví dụ. Đánh giá <strong>Chính xác</strong> hoặc <strong>Không chính xác</strong> để luyện từ mới.</p>
+          </div>
+          <div class="ex-flash-controls">
+            <div class="ex-flash-stats" aria-live="polite">
+              <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
+              <span>Known <strong id="flashKnown">0</strong></span>
+              <span>Learning <strong id="flashMiss">0</strong></span>
+            </div>
+            <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
+            <button type="button" class="ex-btn primary" id="btnFlashRestart">Restart</button>
+          </div>
+        </div>
+        <div class="ex-flash-stage" id="flashStage"></div>
+        <p class="ex-flash-msg" id="flashMsg" hidden></p>
+      `;
+      const match = document.getElementById("exMatch");
+      const vocabSec = document.querySelector(".ex-vocab");
+      if (match) match.insertAdjacentElement("afterend", section);
+      else if (vocabSec) vocabSec.insertAdjacentElement("beforebegin", section);
+      else root.insertAdjacentElement("afterend", section);
+    }
+
+    const stage = document.getElementById("flashStage");
+    const elIndex = document.getElementById("flashIndex");
+    const elTotal = document.getElementById("flashTotal");
+    const elKnown = document.getElementById("flashKnown");
+    const elMiss = document.getElementById("flashMiss");
+    const elMsg = document.getElementById("flashMsg");
+    const btnShuffle = document.getElementById("btnFlashShuffle");
+    const btnRestart = document.getElementById("btnFlashRestart");
+    if (!stage) return;
+
+    let deck = [];
+    let idx = 0;
+    let known = 0;
+    let learning = 0;
+    let flipped = false;
+
+    const showMsg = (text, ok) => {
+      if (!elMsg) return;
+      elMsg.hidden = !text;
+      elMsg.textContent = text || "";
+      elMsg.classList.toggle("ok", !!ok);
+    };
+
+    const renderStats = () => {
+      if (elIndex) elIndex.textContent = String(deck.length ? idx + 1 : 0);
+      if (elTotal) elTotal.textContent = String(deck.length);
+      if (elKnown) elKnown.textContent = String(known);
+      if (elMiss) elMiss.textContent = String(learning);
+    };
+
+    const current = () => deck[idx] || null;
+
+    const peekWord = () => {
+      if (idx + 1 >= deck.length) return null;
+      return deck[idx + 1];
+    };
+
+    const renderCard = () => {
+      const w = current();
+      flipped = false;
+      showMsg("");
+      renderStats();
+      if (!w) {
+        stage.innerHTML = `<div class="ex-flash-done">
+          <p>Hoàn thành bộ thẻ.</p>
+          <p class="ex-flash-done-meta">Known ${known} · Learning ${learning}</p>
+          <button type="button" class="ex-btn primary" id="btnFlashAgain">Luyện lại</button>
+        </div>`;
+        const again = document.getElementById("btnFlashAgain");
+        again && again.addEventListener("click", () => restart(true));
+        return;
+      }
+
+      const pos = posLabel(w.pos);
+      const ipa = w.ipa ? `/${w.ipa}/` : "";
+      const example = findExampleForWord(w);
+      const next = peekWord();
+
+      stage.innerHTML = `
+        <div class="ex-flash-deck">
+          <div class="ex-flash-card${flipped ? " is-flipped" : ""}" id="flashCard" tabindex="0" role="button" aria-label="Flashcard ${escapeHtml(w.form)}">
+            <div class="ex-flash-face ex-flash-face--front">
+              <button type="button" class="ex-flash-speak" id="flashSpeak" aria-label="Phát âm ${escapeHtml(w.form)}">
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+              </button>
+              <div class="ex-flash-front-body">
+                <div class="ex-flash-term">${escapeHtml(w.form)}</div>
+                ${pos ? `<div class="ex-flash-pos">[${escapeHtml(pos)}]</div>` : ""}
+                ${
+                  ipa
+                    ? `<div class="ex-flash-ipa"><span class="ex-flash-flag" title="US">🇺🇸</span> ${escapeHtml(ipa)}</div>`
+                    : ""
+                }
+              </div>
+              <button type="button" class="ex-flash-flipbar" id="flashFlip">
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+                Xem Định nghĩa
+              </button>
+            </div>
+            <div class="ex-flash-face ex-flash-face--back">
+              <button type="button" class="ex-flash-backnav" id="flashUnflip" aria-label="Quay lại mặt trước">
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+              </button>
+              <div class="ex-flash-back-body">
+                <div class="ex-flash-meaning">
+                  <span class="ex-flash-star" aria-hidden="true">★</span>
+                  <strong>${escapeHtml(w.vi || w.form)}</strong>
+                </div>
+                <p class="ex-flash-gloss"><em>${escapeHtml(w.form)}</em>${
+                  pos ? ` · ${escapeHtml(pos)}` : ""
+                }${ipa ? ` · ${escapeHtml(ipa)}` : ""}</p>
+                ${
+                  example
+                    ? `<div class="ex-flash-example">
+                        <div class="ex-flash-example-label">Ví dụ</div>
+                        <p class="ex-flash-example-en">
+                          ${escapeHtml(example.en)}
+                          <button type="button" class="ex-flash-example-speak" id="flashSpeakEx" aria-label="Nghe ví dụ">▶</button>
+                        </p>
+                        ${
+                          example.vi
+                            ? `<p class="ex-flash-example-vi">${escapeHtml(example.vi)}</p>`
+                            : ""
+                        }
+                      </div>`
+                    : `<div class="ex-flash-example ex-flash-example--empty">
+                        <div class="ex-flash-example-label">Gợi ý</div>
+                        <p class="ex-flash-example-en">Hãy tự đặt một câu với <strong>${escapeHtml(w.form)}</strong>.</p>
+                      </div>`
+                }
+              </div>
+              <div class="ex-flash-grade">
+                <button type="button" class="ex-flash-grade-btn ex-flash-grade-btn--miss" id="flashMissBtn">
+                  ✕ Không chính xác
+                </button>
+                <button type="button" class="ex-flash-grade-btn ex-flash-grade-btn--ok" id="flashOkBtn">
+                  ✓ Chính xác
+                </button>
+              </div>
+            </div>
+          </div>
+          ${
+            next
+              ? `<div class="ex-flash-peek" aria-hidden="true">
+                  <div class="ex-flash-peek-term">${escapeHtml(next.form)}</div>
+                  ${posLabel(next.pos) ? `<div class="ex-flash-peek-pos">[${escapeHtml(posLabel(next.pos))}]</div>` : ""}
+                </div>`
+              : ""
+          }
+        </div>
+      `;
+
+      const card = document.getElementById("flashCard");
+      const setFlip = (on) => {
+        flipped = on;
+        card && card.classList.toggle("is-flipped", on);
+      };
+
+      const speakBtn = document.getElementById("flashSpeak");
+      speakBtn &&
+        speakBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          speakText(w.form);
+        });
+
+      const flipBtn = document.getElementById("flashFlip");
+      flipBtn &&
+        flipBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          setFlip(true);
+        });
+
+      const unflipBtn = document.getElementById("flashUnflip");
+      unflipBtn &&
+        unflipBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          setFlip(false);
+        });
+
+      card &&
+        card.addEventListener("keydown", (e) => {
+          if (e.key === " " || e.key === "Enter") {
+            e.preventDefault();
+            setFlip(!flipped);
+          }
+        });
+
+      const speakEx = document.getElementById("flashSpeakEx");
+      speakEx &&
+        speakEx.addEventListener("click", (e) => {
+          e.stopPropagation();
+          if (example && example.en) speakText(example.en);
+        });
+
+      const advance = (ok) => {
+        if (ok) known += 1;
+        else learning += 1;
+        idx += 1;
+        renderCard();
+      };
+
+      const missBtn = document.getElementById("flashMissBtn");
+      const okBtn = document.getElementById("flashOkBtn");
+      missBtn && missBtn.addEventListener("click", () => advance(false));
+      okBtn && okBtn.addEventListener("click", () => advance(true));
+    };
+
+    const restart = (doShuffle) => {
+      deck = doShuffle ? shuffle(vocab) : vocab.slice();
+      idx = 0;
+      known = 0;
+      learning = 0;
+      renderCard();
+    };
+
+    btnShuffle &&
+      btnShuffle.addEventListener("click", () => {
+        restart(true);
+      });
+    btnRestart &&
+      btnRestart.addEventListener("click", () => {
+        restart(true);
+      });
+
+    restart(true);
+  };
+  initFlashcards();
+
   /* ── Browser TTS (skip IPA) ────────────────────────────────────────── */
   if (!window.speechSynthesis) return;
 
