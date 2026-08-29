@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=flash2">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -136,6 +136,26 @@
         <div class="ex-match-grid" id="matchGrid"></div>
         <p class="ex-match-msg" id="matchMsg" hidden></p>
       </section>
+
+      <section class="ex-flash" id="exFlash" aria-label="Vocabulary flashcards">
+        <div class="ex-flash-head">
+          <div>
+            <h2>Flashcards</h2>
+            <p class="ex-flash-hint">Lật thẻ kiểu LanGeek — xem từ / IPA, rồi định nghĩa + ví dụ. Đánh giá <strong>Chính xác</strong> hoặc <strong>Không chính xác</strong> để luyện từ mới.</p>
+          </div>
+          <div class="ex-flash-controls">
+            <div class="ex-flash-stats" aria-live="polite">
+              <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
+              <span>Known <strong id="flashKnown">0</strong></span>
+              <span>Learning <strong id="flashMiss">0</strong></span>
+            </div>
+            <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
+            <button type="button" class="ex-btn primary" id="btnFlashRestart">Restart</button>
+          </div>
+        </div>
+        <div class="ex-flash-stage" id="flashStage"></div>
+        <p class="ex-flash-msg" id="flashMsg" hidden></p>
+      </section>
       <script type="application/json" id="exVocabData">[{"id": 0, "form": "clothes", "word": "clothes", "ipa": "kloʊðz", "vi": "quần áo", "pos": "noun"}, {"id": 1, "form": "shirt", "word": "shirt", "ipa": "ʃɝːt", "vi": "áo sơ mi", "pos": "noun"}, {"id": 2, "form": "T-shirt", "word": "T-shirt", "ipa": "ˈtiː ʃɝːt", "vi": "áo phông", "pos": "noun"}, {"id": 3, "form": "pants", "word": "pants", "ipa": "pænts", "vi": "quần", "pos": "noun"}, {"id": 4, "form": "dress", "word": "dress", "ipa": "drɛs", "vi": "váy", "pos": "noun"}, {"id": 5, "form": "skirt", "word": "skirt", "ipa": "skɝːt", "vi": "váy", "pos": "noun"}, {"id": 6, "form": "coat", "word": "coat", "ipa": "koʊt", "vi": "áo khoác", "pos": "noun"}, {"id": 7, "form": "jacket", "word": "jacket", "ipa": "ˈdʒækɪt", "vi": "áo khoác", "pos": "noun"}, {"id": 8, "form": "jeans", "word": "jeans", "ipa": "dʒiːnz", "vi": "quần jeans", "pos": "noun"}, {"id": 9, "form": "sweater", "word": "sweater", "ipa": "ˈswɛtɚ", "vi": "áo len", "pos": "noun"}, {"id": 10, "form": "suit", "word": "suit", "ipa": "suːt", "vi": "bộ đồ", "pos": "noun"}, {"id": 11, "form": "tie", "word": "tie", "ipa": "taɪ", "vi": "cà vạt", "pos": "noun"}, {"id": 12, "form": "hat", "word": "hat", "ipa": "hæt", "vi": "mũ", "pos": "noun"}, {"id": 13, "form": "purse", "word": "purse", "ipa": "pɝːs", "vi": "ví", "pos": "noun"}, {"id": 14, "form": "shoe", "word": "shoe", "ipa": "ʃuː", "vi": "giày", "pos": "noun"}, {"id": 15, "form": "boot", "word": "boot", "ipa": "buːt", "vi": "ủng", "pos": "noun"}, {"id": 16, "form": "sock", "word": "sock", "ipa": "sɑːk", "vi": "vớ", "pos": "noun"}, {"id": 17, "form": "pajamas", "word": "pajamas", "ipa": "pəˈdʒɑːməz", "vi": "đồ ngủ", "pos": "noun"}, {"id": 18, "form": "underwear", "word": "underwear", "ipa": "ˈʌndɚˌwɛr", "vi": "đồ lót", "pos": "noun"}, {"id": 19, "form": "swimsuit", "word": "swimsuit", "ipa": "ˈswɪmˌsuːt", "vi": "đồ bơi", "pos": "noun"}]</script>
 
       <section class="ex-vocab">
@@ -171,6 +191,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js"></script>
+  <script src="../../../../js/exercise.js?v=flash2"></script>
 </body>
 </html>

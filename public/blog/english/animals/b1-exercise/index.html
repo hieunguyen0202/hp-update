@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=flash2">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -168,6 +168,26 @@
         <div class="ex-match-grid" id="matchGrid"></div>
         <p class="ex-match-msg" id="matchMsg" hidden></p>
       </section>
+
+      <section class="ex-flash" id="exFlash" aria-label="Vocabulary flashcards">
+        <div class="ex-flash-head">
+          <div>
+            <h2>Flashcards</h2>
+            <p class="ex-flash-hint">Lật thẻ kiểu LanGeek — xem từ / IPA, rồi định nghĩa + ví dụ. Đánh giá <strong>Chính xác</strong> hoặc <strong>Không chính xác</strong> để luyện từ mới.</p>
+          </div>
+          <div class="ex-flash-controls">
+            <div class="ex-flash-stats" aria-live="polite">
+              <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
+              <span>Known <strong id="flashKnown">0</strong></span>
+              <span>Learning <strong id="flashMiss">0</strong></span>
+            </div>
+            <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
+            <button type="button" class="ex-btn primary" id="btnFlashRestart">Restart</button>
+          </div>
+        </div>
+        <div class="ex-flash-stage" id="flashStage"></div>
+        <p class="ex-flash-msg" id="flashMsg" hidden></p>
+      </section>
       <script type="application/json" id="exVocabData">[{"id": 0, "form": "alligator", "word": "alligator", "ipa": "ˈælɪˌɡeɪtɚ", "vi": "cá sấu", "pos": "noun"}, {"id": 1, "form": "ant", "word": "ant", "ipa": "ænt", "vi": "kiến", "pos": "noun"}, {"id": 2, "form": "bat", "word": "bat", "ipa": "bæt", "vi": "con dơi", "pos": "noun"}, {"id": 3, "form": "rat", "word": "rat", "ipa": "ræt", "vi": "chuột cống", "pos": "noun"}, {"id": 4, "form": "wolf", "word": "wolf", "ipa": "wʊlf", "vi": "sói", "pos": "noun"}, {"id": 5, "form": "turtle", "word": "turtle", "ipa": "ˈtɝtəl", "vi": "rùa", "pos": "noun"}, {"id": 6, "form": "goldfish", "word": "goldfish", "ipa": "ˈɡoʊldˌfɪʃ", "vi": "cá vàng", "pos": "noun"}, {"id": 7, "form": "bull", "word": "bull", "ipa": "bʊl", "vi": "bò đực", "pos": "noun"}, {"id": 8, "form": "chimpanzee", "word": "chimpanzee", "ipa": "ˌʧɪmpænˈziː", "vi": "tinh tinh", "pos": "noun"}, {"id": 9, "form": "donkey", "word": "donkey", "ipa": "ˈdɑŋki/ , /ˈdɔŋki", "vi": "con lừa", "pos": "noun"}, {"id": 10, "form": "giraffe", "word": "giraffe", "ipa": "ʤəˈræf", "vi": "hươu cao cổ", "pos": "noun"}, {"id": 11, "form": "gorilla", "word": "gorilla", "ipa": "ɡəˈrɪlə", "vi": "khỉ đột", "pos": "noun"}, {"id": 12, "form": "rooster", "word": "rooster", "ipa": "ˈruːstɚ", "vi": "gà trống", "pos": "noun"}, {"id": 13, "form": "kangaroo", "word": "kangaroo", "ipa": "ˌkæŋɡəˈruː", "vi": "chuột túi", "pos": "noun"}, {"id": 14, "form": "snail", "word": "snail", "ipa": "sneɪl", "vi": "ốc sên", "pos": "noun"}, {"id": 15, "form": "lizard", "word": "lizard", "ipa": "ˈlɪzɚd", "vi": "thằn lằn", "pos": "noun"}, {"id": 16, "form": "guinea pig", "word": "guinea pig", "ipa": "ˈɡɪni pɪɡ", "vi": "chuột lang", "pos": "noun"}, {"id": 17, "form": "octopus", "word": "octopus", "ipa": "ˈɑktəˌpʊs", "vi": "bạch tuộc", "pos": "noun"}, {"id": 18, "form": "salmon", "word": "salmon", "ipa": "ˈsæmən", "vi": "cá hồi", "pos": "noun"}, {"id": 19, "form": "lobster", "word": "lobster", "ipa": "ˈlɑːbstɚ", "vi": "tôm hùm", "pos": "noun"}, {"id": 20, "form": "swan", "word": "swan", "ipa": "swɑn", "vi": "thiên nga", "pos": "noun"}, {"id": 21, "form": "cobra", "word": "cobra", "ipa": "ˈkoʊbrə", "vi": "rắn hổ mang", "pos": "noun"}, {"id": 22, "form": "raccoon", "word": "raccoon", "ipa": "ræˈkun/ , /rəˈkun", "vi": "gấu mèo", "pos": "noun"}, {"id": 23, "form": "zebra", "word": "zebra", "ipa": "ˈzibrə", "vi": "ngựa vằn", "pos": "noun"}, {"id": 24, "form": "seal", "word": "seal", "ipa": "siːl", "vi": "hải cẩu", "pos": "noun"}, {"id": 25, "form": "porcupine", "word": "porcupine", "ipa": "ˈpɔrkjuˌpaɪn", "vi": "nhím", "pos": "noun"}, {"id": 26, "form": "turkey", "word": "turkey", "ipa": "ˈtɝki", "vi": "gà tây", "pos": "noun"}, {"id": 27, "form": "goose", "word": "goose", "ipa": "ɡuːs", "vi": "ngỗng", "pos": "noun"}, {"id": 28, "form": "crow", "word": "crow", "ipa": "kroʊ", "vi": "quạ", "pos": "noun"}, {"id": 29, "form": "pigeon", "word": "pigeon", "ipa": "ˈpɪʤən", "vi": "chim bồ câu", "pos": "noun"}, {"id": 30, "form": "cricket", "word": "cricket", "ipa": "ˈkrɪkɪt", "vi": "con dế", "pos": "noun"}, {"id": 31, "form": "creature", "word": "creature", "ipa": "ˈkriːʧɚ", "vi": "sinh vật", "pos": "noun"}, {"id": 32, "form": "bite", "word": "to bite", "ipa": "baɪt", "vi": "cắn", "pos": "verb"}, {"id": 33, "form": "trap", "word": "trap", "ipa": "træp", "vi": "bẫy", "pos": "noun"}, {"id": 34, "form": "bull shark", "word": "bull shark", "ipa": "ˈbʊl ˌʃɑrk", "vi": "cá mập bò", "pos": "noun"}, {"id": 35, "form": "shellfish", "word": "shellfish", "ipa": "ˈʃɛlˌfɪʃ", "vi": "động vật có vỏ", "pos": "noun"}]</script>
 
       <section class="ex-vocab">
@@ -219,6 +239,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js"></script>
+  <script src="../../../../js/exercise.js?v=flash2"></script>
 </body>
 </html>

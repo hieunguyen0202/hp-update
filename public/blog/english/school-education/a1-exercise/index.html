@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=flash2">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -152,6 +152,26 @@
         <div class="ex-match-grid" id="matchGrid"></div>
         <p class="ex-match-msg" id="matchMsg" hidden></p>
       </section>
+
+      <section class="ex-flash" id="exFlash" aria-label="Vocabulary flashcards">
+        <div class="ex-flash-head">
+          <div>
+            <h2>Flashcards</h2>
+            <p class="ex-flash-hint">Lật thẻ kiểu LanGeek — xem từ / IPA, rồi định nghĩa + ví dụ. Đánh giá <strong>Chính xác</strong> hoặc <strong>Không chính xác</strong> để luyện từ mới.</p>
+          </div>
+          <div class="ex-flash-controls">
+            <div class="ex-flash-stats" aria-live="polite">
+              <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
+              <span>Known <strong id="flashKnown">0</strong></span>
+              <span>Learning <strong id="flashMiss">0</strong></span>
+            </div>
+            <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
+            <button type="button" class="ex-btn primary" id="btnFlashRestart">Restart</button>
+          </div>
+        </div>
+        <div class="ex-flash-stage" id="flashStage"></div>
+        <p class="ex-flash-msg" id="flashMsg" hidden></p>
+      </section>
       <script type="application/json" id="exVocabData">[{"id": 0, "form": "school", "word": "school", "ipa": "skuːl", "vi": "trường học", "pos": "noun"}, {"id": 1, "form": "college", "word": "college", "ipa": "ˈkɑːlɪdʒ", "vi": "đại học", "pos": "noun"}, {"id": 2, "form": "university", "word": "university", "ipa": "ˌjuːnɪˈvɝːsɪti", "vi": "đại học", "pos": "noun"}, {"id": 3, "form": "preschool", "word": "preschool", "ipa": "ˈpriːˌskuːl", "vi": "trường mẫu giáo", "pos": "noun"}, {"id": 4, "form": "classroom", "word": "classroom", "ipa": "ˈklæsˌruːm", "vi": "lớp học", "pos": "noun"}, {"id": 5, "form": "student", "word": "student", "ipa": "ˈstuːdnt", "vi": "sinh viên", "pos": "noun"}, {"id": 6, "form": "book", "word": "book", "ipa": "bʊk", "vi": "sách", "pos": "noun"}, {"id": 7, "form": "notebook", "word": "notebook", "ipa": "ˈnoʊtˌbʊk", "vi": "sổ tay", "pos": "noun"}, {"id": 8, "form": "bag", "word": "bag", "ipa": "bæɡ", "vi": "túi", "pos": "noun"}, {"id": 9, "form": "pen", "word": "pen", "ipa": "pen", "vi": "bút", "pos": "noun"}, {"id": 10, "form": "pencil", "word": "pencil", "ipa": "ˈpɛnsl", "vi": "bút chì", "pos": "noun"}, {"id": 11, "form": "eraser", "word": "eraser", "ipa": "ɪˈreɪsɚ", "vi": "cục tẩy", "pos": "noun"}, {"id": 12, "form": "marker", "word": "marker", "ipa": "ˈmɑːrkɚ", "vi": "bút lông", "pos": "noun"}, {"id": 13, "form": "homework", "word": "homework", "ipa": "ˈhoʊmˌwɝːk", "vi": "bài tập về nhà", "pos": "noun"}, {"id": 14, "form": "history", "word": "history", "ipa": "ˈhɪstɚi/ , /ˈhɪstri", "vi": "lịch sử", "pos": "noun"}, {"id": 15, "form": "language", "word": "language", "ipa": "ˈlæŋɡwɪdʒ", "vi": "ngôn ngữ", "pos": "noun"}, {"id": 16, "form": "science", "word": "science", "ipa": "ˈsaɪəns", "vi": "khoa học", "pos": "noun"}, {"id": 17, "form": "class", "word": "class", "ipa": "klæs", "vi": "lớp", "pos": "noun"}]</script>
 
       <section class="ex-vocab">
@@ -185,6 +205,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js"></script>
+  <script src="../../../../js/exercise.js?v=flash2"></script>
 </body>
 </html>

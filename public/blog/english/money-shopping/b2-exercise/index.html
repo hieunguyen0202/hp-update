@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=flash2">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -172,6 +172,26 @@
         <div class="ex-match-grid" id="matchGrid"></div>
         <p class="ex-match-msg" id="matchMsg" hidden></p>
       </section>
+
+      <section class="ex-flash" id="exFlash" aria-label="Vocabulary flashcards">
+        <div class="ex-flash-head">
+          <div>
+            <h2>Flashcards</h2>
+            <p class="ex-flash-hint">Lật thẻ kiểu LanGeek — xem từ / IPA, rồi định nghĩa + ví dụ. Đánh giá <strong>Chính xác</strong> hoặc <strong>Không chính xác</strong> để luyện từ mới.</p>
+          </div>
+          <div class="ex-flash-controls">
+            <div class="ex-flash-stats" aria-live="polite">
+              <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
+              <span>Known <strong id="flashKnown">0</strong></span>
+              <span>Learning <strong id="flashMiss">0</strong></span>
+            </div>
+            <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
+            <button type="button" class="ex-btn primary" id="btnFlashRestart">Restart</button>
+          </div>
+        </div>
+        <div class="ex-flash-stage" id="flashStage"></div>
+        <p class="ex-flash-msg" id="flashMsg" hidden></p>
+      </section>
       <script type="application/json" id="exVocabData">[{"id": 0, "form": "credit", "word": "to credit", "ipa": "ˈkrɛdɪt", "vi": "ghi có", "pos": "verb"}, {"id": 1, "form": "economy", "word": "economy", "ipa": "iˈkɑnəmi/, /ɪˈkɑnəmi", "vi": "kinh tế", "pos": "noun"}, {"id": 2, "form": "economic", "word": "economic", "ipa": "ˌɛkəˈnɑmɪk/, /ˌikəˈnɑmɪk", "vi": "kinh tế", "pos": "adjective"}, {"id": 3, "form": "accounting", "word": "accounting", "ipa": "əˈkaʊntɪŋ", "vi": "kế toán", "pos": "noun"}, {"id": 4, "form": "asset", "word": "asset", "ipa": "ˈæˌsɛt", "vi": "tài sản", "pos": "noun"}, {"id": 5, "form": "budget", "word": "budget", "ipa": "ˈbʌdʒɪt", "vi": "ngân sách", "pos": "noun"}, {"id": 6, "form": "capital", "word": "capital", "ipa": "ˈkæpətəɫ/, /ˈkæpɪtəɫ", "vi": "vốn", "pos": "noun"}, {"id": 7, "form": "debit", "word": "debit", "ipa": "ˈdɛbɪt", "vi": "ghi nợ", "pos": "noun"}, {"id": 8, "form": "finance", "word": "finance", "ipa": "ˈfaɪnæns/ , /fɪˈnæns", "vi": "tài chính", "pos": "noun"}, {"id": 9, "form": "investment", "word": "investment", "ipa": "ˌɪnˈvɛsmənt/, /ˌɪnˈvɛstmənt", "vi": "đầu tư", "pos": "noun"}, {"id": 10, "form": "financing", "word": "financing", "ipa": "faɪˈnænsɪŋ/, /fəˈnænsɪŋ/, /fɪˈnænsɪŋ", "vi": "tài trợ", "pos": "noun"}, {"id": 11, "form": "borrowing", "word": "borrowing", "ipa": "ˈbɑɹoʊɪŋ", "vi": "vay mượn", "pos": "noun"}, {"id": 12, "form": "debt", "word": "debt", "ipa": "dɛt", "vi": "nợ", "pos": "noun"}, {"id": 13, "form": "grant", "word": "grant", "ipa": "ˈɡɹænt", "vi": "trợ cấp", "pos": "noun"}, {"id": 14, "form": "loan", "word": "loan", "ipa": "ˈɫoʊn", "vi": "khoản vay", "pos": "noun"}, {"id": 15, "form": "possess", "word": "to possess", "ipa": "pəˈzɛs", "vi": "sở hữu", "pos": "verb"}, {"id": 16, "form": "distribution", "word": "distribution", "ipa": "ˌdɪstɹəbˈjuʃən", "vi": "phân phối", "pos": "noun"}, {"id": 17, "form": "inflation", "word": "inflation", "ipa": "ˌɪnˈfɫeɪʃən", "vi": "lạm phát", "pos": "noun"}, {"id": 18, "form": "welfare", "word": "welfare", "ipa": "ˈwɛlˌfɛr", "vi": "phúc lợi", "pos": "noun"}, {"id": 19, "form": "profit", "word": "profit", "ipa": "ˈpɹɑfət/, /ˈpɹɑfɪt", "vi": "lợi nhuận", "pos": "noun"}, {"id": 20, "form": "standard of living", "word": "standard of living", "ipa": "stˈændɚd ʌv lˈɪvɪŋ", "vi": "", "pos": "phrase"}, {"id": 21, "form": "balance", "word": "balance", "ipa": "ˈbæləns", "vi": "số dư", "pos": "noun"}, {"id": 22, "form": "bank statement", "word": "bank statement", "ipa": "bˈæŋk stˈeɪtmənt", "vi": "sao kê ngân hàng", "pos": "noun"}, {"id": 23, "form": "collapse", "word": "collapse", "ipa": "kəˈlæps", "vi": "sự sụp đổ", "pos": "noun"}, {"id": 24, "form": "collapse", "word": "to collapse", "ipa": "kəˈlæps", "vi": "sụp đổ", "pos": "verb"}, {"id": 25, "form": "decrease", "word": "decrease", "ipa": "dɪˈkriːs", "vi": "sự giảm", "pos": "noun"}, {"id": 26, "form": "loss", "word": "loss", "ipa": "ˈɫɔs", "vi": "mất mát", "pos": "noun"}, {"id": 27, "form": "analyst", "word": "analyst", "ipa": "ˈænəɫɪst", "vi": "nhà phân tích", "pos": "noun"}, {"id": 28, "form": "banker", "word": "banker", "ipa": "ˈbæŋkɝ", "vi": "chủ ngân hàng", "pos": "noun"}, {"id": 29, "form": "price", "word": "to price", "ipa": "praɪs", "vi": "định giá", "pos": "verb"}, {"id": 30, "form": "purchase", "word": "to purchase", "ipa": "ˈpɝtʃəs", "vi": "mua", "pos": "verb"}, {"id": 31, "form": "rate", "word": "rate", "ipa": "ˈɹeɪt", "vi": "tỷ lệ", "pos": "noun"}, {"id": 32, "form": "rip off", "word": "to rip off", "ipa": "ɹˈɪp ˈɔf", "vi": "lừa đảo", "pos": "verb"}, {"id": 33, "form": "rip-off", "word": "rip-off", "ipa": "ɹˈɪpˈɔf", "vi": "lừa đảo", "pos": "noun"}, {"id": 34, "form": "bull", "word": "bull", "ipa": "bʊl", "vi": "nhà đầu tư lạc quan", "pos": "noun"}, {"id": 35, "form": "bear", "word": "bear", "ipa": "bɛr", "vi": "gấu", "pos": "noun"}, {"id": 36, "form": "run out", "word": "to run out", "ipa": "ɹˈʌn ˈaʊt", "vi": "hết sạch", "pos": "verb"}, {"id": 37, "form": "automated teller machine", "word": "automated teller machine", "ipa": "ˌɔːɾəmˈæɾɪk tˈɛlɚ məʃˈiːn", "vi": "máy rút tiền tự động", "pos": "noun"}, {"id": 38, "form": "refund", "word": "refund", "ipa": "ˈɹiˌfənd/, /ɹɪˈfənd", "vi": "hoàn tiền", "pos": "noun"}]</script>
 
       <section class="ex-vocab">
@@ -226,6 +246,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js"></script>
+  <script src="../../../../js/exercise.js?v=flash2"></script>
 </body>
 </html>

@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=flash2">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -168,6 +168,26 @@
         <div class="ex-match-grid" id="matchGrid"></div>
         <p class="ex-match-msg" id="matchMsg" hidden></p>
       </section>
+
+      <section class="ex-flash" id="exFlash" aria-label="Vocabulary flashcards">
+        <div class="ex-flash-head">
+          <div>
+            <h2>Flashcards</h2>
+            <p class="ex-flash-hint">Lật thẻ kiểu LanGeek — xem từ / IPA, rồi định nghĩa + ví dụ. Đánh giá <strong>Chính xác</strong> hoặc <strong>Không chính xác</strong> để luyện từ mới.</p>
+          </div>
+          <div class="ex-flash-controls">
+            <div class="ex-flash-stats" aria-live="polite">
+              <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
+              <span>Known <strong id="flashKnown">0</strong></span>
+              <span>Learning <strong id="flashMiss">0</strong></span>
+            </div>
+            <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
+            <button type="button" class="ex-btn primary" id="btnFlashRestart">Restart</button>
+          </div>
+        </div>
+        <div class="ex-flash-stage" id="flashStage"></div>
+        <p class="ex-flash-msg" id="flashMsg" hidden></p>
+      </section>
       <script type="application/json" id="exVocabData">[{"id": 0, "form": "countryside", "word": "countryside", "ipa": "ˈkʌntriˌsaɪd", "vi": "nông thôn", "pos": "noun"}, {"id": 1, "form": "village", "word": "village", "ipa": "ˈvɪlɪʤ", "vi": "làng", "pos": "noun"}, {"id": 2, "form": "the country", "word": "the country", "ipa": "ˈkʌntri", "vi": "nông thôn", "pos": "noun"}, {"id": 3, "form": "rural", "word": "rural", "ipa": "ˈrʊrəl", "vi": "nông thôn", "pos": "adjective"}, {"id": 4, "form": "district", "word": "district", "ipa": "ˈdɪstrɪkt", "vi": "quận", "pos": "noun"}, {"id": 5, "form": "urban", "word": "urban", "ipa": "ˈɝbən", "vi": "đô thị", "pos": "adjective"}, {"id": 6, "form": "downtown", "word": "downtown", "ipa": "ˈdaʊnˌtaʊn", "vi": "trung tâm thành phố", "pos": "noun"}, {"id": 7, "form": "amusement park", "word": "amusement park", "ipa": "əˈmjuzmənt ˌpɑrk", "vi": "công viên giải trí", "pos": "noun"}, {"id": 8, "form": "gas station", "word": "gas station", "ipa": "ˈɡæs ˌsteɪʃən", "vi": "trạm xăng", "pos": "noun"}, {"id": 9, "form": "police station", "word": "police station", "ipa": "pəˈlis ˌsteɪʃən", "vi": "đồn cảnh sát", "pos": "noun"}, {"id": 10, "form": "prison", "word": "prison", "ipa": "ˈprɪzən", "vi": "nhà tù", "pos": "noun"}, {"id": 11, "form": "city hall", "word": "city hall", "ipa": "ˈsɪti ˌhɔl", "vi": "tòa thị chính", "pos": "noun"}, {"id": 12, "form": "market", "word": "market", "ipa": "ˈmɑrkɪt", "vi": "chợ", "pos": "noun"}, {"id": 13, "form": "library", "word": "library", "ipa": "ˈlaɪˌbrəri", "vi": "thư viện", "pos": "noun"}, {"id": 14, "form": "church", "word": "church", "ipa": "ʧɝʧ", "vi": "nhà thờ", "pos": "noun"}, {"id": 15, "form": "mosque", "word": "mosque", "ipa": "mɑsk", "vi": "nhà thờ Hồi giáo", "pos": "noun"}, {"id": 16, "form": "temple", "word": "temple", "ipa": "ˈtɛmpəl", "vi": "đền", "pos": "noun"}, {"id": 17, "form": "avenue", "word": "avenue", "ipa": "ˈævəˌnju", "vi": "đại lộ", "pos": "noun"}, {"id": 18, "form": "alley", "word": "alley", "ipa": "ˈæli", "vi": "ngõ hẻm", "pos": "noun"}, {"id": 19, "form": "boulevard", "word": "boulevard", "ipa": "ˈbʊləˌvɑrd", "vi": "đại lộ", "pos": "noun"}, {"id": 20, "form": "traffic", "word": "traffic", "ipa": "ˈtræfɪk", "vi": "giao thông", "pos": "noun"}, {"id": 21, "form": "traffic jam", "word": "traffic jam", "ipa": "ˈtræfɪk ˌʤæm", "vi": "tắc đường", "pos": "noun"}, {"id": 22, "form": "road", "word": "road", "ipa": "roʊd", "vi": "con đường", "pos": "noun"}, {"id": 23, "form": "highway", "word": "highway", "ipa": "ˈhaɪˌweɪ", "vi": "đường cao tốc", "pos": "noun"}, {"id": 24, "form": "expressway", "word": "expressway", "ipa": "ɪkˈsprɛsˌweɪ", "vi": "đường cao tốc", "pos": "noun"}, {"id": 25, "form": "bridge", "word": "bridge", "ipa": "brɪʤ", "vi": "cầu", "pos": "noun"}, {"id": 26, "form": "path", "word": "path", "ipa": "pæθ", "vi": "con đường", "pos": "noun"}, {"id": 27, "form": "underpass", "word": "underpass", "ipa": "ˈʌndɚˌpæs", "vi": "đường hầm dành cho người đi bộ", "pos": "noun"}, {"id": 28, "form": "noise", "word": "noise", "ipa": "nɔɪz", "vi": "tiếng ồn", "pos": "noun"}, {"id": 29, "form": "pollution", "word": "pollution", "ipa": "pəˈluʃən", "vi": "ô nhiễm", "pos": "noun"}, {"id": 30, "form": "cross", "word": "to cross", "ipa": "krɑːs", "vi": "băng qua", "pos": "verb"}, {"id": 31, "form": "across", "word": "across", "ipa": "əˈkrɑːs", "vi": "qua", "pos": "adverb"}, {"id": 32, "form": "move", "word": "to move", "ipa": "muv", "vi": "di chuyển", "pos": "verb"}, {"id": 33, "form": "noisy", "word": "noisy", "ipa": "ˈnɔɪzi", "vi": "ồn ào", "pos": "adjective"}, {"id": 34, "form": "local", "word": "local", "ipa": "ˈloʊkəl", "vi": "địa phương", "pos": "adjective"}, {"id": 35, "form": "tower", "word": "tower", "ipa": "ˈtaʊɚ", "vi": "tháp", "pos": "noun"}]</script>
 
       <section class="ex-vocab">
@@ -219,6 +239,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js"></script>
+  <script src="../../../../js/exercise.js?v=flash2"></script>
 </body>
 </html>

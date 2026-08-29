@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=flash2">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -136,6 +136,26 @@
         <div class="ex-match-grid" id="matchGrid"></div>
         <p class="ex-match-msg" id="matchMsg" hidden></p>
       </section>
+
+      <section class="ex-flash" id="exFlash" aria-label="Vocabulary flashcards">
+        <div class="ex-flash-head">
+          <div>
+            <h2>Flashcards</h2>
+            <p class="ex-flash-hint">Lật thẻ kiểu LanGeek — xem từ / IPA, rồi định nghĩa + ví dụ. Đánh giá <strong>Chính xác</strong> hoặc <strong>Không chính xác</strong> để luyện từ mới.</p>
+          </div>
+          <div class="ex-flash-controls">
+            <div class="ex-flash-stats" aria-live="polite">
+              <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
+              <span>Known <strong id="flashKnown">0</strong></span>
+              <span>Learning <strong id="flashMiss">0</strong></span>
+            </div>
+            <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
+            <button type="button" class="ex-btn primary" id="btnFlashRestart">Restart</button>
+          </div>
+        </div>
+        <div class="ex-flash-stage" id="flashStage"></div>
+        <p class="ex-flash-msg" id="flashMsg" hidden></p>
+      </section>
       <script type="application/json" id="exVocabData">[{"id": 0, "form": "costume", "word": "costume", "ipa": "ˈkɑstuːm/ , /ˈkɑstjum", "vi": "trang phục", "pos": "noun"}, {"id": 1, "form": "top", "word": "top", "ipa": "tɑp", "vi": "áo", "pos": "noun"}, {"id": 2, "form": "underpants", "word": "underpants", "ipa": "ˈʌndɚˌpænts", "vi": "đồ lót", "pos": "noun"}, {"id": 3, "form": "panties", "word": "panties", "ipa": "ˈpæntiz", "vi": "quần lót", "pos": "noun"}, {"id": 4, "form": "bathing suit", "word": "bathing suit", "ipa": "ˈbeɪðɪŋ ˌsuːt", "vi": "đồ bơi", "pos": "noun"}, {"id": 5, "form": "hoodie", "word": "hoodie", "ipa": "ˈhʊdi", "vi": "áo nỉ có mũ", "pos": "noun"}, {"id": 6, "form": "sweatshirt", "word": "sweatshirt", "ipa": "ˈswɛtˌʃɝt", "vi": "áo nỉ", "pos": "noun"}, {"id": 7, "form": "overcoat", "word": "overcoat", "ipa": "ˈoʊvɚˌkoʊt", "vi": "áo khoác dài", "pos": "noun"}, {"id": 8, "form": "baggy", "word": "baggy", "ipa": "ˈbæɡi", "vi": "rộng thùng thình", "pos": "adjective"}, {"id": 9, "form": "collar", "word": "collar", "ipa": "ˈkɑlɚ", "vi": "cổ áo", "pos": "noun"}, {"id": 10, "form": "sleeve", "word": "sleeve", "ipa": "sliːv", "vi": "tay áo", "pos": "noun"}, {"id": 11, "form": "dress", "word": "to dress", "ipa": "drɛs", "vi": "mặc quần áo", "pos": "verb"}, {"id": 12, "form": "fasten", "word": "to fasten", "ipa": "ˈfæsən", "vi": "cài", "pos": "verb"}, {"id": 13, "form": "button", "word": "to button", "ipa": "ˈbʌtən", "vi": "cài nút", "pos": "verb"}, {"id": 14, "form": "wool", "word": "wool", "ipa": "wʊl", "vi": "len", "pos": "noun"}, {"id": 15, "form": "in", "word": "in", "ipa": "ɪn", "vi": "thịnh hành", "pos": "adjective"}, {"id": 16, "form": "fashionable", "word": "fashionable", "ipa": "ˈfæʃənəbəl", "vi": "hợp thời trang", "pos": "adjective"}, {"id": 17, "form": "trendy", "word": "trendy", "ipa": "ˈtrɛndi", "vi": "hợp thời trang", "pos": "adjective"}, {"id": 18, "form": "pattern", "word": "pattern", "ipa": "ˈpætɚn", "vi": "hoa văn", "pos": "noun"}, {"id": 19, "form": "cloth", "word": "cloth", "ipa": "klɑːθ", "vi": "vải", "pos": "noun"}, {"id": 20, "form": "stripe", "word": "stripe", "ipa": "straɪp", "vi": "sọc", "pos": "noun"}, {"id": 21, "form": "denim", "word": "denim", "ipa": "ˈdɛnɪm", "vi": "denim", "pos": "noun"}, {"id": 22, "form": "cotton", "word": "cotton", "ipa": "ˈkɑtən", "vi": "bông", "pos": "noun"}, {"id": 23, "form": "leather", "word": "leather", "ipa": "ˈlɛðɚ", "vi": "da", "pos": "noun"}, {"id": 24, "form": "fur", "word": "fur", "ipa": "fɝ", "vi": "lông thú", "pos": "noun"}, {"id": 25, "form": "backpack", "word": "backpack", "ipa": "ˈbækˌpæk", "vi": "ba lô", "pos": "noun"}, {"id": 26, "form": "suit", "word": "to suit", "ipa": "suːt", "vi": "hợp với", "pos": "verb"}, {"id": 27, "form": "bra", "word": "bra", "ipa": "brɑː", "vi": "áo ngực", "pos": "noun"}, {"id": 28, "form": "linen", "word": "linen", "ipa": "ˈlɪnɪn", "vi": "vải lanh", "pos": "noun"}, {"id": 29, "form": "design", "word": "design", "ipa": "dɪˈzaɪn", "vi": "họa tiết", "pos": "noun"}]</script>
 
       <section class="ex-vocab">
@@ -181,6 +201,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js"></script>
+  <script src="../../../../js/exercise.js?v=flash2"></script>
 </body>
 </html>

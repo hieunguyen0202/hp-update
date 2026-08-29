@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=flash2">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -172,6 +172,26 @@
         <div class="ex-match-grid" id="matchGrid"></div>
         <p class="ex-match-msg" id="matchMsg" hidden></p>
       </section>
+
+      <section class="ex-flash" id="exFlash" aria-label="Vocabulary flashcards">
+        <div class="ex-flash-head">
+          <div>
+            <h2>Flashcards</h2>
+            <p class="ex-flash-hint">Lật thẻ kiểu LanGeek — xem từ / IPA, rồi định nghĩa + ví dụ. Đánh giá <strong>Chính xác</strong> hoặc <strong>Không chính xác</strong> để luyện từ mới.</p>
+          </div>
+          <div class="ex-flash-controls">
+            <div class="ex-flash-stats" aria-live="polite">
+              <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
+              <span>Known <strong id="flashKnown">0</strong></span>
+              <span>Learning <strong id="flashMiss">0</strong></span>
+            </div>
+            <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
+            <button type="button" class="ex-btn primary" id="btnFlashRestart">Restart</button>
+          </div>
+        </div>
+        <div class="ex-flash-stage" id="flashStage"></div>
+        <p class="ex-flash-msg" id="flashMsg" hidden></p>
+      </section>
       <script type="application/json" id="exVocabData">[{"id": 0, "form": "afford", "word": "to afford", "ipa": "əˈfɔrd", "vi": "đủ khả năng chi trả", "pos": "verb"}, {"id": 1, "form": "change", "word": "change", "ipa": "tʃeɪndʒ", "vi": "tiền thừa", "pos": "noun"}, {"id": 2, "form": "charge", "word": "to charge", "ipa": "ʧɑrdʒ", "vi": "tính phí", "pos": "verb"}, {"id": 3, "form": "coin", "word": "coin", "ipa": "kɔɪn", "vi": "đồng xu", "pos": "noun"}, {"id": 4, "form": "currency", "word": "currency", "ipa": "ˈkɝənsi", "vi": "tiền tệ", "pos": "noun"}, {"id": 5, "form": "discount", "word": "discount", "ipa": "ˈdɪskaʊnt", "vi": "giảm giá", "pos": "noun"}, {"id": 6, "form": "inexpensive", "word": "inexpensive", "ipa": "ˌɪnɪkˈspɛnsɪv", "vi": "phải chăng", "pos": "adjective"}, {"id": 7, "form": "mall", "word": "mall", "ipa": "mɑːl", "vi": "trung tâm thương mại", "pos": "noun"}, {"id": 8, "form": "stall", "word": "stall", "ipa": "stɑːl", "vi": "quầy", "pos": "noun"}, {"id": 9, "form": "return", "word": "to return", "ipa": "rɪˈtɝn", "vi": "trả lại", "pos": "verb"}, {"id": 10, "form": "buyer", "word": "buyer", "ipa": "ˈbaɪɚ", "vi": "người mua", "pos": "noun"}, {"id": 11, "form": "seller", "word": "seller", "ipa": "ˈsɛlɚ", "vi": "người bán", "pos": "noun"}, {"id": 12, "form": "shopper", "word": "shopper", "ipa": "ˈʃɑpɚ", "vi": "người mua sắm", "pos": "noun"}, {"id": 13, "form": "product", "word": "product", "ipa": "ˈprɑdʌkt", "vi": "sản phẩm", "pos": "noun"}, {"id": 14, "form": "goods", "word": "goods", "ipa": "ɡʊdz", "vi": "hàng hóa", "pos": "noun"}, {"id": 15, "form": "checkout", "word": "checkout", "ipa": "ˈʧɛkˌaʊt", "vi": "quầy tính tiền", "pos": "noun"}, {"id": 16, "form": "account", "word": "account", "ipa": "əˈkaʊnt", "vi": "tài khoản", "pos": "noun"}, {"id": 17, "form": "owe", "word": "to owe", "ipa": "oʊ", "vi": "nợ", "pos": "verb"}, {"id": 18, "form": "credit", "word": "credit", "ipa": "ˈkrɛdɪt", "vi": "tín dụng", "pos": "noun"}, {"id": 19, "form": "debt", "word": "debt", "ipa": "dɛt", "vi": "nợ", "pos": "noun"}, {"id": 20, "form": "donate", "word": "to donate", "ipa": "ˈdoʊˌneɪt", "vi": "quyên góp", "pos": "verb"}, {"id": 21, "form": "balance", "word": "balance", "ipa": "ˈbæləns", "vi": "số dư", "pos": "noun"}, {"id": 22, "form": "expense", "word": "expense", "ipa": "ɪkˈspɛns", "vi": "chi phí", "pos": "noun"}, {"id": 23, "form": "value", "word": "value", "ipa": "ˈvælju", "vi": "giá trị", "pos": "noun"}, {"id": 24, "form": "sum", "word": "sum", "ipa": "sʌm", "vi": "tổng số", "pos": "noun"}, {"id": 25, "form": "total", "word": "total", "ipa": "ˈtoʊtəl", "vi": "tổng số", "pos": "noun"}, {"id": 26, "form": "bargain", "word": "bargain", "ipa": "ˈbɑrɡɪn", "vi": "món hời", "pos": "noun"}, {"id": 27, "form": "tax", "word": "tax", "ipa": "tæks", "vi": "thuế", "pos": "noun"}, {"id": 28, "form": "possession", "word": "possession", "ipa": "pəˈzɛʃən", "vi": "tài sản", "pos": "noun"}, {"id": 29, "form": "belong", "word": "to belong", "ipa": "bɪˈlɑŋ", "vi": "thuộc về", "pos": "verb"}, {"id": 30, "form": "saving", "word": "saving", "ipa": "ˈseɪvɪŋ", "vi": "tiết kiệm", "pos": "noun"}, {"id": 31, "form": "production", "word": "production", "ipa": "prəˈdʌkʃən", "vi": "sản xuất", "pos": "noun"}, {"id": 32, "form": "worth", "word": "worth", "ipa": "wɝθ", "vi": "trị giá", "pos": "adjective"}, {"id": 33, "form": "cut", "word": "cut", "ipa": "kʌt", "vi": "giảm", "pos": "noun"}, {"id": 34, "form": "luxury", "word": "luxury", "ipa": "ˈlʌkʃəri/ , /ˈlʌgʒəri", "vi": "xa xỉ", "pos": "noun"}, {"id": 35, "form": "overpriced", "word": "overpriced", "ipa": "ˌoʊvɚˈpraɪst", "vi": "đắt đỏ", "pos": "adjective"}, {"id": 36, "form": "penny", "word": "penny", "ipa": "ˈpɛni", "vi": "đồng xu", "pos": "noun"}, {"id": 37, "form": "check", "word": "check", "ipa": "ʧɛk", "vi": "séc", "pos": "noun"}, {"id": 38, "form": "sale", "word": "sale", "ipa": "seɪl", "vi": "bán", "pos": "noun"}]</script>
 
       <section class="ex-vocab">
@@ -226,6 +246,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js"></script>
+  <script src="../../../../js/exercise.js?v=flash2"></script>
 </body>
 </html>

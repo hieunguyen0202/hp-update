@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=flash2">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -196,6 +196,26 @@
         <div class="ex-match-grid" id="matchGrid"></div>
         <p class="ex-match-msg" id="matchMsg" hidden></p>
       </section>
+
+      <section class="ex-flash" id="exFlash" aria-label="Vocabulary flashcards">
+        <div class="ex-flash-head">
+          <div>
+            <h2>Flashcards</h2>
+            <p class="ex-flash-hint">Lật thẻ kiểu LanGeek — xem từ / IPA, rồi định nghĩa + ví dụ. Đánh giá <strong>Chính xác</strong> hoặc <strong>Không chính xác</strong> để luyện từ mới.</p>
+          </div>
+          <div class="ex-flash-controls">
+            <div class="ex-flash-stats" aria-live="polite">
+              <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
+              <span>Known <strong id="flashKnown">0</strong></span>
+              <span>Learning <strong id="flashMiss">0</strong></span>
+            </div>
+            <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
+            <button type="button" class="ex-btn primary" id="btnFlashRestart">Restart</button>
+          </div>
+        </div>
+        <div class="ex-flash-stage" id="flashStage"></div>
+        <p class="ex-flash-msg" id="flashMsg" hidden></p>
+      </section>
       <script type="application/json" id="exVocabData">[{"id": 0, "form": "emotion", "word": "emotion", "ipa": "ɪˈmoʊʃən", "vi": "cảm xúc", "pos": "noun"}, {"id": 1, "form": "fear", "word": "fear", "ipa": "fɪr", "vi": "nỗi sợ", "pos": "noun"}, {"id": 2, "form": "anger", "word": "anger", "ipa": "ˈæŋɡɚ", "vi": "sự tức giận", "pos": "noun"}, {"id": 3, "form": "sadness", "word": "sadness", "ipa": "ˈsædnəs", "vi": "nỗi buồn", "pos": "noun"}, {"id": 4, "form": "happiness", "word": "happiness", "ipa": "ˈhæpiˌnəs", "vi": "hạnh phúc", "pos": "noun"}, {"id": 5, "form": "joy", "word": "joy", "ipa": "ʤɔɪ", "vi": "niềm vui", "pos": "noun"}, {"id": 6, "form": "disgust", "word": "disgust", "ipa": "dɪsˈɡʌst", "vi": "sự ghê tởm", "pos": "noun"}, {"id": 7, "form": "surprise", "word": "surprise", "ipa": "sɚˈpraɪz", "vi": "ngạc nhiên", "pos": "noun"}, {"id": 8, "form": "trust", "word": "trust", "ipa": "trʌst", "vi": "niềm tin", "pos": "noun"}, {"id": 9, "form": "shame", "word": "shame", "ipa": "ʃeɪm", "vi": "xấu hổ", "pos": "noun"}, {"id": 10, "form": "hatred", "word": "hatred", "ipa": "ˈheɪtrɪd", "vi": "sự căm thù", "pos": "noun"}, {"id": 11, "form": "love", "word": "love", "ipa": "lʌv", "vi": "tình yêu", "pos": "noun"}, {"id": 12, "form": "kindness", "word": "kindness", "ipa": "ˈkaɪndnəs", "vi": "lòng tốt", "pos": "noun"}, {"id": 13, "form": "sympathy", "word": "sympathy", "ipa": "ˈsɪmpəˌθi", "vi": "sự thông cảm", "pos": "noun"}, {"id": 14, "form": "amusement", "word": "amusement", "ipa": "əˈmjuzmənt", "vi": "sự giải trí", "pos": "noun"}, {"id": 15, "form": "confusion", "word": "confusion", "ipa": "kənˈfjuʒən", "vi": "sự bối rối", "pos": "noun"}, {"id": 16, "form": "laugh", "word": "to laugh", "ipa": "læf", "vi": "cười", "pos": "verb"}, {"id": 17, "form": "cry", "word": "to cry", "ipa": "kraɪ", "vi": "khóc", "pos": "verb"}, {"id": 18, "form": "smile", "word": "to smile", "ipa": "smaɪl", "vi": "cười", "pos": "verb"}, {"id": 19, "form": "frown", "word": "to frown", "ipa": "fraʊn", "vi": "nhíu mày", "pos": "verb"}, {"id": 20, "form": "miss", "word": "to miss", "ipa": "mɪs", "vi": "nhớ", "pos": "verb"}, {"id": 21, "form": "worry", "word": "to worry", "ipa": "ˈwɝi", "vi": "lo lắng", "pos": "verb"}, {"id": 22, "form": "surprise", "word": "to surprise", "ipa": "sɚˈpraɪz", "vi": "làm ngạc nhiên", "pos": "verb"}, {"id": 23, "form": "surprised", "word": "surprised", "ipa": "sərˈpraɪzd", "vi": "ngạc nhiên", "pos": "adjective"}, {"id": 24, "form": "annoy", "word": "to annoy", "ipa": "əˈnɔɪ", "vi": "làm phiền", "pos": "verb"}, {"id": 25, "form": "scared", "word": "scared", "ipa": "skɛrd", "vi": "sợ hãi", "pos": "adjective"}, {"id": 26, "form": "mind", "word": "mind", "ipa": "maɪnd", "vi": "tâm trí", "pos": "noun"}, {"id": 27, "form": "mental", "word": "mental", "ipa": "ˈmɛntəl", "vi": "tâm thần", "pos": "adjective"}, {"id": 28, "form": "talent", "word": "talent", "ipa": "ˈtælənt", "vi": "tài năng", "pos": "noun"}, {"id": 29, "form": "skill", "word": "skill", "ipa": "skɪl", "vi": "kỹ năng", "pos": "noun"}, {"id": 30, "form": "knowledge", "word": "knowledge", "ipa": "ˈnɑlɪʤ", "vi": "kiến thức", "pos": "noun"}, {"id": 31, "form": "guess", "word": "guess", "ipa": "ɡɛs", "vi": "phỏng đoán", "pos": "noun"}, {"id": 32, "form": "guess", "word": "to guess", "ipa": "ɡɛs", "vi": "đoán", "pos": "verb"}, {"id": 33, "form": "believe", "word": "to believe", "ipa": "bəˈliv", "vi": "tin", "pos": "verb"}, {"id": 34, "form": "belief", "word": "belief", "ipa": "bəˈlif", "vi": "niềm tin", "pos": "noun"}, {"id": 35, "form": "memory", "word": "memory", "ipa": "ˈmɛməri", "vi": "trí nhớ", "pos": "noun"}, {"id": 36, "form": "remember", "word": "to remember", "ipa": "rɪˈmɛmbɚ", "vi": "nhớ", "pos": "verb"}, {"id": 37, "form": "forget", "word": "to forget", "ipa": "fɚˈɡɛt", "vi": "quên", "pos": "verb"}, {"id": 38, "form": "idea", "word": "idea", "ipa": "aɪˈdiːə", "vi": "ý tưởng", "pos": "noun"}, {"id": 39, "form": "favorite", "word": "favorite", "ipa": "ˈfeɪvɚɪt", "vi": "yêu thích", "pos": "adjective"}, {"id": 40, "form": "suggestion", "word": "suggestion", "ipa": "səˈʤɛstʃən", "vi": "đề xuất", "pos": "noun"}, {"id": 41, "form": "suggest", "word": "to suggest", "ipa": "səˈʤɛst", "vi": "đề nghị", "pos": "verb"}, {"id": 42, "form": "goal", "word": "goal", "ipa": "ɡoʊl", "vi": "mục tiêu", "pos": "noun"}, {"id": 43, "form": "plan", "word": "plan", "ipa": "plæn", "vi": "kế hoạch", "pos": "noun"}, {"id": 44, "form": "hope", "word": "to hope", "ipa": "hoʊp", "vi": "hy vọng", "pos": "verb"}, {"id": 45, "form": "hope", "word": "hope", "ipa": "hoʊp", "vi": "hy vọng", "pos": "noun"}, {"id": 46, "form": "imagine", "word": "to imagine", "ipa": "ɪˈmæʤən", "vi": "tưởng tượng", "pos": "verb"}, {"id": 47, "form": "dream", "word": "to dream", "ipa": "driːm", "vi": "mơ", "pos": "verb"}, {"id": 48, "form": "enjoy", "word": "to enjoy", "ipa": "ɪnˈʤɔɪ", "vi": "thưởng thức", "pos": "verb"}, {"id": 49, "form": "worried", "word": "worried", "ipa": "ˈwɝid", "vi": "lo lắng", "pos": "adjective"}, {"id": 50, "form": "nervous", "word": "nervous", "ipa": "ˈnɝvəs", "vi": "lo lắng", "pos": "adjective"}, {"id": 51, "form": "calm", "word": "calm", "ipa": "kɑm", "vi": "bình tĩnh", "pos": "adjective"}, {"id": 52, "form": "afraid", "word": "afraid", "ipa": "əˈfreɪd", "vi": "sợ hãi", "pos": "adjective"}, {"id": 53, "form": "experience", "word": "experience", "ipa": "ɪkˈspɪriəns", "vi": "kinh nghiệm", "pos": "noun"}, {"id": 54, "form": "matter", "word": "matter", "ipa": "ˈmætɚ", "vi": "vấn đề", "pos": "noun"}, {"id": 55, "form": "decide", "word": "to decide", "ipa": "dɪˈsaɪd", "vi": "quyết định", "pos": "verb"}, {"id": 56, "form": "decision", "word": "decision", "ipa": "dɪˈsɪʒən", "vi": "quyết định", "pos": "noun"}, {"id": 57, "form": "power", "word": "power", "ipa": "ˈpaʊɚ", "vi": "quyền lực", "pos": "noun"}, {"id": 58, "form": "clear", "word": "clear", "ipa": "klɪr", "vi": "rõ ràng", "pos": "adjective"}, {"id": 59, "form": "choice", "word": "choice", "ipa": "ʧɔɪs", "vi": "lựa chọn", "pos": "noun"}, {"id": 60, "form": "smell", "word": "to smell", "ipa": "smɛl", "vi": "ngửi", "pos": "verb"}, {"id": 61, "form": "remind", "word": "to remind", "ipa": "rɪˈmaɪnd", "vi": "nhắc nhở", "pos": "verb"}, {"id": 62, "form": "danger", "word": "danger", "ipa": "ˈdeɪnʤɚ", "vi": "nguy hiểm", "pos": "noun"}]</script>
 
       <section class="ex-vocab">
@@ -274,6 +294,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js"></script>
+  <script src="../../../../js/exercise.js?v=flash2"></script>
 </body>
 </html>

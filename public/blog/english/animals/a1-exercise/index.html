@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=flash2">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -148,6 +148,26 @@
         <div class="ex-match-grid" id="matchGrid"></div>
         <p class="ex-match-msg" id="matchMsg" hidden></p>
       </section>
+
+      <section class="ex-flash" id="exFlash" aria-label="Vocabulary flashcards">
+        <div class="ex-flash-head">
+          <div>
+            <h2>Flashcards</h2>
+            <p class="ex-flash-hint">Lật thẻ kiểu LanGeek — xem từ / IPA, rồi định nghĩa + ví dụ. Đánh giá <strong>Chính xác</strong> hoặc <strong>Không chính xác</strong> để luyện từ mới.</p>
+          </div>
+          <div class="ex-flash-controls">
+            <div class="ex-flash-stats" aria-live="polite">
+              <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
+              <span>Known <strong id="flashKnown">0</strong></span>
+              <span>Learning <strong id="flashMiss">0</strong></span>
+            </div>
+            <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
+            <button type="button" class="ex-btn primary" id="btnFlashRestart">Restart</button>
+          </div>
+        </div>
+        <div class="ex-flash-stage" id="flashStage"></div>
+        <p class="ex-flash-msg" id="flashMsg" hidden></p>
+      </section>
       <script type="application/json" id="exVocabData">[{"id": 0, "form": "animal", "word": "animal", "ipa": "ˈænɪməl", "vi": "động vật", "pos": "noun"}, {"id": 1, "form": "cat", "word": "cat", "ipa": "kæt", "vi": "mèo", "pos": "noun"}, {"id": 2, "form": "dog", "word": "dog", "ipa": "dɔːɡ", "vi": "chó", "pos": "noun"}, {"id": 3, "form": "horse", "word": "horse", "ipa": "hɔːrs", "vi": "ngựa", "pos": "noun"}, {"id": 4, "form": "sheep", "word": "sheep", "ipa": "ʃiːp", "vi": "cừu", "pos": "noun"}, {"id": 5, "form": "cow", "word": "cow", "ipa": "kaʊ", "vi": "bò cái", "pos": "noun"}, {"id": 6, "form": "pig", "word": "pig", "ipa": "pɪɡ", "vi": "con lợn", "pos": "noun"}, {"id": 7, "form": "lion", "word": "lion", "ipa": "ˈlaɪən", "vi": "sư tử", "pos": "noun"}, {"id": 8, "form": "rabbit", "word": "rabbit", "ipa": "ˈræbɪt", "vi": "con thỏ", "pos": "noun"}, {"id": 9, "form": "mouse", "word": "mouse", "ipa": "maʊs", "vi": "chuột", "pos": "noun"}, {"id": 10, "form": "snake", "word": "snake", "ipa": "sneɪk", "vi": "con rắn", "pos": "noun"}, {"id": 11, "form": "fish", "word": "fish", "ipa": "fɪʃ", "vi": "cá", "pos": "noun"}, {"id": 12, "form": "elephant", "word": "elephant", "ipa": "ˈɛləfənt", "vi": "voi", "pos": "noun"}, {"id": 13, "form": "bird", "word": "bird", "ipa": "bɜrd", "vi": "chim", "pos": "noun"}, {"id": 14, "form": "chicken", "word": "chicken", "ipa": "ˈtʃɪkən", "vi": "gà", "pos": "noun"}]</script>
 
       <section class="ex-vocab">
@@ -178,6 +198,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js"></script>
+  <script src="../../../../js/exercise.js?v=flash2"></script>
 </body>
 </html>

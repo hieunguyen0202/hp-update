@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=flash2">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -148,6 +148,26 @@
         <div class="ex-match-grid" id="matchGrid"></div>
         <p class="ex-match-msg" id="matchMsg" hidden></p>
       </section>
+
+      <section class="ex-flash" id="exFlash" aria-label="Vocabulary flashcards">
+        <div class="ex-flash-head">
+          <div>
+            <h2>Flashcards</h2>
+            <p class="ex-flash-hint">Lật thẻ kiểu LanGeek — xem từ / IPA, rồi định nghĩa + ví dụ. Đánh giá <strong>Chính xác</strong> hoặc <strong>Không chính xác</strong> để luyện từ mới.</p>
+          </div>
+          <div class="ex-flash-controls">
+            <div class="ex-flash-stats" aria-live="polite">
+              <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
+              <span>Known <strong id="flashKnown">0</strong></span>
+              <span>Learning <strong id="flashMiss">0</strong></span>
+            </div>
+            <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
+            <button type="button" class="ex-btn primary" id="btnFlashRestart">Restart</button>
+          </div>
+        </div>
+        <div class="ex-flash-stage" id="flashStage"></div>
+        <p class="ex-flash-msg" id="flashMsg" hidden></p>
+      </section>
       <script type="application/json" id="exVocabData">[{"id": 0, "form": "black", "word": "black", "ipa": "blæk", "vi": "đen", "pos": "adjective"}, {"id": 1, "form": "white", "word": "white", "ipa": "waɪt", "vi": "trắng", "pos": "adjective"}, {"id": 2, "form": "blue", "word": "blue", "ipa": "bluː", "vi": "xanh", "pos": "adjective"}, {"id": 3, "form": "green", "word": "green", "ipa": "ɡriːn", "vi": "xanh lá cây", "pos": "adjective"}, {"id": 4, "form": "yellow", "word": "yellow", "ipa": "ˈjɛloʊ", "vi": "vàng", "pos": "adjective"}, {"id": 5, "form": "red", "word": "red", "ipa": "rɛd", "vi": "đỏ", "pos": "adjective"}, {"id": 6, "form": "pink", "word": "pink", "ipa": "pɪŋk", "vi": "hồng", "pos": "adjective"}, {"id": 7, "form": "orange", "word": "orange", "ipa": "ˈɔːrɪndʒ", "vi": "cam", "pos": "adjective"}, {"id": 8, "form": "purple", "word": "purple", "ipa": "ˈpɝːpəl", "vi": "tím", "pos": "adjective"}, {"id": 9, "form": "gray", "word": "gray", "ipa": "ɡreɪ", "vi": "xám", "pos": "adjective"}, {"id": 10, "form": "brown", "word": "brown", "ipa": "braʊn", "vi": "nâu", "pos": "adjective"}, {"id": 11, "form": "dark", "word": "dark", "ipa": "dɑrk", "vi": "đậm", "pos": "adjective"}, {"id": 12, "form": "light", "word": "light", "ipa": "laɪt", "vi": "nhạt", "pos": "adjective"}, {"id": 13, "form": "color", "word": "color", "ipa": "ˈkʌlɚ", "vi": "màu sắc", "pos": "noun"}]</script>
 
       <section class="ex-vocab">
@@ -177,6 +197,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js"></script>
+  <script src="../../../../js/exercise.js?v=flash2"></script>
 </body>
 </html>

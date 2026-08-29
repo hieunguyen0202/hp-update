@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=flash2">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -156,6 +156,26 @@
         <div class="ex-match-grid" id="matchGrid"></div>
         <p class="ex-match-msg" id="matchMsg" hidden></p>
       </section>
+
+      <section class="ex-flash" id="exFlash" aria-label="Vocabulary flashcards">
+        <div class="ex-flash-head">
+          <div>
+            <h2>Flashcards</h2>
+            <p class="ex-flash-hint">Lật thẻ kiểu LanGeek — xem từ / IPA, rồi định nghĩa + ví dụ. Đánh giá <strong>Chính xác</strong> hoặc <strong>Không chính xác</strong> để luyện từ mới.</p>
+          </div>
+          <div class="ex-flash-controls">
+            <div class="ex-flash-stats" aria-live="polite">
+              <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
+              <span>Known <strong id="flashKnown">0</strong></span>
+              <span>Learning <strong id="flashMiss">0</strong></span>
+            </div>
+            <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
+            <button type="button" class="ex-btn primary" id="btnFlashRestart">Restart</button>
+          </div>
+        </div>
+        <div class="ex-flash-stage" id="flashStage"></div>
+        <p class="ex-flash-msg" id="flashMsg" hidden></p>
+      </section>
       <script type="application/json" id="exVocabData">[{"id": 0, "form": "entertainment", "word": "entertainment", "ipa": "ˌɛntɚˈteɪnmənt", "vi": "giải trí", "pos": "noun"}, {"id": 1, "form": "recreation", "word": "recreation", "ipa": "ˌɹɛkɹiˈeɪʃən", "vi": "giải trí", "pos": "noun"}, {"id": 2, "form": "charades", "word": "charades", "ipa": "ʃɝˈeɪdz", "vi": "trò đố chữ", "pos": "noun"}, {"id": 3, "form": "jigsaw puzzle", "word": "jigsaw puzzle", "ipa": "dʒˈɪɡsɔː pˈʌzəl", "vi": "trò chơi ghép hình", "pos": "noun"}, {"id": 4, "form": "playmate", "word": "playmate", "ipa": "ˈpɫeɪˌmeɪt", "vi": "bạn cùng chơi", "pos": "noun"}, {"id": 5, "form": "playing card", "word": "playing card", "ipa": "plˈeɪɪŋ kˈɑːɹd", "vi": "lá bài", "pos": "noun"}, {"id": 6, "form": "club", "word": "club", "ipa": "klʌb", "vi": "chuồn", "pos": "noun"}, {"id": 7, "form": "diamond", "word": "diamond", "ipa": "ˈdaɪmənd", "vi": "rô", "pos": "noun"}, {"id": 8, "form": "heart", "word": "heart", "ipa": "hɑːrt", "vi": "cơ", "pos": "noun"}, {"id": 9, "form": "spade", "word": "spade", "ipa": "ˈspeɪd", "vi": "bích", "pos": "noun"}, {"id": 10, "form": "ace", "word": "ace", "ipa": "eɪs", "vi": "át", "pos": "noun"}, {"id": 11, "form": "hand", "word": "hand", "ipa": "hænd", "vi": "bài", "pos": "noun"}, {"id": 12, "form": "tic-tac-toe", "word": "tic-tac-toe", "ipa": "tˈɪktˈæktˈoʊ", "vi": "cờ caro", "pos": "noun"}, {"id": 13, "form": "handball", "word": "handball", "ipa": "ˈhændˌbɔɫ", "vi": "bóng ném", "pos": "noun"}, {"id": 14, "form": "Barbie doll", "word": "Barbie doll", "ipa": "bˈɑːɹbi dˈɑːl", "vi": "búp bê Barbie", "pos": "noun"}, {"id": 15, "form": "domino", "word": "domino", "ipa": "ˈdɑməˌnoʊ/, /ˈdɑmɪˌnoʊ", "vi": "quân domino", "pos": "noun"}, {"id": 16, "form": "rag doll", "word": "rag doll", "ipa": "ɹˈæɡ dˈɑːl", "vi": "búp bê vải", "pos": "noun"}, {"id": 17, "form": "piece", "word": "piece", "ipa": "piːs", "vi": "quân cờ", "pos": "noun"}, {"id": 18, "form": "Monopoly", "word": "Monopoly", "ipa": "məˈnɑpəɫi", "vi": "monopoly", "pos": "noun"}, {"id": 19, "form": "Scrabble", "word": "Scrabble", "ipa": "ˈskɹæbəɫ", "vi": "Scrabble", "pos": "noun"}, {"id": 20, "form": "scoreboard", "word": "scoreboard", "ipa": "ˈskɔɹˌbɔɹd", "vi": "bảng điểm", "pos": "noun"}, {"id": 21, "form": "avatar", "word": "avatar", "ipa": "ˈævəˌtɑɹ", "vi": "avatar", "pos": "noun"}, {"id": 22, "form": "joystick", "word": "joystick", "ipa": "ˈdʒɔɪˌstɪk", "vi": "cần điều khiển", "pos": "noun"}]</script>
 
       <section class="ex-vocab">
@@ -194,6 +214,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js"></script>
+  <script src="../../../../js/exercise.js?v=flash2"></script>
 </body>
 </html>

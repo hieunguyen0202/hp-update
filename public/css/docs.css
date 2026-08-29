@@ -1509,7 +1509,7 @@ body.docs::before {
   display: flex;
   flex-direction: column;
   border-radius: 22px;
-  background: #f8fafc;
+  background: #ffffff;
   color: #0f172a;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
   overflow: hidden;
@@ -1566,28 +1566,28 @@ body.docs::before {
   font-family: "Outfit", sans-serif;
 }
 
-.ex-flash-term {
+.docs-main .ex-flash-term {
   font-size: clamp(1.8rem, 4vw, 2.35rem);
   font-weight: 750;
   letter-spacing: -0.02em;
   line-height: 1.15;
-  color: #0f172a;
+  color: #020617;
 }
 
-.ex-flash-pos {
+.docs-main .ex-flash-pos {
   font-size: 0.95rem;
-  font-weight: 600;
-  color: #0284c7;
+  font-weight: 650;
+  color: #0369a1;
 }
 
-.ex-flash-ipa {
+.docs-main .ex-flash-ipa {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   margin-top: 4px;
   font-family: "JetBrains Mono", monospace;
   font-size: 0.92rem;
-  color: #475569;
+  color: #1e293b;
 }
 
 .ex-flash-flag {
@@ -1643,15 +1643,22 @@ body.docs::before {
   padding: 52px 20px 16px;
   font-family: "Outfit", sans-serif;
   overflow: auto;
+  color: #0f172a;
 }
 
-.ex-flash-meaning {
+.docs-main .ex-flash-meaning {
   display: flex;
   align-items: flex-start;
   gap: 10px;
+  margin: 0;
   font-size: 1.2rem;
   line-height: 1.35;
-  color: #0f172a;
+  color: #020617;
+}
+
+.docs-main .ex-flash-meaning strong {
+  color: #020617;
+  font-weight: 750;
 }
 
 .ex-flash-star {
@@ -1667,31 +1674,38 @@ body.docs::before {
   font-size: 0.85rem;
 }
 
-.ex-flash-gloss {
+.docs-main .ex-flash-gloss {
   margin: 0;
-  font-size: 0.88rem;
-  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: #1e293b;
+}
+
+.docs-main .ex-flash-gloss em {
+  color: #0f172a;
+  font-style: normal;
+  font-weight: 650;
 }
 
 .ex-flash-example {
   margin-top: 4px;
   padding: 14px 14px 12px;
   border-radius: 14px;
-  background: #eef2ff;
+  background: #e2e8f0;
 }
 
 .ex-flash-example--empty {
-  background: #f1f5f9;
+  background: #e2e8f0;
 }
 
-.ex-flash-example-label {
+.docs-main .ex-flash-example-label {
   display: flex;
   align-items: center;
   gap: 6px;
   margin-bottom: 8px;
   font-size: 0.82rem;
   font-weight: 700;
-  color: #334155;
+  color: #0f172a;
 }
 
 .ex-flash-example-label::before {
@@ -1701,17 +1715,18 @@ body.docs::before {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: #94a3b8;
+  background: #475569;
   color: #fff;
   font-size: 0.7rem;
   font-weight: 800;
 }
 
-.ex-flash-example-en {
+.docs-main .ex-flash-example-en {
   margin: 0;
-  font-size: 0.92rem;
-  line-height: 1.5;
-  color: #0f172a;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: #020617;
+  font-weight: 500;
 }
 
 .ex-flash-example-speak {
@@ -1723,21 +1738,21 @@ body.docs::before {
   vertical-align: middle;
   border: 0;
   border-radius: 50%;
-  background: #cbd5e1;
-  color: #0f172a;
+  background: #64748b;
+  color: #fff;
   font-size: 0.65rem;
   cursor: pointer;
 }
 
 .ex-flash-example-speak:hover {
-  background: #94a3b8;
+  background: #334155;
 }
 
-.ex-flash-example-vi {
+.docs-main .ex-flash-example-vi {
   margin: 8px 0 0;
-  font-size: 0.84rem;
-  line-height: 1.45;
-  color: #64748b;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #334155;
 }
 
 .ex-flash-grade {
@@ -1758,7 +1773,7 @@ body.docs::before {
 
 .ex-flash-grade-btn--miss {
   background: #fecaca;
-  color: #b91c1c;
+  color: #991b1b;
 }
 
 .ex-flash-grade-btn--miss:hover {
@@ -1767,7 +1782,7 @@ body.docs::before {
 
 .ex-flash-grade-btn--ok {
   background: #bbf7d0;
-  color: #15803d;
+  color: #166534;
 }
 
 .ex-flash-grade-btn--ok:hover {
@@ -1784,9 +1799,9 @@ body.docs::before {
   padding: 48px 18px 24px;
   border-radius: 22px;
   background: #e2e8f0;
-  color: #64748b;
+  color: #334155;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
-  opacity: 0.72;
+  opacity: 0.85;
   transform: scale(0.92);
   pointer-events: none;
   font-family: "Outfit", sans-serif;
@@ -1796,13 +1811,13 @@ body.docs::before {
 .ex-flash-peek-term {
   font-size: 1.35rem;
   font-weight: 700;
-  color: #334155;
+  color: #0f172a;
 }
 
 .ex-flash-peek-pos {
   margin-top: 8px;
   font-size: 0.85rem;
-  color: #0284c7;
+  color: #0369a1;
 }
 
 .ex-flash-done {

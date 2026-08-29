@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=flash2">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -200,6 +200,26 @@
         <div class="ex-match-grid" id="matchGrid"></div>
         <p class="ex-match-msg" id="matchMsg" hidden></p>
       </section>
+
+      <section class="ex-flash" id="exFlash" aria-label="Vocabulary flashcards">
+        <div class="ex-flash-head">
+          <div>
+            <h2>Flashcards</h2>
+            <p class="ex-flash-hint">Lật thẻ kiểu LanGeek — xem từ / IPA, rồi định nghĩa + ví dụ. Đánh giá <strong>Chính xác</strong> hoặc <strong>Không chính xác</strong> để luyện từ mới.</p>
+          </div>
+          <div class="ex-flash-controls">
+            <div class="ex-flash-stats" aria-live="polite">
+              <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
+              <span>Known <strong id="flashKnown">0</strong></span>
+              <span>Learning <strong id="flashMiss">0</strong></span>
+            </div>
+            <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
+            <button type="button" class="ex-btn primary" id="btnFlashRestart">Restart</button>
+          </div>
+        </div>
+        <div class="ex-flash-stage" id="flashStage"></div>
+        <p class="ex-flash-msg" id="flashMsg" hidden></p>
+      </section>
       <script type="application/json" id="exVocabData">[{"id": 0, "form": "world", "word": "world", "ipa": "wɝld", "vi": "thế giới", "pos": "noun"}, {"id": 1, "form": "environment", "word": "environment", "ipa": "ɪnˈvaɪrənmənt", "vi": "môi trường", "pos": "noun"}, {"id": 2, "form": "plant", "word": "plant", "ipa": "plænt", "vi": "cây", "pos": "noun"}, {"id": 3, "form": "ground", "word": "ground", "ipa": "ɡraʊnd", "vi": "mặt đất", "pos": "noun"}, {"id": 4, "form": "field", "word": "field", "ipa": "fild", "vi": "cánh đồng", "pos": "noun"}, {"id": 5, "form": "landscape", "word": "landscape", "ipa": "ˈlændˌskeɪp", "vi": "phong cảnh", "pos": "noun"}, {"id": 6, "form": "view", "word": "view", "ipa": "vju", "vi": "cảnh", "pos": "noun"}, {"id": 7, "form": "grass", "word": "grass", "ipa": "ɡræs", "vi": "cỏ", "pos": "noun"}, {"id": 8, "form": "coast", "word": "coast", "ipa": "koʊst", "vi": "bờ biển", "pos": "noun"}, {"id": 9, "form": "hill", "word": "hill", "ipa": "hɪl", "vi": "đồi", "pos": "noun"}, {"id": 10, "form": "rock", "word": "rock", "ipa": "rɑk", "vi": "đá", "pos": "noun"}, {"id": 11, "form": "valley", "word": "valley", "ipa": "ˈvæli", "vi": "thung lũng", "pos": "noun"}, {"id": 12, "form": "lake", "word": "lake", "ipa": "leɪk", "vi": "hồ", "pos": "noun"}, {"id": 13, "form": "the ocean", "word": "the ocean", "ipa": "ˈoʊʃən", "vi": "đại dương", "pos": "noun"}, {"id": 14, "form": "rainforest", "word": "rainforest", "ipa": "ˈreɪnˌfɔrɪst", "vi": "rừng mưa nhiệt đới", "pos": "noun"}, {"id": 15, "form": "wood", "word": "wood", "ipa": "wʊd", "vi": "gỗ", "pos": "noun"}, {"id": 16, "form": "area", "word": "area", "ipa": "ˈɛriə", "vi": "khu vực", "pos": "noun"}, {"id": 17, "form": "path", "word": "path", "ipa": "pæθ", "vi": "lối đi", "pos": "noun"}, {"id": 18, "form": "natural", "word": "natural", "ipa": "ˈnætʃərəl", "vi": "tự nhiên", "pos": "adjective"}, {"id": 19, "form": "disaster", "word": "disaster", "ipa": "dɪˈzæstɚ", "vi": "thảm họa", "pos": "noun"}, {"id": 20, "form": "flood", "word": "flood", "ipa": "flʌd", "vi": "lũ lụt", "pos": "noun"}, {"id": 21, "form": "earthquake", "word": "earthquake", "ipa": "ˈɝθˌkweɪk", "vi": "động đất", "pos": "noun"}, {"id": 22, "form": "hurricane", "word": "hurricane", "ipa": "ˈhɝɪˌkeɪn", "vi": "bão", "pos": "noun"}, {"id": 23, "form": "tornado", "word": "tornado", "ipa": "tɔrˈneɪdoʊ", "vi": "lốc xoáy", "pos": "noun"}, {"id": 24, "form": "avalanche", "word": "avalanche", "ipa": "ˈævəˌlæntʃ", "vi": "tuyết lở", "pos": "noun"}, {"id": 25, "form": "drought", "word": "drought", "ipa": "draʊt", "vi": "hạn hán", "pos": "noun"}, {"id": 26, "form": "climate change", "word": "climate change", "ipa": "ˈklaɪmət ˌʧeɪndʒ", "vi": "biến đổi khí hậu", "pos": "noun"}, {"id": 27, "form": "happen", "word": "to happen", "ipa": "ˈhæpən", "vi": "xảy ra", "pos": "verb"}, {"id": 28, "form": "terrible", "word": "terrible", "ipa": "ˈtɛrəbəl", "vi": "khủng khiếp", "pos": "adjective"}, {"id": 29, "form": "northeast", "word": "northeast", "ipa": "nɔrˈθist", "vi": "đông bắc", "pos": "noun"}, {"id": 30, "form": "northwest", "word": "northwest", "ipa": "nɔrˈθwɛst", "vi": "tây bắc", "pos": "noun"}, {"id": 31, "form": "southeast", "word": "southeast", "ipa": "saʊθˈist", "vi": "đông nam", "pos": "noun"}, {"id": 32, "form": "southwest", "word": "southwest", "ipa": "saʊθˈwɛst", "vi": "tây nam", "pos": "noun"}, {"id": 33, "form": "desert", "word": "desert", "ipa": "ˈdɛzɚt", "vi": "sa mạc", "pos": "noun"}, {"id": 34, "form": "wave", "word": "wave", "ipa": "weɪv", "vi": "sóng", "pos": "noun"}, {"id": 35, "form": "climate", "word": "climate", "ipa": "ˈklaɪmət", "vi": "khí hậu", "pos": "noun"}, {"id": 36, "form": "condition", "word": "condition", "ipa": "kənˈdɪʃən", "vi": "tình trạng", "pos": "noun"}, {"id": 37, "form": "air", "word": "air", "ipa": "ɛr", "vi": "không khí", "pos": "noun"}, {"id": 38, "form": "cold", "word": "cold", "ipa": "koʊld", "vi": "lạnh", "pos": "noun"}, {"id": 39, "form": "heat", "word": "heat", "ipa": "hit", "vi": "nhiệt", "pos": "noun"}, {"id": 40, "form": "wind", "word": "wind", "ipa": "wɪnd", "vi": "gió", "pos": "noun"}, {"id": 41, "form": "windy", "word": "windy", "ipa": "ˈwɪndi", "vi": "có gió", "pos": "adjective"}, {"id": 42, "form": "fog", "word": "fog", "ipa": "fɑɡ", "vi": "sương mù", "pos": "noun"}, {"id": 43, "form": "foggy", "word": "foggy", "ipa": "ˈfɑɡi", "vi": "sương mù", "pos": "adjective"}, {"id": 44, "form": "breeze", "word": "breeze", "ipa": "briz", "vi": "gió nhẹ", "pos": "noun"}, {"id": 45, "form": "storm", "word": "storm", "ipa": "stɔrm", "vi": "cơn bão", "pos": "noun"}, {"id": 46, "form": "stormy", "word": "stormy", "ipa": "ˈstɔrmi", "vi": "bão tố", "pos": "adjective"}, {"id": 47, "form": "blizzard", "word": "blizzard", "ipa": "ˈblɪzɚd", "vi": "bão tuyết", "pos": "noun"}, {"id": 48, "form": "thunderstorm", "word": "thunderstorm", "ipa": "ˈθʌndɚˌstɔrm", "vi": "cơn giông", "pos": "noun"}, {"id": 49, "form": "hail", "word": "hail", "ipa": "heɪl", "vi": "mưa đá", "pos": "noun"}, {"id": 50, "form": "warm", "word": "warm", "ipa": "wɑrm", "vi": "ấm", "pos": "adjective"}, {"id": 51, "form": "cool", "word": "cool", "ipa": "kul", "vi": "mát mẻ", "pos": "adjective"}, {"id": 52, "form": "freezing", "word": "freezing", "ipa": "ˈfrizɪŋ", "vi": "đóng băng", "pos": "adjective"}, {"id": 53, "form": "chilly", "word": "chilly", "ipa": "ˈʧɪli", "vi": "lạnh", "pos": "adjective"}, {"id": 54, "form": "clear", "word": "clear", "ipa": "klɪr", "vi": "trong", "pos": "adjective"}, {"id": 55, "form": "dark", "word": "dark", "ipa": "dɑrk", "vi": "tối", "pos": "adjective"}, {"id": 56, "form": "light", "word": "light", "ipa": "laɪt", "vi": "sáng", "pos": "adjective"}, {"id": 57, "form": "wet", "word": "wet", "ipa": "wɛt", "vi": "ướt", "pos": "adjective"}, {"id": 58, "form": "dry", "word": "dry", "ipa": "draɪ", "vi": "khô", "pos": "adjective"}, {"id": 59, "form": "blow", "word": "to blow", "ipa": "bloʊ", "vi": "thổi", "pos": "verb"}, {"id": 60, "form": "change", "word": "to change", "ipa": "tʃeɪndʒ", "vi": "thay đổi", "pos": "verb"}, {"id": 61, "form": "awful", "word": "awful", "ipa": "ˈɔfəl", "vi": "kinh khủng", "pos": "adjective"}, {"id": 62, "form": "mild", "word": "mild", "ipa": "maɪld", "vi": "ôn hòa", "pos": "adjective"}, {"id": 63, "form": "severe", "word": "severe", "ipa": "səˈvɪr", "vi": "nghiêm trọng", "pos": "adjective"}, {"id": 64, "form": "snow", "word": "to snow", "ipa": "snoʊ", "vi": "tuyết rơi", "pos": "verb"}, {"id": 65, "form": "rain", "word": "to rain", "ipa": "reɪn", "vi": "mưa", "pos": "verb"}]</script>
 
       <section class="ex-vocab">
@@ -281,6 +301,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js"></script>
+  <script src="../../../../js/exercise.js?v=flash2"></script>
 </body>
 </html>

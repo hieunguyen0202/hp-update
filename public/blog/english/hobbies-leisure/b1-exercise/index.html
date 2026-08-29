@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=flash2">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -188,6 +188,26 @@
         <div class="ex-match-grid" id="matchGrid"></div>
         <p class="ex-match-msg" id="matchMsg" hidden></p>
       </section>
+
+      <section class="ex-flash" id="exFlash" aria-label="Vocabulary flashcards">
+        <div class="ex-flash-head">
+          <div>
+            <h2>Flashcards</h2>
+            <p class="ex-flash-hint">Lật thẻ kiểu LanGeek — xem từ / IPA, rồi định nghĩa + ví dụ. Đánh giá <strong>Chính xác</strong> hoặc <strong>Không chính xác</strong> để luyện từ mới.</p>
+          </div>
+          <div class="ex-flash-controls">
+            <div class="ex-flash-stats" aria-live="polite">
+              <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
+              <span>Known <strong id="flashKnown">0</strong></span>
+              <span>Learning <strong id="flashMiss">0</strong></span>
+            </div>
+            <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
+            <button type="button" class="ex-btn primary" id="btnFlashRestart">Restart</button>
+          </div>
+        </div>
+        <div class="ex-flash-stage" id="flashStage"></div>
+        <p class="ex-flash-msg" id="flashMsg" hidden></p>
+      </section>
       <script type="application/json" id="exVocabData">[{"id": 0, "form": "dice", "word": "dice", "ipa": "daɪs", "vi": "xúc xắc", "pos": "noun"}, {"id": 1, "form": "tie", "word": "tie", "ipa": "taɪ", "vi": "hòa", "pos": "noun"}, {"id": 2, "form": "tie", "word": "to tie", "ipa": "taɪ", "vi": "hòa", "pos": "verb"}, {"id": 3, "form": "cheat", "word": "to cheat", "ipa": "ʧiːt", "vi": "gian lận", "pos": "verb"}, {"id": 4, "form": "go", "word": "to go", "ipa": "ɡoʊ", "vi": "đi", "pos": "verb"}, {"id": 5, "form": "turn", "word": "turn", "ipa": "tɝn", "vi": "lượt", "pos": "noun"}, {"id": 6, "form": "play", "word": "play", "ipa": "pleɪ", "vi": "trò chơi", "pos": "noun"}, {"id": 7, "form": "chess", "word": "chess", "ipa": "ʧɛs", "vi": "cờ vua", "pos": "noun"}, {"id": 8, "form": "crossword", "word": "crossword", "ipa": "ˈkrɑːsˌwɝd", "vi": "trò chơi ô chữ", "pos": "noun"}, {"id": 9, "form": "dollhouse", "word": "dollhouse", "ipa": "ˈdɑlˌhaʊs", "vi": "nhà búp bê", "pos": "noun"}, {"id": 10, "form": "winning", "word": "winning", "ipa": "ˈwɪnɪŋ", "vi": "chiến thắng", "pos": "adjective"}, {"id": 11, "form": "puzzle", "word": "puzzle", "ipa": "ˈpʌzəl", "vi": "câu đố", "pos": "noun"}, {"id": 12, "form": "trick", "word": "trick", "ipa": "trɪk", "vi": "trò", "pos": "noun"}, {"id": 13, "form": "move", "word": "move", "ipa": "muv", "vi": "nước đi", "pos": "noun"}, {"id": 14, "form": "deal", "word": "to deal", "ipa": "diːl", "vi": "chia bài", "pos": "verb"}, {"id": 15, "form": "computer game", "word": "computer game", "ipa": "kəmˈpjuːtɚ ˌɡeɪm", "vi": "trò chơi máy tính", "pos": "noun"}, {"id": 16, "form": "rule", "word": "rule", "ipa": "ruːl", "vi": "luật", "pos": "noun"}, {"id": 17, "form": "bowling", "word": "bowling", "ipa": "ˈboʊlɪŋ", "vi": "bowling", "pos": "noun"}, {"id": 18, "form": "guessing game", "word": "guessing game", "ipa": "ˈɡɛsɪŋ ˌɡeɪm", "vi": "trò chơi đoán", "pos": "noun"}, {"id": 19, "form": "Ping-Pong", "word": "Ping-Pong", "ipa": "ˈpɪŋˌpɔŋ", "vi": "Ping-Pong", "pos": "noun"}, {"id": 20, "form": "balloon", "word": "balloon", "ipa": "bəˈluːn", "vi": "bóng bay", "pos": "noun"}, {"id": 21, "form": "fun", "word": "fun", "ipa": "fʌn", "vi": "vui nhộn", "pos": "adjective"}, {"id": 22, "form": "amusing", "word": "amusing", "ipa": "əˈmjuːzɪŋ", "vi": "thú vị", "pos": "adjective"}, {"id": 23, "form": "playtime", "word": "playtime", "ipa": "plˈeɪtaɪm", "vi": "giờ chơi", "pos": "noun"}, {"id": 24, "form": "kite", "word": "kite", "ipa": "kaɪt", "vi": "diều", "pos": "noun"}, {"id": 25, "form": "darts", "word": "darts", "ipa": "dɑrts", "vi": "ném phi tiêu", "pos": "noun"}, {"id": 26, "form": "card", "word": "card", "ipa": "kɑrd", "vi": "lá bài", "pos": "noun"}, {"id": 27, "form": "hide-and-seek", "word": "hide-and-seek", "ipa": "hˈaɪdændsˈiːk", "vi": "trốn tìm", "pos": "noun"}, {"id": 28, "form": "checkmate", "word": "checkmate", "ipa": "ˈtʃɛkˌmeɪt", "vi": "chiếu tướng", "pos": "noun"}, {"id": 29, "form": "video game console", "word": "video game console", "ipa": "vˈɪdɪoʊ ɡˈeɪm kˈɑːnsoʊl", "vi": "máy chơi trò chơi điện tử", "pos": "noun"}, {"id": 30, "form": "pastime", "word": "pastime", "ipa": "ˈpæsˌtaɪm", "vi": "thú tiêu khiển", "pos": "noun"}, {"id": 31, "form": "leisure", "word": "leisure", "ipa": "ˈliʒɚ", "vi": "thời gian rảnh rỗi", "pos": "noun"}, {"id": 32, "form": "backpacking", "word": "backpacking", "ipa": "ˈbækˌpækɪŋ", "vi": "du lịch bụi", "pos": "noun"}, {"id": 33, "form": "birdwatching", "word": "birdwatching", "ipa": "ˈbɝdˌwɑʧɪŋ", "vi": "quan sát chim", "pos": "noun"}, {"id": 34, "form": "blogging", "word": "blogging", "ipa": "ˈblɑɡɪŋ", "vi": "viết blog", "pos": "noun"}, {"id": 35, "form": "cheerleading", "word": "cheerleading", "ipa": "ˈʧɪrˌliːdɪŋ", "vi": "cổ vũ", "pos": "noun"}, {"id": 36, "form": "clubbing", "word": "clubbing", "ipa": "ˈklʌbɪŋ", "vi": "đi chơi hộp đêm", "pos": "noun"}, {"id": 37, "form": "collecting", "word": "collecting", "ipa": "kəˈlɛktɪŋ", "vi": "sưu tầm", "pos": "noun"}, {"id": 38, "form": "doodle", "word": "to doodle", "ipa": "ˈduːdəl", "vi": "vẽ nguệch ngoạc", "pos": "verb"}, {"id": 39, "form": "gambling", "word": "gambling", "ipa": "ˈɡæmblɪŋ", "vi": "cờ bạc", "pos": "noun"}, {"id": 40, "form": "hunting", "word": "hunting", "ipa": "ˈhʌntɪŋ", "vi": "săn bắn", "pos": "noun"}, {"id": 41, "form": "journaling", "word": "journaling", "ipa": "ˈʤɝːnəlɪŋ", "vi": "viết nhật ký", "pos": "noun"}, {"id": 42, "form": "karting", "word": "karting", "ipa": "ˈkɑrtɪŋ", "vi": "đua kart", "pos": "noun"}, {"id": 43, "form": "knitting", "word": "knitting", "ipa": "ˈnɪtɪŋ", "vi": "đan", "pos": "noun"}, {"id": 44, "form": "meditation", "word": "meditation", "ipa": "ˌmɛdɪˈteɪʃən", "vi": "thiền", "pos": "noun"}, {"id": 45, "form": "mountain biking", "word": "mountain biking", "ipa": "ˈmaʊntən ˈbaɪkɪŋ", "vi": "đạp xe leo núi", "pos": "noun"}, {"id": 46, "form": "origami", "word": "origami", "ipa": "ˌɔrɪˈɡɑːmi", "vi": "origami", "pos": "noun"}, {"id": 47, "form": "pottery", "word": "pottery", "ipa": "ˈpɑːtəri", "vi": "gốm", "pos": "noun"}, {"id": 48, "form": "scuba diving", "word": "scuba diving", "ipa": "ˈskuːbə ˈdaɪvɪŋ", "vi": "lặn biển", "pos": "noun"}, {"id": 49, "form": "sketching", "word": "sketching", "ipa": "ˈskɛʧɪŋ", "vi": "phác thảo", "pos": "noun"}, {"id": 50, "form": "skydiving", "word": "skydiving", "ipa": "ˈskaɪˌdaɪvɪŋ", "vi": "nhảy dù", "pos": "noun"}, {"id": 51, "form": "traveling", "word": "traveling", "ipa": "ˈtrævəlɪŋ", "vi": "du lịch", "pos": "noun"}, {"id": 52, "form": "window shopping", "word": "window shopping", "ipa": "ˈwɪndoʊ ˈʃɑpɪŋ", "vi": "ngắm hàng", "pos": "noun"}, {"id": 53, "form": "windsurfing", "word": "windsurfing", "ipa": "ˈwɪndˌsɝːfɪŋ", "vi": "lướt ván buồm", "pos": "noun"}]</script>
 
       <section class="ex-vocab">
@@ -257,6 +277,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js"></script>
+  <script src="../../../../js/exercise.js?v=flash2"></script>
 </body>
 </html>

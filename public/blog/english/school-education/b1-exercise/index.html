@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=flash2">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -192,6 +192,26 @@
         <div class="ex-match-grid" id="matchGrid"></div>
         <p class="ex-match-msg" id="matchMsg" hidden></p>
       </section>
+
+      <section class="ex-flash" id="exFlash" aria-label="Vocabulary flashcards">
+        <div class="ex-flash-head">
+          <div>
+            <h2>Flashcards</h2>
+            <p class="ex-flash-hint">Lật thẻ kiểu LanGeek — xem từ / IPA, rồi định nghĩa + ví dụ. Đánh giá <strong>Chính xác</strong> hoặc <strong>Không chính xác</strong> để luyện từ mới.</p>
+          </div>
+          <div class="ex-flash-controls">
+            <div class="ex-flash-stats" aria-live="polite">
+              <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
+              <span>Known <strong id="flashKnown">0</strong></span>
+              <span>Learning <strong id="flashMiss">0</strong></span>
+            </div>
+            <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
+            <button type="button" class="ex-btn primary" id="btnFlashRestart">Restart</button>
+          </div>
+        </div>
+        <div class="ex-flash-stage" id="flashStage"></div>
+        <p class="ex-flash-msg" id="flashMsg" hidden></p>
+      </section>
       <script type="application/json" id="exVocabData">[{"id": 0, "form": "education", "word": "education", "ipa": "ˌɛdʒʊˈkeɪʃən", "vi": "giáo dục", "pos": "noun"}, {"id": 1, "form": "educate", "word": "to educate", "ipa": "ˈɛdʒʊˌkeɪt", "vi": "giáo dục", "pos": "verb"}, {"id": 2, "form": "educational", "word": "educational", "ipa": "ˌɛdʒʊˈkeɪʃənəl", "vi": "giáo dục", "pos": "adjective"}, {"id": 3, "form": "educated", "word": "educated", "ipa": "ˈɛdʒʊˌkeɪtɪd", "vi": "có học thức", "pos": "adjective"}, {"id": 4, "form": "academic", "word": "academic", "ipa": "ˌækəˈdɛmɪk", "vi": "học thuật", "pos": "adjective"}, {"id": 5, "form": "assignment", "word": "assignment", "ipa": "əˈsaɪnmənt", "vi": "bài tập", "pos": "noun"}, {"id": 6, "form": "classwork", "word": "classwork", "ipa": "ˈklæsˌwɝk", "vi": "bài tập trên lớp", "pos": "noun"}, {"id": 7, "form": "campus", "word": "campus", "ipa": "ˈkæmpəs", "vi": "khuôn viên trường", "pos": "noun"}, {"id": 8, "form": "diploma", "word": "diploma", "ipa": "dɪˈploʊmə", "vi": "bằng tốt nghiệp", "pos": "noun"}, {"id": 9, "form": "adult education", "word": "adult education", "ipa": "əˈdʌlt ˌɛdʒʊˈkeɪʃən", "vi": "giáo dục người lớn", "pos": "noun"}, {"id": 10, "form": "higher education", "word": "higher education", "ipa": "ˈhaɪɚ ˌɛdʒʊˈkeɪʃən", "vi": "giáo dục đại học", "pos": "noun"}, {"id": 11, "form": "private", "word": "private", "ipa": "ˈpraɪvɪt", "vi": "riêng tư", "pos": "adjective"}, {"id": 12, "form": "private school", "word": "private school", "ipa": "ˈpraɪvɪt ˌskuːl", "vi": "trường tư", "pos": "noun"}, {"id": 13, "form": "kindergarten", "word": "kindergarten", "ipa": "ˈkɪndɚˌɡɑrtən", "vi": "nhà trẻ", "pos": "noun"}, {"id": 14, "form": "grad", "word": "grad", "ipa": "ɡræd", "vi": "người tốt nghiệp", "pos": "noun"}, {"id": 15, "form": "graduate", "word": "to graduate", "ipa": "ˈɡrædʒuˌeɪt", "vi": "tốt nghiệp", "pos": "verb"}, {"id": 16, "form": "undergraduate", "word": "undergraduate", "ipa": "ˌʌndɚˈɡrædʒuət", "vi": "sinh viên đại học", "pos": "noun"}, {"id": 17, "form": "graduation", "word": "graduation", "ipa": "ˌɡrædʒuˈeɪʃən", "vi": "tốt nghiệp", "pos": "noun"}, {"id": 18, "form": "degree", "word": "degree", "ipa": "dɪˈɡriː", "vi": "bằng cấp", "pos": "noun"}, {"id": 19, "form": "lecturer", "word": "lecturer", "ipa": "ˈlɛktʃɚɚ", "vi": "giảng viên", "pos": "noun"}, {"id": 20, "form": "pupil", "word": "pupil", "ipa": "ˈpjuːpɪl", "vi": "học sinh", "pos": "noun"}, {"id": 21, "form": "period", "word": "period", "ipa": "ˈpɪriəd", "vi": "tiết học", "pos": "noun"}, {"id": 22, "form": "review", "word": "to review", "ipa": "rɪˈvjuː", "vi": "ôn tập", "pos": "verb"}, {"id": 23, "form": "attend", "word": "to attend", "ipa": "əˈtɛnd", "vi": "tham dự", "pos": "verb"}, {"id": 24, "form": "drop out", "word": "to drop out", "ipa": "ˈdrɑp ˌaʊt", "vi": "bỏ học", "pos": "verb"}, {"id": 25, "form": "examine", "word": "to examine", "ipa": "ɪɡˈzæmɪn", "vi": "kiểm tra", "pos": "verb"}, {"id": 26, "form": "exercise", "word": "exercise", "ipa": "ˈɛksɚˌsaɪz", "vi": "bài tập", "pos": "noun"}, {"id": 27, "form": "examination", "word": "examination", "ipa": "ɪɡˌzæməˈneɪʃən", "vi": "kỳ thi", "pos": "noun"}, {"id": 28, "form": "quiz", "word": "quiz", "ipa": "kwɪz", "vi": "bài kiểm tra", "pos": "noun"}, {"id": 29, "form": "tuition", "word": "tuition", "ipa": "tuˈɪʃən", "vi": "học phí", "pos": "noun"}, {"id": 30, "form": "[hit] the books", "word": "to [hit] the books", "ipa": "hɪt ðə ˈbʊks", "vi": "lao vào học nghiêm túc", "pos": "phrase"}, {"id": 31, "form": "genius", "word": "genius", "ipa": "ˈdʒiːniəs", "vi": "thiên tài", "pos": "noun"}, {"id": 32, "form": "accounting", "word": "accounting", "ipa": "əˈkaʊntɪŋ", "vi": "kế toán", "pos": "noun"}, {"id": 33, "form": "art history", "word": "art history", "ipa": "ɑrt ˈhɪstəri", "vi": "lịch sử nghệ thuật", "pos": "noun"}, {"id": 34, "form": "communication", "word": "communication", "ipa": "kəˌmjuːnɪˈkeɪʃən", "vi": "truyền thông", "pos": "noun"}, {"id": 35, "form": "computer science", "word": "computer science", "ipa": "kəmˈpjuːtɚ ˈsaɪəns", "vi": "khoa học máy tính", "pos": "noun"}, {"id": 36, "form": "cultural studies", "word": "cultural studies", "ipa": "ˈkʌlʧərəl ˈstʌdiz", "vi": "nghiên cứu văn hóa", "pos": "noun"}, {"id": 37, "form": "dentistry", "word": "dentistry", "ipa": "ˈdɛntɪstri", "vi": "nha khoa", "pos": "noun"}, {"id": 38, "form": "economics", "word": "economics", "ipa": "ˌɛkəˈnɑmɪks/ , /ˌiːkəˈnɑmɪks", "vi": "kinh tế học", "pos": "noun"}, {"id": 39, "form": "engineering", "word": "engineering", "ipa": "ˌɛnʤɪˈnɪrɪŋ", "vi": "kỹ thuật", "pos": "noun"}, {"id": 40, "form": "finance", "word": "finance", "ipa": "ˈfaɪnæns/ , /fɪˈnæns", "vi": "tài chính", "pos": "noun"}, {"id": 41, "form": "geology", "word": "geology", "ipa": "ʤiˈɑlədʒi", "vi": "địa chất học", "pos": "noun"}, {"id": 42, "form": "information technology", "word": "information technology", "ipa": "ˌɪnfɚˈmeɪʃən tɛkˈnɑləʤi", "vi": "công nghệ thông tin", "pos": "noun"}, {"id": 43, "form": "law", "word": "law", "ipa": "lɑ", "vi": "luật", "pos": "noun"}, {"id": 44, "form": "linguistics", "word": "linguistics", "ipa": "lɪŋˈɡwɪstɪks", "vi": "ngôn ngữ học", "pos": "noun"}, {"id": 45, "form": "logic", "word": "logic", "ipa": "ˈlɑʤɪk", "vi": "logic", "pos": "noun"}, {"id": 46, "form": "management", "word": "management", "ipa": "ˈmænədʒmənt/, /ˈmænɪdʒmənt", "vi": "quản lý", "pos": "noun"}, {"id": 47, "form": "medicine", "word": "medicine", "ipa": "ˈmɛdɪsən/ , /ˈmɛdɪsɪn", "vi": "y học", "pos": "noun"}, {"id": 48, "form": "nutrition", "word": "nutrition", "ipa": "nuˈtrɪʃən", "vi": "dinh dưỡng", "pos": "noun"}, {"id": 49, "form": "philosophy", "word": "philosophy", "ipa": "fəˈlɑsəfi", "vi": "triết học", "pos": "noun"}, {"id": 50, "form": "physiology", "word": "physiology", "ipa": "ˌfɪziˈɑlədʒi", "vi": "sinh lý học", "pos": "noun"}, {"id": 51, "form": "political science", "word": "political science", "ipa": "pəˈlɪtɪkəl ˈsaɪəns", "vi": "khoa học chính trị", "pos": "noun"}, {"id": 52, "form": "psychiatry", "word": "psychiatry", "ipa": "saɪˈkaɪətri/ , /sɪˈkaɪətri", "vi": "tâm thần học", "pos": "noun"}, {"id": 53, "form": "psychology", "word": "psychology", "ipa": "saɪˈkɑlədʒi", "vi": "tâm lý học", "pos": "noun"}, {"id": 54, "form": "robotics", "word": "robotics", "ipa": "roʊˈbɑtɪks", "vi": "ngành robot", "pos": "noun"}, {"id": 55, "form": "sociology", "word": "sociology", "ipa": "ˌsoʊsiˈɑlədʒi/ , /ˌsoʊʃiˈɑlədʒi", "vi": "xã hội học", "pos": "noun"}, {"id": 56, "form": "statistics", "word": "statistics", "ipa": "stəˈtɪstɪks", "vi": "thống kê", "pos": "noun"}]</script>
 
       <section class="ex-vocab">
@@ -264,6 +284,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js"></script>
+  <script src="../../../../js/exercise.js?v=flash2"></script>
 </body>
 </html>

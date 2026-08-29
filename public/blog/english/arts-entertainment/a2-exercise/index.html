@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=flash2">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -196,6 +196,26 @@
         <div class="ex-match-grid" id="matchGrid"></div>
         <p class="ex-match-msg" id="matchMsg" hidden></p>
       </section>
+
+      <section class="ex-flash" id="exFlash" aria-label="Vocabulary flashcards">
+        <div class="ex-flash-head">
+          <div>
+            <h2>Flashcards</h2>
+            <p class="ex-flash-hint">Lật thẻ kiểu LanGeek — xem từ / IPA, rồi định nghĩa + ví dụ. Đánh giá <strong>Chính xác</strong> hoặc <strong>Không chính xác</strong> để luyện từ mới.</p>
+          </div>
+          <div class="ex-flash-controls">
+            <div class="ex-flash-stats" aria-live="polite">
+              <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
+              <span>Known <strong id="flashKnown">0</strong></span>
+              <span>Learning <strong id="flashMiss">0</strong></span>
+            </div>
+            <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
+            <button type="button" class="ex-btn primary" id="btnFlashRestart">Restart</button>
+          </div>
+        </div>
+        <div class="ex-flash-stage" id="flashStage"></div>
+        <p class="ex-flash-msg" id="flashMsg" hidden></p>
+      </section>
       <script type="application/json" id="exVocabData">[{"id": 0, "form": "cinema", "word": "cinema", "ipa": "ˈsɪnəmə", "vi": "rạp chiếu phim", "pos": "noun"}, {"id": 1, "form": "the movies", "word": "the movies", "ipa": "ˈmuviz", "vi": "rạp chiếu phim", "pos": "noun"}, {"id": 2, "form": "theater", "word": "theater", "ipa": "ˈθiːətɚ", "vi": "nhà hát", "pos": "noun"}, {"id": 3, "form": "artist", "word": "artist", "ipa": "ˈɑːrtɪst", "vi": "nghệ sĩ", "pos": "noun"}, {"id": 4, "form": "acting", "word": "acting", "ipa": "ˈæktɪŋ", "vi": "diễn xuất", "pos": "noun"}, {"id": 5, "form": "role", "word": "role", "ipa": "roʊl", "vi": "vai trò", "pos": "noun"}, {"id": 6, "form": "scene", "word": "scene", "ipa": "siːn", "vi": "cảnh", "pos": "noun"}, {"id": 7, "form": "screen", "word": "screen", "ipa": "skriːn", "vi": "màn hình", "pos": "noun"}, {"id": 8, "form": "character", "word": "character", "ipa": "ˈkærɪktɚ", "vi": "nhân vật", "pos": "noun"}, {"id": 9, "form": "director", "word": "director", "ipa": "dɪˈrɛktɚ/ , /daɪˈrɛktɚ", "vi": "đạo diễn", "pos": "noun"}, {"id": 10, "form": "hero", "word": "hero", "ipa": "ˈhɪroʊ", "vi": "anh hùng", "pos": "noun"}, {"id": 11, "form": "heroine", "word": "heroine", "ipa": "ˈhɛroʊɪn", "vi": "nữ anh hùng", "pos": "noun"}, {"id": 12, "form": "cartoon", "word": "cartoon", "ipa": "kɑːrˈtuːn", "vi": "hoạt hình", "pos": "noun"}, {"id": 13, "form": "comedy", "word": "comedy", "ipa": "ˈkɑːmədi", "vi": "hài kịch", "pos": "noun"}, {"id": 14, "form": "detective story", "word": "detective story", "ipa": "dɪˈtɛktɪv ˈstɔːri", "vi": "truyện trinh thám", "pos": "noun"}, {"id": 15, "form": "drama", "word": "drama", "ipa": "ˈdrɑːmə", "vi": "kịch", "pos": "noun"}, {"id": 16, "form": "fantasy", "word": "fantasy", "ipa": "ˈfæntəsi", "vi": "giả tưởng", "pos": "noun"}, {"id": 17, "form": "horror", "word": "horror", "ipa": "ˈhɔrɚ", "vi": "kinh dị", "pos": "noun"}, {"id": 18, "form": "ending", "word": "ending", "ipa": "ˈɛndɪŋ", "vi": "kết thúc", "pos": "noun"}, {"id": 19, "form": "adventure story", "word": "adventure story", "ipa": "ədˈvɛntʃɚ ˈstɔːri", "vi": "câu chuyện phiêu lưu", "pos": "noun"}, {"id": 20, "form": "science fiction", "word": "science fiction", "ipa": "ˈsaɪəns ˈfɪkʃən", "vi": "khoa học viễn tưởng", "pos": "noun"}, {"id": 21, "form": "documentary", "word": "documentary", "ipa": "ˌdɑːkjəˈmɛntɚi", "vi": "phim tài liệu", "pos": "noun"}, {"id": 22, "form": "Hollywood", "word": "Hollywood", "ipa": "ˈhɑːliˌwʊd", "vi": "Hollywood", "pos": "noun"}, {"id": 23, "form": "review", "word": "review", "ipa": "rɪˈvjuː", "vi": "bài đánh giá", "pos": "noun"}, {"id": 24, "form": "performance", "word": "performance", "ipa": "pɚˈfɔːrməns", "vi": "màn trình diễn", "pos": "noun"}, {"id": 25, "form": "festival", "word": "festival", "ipa": "ˈfɛstəvəl", "vi": "lễ hội", "pos": "noun"}, {"id": 26, "form": "award", "word": "award", "ipa": "əˈwɑrd", "vi": "giải thưởng", "pos": "noun"}, {"id": 27, "form": "celebrity", "word": "celebrity", "ipa": "səˈlɛbrɪti", "vi": "người nổi tiếng", "pos": "noun"}, {"id": 28, "form": "entertainment", "word": "entertainment", "ipa": "ˌɛntɚˈteɪnmənt", "vi": "giải trí", "pos": "noun"}, {"id": 29, "form": "act", "word": "to act", "ipa": "ækt", "vi": "diễn", "pos": "verb"}, {"id": 30, "form": "film", "word": "to film", "ipa": "fɪlm", "vi": "quay phim", "pos": "verb"}, {"id": 31, "form": "perform", "word": "to perform", "ipa": "pɚˈfɔːrm", "vi": "biểu diễn", "pos": "verb"}, {"id": 32, "form": "culture", "word": "culture", "ipa": "ˈkʌltʃɚ", "vi": "văn hóa", "pos": "noun"}, {"id": 33, "form": "art", "word": "art", "ipa": "ɑːrt", "vi": "nghệ thuật", "pos": "noun"}, {"id": 34, "form": "painting", "word": "painting", "ipa": "ˈpeɪntɪŋ", "vi": "hội họa", "pos": "noun"}, {"id": 35, "form": "picture", "word": "picture", "ipa": "ˈpɪktʃɚ", "vi": "hình ảnh", "pos": "noun"}, {"id": 36, "form": "hit", "word": "hit", "ipa": "hɪt", "vi": "hit", "pos": "noun"}, {"id": 37, "form": "instrument", "word": "instrument", "ipa": "ˈɪnstrəmənt", "vi": "nhạc cụ", "pos": "noun"}, {"id": 38, "form": "guitarist", "word": "guitarist", "ipa": "ɡɪˈtɑːrɪst", "vi": "nghệ sĩ guitar", "pos": "noun"}, {"id": 39, "form": "musician", "word": "musician", "ipa": "mjuːˈzɪʃən", "vi": "nhạc sĩ", "pos": "noun"}, {"id": 40, "form": "jazz", "word": "jazz", "ipa": "dʒæz", "vi": "nhạc jazz", "pos": "noun"}, {"id": 41, "form": "rock music", "word": "rock music", "ipa": "rɑːk ˈmjuːzɪk", "vi": "nhạc rock", "pos": "noun"}, {"id": 42, "form": "record", "word": "record", "ipa": "ˈrɛkɚd", "vi": "đĩa", "pos": "noun"}, {"id": 43, "form": "tour", "word": "tour", "ipa": "tʊr", "vi": "chuyến lưu diễn", "pos": "noun"}, {"id": 44, "form": "voice", "word": "voice", "ipa": "vɔɪs", "vi": "giọng", "pos": "noun"}, {"id": 45, "form": "work", "word": "work", "ipa": "wɝːk", "vi": "tác phẩm", "pos": "noun"}, {"id": 46, "form": "concert", "word": "concert", "ipa": "ˈkɑːnsɚt/ , /ˈkɑːnsɜːrt", "vi": "buổi hòa nhạc", "pos": "noun"}, {"id": 47, "form": "dancer", "word": "dancer", "ipa": "ˈdænsɚ", "vi": "vũ công", "pos": "noun"}, {"id": 48, "form": "drum", "word": "drum", "ipa": "drʌm", "vi": "trống", "pos": "noun"}, {"id": 49, "form": "poet", "word": "poet", "ipa": "ˈpoʊɪt", "vi": "nhà thơ", "pos": "noun"}, {"id": 50, "form": "story", "word": "story", "ipa": "ˈstɔːri", "vi": "câu chuyện", "pos": "noun"}, {"id": 51, "form": "novel", "word": "novel", "ipa": "ˈnɑvəl", "vi": "tiểu thuyết", "pos": "noun"}, {"id": 52, "form": "song", "word": "song", "ipa": "sɔːŋ", "vi": "bài hát", "pos": "noun"}, {"id": 53, "form": "player", "word": "player", "ipa": "ˈpleɪɚ", "vi": "nhạc công", "pos": "noun"}, {"id": 54, "form": "painter", "word": "painter", "ipa": "ˈpeɪntɚ", "vi": "họa sĩ", "pos": "noun"}, {"id": 55, "form": "classical", "word": "classical", "ipa": "ˈklæsɪkəl", "vi": "cổ điển", "pos": "adjective"}, {"id": 56, "form": "musical", "word": "musical", "ipa": "ˈmjuːzɪkəl", "vi": "âm nhạc", "pos": "adjective"}, {"id": 57, "form": "opera", "word": "opera", "ipa": "ˈɑːprə/ , /ˈɑːpərə", "vi": "nhạc kịch", "pos": "noun"}, {"id": 58, "form": "loud", "word": "loud", "ipa": "laʊd", "vi": "ồn ào", "pos": "adjective"}, {"id": 59, "form": "loudly", "word": "loudly", "ipa": "ˈlaʊdli", "vi": "ồn ào", "pos": "adverb"}, {"id": 60, "form": "sing", "word": "to sing", "ipa": "sɪŋ", "vi": "hát", "pos": "verb"}, {"id": 61, "form": "play", "word": "to play", "ipa": "pleɪ", "vi": "chơi", "pos": "verb"}, {"id": 62, "form": "pop music", "word": "pop music", "ipa": "pɑːp mjˈuːzɪk", "vi": "nhạc pop", "pos": "noun"}, {"id": 63, "form": "dance", "word": "to dance", "ipa": "dæns", "vi": "nhảy múa", "pos": "verb"}]</script>
 
       <section class="ex-vocab">
@@ -275,6 +295,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js"></script>
+  <script src="../../../../js/exercise.js?v=flash2"></script>
 </body>
 </html>

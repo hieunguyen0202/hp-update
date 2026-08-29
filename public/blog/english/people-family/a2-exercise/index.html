@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=flash2">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -144,6 +144,26 @@
         <div class="ex-match-grid" id="matchGrid"></div>
         <p class="ex-match-msg" id="matchMsg" hidden></p>
       </section>
+
+      <section class="ex-flash" id="exFlash" aria-label="Vocabulary flashcards">
+        <div class="ex-flash-head">
+          <div>
+            <h2>Flashcards</h2>
+            <p class="ex-flash-hint">Lật thẻ kiểu LanGeek — xem từ / IPA, rồi định nghĩa + ví dụ. Đánh giá <strong>Chính xác</strong> hoặc <strong>Không chính xác</strong> để luyện từ mới.</p>
+          </div>
+          <div class="ex-flash-controls">
+            <div class="ex-flash-stats" aria-live="polite">
+              <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
+              <span>Known <strong id="flashKnown">0</strong></span>
+              <span>Learning <strong id="flashMiss">0</strong></span>
+            </div>
+            <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
+            <button type="button" class="ex-btn primary" id="btnFlashRestart">Restart</button>
+          </div>
+        </div>
+        <div class="ex-flash-stage" id="flashStage"></div>
+        <p class="ex-flash-msg" id="flashMsg" hidden></p>
+      </section>
       <script type="application/json" id="exVocabData">[{"id": 0, "form": "Australia", "word": "Australia", "ipa": "ɔˈstreɪljə", "vi": "Úc", "pos": "noun"}, {"id": 1, "form": "Australian", "word": "Australian", "ipa": "ɔˈstreɪljən", "vi": "thuộc Australia", "pos": "adjective"}, {"id": 2, "form": "Switzerland", "word": "Switzerland", "ipa": "ˈswɪtsɚˌlænd", "vi": "Thụy Sĩ", "pos": "noun"}, {"id": 3, "form": "Swiss", "word": "Swiss", "ipa": "swɪs", "vi": "Thụy Sĩ", "pos": "adjective"}, {"id": 4, "form": "Austria", "word": "Austria", "ipa": "ˈɔstriə", "vi": "Áo", "pos": "noun"}, {"id": 5, "form": "Austrian", "word": "Austrian", "ipa": "ˈɔstriən", "vi": "Áo", "pos": "adjective"}, {"id": 6, "form": "the Netherlands", "word": "the Netherlands", "ipa": "ˈnɛðɚləndz", "vi": "Hà Lan", "pos": "noun"}, {"id": 7, "form": "Dutch", "word": "Dutch", "ipa": "dʌʧ", "vi": "Hà Lan", "pos": "adjective"}, {"id": 8, "form": "Norway", "word": "Norway", "ipa": "ˈnɔrˌweɪ", "vi": "Na Uy", "pos": "noun"}, {"id": 9, "form": "Norwegian", "word": "Norwegian", "ipa": "nɔrˈwiːdʒən", "vi": "Na Uy", "pos": "adjective"}, {"id": 10, "form": "Sweden", "word": "Sweden", "ipa": "ˈswiːdən", "vi": "Thụy Điển", "pos": "noun"}, {"id": 11, "form": "Swedish", "word": "Swedish", "ipa": "ˈswiːdɪʃ", "vi": "Thuộc Thụy Điển", "pos": "adjective"}, {"id": 12, "form": "Poland", "word": "Poland", "ipa": "ˈpoʊlənd", "vi": "Ba Lan", "pos": "noun"}, {"id": 13, "form": "polish", "word": "polish", "ipa": "ˈpoʊlɪʃ", "vi": "Ba Lan", "pos": "adjective"}, {"id": 14, "form": "Egypt", "word": "Egypt", "ipa": "ˈiːdʒɪpt", "vi": "Ai Cập", "pos": "noun"}, {"id": 15, "form": "Egyptian", "word": "Egyptian", "ipa": "ɪˈdʒɪpʃən", "vi": "Ai Cập", "pos": "adjective"}, {"id": 16, "form": "Turkey", "word": "Turkey", "ipa": "tˈɜːki", "vi": "Thổ Nhĩ Kỳ", "pos": "noun"}, {"id": 17, "form": "Turkish", "word": "Turkish", "ipa": "ˈtɝkɪʃ", "vi": "Thổ Nhĩ Kỳ", "pos": "adjective"}, {"id": 18, "form": "Greece", "word": "Greece", "ipa": "ɡriːs", "vi": "Hy Lạp", "pos": "noun"}, {"id": 19, "form": "Greek", "word": "Greek", "ipa": "ɡriːk", "vi": "Hy Lạp", "pos": "adjective"}, {"id": 20, "form": "Vietnam", "word": "Vietnam", "ipa": "ˌviˌɛtˈnɑm", "vi": "Việt Nam", "pos": "noun"}, {"id": 21, "form": "Vietnamese", "word": "Vietnamese", "ipa": "ˌviˌɛtˌnɑˈmiz", "vi": "Việt Nam", "pos": "adjective"}, {"id": 22, "form": "Saudi Arabia", "word": "Saudi Arabia", "ipa": "ˈsaʊdi əˈreɪbiə", "vi": "Ả Rập Xê Út", "pos": "noun"}, {"id": 23, "form": "Saudi", "word": "Saudi", "ipa": "ˈsaʊdi", "vi": "Ả Rập Xê-út", "pos": "adjective"}, {"id": 24, "form": "Afghanistan", "word": "Afghanistan", "ipa": "æfˈɡænəˌstæn", "vi": "Afghanistan", "pos": "noun"}, {"id": 25, "form": "Afghan", "word": "Afghan", "ipa": "ˈæfɡæn", "vi": "Afghan", "pos": "adjective"}, {"id": 26, "form": "Israel", "word": "Israel", "ipa": "ˈɪzreɪəl", "vi": "Israel", "pos": "noun"}, {"id": 27, "form": "Israeli", "word": "Israeli", "ipa": "ɪzˈreɪli", "vi": "thuộc Israel", "pos": "adjective"}, {"id": 28, "form": "daddy", "word": "daddy", "ipa": "ˈdædi", "vi": "bố", "pos": "noun"}, {"id": 29, "form": "mommy", "word": "mommy", "ipa": "ˈmɑːmi", "vi": "mẹ", "pos": "noun"}, {"id": 30, "form": "grandparent", "word": "grandparent", "ipa": "ˈɡrændˌpɛrənt", "vi": "ông", "pos": "noun"}, {"id": 31, "form": "grandpa", "word": "grandpa", "ipa": "ˈɡrændpɑː/ , /ˈɡrænpɑː", "vi": "ông", "pos": "noun"}, {"id": 32, "form": "grandma", "word": "grandma", "ipa": "ˈɡrændmɑː/ , /ˈɡrænmɑː", "vi": "bà", "pos": "noun"}, {"id": 33, "form": "granddaughter", "word": "granddaughter", "ipa": "ˈɡrændˌdɔːtɚ", "vi": "cháu gái", "pos": "noun"}, {"id": 34, "form": "grandson", "word": "grandson", "ipa": "ˈɡrændˌsʌn", "vi": "cháu trai", "pos": "noun"}, {"id": 35, "form": "group", "word": "group", "ipa": "ɡruːp", "vi": "nhóm", "pos": "noun"}, {"id": 36, "form": "guest", "word": "guest", "ipa": "ɡɛst", "vi": "khách", "pos": "noun"}, {"id": 37, "form": "dude", "word": "dude", "ipa": "duːd/ , /djuːd", "vi": "anh bạn", "pos": "noun"}, {"id": 38, "form": "guy", "word": "guy", "ipa": "ɡaɪ", "vi": "anh chàng", "pos": "noun"}, {"id": 39, "form": "neighbor", "word": "neighbor", "ipa": "ˈneɪbɚ", "vi": "hàng xóm", "pos": "noun"}, {"id": 40, "form": "surname", "word": "surname", "ipa": "ˈsɝːˌneɪm", "vi": "họ", "pos": "noun"}, {"id": 41, "form": "family name", "word": "family name", "ipa": "ˈfæməli ˌneɪm", "vi": "họ", "pos": "noun"}, {"id": 42, "form": "background", "word": "background", "ipa": "ˈbækˌɡraʊnd", "vi": "lý lịch", "pos": "noun"}, {"id": 43, "form": "couple", "word": "couple", "ipa": "ˈkʌpəl", "vi": "cặp đôi", "pos": "noun"}, {"id": 44, "form": "partner", "word": "partner", "ipa": "ˈpɑːrtnɚ", "vi": "đối tác", "pos": "noun"}, {"id": 45, "form": "twin", "word": "twin", "ipa": "twɪn", "vi": "sinh đôi", "pos": "noun"}, {"id": 46, "form": "kid", "word": "kid", "ipa": "kɪd", "vi": "con", "pos": "noun"}, {"id": 47, "form": "member", "word": "member", "ipa": "ˈmɛmbɚ", "vi": "thành viên", "pos": "noun"}, {"id": 48, "form": "date", "word": "to date", "ipa": "deɪt", "vi": "hẹn hò", "pos": "verb"}, {"id": 49, "form": "care", "word": "to care", "ipa": "kɛr", "vi": "quan tâm", "pos": "verb"}, {"id": 50, "form": "marry", "word": "to marry", "ipa": "ˈmæri", "vi": "kết hôn", "pos": "verb"}, {"id": 51, "form": "break up", "word": "to break up", "ipa": "breɪk ʌp", "vi": "chia tay", "pos": "verb"}, {"id": 52, "form": "grow", "word": "to grow", "ipa": "ɡroʊ", "vi": "lớn lên", "pos": "verb"}, {"id": 53, "form": "wedding", "word": "wedding", "ipa": "ˈwɛdɪŋ", "vi": "đám cưới", "pos": "noun"}, {"id": 54, "form": "raise", "word": "to raise", "ipa": "reɪz", "vi": "nuôi dưỡng", "pos": "verb"}, {"id": 55, "form": "middle name", "word": "middle name", "ipa": "ˈmɪdl ˌneɪm", "vi": "tên đệm", "pos": "noun"}]</script>
 
       <section class="ex-vocab">
@@ -215,6 +235,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js"></script>
+  <script src="../../../../js/exercise.js?v=flash2"></script>
 </body>
 </html>

@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=flash2">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -148,6 +148,26 @@
         <div class="ex-match-grid" id="matchGrid"></div>
         <p class="ex-match-msg" id="matchMsg" hidden></p>
       </section>
+
+      <section class="ex-flash" id="exFlash" aria-label="Vocabulary flashcards">
+        <div class="ex-flash-head">
+          <div>
+            <h2>Flashcards</h2>
+            <p class="ex-flash-hint">Lật thẻ kiểu LanGeek — xem từ / IPA, rồi định nghĩa + ví dụ. Đánh giá <strong>Chính xác</strong> hoặc <strong>Không chính xác</strong> để luyện từ mới.</p>
+          </div>
+          <div class="ex-flash-controls">
+            <div class="ex-flash-stats" aria-live="polite">
+              <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
+              <span>Known <strong id="flashKnown">0</strong></span>
+              <span>Learning <strong id="flashMiss">0</strong></span>
+            </div>
+            <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
+            <button type="button" class="ex-btn primary" id="btnFlashRestart">Restart</button>
+          </div>
+        </div>
+        <div class="ex-flash-stage" id="flashStage"></div>
+        <p class="ex-flash-msg" id="flashMsg" hidden></p>
+      </section>
       <script type="application/json" id="exVocabData">[{"id": 0, "form": "money", "word": "money", "ipa": "ˈmʌni", "vi": "tiền", "pos": "noun"}, {"id": 1, "form": "job", "word": "job", "ipa": "dʒɑːb", "vi": "công việc", "pos": "noun"}, {"id": 2, "form": "work", "word": "work", "ipa": "wɝːk", "vi": "công việc", "pos": "noun"}, {"id": 3, "form": "doctor", "word": "doctor", "ipa": "ˈdɑːktɚ", "vi": "bác sĩ", "pos": "noun"}, {"id": 4, "form": "dentist", "word": "dentist", "ipa": "ˈdɛntɪst", "vi": "nha sĩ", "pos": "noun"}, {"id": 5, "form": "nurse", "word": "nurse", "ipa": "nɝːs", "vi": "y tá nam", "pos": "noun"}, {"id": 6, "form": "teacher", "word": "teacher", "ipa": "ˈtiːtʃɚ", "vi": "giáo viên", "pos": "noun"}, {"id": 7, "form": "engineer", "word": "engineer", "ipa": "ˌɛnʤɪˈnɪr", "vi": "kỹ sư", "pos": "noun"}, {"id": 8, "form": "actor", "word": "actor", "ipa": "ˈæktɚ", "vi": "diễn viên", "pos": "noun"}, {"id": 9, "form": "actress", "word": "actress", "ipa": "ˈæktrəs", "vi": "nữ diễn viên", "pos": "noun"}, {"id": 10, "form": "police officer", "word": "police officer", "ipa": "pəˈliːs ˈɑːfɪsɚ", "vi": "cảnh sát viên", "pos": "noun"}, {"id": 11, "form": "waiter", "word": "waiter", "ipa": "ˈweɪtɚ", "vi": "bồi bàn", "pos": "noun"}, {"id": 12, "form": "waitress", "word": "waitress", "ipa": "ˈweɪtrəs", "vi": "nữ phục vụ", "pos": "noun"}, {"id": 13, "form": "driver", "word": "driver", "ipa": "ˈdraɪvɚ", "vi": "tài xế", "pos": "noun"}]</script>
 
       <section class="ex-vocab">
@@ -177,6 +197,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js"></script>
+  <script src="../../../../js/exercise.js?v=flash2"></script>
 </body>
 </html>

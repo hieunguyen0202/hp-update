@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=flash2">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -168,6 +168,26 @@
         <div class="ex-match-grid" id="matchGrid"></div>
         <p class="ex-match-msg" id="matchMsg" hidden></p>
       </section>
+
+      <section class="ex-flash" id="exFlash" aria-label="Vocabulary flashcards">
+        <div class="ex-flash-head">
+          <div>
+            <h2>Flashcards</h2>
+            <p class="ex-flash-hint">Lật thẻ kiểu LanGeek — xem từ / IPA, rồi định nghĩa + ví dụ. Đánh giá <strong>Chính xác</strong> hoặc <strong>Không chính xác</strong> để luyện từ mới.</p>
+          </div>
+          <div class="ex-flash-controls">
+            <div class="ex-flash-stats" aria-live="polite">
+              <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
+              <span>Known <strong id="flashKnown">0</strong></span>
+              <span>Learning <strong id="flashMiss">0</strong></span>
+            </div>
+            <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
+            <button type="button" class="ex-btn primary" id="btnFlashRestart">Restart</button>
+          </div>
+        </div>
+        <div class="ex-flash-stage" id="flashStage"></div>
+        <p class="ex-flash-msg" id="flashMsg" hidden></p>
+      </section>
       <script type="application/json" id="exVocabData">[{"id": 0, "form": "fishing", "word": "fishing", "ipa": "ˈfɪʃɪŋ", "vi": "câu cá", "pos": "noun"}, {"id": 1, "form": "fish", "word": "to fish", "ipa": "fɪʃ", "vi": "câu cá", "pos": "verb"}, {"id": 2, "form": "walk", "word": "walk", "ipa": "wɑːk", "vi": "đi bộ", "pos": "noun"}, {"id": 3, "form": "yoga", "word": "yoga", "ipa": "ˈjoʊɡə", "vi": "yoga", "pos": "noun"}, {"id": 4, "form": "ball game", "word": "ball game", "ipa": "ˈbaːl ˌɡeɪm", "vi": "trò chơi bóng", "pos": "noun"}, {"id": 5, "form": "card game", "word": "card game", "ipa": "ˈkɑːrd ˌɡeɪm", "vi": "trò chơi bài", "pos": "noun"}, {"id": 6, "form": "table tennis", "word": "table tennis", "ipa": "ˈteɪbəl ˌtɛnɪs", "vi": "bóng bàn", "pos": "noun"}, {"id": 7, "form": "barbecue", "word": "barbecue", "ipa": "ˈbɑːrbɪˌkjuː", "vi": "tiệc nướng ngoài trời", "pos": "noun"}, {"id": 8, "form": "camp", "word": "camp", "ipa": "kæmp", "vi": "trại", "pos": "noun"}, {"id": 9, "form": "camping", "word": "camping", "ipa": "ˈkæmpɪŋ", "vi": "cắm trại", "pos": "noun"}, {"id": 10, "form": "campsite", "word": "campsite", "ipa": "ˈkæmpˌsaɪt", "vi": "khu cắm trại", "pos": "noun"}, {"id": 11, "form": "club", "word": "club", "ipa": "klʌb", "vi": "câu lạc bộ", "pos": "noun"}, {"id": 12, "form": "party", "word": "party", "ipa": "ˈpɑrti", "vi": "tiệc", "pos": "noun"}, {"id": 13, "form": "picnic", "word": "picnic", "ipa": "ˈpɪkˌnɪk", "vi": "dã ngoại", "pos": "noun"}, {"id": 14, "form": "tent", "word": "tent", "ipa": "tɛnt", "vi": "lều", "pos": "noun"}, {"id": 15, "form": "shower", "word": "shower", "ipa": "ˈʃaʊɚ", "vi": "vòi hoa sen", "pos": "noun"}, {"id": 16, "form": "bath", "word": "bath", "ipa": "bæθ", "vi": "tắm", "pos": "noun"}, {"id": 17, "form": "laundry", "word": "laundry", "ipa": "ˈlɑːndri", "vi": "quần áo giặt", "pos": "noun"}, {"id": 18, "form": "bored", "word": "bored", "ipa": "bɔːrd", "vi": "chán", "pos": "adjective"}, {"id": 19, "form": "surprising", "word": "surprising", "ipa": "sɚˈpraɪzɪŋ", "vi": "đáng ngạc nhiên", "pos": "adjective"}, {"id": 20, "form": "enjoyable", "word": "enjoyable", "ipa": "ɪnˈdʒɔɪəbəl", "vi": "thú vị", "pos": "adjective"}, {"id": 21, "form": "delightful", "word": "delightful", "ipa": "dɪˈlaɪtfəl", "vi": "thú vị", "pos": "adjective"}, {"id": 22, "form": "pleased", "word": "pleased", "ipa": "pliːzd", "vi": "hài lòng", "pos": "adjective"}, {"id": 23, "form": "cooking", "word": "cooking", "ipa": "ˈkʊkɪŋ", "vi": "nấu ăn", "pos": "noun"}, {"id": 24, "form": "fun", "word": "fun", "ipa": "fʌn", "vi": "niềm vui", "pos": "noun"}, {"id": 25, "form": "cleaning", "word": "cleaning", "ipa": "ˈkliːnɪŋ", "vi": "dọn dẹp", "pos": "noun"}, {"id": 26, "form": "begin", "word": "to begin", "ipa": "bɪˈɡɪn", "vi": "bắt đầu", "pos": "verb"}, {"id": 27, "form": "end", "word": "to end", "ipa": "ɛnd", "vi": "kết thúc", "pos": "verb"}, {"id": 28, "form": "relax", "word": "to relax", "ipa": "rɪˈlæks", "vi": "thư giãn", "pos": "verb"}, {"id": 29, "form": "smoke", "word": "to smoke", "ipa": "smoʊk", "vi": "hút", "pos": "verb"}, {"id": 30, "form": "dance", "word": "dance", "ipa": "dæns", "vi": "điệu nhảy", "pos": "noun"}, {"id": 31, "form": "water park", "word": "water park", "ipa": "ˈwɑːtɚ ˌpɑːrk", "vi": "công viên nước", "pos": "noun"}, {"id": 32, "form": "celebrate", "word": "to celebrate", "ipa": "ˈsɛləˌbreɪt", "vi": "ăn mừng", "pos": "verb"}, {"id": 33, "form": "toy", "word": "toy", "ipa": "tɔɪ", "vi": "đồ chơi", "pos": "noun"}]</script>
 
       <section class="ex-vocab">
@@ -217,6 +237,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js"></script>
+  <script src="../../../../js/exercise.js?v=flash2"></script>
 </body>
 </html>

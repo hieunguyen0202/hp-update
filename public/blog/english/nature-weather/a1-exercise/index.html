@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=flash2">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -160,6 +160,26 @@
         <div class="ex-match-grid" id="matchGrid"></div>
         <p class="ex-match-msg" id="matchMsg" hidden></p>
       </section>
+
+      <section class="ex-flash" id="exFlash" aria-label="Vocabulary flashcards">
+        <div class="ex-flash-head">
+          <div>
+            <h2>Flashcards</h2>
+            <p class="ex-flash-hint">Lật thẻ kiểu LanGeek — xem từ / IPA, rồi định nghĩa + ví dụ. Đánh giá <strong>Chính xác</strong> hoặc <strong>Không chính xác</strong> để luyện từ mới.</p>
+          </div>
+          <div class="ex-flash-controls">
+            <div class="ex-flash-stats" aria-live="polite">
+              <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
+              <span>Known <strong id="flashKnown">0</strong></span>
+              <span>Learning <strong id="flashMiss">0</strong></span>
+            </div>
+            <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
+            <button type="button" class="ex-btn primary" id="btnFlashRestart">Restart</button>
+          </div>
+        </div>
+        <div class="ex-flash-stage" id="flashStage"></div>
+        <p class="ex-flash-msg" id="flashMsg" hidden></p>
+      </section>
       <script type="application/json" id="exVocabData">[{"id": 0, "form": "weather", "word": "weather", "ipa": "ˈwɛðɚ", "vi": "thời tiết", "pos": "noun"}, {"id": 1, "form": "fire", "word": "fire", "ipa": "ˈfaɪɚ", "vi": "lửa", "pos": "noun"}, {"id": 2, "form": "hot", "word": "hot", "ipa": "hɑːt", "vi": "nóng", "pos": "adjective"}, {"id": 3, "form": "cold", "word": "cold", "ipa": "koʊld", "vi": "lạnh", "pos": "adjective"}, {"id": 4, "form": "sunny", "word": "sunny", "ipa": "ˈsʌni", "vi": "nắng", "pos": "adjective"}, {"id": 5, "form": "cloud", "word": "cloud", "ipa": "klaʊd", "vi": "mây", "pos": "noun"}, {"id": 6, "form": "cloudy", "word": "cloudy", "ipa": "ˈklaʊdi", "vi": "có mây", "pos": "adjective"}, {"id": 7, "form": "rain", "word": "rain", "ipa": "reɪn", "vi": "mưa", "pos": "noun"}, {"id": 8, "form": "rainy", "word": "rainy", "ipa": "ˈreɪni", "vi": "có mưa", "pos": "adjective"}, {"id": 9, "form": "snowy", "word": "snowy", "ipa": "ˈsnoʊi", "vi": "có tuyết", "pos": "adjective"}, {"id": 10, "form": "ice", "word": "ice", "ipa": "aɪs", "vi": "đá", "pos": "noun"}, {"id": 11, "form": "nature", "word": "nature", "ipa": "ˈneɪtʃɚ", "vi": "thiên nhiên", "pos": "noun"}, {"id": 12, "form": "sun", "word": "sun", "ipa": "sʌn", "vi": "mặt trời", "pos": "noun"}, {"id": 13, "form": "moon", "word": "moon", "ipa": "muːn", "vi": "mặt trăng", "pos": "noun"}, {"id": 14, "form": "Earth", "word": "Earth", "ipa": "ɝːθ", "vi": "Trái Đất", "pos": "noun"}, {"id": 15, "form": "sky", "word": "sky", "ipa": "skaɪ", "vi": "bầu trời", "pos": "noun"}, {"id": 16, "form": "river", "word": "river", "ipa": "ˈrɪvɚ", "vi": "sông", "pos": "noun"}, {"id": 17, "form": "sea", "word": "sea", "ipa": "siː", "vi": "biển", "pos": "noun"}, {"id": 18, "form": "mountain", "word": "mountain", "ipa": "ˈmaʊntn", "vi": "núi", "pos": "noun"}, {"id": 19, "form": "beach", "word": "beach", "ipa": "biːtʃ", "vi": "bãi biển", "pos": "noun"}, {"id": 20, "form": "forest", "word": "forest", "ipa": "ˈfɔːrɪst", "vi": "rừng", "pos": "noun"}, {"id": 21, "form": "island", "word": "island", "ipa": "ˈaɪlənd", "vi": "đảo", "pos": "noun"}, {"id": 22, "form": "star", "word": "star", "ipa": "stɑr", "vi": "ngôi sao", "pos": "noun"}, {"id": 23, "form": "tree", "word": "tree", "ipa": "triː", "vi": "cây", "pos": "noun"}, {"id": 24, "form": "flower", "word": "flower", "ipa": "ˈflaʊɚ", "vi": "hoa", "pos": "noun"}]</script>
 
       <section class="ex-vocab">
@@ -200,6 +220,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js"></script>
+  <script src="../../../../js/exercise.js?v=flash2"></script>
 </body>
 </html>
