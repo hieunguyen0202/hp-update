@@ -97,15 +97,16 @@ def build_lesson_34(full: str) -> list[dict]:
             ),
         ),
         _note(
-            "Talking about past experiences",
-            intro="Use the <strong>present perfect</strong> (have/has + past participle) for life experiences — no specific time.",
+            "Talking about past experiences — present perfect",
+            intro="Use the <strong>present perfect</strong> to talk or ask about experiences — only when you <strong>don’t say a time</strong>.",
             items=[
                 _chk(full, "I’ve tried windsurfing."),
                 _chk(full, "I’ve never been bungee jumping."),
+                _chk(full, "Have you ever been skydiving?"),
             ],
         ),
         _note(
-            "Talking about past experiences",
+            "Talking about past experiences — more examples",
             items=[
                 _chk(full, "I’ve read ‘The Idiot’."),
                 _chk(full, "I’ve never drunk whisky."),
@@ -113,8 +114,8 @@ def build_lesson_34(full: str) -> list[dict]:
             ],
         ),
         _note(
-            "Talking about past experiences",
-            intro="Use the <strong>past simple</strong> when you mention a <strong>specific time</strong>.",
+            "Talking about past experiences — past simple + time",
+            intro="As soon as you mention a <strong>time</strong>, switch to the <strong>past simple</strong>.",
             items=[
                 'I <mark class="lr-hl">went</mark> windsurfing <mark class="lr-hl">three years ago</mark>.',
                 'I <mark class="lr-hl">didn’t drink</mark> a lot <mark class="lr-hl">last year</mark>.',
@@ -142,7 +143,7 @@ def build_lesson_34(full: str) -> list[dict]:
             ),
         ),
         _tx(
-            "used to — past vs present",
+            "Comparing past and present — used to dialogue",
             _dlg(
                 full,
                 [
@@ -163,13 +164,53 @@ def build_lesson_34(full: str) -> list[dict]:
             ),
         ),
         _note(
-            "used to · would · any more",
+            "Comparing past and present — used to",
+            intro="Something was true in the <strong>past</strong>, but isn’t true <strong>now</strong>.",
             items=[
-                ("used to", "He used to have a beard. → true in the past, not now."),
-                ("would", "When we got home, Mum would make us beans on toast and then we’d watch cartoons."),
-                ("any more", "She doesn’t live here any more. → similar to <em>used to</em>."),
+                _chk(full, "He used to have a beard."),
+                _chk(full, "I used to live in Berlin."),
             ],
-            formula=True,
+        ),
+        _note(
+            "Comparing past and present — didn’t use to",
+            intro="Things that <strong>weren’t true</strong> in the past, but <strong>are true now</strong>.",
+            items=[
+                'They <mark class="lr-hl">didn’t use to</mark> get on so well.',
+                'I <mark class="lr-hl">didn’t use to</mark> wear glasses.',
+            ],
+            items_verbatim=[
+                _chk(full, "They didn’t use to get on so well."),
+                _chk(full, "I didn’t use to wear glasses."),
+            ],
+        ),
+        _note(
+            "Comparing past and present — questions",
+            items=[
+                _chk(full, "Did you use to play a musical instrument?"),
+                _chk(full, "Didn’t he use to work here?"),
+            ],
+        ),
+        _note(
+            "would — past habits",
+            intro="Actions or habits you did in the past, but don’t do now.",
+            items=[
+                _chk(
+                    full,
+                    "When we got home, Mum would make us beans on toast and then we’d watch cartoons.",
+                ),
+                _chk(
+                    full,
+                    "There was this bakery near the office where I would go every lunchtime to get a sandwich and chat to the other regulars.",
+                ),
+            ],
+        ),
+        _note(
+            "any more",
+            intro="Present verb + <strong>any more</strong> — similar meaning to <em>used to</em>.",
+            items=[
+                _chk(full, "She doesn’t live here any more."),
+                _chk(full, "I don’t have time to listen to music any more."),
+            ],
         ),
         _tx(
             "Telling a story — setting the scene",
@@ -201,7 +242,7 @@ def build_lesson_34(full: str) -> list[dict]:
         ),
         _note(
             "Past continuous — set the scene",
-            intro="Describe the background at the start of a story (or a longer past answer).",
+            intro="Describe the background at the start — who was there and what was happening.",
             items=[
                 _chk(full, "We were sitting on the bus, ready to leave."),
                 _chk(
@@ -209,7 +250,9 @@ def build_lesson_34(full: str) -> list[dict]:
                     "It was raining so hard you couldn’t even see out of the window.",
                 ),
                 _chk(full, "I was living in a small apartment at the time."),
+                _chk(full, "I was driving home after work."),
             ],
+            tip="Useful for longer answers in a job interview or IELTS — not only long stories.",
         ),
         _tx(
             "Driving test story",
@@ -246,12 +289,33 @@ def build_lesson_34(full: str) -> list[dict]:
             ),
         ),
         _note(
-            "Past perfect vs past simple in stories",
-            intro="Time reference (e.g. <em>last week</em>) fixes when the story starts. Use <strong>had + past participle</strong> for events <em>before</em> that point.",
+            "Time reference — fix when the story starts",
+            items=[
+                _chk(full, "Last week…"),
+                _chk(full, "This happened two years ago, in summer."),
+                _chk(full, "So, yesterday, I was walking down the street…"),
+            ],
+            tip="A time reference ‘fixes’ when your story starts — then you can talk about events before and after that point.",
+        ),
+        _note(
+            "Past perfect — before the story starts",
+            intro="Use <strong>had + past participle</strong> for things that happened <em>before</em> the story’s starting point.",
             items=[
                 _chk(full, "I hadn’t taken any driving lessons."),
                 _chk(full, "I had only driven a car twice in my life."),
+                _chk(
+                    full,
+                    "When I was 25, I quit my job and decided to train as a pilot. I had always wanted to learn to fly.",
+                ),
+            ],
+        ),
+        _note(
+            "Past simple — events in the story",
+            intro="For what happens <em>during</em> the story (after the starting point), use the past simple.",
+            items=[
                 _chk(full, "We drove out of the test centre."),
+                _chk(full, "We sat in a traffic jam for ages."),
+                _chk(full, "I had a small accident on the way home."),
             ],
         ),
         _tx(
@@ -282,11 +346,28 @@ def build_lesson_34(full: str) -> list[dict]:
             ),
         ),
         _note(
-            "wish · if only · could have",
+            "wish + past perfect",
+            intro="Talk about something you <strong>regret</strong> — often the opposite of what really happened.",
             items=[
                 _chk(full, "I wish I’d learned other languages when I was younger."),
+                _chk(full, "I wish I hadn’t said that."),
+            ],
+        ),
+        _note(
+            "if only + past perfect",
+            items=[
                 _chk(full, "If only I’d kept my Spanish going."),
+                _chk(full, "If only I hadn’t wasted so much time."),
+            ],
+        ),
+        _note(
+            "could have — regrets",
+            items=[
                 _chk(full, "I could have tried harder."),
+                _chk(
+                    full,
+                    "If I hadn’t left things to the last minute, I could have passed easily.",
+                ),
             ],
         ),
     ]
@@ -324,6 +405,24 @@ def build_lesson_57(full: str) -> list[dict]:
                 ],
                 "wedding",
             ),
+        ),
+        _note(
+            "Past perfect — form",
+            items=[
+                _chk(
+                    full,
+                    "You need ‘had’ or ‘hadn’t’ plus a past participle. For example, ‘had gone’, ‘hadn’t prepared’, and so on.",
+                ),
+            ],
+        ),
+        _note(
+            "Past perfect examples from the wedding dialogue",
+            items=[
+                _chk(full, "they had booked a hall for the ceremony"),
+                _chk(full, "They’d booked a restaurant for the reception"),
+                _chk(full, "they hadn’t told them how many people were coming"),
+                _chk(full, "no one had prepared their speeches"),
+            ],
         ),
         _note(
             "Past perfect — form & meaning",
@@ -399,6 +498,17 @@ def build_lesson_57(full: str) -> list[dict]:
                 ],
                 "late for work",
             ),
+        ),
+        _note(
+            "When past perfect is NOT needed",
+            tip=_chk(
+                full,
+                "When the order that things happened is clear, you don’t need to use the past perfect.",
+            ),
+            items=[
+                _chk(full, "When I moved to the USA, I found a job."),
+                _chk(full, "When I moved to the USA, I had found a job."),
+            ],
         ),
         _note(
             "Past perfect vs past simple — meaning",
@@ -703,6 +813,16 @@ def build_lesson_23(full: str) -> list[dict]:
                 "marathon",
             ),
         ),
+        _note(
+            "How certain? — adverbs & phrases",
+            items=[
+                _chk(full, "She’ll definitely do it."),
+                _chk(full, "He’s unlikely to get a fast time."),
+                _chk(full, "She’s sure to be much faster."),
+                _chk(full, "It’s not likely that she’ll do it that fast."),
+                _chk(full, "she’s bound to get under four hours"),
+            ],
+        ),
         _tx(
             "Uncertainty at work",
             _dlg(
@@ -721,10 +841,18 @@ def build_lesson_23(full: str) -> list[dict]:
             ),
         ),
         _note(
-            "may / might / could · perhaps / maybe",
+            "may / might / could",
             items=[
                 _chk(full, "It may be ready next week."),
+                _chk(full, "That could take a few days."),
+                _chk(full, "That might help."),
+            ],
+        ),
+        _note(
+            "perhaps / maybe · it's possible that",
+            items=[
                 _chk(full, "Perhaps we won’t need to change anything."),
+                _chk(full, "Maybe I’ll work overtime this weekend."),
                 _chk(full, "It’s possible that we’ll have to replace some of the artwork."),
             ],
         ),
@@ -754,6 +882,15 @@ def build_lesson_61(full: str) -> list[dict]:
                 full,
                 "Adding word stress is a simple way to add emphasis to your idea. This is especially useful when you want to correct someone, or disagree with somebody else.",
             ),
+        ),
+        _note(
+            "Word stress — what it means",
+            intro="Stressing one word shows contrast or corrects someone. Examples from the video:",
+            items=[
+                "Stress <strong>tomorrow</strong> → he is flying to Paris, but not tomorrow.",
+                "Stress <strong>flying</strong> → he is going to Paris tomorrow, but not by plane.",
+                "Stress <strong>he</strong> → other people are flying, but he isn’t.",
+            ],
         ),
         _tx(
             "After the movie — inversion",
@@ -836,6 +973,16 @@ def build_lesson_61(full: str) -> list[dict]:
                 _chk(full, "It was the dog who did it!"),
                 _chk(full, "‘what I hate most about living here is the dark winters.’"),
                 _chk(full, "‘What I need right now is a good long holiday.’"),
+            ],
+        ),
+        _note(
+            "Cleft sentences — all / something",
+            items=[
+                _chk(full, "‘All I want is to lie down. I feel terrible!’"),
+                _chk(
+                    full,
+                    "‘Something you should think about is choosing the words you use more carefully.’",
+                ),
             ],
         ),
     ]

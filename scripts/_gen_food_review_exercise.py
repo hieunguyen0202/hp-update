@@ -1390,7 +1390,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr11">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr12">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -1413,7 +1413,7 @@ def build_page() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js"></script>
-  <script src="{home}js/linear-review.js?v=lr11"></script>
+  <script src="{home}js/linear-review.js?v=lr12"></script>
 </body>
 </html>"""
 
