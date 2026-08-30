@@ -533,7 +533,7 @@ def food_lang_html() -> str:
         <div class="lr-idiom-practice">
           <p class="lr-chain-ex-label">Try combining (dropdown)</p>
           <p class="lr-idiom-practice-text">{practice}</p>
-          <p class="lr-ref">Nguồn: <a href="https://langgo.edu.vn/food-idioms-thanh-ngu-ve-do-an-tieng-anh" target="_blank" rel="noopener noreferrer">LangGo — 70+ Food idioms</a> · Chọn <span class="lr-idiom-legend">idiom / phrase</span> trong mock test bên dưới (dropdown tím).</p>
+          <p class="lr-ref">Nguồn: <a href="https://langgo.edu.vn/food-idioms-thanh-ngu-ve-do-an-tieng-anh" target="_blank" rel="noopener noreferrer">LangGo — 70+ Food idioms</a> · Ôn ở đây trước — áp dụng vào mock test khi đã quen.</p>
         </div>"""
     )
 
@@ -722,32 +722,30 @@ def speaking_mock_html() -> str:
             "Do you like cooking?",
             "Bạn có thích nấu ăn không?",
             (
-                'Yes, definitely. <strong>I\'m keen on</strong> cooking — once you get used to it, '
-                f'it\'s {idiom_pick("idiom_ease")}. '
-                f'It gives me the chance to {slot_select("cook_verb")} fresh food at home '
-                f'with {slot_select("ingredient")}. '
-                '<span class="lr-tense-tag">Present Simple · idiom</span>'
+                'Yes, definitely. <strong>I\'m keen on</strong> cooking because it gives me the chance to '
+                f'{slot_select("cook_verb")} fresh food at home. '
+                f'I usually add {slot_select("ingredient")} and follow a simple recipe. '
+                '<span class="lr-tense-tag">Present Simple</span>'
             ),
         ),
         (
             "What's your favourite food or drink?",
             "Món ăn hoặc đồ uống yêu thích của bạn là gì?",
             (
-                f'Well, I would say I\'m {idiom_pick("idiom_taste")}, so I love '
+                'Well, I would say I <strong>have a sweet tooth</strong>, so I love '
                 f'{slot_select("favourite_food")}. '
-                f'For me it\'s almost a {idiom_pick("phrase_food", 4)}. '
                 f'In the morning I often drink {slot_select("morning_drink")}. '
-                '<span class="lr-tense-tag">Present Simple · idiom + phrase</span>'
+                '<span class="lr-tense-tag">Present Simple · habit</span>'
             ),
         ),
         (
             "Do you have a healthy diet?",
             "Bạn có chế độ ăn lành mạnh không?",
             (
-                'I think so. I <strong>used to</strong> eat unhealthily, but now I try to '
-                f'{idiom_pick("idiom_health", 0)} and follow {slot_select("healthy_item")}. '
+                'I think so. I <strong>used to</strong> eat unhealthily, but now '
+                f'I\'m trying {slot_select("healthy_item")}. '
                 f'I hardly ever buy {slot_select("dislike_food")} anymore. '
-                '<span class="lr-tense-tag">used to · idiom</span>'
+                '<span class="lr-tense-tag">used to · Present Continuous</span>'
             ),
         ),
         (
@@ -765,12 +763,10 @@ def speaking_mock_html() -> str:
             "Do you often eat out?",
             "Bạn có thường ăn ngoài không?",
             (
-                'Sometimes. I <strong>prefer</strong> a '
-                f'{idiom_pick("phrase_food", 5)}, but on weekends I might '
-                f'{idiom_pick("phrase_food", 1)} or {idiom_pick("phrase_food", 0)} with friends — '
-                f'we love to {idiom_pick("idiom_social", 0)} over '
-                f'{slot_select("favourite_food")}. '
-                '<span class="lr-tense-tag">Present Simple · phrase + idiom</span>'
+                'Sometimes. I <strong>prefer</strong> home-cooked food, but on weekends '
+                f'I might order {slot_select("favourite_food")} or grab '
+                f'{slot_select("soft_drink")} with friends. '
+                '<span class="lr-tense-tag">Present Simple · preference</span>'
             ),
         ),
         (
@@ -788,10 +784,9 @@ def speaking_mock_html() -> str:
             "Bạn có thích thử ẩm thực mới không?",
             (
                 'Yes, absolutely. <strong>What I enjoy most</strong> is exploring '
-                f'different {slot_select("cuisine")} styles — trying new dishes is '
-                f'{idiom_pick("idiom_enjoy", 3)}. '
-                f'Last month I even tried {slot_select("meat", 4)} with {slot_select("sauce", 0)}. '
-                '<span class="lr-tense-tag">Present Perfect · idiom</span>'
+                f'different {slot_select("cuisine")} styles — last month I tried '
+                f'{slot_select("meat", 4)} with {slot_select("sauce", 0)}. '
+                '<span class="lr-tense-tag">Present Perfect · emphasis</span>'
             ),
         ),
         (
@@ -808,10 +803,10 @@ def speaking_mock_html() -> str:
             "Dạo này bạn có cố ăn uống lành mạnh hơn không?",
             (
                 'Yes, definitely. I\'m <strong>paying more attention to</strong> '
-                f'{slot_select("diet_term", 1)} and I try to {idiom_pick("idiom_health", 0)}. '
-                f'I\'ve been eating more {slot_select("fruit", 0)} — food that '
-                f'{idiom_pick("idiom_health", 2)} — and less {slot_select("dislike_food", 2)}. '
-                '<span class="lr-tense-tag">Present Perfect Continuous · idiom</span>'
+                f'{slot_select("diet_term", 1)} and {slot_select("diet_term", 0)}. '
+                f'I\'ve been eating more {slot_select("fruit", 0)} and less '
+                f'{slot_select("dislike_food", 2)}. '
+                '<span class="lr-tense-tag">Present Perfect Continuous</span>'
             ),
         ),
     ]
@@ -828,10 +823,8 @@ def speaking_mock_html() -> str:
         f"Before that day, I <strong>had never tried</strong> that recipe with "
         f"{slot_select('cheese', 0)}, so everything felt new. "
         f"We used our {slot_select('kitchen_tool', 3)} and finished with "
-        f"{slot_select('dessert', 0)} — the dessert seemed to "
-        f"{idiom_pick('idiom_enjoy', 0)}. "
-        f"Sharing {slot_select('alcohol', 0)} was "
-        f"{idiom_pick('idiom_enjoy', 1)}. "
+        f"{slot_select('dessert', 0)} and shared "
+        f"{slot_select('alcohol', 0)} for a toast. "
         "<strong>What I enjoyed most</strong> was spending time together — not just the food. "
         "Looking back now, it makes a good story!"
     )
@@ -852,12 +845,10 @@ def speaking_mock_html() -> str:
             "Is fast food popular where you live?",
             "Đồ ăn nhanh có phổ biến nơi bạn sống không?",
             (
-                'Yes, definitely — it\'s convenient, and in my area it '
-                f'{idiom_pick("idiom_ease", 3)}. '
-                f'But eating too much {slot_select("dislike_food")} '
-                '<strong>can lead to</strong> obesity — we should '
-                f'{idiom_pick("idiom_health", 3)}. '
-                '<span class="lr-tense-tag">Modal · idiom</span>'
+                'Yes, definitely — it\'s convenient, but it\'s extremely <strong>unhealthy</strong>. '
+                f'Eating too much {slot_select("dislike_food")} '
+                '<strong>can lead to</strong> obesity and heart problems. '
+                '<span class="lr-tense-tag">Modal · general truth</span>'
             ),
         ),
         (
@@ -874,12 +865,11 @@ def speaking_mock_html() -> str:
             "What role does food play in your culture?",
             "Thức ăn đóng vai trò gì trong văn hóa của bạn?",
             (
-                'Food is <strong>extremely important</strong>. Sharing a meal brings families together — '
-                f'we often {idiom_pick("idiom_social", 0)} over '
-                f'traditional {slot_select("cuisine", 2)}. '
-                f'On special occasions we prepare {slot_select("seafood", 0)} — '
-                f'good food is {idiom_pick("idiom_enjoy", 3)}. '
-                '<span class="lr-tense-tag">Present Simple · idiom</span>'
+                'Food is <strong>extremely important</strong>. Sharing a meal brings families together, '
+                f'and traditional {slot_select("cuisine", 2)} is passed down through generations. '
+                f'On special occasions we prepare {slot_select("seafood", 0)} or '
+                f'{slot_select("meat", 0)} — it\'s a great way to unwind and reconnect. '
+                '<span class="lr-tense-tag">Present Simple · general truth</span>'
             ),
         ),
         (
@@ -888,9 +878,9 @@ def speaking_mock_html() -> str:
             (
                 'I think <strong>because</strong> it helps them control '
                 f'{slot_select("diet_term", 1)} and save money. '
-                f'For many people, a {idiom_pick("phrase_food", 5)} is '
-                f'{idiom_pick("idiom_ease", 0)} if you plan ahead. '
-                '<span class="lr-tense-tag">Because + idiom</span>'
+                f'It\'s also a great way to experiment with {slot_select("ingredient", 0)} '
+                f'and {slot_select("sauce", 1)}. '
+                '<span class="lr-tense-tag">Because + S + V</span>'
             ),
         ),
         (
@@ -923,7 +913,7 @@ def speaking_mock_html() -> str:
     lines = []
     lines.append('        <div class="ex-ielts-part lr-mock-part" data-part="1">')
     lines.append('          <h2 class="ex-ielts-part-title">Part 1 · Interview</h2>')
-    lines.append('          <p class="ex-ielts-part-hint">Yes/No + reasons · dropdown vàng = vocab · dropdown tím = idiom/phrase.</p>')
+    lines.append('          <p class="ex-ielts-part-hint">Yes/No + reasons · pick vocabulary from dropdowns · one tense per idea.</p>')
     for i, (q, qvi, ans) in enumerate(p1, 1):
         lines.append('          <div class="ex-qa">')
         lines.append(f'            <p class="ex-q"><span class="ex-role">Examiner</span> {esc(q)}</p>')
@@ -1081,7 +1071,7 @@ def build_page() -> str:
 
       <section class="lr-section lr-mock" id="mock-test">
         <h2>7 · IELTS Speaking mock — Food</h2>
-        <p class="lr-section-hint">Part 1 / 2 / 3 thực chiến. Dropdown <span class="lr-vocab-legend">vàng</span> = từ vựng B1/B2 · <span class="lr-idiom-legend">tím</span> = idiom / phrase / slang (Lexical Resource).</p>
+        <p class="lr-section-hint">Part 1 / 2 / 3 thực chiến. Dùng dropdown để đổi từ (vd. <em>booze</em> → <em>cider</em> → <em>gin</em>) — không cần nhồi hết từ vào một câu.</p>
 {mock_practice_refs_html()}
         <div class="ex-toolbar lr-toolbar">
           <button type="button" class="ex-btn primary" id="btnCopyAnswer">Copy current answers</button>
@@ -1104,7 +1094,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr6">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr7">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -1127,7 +1117,7 @@ def build_page() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js"></script>
-  <script src="{home}js/linear-review.js?v=lr6"></script>
+  <script src="{home}js/linear-review.js?v=lr7"></script>
 </body>
 </html>"""
 
