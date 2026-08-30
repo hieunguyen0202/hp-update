@@ -22,6 +22,14 @@ _gen = importlib.util.module_from_spec(_spec)
 assert _spec and _spec.loader
 _spec.loader.exec_module(_gen)
 
+_seg_spec = importlib.util.spec_from_file_location(
+    "food_segments", Path(__file__).with_name("_food_speaking_segments.py")
+)
+_seg_mod = importlib.util.module_from_spec(_seg_spec)
+assert _seg_spec and _seg_spec.loader
+_seg_spec.loader.exec_module(_seg_mod)
+SPEAKING_SEGMENTS = _seg_mod.SPEAKING_SEGMENTS
+
 esc = _gen.esc
 collect_words = _gen.collect_words
 TOPICS = _gen.TOPICS
@@ -393,6 +401,83 @@ def mental_model_html() -> str:
       </div>"""
 
 
+def _render_transcript_segment(seg: dict) -> str:
+    title = seg.get("title", "")
+    label = f"Transcript — {esc(title)}" if title else "Transcript"
+    lines_html = "\n".join(
+        f'                <div class="lr-dialogue-line">'
+        f'<span class="lr-speaker">{esc(line["speaker"])}</span>'
+        f'<span class="lr-dialogue-text">{line["text"]}</span></div>'
+        for line in seg["lines"]
+    )
+    return f"""            <div class="lr-segment lr-segment--transcript">
+              <p class="lr-seg-label">{label}</p>
+              <div class="lr-dialogue">
+{lines_html}
+              </div>
+            </div>"""
+
+
+def _hl_phrase(text: str, parts: list[str]) -> str:
+    out = esc(text)
+    for part in parts:
+        out = out.replace(esc(part), f'<mark class="lr-hl">{esc(part)}</mark>', 1)
+    return out
+
+
+def _render_note_segment(seg: dict) -> str:
+    title = esc(seg.get("title", "Note"))
+    intro = seg.get("intro", "")
+    intro_html = f'<p class="lr-note-intro">{intro}</p>\n' if intro else ""
+    tip = seg.get("tip", "")
+    tip_html = f'<p class="lr-note-tip">{tip}</p>\n' if tip else ""
+
+    items = seg.get("items", [])
+    if seg.get("formula"):
+        items_html = "\n".join(
+            f"                <li><strong>{esc(label)}</strong> — {body}</li>"
+            for label, body in items
+        )
+        body = f"""              <ul class="lr-mini-model lr-note-list">
+{items_html}
+              </ul>"""
+    else:
+        items_html = "\n".join(
+            f"                <li>{item}</li>" for item in items
+        )
+        body = f"""              <ul class="lr-note-list">
+{items_html}
+              </ul>"""
+
+    exchange_html = ""
+    for ex in seg.get("exchange", []):
+        q = _hl_phrase(ex["q"], ex.get("q_hl", []))
+        a = _hl_phrase(ex["a"], ex.get("a_hl", []))
+        exchange_html += f"""              <div class="lr-note-exchange">
+                <p class="lr-exchange-line">{q}</p>
+                <p class="lr-exchange-line">{a}</p>
+              </div>
+"""
+
+    return f"""            <div class="lr-segment lr-segment--note">
+              <h4 class="lr-note-title">{title}</h4>
+{intro_html}{body}
+{exchange_html}{tip_html}            </div>"""
+
+
+def speaking_segments_html(slug: str) -> str:
+    segments = SPEAKING_SEGMENTS.get(slug, [])
+    if not segments:
+        return ""
+    parts = []
+    for seg in segments:
+        if seg["type"] == "transcript":
+            parts.append(_render_transcript_segment(seg))
+        elif seg["type"] == "note":
+            parts.append(_render_note_segment(seg))
+    return "\n".join(parts)
+
+
 def speaking_lessons_html() -> str:
     rows = []
     for lesson in SPEAKING_LESSONS:
@@ -400,11 +485,8 @@ def speaking_lessons_html() -> str:
         title = lesson["title"]
         why = lesson["why"]
         yt = lesson["youtube"]
-        model_items = "\n".join(
-            f'              <li><strong>{esc(label)}</strong> — {body}</li>'
-            for label, body in lesson["model"]
-        )
         food_ex = lesson["food"]
+        timeline = speaking_segments_html(slug)
         rows.append(
             f"""        <li class="lr-lesson-card">
           <div class="lr-lesson-head">
@@ -413,10 +495,11 @@ def speaking_lessons_html() -> str:
             <span class="lr-lesson-why">{esc(why)}</span>
           </div>
           <details class="lr-lesson-notes">
-            <summary>Notes &amp; mental model (after watching)</summary>
-            <ul class="lr-mini-model">
-{model_items}
-            </ul>
+            <summary>Video catch-up — transcript &amp; notes</summary>
+            <p class="lr-catchup-hint">Đọc theo thứ tự: <strong>hội thoại → slide grammar</strong> → hội thoại → note… để ôn lại toàn bộ video.</p>
+            <div class="lr-video-timeline">
+{timeline}
+            </div>
             <p class="lr-food-ex"><strong>Food:</strong> {food_ex}</p>
           </details>
         </li>"""
@@ -1238,7 +1321,7 @@ def build_page() -> str:
 
       <section class="lr-section" id="structures">
         <h2>3 · Speaking structures (food + tenses)</h2>
-        <p class="lr-section-hint">Xem video gốc trước, sau đó mở <strong>Notes &amp; mental model</strong> để ôn cấu trúc. Lesson 2 &amp; 3 ở mục 4 bên dưới.</p>
+        <p class="lr-section-hint">Xem video gốc trước, sau đó mở <strong>Video catch-up</strong> — transcript hội thoại và slide grammar xen kẽ để ôn lại toàn bộ. Lesson 2 &amp; 3 ở mục 4 bên dưới.</p>
         <ul class="lr-lesson-list">
 {speaking_lessons_html()}
         </ul>
@@ -1290,7 +1373,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr9">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr10">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -1313,7 +1396,7 @@ def build_page() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js"></script>
-  <script src="{home}js/linear-review.js?v=lr9"></script>
+  <script src="{home}js/linear-review.js?v=lr10"></script>
 </body>
 </html>"""
 
