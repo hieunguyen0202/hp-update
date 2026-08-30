@@ -959,7 +959,7 @@ def build_page() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js"></script>
-  <script src="{home}js/linear-review.js?v=lr3"></script>
+  <script src="{home}js/linear-review.js?v=lr4"></script>
 </body>
 </html>"""
 
