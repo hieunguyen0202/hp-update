@@ -477,7 +477,7 @@ def speaking_mock_html() -> str:
 
 def build_page() -> str:
     words = collect_review_words()
-    home = "../../../"
+    home = "../../../../"  # review-exercise/ → public/
     slots_json = json.dumps(WORD_SLOTS, ensure_ascii=False)
 
     body = f"""    <aside class="docs-sidebar" id="docsSidebar" data-nav="english" data-docs-root="../../" data-active="food-drink">
@@ -580,7 +580,7 @@ def build_page() -> str:
   <div class="grid-bg"></div>
   <header class="docs-topbar">
     <button class="docs-menu-btn" id="docsMenuBtn" type="button">menu</button>
-    <a class="docs-brand" href="{home}">{BRAND}</a>
+    <a class="docs-brand" href="{home}"><span>✦</span> The Quiet Corner <span>✦</span></a>
     <nav class="docs-series">
       <a href="{home}blog/web-security/">DevSecOps</a>
       <a href="{home}blog/kubestronaut/">Kubestronaut</a>
