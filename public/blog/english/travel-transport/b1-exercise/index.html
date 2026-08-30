@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css?v=flash4">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=ielts1">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -22,7 +22,7 @@
       <a href="../../../../blog/web-security/">DevSecOps</a>
       <a href="../../../../blog/kubestronaut/">Kubestronaut</a>
       <a class="active" href="../../">English</a>
-      <a href="../../../tech-hub/">Tech Hub</a>
+      <a href="../../../../blog/tech-hub/">Tech Hub</a>
     </nav>
     <span class="docs-topbar-spacer"></span>
     <a class="docs-top-link" href="../../../../#blogs">blogs</a>
@@ -53,7 +53,7 @@
         <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72' fill='none'%3E%3Crect width='72' height='72' rx='14' fill='%230b1220'/%3E%3Crect x='16' y='14' width='40' height='46' rx='6' stroke='%2322d3ee' stroke-width='2.5'/%3E%3Cpath d='M24 28h24M24 36h24M24 44h16' stroke='%23e4e4e7' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M48 48l6 2-2 6-8-8 4 0z' fill='%2322d3ee'/%3E%3C/svg%3E" alt="" width="112" height="112">
         <div>
           <h1>B1 Exercise · Travel &amp; Transport</h1>
-          <p class="lede">Reading passage with every new word from this level’s LanGeek lessons — IPA, highlights, sentence translation, and free TTS.</p>
+          <p class="lede">IELTS Speaking practice — Part 1 / 2 / 3 Q&amp;A with vocabulary from this level’s LanGeek lessons. Answer structures follow Yes/No + reasons, cue-card long turn, and discussion (see IELTS Speaking notes). IPA, highlights, VI toggle, and TTS included.</p>
           <div class="docs-meta">
             <span><strong>Words:</strong> 65</span>
             <span><strong>Lessons:</strong> Transportation · Travel and Vacation</span>
@@ -73,79 +73,112 @@
           <input id="rateRange" type="range" min="0.7" max="1.15" step="0.05" value="0.95">
           <span id="rateVal">0.95</span>
         </label>
-        <button type="button" class="ex-btn primary" id="btnPlay">▶ Read passage</button>
+        <button type="button" class="ex-btn primary" id="btnPlay">▶ Read answers</button>
         <button type="button" class="ex-btn" id="btnStop">Stop</button>
       </div>
       
-      <section class="ex-passage" id="passage" data-tts-root>
-          <p class="ex-sent" data-sent="1">
-            <span class="ex-en">Around Travel & Transport, learners first study <mark class="vocab" data-word="transportation">transportation</mark><span class="ipa" aria-hidden="true">/ˌtrænspɚˈteɪʃən/</span> and <mark class="vocab" data-word="vehicle">vehicle</mark><span class="ipa" aria-hidden="true">/ˈviː.ə.kəl/</span>, then connect them with <mark class="vocab" data-word="yacht">yacht</mark><span class="ipa" aria-hidden="true">/jɑt/</span> and <mark class="vocab" data-word="aircraft">aircraft</mark><span class="ipa" aria-hidden="true">/ˈɛrˌkræft/</span>.</span>
-            <span class="ex-vi">Với chủ đề Travel & Transport, người học bắt đầu với <mark class="vocab" data-word="transportation">giao thông vận tải</mark> và <mark class="vocab" data-word="vehicle">phương tiện</mark>, rồi nối với <mark class="vocab" data-word="yacht">du thuyền</mark> và <mark class="vocab" data-word="aircraft">máy bay</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="2">
-            <span class="ex-en">Around Travel & Transport, learners first study <mark class="vocab" data-word="plane">plane</mark><span class="ipa" aria-hidden="true">/pleɪn/</span> and <mark class="vocab" data-word="jet">jet</mark><span class="ipa" aria-hidden="true">/ʤɛt/</span>, then connect them with <mark class="vocab" data-word="track">track</mark><span class="ipa" aria-hidden="true">/træk/</span> and <mark class="vocab" data-word="tunnel">tunnel</mark><span class="ipa" aria-hidden="true">/ˈtʌnəl/</span>.</span>
-            <span class="ex-vi">Với chủ đề Travel & Transport, người học bắt đầu với <mark class="vocab" data-word="plane">máy bay</mark> và <mark class="vocab" data-word="jet">máy bay phản lực</mark>, rồi nối với <mark class="vocab" data-word="track">đường ray</mark> và <mark class="vocab" data-word="tunnel">đường hầm</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="3">
-            <span class="ex-en">Around Travel & Transport, learners first study <mark class="vocab" data-word="destination">destination</mark><span class="ipa" aria-hidden="true">/ˌdɛstəˈneɪʃən/</span> and <mark class="vocab" data-word="harbor">harbor</mark><span class="ipa" aria-hidden="true">/ˈhɑrbɚ/</span>, then connect them with <mark class="vocab" data-word="port">port</mark><span class="ipa" aria-hidden="true">/pɔrt/</span> and <mark class="vocab" data-word="airfare">airfare</mark><span class="ipa" aria-hidden="true">/ˈɛrˌfɛr/</span>.</span>
-            <span class="ex-vi">Với chủ đề Travel & Transport, người học bắt đầu với <mark class="vocab" data-word="destination">điểm đến</mark> và <mark class="vocab" data-word="harbor">cảng</mark>, rồi nối với <mark class="vocab" data-word="port">cảng</mark> và <mark class="vocab" data-word="airfare">giá vé máy bay</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="4">
-            <span class="ex-en">They learn to <mark class="vocab" data-word="seat belt">seat belt</mark><span class="ipa" aria-hidden="true">/ˈsit ˌbɛlt/</span>, <mark class="vocab" data-word="to board">to board</mark><span class="ipa" aria-hidden="true">/bɔːrd/</span>, and also <mark class="vocab" data-word="to access">to access</mark><span class="ipa" aria-hidden="true">/ˈæksɛs/</span>, before they <mark class="vocab" data-word="to get in">get in</mark><span class="ipa" aria-hidden="true">/ɡɛt ˈɪn/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="seat belt">dây an toàn</mark>, <mark class="vocab" data-word="to board">lên</mark>, và cả <mark class="vocab" data-word="to access">tiếp cận</mark>, trước khi <mark class="vocab" data-word="to get in">đến</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="5">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to set out">to set out</mark><span class="ipa" aria-hidden="true">/sɛt ˈaʊt/</span>, <mark class="vocab" data-word="to set off">to set off</mark><span class="ipa" aria-hidden="true">/sɛt ˈɑf/</span>, and also <mark class="vocab" data-word="to land">to land</mark><span class="ipa" aria-hidden="true">/lænd/</span>, before they <mark class="vocab" data-word="on board">on board</mark><span class="ipa" aria-hidden="true">/ɑn ˈbɑrd/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to set out">lên đường</mark>, <mark class="vocab" data-word="to set off">khởi hành</mark>, và cả <mark class="vocab" data-word="to land">hạ cánh</mark>, trước khi <mark class="vocab" data-word="on board">trên tàu/xe/máy bay</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="6">
-            <span class="ex-en">Around Travel & Transport, learners first study <mark class="vocab" data-word="first class">first class</mark><span class="ipa" aria-hidden="true">/ˈfɝst ˈklæs/</span> and <mark class="vocab" data-word="business class">business class</mark><span class="ipa" aria-hidden="true">/ˈbɪznɪs ˈklæs/</span>, then connect them with <mark class="vocab" data-word="economy class">economy class</mark><span class="ipa" aria-hidden="true">/ɪˈkɑnəmi ˈklæs/</span> and <mark class="vocab" data-word="connection">connection</mark><span class="ipa" aria-hidden="true">/kəˈnɛkʃən/</span>.</span>
-            <span class="ex-vi">Với chủ đề Travel & Transport, người học bắt đầu với <mark class="vocab" data-word="first class">hạng nhất</mark> và <mark class="vocab" data-word="business class">hạng thương gia</mark>, rồi nối với <mark class="vocab" data-word="economy class">hạng phổ thông</mark> và <mark class="vocab" data-word="connection">kết nối</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="7">
-            <span class="ex-en">Around Travel & Transport, learners first study <mark class="vocab" data-word="domestic">domestic</mark><span class="ipa" aria-hidden="true">/dəˈmɛstɪk/</span> and <mark class="vocab" data-word="public">public</mark><span class="ipa" aria-hidden="true">/ˈpʌblɪk/</span>, then connect them with <mark class="vocab" data-word="window seat">window seat</mark><span class="ipa" aria-hidden="true">/ˈwɪndoʊ ˌsit/</span> and <mark class="vocab" data-word="to commute">commute</mark><span class="ipa" aria-hidden="true">/kəˈmjut/</span>.</span>
-            <span class="ex-vi">Với chủ đề Travel & Transport, người học bắt đầu với <mark class="vocab" data-word="domestic">quốc gia</mark> và <mark class="vocab" data-word="public">công cộng</mark>, rồi nối với <mark class="vocab" data-word="window seat">ghế cạnh cửa sổ</mark> và <mark class="vocab" data-word="to commute">đi lại hàng ngày</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="8">
-            <span class="ex-en">Around Travel & <mark class="vocab" data-word="to transport">Transport</mark><span class="ipa" aria-hidden="true">/trænˈspɔrt/</span>, learners first study <mark class="vocab" data-word="nonstop">nonstop</mark><span class="ipa" aria-hidden="true">/ˌnɑnˈstɑp/</span> and transport, then connect them with <mark class="vocab" data-word="turn">turn</mark><span class="ipa" aria-hidden="true">/tɝn/</span> and <mark class="vocab" data-word="to bike">bike</mark><span class="ipa" aria-hidden="true">/baɪk/</span>.</span>
-            <span class="ex-vi">Với chủ đề Travel & <mark class="vocab" data-word="to transport">vận chuyển</mark>, người học bắt đầu với <mark class="vocab" data-word="nonstop">không dừng</mark> và vận chuyển, rồi nối với <mark class="vocab" data-word="turn">khúc cua</mark> và <mark class="vocab" data-word="to bike">đi xe đạp</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="9">
-            <span class="ex-en">Around Travel & Transport, learners first study <mark class="vocab" data-word="to backpack">backpack</mark><span class="ipa" aria-hidden="true">/ˈbækˌpæk/</span> and <mark class="vocab" data-word="bed and breakfast">bed and breakfast</mark><span class="ipa" aria-hidden="true">/bɛd ænd ˈbrɛkfəst/</span>, then connect them with <mark class="vocab" data-word="holiday">holiday</mark><span class="ipa" aria-hidden="true">/ˈhɑləˌdeɪ/</span> and <mark class="vocab" data-word="booking">booking</mark><span class="ipa" aria-hidden="true">/ˈbʊkɪŋ/</span>.</span>
-            <span class="ex-vi">Với chủ đề Travel & Transport, người học bắt đầu với <mark class="vocab" data-word="to backpack">du lịch ba lô</mark> và <mark class="vocab" data-word="bed and breakfast">bed and breakfast</mark>, rồi nối với <mark class="vocab" data-word="holiday">kỳ nghỉ</mark> và <mark class="vocab" data-word="booking">đặt chỗ</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="10">
-            <span class="ex-en">Around Travel & Transport, learners first study <mark class="vocab" data-word="brochure">brochure</mark><span class="ipa" aria-hidden="true">/broʊˈʃʊr/</span> and <mark class="vocab" data-word="affordable">affordable</mark><span class="ipa" aria-hidden="true">/əˈfɔrdəbəl/</span>, then connect them with <mark class="vocab" data-word="to camp">camp</mark><span class="ipa" aria-hidden="true">/kæmp/</span> and <mark class="vocab" data-word="campfire">campfire</mark><span class="ipa" aria-hidden="true">/ˈkæmpˌfaɪr/</span>.</span>
-            <span class="ex-vi">Với chủ đề Travel & Transport, người học bắt đầu với <mark class="vocab" data-word="brochure">tờ rơi</mark> và <mark class="vocab" data-word="affordable">phải chăng</mark>, rồi nối với <mark class="vocab" data-word="to camp">cắm trại</mark> và <mark class="vocab" data-word="campfire">lửa trại</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="11">
-            <span class="ex-en">Around Travel & Transport, learners first study <mark class="vocab" data-word="outdoors">outdoors</mark><span class="ipa" aria-hidden="true">/ˈaʊtˌdɔrz/</span> and <mark class="vocab" data-word="keycard">keycard</mark><span class="ipa" aria-hidden="true">/ˈkiˌkɑrd/</span>, then connect them with <mark class="vocab" data-word="check-in">check-in</mark><span class="ipa" aria-hidden="true">/ʧɛk ˈɪn/</span> and <mark class="vocab" data-word="reception desk">reception desk</mark><span class="ipa" aria-hidden="true">/rɪˈsɛpʃən dɛsk/</span>.</span>
-            <span class="ex-vi">Với chủ đề Travel & Transport, người học bắt đầu với <mark class="vocab" data-word="outdoors">ngoài trời</mark> và <mark class="vocab" data-word="keycard">thẻ từ</mark>, rồi nối với <mark class="vocab" data-word="check-in">đăng ký</mark> và <mark class="vocab" data-word="reception desk">quầy tiếp tân</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="12">
-            <span class="ex-en">Around Travel & Transport, learners first study <mark class="vocab" data-word="desk clerk">desk clerk</mark><span class="ipa" aria-hidden="true">/dɛsk klɝːk/</span> and <mark class="vocab" data-word="day trip">day trip</mark><span class="ipa" aria-hidden="true">/deɪ trɪp/</span>, then connect them with <mark class="vocab" data-word="doorman">doorman</mark><span class="ipa" aria-hidden="true">/ˈdɔrˌmæn/</span> and <mark class="vocab" data-word="double">double</mark><span class="ipa" aria-hidden="true">/ˈdʌbəl/</span>.</span>
-            <span class="ex-vi">Với chủ đề Travel & Transport, người học bắt đầu với <mark class="vocab" data-word="desk clerk">nhân viên lễ tân</mark> và <mark class="vocab" data-word="day trip">chuyến đi trong ngày</mark>, rồi nối với <mark class="vocab" data-word="doorman">người gác cổng</mark> và <mark class="vocab" data-word="double">phòng đôi</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="13">
-            <span class="ex-en">Around Travel & Transport, learners first study <mark class="vocab" data-word="family room">family room</mark><span class="ipa" aria-hidden="true">/ˈfæmɪli ˈrum/</span> and <mark class="vocab" data-word="exchange">exchange</mark><span class="ipa" aria-hidden="true">/ɪksˈʧeɪnʤ/</span>, then connect them with <mark class="vocab" data-word="to explore">explore</mark><span class="ipa" aria-hidden="true">/ɪkˈsplɔr/</span> and <mark class="vocab" data-word="front desk">front desk</mark><span class="ipa" aria-hidden="true">/frʌnt dɛsk/</span>.</span>
-            <span class="ex-vi">Với chủ đề Travel & Transport, người học bắt đầu với <mark class="vocab" data-word="family room">phòng gia đình</mark> và <mark class="vocab" data-word="exchange">trao đổi</mark>, rồi nối với <mark class="vocab" data-word="to explore">khám phá</mark> và <mark class="vocab" data-word="front desk">quầy lễ tân</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="14">
-            <span class="ex-en">Around Travel & Transport, learners first study <mark class="vocab" data-word="tour guide">tour guide</mark><span class="ipa" aria-hidden="true">/tʊr ɡaɪd/</span> and <mark class="vocab" data-word="hostel">hostel</mark><span class="ipa" aria-hidden="true">/ˈhɑstəl/</span>, then connect them with <mark class="vocab" data-word="minibar">minibar</mark><span class="ipa" aria-hidden="true">/ˈmɪniˌbɑr/</span> and <mark class="vocab" data-word="luggage">luggage</mark><span class="ipa" aria-hidden="true">/ˈlʌɡɪʤ/</span>.</span>
-            <span class="ex-vi">Với chủ đề Travel & Transport, người học bắt đầu với <mark class="vocab" data-word="tour guide">hướng dẫn viên du lịch</mark> và <mark class="vocab" data-word="hostel">nhà nghỉ</mark>, rồi nối với <mark class="vocab" data-word="minibar">minibar</mark> và <mark class="vocab" data-word="luggage">hành lý</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="15">
-            <span class="ex-en">Around Travel & Transport, learners first study <mark class="vocab" data-word="visitor">visitor</mark><span class="ipa" aria-hidden="true">/ˈvɪzɪtɚ/</span> and <mark class="vocab" data-word="to sunbathe">sunbathe</mark><span class="ipa" aria-hidden="true">/ˈsʌnˌbeɪð/</span>, then connect them with <mark class="vocab" data-word="stay">stay</mark><span class="ipa" aria-hidden="true">/steɪ/</span> and <mark class="vocab" data-word="seaside">seaside</mark><span class="ipa" aria-hidden="true">/ˈsiˌsaɪd/</span>.</span>
-            <span class="ex-vi">Với chủ đề Travel & Transport, người học bắt đầu với <mark class="vocab" data-word="visitor">khách tham quan</mark> và <mark class="vocab" data-word="to sunbathe">tắm nắng</mark>, rồi nối với <mark class="vocab" data-word="stay">lưu trú</mark> và <mark class="vocab" data-word="seaside">bờ biển</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="16">
-            <span class="ex-en">Around Travel & Transport, learners first study <mark class="vocab" data-word="safari">safari</mark><span class="ipa" aria-hidden="true">/səˈfɑri/</span> and <mark class="vocab" data-word="single">single</mark><span class="ipa" aria-hidden="true">/ˈsɪŋɡəl/</span>, then connect them with <mark class="vocab" data-word="sight">sight</mark><span class="ipa" aria-hidden="true">/saɪt/</span> and <mark class="vocab" data-word="to tour">tour</mark><span class="ipa" aria-hidden="true">/tʊr/</span>.</span>
-            <span class="ex-vi">Với chủ đề Travel & Transport, người học bắt đầu với <mark class="vocab" data-word="safari">safari</mark> và <mark class="vocab" data-word="single">phòng đơn</mark>, rồi nối với <mark class="vocab" data-word="sight">các điểm tham quan</mark> và <mark class="vocab" data-word="to tour">tham quan</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="17">
-            <span class="ex-en">You should learn the word <mark class="vocab" data-word="cottage">cottage</mark><span class="ipa" aria-hidden="true">/ˈkɑtɪʤ/</span> because it appears often in Travel & Transport topics.</span>
-            <span class="ex-vi">Bạn nên học từ <mark class="vocab" data-word="cottage">nhà nhỏ</mark> vì nó thường xuất hiện trong chủ đề Travel & Transport.</span>
-          </p>
+      <section class="ex-passage ex-ielts" id="passage" data-tts-root>
+        <div class="ex-ielts-part" data-part="1">
+          <h2 class="ex-ielts-part-title">Part 1 · Introduction &amp; interview</h2>
+          <p class="ex-ielts-part-hint">Câu hỏi ngắn — trả lời Yes/No + lý do (Lesson 3).</p>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Do you like talking about travel &amp; transport?</p>
+            <p class="ex-q-vi">Bạn có thích nói về travel &amp; transport không?</p>
+            <p class="ex-sent" data-sent="1">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">Yes, definitely. I'm quite interested in travel & transport, especially words like <mark class="vocab" data-word="transportation">transportation</mark><span class="ipa" aria-hidden="true">/ˌtrænspɚˈteɪʃən/</span>, <mark class="vocab" data-word="vehicle">vehicle</mark><span class="ipa" aria-hidden="true">/ˈviː.ə.kəl/</span>, <mark class="vocab" data-word="yacht">yacht</mark><span class="ipa" aria-hidden="true">/jɑt/</span>, and <mark class="vocab" data-word="aircraft">aircraft</mark><span class="ipa" aria-hidden="true">/ˈɛrˌkræft/</span>. This is because it gives me the chance to practise natural English in real conversations.</span>
+              <span class="ex-vi">Vâng, chắc chắn. Mình khá quan tâm <mark class="vocab" data-word="to get in">đến</mark> travel & transport, nhất là các từ như <mark class="vocab" data-word="transportation">giao thông vận tải</mark>, <mark class="vocab" data-word="vehicle">phương tiện</mark>, <mark class="vocab" data-word="yacht">du thuyền</mark>, và <mark class="vocab" data-word="aircraft">máy bay</mark>. Vì nó cho mình cơ hội luyện tiếng Anh tự nhiên trong hội thoại thật.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> How often do you use vocabulary about travel &amp; transport?</p>
+            <p class="ex-q-vi">Bạn có thường dùng từ vựng về travel &amp; transport không?</p>
+            <p class="ex-sent" data-sent="2">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">Yes, definitely. I'm quite interested in travel & transport, especially words like <mark class="vocab" data-word="to set out">set out</mark><span class="ipa" aria-hidden="true">/sɛt ˈaʊt/</span>, <mark class="vocab" data-word="to set off">set off</mark><span class="ipa" aria-hidden="true">/sɛt ˈɑf/</span>, <mark class="vocab" data-word="to land">land</mark><span class="ipa" aria-hidden="true">/lænd/</span>, and <mark class="vocab" data-word="on board">on board</mark><span class="ipa" aria-hidden="true">/ɑn ˈbɑrd/</span>. This is because it gives me the chance to practise natural English in real conversations.</span>
+              <span class="ex-vi">Vâng, chắc chắn. Mình khá quan tâm đến travel & transport, nhất là các từ như <mark class="vocab" data-word="to set out">lên đường</mark>, <mark class="vocab" data-word="to set off">khởi hành</mark>, <mark class="vocab" data-word="to land">hạ cánh</mark>, và <mark class="vocab" data-word="on board">trên tàu/xe/máy bay</mark>. Vì nó cho mình cơ hội luyện tiếng Anh tự nhiên trong hội thoại thật.</span>
+            </p>
+          </div>
+        </div>
+        <div class="ex-ielts-part" data-part="2">
+          <h2 class="ex-ielts-part-title">Part 2 · Long turn (cue card)</h2>
+          <p class="ex-ielts-part-hint">Mô tả 1–2 phút — mở đầu → thông tin → cốt lõi → cảm nhận → kết (Lesson 16).</p>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Describe something important related to travel &amp; transport.</p>
+            <p class="ex-q-vi">Hãy mô tả điều gì đó quan trọng liên quan đến travel &amp; transport.</p>
+            <div class="ex-cue-card">
+              <p class="ex-cue-title">You should say:</p>
+              <ul>
+                <li>what it is</li>
+                <li>when you use it</li>
+                <li>why it is important</li>
+              </ul>
+            </div>
+            <p class="ex-sent" data-sent="3">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">I'm going to talk about travel & <mark class="vocab" data-word="to transport">transport</mark><span class="ipa" aria-hidden="true">/trænˈspɔrt/</span>, which matters in daily life. First, people often mention <mark class="vocab" data-word="domestic">domestic</mark><span class="ipa" aria-hidden="true">/dəˈmɛstɪk/</span>, <mark class="vocab" data-word="public">public</mark><span class="ipa" aria-hidden="true">/ˈpʌblɪk/</span>, <mark class="vocab" data-word="window seat">window seat</mark><span class="ipa" aria-hidden="true">/ˈwɪndoʊ ˌsit/</span>, <mark class="vocab" data-word="to commute">commute</mark><span class="ipa" aria-hidden="true">/kəˈmjut/</span>, <mark class="vocab" data-word="nonstop">nonstop</mark><span class="ipa" aria-hidden="true">/ˌnɑnˈstɑp/</span>, transport, <mark class="vocab" data-word="turn">turn</mark><span class="ipa" aria-hidden="true">/tɝn/</span>, <mark class="vocab" data-word="to bike">bike</mark><span class="ipa" aria-hidden="true">/baɪk/</span>, <mark class="vocab" data-word="to backpack">backpack</mark><span class="ipa" aria-hidden="true">/ˈbækˌpæk/</span>, and <mark class="vocab" data-word="bed and breakfast">bed and breakfast</mark><span class="ipa" aria-hidden="true">/bɛd ænd ˈbrɛkfəst/</span>. Then they also discuss <mark class="vocab" data-word="holiday">holiday</mark><span class="ipa" aria-hidden="true">/ˈhɑləˌdeɪ/</span>, <mark class="vocab" data-word="booking">booking</mark><span class="ipa" aria-hidden="true">/ˈbʊkɪŋ/</span>, <mark class="vocab" data-word="brochure">brochure</mark><span class="ipa" aria-hidden="true">/broʊˈʃʊr/</span>, <mark class="vocab" data-word="affordable">affordable</mark><span class="ipa" aria-hidden="true">/əˈfɔrdəbəl/</span>, <mark class="vocab" data-word="to camp">camp</mark><span class="ipa" aria-hidden="true">/kæmp/</span>, <mark class="vocab" data-word="campfire">campfire</mark><span class="ipa" aria-hidden="true">/ˈkæmpˌfaɪr/</span>, <mark class="vocab" data-word="outdoors">outdoors</mark><span class="ipa" aria-hidden="true">/ˈaʊtˌdɔrz/</span>, <mark class="vocab" data-word="keycard">keycard</mark><span class="ipa" aria-hidden="true">/ˈkiˌkɑrd/</span>, <mark class="vocab" data-word="check-in">check-in</mark><span class="ipa" aria-hidden="true">/ʧɛk ˈɪn/</span>, <mark class="vocab" data-word="reception desk">reception desk</mark><span class="ipa" aria-hidden="true">/rɪˈsɛpʃən dɛsk/</span>, and <mark class="vocab" data-word="desk clerk">desk clerk</mark><span class="ipa" aria-hidden="true">/dɛsk klɝːk/</span> when the topic comes up in conversation.</span>
+              <span class="ex-vi">Mình sẽ nói về travel & <mark class="vocab" data-word="to transport">vận chuyển</mark> — chủ đề quan trọng trong đời sống. Trước hết mọi người hay nhắc <mark class="vocab" data-word="domestic">quốc gia</mark>, <mark class="vocab" data-word="public">công cộng</mark>, <mark class="vocab" data-word="window seat">ghế cạnh cửa sổ</mark>, <mark class="vocab" data-word="to commute">đi lại hàng ngày</mark>, <mark class="vocab" data-word="nonstop">không dừng</mark>, vận chuyển, <mark class="vocab" data-word="turn">khúc cua</mark>, <mark class="vocab" data-word="to bike">đi xe đạp</mark>, <mark class="vocab" data-word="to backpack">du lịch ba lô</mark>, và <mark class="vocab" data-word="bed and breakfast">bed and breakfast</mark>. Sau đó còn bàn về <mark class="vocab" data-word="holiday">kỳ nghỉ</mark>, <mark class="vocab" data-word="booking">đặt chỗ</mark>, <mark class="vocab" data-word="brochure">tờ rơi</mark>, <mark class="vocab" data-word="affordable">phải chăng</mark>, <mark class="vocab" data-word="to camp">cắm trại</mark>, <mark class="vocab" data-word="campfire">lửa trại</mark>, <mark class="vocab" data-word="outdoors">ngoài trời</mark>, <mark class="vocab" data-word="keycard">thẻ từ</mark>, <mark class="vocab" data-word="check-in">đăng ký</mark>, <mark class="vocab" data-word="reception desk">quầy tiếp tân</mark>, và <mark class="vocab" data-word="desk clerk">nhân viên lễ tân</mark> khi chủ đề xuất hiện trong hội thoại.</span>
+            </p>
+          </div>
+        </div>
+        <div class="ex-ielts-part" data-part="3">
+          <h2 class="ex-ielts-part-title">Part 3 · Two-way discussion</h2>
+          <p class="ex-ielts-part-hint">Thảo luận sâu hơn — so sánh quá khứ/hiện tại, giải thích quan điểm (Lesson 15).</p>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> How has travel &amp; transport changed in recent years?</p>
+            <p class="ex-q-vi">Travel &amp; Transport đã thay đổi thế nào trong những năm gần đây?</p>
+            <p class="ex-sent" data-sent="4">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">I think it has changed quite a bit in recent years. Nowadays people talk more about <mark class="vocab" data-word="day trip">day trip</mark><span class="ipa" aria-hidden="true">/deɪ trɪp/</span>, <mark class="vocab" data-word="doorman">doorman</mark><span class="ipa" aria-hidden="true">/ˈdɔrˌmæn/</span>, <mark class="vocab" data-word="double">double</mark><span class="ipa" aria-hidden="true">/ˈdʌbəl/</span>, <mark class="vocab" data-word="family room">family room</mark><span class="ipa" aria-hidden="true">/ˈfæmɪli ˈrum/</span>, <mark class="vocab" data-word="exchange">exchange</mark><span class="ipa" aria-hidden="true">/ɪksˈʧeɪnʤ/</span>, <mark class="vocab" data-word="to explore">explore</mark><span class="ipa" aria-hidden="true">/ɪkˈsplɔr/</span>, <mark class="vocab" data-word="front desk">front desk</mark><span class="ipa" aria-hidden="true">/frʌnt dɛsk/</span>, <mark class="vocab" data-word="tour guide">tour guide</mark><span class="ipa" aria-hidden="true">/tʊr ɡaɪd/</span>, <mark class="vocab" data-word="hostel">hostel</mark><span class="ipa" aria-hidden="true">/ˈhɑstəl/</span>, <mark class="vocab" data-word="minibar">minibar</mark><span class="ipa" aria-hidden="true">/ˈmɪniˌbɑr/</span>, <mark class="vocab" data-word="luggage">luggage</mark><span class="ipa" aria-hidden="true">/ˈlʌɡɪʤ/</span>, <mark class="vocab" data-word="visitor">visitor</mark><span class="ipa" aria-hidden="true">/ˈvɪzɪtɚ/</span>, <mark class="vocab" data-word="to sunbathe">sunbathe</mark><span class="ipa" aria-hidden="true">/ˈsʌnˌbeɪð/</span>, <mark class="vocab" data-word="stay">stay</mark><span class="ipa" aria-hidden="true">/steɪ/</span>, <mark class="vocab" data-word="seaside">seaside</mark><span class="ipa" aria-hidden="true">/ˈsiˌsaɪd/</span>, <mark class="vocab" data-word="safari">safari</mark><span class="ipa" aria-hidden="true">/səˈfɑri/</span>, <mark class="vocab" data-word="single">single</mark><span class="ipa" aria-hidden="true">/ˈsɪŋɡəl/</span>, <mark class="vocab" data-word="sight">sight</mark><span class="ipa" aria-hidden="true">/saɪt/</span>, <mark class="vocab" data-word="to tour">tour</mark><span class="ipa" aria-hidden="true">/tʊr/</span>, and <mark class="vocab" data-word="cottage">cottage</mark><span class="ipa" aria-hidden="true">/ˈkɑtɪʤ/</span> when they discuss travel & transport.</span>
+              <span class="ex-vi">Mình nghĩ đã thay đổi khá nhiều trong vài năm gần đây. Ngày nay mọi người nói nhiều hơn về <mark class="vocab" data-word="day trip">chuyến đi trong ngày</mark>, <mark class="vocab" data-word="doorman">người gác cổng</mark>, <mark class="vocab" data-word="double">phòng đôi</mark>, <mark class="vocab" data-word="family room">phòng gia đình</mark>, <mark class="vocab" data-word="exchange">trao đổi</mark>, <mark class="vocab" data-word="to explore">khám phá</mark>, <mark class="vocab" data-word="front desk">quầy lễ tân</mark>, <mark class="vocab" data-word="tour guide">hướng dẫn viên du lịch</mark>, <mark class="vocab" data-word="hostel">nhà nghỉ</mark>, <mark class="vocab" data-word="minibar">minibar</mark>, <mark class="vocab" data-word="luggage">hành lý</mark>, <mark class="vocab" data-word="visitor">khách tham quan</mark>, <mark class="vocab" data-word="to sunbathe">tắm nắng</mark>, <mark class="vocab" data-word="stay">lưu trú</mark>, <mark class="vocab" data-word="seaside">bờ biển</mark>, <mark class="vocab" data-word="safari">safari</mark>, <mark class="vocab" data-word="single">phòng đơn</mark>, <mark class="vocab" data-word="sight">các điểm tham quan</mark>, <mark class="vocab" data-word="to tour">tham quan</mark>, và <mark class="vocab" data-word="cottage">nhà nhỏ</mark> khi bàn về travel & transport.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="58">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">If you want natural English, practice <mark class="vocab" data-word="plane">plane</mark><span class="ipa" aria-hidden="true">/pleɪn/</span>, then reuse <mark class="vocab" data-word="jet">jet</mark><span class="ipa" aria-hidden="true">/ʤɛt/</span>, and finally remember <mark class="vocab" data-word="track">track</mark><span class="ipa" aria-hidden="true">/træk/</span>.</span>
+              <span class="ex-vi">Nếu muốn tiếng Anh tự nhiên, hãy luyện <mark class="vocab" data-word="plane">máy bay</mark>, rồi dùng lại <mark class="vocab" data-word="jet">máy bay phản lực</mark>, và cuối cùng nhớ <mark class="vocab" data-word="track">đường ray</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="67">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">In conversation, people mention <mark class="vocab" data-word="tunnel">tunnel</mark><span class="ipa" aria-hidden="true">/ˈtʌnəl/</span>; they also talk about <mark class="vocab" data-word="destination">destination</mark><span class="ipa" aria-hidden="true">/ˌdɛstəˈneɪʃən/</span> and <mark class="vocab" data-word="harbor">harbor</mark><span class="ipa" aria-hidden="true">/ˈhɑrbɚ/</span>.</span>
+              <span class="ex-vi">Trong hội thoại, mọi người nhắc tới <mark class="vocab" data-word="tunnel">đường hầm</mark>; họ cũng nói về <mark class="vocab" data-word="destination">điểm đến</mark> và <mark class="vocab" data-word="harbor">cảng</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="76">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">On a typical day around Travel & Transport, you notice <mark class="vocab" data-word="airfare">airfare</mark><span class="ipa" aria-hidden="true">/ˈɛrˌfɛr/</span>, then <mark class="vocab" data-word="seat belt">seat belt</mark><span class="ipa" aria-hidden="true">/ˈsit ˌbɛlt/</span>, and later <mark class="vocab" data-word="to access">access</mark><span class="ipa" aria-hidden="true">/ˈæksɛs/</span>.</span>
+              <span class="ex-vi">Trong một ngày bình thường về Travel & Transport, bạn để ý <mark class="vocab" data-word="airfare">giá vé máy bay</mark>, rồi <mark class="vocab" data-word="seat belt">dây an toàn</mark>, và sau đó <mark class="vocab" data-word="to access">tiếp cận</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="85">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">At home and outside, <mark class="vocab" data-word="to get in">get in</mark><span class="ipa" aria-hidden="true">/ɡɛt ˈɪn/</span> appears first, followed by <mark class="vocab" data-word="first class">first class</mark><span class="ipa" aria-hidden="true">/ˈfɝst ˈklæs/</span>, with <mark class="vocab" data-word="business class">business class</mark><span class="ipa" aria-hidden="true">/ˈbɪznɪs ˈklæs/</span> at the end of the story.</span>
+              <span class="ex-vi">Ở nhà và ngoài đường, <mark class="vocab" data-word="to get in">đến</mark> xuất hiện trước, tiếp theo là <mark class="vocab" data-word="first class">hạng nhất</mark>, và <mark class="vocab" data-word="business class">hạng thương gia</mark> ở cuối câu chuyện.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="94">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">In daily life you meet <mark class="vocab" data-word="economy class">economy class</mark><span class="ipa" aria-hidden="true">/ɪˈkɑnəmi ˈklæs/</span> and <mark class="vocab" data-word="connection">connection</mark><span class="ipa" aria-hidden="true">/kəˈnɛkʃən/</span> when the topic is Travel & Transport.</span>
+              <span class="ex-vi">Trong đời sống hằng ngày bạn gặp <mark class="vocab" data-word="economy class">hạng phổ thông</mark> và <mark class="vocab" data-word="connection">kết nối</mark> khi nói về Travel & Transport.</span>
+            </p>
+          </div>
+        </div>
       </section>
       <!-- Continuous paragraph (no IPA) is filled by public/js/exercise.js for NaturalReader paste -->
 
@@ -300,6 +333,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js?v=flash4"></script>
+  <script src="../../../../js/exercise.js?v=ielts1"></script>
 </body>
 </html>

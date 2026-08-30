@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css?v=flash4">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=ielts1">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -22,7 +22,7 @@
       <a href="../../../../blog/web-security/">DevSecOps</a>
       <a href="../../../../blog/kubestronaut/">Kubestronaut</a>
       <a class="active" href="../../">English</a>
-      <a href="../../../tech-hub/">Tech Hub</a>
+      <a href="../../../../blog/tech-hub/">Tech Hub</a>
     </nav>
     <span class="docs-topbar-spacer"></span>
     <a class="docs-top-link" href="../../../../#blogs">blogs</a>
@@ -53,7 +53,7 @@
         <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72' fill='none'%3E%3Crect width='72' height='72' rx='14' fill='%230b1220'/%3E%3Crect x='16' y='14' width='40' height='46' rx='6' stroke='%2322d3ee' stroke-width='2.5'/%3E%3Cpath d='M24 28h24M24 36h24M24 44h16' stroke='%23e4e4e7' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M48 48l6 2-2 6-8-8 4 0z' fill='%2322d3ee'/%3E%3C/svg%3E" alt="" width="112" height="112">
         <div>
           <h1>A2 Exercise · Animals</h1>
-          <p class="lede">Reading passage with every new word from this level’s LanGeek lessons — IPA, highlights, sentence translation, and free TTS.</p>
+          <p class="lede">IELTS Speaking practice — Part 1 / 2 / 3 Q&amp;A with vocabulary from this level’s LanGeek lessons. Answer structures follow Yes/No + reasons, cue-card long turn, and discussion (see IELTS Speaking notes). IPA, highlights, VI toggle, and TTS included.</p>
           <div class="docs-meta">
             <span><strong>Words:</strong> 35</span>
             <span><strong>Lessons:</strong> Animals</span>
@@ -73,47 +73,85 @@
           <input id="rateRange" type="range" min="0.7" max="1.15" step="0.05" value="0.95">
           <span id="rateVal">0.95</span>
         </label>
-        <button type="button" class="ex-btn primary" id="btnPlay">▶ Read passage</button>
+        <button type="button" class="ex-btn primary" id="btnPlay">▶ Read answers</button>
         <button type="button" class="ex-btn" id="btnStop">Stop</button>
       </div>
       
-      <section class="ex-passage" id="passage" data-tts-root>
-          <p class="ex-sent" data-sent="1">
-            <span class="ex-en">Around Animals, learners first study <mark class="vocab" data-word="pet">pet</mark><span class="ipa" aria-hidden="true">/pɛt/</span> and <mark class="vocab" data-word="lamb">lamb</mark><span class="ipa" aria-hidden="true">/læm/</span>, then connect them with <mark class="vocab" data-word="camel">camel</mark><span class="ipa" aria-hidden="true">/ˈkæməl/</span> and <mark class="vocab" data-word="tiger">tiger</mark><span class="ipa" aria-hidden="true">/ˈtaɪɡɚ/</span>.</span>
-            <span class="ex-vi">Với chủ đề Animals, người học bắt đầu với <mark class="vocab" data-word="pet">thú cưng</mark> và <mark class="vocab" data-word="lamb">cừu non</mark>, rồi nối với <mark class="vocab" data-word="camel">lạc đà</mark> và <mark class="vocab" data-word="tiger">hổ</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="2">
-            <span class="ex-en">Around Animals, learners first study <mark class="vocab" data-word="whale">whale</mark><span class="ipa" aria-hidden="true">/weɪl/</span> and <mark class="vocab" data-word="penguin">penguin</mark><span class="ipa" aria-hidden="true">/ˈpɛŋɡwɪn/</span>, then connect them with <mark class="vocab" data-word="shark">shark</mark><span class="ipa" aria-hidden="true">/ʃɑːrk/</span> and <mark class="vocab" data-word="insect">insect</mark><span class="ipa" aria-hidden="true">/ˈɪnˌsɛkt/</span>.</span>
-            <span class="ex-vi">Với chủ đề Animals, người học bắt đầu với <mark class="vocab" data-word="whale">cá voi</mark> và <mark class="vocab" data-word="penguin">chim cánh cụt</mark>, rồi nối với <mark class="vocab" data-word="shark">cá mập</mark> và <mark class="vocab" data-word="insect">côn trùng</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="3">
-            <span class="ex-en">Around Animals, learners first study <mark class="vocab" data-word="fly">fly</mark><span class="ipa" aria-hidden="true">/flaɪ/</span> and <mark class="vocab" data-word="spider">spider</mark><span class="ipa" aria-hidden="true">/ˈspaɪdɚ/</span>, then connect them with <mark class="vocab" data-word="crocodile">crocodile</mark><span class="ipa" aria-hidden="true">/ˈkrɑːkəˌdaɪl/</span> and <mark class="vocab" data-word="dolphin">dolphin</mark><span class="ipa" aria-hidden="true">/ˈdɑːlfɪn/</span>.</span>
-            <span class="ex-vi">Với chủ đề Animals, người học bắt đầu với <mark class="vocab" data-word="fly">ruồi</mark> và <mark class="vocab" data-word="spider">nhện</mark>, rồi nối với <mark class="vocab" data-word="crocodile">cá sấu</mark> và <mark class="vocab" data-word="dolphin">cá heo</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="4">
-            <span class="ex-en">Around Animals, learners first study <mark class="vocab" data-word="fox">fox</mark><span class="ipa" aria-hidden="true">/fɑːks/</span> and <mark class="vocab" data-word="hamster">hamster</mark><span class="ipa" aria-hidden="true">/ˈhæmstɚ/</span>, then connect them with <mark class="vocab" data-word="tail">tail</mark><span class="ipa" aria-hidden="true">/teɪl/</span> and <mark class="vocab" data-word="wool">wool</mark><span class="ipa" aria-hidden="true">/wʊl/</span>.</span>
-            <span class="ex-vi">Với chủ đề Animals, người học bắt đầu với <mark class="vocab" data-word="fox">cáo</mark> và chuột <mark class="vocab" data-word="hamster">chuột hamster</mark>, rồi nối với <mark class="vocab" data-word="tail">đuôi</mark> và <mark class="vocab" data-word="wool">len</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="5">
-            <span class="ex-en">Around Animals, learners first study <mark class="vocab" data-word="egg">egg</mark><span class="ipa" aria-hidden="true">/ɛɡ/</span> and <mark class="vocab" data-word="web">web</mark><span class="ipa" aria-hidden="true">/wɛb/</span>, then connect them with <mark class="vocab" data-word="zoo">zoo</mark><span class="ipa" aria-hidden="true">/zuː/</span> and <mark class="vocab" data-word="deer">deer</mark><span class="ipa" aria-hidden="true">/dɪr/</span>.</span>
-            <span class="ex-vi">Với chủ đề Animals, người học bắt đầu với <mark class="vocab" data-word="egg">trứng</mark> và <mark class="vocab" data-word="web">mạng nhện</mark>, rồi nối với <mark class="vocab" data-word="zoo">sở thú</mark> và <mark class="vocab" data-word="deer">hươu</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="6">
-            <span class="ex-en">Around Animals, learners first study <mark class="vocab" data-word="eagle">eagle</mark><span class="ipa" aria-hidden="true">/ˈiːɡəl/</span> and <mark class="vocab" data-word="beetle">beetle</mark><span class="ipa" aria-hidden="true">/ˈbiːtl/</span>, then connect them with <mark class="vocab" data-word="bee">bee</mark><span class="ipa" aria-hidden="true">/biː/</span> and <mark class="vocab" data-word="bear">bear</mark><span class="ipa" aria-hidden="true">/bɛr/</span>.</span>
-            <span class="ex-vi">Với chủ đề Animals, người học bắt đầu với <mark class="vocab" data-word="eagle">đại bàng</mark> và <mark class="vocab" data-word="beetle">bọ cánh cứng</mark>, rồi nối với <mark class="vocab" data-word="bee">ong</mark> và <mark class="vocab" data-word="bear">gấu</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="7">
-            <span class="ex-en">Around Animals, learners first study <mark class="vocab" data-word="monkey">monkey</mark><span class="ipa" aria-hidden="true">/ˈmʌŋki/</span> and <mark class="vocab" data-word="butterfly">butterfly</mark><span class="ipa" aria-hidden="true">/ˈbʌtɚˌflaɪ/</span>, then connect them with <mark class="vocab" data-word="mosquito">mosquito</mark><span class="ipa" aria-hidden="true">/məˈskiːtoʊ/</span> and <mark class="vocab" data-word="ladybug">ladybug</mark><span class="ipa" aria-hidden="true">/ˈleɪdiˌbʌɡ/</span>.</span>
-            <span class="ex-vi">Với chủ đề Animals, người học bắt đầu với <mark class="vocab" data-word="monkey">khỉ</mark> và <mark class="vocab" data-word="butterfly">bướm</mark>, rồi nối với <mark class="vocab" data-word="mosquito">muỗi</mark> và <mark class="vocab" data-word="ladybug">bọ rùa</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="8">
-            <span class="ex-en">Around Animals, learners first study <mark class="vocab" data-word="cockroach">cockroach</mark><span class="ipa" aria-hidden="true">/ˈkɑːkˌroʊtʃ/</span> and <mark class="vocab" data-word="firefly">firefly</mark><span class="ipa" aria-hidden="true">/ˈfaɪɚˌflaɪ/</span>, then connect them with <mark class="vocab" data-word="type">type</mark><span class="ipa" aria-hidden="true">/taɪp/</span> and <mark class="vocab" data-word="wild">wild</mark><span class="ipa" aria-hidden="true">/waɪld/</span>.</span>
-            <span class="ex-vi">Với chủ đề Animals, người học bắt đầu với <mark class="vocab" data-word="cockroach">gián</mark> và <mark class="vocab" data-word="firefly">đom đóm</mark>, rồi nối với <mark class="vocab" data-word="type">loại</mark> và <mark class="vocab" data-word="wild">hoang dã</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="9">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to hunt">to hunt</mark><span class="ipa" aria-hidden="true">/hʌnt/</span>, <mark class="vocab" data-word="to ride">to ride</mark><span class="ipa" aria-hidden="true">/raɪd/</span>, and also to <mark class="vocab" data-word="kind">kind</mark><span class="ipa" aria-hidden="true">/kaɪnd/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to hunt">săn bắn</mark>, <mark class="vocab" data-word="to ride">cưỡi</mark>, và cả <mark class="vocab" data-word="kind">loại</mark>.</span>
-          </p>
+      <section class="ex-passage ex-ielts" id="passage" data-tts-root>
+        <div class="ex-ielts-part" data-part="1">
+          <h2 class="ex-ielts-part-title">Part 1 · Introduction &amp; interview</h2>
+          <p class="ex-ielts-part-hint">Câu hỏi ngắn — trả lời Yes/No + lý do (Lesson 3).</p>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Do you like talking about animals?</p>
+            <p class="ex-q-vi">Bạn có thích nói về animals không?</p>
+            <p class="ex-sent" data-sent="1">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">Yes, definitely. I'm quite interested in animals, especially words like <mark class="vocab" data-word="pet">pet</mark><span class="ipa" aria-hidden="true">/pɛt/</span>, <mark class="vocab" data-word="lamb">lamb</mark><span class="ipa" aria-hidden="true">/læm/</span>, <mark class="vocab" data-word="camel">camel</mark><span class="ipa" aria-hidden="true">/ˈkæməl/</span>, and <mark class="vocab" data-word="tiger">tiger</mark><span class="ipa" aria-hidden="true">/ˈtaɪɡɚ/</span>. This is because it gives me the chance to practise natural English in real conversations.</span>
+              <span class="ex-vi">Vâng, chắc chắn. Mình khá quan tâm đến animals, nhất là các từ như <mark class="vocab" data-word="pet">thú cưng</mark>, <mark class="vocab" data-word="lamb">cừu non</mark>, <mark class="vocab" data-word="camel">lạc đà</mark>, và <mark class="vocab" data-word="tiger">hổ</mark>. Vì nó cho mình cơ hội luyện tiếng Anh tự nhiên trong hội thoại thật.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> How often do you use vocabulary about animals?</p>
+            <p class="ex-q-vi">Bạn có thường dùng từ vựng về animals không?</p>
+            <p class="ex-sent" data-sent="2">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">Yes, definitely. I'm quite interested in animals, especially words like <mark class="vocab" data-word="fly">fly</mark><span class="ipa" aria-hidden="true">/flaɪ/</span>, <mark class="vocab" data-word="spider">spider</mark><span class="ipa" aria-hidden="true">/ˈspaɪdɚ/</span>, <mark class="vocab" data-word="crocodile">crocodile</mark><span class="ipa" aria-hidden="true">/ˈkrɑːkəˌdaɪl/</span>, and <mark class="vocab" data-word="dolphin">dolphin</mark><span class="ipa" aria-hidden="true">/ˈdɑːlfɪn/</span>. This is because it gives me the chance to practise natural English in real conversations.</span>
+              <span class="ex-vi">Vâng, chắc chắn. Mình khá quan tâm đến animals, nhất là các từ như <mark class="vocab" data-word="fly">ruồi</mark>, <mark class="vocab" data-word="spider">nhện</mark>, <mark class="vocab" data-word="crocodile">cá sấu</mark>, và <mark class="vocab" data-word="dolphin">cá heo</mark>. Vì nó cho mình cơ hội luyện tiếng Anh tự nhiên trong hội thoại thật.</span>
+            </p>
+          </div>
+        </div>
+        <div class="ex-ielts-part" data-part="2">
+          <h2 class="ex-ielts-part-title">Part 2 · Long turn (cue card)</h2>
+          <p class="ex-ielts-part-hint">Mô tả 1–2 phút — mở đầu → thông tin → cốt lõi → cảm nhận → kết (Lesson 16).</p>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Describe something important related to animals.</p>
+            <p class="ex-q-vi">Hãy mô tả điều gì đó quan trọng liên quan đến animals.</p>
+            <div class="ex-cue-card">
+              <p class="ex-cue-title">You should say:</p>
+              <ul>
+                <li>what it is</li>
+                <li>when you use it</li>
+                <li>why it is important</li>
+              </ul>
+            </div>
+            <p class="ex-sent" data-sent="3">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">I'm going to talk about animals, which matters in daily life. First, people often mention <mark class="vocab" data-word="fox">fox</mark><span class="ipa" aria-hidden="true">/fɑːks/</span>, <mark class="vocab" data-word="hamster">hamster</mark><span class="ipa" aria-hidden="true">/ˈhæmstɚ/</span>, <mark class="vocab" data-word="tail">tail</mark><span class="ipa" aria-hidden="true">/teɪl/</span>, <mark class="vocab" data-word="wool">wool</mark><span class="ipa" aria-hidden="true">/wʊl/</span>, and <mark class="vocab" data-word="egg">egg</mark><span class="ipa" aria-hidden="true">/ɛɡ/</span>. Then they also discuss <mark class="vocab" data-word="web">web</mark><span class="ipa" aria-hidden="true">/wɛb/</span>, <mark class="vocab" data-word="zoo">zoo</mark><span class="ipa" aria-hidden="true">/zuː/</span>, <mark class="vocab" data-word="deer">deer</mark><span class="ipa" aria-hidden="true">/dɪr/</span>, <mark class="vocab" data-word="eagle">eagle</mark><span class="ipa" aria-hidden="true">/ˈiːɡəl/</span>, <mark class="vocab" data-word="beetle">beetle</mark><span class="ipa" aria-hidden="true">/ˈbiːtl/</span>, and <mark class="vocab" data-word="bee">bee</mark><span class="ipa" aria-hidden="true">/biː/</span> when the topic comes up in conversation.</span>
+              <span class="ex-vi">Mình sẽ nói về animals — chủ đề quan trọng trong đời sống. Trước hết mọi người hay nhắc <mark class="vocab" data-word="fox">cáo</mark>, chuột <mark class="vocab" data-word="hamster">chuột hamster</mark>, <mark class="vocab" data-word="tail">đuôi</mark>, <mark class="vocab" data-word="wool">len</mark>, và <mark class="vocab" data-word="egg">trứng</mark>. Sau đó còn bàn về <mark class="vocab" data-word="web">mạng nhện</mark>, <mark class="vocab" data-word="zoo">sở thú</mark>, <mark class="vocab" data-word="deer">hươu</mark>, <mark class="vocab" data-word="eagle">đại bàng</mark>, <mark class="vocab" data-word="beetle">bọ cánh cứng</mark>, và <mark class="vocab" data-word="bee">ong</mark> khi chủ đề xuất hiện trong hội thoại.</span>
+            </p>
+          </div>
+        </div>
+        <div class="ex-ielts-part" data-part="3">
+          <h2 class="ex-ielts-part-title">Part 3 · Two-way discussion</h2>
+          <p class="ex-ielts-part-hint">Thảo luận sâu hơn — so sánh quá khứ/hiện tại, giải thích quan điểm (Lesson 15).</p>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> How has animals changed in recent years?</p>
+            <p class="ex-q-vi">Animals đã thay đổi thế nào trong những năm gần đây?</p>
+            <p class="ex-sent" data-sent="4">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">I think it has changed quite a bit in recent years. Nowadays people talk more about <mark class="vocab" data-word="bear">bear</mark><span class="ipa" aria-hidden="true">/bɛr/</span>, <mark class="vocab" data-word="monkey">monkey</mark><span class="ipa" aria-hidden="true">/ˈmʌŋki/</span>, <mark class="vocab" data-word="butterfly">butterfly</mark><span class="ipa" aria-hidden="true">/ˈbʌtɚˌflaɪ/</span>, <mark class="vocab" data-word="mosquito">mosquito</mark><span class="ipa" aria-hidden="true">/məˈskiːtoʊ/</span>, <mark class="vocab" data-word="ladybug">ladybug</mark><span class="ipa" aria-hidden="true">/ˈleɪdiˌbʌɡ/</span>, <mark class="vocab" data-word="cockroach">cockroach</mark><span class="ipa" aria-hidden="true">/ˈkɑːkˌroʊtʃ/</span>, <mark class="vocab" data-word="firefly">firefly</mark><span class="ipa" aria-hidden="true">/ˈfaɪɚˌflaɪ/</span>, <mark class="vocab" data-word="type">type</mark><span class="ipa" aria-hidden="true">/taɪp/</span>, <mark class="vocab" data-word="wild">wild</mark><span class="ipa" aria-hidden="true">/waɪld/</span>, <mark class="vocab" data-word="to hunt">hunt</mark><span class="ipa" aria-hidden="true">/hʌnt/</span>, <mark class="vocab" data-word="to ride">ride</mark><span class="ipa" aria-hidden="true">/raɪd/</span>, and <mark class="vocab" data-word="kind">kind</mark><span class="ipa" aria-hidden="true">/kaɪnd/</span> when they discuss animals.</span>
+              <span class="ex-vi">Mình nghĩ đã thay đổi khá nhiều trong vài năm gần đây. Ngày nay mọi người nói nhiều hơn về <mark class="vocab" data-word="bear">gấu</mark>, <mark class="vocab" data-word="monkey">khỉ</mark>, <mark class="vocab" data-word="butterfly">bướm</mark>, <mark class="vocab" data-word="mosquito">muỗi</mark>, <mark class="vocab" data-word="ladybug">bọ rùa</mark>, <mark class="vocab" data-word="cockroach">gián</mark>, <mark class="vocab" data-word="firefly">đom đóm</mark>, <mark class="vocab" data-word="type">loại</mark>, <mark class="vocab" data-word="wild">hoang dã</mark>, <mark class="vocab" data-word="to hunt">săn bắn</mark>, <mark class="vocab" data-word="to ride">cưỡi</mark>, và <mark class="vocab" data-word="kind">loại</mark> khi bàn về animals.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="58">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">If you want natural English, practice <mark class="vocab" data-word="whale">whale</mark><span class="ipa" aria-hidden="true">/weɪl/</span>, then reuse <mark class="vocab" data-word="penguin">penguin</mark><span class="ipa" aria-hidden="true">/ˈpɛŋɡwɪn/</span>, and finally remember <mark class="vocab" data-word="shark">shark</mark><span class="ipa" aria-hidden="true">/ʃɑːrk/</span>.</span>
+              <span class="ex-vi">Nếu muốn tiếng Anh tự nhiên, hãy luyện <mark class="vocab" data-word="whale">cá voi</mark>, rồi dùng lại <mark class="vocab" data-word="penguin">chim cánh cụt</mark>, và cuối cùng nhớ <mark class="vocab" data-word="shark">cá mập</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="67">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">You should learn the word <mark class="vocab" data-word="insect">insect</mark><span class="ipa" aria-hidden="true">/ˈɪnˌsɛkt/</span> because it appears often in Animals topics.</span>
+              <span class="ex-vi">Bạn nên học từ <mark class="vocab" data-word="insect">côn trùng</mark> vì nó thường xuất hiện trong chủ đề Animals.</span>
+            </p>
+          </div>
+        </div>
       </section>
       <!-- Continuous paragraph (no IPA) is filled by public/js/exercise.js for NaturalReader paste -->
 
@@ -238,6 +276,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js?v=flash4"></script>
+  <script src="../../../../js/exercise.js?v=ielts1"></script>
 </body>
 </html>

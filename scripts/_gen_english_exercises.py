@@ -21,6 +21,8 @@ OUT = ROOT / "public" / "blog" / "english"
 
 LEVELS = ["A1", "A2", "B1", "B2"]
 
+from _ielts_speaking_passage import build_ielts_blocks
+
 EXERCISE_ICON = (
     "data:image/svg+xml,"
     + "%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72' fill='none'%3E"
@@ -308,7 +310,96 @@ def compose_chunk(chunk: list[dict], topic: str, level: str, idx: int) -> tuple[
     return en, vi
 
 
-def build_sentences(words: list[dict], topic_name: str, level: str) -> list[dict]:
+def build_sentences(words: list[dict], topic_name: str, level: str, topic_slug: str = "") -> list[dict]:
+    """IELTS Speaking Part 1/2/3 Q&A blocks with natural vocabulary placement."""
+    blocks = build_ielts_blocks(words, topic_name, topic_slug, level)
+    sentences = []
+    for b in blocks:
+        chunk = b.get("words") or []
+        en_html = mark_sentence(b["en"], chunk)
+        vi_local = localize_vi(b["vi"], chunk)
+        sentences.append(
+            {
+                "ielts_part": b["part"],
+                "ielts_q": b.get("q"),
+                "ielts_q_vi": b.get("q_vi"),
+                "ielts_cue": b.get("cue"),
+                "ielts_label": b.get("label"),
+                "en_html": en_html,
+                "vi": vi_local,
+                "vi_html": mark_vi_sentence(vi_local, chunk),
+                "words": [w["word"] for w in chunk],
+                "sent_id": b.get("sent_id"),
+            }
+        )
+    return sentences
+
+
+def render_ielts_passage_html(sentences: list[dict]) -> str:
+    part_meta = {
+        1: (
+            "Part 1 · Introduction &amp; interview",
+            "Câu hỏi ngắn — trả lời Yes/No + lý do (Lesson 3).",
+        ),
+        2: (
+            "Part 2 · Long turn (cue card)",
+            "Mô tả 1–2 phút — mở đầu → thông tin → cốt lõi → cảm nhận → kết (Lesson 16).",
+        ),
+        3: (
+            "Part 3 · Two-way discussion",
+            "Thảo luận sâu hơn — so sánh quá khứ/hiện tại, giải thích quan điểm (Lesson 15).",
+        ),
+    }
+    lines: list[str] = []
+    current_part = None
+    cue_shown = False
+
+    for s in sentences:
+        part = s.get("ielts_part") or 1
+        if part != current_part:
+            if current_part is not None:
+                lines.append("        </div>")
+            current_part = part
+            cue_shown = False
+            title, hint = part_meta.get(part, (f"Part {part}", ""))
+            lines.append(f'        <div class="ex-ielts-part" data-part="{part}">')
+            lines.append(f'          <h2 class="ex-ielts-part-title">{title}</h2>')
+            if hint:
+                lines.append(f'          <p class="ex-ielts-part-hint">{hint}</p>')
+
+        lines.append('          <div class="ex-qa">')
+        if s.get("ielts_q"):
+            lines.append(
+                f'            <p class="ex-q"><span class="ex-role">Examiner</span> {esc(s["ielts_q"])}</p>'
+            )
+            if s.get("ielts_q_vi"):
+                lines.append(f'            <p class="ex-q-vi">{esc(s["ielts_q_vi"])}</p>')
+            if s.get("ielts_cue") and not cue_shown:
+                cue_shown = True
+                lines.append('            <div class="ex-cue-card">')
+                lines.append('              <p class="ex-cue-title">You should say:</p>')
+                lines.append("              <ul>")
+                for bullet in s["ielts_cue"]:
+                    lines.append(f"                <li>{esc(bullet)}</li>")
+                lines.append("              </ul>")
+                lines.append("            </div>")
+        elif s.get("ielts_label"):
+            lines.append(f'            <p class="ex-p2-label">{esc(s["ielts_label"])}</p>')
+
+        sid = s.get("sent_id") or len(lines)
+        lines.append(f'            <p class="ex-sent" data-sent="{sid}">')
+        lines.append('              <span class="ex-a-label">You</span>')
+        lines.append(f'              <span class="ex-en">{s["en_html"]}</span>')
+        lines.append(f'              <span class="ex-vi">{s.get("vi_html") or esc(s["vi"])}</span>')
+        lines.append("            </p>")
+        lines.append("          </div>")
+
+    if current_part is not None:
+        lines.append("        </div>")
+    return "\n".join(lines)
+
+
+def build_sentences_legacy(words: list[dict], topic_name: str, level: str) -> list[dict]:
     """Return list of {en_html, vi, words} covering every vocabulary item."""
     chunks: list[list[dict]] = []
     size = 4
@@ -357,13 +448,25 @@ def wrap_exercise(topic: dict, level: str, words: list[dict], sentences: list[di
     name = topic["name"]
     home = "../../../../"
     missing = verify_coverage(words, sentences)
-    sent_html = []
-    for i, s in enumerate(sentences, 1):
-        sent_html.append(
+    if sentences and sentences[0].get("ielts_part"):
+        ielts_sents = [s for s in sentences if s.get("ielts_part")]
+        sent_html = render_ielts_passage_html(ielts_sents)
+        legacy = [s for s in sentences if not s.get("ielts_part")]
+        if legacy:
+            sent_html += "\n" + "\n".join(
+                f"""          <p class="ex-sent" data-sent="{i}">
+            <span class="ex-en">{s["en_html"]}</span>
+            <span class="ex-vi">{s.get("vi_html") or esc(s["vi"])}</span>
+          </p>"""
+                for i, s in enumerate(legacy, len(ielts_sents) + 1)
+            )
+    else:
+        sent_html = "\n".join(
             f"""          <p class="ex-sent" data-sent="{i}">
             <span class="ex-en">{s["en_html"]}</span>
             <span class="ex-vi">{s.get("vi_html") or esc(s["vi"])}</span>
           </p>"""
+            for i, s in enumerate(sentences, 1)
         )
 
     vocab_chips = []
@@ -409,7 +512,7 @@ def wrap_exercise(topic: dict, level: str, words: list[dict], sentences: list[di
         <img src="{EXERCISE_ICON}" alt="" width="112" height="112">
         <div>
           <h1>{esc(level)} Exercise · {esc(name)}</h1>
-          <p class="lede">Reading passage with every new word from this level’s LanGeek lessons — IPA, highlights, sentence translation, and free TTS.</p>
+          <p class="lede">IELTS Speaking practice — Part 1 / 2 / 3 Q&amp;A with vocabulary from this level’s LanGeek lessons. Answer structures follow Yes/No + reasons, cue-card long turn, and discussion (see IELTS Speaking notes). IPA, highlights, VI toggle, and TTS included.</p>
           <div class="docs-meta">
             <span><strong>Words:</strong> {len(words)}</span>
             <span><strong>Lessons:</strong> {lessons_line}</span>
@@ -429,12 +532,12 @@ def wrap_exercise(topic: dict, level: str, words: list[dict], sentences: list[di
           <input id="rateRange" type="range" min="0.7" max="1.15" step="0.05" value="0.95">
           <span id="rateVal">0.95</span>
         </label>
-        <button type="button" class="ex-btn primary" id="btnPlay">▶ Read passage</button>
+        <button type="button" class="ex-btn primary" id="btnPlay">▶ Read answers</button>
         <button type="button" class="ex-btn" id="btnStop">Stop</button>
       </div>
       {warn}
-      <section class="ex-passage" id="passage" data-tts-root>
-{chr(10).join(sent_html)}
+      <section class="ex-passage ex-ielts" id="passage" data-tts-root>
+{sent_html}
       </section>
       <!-- Continuous paragraph (no IPA) is filled by public/js/exercise.js for NaturalReader paste -->
 
@@ -534,7 +637,7 @@ def wrap_exercise(topic: dict, level: str, words: list[dict], sentences: list[di
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=flash4">
+  <link rel="stylesheet" href="{home}css/docs.css?v=ielts1">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -557,7 +660,7 @@ def wrap_exercise(topic: dict, level: str, words: list[dict], sentences: list[di
 {body}
   </div>
   <script src="{home}js/docs.js"></script>
-  <script src="{home}js/exercise.js?v=flash4"></script>
+  <script src="{home}js/exercise.js?v=ielts1"></script>
 </body>
 </html>
 """
@@ -579,7 +682,7 @@ def main() -> None:
             if not lessons:
                 continue
             words = collect_words([l["id"] for l in lessons])
-            sentences = build_sentences(words, topic["name"], level)
+            sentences = build_sentences(words, topic["name"], level, slug)
             missing = verify_coverage(words, sentences)
             # Repair pass: append dedicated sentences for any missing words
             if missing:
@@ -590,14 +693,17 @@ def main() -> None:
                     for w in chunk:
                         if w["form"].lower() not in en.lower():
                             en += f" ({w['form']})"
-                    sentences.append(
-                        {
-                            "en_html": mark_sentence(en, chunk),
-                            "vi": localize_vi(vi, chunk),
-                            "vi_html": mark_vi_sentence(localize_vi(vi, chunk), chunk),
-                            "words": [w["word"] for w in chunk],
-                        }
-                    )
+                    repair = {
+                        "en_html": mark_sentence(en, chunk),
+                        "vi": localize_vi(vi, chunk),
+                        "vi_html": mark_vi_sentence(localize_vi(vi, chunk), chunk),
+                        "words": [w["word"] for w in chunk],
+                    }
+                    if sentences and sentences[0].get("ielts_part"):
+                        repair["ielts_part"] = 3
+                        repair["ielts_q"] = "Could you add anything else on this topic?"
+                        repair["ielts_q_vi"] = "Bạn còn muốn bổ sung gì về chủ đề này không?"
+                    sentences.append(repair)
                 missing = verify_coverage(words, sentences)
 
             page = wrap_exercise(

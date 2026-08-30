@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css?v=flash4">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=ielts1">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -22,7 +22,7 @@
       <a href="../../../../blog/web-security/">DevSecOps</a>
       <a href="../../../../blog/kubestronaut/">Kubestronaut</a>
       <a class="active" href="../../">English</a>
-      <a href="../../../tech-hub/">Tech Hub</a>
+      <a href="../../../../blog/tech-hub/">Tech Hub</a>
     </nav>
     <span class="docs-topbar-spacer"></span>
     <a class="docs-top-link" href="../../../../#blogs">blogs</a>
@@ -53,7 +53,7 @@
         <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72' fill='none'%3E%3Crect width='72' height='72' rx='14' fill='%230b1220'/%3E%3Crect x='16' y='14' width='40' height='46' rx='6' stroke='%2322d3ee' stroke-width='2.5'/%3E%3Cpath d='M24 28h24M24 36h24M24 44h16' stroke='%23e4e4e7' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M48 48l6 2-2 6-8-8 4 0z' fill='%2322d3ee'/%3E%3C/svg%3E" alt="" width="112" height="112">
         <div>
           <h1>A1 Exercise · Grammar &amp; Verbs</h1>
-          <p class="lede">Reading passage with every new word from this level’s LanGeek lessons — IPA, highlights, sentence translation, and free TTS.</p>
+          <p class="lede">IELTS Speaking practice — Part 1 / 2 / 3 Q&amp;A with vocabulary from this level’s LanGeek lessons. Answer structures follow Yes/No + reasons, cue-card long turn, and discussion (see IELTS Speaking notes). IPA, highlights, VI toggle, and TTS included.</p>
           <div class="docs-meta">
             <span><strong>Words:</strong> 157</span>
             <span><strong>Lessons:</strong> Adverbs and Pronouns · Basic Verbs · Opposite Adjectives · Prepositions and Determiners · Simple Verbs · Useful Verbs</span>
@@ -73,171 +73,202 @@
           <input id="rateRange" type="range" min="0.7" max="1.15" step="0.05" value="0.95">
           <span id="rateVal">0.95</span>
         </label>
-        <button type="button" class="ex-btn primary" id="btnPlay">▶ Read passage</button>
+        <button type="button" class="ex-btn primary" id="btnPlay">▶ Read answers</button>
         <button type="button" class="ex-btn" id="btnStop">Stop</button>
       </div>
       
-      <section class="ex-passage" id="passage" data-tts-root>
-          <p class="ex-sent" data-sent="1">
-            <span class="ex-en">They learn to <mark class="vocab" data-word="outside">outside</mark><span class="ipa" aria-hidden="true">/ˌaʊtˈsaɪd/</span>, to <mark class="vocab" data-word="always">always</mark><span class="ipa" aria-hidden="true">/ˈɔːlweɪz/ , /ˈɑːlweɪz/</span>, and also to <mark class="vocab" data-word="never">never</mark><span class="ipa" aria-hidden="true">/ˈnɛvɚ/</span>, before they <mark class="vocab" data-word="usually">usually</mark><span class="ipa" aria-hidden="true">/ˈjuːʒəli/ , /ˈjuːʒəwəli/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="outside">bên ngoài</mark>, <mark class="vocab" data-word="always">luôn luôn</mark>, và cả <mark class="vocab" data-word="never">không bao giờ</mark>, trước khi <mark class="vocab" data-word="usually">thường xuyên</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="2">
-            <span class="ex-en">They learn to <mark class="vocab" data-word="often">often</mark><span class="ipa" aria-hidden="true">/ˈɔːfən/ , /ˈɑːfən/</span>, to <mark class="vocab" data-word="sometimes">sometimes</mark><span class="ipa" aria-hidden="true">/ˈsʌmˌtaɪmz/</span>, and also to <mark class="vocab" data-word="now">now</mark><span class="ipa" aria-hidden="true">/naʊ/</span>, before they <mark class="vocab" data-word="soon">soon</mark><span class="ipa" aria-hidden="true">/suːn/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="often">thường xuyên</mark>, <mark class="vocab" data-word="sometimes">đôi khi</mark>, và cả <mark class="vocab" data-word="now">bây giờ</mark>, trước khi <mark class="vocab" data-word="soon">sớm</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="3">
-            <span class="ex-en">They learn to <mark class="vocab" data-word="too">too</mark><span class="ipa" aria-hidden="true">/tuː/</span>, to <mark class="vocab" data-word="here">here</mark><span class="ipa" aria-hidden="true">/hɪr/</span>, and also to <mark class="vocab" data-word="there">there</mark><span class="ipa" aria-hidden="true">/ðɛr/</span>, before they <mark class="vocab" data-word="again">again</mark><span class="ipa" aria-hidden="true">/əˈɡɛn/ , /əˈɡeɪn/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="too">cũng</mark>, <mark class="vocab" data-word="here">ở đây</mark>, và cả <mark class="vocab" data-word="there">ở đó</mark>, trước khi <mark class="vocab" data-word="again">lại nữa</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="4">
-            <span class="ex-en">They learn to <mark class="vocab" data-word="of course">of course</mark><span class="ipa" aria-hidden="true">/ʌv ˈkɔːrs/</span>, to <mark class="vocab" data-word="really">really</mark><span class="ipa" aria-hidden="true">/ˈriːəli/ , /ˈrɪəli/</span>, and also to <mark class="vocab" data-word="why">why</mark><span class="ipa" aria-hidden="true">/waɪ/</span>, before they <mark class="vocab" data-word="where">where</mark><span class="ipa" aria-hidden="true">/wɛr/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="of course">tất nhiên</mark>, <mark class="vocab" data-word="really">thực sự</mark>, và cả <mark class="vocab" data-word="why">tại sao</mark>, trước khi <mark class="vocab" data-word="where">ở đâu</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="5">
-            <span class="ex-en">Around Grammar & Verbs, learners first study <mark class="vocab" data-word="when">when</mark><span class="ipa" aria-hidden="true">/wɛn/</span> and <mark class="vocab" data-word="what">what</mark><span class="ipa" aria-hidden="true">/wʌt/</span>, then connect them with <mark class="vocab" data-word="who">who</mark><span class="ipa" aria-hidden="true">/huː/</span> and <mark class="vocab" data-word="how">how</mark><span class="ipa" aria-hidden="true">/haʊ/</span>.</span>
-            <span class="ex-vi">Với chủ đề Grammar & Verbs, người học bắt đầu với <mark class="vocab" data-word="when">khi nào</mark> và <mark class="vocab" data-word="what">gì</mark>, rồi nối với <mark class="vocab" data-word="who">ai</mark> và <mark class="vocab" data-word="how">làm thế nào</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="6">
-            <span class="ex-en">They learn to <mark class="vocab" data-word="else">else</mark><span class="ipa" aria-hidden="true">/ɛls/</span>, <mark class="vocab" data-word="to be">to be</mark><span class="ipa" aria-hidden="true">/biː/</span>, and also <mark class="vocab" data-word="to wake up">to wake up</mark><span class="ipa" aria-hidden="true">/ˈweɪk ˈʌp/</span>, before they <mark class="vocab" data-word="to sleep">sleep</mark><span class="ipa" aria-hidden="true">/sliːp/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="else">khác</mark>, <mark class="vocab" data-word="to be">là</mark>, và cả <mark class="vocab" data-word="to wake up">thức dậy</mark>, trước khi <mark class="vocab" data-word="to sleep">ngủ</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="7">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to work">to work</mark><span class="ipa" aria-hidden="true">/wɝːk/</span>, <mark class="vocab" data-word="to drive">to drive</mark><span class="ipa" aria-hidden="true">/draɪv/</span>, and also <mark class="vocab" data-word="to buy">to buy</mark><span class="ipa" aria-hidden="true">/baɪ/</span>, before they <mark class="vocab" data-word="to sell">sell</mark><span class="ipa" aria-hidden="true">/sɛl/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to work">làm việc</mark>, <mark class="vocab" data-word="to drive">lái</mark>, và cả <mark class="vocab" data-word="to buy">mua</mark>, trước khi <mark class="vocab" data-word="to sell">bán</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="8">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to read">to read</mark><span class="ipa" aria-hidden="true">/riːd/</span>, <mark class="vocab" data-word="to write">to write</mark><span class="ipa" aria-hidden="true">/raɪt/</span>, and also <mark class="vocab" data-word="to play">to play</mark><span class="ipa" aria-hidden="true">/pleɪ/</span>, before they <mark class="vocab" data-word="to pay">pay</mark><span class="ipa" aria-hidden="true">/peɪ/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to read">đọc</mark>, <mark class="vocab" data-word="to write">viết</mark>, và cả <mark class="vocab" data-word="to play">chơi</mark>, trước khi <mark class="vocab" data-word="to pay">trả</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="9">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to rest">to rest</mark><span class="ipa" aria-hidden="true">/rɛst/</span>, <mark class="vocab" data-word="to wash">to wash</mark><span class="ipa" aria-hidden="true">/wɑːʃ/ , /wɒʃ/</span>, and also <mark class="vocab" data-word="to drink">to drink</mark><span class="ipa" aria-hidden="true">/drɪŋk/</span>, before they <mark class="vocab" data-word="to cook">cook</mark><span class="ipa" aria-hidden="true">/kʊk/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to rest">nghỉ ngơi</mark>, <mark class="vocab" data-word="to wash">rửa</mark>, và cả <mark class="vocab" data-word="to drink">uống</mark>, trước khi <mark class="vocab" data-word="to cook">nấu ăn</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="10">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to eat">to eat</mark><span class="ipa" aria-hidden="true">/iːt/</span>, <mark class="vocab" data-word="to have">to have</mark><span class="ipa" aria-hidden="true">/hæv/</span>, and also <mark class="vocab" data-word="to make">to make</mark><span class="ipa" aria-hidden="true">/meɪk/</span>, before they <mark class="vocab" data-word="to wear">wear</mark><span class="ipa" aria-hidden="true">/wɛr/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to eat">ăn</mark>, <mark class="vocab" data-word="to have">dùng</mark>, và cả <mark class="vocab" data-word="to make">làm</mark>, trước khi <mark class="vocab" data-word="to wear">mặc</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="11">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to clean">to clean</mark><span class="ipa" aria-hidden="true">/kliːn/</span>, <mark class="vocab" data-word="to think">to think</mark><span class="ipa" aria-hidden="true">/θɪŋk/</span>, and also <mark class="vocab" data-word="to take">to take</mark><span class="ipa" aria-hidden="true">/teɪk/</span>, before they <mark class="vocab" data-word="to stand">stand</mark><span class="ipa" aria-hidden="true">/stænd/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to clean">lau chùi</mark>, <mark class="vocab" data-word="to think">nghĩ</mark>, và cả <mark class="vocab" data-word="to take">lấy</mark>, trước khi <mark class="vocab" data-word="to stand">đứng</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="12">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to speak">to speak</mark><span class="ipa" aria-hidden="true">/spiːk/</span>, <mark class="vocab" data-word="to spell">to spell</mark><span class="ipa" aria-hidden="true">/spɛl/</span>, and also <mark class="vocab" data-word="to dislike">to dislike</mark><span class="ipa" aria-hidden="true">/dɪsˈlaɪk/</span>, before they <mark class="vocab" data-word="to add">add</mark><span class="ipa" aria-hidden="true">/æd/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to speak">nói</mark>, <mark class="vocab" data-word="to spell">đánh vần</mark>, và cả <mark class="vocab" data-word="to dislike">ghét</mark>, trước khi <mark class="vocab" data-word="to add">thêm vào</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="13">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to call">to call</mark><span class="ipa" aria-hidden="true">/kɔːl/</span>, <mark class="vocab" data-word="to create">to create</mark><span class="ipa" aria-hidden="true">/kriˈeɪt/</span>, and also <mark class="vocab" data-word="to cut">to cut</mark><span class="ipa" aria-hidden="true">/kʌt/</span>, before they <mark class="vocab" data-word="good">good</mark><span class="ipa" aria-hidden="true">/ɡʊd/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to call">gọi</mark>, <mark class="vocab" data-word="to create">tạo ra</mark>, và cả <mark class="vocab" data-word="to cut">cắt</mark>, trước khi <mark class="vocab" data-word="good">tốt</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="14">
-            <span class="ex-en">Around Grammar & Verbs, learners first study <mark class="vocab" data-word="bad">bad</mark><span class="ipa" aria-hidden="true">/bæd/</span> and <mark class="vocab" data-word="high">high</mark><span class="ipa" aria-hidden="true">/haɪ/</span>, then connect them with <mark class="vocab" data-word="low">low</mark><span class="ipa" aria-hidden="true">/loʊ/</span> and <mark class="vocab" data-word="big">big</mark><span class="ipa" aria-hidden="true">/bɪɡ/</span>.</span>
-            <span class="ex-vi">Với chủ đề Grammar & Verbs, người học bắt đầu với <mark class="vocab" data-word="bad">tệ</mark> và <mark class="vocab" data-word="high">cao</mark>, rồi nối với <mark class="vocab" data-word="low">thấp</mark> và <mark class="vocab" data-word="big">lớn</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="15">
-            <span class="ex-en">Around Grammar & Verbs, learners first study <mark class="vocab" data-word="small">small</mark><span class="ipa" aria-hidden="true">/smɔl/</span> and <mark class="vocab" data-word="heavy">heavy</mark><span class="ipa" aria-hidden="true">/ˈhɛvi/</span>, then connect them with <mark class="vocab" data-word="light">light</mark><span class="ipa" aria-hidden="true">/laɪt/</span> and <mark class="vocab" data-word="expensive">expensive</mark><span class="ipa" aria-hidden="true">/ɪkˈspɛnsɪv/</span>.</span>
-            <span class="ex-vi">Với chủ đề Grammar & Verbs, người học bắt đầu với <mark class="vocab" data-word="small">nhỏ</mark> và <mark class="vocab" data-word="heavy">nặng</mark>, rồi nối với <mark class="vocab" data-word="light">nhẹ</mark> và <mark class="vocab" data-word="expensive">đắt</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="16">
-            <span class="ex-en">Around Grammar & Verbs, learners first study <mark class="vocab" data-word="cheap">cheap</mark><span class="ipa" aria-hidden="true">/tʃiːp/</span> and <mark class="vocab" data-word="old">old</mark><span class="ipa" aria-hidden="true">/oʊld/</span>, then connect them with <mark class="vocab" data-word="new">new</mark><span class="ipa" aria-hidden="true">/njuː/, /nuː/</span> and <mark class="vocab" data-word="beautiful">beautiful</mark><span class="ipa" aria-hidden="true">/ˈbjuːtɪfəl/</span>.</span>
-            <span class="ex-vi">Với chủ đề Grammar & Verbs, người học bắt đầu với <mark class="vocab" data-word="cheap">rẻ</mark> và <mark class="vocab" data-word="old">cũ</mark>, rồi nối với <mark class="vocab" data-word="new">mới</mark> và <mark class="vocab" data-word="beautiful">đẹp</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="17">
-            <span class="ex-en">Around Grammar & Verbs, learners first study <mark class="vocab" data-word="ugly">ugly</mark><span class="ipa" aria-hidden="true">/ˈʌɡli/</span> and <mark class="vocab" data-word="clean">clean</mark><span class="ipa" aria-hidden="true">/kliːn/</span>, then connect them with <mark class="vocab" data-word="dirty">dirty</mark><span class="ipa" aria-hidden="true">/ˈdɝːti/</span> and <mark class="vocab" data-word="easy">easy</mark><span class="ipa" aria-hidden="true">/ˈiːzi/</span>.</span>
-            <span class="ex-vi">Với chủ đề Grammar & Verbs, người học bắt đầu với <mark class="vocab" data-word="ugly">xấu xí</mark> và <mark class="vocab" data-word="clean">sạch</mark>, rồi nối với <mark class="vocab" data-word="dirty">bẩn</mark> và <mark class="vocab" data-word="easy">dễ dàng</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="18">
-            <span class="ex-en">Around Grammar & Verbs, learners first study <mark class="vocab" data-word="difficult">difficult</mark><span class="ipa" aria-hidden="true">/ˈdɪfɪˌkʌlt/</span> and <mark class="vocab" data-word="fast">fast</mark><span class="ipa" aria-hidden="true">/fæst/</span>, then connect them with <mark class="vocab" data-word="slow">slow</mark><span class="ipa" aria-hidden="true">/sloʊ/</span> and <mark class="vocab" data-word="different">different</mark><span class="ipa" aria-hidden="true">/ˈdɪfɝːənt/</span>.</span>
-            <span class="ex-vi">Với chủ đề Grammar & Verbs, người học bắt đầu với <mark class="vocab" data-word="difficult">khó</mark> và <mark class="vocab" data-word="fast">nhanh</mark>, rồi nối với <mark class="vocab" data-word="slow">chậm</mark> và <mark class="vocab" data-word="different">khác</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="19">
-            <span class="ex-en">Around Grammar & Verbs, learners first study <mark class="vocab" data-word="same">same</mark><span class="ipa" aria-hidden="true">/seɪm/</span> and <mark class="vocab" data-word="right">right</mark><span class="ipa" aria-hidden="true">/raɪt/</span>, then connect them with <mark class="vocab" data-word="wrong">wrong</mark><span class="ipa" aria-hidden="true">/rɑŋ/</span> and <mark class="vocab" data-word="open">open</mark><span class="ipa" aria-hidden="true">/ˈoʊpən/</span>.</span>
-            <span class="ex-vi">Với chủ đề Grammar & Verbs, người học bắt đầu với <mark class="vocab" data-word="same">giống nhau</mark> và <mark class="vocab" data-word="right">đúng</mark>, rồi nối với <mark class="vocab" data-word="wrong">sai</mark> và <mark class="vocab" data-word="open">mở</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="20">
-            <span class="ex-en">Around Grammar & Verbs, learners first study <mark class="vocab" data-word="closed">closed</mark><span class="ipa" aria-hidden="true">/kloʊzd/</span> and <mark class="vocab" data-word="true">true</mark><span class="ipa" aria-hidden="true">/truː/</span>, then connect them with <mark class="vocab" data-word="false">false</mark><span class="ipa" aria-hidden="true">/fɔls/</span> and <mark class="vocab" data-word="rich">rich</mark><span class="ipa" aria-hidden="true">/rɪtʃ/</span>.</span>
-            <span class="ex-vi">Với chủ đề Grammar & Verbs, người học bắt đầu với <mark class="vocab" data-word="closed">đóng cửa</mark> và <mark class="vocab" data-word="true">đúng</mark>, rồi nối với <mark class="vocab" data-word="false">sai</mark> và <mark class="vocab" data-word="rich">giàu có</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="21">
-            <span class="ex-en">Around Grammar & Verbs, learners first study <mark class="vocab" data-word="poor">poor</mark><span class="ipa" aria-hidden="true">/pʊr/ , /pɔːr/</span> and <mark class="vocab" data-word="sure">sure</mark><span class="ipa" aria-hidden="true">/ʃʊr/ , /ʃɔːr/</span>, then connect them with <mark class="vocab" data-word="unsure">unsure</mark><span class="ipa" aria-hidden="true">/ʌnˈʃʊr/ , /ʌnˈʃɔːr/</span> and <mark class="vocab" data-word="correct">correct</mark><span class="ipa" aria-hidden="true">/kəˈrɛkt/</span>.</span>
-            <span class="ex-vi">Với chủ đề Grammar & Verbs, người học bắt đầu với <mark class="vocab" data-word="poor">nghèo</mark> và <mark class="vocab" data-word="sure">chắc chắn</mark>, rồi nối với <mark class="vocab" data-word="unsure">không chắc chắn</mark> và <mark class="vocab" data-word="correct">đúng</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="22">
-            <span class="ex-en">Around Grammar & Verbs, learners first study <mark class="vocab" data-word="incorrect">incorrect</mark><span class="ipa" aria-hidden="true">/ˌɪnkəˈrɛkt/</span> and <mark class="vocab" data-word="before">before</mark><span class="ipa" aria-hidden="true">/bɪˈfɔːr/</span>, then connect them with <mark class="vocab" data-word="after">after</mark><span class="ipa" aria-hidden="true">/ˈæftɚ/</span> and <mark class="vocab" data-word="at">at</mark><span class="ipa" aria-hidden="true">/æt/</span>.</span>
-            <span class="ex-vi">Với chủ đề Grammar & Verbs, người học bắt đầu với <mark class="vocab" data-word="incorrect">không chính xác</mark> và <mark class="vocab" data-word="before">trước</mark>, rồi nối với <mark class="vocab" data-word="after">sau</mark> và <mark class="vocab" data-word="at">tại</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="23">
-            <span class="ex-en">Around Grammar & Verbs, learners first study <mark class="vocab" data-word="in">in</mark><span class="ipa" aria-hidden="true">/ɪn/</span> and <mark class="vocab" data-word="on">on</mark><span class="ipa" aria-hidden="true">/ɑːn/ , /ɒn/</span>, then connect them with <mark class="vocab" data-word="below">below</mark><span class="ipa" aria-hidden="true">/bɪˈloʊ/</span> and <mark class="vocab" data-word="above">above</mark><span class="ipa" aria-hidden="true">/əˈbʌv/</span>.</span>
-            <span class="ex-vi">Với chủ đề Grammar & Verbs, người học bắt đầu với <mark class="vocab" data-word="in">trong</mark> và <mark class="vocab" data-word="on">trên</mark>, rồi nối với <mark class="vocab" data-word="below">dưới</mark> và <mark class="vocab" data-word="above">trên</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="24">
-            <span class="ex-en">Around Grammar & Verbs, learners first study <mark class="vocab" data-word="across">across</mark><span class="ipa" aria-hidden="true">/əˈkrɑːs/</span> and <mark class="vocab" data-word="near">near</mark><span class="ipa" aria-hidden="true">/nɪr/</span>, then connect them with <mark class="vocab" data-word="between">between</mark><span class="ipa" aria-hidden="true">/bɪˈtwiːn/</span> and <mark class="vocab" data-word="next to">next to</mark><span class="ipa" aria-hidden="true">/nɛkst tuː/</span>.</span>
-            <span class="ex-vi">Với chủ đề Grammar & Verbs, người học bắt đầu với <mark class="vocab" data-word="across">bên kia</mark> và <mark class="vocab" data-word="near">gần</mark>, rồi nối với <mark class="vocab" data-word="between">giữa</mark> và <mark class="vocab" data-word="next to">bên cạnh</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="25">
-            <span class="ex-en">Around Grammar & Verbs, learners first study <mark class="vocab" data-word="behind">behind</mark><span class="ipa" aria-hidden="true">/bɪˈhaɪnd/</span> and <mark class="vocab" data-word="with">with</mark><span class="ipa" aria-hidden="true">/wɪð/ , /wɪθ/</span>, then connect them with <mark class="vocab" data-word="to">to</mark><span class="ipa" aria-hidden="true">/tuː/</span> and <mark class="vocab" data-word="another">another</mark><span class="ipa" aria-hidden="true">/əˈnʌðɚ/</span>.</span>
-            <span class="ex-vi">Với chủ đề Grammar & Verbs, người học bắt đầu <mark class="vocab" data-word="with">với</mark> <mark class="vocab" data-word="behind">đằng sau</mark> và với, rồi nối với <mark class="vocab" data-word="to">đến</mark> và <mark class="vocab" data-word="another">một cái khác</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="26">
-            <span class="ex-en">Around Grammar & Verbs, learners first study <mark class="vocab" data-word="this">this</mark><span class="ipa" aria-hidden="true">/ðɪs/</span> and <mark class="vocab" data-word="that">that</mark><span class="ipa" aria-hidden="true">/ðæt/</span>, then connect them with <mark class="vocab" data-word="both">both</mark><span class="ipa" aria-hidden="true">/boʊθ/</span> and <mark class="vocab" data-word="a">a</mark><span class="ipa" aria-hidden="true">/ə/</span>.</span>
-            <span class="ex-vi">Với chủ đề Grammar & Verbs, người học bắt đầu với <mark class="vocab" data-word="this">này</mark> và <mark class="vocab" data-word="that">đó</mark>, rồi nối với <mark class="vocab" data-word="both">cả hai</mark> và <mark class="vocab" data-word="a">một</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="27">
-            <span class="ex-en">Around Grammar & Verbs, learners first study <mark class="vocab" data-word="over">over</mark><span class="ipa" aria-hidden="true">/ˈoʊvɚ/</span> and <mark class="vocab" data-word="under">under</mark><span class="ipa" aria-hidden="true">/ˈʌndɚ/</span>, then connect them with <mark class="vocab" data-word="to walk">walk</mark><span class="ipa" aria-hidden="true">/wɑːk/</span> and <mark class="vocab" data-word="to run">run</mark><span class="ipa" aria-hidden="true">/rʌn/</span>.</span>
-            <span class="ex-vi">Với chủ đề Grammar & Verbs, người học bắt đầu với <mark class="vocab" data-word="over">trên</mark> và <mark class="vocab" data-word="under">dưới</mark>, rồi nối với <mark class="vocab" data-word="to walk">đi bộ</mark> và <mark class="vocab" data-word="to run">chạy</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="28">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to go">to go</mark><span class="ipa" aria-hidden="true">/ɡoʊ/</span>, <mark class="vocab" data-word="to come">to come</mark><span class="ipa" aria-hidden="true">/kʌm/</span>, and also <mark class="vocab" data-word="to sit">to sit</mark><span class="ipa" aria-hidden="true">/sɪt/</span>, before they <mark class="vocab" data-word="to fall">fall</mark><span class="ipa" aria-hidden="true">/fɑl/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to go">đi</mark>, <mark class="vocab" data-word="to come">đến</mark>, và cả <mark class="vocab" data-word="to sit">ngồi</mark>, trước khi <mark class="vocab" data-word="to fall">ngã</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="29">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to jump">to jump</mark><span class="ipa" aria-hidden="true">/dʒʌmp/</span>, <mark class="vocab" data-word="to bring">to bring</mark><span class="ipa" aria-hidden="true">/brɪŋ/</span>, and also <mark class="vocab" data-word="to give">to give</mark><span class="ipa" aria-hidden="true">/ɡɪv/</span>, before they <mark class="vocab" data-word="to find">find</mark><span class="ipa" aria-hidden="true">/faɪnd/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to jump">nhảy</mark>, <mark class="vocab" data-word="to bring">mang</mark>, và cả <mark class="vocab" data-word="to give">đưa</mark>, trước khi <mark class="vocab" data-word="to find">tìm thấy</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="30">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to open">to open</mark><span class="ipa" aria-hidden="true">/ˈoʊpən/</span>, <mark class="vocab" data-word="to close">to close</mark><span class="ipa" aria-hidden="true">/kloʊz/</span>, and also <mark class="vocab" data-word="to start">to start</mark><span class="ipa" aria-hidden="true">/stɑːrt/</span>, before they <mark class="vocab" data-word="to stop">stop</mark><span class="ipa" aria-hidden="true">/stɑp/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to open">mở</mark>, <mark class="vocab" data-word="to close">đóng</mark>, và cả <mark class="vocab" data-word="to start">bắt đầu</mark>, trước khi <mark class="vocab" data-word="to stop">dừng lại</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="31">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to finish">to finish</mark><span class="ipa" aria-hidden="true">/ˈfɪnɪʃ/</span>, <mark class="vocab" data-word="to build">to build</mark><span class="ipa" aria-hidden="true">/bɪld/</span>, and also <mark class="vocab" data-word="to do">to do</mark><span class="ipa" aria-hidden="true">/duː/</span>, before they <mark class="vocab" data-word="to get">get</mark><span class="ipa" aria-hidden="true">/ɡɛt/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to finish">kết thúc</mark>, <mark class="vocab" data-word="to build">xây dựng</mark>, và cả <mark class="vocab" data-word="to do">làm</mark>, trước khi <mark class="vocab" data-word="to get">nhận được</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="32">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to turn">to turn</mark><span class="ipa" aria-hidden="true">/tɝn/</span>, <mark class="vocab" data-word="to introduce">to introduce</mark><span class="ipa" aria-hidden="true">/ˌɪntrəˈduːs/</span>, and also <mark class="vocab" data-word="to travel">to travel</mark><span class="ipa" aria-hidden="true">/ˈtrævəl/</span>, before they <mark class="vocab" data-word="to let">let</mark><span class="ipa" aria-hidden="true">/lɛt/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to turn">quay</mark>, <mark class="vocab" data-word="to introduce">giới thiệu</mark>, và cả <mark class="vocab" data-word="to travel">du lịch</mark>, trước khi <mark class="vocab" data-word="to let">để</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="33">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to choose">to choose</mark><span class="ipa" aria-hidden="true">/tʃuːz/</span>, <mark class="vocab" data-word="to help">to help</mark><span class="ipa" aria-hidden="true">/hɛlp/</span>, and also <mark class="vocab" data-word="to swim">to swim</mark><span class="ipa" aria-hidden="true">/swɪm/</span>, before they <mark class="vocab" data-word="to hear">hear</mark><span class="ipa" aria-hidden="true">/hɪr/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to choose">chọn</mark>, <mark class="vocab" data-word="to help">giúp đỡ</mark>, và cả <mark class="vocab" data-word="to swim">bơi</mark>, trước khi <mark class="vocab" data-word="to hear">nghe</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="34">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to listen">to listen</mark><span class="ipa" aria-hidden="true">/ˈlɪsən/</span>, <mark class="vocab" data-word="to see">to see</mark><span class="ipa" aria-hidden="true">/siː/</span>, and also <mark class="vocab" data-word="to look">to look</mark><span class="ipa" aria-hidden="true">/lʊk/</span>, before they <mark class="vocab" data-word="to watch">watch</mark><span class="ipa" aria-hidden="true">/wɑːtʃ/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to listen">nghe</mark>, <mark class="vocab" data-word="to see">nhìn thấy</mark>, và cả <mark class="vocab" data-word="to look">nhìn</mark>, trước khi <mark class="vocab" data-word="to watch">xem</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="35">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to touch">to touch</mark><span class="ipa" aria-hidden="true">/tʌtʃ/</span>, <mark class="vocab" data-word="to feel">to feel</mark><span class="ipa" aria-hidden="true">/fiːl/</span>, and also <mark class="vocab" data-word="to talk">to talk</mark><span class="ipa" aria-hidden="true">/tɑːk/</span>, before they <mark class="vocab" data-word="to like">like</mark><span class="ipa" aria-hidden="true">/laɪk/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to touch">chạm</mark>, <mark class="vocab" data-word="to feel">cảm thấy</mark>, và cả <mark class="vocab" data-word="to talk">nói</mark>, trước khi <mark class="vocab" data-word="to like">thích</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="36">
-            <span class="ex-en">They <mark class="vocab" data-word="to learn">learn</mark><span class="ipa" aria-hidden="true">/lɝːn/</span> <mark class="vocab" data-word="to love">to love</mark><span class="ipa" aria-hidden="true">/lʌv/</span>, <mark class="vocab" data-word="to hate">to hate</mark><span class="ipa" aria-hidden="true">/heɪt/</span>, and also <mark class="vocab" data-word="to know">to know</mark><span class="ipa" aria-hidden="true">/noʊ/</span>, before they learn.</span>
-            <span class="ex-vi">Họ <mark class="vocab" data-word="to learn">học</mark> cách <mark class="vocab" data-word="to love">yêu</mark>, <mark class="vocab" data-word="to hate">ghét</mark>, và cả <mark class="vocab" data-word="to know">biết</mark>, trước khi học.</span>
-          </p>
-          <p class="ex-sent" data-sent="37">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to ask">to ask</mark><span class="ipa" aria-hidden="true">/æsk/</span>, <mark class="vocab" data-word="to study">to study</mark><span class="ipa" aria-hidden="true">/ˈstʌdi/</span>, and also <mark class="vocab" data-word="to teach">to teach</mark><span class="ipa" aria-hidden="true">/tiːtʃ/</span>, before they <mark class="vocab" data-word="to need">need</mark><span class="ipa" aria-hidden="true">/niːd/</span>.</span>
-            <span class="ex-vi">Họ <mark class="vocab" data-word="to study">học</mark> cách <mark class="vocab" data-word="to ask">hỏi</mark>, học, và cả <mark class="vocab" data-word="to teach">dạy</mark>, trước khi <mark class="vocab" data-word="to need">cần</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="38">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to want">to want</mark><span class="ipa" aria-hidden="true">/wɑːnt/</span>, <mark class="vocab" data-word="to share">to share</mark><span class="ipa" aria-hidden="true">/ʃɛr/</span>, and also <mark class="vocab" data-word="to put">to put</mark><span class="ipa" aria-hidden="true">/pʊt/</span>, before they <mark class="vocab" data-word="to prepare">prepare</mark><span class="ipa" aria-hidden="true">/prɪˈpɛr/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to want">muốn</mark>, <mark class="vocab" data-word="to share">chia sẻ</mark>, và cả <mark class="vocab" data-word="to put">đặt</mark>, trước khi <mark class="vocab" data-word="to prepare">chuẩn bị</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="39">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to plan">to plan</mark><span class="ipa" aria-hidden="true">/plæn/</span>, <mark class="vocab" data-word="to explain">to explain</mark><span class="ipa" aria-hidden="true">/ɪkˈspleɪn/</span>, and also <mark class="vocab" data-word="to fill">to fill</mark><span class="ipa" aria-hidden="true">/fɪl/</span>, before they <mark class="vocab" data-word="to fly">fly</mark><span class="ipa" aria-hidden="true">/flaɪ/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to plan">lên kế hoạch</mark>, <mark class="vocab" data-word="to explain">giải thích</mark>, và cả <mark class="vocab" data-word="to fill">làm đầy</mark>, trước khi <mark class="vocab" data-word="to fly">bay</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="40">
-            <span class="ex-en">You should learn the word <mark class="vocab" data-word="to become">become</mark><span class="ipa" aria-hidden="true">/bɪˈkʌm/</span> because it appears often in Grammar & Verbs topics.</span>
-            <span class="ex-vi">Bạn nên học từ <mark class="vocab" data-word="to become">trở thành</mark> vì nó thường xuất hiện trong chủ đề Grammar & Verbs.</span>
-          </p>
+      <section class="ex-passage ex-ielts" id="passage" data-tts-root>
+        <div class="ex-ielts-part" data-part="1">
+          <h2 class="ex-ielts-part-title">Part 1 · Introduction &amp; interview</h2>
+          <p class="ex-ielts-part-hint">Câu hỏi ngắn — trả lời Yes/No + lý do (Lesson 3).</p>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Do you like talking about grammar &amp; verbs?</p>
+            <p class="ex-q-vi">Bạn có thích nói về grammar &amp; verbs không?</p>
+            <p class="ex-sent" data-sent="1">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">Yes, definitely. I'm quite interested in grammar & verbs, especially words like <mark class="vocab" data-word="outside">outside</mark><span class="ipa" aria-hidden="true">/ˌaʊtˈsaɪd/</span>, <mark class="vocab" data-word="always">always</mark><span class="ipa" aria-hidden="true">/ˈɔːlweɪz/ , /ˈɑːlweɪz/</span>, <mark class="vocab" data-word="never">never</mark><span class="ipa" aria-hidden="true">/ˈnɛvɚ/</span>, and <mark class="vocab" data-word="usually">usually</mark><span class="ipa" aria-hidden="true">/ˈjuːʒəli/ , /ˈjuːʒəwəli/</span>. This is because it gives me the chance to practise natural English in real conversations.</span>
+              <span class="ex-vi">Vâng, chắc chắn. Mình khá quan tâm đến grammar & verbs, nhất <mark class="vocab" data-word="to be">là</mark> các từ như <mark class="vocab" data-word="outside">bên ngoài</mark>, <mark class="vocab" data-word="always">luôn luôn</mark>, <mark class="vocab" data-word="never">không bao giờ</mark>, và <mark class="vocab" data-word="usually">thường xuyên</mark>. Vì nó cho mình cơ hội luyện tiếng Anh tự nhiên trong hội thoại thật.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> How often do you use vocabulary about grammar &amp; verbs?</p>
+            <p class="ex-q-vi">Bạn có thường dùng từ vựng về grammar &amp; verbs không?</p>
+            <p class="ex-sent" data-sent="2">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">Yes, definitely. I'm quite interested in grammar & verbs, especially words like <mark class="vocab" data-word="to wear">wear</mark><span class="ipa" aria-hidden="true">/wɛr/</span>, <mark class="vocab" data-word="to clean">clean</mark><span class="ipa" aria-hidden="true">/kliːn/</span>, <mark class="vocab" data-word="to think">think</mark><span class="ipa" aria-hidden="true">/θɪŋk/</span>, and <mark class="vocab" data-word="to take">take</mark><span class="ipa" aria-hidden="true">/teɪk/</span>. This is because it gives me the chance to practise natural English in real conversations.</span>
+              <span class="ex-vi">Vâng, chắc chắn. Mình khá quan tâm đến grammar & verbs, nhất là các từ như <mark class="vocab" data-word="to wear">mặc</mark>, <mark class="vocab" data-word="to clean">lau chùi</mark>, <mark class="vocab" data-word="to think">nghĩ</mark>, và <mark class="vocab" data-word="to take">lấy</mark>. Vì nó cho mình cơ hội luyện tiếng Anh tự nhiên trong hội thoại thật.</span>
+            </p>
+          </div>
+        </div>
+        <div class="ex-ielts-part" data-part="2">
+          <h2 class="ex-ielts-part-title">Part 2 · Long turn (cue card)</h2>
+          <p class="ex-ielts-part-hint">Mô tả 1–2 phút — mở đầu → thông tin → cốt lõi → cảm nhận → kết (Lesson 16).</p>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Describe something important related to grammar &amp; verbs.</p>
+            <p class="ex-q-vi">Hãy mô tả điều gì đó quan trọng liên quan đến grammar &amp; verbs.</p>
+            <div class="ex-cue-card">
+              <p class="ex-cue-title">You should say:</p>
+              <ul>
+                <li>what it is</li>
+                <li>when you use it</li>
+                <li>why it is important</li>
+              </ul>
+            </div>
+            <p class="ex-sent" data-sent="3">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">I'm going <mark class="vocab" data-word="to">to</mark><span class="ipa" aria-hidden="true">/tuː/</span> talk about grammar & verbs, which matters <mark class="vocab" data-word="in">in</mark><span class="ipa" aria-hidden="true">/ɪn/</span> daily life. First, people often mention <mark class="vocab" data-word="light">light</mark><span class="ipa" aria-hidden="true">/laɪt/</span>, <mark class="vocab" data-word="expensive">expensive</mark><span class="ipa" aria-hidden="true">/ɪkˈspɛnsɪv/</span>, <mark class="vocab" data-word="cheap">cheap</mark><span class="ipa" aria-hidden="true">/tʃiːp/</span>, <mark class="vocab" data-word="old">old</mark><span class="ipa" aria-hidden="true">/oʊld/</span>, <mark class="vocab" data-word="new">new</mark><span class="ipa" aria-hidden="true">/njuː/, /nuː/</span>, <mark class="vocab" data-word="beautiful">beautiful</mark><span class="ipa" aria-hidden="true">/ˈbjuːtɪfəl/</span>, <mark class="vocab" data-word="ugly">ugly</mark><span class="ipa" aria-hidden="true">/ˈʌɡli/</span>, <mark class="vocab" data-word="clean">clean</mark><span class="ipa" aria-hidden="true">/kliːn/</span>, <mark class="vocab" data-word="dirty">dirty</mark><span class="ipa" aria-hidden="true">/ˈdɝːti/</span>, <mark class="vocab" data-word="easy">easy</mark><span class="ipa" aria-hidden="true">/ˈiːzi/</span>, <mark class="vocab" data-word="difficult">difficult</mark><span class="ipa" aria-hidden="true">/ˈdɪfɪˌkʌlt/</span>, <mark class="vocab" data-word="fast">fast</mark><span class="ipa" aria-hidden="true">/fæst/</span>, <mark class="vocab" data-word="slow">slow</mark><span class="ipa" aria-hidden="true">/sloʊ/</span>, <mark class="vocab" data-word="different">different</mark><span class="ipa" aria-hidden="true">/ˈdɪfɝːənt/</span>, <mark class="vocab" data-word="same">same</mark><span class="ipa" aria-hidden="true">/seɪm/</span>, <mark class="vocab" data-word="right">right</mark><span class="ipa" aria-hidden="true">/raɪt/</span>, <mark class="vocab" data-word="wrong">wrong</mark><span class="ipa" aria-hidden="true">/rɑŋ/</span>, <mark class="vocab" data-word="open">open</mark><span class="ipa" aria-hidden="true">/ˈoʊpən/</span>, <mark class="vocab" data-word="closed">closed</mark><span class="ipa" aria-hidden="true">/kloʊzd/</span>, <mark class="vocab" data-word="true">true</mark><span class="ipa" aria-hidden="true">/truː/</span>, <mark class="vocab" data-word="false">false</mark><span class="ipa" aria-hidden="true">/fɔls/</span>, <mark class="vocab" data-word="rich">rich</mark><span class="ipa" aria-hidden="true">/rɪtʃ/</span>, <mark class="vocab" data-word="poor">poor</mark><span class="ipa" aria-hidden="true">/pʊr/ , /pɔːr/</span>, <mark class="vocab" data-word="sure">sure</mark><span class="ipa" aria-hidden="true">/ʃʊr/ , /ʃɔːr/</span>, <mark class="vocab" data-word="unsure">unsure</mark><span class="ipa" aria-hidden="true">/ʌnˈʃʊr/ , /ʌnˈʃɔːr/</span>, and <mark class="vocab" data-word="correct">correct</mark><span class="ipa" aria-hidden="true">/kəˈrɛkt/</span>. Then they also discuss <mark class="vocab" data-word="incorrect">incorrect</mark><span class="ipa" aria-hidden="true">/ˌɪnkəˈrɛkt/</span>, <mark class="vocab" data-word="before">before</mark><span class="ipa" aria-hidden="true">/bɪˈfɔːr/</span>, <mark class="vocab" data-word="after">after</mark><span class="ipa" aria-hidden="true">/ˈæftɚ/</span>, <mark class="vocab" data-word="at">at</mark><span class="ipa" aria-hidden="true">/æt/</span>, in, <mark class="vocab" data-word="on">on</mark><span class="ipa" aria-hidden="true">/ɑːn/ , /ɒn/</span>, <mark class="vocab" data-word="below">below</mark><span class="ipa" aria-hidden="true">/bɪˈloʊ/</span>, <mark class="vocab" data-word="above">above</mark><span class="ipa" aria-hidden="true">/əˈbʌv/</span>, <mark class="vocab" data-word="across">across</mark><span class="ipa" aria-hidden="true">/əˈkrɑːs/</span>, <mark class="vocab" data-word="near">near</mark><span class="ipa" aria-hidden="true">/nɪr/</span>, <mark class="vocab" data-word="between">between</mark><span class="ipa" aria-hidden="true">/bɪˈtwiːn/</span>, <mark class="vocab" data-word="next to">next to</mark><span class="ipa" aria-hidden="true">/nɛkst tuː/</span>, <mark class="vocab" data-word="behind">behind</mark><span class="ipa" aria-hidden="true">/bɪˈhaɪnd/</span>, <mark class="vocab" data-word="with">with</mark><span class="ipa" aria-hidden="true">/wɪð/ , /wɪθ/</span>, to, <mark class="vocab" data-word="another">another</mark><span class="ipa" aria-hidden="true">/əˈnʌðɚ/</span>, <mark class="vocab" data-word="this">this</mark><span class="ipa" aria-hidden="true">/ðɪs/</span>, <mark class="vocab" data-word="that">that</mark><span class="ipa" aria-hidden="true">/ðæt/</span>, <mark class="vocab" data-word="both">both</mark><span class="ipa" aria-hidden="true">/boʊθ/</span>, <mark class="vocab" data-word="a">a</mark><span class="ipa" aria-hidden="true">/ə/</span>, <mark class="vocab" data-word="over">over</mark><span class="ipa" aria-hidden="true">/ˈoʊvɚ/</span>, <mark class="vocab" data-word="under">under</mark><span class="ipa" aria-hidden="true">/ˈʌndɚ/</span>, <mark class="vocab" data-word="to walk">walk</mark><span class="ipa" aria-hidden="true">/wɑːk/</span>, <mark class="vocab" data-word="to run">run</mark><span class="ipa" aria-hidden="true">/rʌn/</span>, <mark class="vocab" data-word="to go">go</mark><span class="ipa" aria-hidden="true">/ɡoʊ/</span>, and come when the topic <mark class="vocab" data-word="to come">comes</mark><span class="ipa" aria-hidden="true">/kʌm/</span> up in conversation.</span>
+              <span class="ex-vi">Mình sẽ nói về grammar & verbs — chủ đề quan trọng <mark class="vocab" data-word="in">trong</mark> đời sống. Trước hết mọi người hay nhắc <mark class="vocab" data-word="light">nhẹ</mark>, <mark class="vocab" data-word="expensive">đắt</mark>, <mark class="vocab" data-word="cheap">rẻ</mark>, <mark class="vocab" data-word="old">cũ</mark>, <mark class="vocab" data-word="new">mới</mark>, <mark class="vocab" data-word="beautiful">đẹp</mark>, <mark class="vocab" data-word="ugly">xấu xí</mark>, <mark class="vocab" data-word="clean">sạch</mark>, <mark class="vocab" data-word="dirty">bẩn</mark>, <mark class="vocab" data-word="easy">dễ dàng</mark>, <mark class="vocab" data-word="difficult">khó</mark>, <mark class="vocab" data-word="fast">nhanh</mark>, <mark class="vocab" data-word="slow">chậm</mark>, <mark class="vocab" data-word="different">khác</mark>, <mark class="vocab" data-word="same">giống nhau</mark>, <mark class="vocab" data-word="right">đúng</mark>, <mark class="vocab" data-word="wrong">sai</mark>, <mark class="vocab" data-word="open">mở</mark>, <mark class="vocab" data-word="closed">đóng cửa</mark>, <mark class="vocab" data-word="true">đúng</mark>, <mark class="vocab" data-word="false">sai</mark>, <mark class="vocab" data-word="rich">giàu có</mark>, <mark class="vocab" data-word="poor">nghèo</mark>, <mark class="vocab" data-word="sure">chắc chắn</mark>, <mark class="vocab" data-word="unsure">không chắc chắn</mark>, và <mark class="vocab" data-word="correct">đúng</mark>. Sau <mark class="vocab" data-word="that">đó</mark> còn bàn về <mark class="vocab" data-word="incorrect">không chính xác</mark>, <mark class="vocab" data-word="before">trước</mark>, <mark class="vocab" data-word="after">sau</mark>, <mark class="vocab" data-word="at">tại</mark>, trong, <mark class="vocab" data-word="on">trên</mark>, <mark class="vocab" data-word="below">dưới</mark>, <mark class="vocab" data-word="above">trên</mark>, <mark class="vocab" data-word="across">bên kia</mark>, <mark class="vocab" data-word="near">gần</mark>, <mark class="vocab" data-word="between">giữa</mark>, <mark class="vocab" data-word="next to">bên cạnh</mark>, <mark class="vocab" data-word="behind">đằng sau</mark>, <mark class="vocab" data-word="with">với</mark>, <mark class="vocab" data-word="to">đến</mark>, <mark class="vocab" data-word="another">một cái khác</mark>, <mark class="vocab" data-word="this">này</mark>, đó, <mark class="vocab" data-word="both">cả hai</mark>, <mark class="vocab" data-word="a">một</mark>, <mark class="vocab" data-word="over">trên</mark>, <mark class="vocab" data-word="under">dưới</mark>, <mark class="vocab" data-word="to walk">đi bộ</mark>, <mark class="vocab" data-word="to run">chạy</mark>, <mark class="vocab" data-word="to go">đi</mark>, và <mark class="vocab" data-word="to come">đến</mark> khi chủ đề xuất hiện trong hội thoại.</span>
+            </p>
+          </div>
+        </div>
+        <div class="ex-ielts-part" data-part="3">
+          <h2 class="ex-ielts-part-title">Part 3 · Two-way discussion</h2>
+          <p class="ex-ielts-part-hint">Thảo luận sâu hơn — so sánh quá khứ/hiện tại, giải thích quan điểm (Lesson 15).</p>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> How has grammar &amp; verbs changed in recent years?</p>
+            <p class="ex-q-vi">Grammar &amp; Verbs đã thay đổi thế nào trong những năm gần đây?</p>
+            <p class="ex-sent" data-sent="4">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">I think it has changed quite a bit in recent years. Nowadays people <mark class="vocab" data-word="to talk">talk</mark><span class="ipa" aria-hidden="true">/tɑːk/</span> more about <mark class="vocab" data-word="to sit">sit</mark><span class="ipa" aria-hidden="true">/sɪt/</span>, <mark class="vocab" data-word="to fall">fall</mark><span class="ipa" aria-hidden="true">/fɑl/</span>, <mark class="vocab" data-word="to jump">jump</mark><span class="ipa" aria-hidden="true">/dʒʌmp/</span>, <mark class="vocab" data-word="to bring">bring</mark><span class="ipa" aria-hidden="true">/brɪŋ/</span>, <mark class="vocab" data-word="to give">give</mark><span class="ipa" aria-hidden="true">/ɡɪv/</span>, <mark class="vocab" data-word="to find">find</mark><span class="ipa" aria-hidden="true">/faɪnd/</span>, <mark class="vocab" data-word="to open">open</mark><span class="ipa" aria-hidden="true">/ˈoʊpən/</span>, <mark class="vocab" data-word="to close">close</mark><span class="ipa" aria-hidden="true">/kloʊz/</span>, <mark class="vocab" data-word="to start">start</mark><span class="ipa" aria-hidden="true">/stɑːrt/</span>, <mark class="vocab" data-word="to stop">stop</mark><span class="ipa" aria-hidden="true">/stɑp/</span>, <mark class="vocab" data-word="to finish">finish</mark><span class="ipa" aria-hidden="true">/ˈfɪnɪʃ/</span>, <mark class="vocab" data-word="to build">build</mark><span class="ipa" aria-hidden="true">/bɪld/</span>, <mark class="vocab" data-word="to do">do</mark><span class="ipa" aria-hidden="true">/duː/</span>, <mark class="vocab" data-word="to get">get</mark><span class="ipa" aria-hidden="true">/ɡɛt/</span>, <mark class="vocab" data-word="to turn">turn</mark><span class="ipa" aria-hidden="true">/tɝn/</span>, <mark class="vocab" data-word="to introduce">introduce</mark><span class="ipa" aria-hidden="true">/ˌɪntrəˈduːs/</span>, <mark class="vocab" data-word="to travel">travel</mark><span class="ipa" aria-hidden="true">/ˈtrævəl/</span>, <mark class="vocab" data-word="to let">let</mark><span class="ipa" aria-hidden="true">/lɛt/</span>, <mark class="vocab" data-word="to choose">choose</mark><span class="ipa" aria-hidden="true">/tʃuːz/</span>, <mark class="vocab" data-word="to help">help</mark><span class="ipa" aria-hidden="true">/hɛlp/</span>, <mark class="vocab" data-word="to swim">swim</mark><span class="ipa" aria-hidden="true">/swɪm/</span>, <mark class="vocab" data-word="to hear">hear</mark><span class="ipa" aria-hidden="true">/hɪr/</span>, <mark class="vocab" data-word="to listen">listen</mark><span class="ipa" aria-hidden="true">/ˈlɪsən/</span>, <mark class="vocab" data-word="to see">see</mark><span class="ipa" aria-hidden="true">/siː/</span>, <mark class="vocab" data-word="to look">look</mark><span class="ipa" aria-hidden="true">/lʊk/</span>, <mark class="vocab" data-word="to watch">watch</mark><span class="ipa" aria-hidden="true">/wɑːtʃ/</span>, <mark class="vocab" data-word="to touch">touch</mark><span class="ipa" aria-hidden="true">/tʌtʃ/</span>, <mark class="vocab" data-word="to feel">feel</mark><span class="ipa" aria-hidden="true">/fiːl/</span>, talk, <mark class="vocab" data-word="to like">like</mark><span class="ipa" aria-hidden="true">/laɪk/</span>, <mark class="vocab" data-word="to love">love</mark><span class="ipa" aria-hidden="true">/lʌv/</span>, <mark class="vocab" data-word="to hate">hate</mark><span class="ipa" aria-hidden="true">/heɪt/</span>, <mark class="vocab" data-word="to know">know</mark><span class="ipa" aria-hidden="true">/noʊ/</span>, <mark class="vocab" data-word="to learn">learn</mark><span class="ipa" aria-hidden="true">/lɝːn/</span>, <mark class="vocab" data-word="to ask">ask</mark><span class="ipa" aria-hidden="true">/æsk/</span>, <mark class="vocab" data-word="to study">study</mark><span class="ipa" aria-hidden="true">/ˈstʌdi/</span>, <mark class="vocab" data-word="to teach">teach</mark><span class="ipa" aria-hidden="true">/tiːtʃ/</span>, <mark class="vocab" data-word="to need">need</mark><span class="ipa" aria-hidden="true">/niːd/</span>, <mark class="vocab" data-word="to want">want</mark><span class="ipa" aria-hidden="true">/wɑːnt/</span>, <mark class="vocab" data-word="to share">share</mark><span class="ipa" aria-hidden="true">/ʃɛr/</span>, <mark class="vocab" data-word="to put">put</mark><span class="ipa" aria-hidden="true">/pʊt/</span>, <mark class="vocab" data-word="to prepare">prepare</mark><span class="ipa" aria-hidden="true">/prɪˈpɛr/</span>, <mark class="vocab" data-word="to plan">plan</mark><span class="ipa" aria-hidden="true">/plæn/</span>, <mark class="vocab" data-word="to explain">explain</mark><span class="ipa" aria-hidden="true">/ɪkˈspleɪn/</span>, <mark class="vocab" data-word="to fill">fill</mark><span class="ipa" aria-hidden="true">/fɪl/</span>, <mark class="vocab" data-word="to fly">fly</mark><span class="ipa" aria-hidden="true">/flaɪ/</span>, and <mark class="vocab" data-word="to become">become</mark><span class="ipa" aria-hidden="true">/bɪˈkʌm/</span> when they discuss grammar & verbs.</span>
+              <span class="ex-vi">Mình nghĩ đã thay đổi khá nhiều trong vài năm gần đây. Ngày nay mọi người <mark class="vocab" data-word="to talk">nói</mark> nhiều hơn về <mark class="vocab" data-word="to sit">ngồi</mark>, <mark class="vocab" data-word="to fall">ngã</mark>, <mark class="vocab" data-word="to jump">nhảy</mark>, <mark class="vocab" data-word="to bring">mang</mark>, <mark class="vocab" data-word="to give">đưa</mark>, <mark class="vocab" data-word="to find">tìm thấy</mark>, <mark class="vocab" data-word="to open">mở</mark>, <mark class="vocab" data-word="to close">đóng</mark>, <mark class="vocab" data-word="to start">bắt đầu</mark>, <mark class="vocab" data-word="to stop">dừng lại</mark>, <mark class="vocab" data-word="to finish">kết thúc</mark>, <mark class="vocab" data-word="to build">xây dựng</mark>, <mark class="vocab" data-word="to do">làm</mark>, <mark class="vocab" data-word="to get">nhận được</mark>, <mark class="vocab" data-word="to turn">quay</mark>, <mark class="vocab" data-word="to introduce">giới thiệu</mark>, <mark class="vocab" data-word="to travel">du lịch</mark>, <mark class="vocab" data-word="to let">để</mark>, <mark class="vocab" data-word="to choose">chọn</mark>, <mark class="vocab" data-word="to help">giúp đỡ</mark>, <mark class="vocab" data-word="to swim">bơi</mark>, <mark class="vocab" data-word="to hear">nghe</mark>, <mark class="vocab" data-word="to listen">nghe</mark>, <mark class="vocab" data-word="to see">nhìn thấy</mark>, <mark class="vocab" data-word="to look">nhìn</mark>, <mark class="vocab" data-word="to watch">xem</mark>, <mark class="vocab" data-word="to touch">chạm</mark>, <mark class="vocab" data-word="to feel">cảm thấy</mark>, nói, <mark class="vocab" data-word="to like">thích</mark>, <mark class="vocab" data-word="to love">yêu</mark>, <mark class="vocab" data-word="to hate">ghét</mark>, <mark class="vocab" data-word="to know">biết</mark>, <mark class="vocab" data-word="to learn">học</mark>, <mark class="vocab" data-word="to ask">hỏi</mark>, <mark class="vocab" data-word="to study">học</mark>, <mark class="vocab" data-word="to teach">dạy</mark>, <mark class="vocab" data-word="to need">cần</mark>, <mark class="vocab" data-word="to want">muốn</mark>, <mark class="vocab" data-word="to share">chia sẻ</mark>, <mark class="vocab" data-word="to put">đặt</mark>, <mark class="vocab" data-word="to prepare">chuẩn bị</mark>, <mark class="vocab" data-word="to plan">lên kế hoạch</mark>, <mark class="vocab" data-word="to explain">giải thích</mark>, <mark class="vocab" data-word="to fill">làm đầy</mark>, <mark class="vocab" data-word="to fly">bay</mark>, và <mark class="vocab" data-word="to become">trở thành</mark> khi bàn về grammar & verbs.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="58">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">They learn to <mark class="vocab" data-word="sometimes">sometimes</mark><span class="ipa" aria-hidden="true">/ˈsʌmˌtaɪmz/</span>, to <mark class="vocab" data-word="soon">soon</mark><span class="ipa" aria-hidden="true">/suːn/</span>, and also to <mark class="vocab" data-word="too">too</mark><span class="ipa" aria-hidden="true">/tuː/</span>.</span>
+              <span class="ex-vi">Họ học cách <mark class="vocab" data-word="sometimes">đôi khi</mark>, <mark class="vocab" data-word="soon">sớm</mark>, và cả <mark class="vocab" data-word="too">cũng</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="67">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">They learn to <mark class="vocab" data-word="here">here</mark><span class="ipa" aria-hidden="true">/hɪr/</span>, to <mark class="vocab" data-word="there">there</mark><span class="ipa" aria-hidden="true">/ðɛr/</span>, and also to <mark class="vocab" data-word="again">again</mark><span class="ipa" aria-hidden="true">/əˈɡɛn/ , /əˈɡeɪn/</span>.</span>
+              <span class="ex-vi">Họ học cách <mark class="vocab" data-word="here">ở đây</mark>, <mark class="vocab" data-word="there">ở đó</mark>, và cả <mark class="vocab" data-word="again">lại nữa</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="76">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">They learn to <mark class="vocab" data-word="of course">of course</mark><span class="ipa" aria-hidden="true">/ʌv ˈkɔːrs/</span>, to <mark class="vocab" data-word="really">really</mark><span class="ipa" aria-hidden="true">/ˈriːəli/ , /ˈrɪəli/</span>, and also to <mark class="vocab" data-word="why">why</mark><span class="ipa" aria-hidden="true">/waɪ/</span>.</span>
+              <span class="ex-vi">Họ học cách <mark class="vocab" data-word="of course">tất nhiên</mark>, <mark class="vocab" data-word="really">thực sự</mark>, và cả <mark class="vocab" data-word="why">tại sao</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="85">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">At home and outside, <mark class="vocab" data-word="where">where</mark><span class="ipa" aria-hidden="true">/wɛr/</span> appears first, followed by <mark class="vocab" data-word="what">what</mark><span class="ipa" aria-hidden="true">/wʌt/</span>, with <mark class="vocab" data-word="who">who</mark><span class="ipa" aria-hidden="true">/huː/</span> at the end of the story.</span>
+              <span class="ex-vi">Ở nhà và ngoài đường, <mark class="vocab" data-word="where">ở đâu</mark> xuất hiện trước, tiếp theo là <mark class="vocab" data-word="what">gì</mark>, và <mark class="vocab" data-word="who">ai</mark> ở cuối câu chuyện.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="94">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">They learn to <mark class="vocab" data-word="how">how</mark><span class="ipa" aria-hidden="true">/haʊ/</span>, to <mark class="vocab" data-word="else">else</mark><span class="ipa" aria-hidden="true">/ɛls/</span>, and also <mark class="vocab" data-word="to wake up">to wake up</mark><span class="ipa" aria-hidden="true">/ˈweɪk ˈʌp/</span>.</span>
+              <span class="ex-vi">Họ học cách <mark class="vocab" data-word="how">làm thế nào</mark>, <mark class="vocab" data-word="else">khác</mark>, và cả <mark class="vocab" data-word="to wake up">thức dậy</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="103">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">They learn <mark class="vocab" data-word="to sleep">to sleep</mark><span class="ipa" aria-hidden="true">/sliːp/</span>, <mark class="vocab" data-word="to work">to work</mark><span class="ipa" aria-hidden="true">/wɝːk/</span>, and also <mark class="vocab" data-word="to drive">to drive</mark><span class="ipa" aria-hidden="true">/draɪv/</span>.</span>
+              <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to sleep">ngủ</mark>, <mark class="vocab" data-word="to work">làm việc</mark>, và cả <mark class="vocab" data-word="to drive">lái</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="112">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">They learn <mark class="vocab" data-word="to buy">to buy</mark><span class="ipa" aria-hidden="true">/baɪ/</span>, <mark class="vocab" data-word="to sell">to sell</mark><span class="ipa" aria-hidden="true">/sɛl/</span>, and also <mark class="vocab" data-word="to read">to read</mark><span class="ipa" aria-hidden="true">/riːd/</span>.</span>
+              <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to buy">mua</mark>, <mark class="vocab" data-word="to sell">bán</mark>, và cả <mark class="vocab" data-word="to read">đọc</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="121">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">They learn <mark class="vocab" data-word="to write">to write</mark><span class="ipa" aria-hidden="true">/raɪt/</span>, <mark class="vocab" data-word="to play">to play</mark><span class="ipa" aria-hidden="true">/pleɪ/</span>, and also <mark class="vocab" data-word="to pay">to pay</mark><span class="ipa" aria-hidden="true">/peɪ/</span>.</span>
+              <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to write">viết</mark>, <mark class="vocab" data-word="to play">chơi</mark>, và cả <mark class="vocab" data-word="to pay">trả</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="130">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">They learn <mark class="vocab" data-word="to wash">to wash</mark><span class="ipa" aria-hidden="true">/wɑːʃ/ , /wɒʃ/</span>, <mark class="vocab" data-word="to drink">to drink</mark><span class="ipa" aria-hidden="true">/drɪŋk/</span>, and also <mark class="vocab" data-word="to cook">to cook</mark><span class="ipa" aria-hidden="true">/kʊk/</span>.</span>
+              <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to wash">rửa</mark>, <mark class="vocab" data-word="to drink">uống</mark>, và cả <mark class="vocab" data-word="to cook">nấu ăn</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="139">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">They learn <mark class="vocab" data-word="to eat">to eat</mark><span class="ipa" aria-hidden="true">/iːt/</span>, <mark class="vocab" data-word="to have">to have</mark><span class="ipa" aria-hidden="true">/hæv/</span>, and also <mark class="vocab" data-word="to make">to make</mark><span class="ipa" aria-hidden="true">/meɪk/</span>.</span>
+              <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to eat">ăn</mark>, <mark class="vocab" data-word="to have">dùng</mark>, và cả <mark class="vocab" data-word="to make">làm</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="148">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">They learn <mark class="vocab" data-word="to stand">to stand</mark><span class="ipa" aria-hidden="true">/stænd/</span>, <mark class="vocab" data-word="to speak">to speak</mark><span class="ipa" aria-hidden="true">/spiːk/</span>, and also <mark class="vocab" data-word="to spell">to spell</mark><span class="ipa" aria-hidden="true">/spɛl/</span>.</span>
+              <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to stand">đứng</mark>, <mark class="vocab" data-word="to speak">nói</mark>, và cả <mark class="vocab" data-word="to spell">đánh vần</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="157">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">They learn <mark class="vocab" data-word="to dislike">to dislike</mark><span class="ipa" aria-hidden="true">/dɪsˈlaɪk/</span>, <mark class="vocab" data-word="to add">to add</mark><span class="ipa" aria-hidden="true">/æd/</span>, and also <mark class="vocab" data-word="to call">to call</mark><span class="ipa" aria-hidden="true">/kɔːl/</span>.</span>
+              <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to dislike">ghét</mark>, <mark class="vocab" data-word="to add">thêm vào</mark>, và cả <mark class="vocab" data-word="to call">gọi</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="166">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">They learn <mark class="vocab" data-word="to create">to create</mark><span class="ipa" aria-hidden="true">/kriˈeɪt/</span>, <mark class="vocab" data-word="to cut">to cut</mark><span class="ipa" aria-hidden="true">/kʌt/</span>, and also to <mark class="vocab" data-word="good">good</mark><span class="ipa" aria-hidden="true">/ɡʊd/</span>.</span>
+              <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to create">tạo ra</mark>, <mark class="vocab" data-word="to cut">cắt</mark>, và cả <mark class="vocab" data-word="good">tốt</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="175">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">At home and outside, <mark class="vocab" data-word="bad">bad</mark><span class="ipa" aria-hidden="true">/bæd/</span> appears first, followed by <mark class="vocab" data-word="high">high</mark><span class="ipa" aria-hidden="true">/haɪ/</span>, with <mark class="vocab" data-word="big">big</mark><span class="ipa" aria-hidden="true">/bɪɡ/</span> at the end of the story.</span>
+              <span class="ex-vi">Ở nhà và ngoài đường, <mark class="vocab" data-word="bad">tệ</mark> xuất hiện trước, tiếp theo là <mark class="vocab" data-word="high">cao</mark>, và <mark class="vocab" data-word="big">lớn</mark> ở cuối câu chuyện.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="184">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">In daily life you meet <mark class="vocab" data-word="small">small</mark><span class="ipa" aria-hidden="true">/smɔl/</span> and <mark class="vocab" data-word="heavy">heavy</mark><span class="ipa" aria-hidden="true">/ˈhɛvi/</span> when the topic is Grammar & Verbs.</span>
+              <span class="ex-vi">Trong đời sống hằng ngày bạn gặp <mark class="vocab" data-word="small">nhỏ</mark> và <mark class="vocab" data-word="heavy">nặng</mark> khi nói về Grammar & Verbs.</span>
+            </p>
+          </div>
+        </div>
       </section>
       <!-- Continuous paragraph (no IPA) is filled by public/js/exercise.js for NaturalReader paste -->
 
@@ -484,6 +515,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js?v=flash4"></script>
+  <script src="../../../../js/exercise.js?v=ielts1"></script>
 </body>
 </html>

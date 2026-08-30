@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css?v=flash4">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=ielts1">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -22,7 +22,7 @@
       <a href="../../../../blog/web-security/">DevSecOps</a>
       <a href="../../../../blog/kubestronaut/">Kubestronaut</a>
       <a class="active" href="../../">English</a>
-      <a href="../../../tech-hub/">Tech Hub</a>
+      <a href="../../../../blog/tech-hub/">Tech Hub</a>
     </nav>
     <span class="docs-topbar-spacer"></span>
     <a class="docs-top-link" href="../../../../#blogs">blogs</a>
@@ -53,7 +53,7 @@
         <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72' fill='none'%3E%3Crect width='72' height='72' rx='14' fill='%230b1220'/%3E%3Crect x='16' y='14' width='40' height='46' rx='6' stroke='%2322d3ee' stroke-width='2.5'/%3E%3Cpath d='M24 28h24M24 36h24M24 44h16' stroke='%23e4e4e7' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M48 48l6 2-2 6-8-8 4 0z' fill='%2322d3ee'/%3E%3C/svg%3E" alt="" width="112" height="112">
         <div>
           <h1>A1 Exercise · City &amp; Places</h1>
-          <p class="lede">Reading passage with every new word from this level’s LanGeek lessons — IPA, highlights, sentence translation, and free TTS.</p>
+          <p class="lede">IELTS Speaking practice — Part 1 / 2 / 3 Q&amp;A with vocabulary from this level’s LanGeek lessons. Answer structures follow Yes/No + reasons, cue-card long turn, and discussion (see IELTS Speaking notes). IPA, highlights, VI toggle, and TTS included.</p>
           <div class="docs-meta">
             <span><strong>Words:</strong> 31</span>
             <span><strong>Lessons:</strong> City · Directions and Continents</span>
@@ -73,43 +73,76 @@
           <input id="rateRange" type="range" min="0.7" max="1.15" step="0.05" value="0.95">
           <span id="rateVal">0.95</span>
         </label>
-        <button type="button" class="ex-btn primary" id="btnPlay">▶ Read passage</button>
+        <button type="button" class="ex-btn primary" id="btnPlay">▶ Read answers</button>
         <button type="button" class="ex-btn" id="btnStop">Stop</button>
       </div>
       
-      <section class="ex-passage" id="passage" data-tts-root>
-          <p class="ex-sent" data-sent="1">
-            <span class="ex-en">Around <mark class="vocab" data-word="city">City</mark><span class="ipa" aria-hidden="true">/ˈsɪti/</span> & Places, learners first study city and <mark class="vocab" data-word="town">town</mark><span class="ipa" aria-hidden="true">/taʊn/</span>, then connect them with <mark class="vocab" data-word="street">street</mark><span class="ipa" aria-hidden="true">/striːt/</span> and <mark class="vocab" data-word="bank">bank</mark><span class="ipa" aria-hidden="true">/bænk/</span>.</span>
-            <span class="ex-vi">Với chủ đề <mark class="vocab" data-word="city">thành phố</mark> & Places, người học bắt đầu với thành phố và <mark class="vocab" data-word="town">thị trấn</mark>, rồi nối với <mark class="vocab" data-word="street">đường phố</mark> và <mark class="vocab" data-word="bank">ngân hàng</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="2">
-            <span class="ex-en">Around City & Places, learners first study <mark class="vocab" data-word="hospital">hospital</mark><span class="ipa" aria-hidden="true">/ˈhɑːspɪtl/</span> and <mark class="vocab" data-word="restaurant">restaurant</mark><span class="ipa" aria-hidden="true">/ˈrɛstərɑːnt/</span>, then connect them with <mark class="vocab" data-word="movie theater">movie theater</mark><span class="ipa" aria-hidden="true">/ˈmuːvi ˈθiːətɚ/</span> and <mark class="vocab" data-word="supermarket">supermarket</mark><span class="ipa" aria-hidden="true">/ˈsuːpɚˌmɑːrkɪt/</span>.</span>
-            <span class="ex-vi">Với chủ đề City & Places, người học bắt đầu với <mark class="vocab" data-word="hospital">bệnh viện</mark> và <mark class="vocab" data-word="restaurant">nhà hàng</mark>, rồi nối với <mark class="vocab" data-word="movie theater">rạp chiếu phim</mark> và <mark class="vocab" data-word="supermarket">siêu thị</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="3">
-            <span class="ex-en">Around City & Places, learners first study <mark class="vocab" data-word="post office">post office</mark><span class="ipa" aria-hidden="true">/ˈpoʊst ˈɒfɪs/</span> and <mark class="vocab" data-word="bench">bench</mark><span class="ipa" aria-hidden="true">/bɛnʧ/</span>, then connect them with <mark class="vocab" data-word="museum">museum</mark><span class="ipa" aria-hidden="true">/mjuˈziːəm/</span> and <mark class="vocab" data-word="park">park</mark><span class="ipa" aria-hidden="true">/pɑrk/</span>.</span>
-            <span class="ex-vi">Với chủ đề City & Places, người học bắt đầu với <mark class="vocab" data-word="post office">bưu điện</mark> và <mark class="vocab" data-word="bench">ghế dài</mark>, rồi nối với <mark class="vocab" data-word="museum">bảo tàng</mark> và <mark class="vocab" data-word="park">công viên</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="4">
-            <span class="ex-en">Around City & <mark class="vocab" data-word="place">Places</mark><span class="ipa" aria-hidden="true">/pleɪs/</span>, learners first study <mark class="vocab" data-word="hotel">hotel</mark><span class="ipa" aria-hidden="true">/hoʊˈtɛl/</span> and <mark class="vocab" data-word="police">police</mark><span class="ipa" aria-hidden="true">/pəˈliːs/</span>, then connect them with <mark class="vocab" data-word="map">map</mark><span class="ipa" aria-hidden="true">/mæp/</span> and place.</span>
-            <span class="ex-vi">Với chủ đề City & Places, người học bắt đầu với <mark class="vocab" data-word="hotel">khách sạn</mark> và <mark class="vocab" data-word="police">cảnh sát</mark>, rồi nối với <mark class="vocab" data-word="map">bản đồ</mark> và <mark class="vocab" data-word="place">nơi,chỗ</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="5">
-            <span class="ex-en">Around City & Places, learners first study <mark class="vocab" data-word="north">north</mark><span class="ipa" aria-hidden="true">/nɔːrθ/</span> and <mark class="vocab" data-word="south">south</mark><span class="ipa" aria-hidden="true">/saʊθ/</span>, then connect them with <mark class="vocab" data-word="east">east</mark><span class="ipa" aria-hidden="true">/iːst/</span> and <mark class="vocab" data-word="west">west</mark><span class="ipa" aria-hidden="true">/wɛst/</span>.</span>
-            <span class="ex-vi">Với chủ đề City & Places, người học bắt đầu với <mark class="vocab" data-word="north">bắc,phương bắc</mark> và <mark class="vocab" data-word="south">nam,buổi trưa</mark>, rồi nối với <mark class="vocab" data-word="east">đông,hướng đông</mark> và <mark class="vocab" data-word="west">tây,phương tây</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="6">
-            <span class="ex-en">They learn to <mark class="vocab" data-word="back">back</mark><span class="ipa" aria-hidden="true">/bæk/</span>, to <mark class="vocab" data-word="right">right</mark><span class="ipa" aria-hidden="true">/raɪt/</span>, and also to <mark class="vocab" data-word="left">left</mark><span class="ipa" aria-hidden="true">/ˈɫɛft/</span>, before they <mark class="vocab" data-word="far">far</mark><span class="ipa" aria-hidden="true">/fɑr/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="back">lùi lại,về phía sau</mark>, <mark class="vocab" data-word="right">phải</mark>, và cả <mark class="vocab" data-word="left">trái</mark>, trước khi <mark class="vocab" data-word="far">xa</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="7">
-            <span class="ex-en">Around City & Places, learners first study <mark class="vocab" data-word="continent">continent</mark><span class="ipa" aria-hidden="true">/ˈkɑːntɪnənt/</span> and <mark class="vocab" data-word="Asia">Asia</mark><span class="ipa" aria-hidden="true">/ˈeɪʒə/</span>, then connect them with <mark class="vocab" data-word="Asian">Asian</mark><span class="ipa" aria-hidden="true">/ˈeɪʒən/</span> and <mark class="vocab" data-word="Europe">Europe</mark><span class="ipa" aria-hidden="true">/ˈjʊrəp/</span>.</span>
-            <span class="ex-vi">Với chủ đề City & Places, người học bắt đầu với <mark class="vocab" data-word="continent">lục địa</mark> và <mark class="vocab" data-word="Asia">Châu Á</mark>, rồi nối với <mark class="vocab" data-word="Asian">châu Á</mark> và <mark class="vocab" data-word="Europe">Châu Âu</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="8">
-            <span class="ex-en">In conversation, people mention <mark class="vocab" data-word="European">European</mark><span class="ipa" aria-hidden="true">/ˌjʊrəˈpiːən/</span>; they also talk about <mark class="vocab" data-word="Africa">Africa</mark><span class="ipa" aria-hidden="true">/ˈæfrɪkə/</span> and <mark class="vocab" data-word="African">African</mark><span class="ipa" aria-hidden="true">/ˈæfrɪkən/</span>.</span>
-            <span class="ex-vi">Trong hội thoại, mọi người nhắc tới <mark class="vocab" data-word="European">châu Âu</mark>; họ cũng nói về <mark class="vocab" data-word="Africa">Châu Phi</mark> và <mark class="vocab" data-word="African">châu Phi</mark>.</span>
-          </p>
+      <section class="ex-passage ex-ielts" id="passage" data-tts-root>
+        <div class="ex-ielts-part" data-part="1">
+          <h2 class="ex-ielts-part-title">Part 1 · Introduction &amp; interview</h2>
+          <p class="ex-ielts-part-hint">Câu hỏi ngắn — trả lời Yes/No + lý do (Lesson 3).</p>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Do you like talking about city &amp; places?</p>
+            <p class="ex-q-vi">Bạn có thích nói về city &amp; places không?</p>
+            <p class="ex-sent" data-sent="1">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">Yes, definitely. I'm quite interested in <mark class="vocab" data-word="city">city</mark><span class="ipa" aria-hidden="true">/ˈsɪti/</span> & places, especially words like city, <mark class="vocab" data-word="town">town</mark><span class="ipa" aria-hidden="true">/taʊn/</span>, <mark class="vocab" data-word="street">street</mark><span class="ipa" aria-hidden="true">/striːt/</span>, and <mark class="vocab" data-word="bank">bank</mark><span class="ipa" aria-hidden="true">/bænk/</span>. This is because it gives me the chance to practise natural English in real conversations.</span>
+              <span class="ex-vi">Vâng, chắc chắn. Mình khá quan tâm đến <mark class="vocab" data-word="city">thành phố</mark> & places, nhất là các từ như thành phố, <mark class="vocab" data-word="town">thị trấn</mark>, <mark class="vocab" data-word="street">đường phố</mark>, và <mark class="vocab" data-word="bank">ngân hàng</mark>. Vì nó cho mình cơ hội luyện tiếng Anh tự nhiên trong hội thoại thật.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> How often do you use vocabulary about city &amp; places?</p>
+            <p class="ex-q-vi">Bạn có thường dùng từ vựng về city &amp; places không?</p>
+            <p class="ex-sent" data-sent="2">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">Yes, definitely. I'm quite interested in city & places, especially words like <mark class="vocab" data-word="supermarket">supermarket</mark><span class="ipa" aria-hidden="true">/ˈsuːpɚˌmɑːrkɪt/</span>, <mark class="vocab" data-word="post office">post office</mark><span class="ipa" aria-hidden="true">/ˈpoʊst ˈɒfɪs/</span>, and <mark class="vocab" data-word="bench">bench</mark><span class="ipa" aria-hidden="true">/bɛnʧ/</span>. This is because it gives me the chance to practise natural English in real conversations.</span>
+              <span class="ex-vi">Vâng, chắc chắn. Mình khá quan tâm đến city & places, nhất là các từ như <mark class="vocab" data-word="supermarket">siêu thị</mark>, <mark class="vocab" data-word="post office">bưu điện</mark>, và <mark class="vocab" data-word="bench">ghế dài</mark>. Vì nó cho mình cơ hội luyện tiếng Anh tự nhiên trong hội thoại thật.</span>
+            </p>
+          </div>
+        </div>
+        <div class="ex-ielts-part" data-part="2">
+          <h2 class="ex-ielts-part-title">Part 2 · Long turn (cue card)</h2>
+          <p class="ex-ielts-part-hint">Mô tả 1–2 phút — mở đầu → thông tin → cốt lõi → cảm nhận → kết (Lesson 16).</p>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Describe something important related to city &amp; places.</p>
+            <p class="ex-q-vi">Hãy mô tả điều gì đó quan trọng liên quan đến city &amp; places.</p>
+            <div class="ex-cue-card">
+              <p class="ex-cue-title">You should say:</p>
+              <ul>
+                <li>what it is</li>
+                <li>when you use it</li>
+                <li>why it is important</li>
+              </ul>
+            </div>
+            <p class="ex-sent" data-sent="3">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">I'm going to talk about city & <mark class="vocab" data-word="place">places</mark><span class="ipa" aria-hidden="true">/pleɪs/</span>, which matters in daily life. First, people often mention <mark class="vocab" data-word="museum">museum</mark><span class="ipa" aria-hidden="true">/mjuˈziːəm/</span>, <mark class="vocab" data-word="park">park</mark><span class="ipa" aria-hidden="true">/pɑrk/</span>, <mark class="vocab" data-word="hotel">hotel</mark><span class="ipa" aria-hidden="true">/hoʊˈtɛl/</span>, <mark class="vocab" data-word="police">police</mark><span class="ipa" aria-hidden="true">/pəˈliːs/</span>, and <mark class="vocab" data-word="map">map</mark><span class="ipa" aria-hidden="true">/mæp/</span>. Then they also discuss place, <mark class="vocab" data-word="north">north</mark><span class="ipa" aria-hidden="true">/nɔːrθ/</span>, <mark class="vocab" data-word="south">south</mark><span class="ipa" aria-hidden="true">/saʊθ/</span>, <mark class="vocab" data-word="east">east</mark><span class="ipa" aria-hidden="true">/iːst/</span>, and <mark class="vocab" data-word="west">west</mark><span class="ipa" aria-hidden="true">/wɛst/</span> when the topic comes up in conversation.</span>
+              <span class="ex-vi">Mình sẽ nói về city & places — chủ đề quan trọng trong đời sống. Trước hết mọi người hay nhắc <mark class="vocab" data-word="museum">bảo tàng</mark>, <mark class="vocab" data-word="park">công viên</mark>, <mark class="vocab" data-word="hotel">khách sạn</mark>, <mark class="vocab" data-word="police">cảnh sát</mark>, và <mark class="vocab" data-word="map">bản đồ</mark>. Sau đó còn bàn về <mark class="vocab" data-word="place">nơi,chỗ</mark>, <mark class="vocab" data-word="north">bắc,phương bắc</mark>, <mark class="vocab" data-word="south">nam,buổi trưa</mark>, <mark class="vocab" data-word="east">đông,hướng đông</mark>, và <mark class="vocab" data-word="west">tây,phương tây</mark> khi chủ đề xuất hiện trong hội thoại.</span>
+            </p>
+          </div>
+        </div>
+        <div class="ex-ielts-part" data-part="3">
+          <h2 class="ex-ielts-part-title">Part 3 · Two-way discussion</h2>
+          <p class="ex-ielts-part-hint">Thảo luận sâu hơn — so sánh quá khứ/hiện tại, giải thích quan điểm (Lesson 15).</p>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> How has city &amp; places changed in recent years?</p>
+            <p class="ex-q-vi">City &amp; Places đã thay đổi thế nào trong những năm gần đây?</p>
+            <p class="ex-sent" data-sent="4">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">I think it has changed quite a bit in recent years. Nowadays people talk more about <mark class="vocab" data-word="back">back</mark><span class="ipa" aria-hidden="true">/bæk/</span>, <mark class="vocab" data-word="right">right</mark><span class="ipa" aria-hidden="true">/raɪt/</span>, <mark class="vocab" data-word="left">left</mark><span class="ipa" aria-hidden="true">/ˈɫɛft/</span>, <mark class="vocab" data-word="far">far</mark><span class="ipa" aria-hidden="true">/fɑr/</span>, <mark class="vocab" data-word="continent">continent</mark><span class="ipa" aria-hidden="true">/ˈkɑːntɪnənt/</span>, <mark class="vocab" data-word="Asia">Asia</mark><span class="ipa" aria-hidden="true">/ˈeɪʒə/</span>, <mark class="vocab" data-word="Asian">Asian</mark><span class="ipa" aria-hidden="true">/ˈeɪʒən/</span>, <mark class="vocab" data-word="Europe">Europe</mark><span class="ipa" aria-hidden="true">/ˈjʊrəp/</span>, <mark class="vocab" data-word="European">European</mark><span class="ipa" aria-hidden="true">/ˌjʊrəˈpiːən/</span>, <mark class="vocab" data-word="Africa">Africa</mark><span class="ipa" aria-hidden="true">/ˈæfrɪkə/</span>, and <mark class="vocab" data-word="African">African</mark><span class="ipa" aria-hidden="true">/ˈæfrɪkən/</span> when they discuss city & places.</span>
+              <span class="ex-vi">Mình nghĩ đã thay đổi khá nhiều trong vài năm gần đây. Ngày nay mọi người nói nhiều hơn về <mark class="vocab" data-word="back">lùi lại,về phía sau</mark>, <mark class="vocab" data-word="right">phải</mark>, <mark class="vocab" data-word="left">trái</mark>, <mark class="vocab" data-word="far">xa</mark>, <mark class="vocab" data-word="continent">lục địa</mark>, <mark class="vocab" data-word="Asia">Châu Á</mark>, <mark class="vocab" data-word="Asian">châu Á</mark>, <mark class="vocab" data-word="Europe">Châu Âu</mark>, <mark class="vocab" data-word="European">châu Âu</mark>, <mark class="vocab" data-word="Africa">Châu Phi</mark>, và <mark class="vocab" data-word="African">châu Phi</mark> khi bàn về city & places.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="58">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">If you want natural English, practice <mark class="vocab" data-word="hospital">hospital</mark><span class="ipa" aria-hidden="true">/ˈhɑːspɪtl/</span>, then reuse <mark class="vocab" data-word="restaurant">restaurant</mark><span class="ipa" aria-hidden="true">/ˈrɛstərɑːnt/</span>, and finally remember <mark class="vocab" data-word="movie theater">movie theater</mark><span class="ipa" aria-hidden="true">/ˈmuːvi ˈθiːətɚ/</span>.</span>
+              <span class="ex-vi">Nếu muốn tiếng Anh tự nhiên, hãy luyện <mark class="vocab" data-word="hospital">bệnh viện</mark>, rồi dùng lại <mark class="vocab" data-word="restaurant">nhà hàng</mark>, và cuối cùng nhớ <mark class="vocab" data-word="movie theater">rạp chiếu phim</mark>.</span>
+            </p>
+          </div>
+        </div>
       </section>
       <!-- Continuous paragraph (no IPA) is filled by public/js/exercise.js for NaturalReader paste -->
 
@@ -230,6 +263,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js?v=flash4"></script>
+  <script src="../../../../js/exercise.js?v=ielts1"></script>
 </body>
 </html>

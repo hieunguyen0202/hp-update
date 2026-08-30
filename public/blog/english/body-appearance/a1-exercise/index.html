@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css?v=flash4">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=ielts1">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -22,7 +22,7 @@
       <a href="../../../../blog/web-security/">DevSecOps</a>
       <a href="../../../../blog/kubestronaut/">Kubestronaut</a>
       <a class="active" href="../../">English</a>
-      <a href="../../../tech-hub/">Tech Hub</a>
+      <a href="../../../../blog/tech-hub/">Tech Hub</a>
     </nav>
     <span class="docs-topbar-spacer"></span>
     <a class="docs-top-link" href="../../../../#blogs">blogs</a>
@@ -53,7 +53,7 @@
         <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72' fill='none'%3E%3Crect width='72' height='72' rx='14' fill='%230b1220'/%3E%3Crect x='16' y='14' width='40' height='46' rx='6' stroke='%2322d3ee' stroke-width='2.5'/%3E%3Cpath d='M24 28h24M24 36h24M24 44h16' stroke='%23e4e4e7' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M48 48l6 2-2 6-8-8 4 0z' fill='%2322d3ee'/%3E%3C/svg%3E" alt="" width="112" height="112">
         <div>
           <h1>A1 Exercise · Body &amp; Appearance</h1>
-          <p class="lede">Daily body & appearance blog / speaking-style passage — every new word from this level’s LanGeek lessons, with IPA, highlights, VI toggle, and TTS (IPA is display-only).</p>
+          <p class="lede">IELTS Speaking practice — Part 1 / 2 / 3 Q&amp;A with vocabulary from this level’s LanGeek lessons. Answer structures follow Yes/No + reasons, cue-card long turn, and discussion (see IELTS Speaking notes). IPA, highlights, VI toggle, and TTS included.</p>
           <div class="docs-meta">
             <span><strong>Words:</strong> 20</span>
             <span><strong>Lessons:</strong> The Body · The Head and Face</span>
@@ -73,19 +73,76 @@
           <input id="rateRange" type="range" min="0.7" max="1.15" step="0.05" value="0.95">
           <span id="rateVal">0.95</span>
         </label>
-        <button type="button" class="ex-btn primary" id="btnPlay">▶ Read passage</button>
+        <button type="button" class="ex-btn primary" id="btnPlay">▶ Read answers</button>
         <button type="button" class="ex-btn" id="btnStop">Stop</button>
       </div>
       
-      <section class="ex-passage" id="passage" data-tts-root>
-          <p class="ex-sent" data-sent="1">
-            <span class="ex-en">Every morning I stand in front of the mirror and check my <mark class="vocab" data-word="body">body</mark><span class="ipa" aria-hidden="true">/ˈbɑːdi/</span> before I leave home. My <mark class="vocab" data-word="head">head</mark><span class="ipa" aria-hidden="true">/hɛd/</span> feels clear after a shower, and my <mark class="vocab" data-word="hair">hair</mark><span class="ipa" aria-hidden="true">/hɛr/</span> is still a little wet. On my <mark class="vocab" data-word="face">face</mark><span class="ipa" aria-hidden="true">/feɪs/</span> I notice my <mark class="vocab" data-word="eye">eye</mark><span class="ipa" aria-hidden="true">/aɪ/</span>, my <mark class="vocab" data-word="nose">nose</mark><span class="ipa" aria-hidden="true">/noʊz/</span>, my <mark class="vocab" data-word="ear">ear</mark><span class="ipa" aria-hidden="true">/ɪr/</span>, my <mark class="vocab" data-word="cheek">cheek</mark><span class="ipa" aria-hidden="true">/tʃiːk/</span>, my <mark class="vocab" data-word="chin">chin</mark><span class="ipa" aria-hidden="true">/tʃɪn/</span>, and my <mark class="vocab" data-word="mouth">mouth</mark><span class="ipa" aria-hidden="true">/maʊθ/</span>; I see each <mark class="vocab" data-word="tooth">tooth</mark><span class="ipa" aria-hidden="true">/tuːθ/</span> when I smile, and I put balm on my <mark class="vocab" data-word="lip">lip</mark><span class="ipa" aria-hidden="true">/lɪp/</span>. My <mark class="vocab" data-word="neck">neck</mark><span class="ipa" aria-hidden="true">/nɛk/</span> connects everything, and that quiet routine helps me start the day calmly.</span>
-            <span class="ex-vi">Mỗi sáng tôi đứng trước gương và kiểm tra <mark class="vocab" data-word="body">cơ thể</mark> trước khi ra khỏi nhà. Đầu tôi thấy tỉnh táo sau khi tắm, còn <mark class="vocab" data-word="hair">tóc</mark> vẫn hơi ướt. Trên <mark class="vocab" data-word="face">mặt</mark> tôi nhận ra <mark class="vocab" data-word="eye">mắt</mark>, <mark class="vocab" data-word="nose">mũi</mark>, <mark class="vocab" data-word="ear">tai</mark>, <mark class="vocab" data-word="cheek">má</mark>, <mark class="vocab" data-word="chin">cằm</mark> và <mark class="vocab" data-word="mouth">miệng</mark>; tôi thấy từng <mark class="vocab" data-word="tooth">răng</mark> khi cười, rồi thoa kem lên <mark class="vocab" data-word="lip">môi</mark>. <mark class="vocab" data-word="neck">Cổ</mark> nối mọi thứ lại, và thói quen yên lặng ấy giúp tôi bắt <mark class="vocab" data-word="head">đầu</mark> ngày một cách bình tĩnh.</span>
-          </p>
-          <p class="ex-sent" data-sent="2">
-            <span class="ex-en">When I walk to work, my <mark class="vocab" data-word="hand">hand</mark><span class="ipa" aria-hidden="true">/hænd/</span> holds a coffee cup and my <mark class="vocab" data-word="arm">arm</mark><span class="ipa" aria-hidden="true">/ɑːrm/</span> swings naturally. Each <mark class="vocab" data-word="foot">foot</mark><span class="ipa" aria-hidden="true">/fʊt/</span> hits the pavement, each <mark class="vocab" data-word="knee">knee</mark><span class="ipa" aria-hidden="true">/niː/</span> bends, and my <mark class="vocab" data-word="leg">leg</mark><span class="ipa" aria-hidden="true">/lɛg/</span> carries me forward. If I sit too long at a desk, my <mark class="vocab" data-word="back">back</mark><span class="ipa" aria-hidden="true">/bæk/</span> and <mark class="vocab" data-word="stomach">stomach</mark><span class="ipa" aria-hidden="true">/ˈstʌmək/</span> feel stiff, so I stand and stretch. Learning these basic <mark class="vocab" data-word="body">body</mark><span class="ipa" aria-hidden="true">/ˈbɑːdi/</span> words makes my A1 speaking sound real — like a short diary, not a vocabulary list.</span>
-            <span class="ex-vi">Khi đi bộ đến chỗ làm, <mark class="vocab" data-word="hand">tay</mark> tôi cầm ly cà phê và <mark class="vocab" data-word="arm">cánh tay</mark> đung đưa tự nhiên. Mỗi <mark class="vocab" data-word="foot">bàn chân</mark> chạm vỉa hè, mỗi <mark class="vocab" data-word="knee">đầu gối</mark> gập lại, và <mark class="vocab" data-word="leg">chân</mark> đưa tôi về phía trước. Nếu ngồi quá lâu ở bàn, <mark class="vocab" data-word="back">lưng</mark> và bụng cảm thấy cứng, nên tôi đứng dậy và duỗi người. Học những từ <mark class="vocab" data-word="body">cơ thể</mark> cơ bản này giúp phần nói A1 của tôi nghe thật — như nhật ký ngắn, không giống danh sách từ.</span>
-          </p>
+      <section class="ex-passage ex-ielts" id="passage" data-tts-root>
+        <div class="ex-ielts-part" data-part="1">
+          <h2 class="ex-ielts-part-title">Part 1 · Introduction &amp; interview</h2>
+          <p class="ex-ielts-part-hint">Câu hỏi ngắn — trả lời Yes/No + lý do (Lesson 3).</p>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Do you like talking about body &amp; appearance?</p>
+            <p class="ex-q-vi">Bạn có thích nói về body &amp; appearance không?</p>
+            <p class="ex-sent" data-sent="1">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">Yes, definitely. I'm quite interested in <mark class="vocab" data-word="body">body</mark><span class="ipa" aria-hidden="true">/ˈbɑːdi/</span> & appearance, especially words like body, <mark class="vocab" data-word="hand">hand</mark><span class="ipa" aria-hidden="true">/hænd/</span>, <mark class="vocab" data-word="arm">arm</mark><span class="ipa" aria-hidden="true">/ɑːrm/</span>, and <mark class="vocab" data-word="foot">foot</mark><span class="ipa" aria-hidden="true">/fʊt/</span>. This is because it gives me the chance to practise natural English in real conversations.</span>
+              <span class="ex-vi">Vâng, chắc chắn. Mình khá quan tâm đến <mark class="vocab" data-word="body">cơ thể</mark> & appearance, nhất là các từ như cơ thể, <mark class="vocab" data-word="hand">tay</mark>, <mark class="vocab" data-word="arm">cánh tay</mark>, và <mark class="vocab" data-word="foot">bàn chân</mark>. Vì nó cho mình cơ hội luyện tiếng Anh tự nhiên trong hội thoại thật.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> How often do you use vocabulary about body &amp; appearance?</p>
+            <p class="ex-q-vi">Bạn có thường dùng từ vựng về body &amp; appearance không?</p>
+            <p class="ex-sent" data-sent="2">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">Yes, definitely. I'm quite interested in body & appearance, especially words like <mark class="vocab" data-word="leg">leg</mark><span class="ipa" aria-hidden="true">/lɛg/</span>, <mark class="vocab" data-word="knee">knee</mark><span class="ipa" aria-hidden="true">/niː/</span>, and <mark class="vocab" data-word="back">back</mark><span class="ipa" aria-hidden="true">/bæk/</span>. This is because it gives me the chance to practise natural English in real conversations.</span>
+              <span class="ex-vi">Vâng, chắc chắn. Mình khá quan tâm đến body & appearance, nhất là các từ như <mark class="vocab" data-word="leg">chân</mark>, <mark class="vocab" data-word="knee">đầu gối</mark>, và <mark class="vocab" data-word="back">lưng</mark>. Vì nó cho mình cơ hội luyện tiếng Anh tự nhiên trong hội thoại thật.</span>
+            </p>
+          </div>
+        </div>
+        <div class="ex-ielts-part" data-part="2">
+          <h2 class="ex-ielts-part-title">Part 2 · Long turn (cue card)</h2>
+          <p class="ex-ielts-part-hint">Mô tả 1–2 phút — mở đầu → thông tin → cốt lõi → cảm nhận → kết (Lesson 16).</p>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Describe something important related to body &amp; appearance.</p>
+            <p class="ex-q-vi">Hãy mô tả điều gì đó quan trọng liên quan đến body &amp; appearance.</p>
+            <div class="ex-cue-card">
+              <p class="ex-cue-title">You should say:</p>
+              <ul>
+                <li>what it is</li>
+                <li>when you use it</li>
+                <li>why it is important</li>
+              </ul>
+            </div>
+            <p class="ex-sent" data-sent="3">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">I'm going to talk about body & appearance, which matters in daily life. First, people often mention <mark class="vocab" data-word="stomach">stomach</mark><span class="ipa" aria-hidden="true">/ˈstʌmək/</span>, <mark class="vocab" data-word="hair">hair</mark><span class="ipa" aria-hidden="true">/hɛr/</span>, and <mark class="vocab" data-word="neck">neck</mark><span class="ipa" aria-hidden="true">/nɛk/</span>. Then they also discuss <mark class="vocab" data-word="face">face</mark><span class="ipa" aria-hidden="true">/feɪs/</span>, <mark class="vocab" data-word="eye">eye</mark><span class="ipa" aria-hidden="true">/aɪ/</span>, and <mark class="vocab" data-word="nose">nose</mark><span class="ipa" aria-hidden="true">/noʊz/</span> when the topic comes up in conversation.</span>
+              <span class="ex-vi">Mình sẽ nói về body & appearance — chủ đề quan trọng trong đời sống. Trước hết mọi người hay nhắc <mark class="vocab" data-word="stomach">dạ dày</mark>, <mark class="vocab" data-word="hair">tóc</mark>, và <mark class="vocab" data-word="neck">cổ</mark>. Sau đó còn bàn về <mark class="vocab" data-word="face">mặt</mark>, <mark class="vocab" data-word="eye">mắt</mark>, và <mark class="vocab" data-word="nose">mũi</mark> khi chủ đề xuất hiện trong hội thoại.</span>
+            </p>
+          </div>
+        </div>
+        <div class="ex-ielts-part" data-part="3">
+          <h2 class="ex-ielts-part-title">Part 3 · Two-way discussion</h2>
+          <p class="ex-ielts-part-hint">Thảo luận sâu hơn — so sánh quá khứ/hiện tại, giải thích quan điểm (Lesson 15).</p>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> How has body &amp; appearance changed in recent years?</p>
+            <p class="ex-q-vi">Body &amp; Appearance đã thay đổi thế nào trong những năm gần đây?</p>
+            <p class="ex-sent" data-sent="4">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">I think it has changed quite a bit in recent years. Nowadays people talk more about <mark class="vocab" data-word="ear">ear</mark><span class="ipa" aria-hidden="true">/ɪr/</span>, <mark class="vocab" data-word="cheek">cheek</mark><span class="ipa" aria-hidden="true">/tʃiːk/</span>, <mark class="vocab" data-word="chin">chin</mark><span class="ipa" aria-hidden="true">/tʃɪn/</span>, <mark class="vocab" data-word="mouth">mouth</mark><span class="ipa" aria-hidden="true">/maʊθ/</span>, <mark class="vocab" data-word="tooth">tooth</mark><span class="ipa" aria-hidden="true">/tuːθ/</span>, and <mark class="vocab" data-word="lip">lip</mark><span class="ipa" aria-hidden="true">/lɪp/</span> when they discuss body & appearance.</span>
+              <span class="ex-vi">Mình nghĩ đã thay đổi khá nhiều trong vài năm gần đây. Ngày nay mọi người nói nhiều hơn về <mark class="vocab" data-word="ear">tai</mark>, <mark class="vocab" data-word="cheek">má</mark>, <mark class="vocab" data-word="chin">cằm</mark>, <mark class="vocab" data-word="mouth">miệng</mark>, <mark class="vocab" data-word="tooth">răng</mark>, và <mark class="vocab" data-word="lip">môi</mark> khi bàn về body & appearance.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="58">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">You should learn the word <mark class="vocab" data-word="head">head</mark><span class="ipa" aria-hidden="true">/hɛd/</span> because it appears often in Body & Appearance topics.</span>
+              <span class="ex-vi">Bạn nên học từ <mark class="vocab" data-word="head">đầu</mark> vì nó thường xuất hiện trong chủ đề Body & Appearance.</span>
+            </p>
+          </div>
+        </div>
       </section>
       <!-- Continuous paragraph (no IPA) is filled by public/js/exercise.js for NaturalReader paste -->
 
@@ -195,6 +252,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js?v=flash4"></script>
+  <script src="../../../../js/exercise.js?v=ielts1"></script>
 </body>
 </html>

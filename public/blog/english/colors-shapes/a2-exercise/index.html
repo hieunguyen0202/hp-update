@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css?v=flash4">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=ielts1">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -22,7 +22,7 @@
       <a href="../../../../blog/web-security/">DevSecOps</a>
       <a href="../../../../blog/kubestronaut/">Kubestronaut</a>
       <a class="active" href="../../">English</a>
-      <a href="../../../tech-hub/">Tech Hub</a>
+      <a href="../../../../blog/tech-hub/">Tech Hub</a>
     </nav>
     <span class="docs-topbar-spacer"></span>
     <a class="docs-top-link" href="../../../../#blogs">blogs</a>
@@ -53,7 +53,7 @@
         <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72' fill='none'%3E%3Crect width='72' height='72' rx='14' fill='%230b1220'/%3E%3Crect x='16' y='14' width='40' height='46' rx='6' stroke='%2322d3ee' stroke-width='2.5'/%3E%3Cpath d='M24 28h24M24 36h24M24 44h16' stroke='%23e4e4e7' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M48 48l6 2-2 6-8-8 4 0z' fill='%2322d3ee'/%3E%3C/svg%3E" alt="" width="112" height="112">
         <div>
           <h1>A2 Exercise · Colors &amp; Shapes</h1>
-          <p class="lede">Reading passage with every new word from this level’s LanGeek lessons — IPA, highlights, sentence translation, and free TTS.</p>
+          <p class="lede">IELTS Speaking practice — Part 1 / 2 / 3 Q&amp;A with vocabulary from this level’s LanGeek lessons. Answer structures follow Yes/No + reasons, cue-card long turn, and discussion (see IELTS Speaking notes). IPA, highlights, VI toggle, and TTS included.</p>
           <div class="docs-meta">
             <span><strong>Words:</strong> 29</span>
             <span><strong>Lessons:</strong> Colors and Shapes</span>
@@ -73,43 +73,76 @@
           <input id="rateRange" type="range" min="0.7" max="1.15" step="0.05" value="0.95">
           <span id="rateVal">0.95</span>
         </label>
-        <button type="button" class="ex-btn primary" id="btnPlay">▶ Read passage</button>
+        <button type="button" class="ex-btn primary" id="btnPlay">▶ Read answers</button>
         <button type="button" class="ex-btn" id="btnStop">Stop</button>
       </div>
       
-      <section class="ex-passage" id="passage" data-tts-root>
-          <p class="ex-sent" data-sent="1">
-            <span class="ex-en">Around Colors & Shapes, learners first study <mark class="vocab" data-word="darkness">darkness</mark><span class="ipa" aria-hidden="true">/ˈdɑːrkˌnɪs/</span> and <mark class="vocab" data-word="brightness">brightness</mark><span class="ipa" aria-hidden="true">/ˈbraɪtˌnɪs/</span>, then connect them with <mark class="vocab" data-word="lightness">lightness</mark><span class="ipa" aria-hidden="true">/ˈlaɪtˌnɪs/</span> and <mark class="vocab" data-word="golden">golden</mark><span class="ipa" aria-hidden="true">/ˈɡoʊldən/</span>.</span>
-            <span class="ex-vi">Với chủ đề Colors & Shapes, người học bắt đầu với <mark class="vocab" data-word="darkness">bóng tối</mark> và <mark class="vocab" data-word="brightness">độ sáng</mark>, rồi nối với <mark class="vocab" data-word="lightness">sự nhẹ nhàng</mark> và <mark class="vocab" data-word="golden">vàng</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="2">
-            <span class="ex-en">Around Colors & Shapes, learners first study <mark class="vocab" data-word="gold">gold</mark><span class="ipa" aria-hidden="true">/ɡoʊld/</span> and <mark class="vocab" data-word="silver">silver</mark><span class="ipa" aria-hidden="true">/ˈsɪlvɚ/</span>, then connect them with <mark class="vocab" data-word="pale">pale</mark><span class="ipa" aria-hidden="true">/peɪl/</span> and <mark class="vocab" data-word="bright">bright</mark><span class="ipa" aria-hidden="true">/braɪt/</span>.</span>
-            <span class="ex-vi">Với chủ đề Colors & Shapes, người học bắt đầu với <mark class="vocab" data-word="gold">vàng</mark> và <mark class="vocab" data-word="silver">bạc</mark>, rồi nối với <mark class="vocab" data-word="pale">nhạt</mark> và <mark class="vocab" data-word="bright">rực rỡ</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="3">
-            <span class="ex-en">Around Colors & <mark class="vocab" data-word="shape">Shapes</mark><span class="ipa" aria-hidden="true">/ʃeɪp/</span>, learners first study <mark class="vocab" data-word="colorful">colorful</mark><span class="ipa" aria-hidden="true">/ˈkʌlərˌfʊl/</span> and <mark class="vocab" data-word="colored">colored</mark><span class="ipa" aria-hidden="true">/ˈkʌlɚd/</span>, then connect them with <mark class="vocab" data-word="cream">cream</mark><span class="ipa" aria-hidden="true">/kriːm/</span> and shape.</span>
-            <span class="ex-vi">Với chủ đề Colors & Shapes, người học bắt đầu với <mark class="vocab" data-word="colorful">đầy màu sắc</mark> và <mark class="vocab" data-word="colored">có màu</mark>, rồi nối với <mark class="vocab" data-word="cream">kem</mark> và <mark class="vocab" data-word="shape">hình dạng</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="4">
-            <span class="ex-en">Around Colors & Shapes, learners first study <mark class="vocab" data-word="center">center</mark><span class="ipa" aria-hidden="true">/ˈsɛntɚ/</span> and <mark class="vocab" data-word="circle">circle</mark><span class="ipa" aria-hidden="true">/ˈsɝːkəl/</span>, then connect them with <mark class="vocab" data-word="cross">cross</mark><span class="ipa" aria-hidden="true">/krɑːs/</span> and <mark class="vocab" data-word="square">square</mark><span class="ipa" aria-hidden="true">/skwɛr/</span>.</span>
-            <span class="ex-vi">Với chủ đề Colors & Shapes, người học bắt đầu với <mark class="vocab" data-word="center">trung tâm</mark> và <mark class="vocab" data-word="circle">hình tròn</mark>, rồi nối với <mark class="vocab" data-word="cross">dấu thập</mark> và <mark class="vocab" data-word="square">hình vuông</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="5">
-            <span class="ex-en">Around Colors & Shapes, learners first study <mark class="vocab" data-word="diamond">diamond</mark><span class="ipa" aria-hidden="true">/ˈdaɪmənd/</span> and <mark class="vocab" data-word="star">star</mark><span class="ipa" aria-hidden="true">/stɑr/</span>, then connect them with <mark class="vocab" data-word="line">line</mark><span class="ipa" aria-hidden="true">/laɪn/</span> and <mark class="vocab" data-word="dot">dot</mark><span class="ipa" aria-hidden="true">/dɑːt/</span>.</span>
-            <span class="ex-vi">Với chủ đề Colors & Shapes, người học bắt đầu với <mark class="vocab" data-word="diamond">hình thoi</mark> và <mark class="vocab" data-word="star">ngôi sao</mark>, rồi nối với <mark class="vocab" data-word="line">đường kẻ</mark> và <mark class="vocab" data-word="dot">chấm</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="6">
-            <span class="ex-en">Around Colors & Shapes, learners first study <mark class="vocab" data-word="side">side</mark><span class="ipa" aria-hidden="true">/saɪd/</span> and <mark class="vocab" data-word="surface">surface</mark><span class="ipa" aria-hidden="true">/ˈsɝːfɪs/</span>, then connect them with <mark class="vocab" data-word="straight">straight</mark><span class="ipa" aria-hidden="true">/streɪt/</span> and <mark class="vocab" data-word="flat">flat</mark><span class="ipa" aria-hidden="true">/flæt/</span>.</span>
-            <span class="ex-vi">Với chủ đề Colors & Shapes, người học bắt đầu với <mark class="vocab" data-word="side">bên</mark> và <mark class="vocab" data-word="surface">bề mặt</mark>, rồi nối với <mark class="vocab" data-word="straight">thẳng</mark> và <mark class="vocab" data-word="flat">phẳng</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="7">
-            <span class="ex-en">Around <mark class="vocab" data-word="to color">Colors</mark><span class="ipa" aria-hidden="true">/ˈkʌlɚ/</span> & Shapes, learners first study <mark class="vocab" data-word="round">round</mark><span class="ipa" aria-hidden="true">/raʊnd/</span> and <mark class="vocab" data-word="to draw">draw</mark><span class="ipa" aria-hidden="true">/drɔː/</span>, then connect them with color and <mark class="vocab" data-word="whole">whole</mark><span class="ipa" aria-hidden="true">/hoʊl/</span>.</span>
-            <span class="ex-vi">Với chủ đề Colors & Shapes, người học bắt đầu với <mark class="vocab" data-word="round">tròn</mark> và <mark class="vocab" data-word="to draw">vẽ</mark>, rồi nối với <mark class="vocab" data-word="to color">tô màu</mark> và <mark class="vocab" data-word="whole">toàn bộ</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="8">
-            <span class="ex-en">You should learn the word <mark class="vocab" data-word="paint">paint</mark><span class="ipa" aria-hidden="true">/peɪnt/</span> because it appears often in Colors & Shapes topics.</span>
-            <span class="ex-vi">Bạn nên học từ <mark class="vocab" data-word="paint">sơn</mark> vì nó thường xuất hiện trong chủ đề Colors & Shapes.</span>
-          </p>
+      <section class="ex-passage ex-ielts" id="passage" data-tts-root>
+        <div class="ex-ielts-part" data-part="1">
+          <h2 class="ex-ielts-part-title">Part 1 · Introduction &amp; interview</h2>
+          <p class="ex-ielts-part-hint">Câu hỏi ngắn — trả lời Yes/No + lý do (Lesson 3).</p>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Do you like talking about colors &amp; shapes?</p>
+            <p class="ex-q-vi">Bạn có thích nói về colors &amp; shapes không?</p>
+            <p class="ex-sent" data-sent="1">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">Yes, definitely. I'm quite interested in colors & shapes, especially words like <mark class="vocab" data-word="darkness">darkness</mark><span class="ipa" aria-hidden="true">/ˈdɑːrkˌnɪs/</span>, <mark class="vocab" data-word="brightness">brightness</mark><span class="ipa" aria-hidden="true">/ˈbraɪtˌnɪs/</span>, <mark class="vocab" data-word="lightness">lightness</mark><span class="ipa" aria-hidden="true">/ˈlaɪtˌnɪs/</span>, and <mark class="vocab" data-word="golden">golden</mark><span class="ipa" aria-hidden="true">/ˈɡoʊldən/</span>. This is because it gives me the chance to practise natural English in real conversations.</span>
+              <span class="ex-vi">Vâng, chắc chắn. Mình khá quan tâm đến colors & shapes, nhất là các từ như <mark class="vocab" data-word="darkness">bóng tối</mark>, <mark class="vocab" data-word="brightness">độ sáng</mark>, <mark class="vocab" data-word="lightness">sự nhẹ nhàng</mark>, và <mark class="vocab" data-word="golden">vàng</mark>. Vì nó cho mình cơ hội luyện tiếng Anh tự nhiên trong hội thoại thật.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> How often do you use vocabulary about colors &amp; shapes?</p>
+            <p class="ex-q-vi">Bạn có thường dùng từ vựng về colors &amp; shapes không?</p>
+            <p class="ex-sent" data-sent="2">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">Yes, definitely. I'm quite interested in colors & shapes, especially words like <mark class="vocab" data-word="bright">bright</mark><span class="ipa" aria-hidden="true">/braɪt/</span>, <mark class="vocab" data-word="colorful">colorful</mark><span class="ipa" aria-hidden="true">/ˈkʌlərˌfʊl/</span>, and <mark class="vocab" data-word="colored">colored</mark><span class="ipa" aria-hidden="true">/ˈkʌlɚd/</span>. This is because it gives me the chance to practise natural English in real conversations.</span>
+              <span class="ex-vi">Vâng, chắc chắn. Mình khá quan tâm đến colors & shapes, nhất là các từ như <mark class="vocab" data-word="bright">rực rỡ</mark>, <mark class="vocab" data-word="colorful">đầy màu sắc</mark>, và <mark class="vocab" data-word="colored">có màu</mark>. Vì nó cho mình cơ hội luyện tiếng Anh tự nhiên trong hội thoại thật.</span>
+            </p>
+          </div>
+        </div>
+        <div class="ex-ielts-part" data-part="2">
+          <h2 class="ex-ielts-part-title">Part 2 · Long turn (cue card)</h2>
+          <p class="ex-ielts-part-hint">Mô tả 1–2 phút — mở đầu → thông tin → cốt lõi → cảm nhận → kết (Lesson 16).</p>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Describe something important related to colors &amp; shapes.</p>
+            <p class="ex-q-vi">Hãy mô tả điều gì đó quan trọng liên quan đến colors &amp; shapes.</p>
+            <div class="ex-cue-card">
+              <p class="ex-cue-title">You should say:</p>
+              <ul>
+                <li>what it is</li>
+                <li>when you use it</li>
+                <li>why it is important</li>
+              </ul>
+            </div>
+            <p class="ex-sent" data-sent="3">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">I'm going to talk about colors & <mark class="vocab" data-word="shape">shapes</mark><span class="ipa" aria-hidden="true">/ʃeɪp/</span>, which matters in daily life. First, people often mention <mark class="vocab" data-word="cream">cream</mark><span class="ipa" aria-hidden="true">/kriːm/</span>, shape, <mark class="vocab" data-word="center">center</mark><span class="ipa" aria-hidden="true">/ˈsɛntɚ/</span>, and <mark class="vocab" data-word="circle">circle</mark><span class="ipa" aria-hidden="true">/ˈsɝːkəl/</span>. Then they also discuss <mark class="vocab" data-word="cross">cross</mark><span class="ipa" aria-hidden="true">/krɑːs/</span>, <mark class="vocab" data-word="square">square</mark><span class="ipa" aria-hidden="true">/skwɛr/</span>, <mark class="vocab" data-word="diamond">diamond</mark><span class="ipa" aria-hidden="true">/ˈdaɪmənd/</span>, <mark class="vocab" data-word="star">star</mark><span class="ipa" aria-hidden="true">/stɑr/</span>, and <mark class="vocab" data-word="line">line</mark><span class="ipa" aria-hidden="true">/laɪn/</span> when the topic comes up in conversation.</span>
+              <span class="ex-vi">Mình sẽ nói về colors & shapes — chủ đề quan trọng trong đời sống. Trước hết mọi người hay nhắc <mark class="vocab" data-word="cream">kem</mark>, <mark class="vocab" data-word="shape">hình dạng</mark>, <mark class="vocab" data-word="center">trung tâm</mark>, và <mark class="vocab" data-word="circle">hình tròn</mark>. Sau đó còn bàn về <mark class="vocab" data-word="cross">dấu thập</mark>, <mark class="vocab" data-word="square">hình vuông</mark>, <mark class="vocab" data-word="diamond">hình thoi</mark>, <mark class="vocab" data-word="star">ngôi sao</mark>, và <mark class="vocab" data-word="line">đường kẻ</mark> khi chủ đề xuất hiện trong hội thoại.</span>
+            </p>
+          </div>
+        </div>
+        <div class="ex-ielts-part" data-part="3">
+          <h2 class="ex-ielts-part-title">Part 3 · Two-way discussion</h2>
+          <p class="ex-ielts-part-hint">Thảo luận sâu hơn — so sánh quá khứ/hiện tại, giải thích quan điểm (Lesson 15).</p>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> How has colors &amp; shapes changed in recent years?</p>
+            <p class="ex-q-vi">Colors &amp; Shapes đã thay đổi thế nào trong những năm gần đây?</p>
+            <p class="ex-sent" data-sent="4">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">I think it has changed quite a bit in recent years. Nowadays people talk more about <mark class="vocab" data-word="dot">dot</mark><span class="ipa" aria-hidden="true">/dɑːt/</span>, <mark class="vocab" data-word="side">side</mark><span class="ipa" aria-hidden="true">/saɪd/</span>, <mark class="vocab" data-word="surface">surface</mark><span class="ipa" aria-hidden="true">/ˈsɝːfɪs/</span>, <mark class="vocab" data-word="straight">straight</mark><span class="ipa" aria-hidden="true">/streɪt/</span>, <mark class="vocab" data-word="flat">flat</mark><span class="ipa" aria-hidden="true">/flæt/</span>, <mark class="vocab" data-word="round">round</mark><span class="ipa" aria-hidden="true">/raʊnd/</span>, <mark class="vocab" data-word="to draw">draw</mark><span class="ipa" aria-hidden="true">/drɔː/</span>, color, <mark class="vocab" data-word="whole">whole</mark><span class="ipa" aria-hidden="true">/hoʊl/</span>, and <mark class="vocab" data-word="paint">paint</mark><span class="ipa" aria-hidden="true">/peɪnt/</span> when they discuss <mark class="vocab" data-word="to color">colors</mark><span class="ipa" aria-hidden="true">/ˈkʌlɚ/</span> & shapes.</span>
+              <span class="ex-vi">Mình nghĩ đã thay đổi khá nhiều trong vài năm gần đây. Ngày nay mọi người nói nhiều hơn về <mark class="vocab" data-word="dot">chấm</mark>, <mark class="vocab" data-word="side">bên</mark>, <mark class="vocab" data-word="surface">bề mặt</mark>, <mark class="vocab" data-word="straight">thẳng</mark>, <mark class="vocab" data-word="flat">phẳng</mark>, <mark class="vocab" data-word="round">tròn</mark>, <mark class="vocab" data-word="to draw">vẽ</mark>, <mark class="vocab" data-word="to color">tô màu</mark>, <mark class="vocab" data-word="whole">toàn bộ</mark>, và <mark class="vocab" data-word="paint">sơn</mark> khi bàn về colors & shapes.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="58">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">In daily life you meet <mark class="vocab" data-word="silver">silver</mark><span class="ipa" aria-hidden="true">/ˈsɪlvɚ/</span> and <mark class="vocab" data-word="pale">pale</mark><span class="ipa" aria-hidden="true">/peɪl/</span> when the topic is Colors & Shapes.</span>
+              <span class="ex-vi">Trong đời sống hằng ngày bạn gặp <mark class="vocab" data-word="silver">bạc</mark> và <mark class="vocab" data-word="pale">nhạt</mark> khi nói về Colors & Shapes.</span>
+            </p>
+          </div>
+        </div>
       </section>
       <!-- Continuous paragraph (no IPA) is filled by public/js/exercise.js for NaturalReader paste -->
 
@@ -228,6 +261,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js?v=flash4"></script>
+  <script src="../../../../js/exercise.js?v=ielts1"></script>
 </body>
 </html>

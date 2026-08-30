@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css?v=flash4">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=ielts1">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -22,7 +22,7 @@
       <a href="../../../../blog/web-security/">DevSecOps</a>
       <a href="../../../../blog/kubestronaut/">Kubestronaut</a>
       <a class="active" href="../../">English</a>
-      <a href="../../../tech-hub/">Tech Hub</a>
+      <a href="../../../../blog/tech-hub/">Tech Hub</a>
     </nav>
     <span class="docs-topbar-spacer"></span>
     <a class="docs-top-link" href="../../../../#blogs">blogs</a>
@@ -53,7 +53,7 @@
         <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72' fill='none'%3E%3Crect width='72' height='72' rx='14' fill='%230b1220'/%3E%3Crect x='16' y='14' width='40' height='46' rx='6' stroke='%2322d3ee' stroke-width='2.5'/%3E%3Cpath d='M24 28h24M24 36h24M24 44h16' stroke='%23e4e4e7' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M48 48l6 2-2 6-8-8 4 0z' fill='%2322d3ee'/%3E%3C/svg%3E" alt="" width="112" height="112">
         <div>
           <h1>B2 Exercise · School &amp; Education</h1>
-          <p class="lede">Reading passage with every new word from this level’s LanGeek lessons — IPA, highlights, sentence translation, and free TTS.</p>
+          <p class="lede">IELTS Speaking practice — Part 1 / 2 / 3 Q&amp;A with vocabulary from this level’s LanGeek lessons. Answer structures follow Yes/No + reasons, cue-card long turn, and discussion (see IELTS Speaking notes). IPA, highlights, VI toggle, and TTS included.</p>
           <div class="docs-meta">
             <span><strong>Words:</strong> 142</span>
             <span><strong>Lessons:</strong> Grammar · School and Education · Scientific Research · World of Science</span>
@@ -73,155 +73,202 @@
           <input id="rateRange" type="range" min="0.7" max="1.15" step="0.05" value="0.95">
           <span id="rateVal">0.95</span>
         </label>
-        <button type="button" class="ex-btn primary" id="btnPlay">▶ Read passage</button>
+        <button type="button" class="ex-btn primary" id="btnPlay">▶ Read answers</button>
         <button type="button" class="ex-btn" id="btnStop">Stop</button>
       </div>
       
-      <section class="ex-passage" id="passage" data-tts-root>
-          <p class="ex-sent" data-sent="1">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="abbreviation">abbreviation</mark><span class="ipa" aria-hidden="true">/əˌbɹiviˈeɪʃən/</span> and <mark class="vocab" data-word="article">article</mark><span class="ipa" aria-hidden="true">/ˈɑːrtɪkəl/</span>, then connect them with <mark class="vocab" data-word="auxiliary verb">auxiliary verb</mark><span class="ipa" aria-hidden="true">/ɔːksˈɪliəɹi vˈɜːb/</span> and <mark class="vocab" data-word="conjunction">conjunction</mark><span class="ipa" aria-hidden="true">/kənˈdʒəŋkʃən/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="abbreviation">chữ viết tắt</mark> và <mark class="vocab" data-word="article">mạo từ</mark>, rồi nối với <mark class="vocab" data-word="auxiliary verb">động từ trợ giúp</mark> và <mark class="vocab" data-word="conjunction">liên từ</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="2">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="preposition">preposition</mark><span class="ipa" aria-hidden="true">/pɹˌɛpəzˈɪʃən/</span> and <mark class="vocab" data-word="proper noun">proper noun</mark><span class="ipa" aria-hidden="true">/pɹˈɑːpɚ nˈaʊn/</span>, then connect them with <mark class="vocab" data-word="pronoun">pronoun</mark><span class="ipa" aria-hidden="true">/ˈpɹoʊnaʊn/</span> and <mark class="vocab" data-word="prefix">prefix</mark><span class="ipa" aria-hidden="true">/ˈpɹifɪks/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="preposition">giới từ</mark> và <mark class="vocab" data-word="proper noun">danh từ riêng</mark>, rồi nối với <mark class="vocab" data-word="pronoun">đại từ</mark> và <mark class="vocab" data-word="prefix">tiền tố</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="3">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="suffix">suffix</mark><span class="ipa" aria-hidden="true">/ˈsəfɪks/</span> and <mark class="vocab" data-word="active">active</mark><span class="ipa" aria-hidden="true">/ˈæktɪv/</span>, then connect them with <mark class="vocab" data-word="passive">passive</mark><span class="ipa" aria-hidden="true">/ˈpæsɪv/</span> and <mark class="vocab" data-word="comparative">comparative</mark><span class="ipa" aria-hidden="true">/kəmˈpɛɹətɪv/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="suffix">hậu tố</mark> và <mark class="vocab" data-word="active">chủ động</mark>, rồi nối với <mark class="vocab" data-word="passive">bị động</mark> và <mark class="vocab" data-word="comparative">so sánh</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="4">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="superlative">superlative</mark><span class="ipa" aria-hidden="true">/sʊˈpɝɫətɪv/</span> and <mark class="vocab" data-word="plural">plural</mark><span class="ipa" aria-hidden="true">/ˈpɫʊɹəɫ/</span>, then connect them with <mark class="vocab" data-word="singular">singular</mark><span class="ipa" aria-hidden="true">/ˈsɪŋɡjəɫɝ/</span> and <mark class="vocab" data-word="grammatical">grammatical</mark><span class="ipa" aria-hidden="true">/ɡɹəˈmætəkəɫ/, /ɡɹəˈmætɪkəɫ/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="superlative">so sánh nhất</mark> và <mark class="vocab" data-word="plural">số nhiều</mark>, rồi nối với <mark class="vocab" data-word="singular">số ít</mark> và <mark class="vocab" data-word="grammatical">ngữ pháp</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="5">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="irregular">irregular</mark><span class="ipa" aria-hidden="true">/ɪˈrɛɡjʊlər/</span> and <mark class="vocab" data-word="modal">modal</mark><span class="ipa" aria-hidden="true">/ˈmoʊdəɫ/</span>, then connect them with <mark class="vocab" data-word="conditional">conditional</mark><span class="ipa" aria-hidden="true">/kənˈdɪʃənəɫ/</span> and <mark class="vocab" data-word="perfect">perfect</mark><span class="ipa" aria-hidden="true">/ˈpɝfɪkt/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="irregular">bất quy tắc</mark> và <mark class="vocab" data-word="modal">động từ khuyết thiếu</mark>, rồi nối với <mark class="vocab" data-word="conditional">có điều kiện</mark> và <mark class="vocab" data-word="perfect">hoàn thành</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="6">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="past participle">past participle</mark><span class="ipa" aria-hidden="true">/pˈæst pɑːɹtˈɪsɪpəl/</span> and <mark class="vocab" data-word="continuous">continuous</mark><span class="ipa" aria-hidden="true">/kənˈtɪnjuəs/</span>, then connect them with <mark class="vocab" data-word="progressive">progressive</mark><span class="ipa" aria-hidden="true">/pɹəˈɡɹɛsɪv/</span> and <mark class="vocab" data-word="collocation">collocation</mark><span class="ipa" aria-hidden="true">/kɑɫəˈkeɪʃən/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="past participle">quá khứ phân từ</mark> và <mark class="vocab" data-word="continuous">liên tục</mark>, rồi nối với <mark class="vocab" data-word="progressive">tiếp diễn</mark> và <mark class="vocab" data-word="collocation">kết hợp từ</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="7">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="possessive">possessive</mark><span class="ipa" aria-hidden="true">/pəˈzɛsɪv/</span> and <mark class="vocab" data-word="pronunciation">pronunciation</mark><span class="ipa" aria-hidden="true">/pɹəˌnənsiˈeɪʃən/, /pɹoʊˌnənsiˈeɪʃən/</span>, then connect them with <mark class="vocab" data-word="consonant">consonant</mark><span class="ipa" aria-hidden="true">/ˈkɑnsənənt/</span> and <mark class="vocab" data-word="vowel">vowel</mark><span class="ipa" aria-hidden="true">/ˈvaʊəɫ/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="possessive">sở hữu</mark> và <mark class="vocab" data-word="pronunciation">phát âm</mark>, rồi nối với <mark class="vocab" data-word="consonant">phụ âm</mark> và <mark class="vocab" data-word="vowel">nguyên âm</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="8">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="stress">stress</mark><span class="ipa" aria-hidden="true">/ˈstɹɛs/</span> and <mark class="vocab" data-word="tag question">tag question</mark><span class="ipa" aria-hidden="true">/tˈæɡ kwˈɛstʃən/</span>, then connect them with <mark class="vocab" data-word="punctuation">punctuation</mark><span class="ipa" aria-hidden="true">/ˌpəŋktʃuˈeɪʃən/</span> and <mark class="vocab" data-word="exclamation point">exclamation point</mark><span class="ipa" aria-hidden="true">/ɛksklɐmˈeɪʃən pˈɔɪnt/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="stress">trọng âm</mark> và <mark class="vocab" data-word="tag question">câu hỏi đuôi</mark>, rồi nối với <mark class="vocab" data-word="punctuation">dấu câu</mark> và <mark class="vocab" data-word="exclamation point">dấu chấm than</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="9">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="question mark">question mark</mark><span class="ipa" aria-hidden="true">/kwˈɛstʃən mˈɑːɹk/</span> and <mark class="vocab" data-word="comma">comma</mark><span class="ipa" aria-hidden="true">/ˈkɑmə/</span>, then connect them with <mark class="vocab" data-word="to spell">spell</mark><span class="ipa" aria-hidden="true">/spɛl/</span> and <mark class="vocab" data-word="double negative">double negative</mark><span class="ipa" aria-hidden="true">/dˈʌbəl nˈɛɡətˌɪv/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="question mark">dấu hỏi</mark> và <mark class="vocab" data-word="comma">dấu phẩy</mark>, rồi nối với <mark class="vocab" data-word="to spell">đánh vần</mark> và <mark class="vocab" data-word="double negative">phủ định kép</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="10">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="institution">institution</mark><span class="ipa" aria-hidden="true">/ˌɪnstɪˈtuʃən/</span> and <mark class="vocab" data-word="grade school">grade school</mark><span class="ipa" aria-hidden="true">/ɡɹˈeɪd skˈuːl/</span>, then connect them with <mark class="vocab" data-word="graduate school">graduate school</mark><span class="ipa" aria-hidden="true">/ɡɹˈædʒuːət skˈuːl/</span> and <mark class="vocab" data-word="junior high school">junior high school</mark><span class="ipa" aria-hidden="true">/dʒˈuːnjɚ hˈaɪ skˈuːl/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="institution">tổ chức</mark> và <mark class="vocab" data-word="grade school">trường tiểu học</mark>, rồi nối với <mark class="vocab" data-word="graduate school">trường sau đại học</mark> và <mark class="vocab" data-word="junior high school">trường trung học cơ sở</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="11">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="senior high school">senior high school</mark><span class="ipa" aria-hidden="true">/sˈiːnjɚ hˈaɪ skˈuːl/</span> and <mark class="vocab" data-word="summer school">summer school</mark><span class="ipa" aria-hidden="true">/sˈʌmɚ skˈuːl/</span>, then connect them with <mark class="vocab" data-word="prom">prom</mark><span class="ipa" aria-hidden="true">/ˈpɹɑm/</span> and <mark class="vocab" data-word="to enroll">enroll</mark><span class="ipa" aria-hidden="true">/ɛnˈɹoʊɫ/, /ɪnˈɹoʊɫ/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="senior high school">trường trung học phổ thông</mark> và <mark class="vocab" data-word="summer school">trường hè</mark>, rồi nối với <mark class="vocab" data-word="prom">vũ hội tốt nghiệp</mark> và <mark class="vocab" data-word="to enroll">đăng ký</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="12">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="to register">register</mark><span class="ipa" aria-hidden="true">/ˈrɛʤɪstɚ/</span> and <mark class="vocab" data-word="locker">locker</mark><span class="ipa" aria-hidden="true">/ˈɫɑkɝ/</span>, then connect them with <mark class="vocab" data-word="roommate">roommate</mark><span class="ipa" aria-hidden="true">/ˈɹuˌmeɪt/</span> and <mark class="vocab" data-word="discipline">discipline</mark><span class="ipa" aria-hidden="true">/ˈdɪsəpɫən/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="to register">đăng ký</mark> và <mark class="vocab" data-word="locker">tủ đồ</mark>, rồi nối với <mark class="vocab" data-word="roommate">bạn cùng phòng</mark> và <mark class="vocab" data-word="discipline">kỷ luật</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="13">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="major">major</mark><span class="ipa" aria-hidden="true">/ˈmeɪdʒɚ/</span> and <mark class="vocab" data-word="certificate">certificate</mark><span class="ipa" aria-hidden="true">/sɝˈtɪfɪkət/</span>, then connect them with <mark class="vocab" data-word="master">master</mark><span class="ipa" aria-hidden="true">/ˈmæstər/</span> and <mark class="vocab" data-word="to master">master</mark><span class="ipa" aria-hidden="true">/ˈmæstər/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="major">sinh viên chuyên ngành</mark> và <mark class="vocab" data-word="certificate">chứng chỉ</mark>, rồi nối với <mark class="vocab" data-word="master">thạc sĩ</mark> và <mark class="vocab" data-word="to master">thành thạo</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="14">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="Doctor of Philosophy">Doctor of Philosophy</mark><span class="ipa" aria-hidden="true">/dˈɑːktɚɹ ʌv fɪlˈɑːsəfi/</span> and <mark class="vocab" data-word="postgraduate">postgraduate</mark><span class="ipa" aria-hidden="true">/pˈoʊstɡɹɐdʒˌuːeɪt/</span>, then connect them with <mark class="vocab" data-word="sponsor">sponsor</mark><span class="ipa" aria-hidden="true">/ˈspɑnsɝ/</span> and <mark class="vocab" data-word="trainee">trainee</mark><span class="ipa" aria-hidden="true">/ˈtɹeɪˈni/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="Doctor of Philosophy">Doctor of Philosophy</mark> và <mark class="vocab" data-word="postgraduate">sinh viên sau đại học</mark>, rồi nối với <mark class="vocab" data-word="sponsor">nhà tài trợ</mark> và <mark class="vocab" data-word="trainee">thực tập sinh</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="15">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="to tutor">tutor</mark><span class="ipa" aria-hidden="true">/ˈtuːtɚ/</span> and <mark class="vocab" data-word="thesis">thesis</mark><span class="ipa" aria-hidden="true">/ˈθisɪs/</span>, then connect them with <mark class="vocab" data-word="scholarship">scholarship</mark><span class="ipa" aria-hidden="true">/ˈskɑɫɝˌʃɪp/</span> and <mark class="vocab" data-word="seminar">seminar</mark><span class="ipa" aria-hidden="true">/ˈsɛməˌnɑɹ/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="to tutor">dạy kèm</mark> và <mark class="vocab" data-word="thesis">luận văn</mark>, rồi nối với <mark class="vocab" data-word="scholarship">học bổng</mark> và <mark class="vocab" data-word="seminar">hội thảo</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="16">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="curriculum">curriculum</mark><span class="ipa" aria-hidden="true">/kɝˈɪkjəɫəm/</span> and <mark class="vocab" data-word="optional">optional</mark><span class="ipa" aria-hidden="true">/ˈɑpʃənəɫ/, /ˈɔpʃənəɫ/</span>, then connect them with <mark class="vocab" data-word="to grade">grade</mark><span class="ipa" aria-hidden="true">/ɡreɪd/</span> and <mark class="vocab" data-word="coursework">coursework</mark><span class="ipa" aria-hidden="true">/ˈkɔɹsˌwɝk/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="curriculum">chương trình giảng dạy</mark> và <mark class="vocab" data-word="optional">tùy chọn</mark>, rồi nối với <mark class="vocab" data-word="to grade">chấm điểm</mark> và <mark class="vocab" data-word="coursework">bài tập khóa học</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="17">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="textbook">textbook</mark><span class="ipa" aria-hidden="true">/ˈtɛkstˌbʊk/</span> and <mark class="vocab" data-word="workbook">workbook</mark><span class="ipa" aria-hidden="true">/ˈwɝkˌbʊk/</span>, then connect them with <mark class="vocab" data-word="multiple-choice">multiple-choice</mark><span class="ipa" aria-hidden="true">/mˈʌltɪpəltʃˈɔɪs/</span> and <mark class="vocab" data-word="tutorial">tutorial</mark><span class="ipa" aria-hidden="true">/tuˈtɔɹiəɫ/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="textbook">sách giáo khoa</mark> và <mark class="vocab" data-word="workbook">sách bài tập</mark>, rồi nối với <mark class="vocab" data-word="multiple-choice">trắc nghiệm</mark> và <mark class="vocab" data-word="tutorial">hướng dẫn</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="18">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="dormitory">dormitory</mark><span class="ipa" aria-hidden="true">/ˈdɔɹməˌtɔɹi/</span> and <mark class="vocab" data-word="buttery">buttery</mark><span class="ipa" aria-hidden="true">/ˈbətɝi/</span>, then connect them with <mark class="vocab" data-word="analytical">analytical</mark><span class="ipa" aria-hidden="true">/ˌænəˈɫɪtɪkəɫ/</span> and <mark class="vocab" data-word="descriptive">descriptive</mark><span class="ipa" aria-hidden="true">/dɪsˈkɹɪptɪv/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="dormitory">ký túc xá</mark> và <mark class="vocab" data-word="buttery">quán cà phê</mark>, rồi nối với <mark class="vocab" data-word="analytical">phân tích</mark> và <mark class="vocab" data-word="descriptive">mô tả</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="19">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to cite">to cite</mark><span class="ipa" aria-hidden="true">/ˈsaɪt/</span>, <mark class="vocab" data-word="to classify">to classify</mark><span class="ipa" aria-hidden="true">/ˈkɫæsəˌfaɪ/</span>, and also <mark class="vocab" data-word="to compile">to compile</mark><span class="ipa" aria-hidden="true">/kəmˈpaɪɫ/</span>, before they <mark class="vocab" data-word="to conduct">conduct</mark><span class="ipa" aria-hidden="true">/ˈkɑndəkt/, /kɑnˈdəkt/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to cite">trích dẫn</mark>, <mark class="vocab" data-word="to classify">phân loại</mark>, và cả <mark class="vocab" data-word="to compile">biên soạn</mark>, trước khi <mark class="vocab" data-word="to conduct">chỉ đạo</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="20">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to demonstrate">to demonstrate</mark><span class="ipa" aria-hidden="true">/ˈdɛmənˌstɹeɪt/</span>, <mark class="vocab" data-word="to derive">to derive</mark><span class="ipa" aria-hidden="true">/dɝˈaɪv/</span>, and also <mark class="vocab" data-word="to detect">to detect</mark><span class="ipa" aria-hidden="true">/dɪˈtɛkt/</span>, before they <mark class="vocab" data-word="to document">document</mark><span class="ipa" aria-hidden="true">/ˈdɑːkjəmənt/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to demonstrate">chứng minh</mark>, <mark class="vocab" data-word="to derive">suy ra</mark>, và cả <mark class="vocab" data-word="to detect">phát hiện</mark>, trước khi <mark class="vocab" data-word="to document">tài liệu hóa</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="21">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to estimate">to estimate</mark><span class="ipa" aria-hidden="true">/ˈɛstəˌmeɪt/, /ˈɛstəmət/</span>, <mark class="vocab" data-word="to evaluate">to evaluate</mark><span class="ipa" aria-hidden="true">/iˈvæɫjuˌeɪt/, /ɪˈvæɫjuˌeɪt/</span>, and also <mark class="vocab" data-word="to imply">to imply</mark><span class="ipa" aria-hidden="true">/ˌɪmˈpɫaɪ/</span>, before they <mark class="vocab" data-word="to interpret">interpret</mark><span class="ipa" aria-hidden="true">/ˌɪnˈtɝpɹət/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to estimate">ước tính</mark>, <mark class="vocab" data-word="to evaluate">đánh giá</mark>, và cả <mark class="vocab" data-word="to imply">ám chỉ</mark>, trước khi <mark class="vocab" data-word="to interpret">giải thích</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="22">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to observe">to observe</mark><span class="ipa" aria-hidden="true">/əbˈzɜrv/</span>, <mark class="vocab" data-word="to outline">to outline</mark><span class="ipa" aria-hidden="true">/ˈaʊtˌɫaɪn/</span>, and also <mark class="vocab" data-word="to survey">to survey</mark><span class="ipa" aria-hidden="true">/ˈsɝˌveɪ/, /sɝˈveɪ/</span>, before they <mark class="vocab" data-word="case study">case study</mark><span class="ipa" aria-hidden="true">/kˈeɪs stˈʌdi/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to observe">quan sát</mark>, <mark class="vocab" data-word="to outline">phác thảo</mark>, và cả <mark class="vocab" data-word="to survey">khảo sát</mark>, trước khi <mark class="vocab" data-word="case study">nghiên cứu tình huống</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="23">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="chart">chart</mark><span class="ipa" aria-hidden="true">/ˈtʃɑɹt/</span> and <mark class="vocab" data-word="diagram">diagram</mark><span class="ipa" aria-hidden="true">/ˈdaɪəˌɡɹæm/</span>, then connect them with <mark class="vocab" data-word="document">document</mark><span class="ipa" aria-hidden="true">/ˈdɑːkjəmənt/</span> and <mark class="vocab" data-word="evaluation">evaluation</mark><span class="ipa" aria-hidden="true">/iˌvæɫjuˈeɪʃən/, /ɪˌvæɫjuˈeɪʃən/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="chart">biểu đồ</mark> và <mark class="vocab" data-word="diagram">biểu đồ</mark>, rồi nối với <mark class="vocab" data-word="document">tài liệu</mark> và <mark class="vocab" data-word="evaluation">đánh giá</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="24">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="hypothesis">hypothesis</mark><span class="ipa" aria-hidden="true">/haɪˈpɑθəsəs/</span> and <mark class="vocab" data-word="experiment">experiment</mark><span class="ipa" aria-hidden="true">/ɪkˈspɛɹəmənt/</span>, then connect them with <mark class="vocab" data-word="sample">sample</mark><span class="ipa" aria-hidden="true">/ˈsæmpəɫ/</span> and <mark class="vocab" data-word="variable">variable</mark><span class="ipa" aria-hidden="true">/ˈvɛɹiəbəɫ/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="hypothesis">giả thuyết</mark> và <mark class="vocab" data-word="experiment">thí nghiệm</mark>, rồi nối với <mark class="vocab" data-word="sample">mẫu</mark> và <mark class="vocab" data-word="variable">biến số</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="25">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="instrument">instrument</mark><span class="ipa" aria-hidden="true">/ˈɪnstrəmənt/</span> and <mark class="vocab" data-word="questionnaire">questionnaire</mark><span class="ipa" aria-hidden="true">/ˌkwɛstʃəˈnɛɹ/</span>, then connect them with <mark class="vocab" data-word="reference">reference</mark><span class="ipa" aria-hidden="true">/ˈrɛfərəns/</span> and <mark class="vocab" data-word="trial">trial</mark><span class="ipa" aria-hidden="true">/ˈtɹaɪəɫ/, /ˈtɹaɪɫ/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="instrument">dụng cụ</mark> và <mark class="vocab" data-word="questionnaire">bảng câu hỏi</mark>, rồi nối với <mark class="vocab" data-word="reference">tham khảo</mark> và <mark class="vocab" data-word="trial">thử nghiệm</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="26">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="trial and error">trial and error</mark><span class="ipa" aria-hidden="true">/tɹˈaɪəl ænd ˈɛɹɚ/</span> and <mark class="vocab" data-word="finding">finding</mark><span class="ipa" aria-hidden="true">/ˈfaɪndɪŋ/</span>, then connect them with <mark class="vocab" data-word="law">law</mark><span class="ipa" aria-hidden="true">/lɑ/</span> and <mark class="vocab" data-word="model">model</mark><span class="ipa" aria-hidden="true">/ˈmɑdəl/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="trial and error">trial and error</mark> và <mark class="vocab" data-word="finding">phát hiện</mark>, rồi nối với <mark class="vocab" data-word="law">luật</mark> và <mark class="vocab" data-word="model">mô hình</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="27">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="principle">principle</mark><span class="ipa" aria-hidden="true">/ˈpɹɪnsəpəɫ/</span> and <mark class="vocab" data-word="procedure">procedure</mark><span class="ipa" aria-hidden="true">/pɹəˈsidʒɝ/, /pɹoʊˈsidʒɝ/</span>, then connect them with <mark class="vocab" data-word="proof">proof</mark><span class="ipa" aria-hidden="true">/ˈpɹuf/</span> and <mark class="vocab" data-word="biochemistry">biochemistry</mark><span class="ipa" aria-hidden="true">/ˌbaɪoʊˈkɛməstɹi/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="principle">nguyên tắc</mark> và <mark class="vocab" data-word="procedure">quy trình</mark>, rồi nối với <mark class="vocab" data-word="proof">bằng chứng</mark> và <mark class="vocab" data-word="biochemistry">hóa sinh</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="28">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="biological">biological</mark><span class="ipa" aria-hidden="true">/ˌbaɪəˈɫɑdʒɪkəɫ/</span> and <mark class="vocab" data-word="artificial">artificial</mark><span class="ipa" aria-hidden="true">/ˌɑɹtəˈfɪʃəɫ/</span>, then connect them with <mark class="vocab" data-word="bacteria">bacteria</mark><span class="ipa" aria-hidden="true">/bækˈtɪɹiə/</span> and <mark class="vocab" data-word="being">being</mark><span class="ipa" aria-hidden="true">/ˈbiɪŋ/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="biological">sinh học</mark> và <mark class="vocab" data-word="artificial">nhân tạo</mark>, rồi nối với <mark class="vocab" data-word="bacteria">vi khuẩn</mark> và <mark class="vocab" data-word="being">sinh vật</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="29">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="cycle">cycle</mark><span class="ipa" aria-hidden="true">/ˈsaɪkəɫ/</span> and <mark class="vocab" data-word="DNA">DNA</mark><span class="ipa" aria-hidden="true">/dˌiːˌɛnˈeɪ/</span>, then connect them with <mark class="vocab" data-word="genetics">genetics</mark><span class="ipa" aria-hidden="true">/dʒəˈnɛtɪks/</span> and <mark class="vocab" data-word="to evolve">evolve</mark><span class="ipa" aria-hidden="true">/iˈvɑɫv/, /ɪˈvɑɫv/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="cycle">chu kỳ</mark> và <mark class="vocab" data-word="DNA">DNA</mark>, rồi nối với <mark class="vocab" data-word="genetics">di truyền học</mark> và <mark class="vocab" data-word="to evolve">tiến hóa</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="30">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="compound">compound</mark><span class="ipa" aria-hidden="true">/ˈkɑmpaʊnd/, /kəmˈpaʊnd/</span> and <mark class="vocab" data-word="element">element</mark><span class="ipa" aria-hidden="true">/ˈɛɫəmənt/</span>, then connect them with <mark class="vocab" data-word="matter">matter</mark><span class="ipa" aria-hidden="true">/ˈmætɚ/</span> and <mark class="vocab" data-word="mineral">mineral</mark><span class="ipa" aria-hidden="true">/ˈmɪnɝəɫ/, /ˈmɪnɹəɫ/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="compound">hợp chất</mark> và <mark class="vocab" data-word="element">nguyên tố</mark>, rồi nối với <mark class="vocab" data-word="matter">vật chất</mark> và <mark class="vocab" data-word="mineral">khoáng chất</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="31">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="molecule">molecule</mark><span class="ipa" aria-hidden="true">/ˈmɑɫəkˌjuɫ/</span> and <mark class="vocab" data-word="solution">solution</mark><span class="ipa" aria-hidden="true">/səˈluʃən/</span>, then connect them with <mark class="vocab" data-word="boiling point">boiling point</mark><span class="ipa" aria-hidden="true">/bˈɔɪlɪŋ pˈɔɪnt/</span> and <mark class="vocab" data-word="freezing point">freezing point</mark><span class="ipa" aria-hidden="true">/fɹˈiːzɪŋ pˈɔɪnt/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="molecule">phân tử</mark> và <mark class="vocab" data-word="solution">dung dịch</mark>, rồi nối với <mark class="vocab" data-word="boiling point">điểm sôi</mark> và <mark class="vocab" data-word="freezing point">điểm đóng băng</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="32">
-            <span class="ex-en">They learn to <mark class="vocab" data-word="radiation">radiation</mark><span class="ipa" aria-hidden="true">/ˌɹeɪdiˈeɪʃən/</span>, <mark class="vocab" data-word="to advance">to advance</mark><span class="ipa" aria-hidden="true">/ədˈvæns/</span>, and also <mark class="vocab" data-word="to absorb">to absorb</mark><span class="ipa" aria-hidden="true">/əbˈzɔɹb/</span>, before they <mark class="vocab" data-word="to activate">activate</mark><span class="ipa" aria-hidden="true">/ˈæktəˌveɪt/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="radiation">bức xạ</mark>, <mark class="vocab" data-word="to advance">tiến bộ</mark>, và cả <mark class="vocab" data-word="to absorb">hấp thụ</mark>, trước khi <mark class="vocab" data-word="to activate">kích hoạt</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="33">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="to generate">generate</mark><span class="ipa" aria-hidden="true">/ˈdʒɛnɝˌeɪt/</span> and <mark class="vocab" data-word="industry">industry</mark><span class="ipa" aria-hidden="true">/ˈɪndəstɹi/</span>, then connect them with <mark class="vocab" data-word="civil engineering">civil engineering</mark><span class="ipa" aria-hidden="true">/sˈɪvəl ˌɛndʒɪnˈɪɹɪŋ/</span> and <mark class="vocab" data-word="sensor">sensor</mark><span class="ipa" aria-hidden="true">/ˈsɛnsɝ/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="to generate">sản xuất</mark> và <mark class="vocab" data-word="industry">ngành công nghiệp</mark>, rồi nối với <mark class="vocab" data-word="civil engineering">kỹ thuật xây dựng dân dụng</mark> và <mark class="vocab" data-word="sensor">cảm biến</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="34">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="circuit">circuit</mark><span class="ipa" aria-hidden="true">/ˈsɝkət/</span> and <mark class="vocab" data-word="field">field</mark><span class="ipa" aria-hidden="true">/fild/</span>, then connect them with <mark class="vocab" data-word="wire">wire</mark><span class="ipa" aria-hidden="true">/ˈwaɪr/</span> and <mark class="vocab" data-word="live wire">live wire</mark><span class="ipa" aria-hidden="true">/lˈaɪv wˈaɪɚ/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="circuit">mạch</mark> và <mark class="vocab" data-word="field">trường</mark>, rồi nối với <mark class="vocab" data-word="wire">dây</mark> và <mark class="vocab" data-word="live wire">dây điện có điện</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="35">
-            <span class="ex-en">Around School & Education, learners first study <mark class="vocab" data-word="motion">motion</mark><span class="ipa" aria-hidden="true">/ˈmoʊʃən/</span> and <mark class="vocab" data-word="to monitor">monitor</mark><span class="ipa" aria-hidden="true">/ˈmɑnɪtər/</span>, then connect them with <mark class="vocab" data-word="motor">motor</mark><span class="ipa" aria-hidden="true">/ˈmoʊtɝ/</span> and <mark class="vocab" data-word="rate">rate</mark><span class="ipa" aria-hidden="true">/ˈɹeɪt/</span>.</span>
-            <span class="ex-vi">Với chủ đề School & Education, người học bắt đầu với <mark class="vocab" data-word="motion">chuyển động</mark> và <mark class="vocab" data-word="to monitor">giám sát</mark>, rồi nối với <mark class="vocab" data-word="motor">động cơ</mark> và <mark class="vocab" data-word="rate">tỷ lệ</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="36">
-            <span class="ex-en">In daily life you meet <mark class="vocab" data-word="weathering">weathering</mark><span class="ipa" aria-hidden="true">/ˈwɛðɝɪŋ/</span> and <mark class="vocab" data-word="impervious">impervious</mark><span class="ipa" aria-hidden="true">/ˌɪmˈpɝviəs/</span> when the topic is School & Education.</span>
-            <span class="ex-vi">Trong đời sống hằng ngày bạn gặp <mark class="vocab" data-word="weathering">phong hóa</mark> và <mark class="vocab" data-word="impervious">không thấm</mark> khi nói về School & Education.</span>
-          </p>
+      <section class="ex-passage ex-ielts" id="passage" data-tts-root>
+        <div class="ex-ielts-part" data-part="1">
+          <h2 class="ex-ielts-part-title">Part 1 · Introduction &amp; interview</h2>
+          <p class="ex-ielts-part-hint">Câu hỏi ngắn — trả lời Yes/No + lý do (Lesson 3).</p>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Do you like talking about school &amp; education?</p>
+            <p class="ex-q-vi">Bạn có thích nói về school &amp; education không?</p>
+            <p class="ex-sent" data-sent="1">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">Yes, definitely. I'm quite interested in school & education, especially words like <mark class="vocab" data-word="abbreviation">abbreviation</mark><span class="ipa" aria-hidden="true">/əˌbɹiviˈeɪʃən/</span>, <mark class="vocab" data-word="article">article</mark><span class="ipa" aria-hidden="true">/ˈɑːrtɪkəl/</span>, <mark class="vocab" data-word="auxiliary verb">auxiliary verb</mark><span class="ipa" aria-hidden="true">/ɔːksˈɪliəɹi vˈɜːb/</span>, and <mark class="vocab" data-word="conjunction">conjunction</mark><span class="ipa" aria-hidden="true">/kənˈdʒəŋkʃən/</span>. This is because it gives me the chance to practise natural English in real conversations.</span>
+              <span class="ex-vi">Vâng, chắc chắn. Mình khá quan tâm đến school & education, nhất là các từ như <mark class="vocab" data-word="abbreviation">chữ viết tắt</mark>, <mark class="vocab" data-word="article">mạo từ</mark>, <mark class="vocab" data-word="auxiliary verb">động từ trợ giúp</mark>, và <mark class="vocab" data-word="conjunction">liên từ</mark>. Vì nó cho mình cơ hội luyện tiếng Anh tự nhiên trong hội thoại thật.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> How often do you use vocabulary about school &amp; education?</p>
+            <p class="ex-q-vi">Bạn có thường dùng từ vựng về school &amp; education không?</p>
+            <p class="ex-sent" data-sent="2">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">Yes, definitely. I'm quite interested in school & education, especially words like <mark class="vocab" data-word="double negative">double negative</mark><span class="ipa" aria-hidden="true">/dˈʌbəl nˈɛɡətˌɪv/</span>, <mark class="vocab" data-word="institution">institution</mark><span class="ipa" aria-hidden="true">/ˌɪnstɪˈtuʃən/</span>, <mark class="vocab" data-word="grade school">grade school</mark><span class="ipa" aria-hidden="true">/ɡɹˈeɪd skˈuːl/</span>, and <mark class="vocab" data-word="graduate school">graduate school</mark><span class="ipa" aria-hidden="true">/ɡɹˈædʒuːət skˈuːl/</span>. This is because it gives me the chance to practise natural English in real conversations.</span>
+              <span class="ex-vi">Vâng, chắc chắn. Mình khá quan tâm đến school & education, nhất là các từ như <mark class="vocab" data-word="double negative">phủ định kép</mark>, <mark class="vocab" data-word="institution">tổ chức</mark>, <mark class="vocab" data-word="grade school">trường tiểu học</mark>, và <mark class="vocab" data-word="graduate school">trường sau đại học</mark>. Vì nó cho mình cơ hội luyện tiếng Anh tự nhiên trong hội thoại thật.</span>
+            </p>
+          </div>
+        </div>
+        <div class="ex-ielts-part" data-part="2">
+          <h2 class="ex-ielts-part-title">Part 2 · Long turn (cue card)</h2>
+          <p class="ex-ielts-part-hint">Mô tả 1–2 phút — mở đầu → thông tin → cốt lõi → cảm nhận → kết (Lesson 16).</p>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Describe something important related to school &amp; education.</p>
+            <p class="ex-q-vi">Hãy mô tả điều gì đó quan trọng liên quan đến school &amp; education.</p>
+            <div class="ex-cue-card">
+              <p class="ex-cue-title">You should say:</p>
+              <ul>
+                <li>what it is</li>
+                <li>when you use it</li>
+                <li>why it is important</li>
+              </ul>
+            </div>
+            <p class="ex-sent" data-sent="3">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">I'm going to talk about school & education, which matters in daily life. First, people often mention <mark class="vocab" data-word="Doctor of Philosophy">Doctor of Philosophy</mark><span class="ipa" aria-hidden="true">/dˈɑːktɚɹ ʌv fɪlˈɑːsəfi/</span>, <mark class="vocab" data-word="postgraduate">postgraduate</mark><span class="ipa" aria-hidden="true">/pˈoʊstɡɹɐdʒˌuːeɪt/</span>, <mark class="vocab" data-word="sponsor">sponsor</mark><span class="ipa" aria-hidden="true">/ˈspɑnsɝ/</span>, <mark class="vocab" data-word="trainee">trainee</mark><span class="ipa" aria-hidden="true">/ˈtɹeɪˈni/</span>, <mark class="vocab" data-word="to tutor">tutor</mark><span class="ipa" aria-hidden="true">/ˈtuːtɚ/</span>, <mark class="vocab" data-word="thesis">thesis</mark><span class="ipa" aria-hidden="true">/ˈθisɪs/</span>, <mark class="vocab" data-word="scholarship">scholarship</mark><span class="ipa" aria-hidden="true">/ˈskɑɫɝˌʃɪp/</span>, <mark class="vocab" data-word="seminar">seminar</mark><span class="ipa" aria-hidden="true">/ˈsɛməˌnɑɹ/</span>, <mark class="vocab" data-word="curriculum">curriculum</mark><span class="ipa" aria-hidden="true">/kɝˈɪkjəɫəm/</span>, <mark class="vocab" data-word="optional">optional</mark><span class="ipa" aria-hidden="true">/ˈɑpʃənəɫ/, /ˈɔpʃənəɫ/</span>, <mark class="vocab" data-word="to grade">grade</mark><span class="ipa" aria-hidden="true">/ɡreɪd/</span>, <mark class="vocab" data-word="coursework">coursework</mark><span class="ipa" aria-hidden="true">/ˈkɔɹsˌwɝk/</span>, <mark class="vocab" data-word="textbook">textbook</mark><span class="ipa" aria-hidden="true">/ˈtɛkstˌbʊk/</span>, <mark class="vocab" data-word="workbook">workbook</mark><span class="ipa" aria-hidden="true">/ˈwɝkˌbʊk/</span>, <mark class="vocab" data-word="multiple-choice">multiple-choice</mark><span class="ipa" aria-hidden="true">/mˈʌltɪpəltʃˈɔɪs/</span>, <mark class="vocab" data-word="tutorial">tutorial</mark><span class="ipa" aria-hidden="true">/tuˈtɔɹiəɫ/</span>, <mark class="vocab" data-word="dormitory">dormitory</mark><span class="ipa" aria-hidden="true">/ˈdɔɹməˌtɔɹi/</span>, <mark class="vocab" data-word="buttery">buttery</mark><span class="ipa" aria-hidden="true">/ˈbətɝi/</span>, <mark class="vocab" data-word="analytical">analytical</mark><span class="ipa" aria-hidden="true">/ˌænəˈɫɪtɪkəɫ/</span>, <mark class="vocab" data-word="descriptive">descriptive</mark><span class="ipa" aria-hidden="true">/dɪsˈkɹɪptɪv/</span>, <mark class="vocab" data-word="to cite">cite</mark><span class="ipa" aria-hidden="true">/ˈsaɪt/</span>, <mark class="vocab" data-word="to classify">classify</mark><span class="ipa" aria-hidden="true">/ˈkɫæsəˌfaɪ/</span>, and <mark class="vocab" data-word="to compile">compile</mark><span class="ipa" aria-hidden="true">/kəmˈpaɪɫ/</span>. Then they also discuss <mark class="vocab" data-word="to conduct">conduct</mark><span class="ipa" aria-hidden="true">/ˈkɑndəkt/, /kɑnˈdəkt/</span>, <mark class="vocab" data-word="to demonstrate">demonstrate</mark><span class="ipa" aria-hidden="true">/ˈdɛmənˌstɹeɪt/</span>, <mark class="vocab" data-word="to derive">derive</mark><span class="ipa" aria-hidden="true">/dɝˈaɪv/</span>, <mark class="vocab" data-word="to detect">detect</mark><span class="ipa" aria-hidden="true">/dɪˈtɛkt/</span>, <mark class="vocab" data-word="to document">document</mark><span class="ipa" aria-hidden="true">/ˈdɑːkjəmənt/</span>, <mark class="vocab" data-word="to estimate">estimate</mark><span class="ipa" aria-hidden="true">/ˈɛstəˌmeɪt/, /ˈɛstəmət/</span>, <mark class="vocab" data-word="to evaluate">evaluate</mark><span class="ipa" aria-hidden="true">/iˈvæɫjuˌeɪt/, /ɪˈvæɫjuˌeɪt/</span>, <mark class="vocab" data-word="to imply">imply</mark><span class="ipa" aria-hidden="true">/ˌɪmˈpɫaɪ/</span>, <mark class="vocab" data-word="to interpret">interpret</mark><span class="ipa" aria-hidden="true">/ˌɪnˈtɝpɹət/</span>, <mark class="vocab" data-word="to observe">observe</mark><span class="ipa" aria-hidden="true">/əbˈzɜrv/</span>, <mark class="vocab" data-word="to outline">outline</mark><span class="ipa" aria-hidden="true">/ˈaʊtˌɫaɪn/</span>, <mark class="vocab" data-word="to survey">survey</mark><span class="ipa" aria-hidden="true">/ˈsɝˌveɪ/, /sɝˈveɪ/</span>, <mark class="vocab" data-word="case study">case study</mark><span class="ipa" aria-hidden="true">/kˈeɪs stˈʌdi/</span>, <mark class="vocab" data-word="chart">chart</mark><span class="ipa" aria-hidden="true">/ˈtʃɑɹt/</span>, <mark class="vocab" data-word="diagram">diagram</mark><span class="ipa" aria-hidden="true">/ˈdaɪəˌɡɹæm/</span>, <mark class="vocab" data-word="document">document</mark><span class="ipa" aria-hidden="true">/ˈdɑːkjəmənt/</span>, <mark class="vocab" data-word="evaluation">evaluation</mark><span class="ipa" aria-hidden="true">/iˌvæɫjuˈeɪʃən/, /ɪˌvæɫjuˈeɪʃən/</span>, <mark class="vocab" data-word="hypothesis">hypothesis</mark><span class="ipa" aria-hidden="true">/haɪˈpɑθəsəs/</span>, <mark class="vocab" data-word="experiment">experiment</mark><span class="ipa" aria-hidden="true">/ɪkˈspɛɹəmənt/</span>, <mark class="vocab" data-word="sample">sample</mark><span class="ipa" aria-hidden="true">/ˈsæmpəɫ/</span>, <mark class="vocab" data-word="variable">variable</mark><span class="ipa" aria-hidden="true">/ˈvɛɹiəbəɫ/</span>, <mark class="vocab" data-word="instrument">instrument</mark><span class="ipa" aria-hidden="true">/ˈɪnstrəmənt/</span>, <mark class="vocab" data-word="questionnaire">questionnaire</mark><span class="ipa" aria-hidden="true">/ˌkwɛstʃəˈnɛɹ/</span>, and <mark class="vocab" data-word="reference">reference</mark><span class="ipa" aria-hidden="true">/ˈrɛfərəns/</span> when the topic comes up in conversation.</span>
+              <span class="ex-vi">Mình sẽ nói về school & education — chủ đề quan trọng trong đời sống. Trước hết mọi người hay nhắc <mark class="vocab" data-word="Doctor of Philosophy">Doctor of Philosophy</mark>, <mark class="vocab" data-word="postgraduate">sinh viên sau đại học</mark>, <mark class="vocab" data-word="sponsor">nhà tài trợ</mark>, <mark class="vocab" data-word="trainee">thực tập sinh</mark>, <mark class="vocab" data-word="to tutor">dạy kèm</mark>, <mark class="vocab" data-word="thesis">luận văn</mark>, <mark class="vocab" data-word="scholarship">học bổng</mark>, <mark class="vocab" data-word="seminar">hội thảo</mark>, <mark class="vocab" data-word="curriculum">chương trình giảng dạy</mark>, <mark class="vocab" data-word="optional">tùy chọn</mark>, <mark class="vocab" data-word="to grade">chấm điểm</mark>, <mark class="vocab" data-word="coursework">bài tập khóa học</mark>, <mark class="vocab" data-word="textbook">sách giáo khoa</mark>, <mark class="vocab" data-word="workbook">sách bài tập</mark>, <mark class="vocab" data-word="multiple-choice">trắc nghiệm</mark>, <mark class="vocab" data-word="tutorial">hướng dẫn</mark>, <mark class="vocab" data-word="dormitory">ký túc xá</mark>, <mark class="vocab" data-word="buttery">quán cà phê</mark>, <mark class="vocab" data-word="analytical">phân tích</mark>, <mark class="vocab" data-word="descriptive">mô tả</mark>, <mark class="vocab" data-word="to cite">trích dẫn</mark>, <mark class="vocab" data-word="to classify">phân loại</mark>, và <mark class="vocab" data-word="to compile">biên soạn</mark>. Sau đó còn bàn về <mark class="vocab" data-word="to conduct">chỉ đạo</mark>, <mark class="vocab" data-word="to demonstrate">chứng minh</mark>, <mark class="vocab" data-word="to derive">suy ra</mark>, <mark class="vocab" data-word="to detect">phát hiện</mark>, <mark class="vocab" data-word="to document">tài liệu hóa</mark>, <mark class="vocab" data-word="to estimate">ước tính</mark>, <mark class="vocab" data-word="to evaluate">đánh giá</mark>, <mark class="vocab" data-word="to imply">ám chỉ</mark>, <mark class="vocab" data-word="to interpret">giải thích</mark>, <mark class="vocab" data-word="to observe">quan sát</mark>, <mark class="vocab" data-word="to outline">phác thảo</mark>, <mark class="vocab" data-word="to survey">khảo sát</mark>, <mark class="vocab" data-word="case study">nghiên cứu tình huống</mark>, <mark class="vocab" data-word="chart">biểu đồ</mark>, <mark class="vocab" data-word="diagram">biểu đồ</mark>, <mark class="vocab" data-word="document">tài liệu</mark>, <mark class="vocab" data-word="evaluation">đánh giá</mark>, <mark class="vocab" data-word="hypothesis">giả thuyết</mark>, <mark class="vocab" data-word="experiment">thí nghiệm</mark>, <mark class="vocab" data-word="sample">mẫu</mark>, <mark class="vocab" data-word="variable">biến số</mark>, <mark class="vocab" data-word="instrument">dụng cụ</mark>, <mark class="vocab" data-word="questionnaire">bảng câu hỏi</mark>, và <mark class="vocab" data-word="reference">tham khảo</mark> khi chủ đề xuất hiện trong hội thoại.</span>
+            </p>
+          </div>
+        </div>
+        <div class="ex-ielts-part" data-part="3">
+          <h2 class="ex-ielts-part-title">Part 3 · Two-way discussion</h2>
+          <p class="ex-ielts-part-hint">Thảo luận sâu hơn — so sánh quá khứ/hiện tại, giải thích quan điểm (Lesson 15).</p>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> How has school &amp; education changed in recent years?</p>
+            <p class="ex-q-vi">School &amp; Education đã thay đổi thế nào trong những năm gần đây?</p>
+            <p class="ex-sent" data-sent="4">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">I think it has changed quite a bit in recent years. Nowadays people talk more about <mark class="vocab" data-word="trial">trial</mark><span class="ipa" aria-hidden="true">/ˈtɹaɪəɫ/, /ˈtɹaɪɫ/</span>, <mark class="vocab" data-word="trial and error">trial and error</mark><span class="ipa" aria-hidden="true">/tɹˈaɪəl ænd ˈɛɹɚ/</span>, <mark class="vocab" data-word="finding">finding</mark><span class="ipa" aria-hidden="true">/ˈfaɪndɪŋ/</span>, <mark class="vocab" data-word="law">law</mark><span class="ipa" aria-hidden="true">/lɑ/</span>, <mark class="vocab" data-word="model">model</mark><span class="ipa" aria-hidden="true">/ˈmɑdəl/</span>, <mark class="vocab" data-word="principle">principle</mark><span class="ipa" aria-hidden="true">/ˈpɹɪnsəpəɫ/</span>, <mark class="vocab" data-word="procedure">procedure</mark><span class="ipa" aria-hidden="true">/pɹəˈsidʒɝ/, /pɹoʊˈsidʒɝ/</span>, <mark class="vocab" data-word="proof">proof</mark><span class="ipa" aria-hidden="true">/ˈpɹuf/</span>, <mark class="vocab" data-word="biochemistry">biochemistry</mark><span class="ipa" aria-hidden="true">/ˌbaɪoʊˈkɛməstɹi/</span>, <mark class="vocab" data-word="biological">biological</mark><span class="ipa" aria-hidden="true">/ˌbaɪəˈɫɑdʒɪkəɫ/</span>, <mark class="vocab" data-word="artificial">artificial</mark><span class="ipa" aria-hidden="true">/ˌɑɹtəˈfɪʃəɫ/</span>, <mark class="vocab" data-word="bacteria">bacteria</mark><span class="ipa" aria-hidden="true">/bækˈtɪɹiə/</span>, <mark class="vocab" data-word="being">being</mark><span class="ipa" aria-hidden="true">/ˈbiɪŋ/</span>, <mark class="vocab" data-word="cycle">cycle</mark><span class="ipa" aria-hidden="true">/ˈsaɪkəɫ/</span>, <mark class="vocab" data-word="DNA">DNA</mark><span class="ipa" aria-hidden="true">/dˌiːˌɛnˈeɪ/</span>, <mark class="vocab" data-word="genetics">genetics</mark><span class="ipa" aria-hidden="true">/dʒəˈnɛtɪks/</span>, <mark class="vocab" data-word="to evolve">evolve</mark><span class="ipa" aria-hidden="true">/iˈvɑɫv/, /ɪˈvɑɫv/</span>, <mark class="vocab" data-word="compound">compound</mark><span class="ipa" aria-hidden="true">/ˈkɑmpaʊnd/, /kəmˈpaʊnd/</span>, <mark class="vocab" data-word="element">element</mark><span class="ipa" aria-hidden="true">/ˈɛɫəmənt/</span>, <mark class="vocab" data-word="matter">matter</mark><span class="ipa" aria-hidden="true">/ˈmætɚ/</span>, <mark class="vocab" data-word="mineral">mineral</mark><span class="ipa" aria-hidden="true">/ˈmɪnɝəɫ/, /ˈmɪnɹəɫ/</span>, <mark class="vocab" data-word="molecule">molecule</mark><span class="ipa" aria-hidden="true">/ˈmɑɫəkˌjuɫ/</span>, <mark class="vocab" data-word="solution">solution</mark><span class="ipa" aria-hidden="true">/səˈluʃən/</span>, <mark class="vocab" data-word="boiling point">boiling point</mark><span class="ipa" aria-hidden="true">/bˈɔɪlɪŋ pˈɔɪnt/</span>, <mark class="vocab" data-word="freezing point">freezing point</mark><span class="ipa" aria-hidden="true">/fɹˈiːzɪŋ pˈɔɪnt/</span>, <mark class="vocab" data-word="radiation">radiation</mark><span class="ipa" aria-hidden="true">/ˌɹeɪdiˈeɪʃən/</span>, <mark class="vocab" data-word="to advance">advance</mark><span class="ipa" aria-hidden="true">/ədˈvæns/</span>, <mark class="vocab" data-word="to absorb">absorb</mark><span class="ipa" aria-hidden="true">/əbˈzɔɹb/</span>, <mark class="vocab" data-word="to activate">activate</mark><span class="ipa" aria-hidden="true">/ˈæktəˌveɪt/</span>, <mark class="vocab" data-word="to generate">generate</mark><span class="ipa" aria-hidden="true">/ˈdʒɛnɝˌeɪt/</span>, <mark class="vocab" data-word="industry">industry</mark><span class="ipa" aria-hidden="true">/ˈɪndəstɹi/</span>, <mark class="vocab" data-word="civil engineering">civil engineering</mark><span class="ipa" aria-hidden="true">/sˈɪvəl ˌɛndʒɪnˈɪɹɪŋ/</span>, <mark class="vocab" data-word="sensor">sensor</mark><span class="ipa" aria-hidden="true">/ˈsɛnsɝ/</span>, <mark class="vocab" data-word="circuit">circuit</mark><span class="ipa" aria-hidden="true">/ˈsɝkət/</span>, <mark class="vocab" data-word="field">field</mark><span class="ipa" aria-hidden="true">/fild/</span>, <mark class="vocab" data-word="wire">wire</mark><span class="ipa" aria-hidden="true">/ˈwaɪr/</span>, <mark class="vocab" data-word="live wire">live wire</mark><span class="ipa" aria-hidden="true">/lˈaɪv wˈaɪɚ/</span>, <mark class="vocab" data-word="motion">motion</mark><span class="ipa" aria-hidden="true">/ˈmoʊʃən/</span>, <mark class="vocab" data-word="to monitor">monitor</mark><span class="ipa" aria-hidden="true">/ˈmɑnɪtər/</span>, <mark class="vocab" data-word="motor">motor</mark><span class="ipa" aria-hidden="true">/ˈmoʊtɝ/</span>, <mark class="vocab" data-word="rate">rate</mark><span class="ipa" aria-hidden="true">/ˈɹeɪt/</span>, <mark class="vocab" data-word="weathering">weathering</mark><span class="ipa" aria-hidden="true">/ˈwɛðɝɪŋ/</span>, and <mark class="vocab" data-word="impervious">impervious</mark><span class="ipa" aria-hidden="true">/ˌɪmˈpɝviəs/</span> when they discuss school & education.</span>
+              <span class="ex-vi">Mình nghĩ đã thay đổi khá nhiều trong vài năm gần đây. Ngày nay mọi người nói nhiều hơn về <mark class="vocab" data-word="trial">thử nghiệm</mark>, thử nghiệm and error, <mark class="vocab" data-word="finding">phát hiện</mark>, <mark class="vocab" data-word="law">luật</mark>, <mark class="vocab" data-word="model">mô hình</mark>, <mark class="vocab" data-word="principle">nguyên tắc</mark>, <mark class="vocab" data-word="procedure">quy trình</mark>, <mark class="vocab" data-word="proof">bằng chứng</mark>, <mark class="vocab" data-word="biochemistry">hóa sinh</mark>, <mark class="vocab" data-word="biological">sinh học</mark>, <mark class="vocab" data-word="artificial">nhân tạo</mark>, <mark class="vocab" data-word="bacteria">vi khuẩn</mark>, <mark class="vocab" data-word="being">sinh vật</mark>, <mark class="vocab" data-word="cycle">chu kỳ</mark>, <mark class="vocab" data-word="DNA">DNA</mark>, <mark class="vocab" data-word="genetics">di truyền học</mark>, <mark class="vocab" data-word="to evolve">tiến hóa</mark>, <mark class="vocab" data-word="compound">hợp chất</mark>, <mark class="vocab" data-word="element">nguyên tố</mark>, <mark class="vocab" data-word="matter">vật chất</mark>, <mark class="vocab" data-word="mineral">khoáng chất</mark>, <mark class="vocab" data-word="molecule">phân tử</mark>, <mark class="vocab" data-word="solution">dung dịch</mark>, <mark class="vocab" data-word="boiling point">điểm sôi</mark>, <mark class="vocab" data-word="freezing point">điểm đóng băng</mark>, <mark class="vocab" data-word="radiation">bức xạ</mark>, <mark class="vocab" data-word="to advance">tiến bộ</mark>, <mark class="vocab" data-word="to absorb">hấp thụ</mark>, <mark class="vocab" data-word="to activate">kích hoạt</mark>, <mark class="vocab" data-word="to generate">sản xuất</mark>, <mark class="vocab" data-word="industry">ngành công nghiệp</mark>, <mark class="vocab" data-word="civil engineering">kỹ thuật xây dựng dân dụng</mark>, <mark class="vocab" data-word="sensor">cảm biến</mark>, <mark class="vocab" data-word="circuit">mạch</mark>, <mark class="vocab" data-word="field">trường</mark>, <mark class="vocab" data-word="wire">dây</mark>, <mark class="vocab" data-word="live wire">dây điện có điện</mark>, <mark class="vocab" data-word="motion">chuyển động</mark>, <mark class="vocab" data-word="to monitor">giám sát</mark>, <mark class="vocab" data-word="motor">động cơ</mark>, <mark class="vocab" data-word="rate">tỷ lệ</mark>, <mark class="vocab" data-word="weathering">phong hóa</mark>, và <mark class="vocab" data-word="impervious">không thấm</mark> khi bàn về school & education.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="58">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">If you want natural English, practice <mark class="vocab" data-word="preposition">preposition</mark><span class="ipa" aria-hidden="true">/pɹˌɛpəzˈɪʃən/</span>, then reuse <mark class="vocab" data-word="proper noun">proper noun</mark><span class="ipa" aria-hidden="true">/pɹˈɑːpɚ nˈaʊn/</span>, and finally remember <mark class="vocab" data-word="pronoun">pronoun</mark><span class="ipa" aria-hidden="true">/ˈpɹoʊnaʊn/</span>.</span>
+              <span class="ex-vi">Nếu muốn tiếng Anh tự nhiên, hãy luyện <mark class="vocab" data-word="preposition">giới từ</mark>, rồi dùng lại <mark class="vocab" data-word="proper noun">danh từ riêng</mark>, và cuối cùng nhớ <mark class="vocab" data-word="pronoun">đại từ</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="67">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">In conversation, people mention <mark class="vocab" data-word="prefix">prefix</mark><span class="ipa" aria-hidden="true">/ˈpɹifɪks/</span>; they also talk about <mark class="vocab" data-word="suffix">suffix</mark><span class="ipa" aria-hidden="true">/ˈsəfɪks/</span> and <mark class="vocab" data-word="active">active</mark><span class="ipa" aria-hidden="true">/ˈæktɪv/</span>.</span>
+              <span class="ex-vi">Trong hội thoại, mọi người nhắc tới <mark class="vocab" data-word="prefix">tiền tố</mark>; họ cũng nói về <mark class="vocab" data-word="suffix">hậu tố</mark> và <mark class="vocab" data-word="active">chủ động</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="76">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">On a typical day around School & Education, you notice <mark class="vocab" data-word="passive">passive</mark><span class="ipa" aria-hidden="true">/ˈpæsɪv/</span>, then <mark class="vocab" data-word="comparative">comparative</mark><span class="ipa" aria-hidden="true">/kəmˈpɛɹətɪv/</span>, and later <mark class="vocab" data-word="superlative">superlative</mark><span class="ipa" aria-hidden="true">/sʊˈpɝɫətɪv/</span>.</span>
+              <span class="ex-vi">Trong một ngày bình thường về School & Education, bạn để ý <mark class="vocab" data-word="passive">bị động</mark>, rồi <mark class="vocab" data-word="comparative">so sánh</mark>, và sau đó <mark class="vocab" data-word="superlative">so sánh nhất</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="85">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">At home and outside, <mark class="vocab" data-word="plural">plural</mark><span class="ipa" aria-hidden="true">/ˈpɫʊɹəɫ/</span> appears first, followed by <mark class="vocab" data-word="singular">singular</mark><span class="ipa" aria-hidden="true">/ˈsɪŋɡjəɫɝ/</span>, with <mark class="vocab" data-word="grammatical">grammatical</mark><span class="ipa" aria-hidden="true">/ɡɹəˈmætəkəɫ/, /ɡɹəˈmætɪkəɫ/</span> at the end of the story.</span>
+              <span class="ex-vi">Ở nhà và ngoài đường, <mark class="vocab" data-word="plural">số nhiều</mark> xuất hiện trước, tiếp theo là <mark class="vocab" data-word="singular">số ít</mark>, và <mark class="vocab" data-word="grammatical">ngữ pháp</mark> ở cuối câu chuyện.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="94">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">Someone is learning B2 words like <mark class="vocab" data-word="irregular">irregular</mark><span class="ipa" aria-hidden="true">/ɪˈrɛɡjʊlər/</span>, <mark class="vocab" data-word="modal">modal</mark><span class="ipa" aria-hidden="true">/ˈmoʊdəɫ/</span>, and <mark class="vocab" data-word="conditional">conditional</mark><span class="ipa" aria-hidden="true">/kənˈdɪʃənəɫ/</span> through real situations.</span>
+              <span class="ex-vi">Ai đó đang học từ B2 như <mark class="vocab" data-word="irregular">bất quy tắc</mark>, <mark class="vocab" data-word="modal">động từ khuyết thiếu</mark>, và <mark class="vocab" data-word="conditional">có điều kiện</mark> qua tình huống thật.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="103">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">If you want natural English, practice <mark class="vocab" data-word="perfect">perfect</mark><span class="ipa" aria-hidden="true">/ˈpɝfɪkt/</span>, then reuse <mark class="vocab" data-word="past participle">past participle</mark><span class="ipa" aria-hidden="true">/pˈæst pɑːɹtˈɪsɪpəl/</span>, and finally remember <mark class="vocab" data-word="continuous">continuous</mark><span class="ipa" aria-hidden="true">/kənˈtɪnjuəs/</span>.</span>
+              <span class="ex-vi">Nếu muốn tiếng Anh tự nhiên, hãy luyện <mark class="vocab" data-word="perfect">hoàn thành</mark>, rồi dùng lại <mark class="vocab" data-word="past participle">quá khứ phân từ</mark>, và cuối cùng nhớ <mark class="vocab" data-word="continuous">liên tục</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="112">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">In conversation, people mention <mark class="vocab" data-word="progressive">progressive</mark><span class="ipa" aria-hidden="true">/pɹəˈɡɹɛsɪv/</span>; they also talk about <mark class="vocab" data-word="collocation">collocation</mark><span class="ipa" aria-hidden="true">/kɑɫəˈkeɪʃən/</span> and <mark class="vocab" data-word="possessive">possessive</mark><span class="ipa" aria-hidden="true">/pəˈzɛsɪv/</span>.</span>
+              <span class="ex-vi">Trong hội thoại, mọi người nhắc tới <mark class="vocab" data-word="progressive">tiếp diễn</mark>; họ cũng nói về <mark class="vocab" data-word="collocation">kết hợp từ</mark> và <mark class="vocab" data-word="possessive">sở hữu</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="121">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">On a typical day around School & Education, you notice <mark class="vocab" data-word="pronunciation">pronunciation</mark><span class="ipa" aria-hidden="true">/pɹəˌnənsiˈeɪʃən/, /pɹoʊˌnənsiˈeɪʃən/</span>, then <mark class="vocab" data-word="consonant">consonant</mark><span class="ipa" aria-hidden="true">/ˈkɑnsənənt/</span>, and later <mark class="vocab" data-word="vowel">vowel</mark><span class="ipa" aria-hidden="true">/ˈvaʊəɫ/</span>.</span>
+              <span class="ex-vi">Trong một ngày bình thường về School & Education, bạn để ý <mark class="vocab" data-word="pronunciation">phát âm</mark>, rồi <mark class="vocab" data-word="consonant">phụ âm</mark>, và sau đó <mark class="vocab" data-word="vowel">nguyên âm</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="130">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">At home and outside, <mark class="vocab" data-word="stress">stress</mark><span class="ipa" aria-hidden="true">/ˈstɹɛs/</span> appears first, followed by <mark class="vocab" data-word="tag question">tag question</mark><span class="ipa" aria-hidden="true">/tˈæɡ kwˈɛstʃən/</span>, with <mark class="vocab" data-word="punctuation">punctuation</mark><span class="ipa" aria-hidden="true">/ˌpəŋktʃuˈeɪʃən/</span> at the end of the story.</span>
+              <span class="ex-vi">Ở nhà và ngoài đường, <mark class="vocab" data-word="stress">trọng âm</mark> xuất hiện trước, tiếp theo là <mark class="vocab" data-word="tag question">câu hỏi đuôi</mark>, và <mark class="vocab" data-word="punctuation">dấu câu</mark> ở cuối câu chuyện.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="139">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">Someone is learning B2 words like <mark class="vocab" data-word="exclamation point">exclamation point</mark><span class="ipa" aria-hidden="true">/ɛksklɐmˈeɪʃən pˈɔɪnt/</span>, <mark class="vocab" data-word="question mark">question mark</mark><span class="ipa" aria-hidden="true">/kwˈɛstʃən mˈɑːɹk/</span>, and <mark class="vocab" data-word="comma">comma</mark><span class="ipa" aria-hidden="true">/ˈkɑmə/</span> through real situations.</span>
+              <span class="ex-vi">Ai đó đang học từ B2 như <mark class="vocab" data-word="exclamation point">dấu chấm than</mark>, <mark class="vocab" data-word="question mark">dấu hỏi</mark>, và <mark class="vocab" data-word="comma">dấu phẩy</mark> qua tình huống thật.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="148">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">If you want natural English, practice <mark class="vocab" data-word="to spell">spell</mark><span class="ipa" aria-hidden="true">/spɛl/</span>, then reuse <mark class="vocab" data-word="junior high school">junior high school</mark><span class="ipa" aria-hidden="true">/dʒˈuːnjɚ hˈaɪ skˈuːl/</span>, and finally remember <mark class="vocab" data-word="senior high school">senior high school</mark><span class="ipa" aria-hidden="true">/sˈiːnjɚ hˈaɪ skˈuːl/</span>.</span>
+              <span class="ex-vi">Nếu muốn tiếng Anh tự nhiên, hãy luyện <mark class="vocab" data-word="to spell">đánh vần</mark>, rồi dùng lại <mark class="vocab" data-word="junior high school">trường trung học cơ sở</mark>, và cuối cùng nhớ <mark class="vocab" data-word="senior high school">trường trung học phổ thông</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="157">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">In conversation, people mention <mark class="vocab" data-word="summer school">summer school</mark><span class="ipa" aria-hidden="true">/sˈʌmɚ skˈuːl/</span>; they also talk about <mark class="vocab" data-word="prom">prom</mark><span class="ipa" aria-hidden="true">/ˈpɹɑm/</span> and <mark class="vocab" data-word="to enroll">enroll</mark><span class="ipa" aria-hidden="true">/ɛnˈɹoʊɫ/, /ɪnˈɹoʊɫ/</span>.</span>
+              <span class="ex-vi">Trong hội thoại, mọi người nhắc tới <mark class="vocab" data-word="summer school">trường hè</mark>; họ cũng nói về <mark class="vocab" data-word="prom">vũ hội tốt nghiệp</mark> và <mark class="vocab" data-word="to enroll">đăng ký</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="166">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">On a typical day around School & Education, you notice <mark class="vocab" data-word="to register">register</mark><span class="ipa" aria-hidden="true">/ˈrɛʤɪstɚ/</span>, then <mark class="vocab" data-word="locker">locker</mark><span class="ipa" aria-hidden="true">/ˈɫɑkɝ/</span>, and later <mark class="vocab" data-word="roommate">roommate</mark><span class="ipa" aria-hidden="true">/ˈɹuˌmeɪt/</span>.</span>
+              <span class="ex-vi">Trong một ngày bình thường về School & Education, bạn để ý <mark class="vocab" data-word="to register">đăng ký</mark>, rồi <mark class="vocab" data-word="locker">tủ đồ</mark>, và sau đó <mark class="vocab" data-word="roommate">bạn cùng phòng</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="175">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">At home and outside, <mark class="vocab" data-word="discipline">discipline</mark><span class="ipa" aria-hidden="true">/ˈdɪsəpɫən/</span> appears first, followed by <mark class="vocab" data-word="major">major</mark><span class="ipa" aria-hidden="true">/ˈmeɪdʒɚ/</span>, with <mark class="vocab" data-word="certificate">certificate</mark><span class="ipa" aria-hidden="true">/sɝˈtɪfɪkət/</span> at the end of the story.</span>
+              <span class="ex-vi">Ở nhà và ngoài đường, <mark class="vocab" data-word="discipline">kỷ luật</mark> xuất hiện trước, tiếp theo là <mark class="vocab" data-word="major">sinh viên chuyên ngành</mark>, và <mark class="vocab" data-word="certificate">chứng chỉ</mark> ở cuối câu chuyện.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="184">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">In daily life you meet <mark class="vocab" data-word="master">master</mark><span class="ipa" aria-hidden="true">/ˈmæstər/</span> and <mark class="vocab" data-word="to master">master</mark><span class="ipa" aria-hidden="true">/ˈmæstər/</span> when the topic is School & Education.</span>
+              <span class="ex-vi">Trong đời sống hằng ngày bạn gặp <mark class="vocab" data-word="master">thạc sĩ</mark> và <mark class="vocab" data-word="to master">thành thạo</mark> khi nói về School & Education.</span>
+            </p>
+          </div>
+        </div>
       </section>
       <!-- Continuous paragraph (no IPA) is filled by public/js/exercise.js for NaturalReader paste -->
 
@@ -453,6 +500,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js?v=flash4"></script>
+  <script src="../../../../js/exercise.js?v=ielts1"></script>
 </body>
 </html>

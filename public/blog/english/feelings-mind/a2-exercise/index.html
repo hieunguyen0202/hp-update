@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css?v=flash4">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=ielts1">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -22,7 +22,7 @@
       <a href="../../../../blog/web-security/">DevSecOps</a>
       <a href="../../../../blog/kubestronaut/">Kubestronaut</a>
       <a class="active" href="../../">English</a>
-      <a href="../../../tech-hub/">Tech Hub</a>
+      <a href="../../../../blog/tech-hub/">Tech Hub</a>
     </nav>
     <span class="docs-topbar-spacer"></span>
     <a class="docs-top-link" href="../../../../#blogs">blogs</a>
@@ -53,7 +53,7 @@
         <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72' fill='none'%3E%3Crect width='72' height='72' rx='14' fill='%230b1220'/%3E%3Crect x='16' y='14' width='40' height='46' rx='6' stroke='%2322d3ee' stroke-width='2.5'/%3E%3Cpath d='M24 28h24M24 36h24M24 44h16' stroke='%23e4e4e7' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M48 48l6 2-2 6-8-8 4 0z' fill='%2322d3ee'/%3E%3C/svg%3E" alt="" width="112" height="112">
         <div>
           <h1>A2 Exercise · Feelings &amp; Mind</h1>
-          <p class="lede">Reading passage with every new word from this level’s LanGeek lessons — IPA, highlights, sentence translation, and free TTS.</p>
+          <p class="lede">IELTS Speaking practice — Part 1 / 2 / 3 Q&amp;A with vocabulary from this level’s LanGeek lessons. Answer structures follow Yes/No + reasons, cue-card long turn, and discussion (see IELTS Speaking notes). IPA, highlights, VI toggle, and TTS included.</p>
           <div class="docs-meta">
             <span><strong>Words:</strong> 63</span>
             <span><strong>Lessons:</strong> Emotions · The Mind</span>
@@ -73,75 +73,103 @@
           <input id="rateRange" type="range" min="0.7" max="1.15" step="0.05" value="0.95">
           <span id="rateVal">0.95</span>
         </label>
-        <button type="button" class="ex-btn primary" id="btnPlay">▶ Read passage</button>
+        <button type="button" class="ex-btn primary" id="btnPlay">▶ Read answers</button>
         <button type="button" class="ex-btn" id="btnStop">Stop</button>
       </div>
       
-      <section class="ex-passage" id="passage" data-tts-root>
-          <p class="ex-sent" data-sent="1">
-            <span class="ex-en">Around Feelings & Mind, learners first study <mark class="vocab" data-word="emotion">emotion</mark><span class="ipa" aria-hidden="true">/ɪˈmoʊʃən/</span> and <mark class="vocab" data-word="fear">fear</mark><span class="ipa" aria-hidden="true">/fɪr/</span>, then connect them with <mark class="vocab" data-word="anger">anger</mark><span class="ipa" aria-hidden="true">/ˈæŋɡɚ/</span> and <mark class="vocab" data-word="sadness">sadness</mark><span class="ipa" aria-hidden="true">/ˈsædnəs/</span>.</span>
-            <span class="ex-vi">Với chủ đề Feelings & Mind, người học bắt đầu với <mark class="vocab" data-word="emotion">cảm xúc</mark> và <mark class="vocab" data-word="fear">nỗi sợ</mark>, rồi nối với <mark class="vocab" data-word="anger">sự tức giận</mark> và <mark class="vocab" data-word="sadness">nỗi buồn</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="2">
-            <span class="ex-en">Around Feelings & Mind, learners first study <mark class="vocab" data-word="happiness">happiness</mark><span class="ipa" aria-hidden="true">/ˈhæpiˌnəs/</span> and <mark class="vocab" data-word="joy">joy</mark><span class="ipa" aria-hidden="true">/ʤɔɪ/</span>, then connect them with <mark class="vocab" data-word="disgust">disgust</mark><span class="ipa" aria-hidden="true">/dɪsˈɡʌst/</span> and <mark class="vocab" data-word="surprise">surprise</mark><span class="ipa" aria-hidden="true">/sɚˈpraɪz/</span>.</span>
-            <span class="ex-vi">Với chủ đề Feelings & Mind, người học bắt đầu với <mark class="vocab" data-word="happiness">hạnh phúc</mark> và <mark class="vocab" data-word="joy">niềm vui</mark>, rồi nối với <mark class="vocab" data-word="disgust">sự ghê tởm</mark> và <mark class="vocab" data-word="surprise">ngạc nhiên</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="3">
-            <span class="ex-en">Around Feelings & Mind, learners first study <mark class="vocab" data-word="trust">trust</mark><span class="ipa" aria-hidden="true">/trʌst/</span> and <mark class="vocab" data-word="shame">shame</mark><span class="ipa" aria-hidden="true">/ʃeɪm/</span>, then connect them with <mark class="vocab" data-word="hatred">hatred</mark><span class="ipa" aria-hidden="true">/ˈheɪtrɪd/</span> and <mark class="vocab" data-word="love">love</mark><span class="ipa" aria-hidden="true">/lʌv/</span>.</span>
-            <span class="ex-vi">Với chủ đề Feelings & Mind, người học bắt đầu với <mark class="vocab" data-word="trust">niềm tin</mark> và <mark class="vocab" data-word="shame">xấu hổ</mark>, rồi nối với <mark class="vocab" data-word="hatred">sự căm thù</mark> và <mark class="vocab" data-word="love">tình yêu</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="4">
-            <span class="ex-en">Around Feelings & Mind, learners first study <mark class="vocab" data-word="kindness">kindness</mark><span class="ipa" aria-hidden="true">/ˈkaɪndnəs/</span> and <mark class="vocab" data-word="sympathy">sympathy</mark><span class="ipa" aria-hidden="true">/ˈsɪmpəˌθi/</span>, then connect them with <mark class="vocab" data-word="amusement">amusement</mark><span class="ipa" aria-hidden="true">/əˈmjuzmənt/</span> and <mark class="vocab" data-word="confusion">confusion</mark><span class="ipa" aria-hidden="true">/kənˈfjuʒən/</span>.</span>
-            <span class="ex-vi">Với chủ đề Feelings & Mind, người học bắt đầu với <mark class="vocab" data-word="kindness">lòng tốt</mark> và <mark class="vocab" data-word="sympathy">sự thông cảm</mark>, rồi nối với <mark class="vocab" data-word="amusement">sự giải trí</mark> và <mark class="vocab" data-word="confusion">sự bối rối</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="5">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to laugh">to laugh</mark><span class="ipa" aria-hidden="true">/læf/</span>, <mark class="vocab" data-word="to cry">to cry</mark><span class="ipa" aria-hidden="true">/kraɪ/</span>, and also <mark class="vocab" data-word="to smile">to smile</mark><span class="ipa" aria-hidden="true">/smaɪl/</span>, before they <mark class="vocab" data-word="to frown">frown</mark><span class="ipa" aria-hidden="true">/fraʊn/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to laugh">cười</mark>, <mark class="vocab" data-word="to cry">khóc</mark>, và cả <mark class="vocab" data-word="to smile">cười</mark>, trước khi <mark class="vocab" data-word="to frown">nhíu mày</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="6">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to miss">to miss</mark><span class="ipa" aria-hidden="true">/mɪs/</span>, <mark class="vocab" data-word="to worry">to worry</mark><span class="ipa" aria-hidden="true">/ˈwɝi/</span>, and also <mark class="vocab" data-word="to surprise">to surprise</mark><span class="ipa" aria-hidden="true">/sɚˈpraɪz/</span>, before they <mark class="vocab" data-word="surprised">surprised</mark><span class="ipa" aria-hidden="true">/sərˈpraɪzd/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to miss">nhớ</mark>, <mark class="vocab" data-word="to worry">lo lắng</mark>, và cả <mark class="vocab" data-word="to surprise">làm ngạc nhiên</mark>, trước khi <mark class="vocab" data-word="surprised">ngạc nhiên</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="7">
-            <span class="ex-en">Around Feelings & <mark class="vocab" data-word="mind">Mind</mark><span class="ipa" aria-hidden="true">/maɪnd/</span>, learners first study <mark class="vocab" data-word="to annoy">annoy</mark><span class="ipa" aria-hidden="true">/əˈnɔɪ/</span> and <mark class="vocab" data-word="scared">scared</mark><span class="ipa" aria-hidden="true">/skɛrd/</span>, then connect them with mind and <mark class="vocab" data-word="mental">mental</mark><span class="ipa" aria-hidden="true">/ˈmɛntəl/</span>.</span>
-            <span class="ex-vi">Với chủ đề Feelings & <mark class="vocab" data-word="mind">tâm trí</mark>, người học bắt đầu với <mark class="vocab" data-word="to annoy">làm phiền</mark> và <mark class="vocab" data-word="scared">sợ hãi</mark>, rồi nối với tâm trí và <mark class="vocab" data-word="mental">tâm thần</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="8">
-            <span class="ex-en">Around Feelings & Mind, learners first study <mark class="vocab" data-word="talent">talent</mark><span class="ipa" aria-hidden="true">/ˈtælənt/</span> and <mark class="vocab" data-word="skill">skill</mark><span class="ipa" aria-hidden="true">/skɪl/</span>, then connect them with <mark class="vocab" data-word="knowledge">knowledge</mark><span class="ipa" aria-hidden="true">/ˈnɑlɪʤ/</span> and <mark class="vocab" data-word="guess">guess</mark><span class="ipa" aria-hidden="true">/ɡɛs/</span>.</span>
-            <span class="ex-vi">Với chủ đề Feelings & Mind, người học bắt đầu với <mark class="vocab" data-word="talent">tài năng</mark> và <mark class="vocab" data-word="skill">kỹ năng</mark>, rồi nối với <mark class="vocab" data-word="knowledge">kiến thức</mark> và <mark class="vocab" data-word="guess">phỏng đoán</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="9">
-            <span class="ex-en">Around Feelings & Mind, learners first study <mark class="vocab" data-word="to guess">guess</mark><span class="ipa" aria-hidden="true">/ɡɛs/</span> and <mark class="vocab" data-word="to believe">believe</mark><span class="ipa" aria-hidden="true">/bəˈliv/</span>, then connect them with <mark class="vocab" data-word="belief">belief</mark><span class="ipa" aria-hidden="true">/bəˈlif/</span> and <mark class="vocab" data-word="memory">memory</mark><span class="ipa" aria-hidden="true">/ˈmɛməri/</span>.</span>
-            <span class="ex-vi">Với chủ đề Feelings & Mind, người học bắt đầu với <mark class="vocab" data-word="to guess">đoán</mark> và <mark class="vocab" data-word="to believe">tin</mark>, rồi nối với <mark class="vocab" data-word="belief">niềm tin</mark> và <mark class="vocab" data-word="memory">trí nhớ</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="10">
-            <span class="ex-en">Around Feelings & Mind, learners first study <mark class="vocab" data-word="to remember">remember</mark><span class="ipa" aria-hidden="true">/rɪˈmɛmbɚ/</span> and <mark class="vocab" data-word="to forget">forget</mark><span class="ipa" aria-hidden="true">/fɚˈɡɛt/</span>, then connect them with <mark class="vocab" data-word="idea">idea</mark><span class="ipa" aria-hidden="true">/aɪˈdiːə/</span> and <mark class="vocab" data-word="favorite">favorite</mark><span class="ipa" aria-hidden="true">/ˈfeɪvɚɪt/</span>.</span>
-            <span class="ex-vi">Với chủ đề Feelings & Mind, người học bắt đầu với <mark class="vocab" data-word="to remember">nhớ</mark> và <mark class="vocab" data-word="to forget">quên</mark>, rồi nối với <mark class="vocab" data-word="idea">ý tưởng</mark> và <mark class="vocab" data-word="favorite">yêu thích</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="11">
-            <span class="ex-en">Around Feelings & Mind, learners first study <mark class="vocab" data-word="suggestion">suggestion</mark><span class="ipa" aria-hidden="true">/səˈʤɛstʃən/</span> and <mark class="vocab" data-word="to suggest">suggest</mark><span class="ipa" aria-hidden="true">/səˈʤɛst/</span>, then connect them with <mark class="vocab" data-word="goal">goal</mark><span class="ipa" aria-hidden="true">/ɡoʊl/</span> and <mark class="vocab" data-word="plan">plan</mark><span class="ipa" aria-hidden="true">/plæn/</span>.</span>
-            <span class="ex-vi">Với chủ đề Feelings & Mind, người học bắt đầu với <mark class="vocab" data-word="suggestion">đề xuất</mark> và <mark class="vocab" data-word="to suggest">đề nghị</mark>, rồi nối với <mark class="vocab" data-word="goal">mục tiêu</mark> và <mark class="vocab" data-word="plan">kế hoạch</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="12">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to hope">to hope</mark><span class="ipa" aria-hidden="true">/hoʊp/</span>, to <mark class="vocab" data-word="hope">hope</mark><span class="ipa" aria-hidden="true">/hoʊp/</span>, and also <mark class="vocab" data-word="to imagine">to imagine</mark><span class="ipa" aria-hidden="true">/ɪˈmæʤən/</span>, before they <mark class="vocab" data-word="to dream">dream</mark><span class="ipa" aria-hidden="true">/driːm/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to hope">hy vọng</mark>, <mark class="vocab" data-word="hope">hy vọng</mark>, và cả <mark class="vocab" data-word="to imagine">tưởng tượng</mark>, trước khi <mark class="vocab" data-word="to dream">mơ</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="13">
-            <span class="ex-en">Around Feelings & Mind, learners first study <mark class="vocab" data-word="to enjoy">enjoy</mark><span class="ipa" aria-hidden="true">/ɪnˈʤɔɪ/</span> and <mark class="vocab" data-word="worried">worried</mark><span class="ipa" aria-hidden="true">/ˈwɝid/</span>, then connect them with <mark class="vocab" data-word="nervous">nervous</mark><span class="ipa" aria-hidden="true">/ˈnɝvəs/</span> and <mark class="vocab" data-word="calm">calm</mark><span class="ipa" aria-hidden="true">/kɑm/</span>.</span>
-            <span class="ex-vi">Với chủ đề Feelings & Mind, người học bắt đầu với <mark class="vocab" data-word="to enjoy">thưởng thức</mark> và <mark class="vocab" data-word="worried">lo lắng</mark>, rồi nối với <mark class="vocab" data-word="nervous">lo lắng</mark> và <mark class="vocab" data-word="calm">bình tĩnh</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="14">
-            <span class="ex-en">Around Feelings & Mind, learners first study <mark class="vocab" data-word="afraid">afraid</mark><span class="ipa" aria-hidden="true">/əˈfreɪd/</span> and <mark class="vocab" data-word="experience">experience</mark><span class="ipa" aria-hidden="true">/ɪkˈspɪriəns/</span>, then connect them with <mark class="vocab" data-word="matter">matter</mark><span class="ipa" aria-hidden="true">/ˈmætɚ/</span> and <mark class="vocab" data-word="to decide">decide</mark><span class="ipa" aria-hidden="true">/dɪˈsaɪd/</span>.</span>
-            <span class="ex-vi">Với chủ đề Feelings & Mind, người học bắt đầu với <mark class="vocab" data-word="afraid">sợ hãi</mark> và <mark class="vocab" data-word="experience">kinh nghiệm</mark>, rồi nối với <mark class="vocab" data-word="matter">vấn đề</mark> và <mark class="vocab" data-word="to decide">quyết định</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="15">
-            <span class="ex-en">Around Feelings & Mind, learners first study <mark class="vocab" data-word="decision">decision</mark><span class="ipa" aria-hidden="true">/dɪˈsɪʒən/</span> and <mark class="vocab" data-word="power">power</mark><span class="ipa" aria-hidden="true">/ˈpaʊɚ/</span>, then connect them with <mark class="vocab" data-word="clear">clear</mark><span class="ipa" aria-hidden="true">/klɪr/</span> and <mark class="vocab" data-word="choice">choice</mark><span class="ipa" aria-hidden="true">/ʧɔɪs/</span>.</span>
-            <span class="ex-vi">Với chủ đề Feelings & Mind, người học bắt đầu với <mark class="vocab" data-word="decision">quyết định</mark> và <mark class="vocab" data-word="power">quyền lực</mark>, rồi nối với <mark class="vocab" data-word="clear">rõ ràng</mark> và <mark class="vocab" data-word="choice">lựa chọn</mark>.</span>
-          </p>
-          <p class="ex-sent" data-sent="16">
-            <span class="ex-en">They learn <mark class="vocab" data-word="to smell">to smell</mark><span class="ipa" aria-hidden="true">/smɛl/</span>, <mark class="vocab" data-word="to remind">to remind</mark><span class="ipa" aria-hidden="true">/rɪˈmaɪnd/</span>, and also to <mark class="vocab" data-word="danger">danger</mark><span class="ipa" aria-hidden="true">/ˈdeɪnʤɚ/</span>.</span>
-            <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to smell">ngửi</mark>, <mark class="vocab" data-word="to remind">nhắc nhở</mark>, và cả <mark class="vocab" data-word="danger">nguy hiểm</mark>.</span>
-          </p>
+      <section class="ex-passage ex-ielts" id="passage" data-tts-root>
+        <div class="ex-ielts-part" data-part="1">
+          <h2 class="ex-ielts-part-title">Part 1 · Introduction &amp; interview</h2>
+          <p class="ex-ielts-part-hint">Câu hỏi ngắn — trả lời Yes/No + lý do (Lesson 3).</p>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Do you like talking about feelings &amp; mind?</p>
+            <p class="ex-q-vi">Bạn có thích nói về feelings &amp; mind không?</p>
+            <p class="ex-sent" data-sent="1">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">Yes, definitely. I'm quite interested in feelings & mind, especially words like <mark class="vocab" data-word="emotion">emotion</mark><span class="ipa" aria-hidden="true">/ɪˈmoʊʃən/</span>, <mark class="vocab" data-word="fear">fear</mark><span class="ipa" aria-hidden="true">/fɪr/</span>, <mark class="vocab" data-word="anger">anger</mark><span class="ipa" aria-hidden="true">/ˈæŋɡɚ/</span>, and <mark class="vocab" data-word="sadness">sadness</mark><span class="ipa" aria-hidden="true">/ˈsædnəs/</span>. This is because it gives me the chance to practise natural English in real conversations.</span>
+              <span class="ex-vi">Vâng, chắc chắn. Mình khá quan tâm đến feelings & mind, nhất là các từ như <mark class="vocab" data-word="emotion">cảm xúc</mark>, <mark class="vocab" data-word="fear">nỗi sợ</mark>, <mark class="vocab" data-word="anger">sự tức giận</mark>, và <mark class="vocab" data-word="sadness">nỗi buồn</mark>. Vì nó cho mình cơ hội luyện tiếng Anh tự nhiên trong hội thoại thật.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> How often do you use vocabulary about feelings &amp; mind?</p>
+            <p class="ex-q-vi">Bạn có thường dùng từ vựng về feelings &amp; mind không?</p>
+            <p class="ex-sent" data-sent="2">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">Yes, definitely. I'm quite interested in feelings & mind, especially words like <mark class="vocab" data-word="confusion">confusion</mark><span class="ipa" aria-hidden="true">/kənˈfjuʒən/</span>, <mark class="vocab" data-word="to laugh">laugh</mark><span class="ipa" aria-hidden="true">/læf/</span>, <mark class="vocab" data-word="to cry">cry</mark><span class="ipa" aria-hidden="true">/kraɪ/</span>, and <mark class="vocab" data-word="to smile">smile</mark><span class="ipa" aria-hidden="true">/smaɪl/</span>. This is because it gives me the chance to practise natural English in real conversations.</span>
+              <span class="ex-vi">Vâng, chắc chắn. Mình khá quan tâm đến feelings & mind, nhất là các từ như <mark class="vocab" data-word="confusion">sự bối rối</mark>, <mark class="vocab" data-word="to laugh">cười</mark>, <mark class="vocab" data-word="to cry">khóc</mark>, và <mark class="vocab" data-word="to smile">cười</mark>. Vì nó cho mình cơ hội luyện tiếng Anh tự nhiên trong hội thoại thật.</span>
+            </p>
+          </div>
+        </div>
+        <div class="ex-ielts-part" data-part="2">
+          <h2 class="ex-ielts-part-title">Part 2 · Long turn (cue card)</h2>
+          <p class="ex-ielts-part-hint">Mô tả 1–2 phút — mở đầu → thông tin → cốt lõi → cảm nhận → kết (Lesson 16).</p>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Describe something important related to feelings &amp; mind.</p>
+            <p class="ex-q-vi">Hãy mô tả điều gì đó quan trọng liên quan đến feelings &amp; mind.</p>
+            <div class="ex-cue-card">
+              <p class="ex-cue-title">You should say:</p>
+              <ul>
+                <li>what it is</li>
+                <li>when you use it</li>
+                <li>why it is important</li>
+              </ul>
+            </div>
+            <p class="ex-sent" data-sent="3">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">I'm going to talk about feelings & <mark class="vocab" data-word="mind">mind</mark><span class="ipa" aria-hidden="true">/maɪnd/</span>, which matters in daily life. First, people often mention <mark class="vocab" data-word="to surprise">surprise</mark><span class="ipa" aria-hidden="true">/sɚˈpraɪz/</span>, <mark class="vocab" data-word="surprised">surprised</mark><span class="ipa" aria-hidden="true">/sərˈpraɪzd/</span>, <mark class="vocab" data-word="to annoy">annoy</mark><span class="ipa" aria-hidden="true">/əˈnɔɪ/</span>, <mark class="vocab" data-word="scared">scared</mark><span class="ipa" aria-hidden="true">/skɛrd/</span>, mind, <mark class="vocab" data-word="mental">mental</mark><span class="ipa" aria-hidden="true">/ˈmɛntəl/</span>, <mark class="vocab" data-word="talent">talent</mark><span class="ipa" aria-hidden="true">/ˈtælənt/</span>, <mark class="vocab" data-word="skill">skill</mark><span class="ipa" aria-hidden="true">/skɪl/</span>, <mark class="vocab" data-word="knowledge">knowledge</mark><span class="ipa" aria-hidden="true">/ˈnɑlɪʤ/</span>, and <mark class="vocab" data-word="guess">guess</mark><span class="ipa" aria-hidden="true">/ɡɛs/</span>. Then they also discuss <mark class="vocab" data-word="to guess">guess</mark><span class="ipa" aria-hidden="true">/ɡɛs/</span>, <mark class="vocab" data-word="to believe">believe</mark><span class="ipa" aria-hidden="true">/bəˈliv/</span>, <mark class="vocab" data-word="belief">belief</mark><span class="ipa" aria-hidden="true">/bəˈlif/</span>, <mark class="vocab" data-word="memory">memory</mark><span class="ipa" aria-hidden="true">/ˈmɛməri/</span>, <mark class="vocab" data-word="to remember">remember</mark><span class="ipa" aria-hidden="true">/rɪˈmɛmbɚ/</span>, <mark class="vocab" data-word="to forget">forget</mark><span class="ipa" aria-hidden="true">/fɚˈɡɛt/</span>, <mark class="vocab" data-word="idea">idea</mark><span class="ipa" aria-hidden="true">/aɪˈdiːə/</span>, <mark class="vocab" data-word="favorite">favorite</mark><span class="ipa" aria-hidden="true">/ˈfeɪvɚɪt/</span>, <mark class="vocab" data-word="suggestion">suggestion</mark><span class="ipa" aria-hidden="true">/səˈʤɛstʃən/</span>, <mark class="vocab" data-word="to suggest">suggest</mark><span class="ipa" aria-hidden="true">/səˈʤɛst/</span>, and <mark class="vocab" data-word="goal">goal</mark><span class="ipa" aria-hidden="true">/ɡoʊl/</span> when the topic comes up in conversation.</span>
+              <span class="ex-vi">Mình sẽ nói về feelings & <mark class="vocab" data-word="mind">tâm trí</mark> — chủ đề quan trọng trong đời sống. Trước hết mọi người hay nhắc <mark class="vocab" data-word="to surprise">làm ngạc nhiên</mark>, <mark class="vocab" data-word="surprised">ngạc nhiên</mark>, <mark class="vocab" data-word="to annoy">làm phiền</mark>, <mark class="vocab" data-word="scared">sợ hãi</mark>, tâm trí, <mark class="vocab" data-word="mental">tâm thần</mark>, <mark class="vocab" data-word="talent">tài năng</mark>, <mark class="vocab" data-word="skill">kỹ năng</mark>, <mark class="vocab" data-word="knowledge">kiến thức</mark>, và <mark class="vocab" data-word="guess">phỏng đoán</mark>. Sau đó còn bàn về <mark class="vocab" data-word="to guess">đoán</mark>, <mark class="vocab" data-word="to believe">tin</mark>, <mark class="vocab" data-word="belief">niềm tin</mark>, <mark class="vocab" data-word="memory">trí nhớ</mark>, <mark class="vocab" data-word="to remember">nhớ</mark>, <mark class="vocab" data-word="to forget">quên</mark>, <mark class="vocab" data-word="idea">ý tưởng</mark>, <mark class="vocab" data-word="favorite">yêu thích</mark>, <mark class="vocab" data-word="suggestion">đề xuất</mark>, <mark class="vocab" data-word="to suggest">đề nghị</mark>, và <mark class="vocab" data-word="goal">mục tiêu</mark> khi chủ đề xuất hiện trong hội thoại.</span>
+            </p>
+          </div>
+        </div>
+        <div class="ex-ielts-part" data-part="3">
+          <h2 class="ex-ielts-part-title">Part 3 · Two-way discussion</h2>
+          <p class="ex-ielts-part-hint">Thảo luận sâu hơn — so sánh quá khứ/hiện tại, giải thích quan điểm (Lesson 15).</p>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> How has feelings &amp; mind changed in recent years?</p>
+            <p class="ex-q-vi">Feelings &amp; Mind đã thay đổi thế nào trong những năm gần đây?</p>
+            <p class="ex-sent" data-sent="4">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">I think it has changed quite a bit in recent years. Nowadays people talk more about <mark class="vocab" data-word="plan">plan</mark><span class="ipa" aria-hidden="true">/plæn/</span>, <mark class="vocab" data-word="to hope">hope</mark><span class="ipa" aria-hidden="true">/hoʊp/</span>, <mark class="vocab" data-word="hope">hope</mark><span class="ipa" aria-hidden="true">/hoʊp/</span>, <mark class="vocab" data-word="to imagine">imagine</mark><span class="ipa" aria-hidden="true">/ɪˈmæʤən/</span>, <mark class="vocab" data-word="to dream">dream</mark><span class="ipa" aria-hidden="true">/driːm/</span>, <mark class="vocab" data-word="to enjoy">enjoy</mark><span class="ipa" aria-hidden="true">/ɪnˈʤɔɪ/</span>, <mark class="vocab" data-word="worried">worried</mark><span class="ipa" aria-hidden="true">/ˈwɝid/</span>, <mark class="vocab" data-word="nervous">nervous</mark><span class="ipa" aria-hidden="true">/ˈnɝvəs/</span>, <mark class="vocab" data-word="calm">calm</mark><span class="ipa" aria-hidden="true">/kɑm/</span>, <mark class="vocab" data-word="afraid">afraid</mark><span class="ipa" aria-hidden="true">/əˈfreɪd/</span>, <mark class="vocab" data-word="experience">experience</mark><span class="ipa" aria-hidden="true">/ɪkˈspɪriəns/</span>, <mark class="vocab" data-word="matter">matter</mark><span class="ipa" aria-hidden="true">/ˈmætɚ/</span>, <mark class="vocab" data-word="to decide">decide</mark><span class="ipa" aria-hidden="true">/dɪˈsaɪd/</span>, <mark class="vocab" data-word="decision">decision</mark><span class="ipa" aria-hidden="true">/dɪˈsɪʒən/</span>, <mark class="vocab" data-word="power">power</mark><span class="ipa" aria-hidden="true">/ˈpaʊɚ/</span>, <mark class="vocab" data-word="clear">clear</mark><span class="ipa" aria-hidden="true">/klɪr/</span>, <mark class="vocab" data-word="choice">choice</mark><span class="ipa" aria-hidden="true">/ʧɔɪs/</span>, <mark class="vocab" data-word="to smell">smell</mark><span class="ipa" aria-hidden="true">/smɛl/</span>, <mark class="vocab" data-word="to remind">remind</mark><span class="ipa" aria-hidden="true">/rɪˈmaɪnd/</span>, and <mark class="vocab" data-word="danger">danger</mark><span class="ipa" aria-hidden="true">/ˈdeɪnʤɚ/</span> when they discuss feelings & mind.</span>
+              <span class="ex-vi">Mình nghĩ đã thay đổi khá nhiều trong vài năm gần đây. Ngày nay mọi người nói nhiều hơn về <mark class="vocab" data-word="plan">kế hoạch</mark>, <mark class="vocab" data-word="to hope">hy vọng</mark>, <mark class="vocab" data-word="hope">hy vọng</mark>, <mark class="vocab" data-word="to imagine">tưởng tượng</mark>, <mark class="vocab" data-word="to dream">mơ</mark>, <mark class="vocab" data-word="to enjoy">thưởng thức</mark>, <mark class="vocab" data-word="worried">lo lắng</mark>, <mark class="vocab" data-word="nervous">lo lắng</mark>, <mark class="vocab" data-word="calm">bình tĩnh</mark>, <mark class="vocab" data-word="afraid">sợ hãi</mark>, <mark class="vocab" data-word="experience">kinh nghiệm</mark>, <mark class="vocab" data-word="matter">vấn đề</mark>, <mark class="vocab" data-word="to decide">quyết định</mark>, <mark class="vocab" data-word="decision">quyết định</mark>, <mark class="vocab" data-word="power">quyền lực</mark>, <mark class="vocab" data-word="clear">rõ ràng</mark>, <mark class="vocab" data-word="choice">lựa chọn</mark>, <mark class="vocab" data-word="to smell">ngửi</mark>, <mark class="vocab" data-word="to remind">nhắc nhở</mark>, và <mark class="vocab" data-word="danger">nguy hiểm</mark> khi bàn về feelings & mind.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="58">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">If you want natural English, practice <mark class="vocab" data-word="happiness">happiness</mark><span class="ipa" aria-hidden="true">/ˈhæpiˌnəs/</span>, then reuse <mark class="vocab" data-word="disgust">disgust</mark><span class="ipa" aria-hidden="true">/dɪsˈɡʌst/</span>, and finally remember <mark class="vocab" data-word="trust">trust</mark><span class="ipa" aria-hidden="true">/trʌst/</span>.</span>
+              <span class="ex-vi">Nếu muốn tiếng Anh tự nhiên, hãy luyện <mark class="vocab" data-word="happiness">hạnh phúc</mark>, rồi dùng lại <mark class="vocab" data-word="disgust">sự ghê tởm</mark>, và cuối cùng nhớ <mark class="vocab" data-word="trust">niềm tin</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="67">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">In conversation, people mention <mark class="vocab" data-word="shame">shame</mark><span class="ipa" aria-hidden="true">/ʃeɪm/</span>; they also talk about <mark class="vocab" data-word="hatred">hatred</mark><span class="ipa" aria-hidden="true">/ˈheɪtrɪd/</span> and <mark class="vocab" data-word="love">love</mark><span class="ipa" aria-hidden="true">/lʌv/</span>.</span>
+              <span class="ex-vi">Trong hội thoại, mọi người nhắc tới <mark class="vocab" data-word="shame">xấu hổ</mark>; họ cũng nói về <mark class="vocab" data-word="hatred">sự căm thù</mark> và <mark class="vocab" data-word="love">tình yêu</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="76">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">On a typical day around Feelings & Mind, you notice <mark class="vocab" data-word="kindness">kindness</mark><span class="ipa" aria-hidden="true">/ˈkaɪndnəs/</span>, then <mark class="vocab" data-word="sympathy">sympathy</mark><span class="ipa" aria-hidden="true">/ˈsɪmpəˌθi/</span>, and later <mark class="vocab" data-word="amusement">amusement</mark><span class="ipa" aria-hidden="true">/əˈmjuzmənt/</span>.</span>
+              <span class="ex-vi">Trong một ngày bình thường về Feelings & Mind, bạn để ý <mark class="vocab" data-word="kindness">lòng tốt</mark>, rồi <mark class="vocab" data-word="sympathy">sự thông cảm</mark>, và sau đó <mark class="vocab" data-word="amusement">sự giải trí</mark>.</span>
+            </p>
+          </div>
+          <div class="ex-qa">
+            <p class="ex-q"><span class="ex-role">Examiner</span> Could you add anything else on this topic?</p>
+            <p class="ex-q-vi">Bạn còn muốn bổ sung gì về chủ đề này không?</p>
+            <p class="ex-sent" data-sent="85">
+              <span class="ex-a-label">You</span>
+              <span class="ex-en">They learn <mark class="vocab" data-word="to frown">to frown</mark><span class="ipa" aria-hidden="true">/fraʊn/</span>, <mark class="vocab" data-word="to miss">to miss</mark><span class="ipa" aria-hidden="true">/mɪs/</span>, and also <mark class="vocab" data-word="to worry">to worry</mark><span class="ipa" aria-hidden="true">/ˈwɝi/</span>.</span>
+              <span class="ex-vi">Họ học cách <mark class="vocab" data-word="to frown">nhíu mày</mark>, <mark class="vocab" data-word="to miss">nhớ</mark>, và cả <mark class="vocab" data-word="to worry">lo lắng</mark>.</span>
+            </p>
+          </div>
+        </div>
       </section>
       <!-- Continuous paragraph (no IPA) is filled by public/js/exercise.js for NaturalReader paste -->
 
@@ -294,6 +322,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js?v=flash4"></script>
+  <script src="../../../../js/exercise.js?v=ielts1"></script>
 </body>
 </html>
