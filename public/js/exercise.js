@@ -1132,6 +1132,7 @@
 
   const speakText = (text) => {
     if (!text || !window.speechSynthesis) return;
+    stopWordAudio();
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
     u.lang = "en-US";
@@ -1150,6 +1151,35 @@
       u.lang = v.lang || "en-US";
     }
     speechSynthesis.speak(u);
+  };
+
+  let wordAudio = null;
+  const stopWordAudio = () => {
+    if (!wordAudio) return;
+    wordAudio.pause();
+    wordAudio.currentTime = 0;
+    wordAudio = null;
+  };
+
+  /** LanGeek US pronunciation (titleVoice) for the headword; falls back to browser TTS. */
+  const speakWord = (w) => {
+    if (!w) return;
+    stopWordAudio();
+    if (window.speechSynthesis) speechSynthesis.cancel();
+    const url = String(w.voice_us || "").trim();
+    const fallback = () => speakText(w.form || w.word || "");
+    if (!url) {
+      fallback();
+      return;
+    }
+    wordAudio = new Audio(url);
+    wordAudio.addEventListener("ended", () => {
+      wordAudio = null;
+    });
+    wordAudio.play().catch(() => {
+      wordAudio = null;
+      fallback();
+    });
   };
 
   const initFlashcards = () => {
@@ -1266,6 +1296,8 @@
     };
 
     const renderCard = () => {
+      stopWordAudio();
+      if (window.speechSynthesis) speechSynthesis.cancel();
       const w = current();
       flipped = false;
       showMsg("");
@@ -1343,14 +1375,14 @@
         if (flipped === on) return;
         flipped = on;
         card && card.classList.toggle("is-flipped", on);
-        speakText(w.form);
+        speakWord(w);
       };
 
       const speakBtn = document.getElementById("flashSpeak");
       speakBtn &&
         speakBtn.addEventListener("click", (e) => {
           e.stopPropagation();
-          speakText(w.form);
+          speakWord(w);
         });
 
       const flipBtn = document.getElementById("flashFlip");

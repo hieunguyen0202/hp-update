@@ -69,6 +69,7 @@ def collect_words(lesson_ids: list[int]) -> list[dict]:
                     "ex_en": (item.get("ex_en") or "").strip(),
                     "ex_vi": (item.get("ex_vi") or "").strip(),
                     "photo": (item.get("photo") or "").strip(),
+                    "voice_us": (item.get("voice_us") or "").strip(),
                 }
             )
     return out
@@ -545,7 +546,7 @@ def wrap_exercise(topic: dict, level: str, words: list[dict], sentences: list[di
         <div class="ex-flash-stage" id="flashStage"></div>
         <p class="ex-flash-msg" id="flashMsg" hidden></p>
       </section>
-      <script type="application/json" id="exVocabData">{json.dumps([{"id": i, "form": w["form"], "word": w["word"], "ipa": w["ipa"], "vi": w["vi"], "pos": w.get("pos") or "", "def_en": w.get("def_en") or "", "ex_en": w.get("ex_en") or "", "ex_vi": w.get("ex_vi") or "", "photo": w.get("photo") or ""} for i, w in enumerate(words)], ensure_ascii=False)}</script>
+      <script type="application/json" id="exVocabData">{json.dumps([{"id": i, "form": w["form"], "word": w["word"], "ipa": w["ipa"], "vi": w["vi"], "pos": w.get("pos") or "", "def_en": w.get("def_en") or "", "ex_en": w.get("ex_en") or "", "ex_vi": w.get("ex_vi") or "", "photo": w.get("photo") or "", "voice_us": w.get("voice_us") or ""} for i, w in enumerate(words)], ensure_ascii=False)}</script>
 
       <section class="ex-vocab">
         <h2>Word checklist · {len(words)}</h2>
@@ -593,7 +594,7 @@ def wrap_exercise(topic: dict, level: str, words: list[dict], sentences: list[di
 {body}
   </div>
   <script src="{home}js/docs.js"></script>
-  <script src="{home}js/exercise.js?v=ielts3"></script>
+  <script src="{home}js/exercise.js?v=ielts4"></script>
 </body>
 </html>
 """

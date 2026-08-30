@@ -76,6 +76,7 @@ def card_to_fields(card: dict) -> dict:
     photo = ""
     wp = mt.get("wordPhoto") or {}
     photo = (wp.get("photo") or "").strip()
+    voice_us = (mt.get("titleVoice") or "").strip()
 
     return {
         "key": norm_word(title),
@@ -83,6 +84,7 @@ def card_to_fields(card: dict) -> dict:
         "ex_en": ex_en,
         "ex_vi": ex_vi,
         "photo": photo,
+        "voice_us": voice_us,
     }
 
 
@@ -134,11 +136,13 @@ def main() -> None:
                 item.pop("ex_en", None)
                 item.pop("ex_vi", None)
                 item.pop("photo", None)
+                item.pop("voice_us", None)
                 continue
             item["def_en"] = src["def_en"]
             item["ex_en"] = src["ex_en"]
             item["ex_vi"] = src["ex_vi"]
             item["photo"] = src["photo"]
+            item["voice_us"] = src["voice_us"]
             if src["def_en"] or src["ex_en"]:
                 enriched += 1
 
