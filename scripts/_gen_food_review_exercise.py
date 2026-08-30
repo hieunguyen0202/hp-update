@@ -403,14 +403,20 @@ def mental_model_html() -> str:
 
 def _render_transcript_segment(seg: dict) -> str:
     title = seg.get("title", "")
-    label = f"Transcript — {esc(title)}" if title else "Transcript"
+    is_food = seg.get("food")
+    if is_food:
+        label = f"Food practice — {esc(title)}" if title else "Food practice"
+        extra_class = " lr-segment--food"
+    else:
+        label = f"Transcript — {esc(title)}" if title else "Transcript"
+        extra_class = ""
     lines_html = "\n".join(
         f'                <div class="lr-dialogue-line">'
         f'<span class="lr-speaker">{esc(line["speaker"])}</span>'
         f'<span class="lr-dialogue-text">{line["text"]}</span></div>'
         for line in seg["lines"]
     )
-    return f"""            <div class="lr-segment lr-segment--transcript">
+    return f"""            <div class="lr-segment lr-segment--transcript{extra_class}">
               <p class="lr-seg-label">{label}</p>
               <div class="lr-dialogue">
 {lines_html}
@@ -476,7 +482,7 @@ def _render_note_segment(seg: dict) -> str:
               </div>
 """
 
-    return f"""            <div class="lr-segment lr-segment--note">
+    return f"""            <div class="lr-segment lr-segment--note{' lr-segment--food-note' if seg.get('food') else ''}">
               <h4 class="lr-note-title">{title}</h4>
 {intro_html}{body}
 {exchange_html}{tip_html}            </div>"""
@@ -513,7 +519,7 @@ def speaking_lessons_html() -> str:
           </div>
           <details class="lr-lesson-notes">
             <summary>Video catch-up — transcript &amp; notes</summary>
-            <p class="lr-catchup-hint">Transcript lấy <strong>nguyên văn</strong> từ phụ đề YouTube (Oxford Online English). Đọc theo thứ tự: hội thoại → slide grammar → hội thoại → note…</p>
+            <p class="lr-catchup-hint">Transcript lấy <strong>nguyên văn</strong> từ phụ đề YouTube. Sau mỗi slide grammar có khối <strong>Food practice</strong> — hội thoại + ví dụ cùng cấu trúc, chủ đề ẩm thực.</p>
             <div class="lr-video-timeline">
 {timeline}
             </div>
@@ -1338,7 +1344,7 @@ def build_page() -> str:
 
       <section class="lr-section" id="structures">
         <h2>3 · Speaking structures (food + tenses)</h2>
-        <p class="lr-section-hint">Xem video gốc trước, sau đó mở <strong>Video catch-up</strong> — transcript hội thoại và slide grammar xen kẽ để ôn lại toàn bộ. Lesson 2 &amp; 3 ở mục 4 bên dưới.</p>
+        <p class="lr-section-hint">Xem video gốc trước, sau đó mở <strong>Video catch-up</strong>. Sau mỗi slide grammar có <strong>Food practice</strong> — hội thoại + ví dụ cùng cấu trúc, chủ đề ẩm thực.</p>
         <ul class="lr-lesson-list">
 {speaking_lessons_html()}
         </ul>
@@ -1390,7 +1396,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr12">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr13">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -1413,7 +1419,7 @@ def build_page() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js"></script>
-  <script src="{home}js/linear-review.js?v=lr12"></script>
+  <script src="{home}js/linear-review.js?v=lr13"></script>
 </body>
 </html>"""
 

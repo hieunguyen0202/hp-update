@@ -66,6 +66,24 @@ def _tx(title: str, lines: list[dict]) -> dict:
     return {"type": "transcript", "title": title, "lines": lines}
 
 
+def _fw(word: str) -> str:
+    return f'<em class="lr-food-word">{word}</em>'
+
+
+def _food_tx(title: str, pairs: list[tuple[str, str]]) -> dict:
+    """Practice dialogue — same grammar as the video, food topic. Not from the clip."""
+    return {
+        "type": "transcript",
+        "food": True,
+        "title": title,
+        "lines": [{"speaker": s, "text": t} for s, t in pairs],
+    }
+
+
+def _food_note(title: str, **kwargs) -> dict:
+    return {"type": "note", "food": True, "title": title, **kwargs}
+
+
 def build_lesson_34(full: str) -> list[dict]:
     return [
         _tx(
@@ -113,6 +131,37 @@ def build_lesson_34(full: str) -> list[dict]:
                 _chk(full, "Have you ever grown your own vegetables?"),
             ],
         ),
+        _food_tx(
+            "Unusual food — present perfect",
+            [
+                ("A", f"Have you ever tried {_fw('oysters')}?"),
+                ("B", f"No, I haven’t. I’ve tried {_fw('lobster')}, though."),
+                ("A", "What about you? Have you ever eaten any unusual food like that?"),
+                (
+                    "B",
+                    f"Does {_fw('durian')} count? I’ve tried {_fw('durian')}, although that was a long time ago.",
+                ),
+                (
+                    "A",
+                    f"I think {_fw('durian')} definitely counts! I’ve never eaten anything like that myself. {_fw('Blue cheese')} sounds pretty extreme to me.",
+                ),
+                ("B", "Have you ever cooked something totally new?"),
+                (
+                    "A",
+                    f"I’ve made homemade {_fw('pasta')} a few times. It’s harder than it looks!",
+                ),
+            ],
+        ),
+        _food_note(
+            "Talking about past experiences — present perfect · food",
+            intro="Same grammar — life experiences, <strong>no specific time</strong>. Swap in food vocab.",
+            items=[
+                f"I’ve tried {_fw('sushi')}.",
+                f"I’ve never been to a {_fw('barbecue')}.",
+                f"Have you ever grown your own {_fw('herbs')}?",
+                f"I’ve never tried {_fw('sake')}.",
+            ],
+        ),
         _note(
             "Talking about past experiences — past simple + time",
             intro="As soon as you mention a <strong>time</strong>, switch to the <strong>past simple</strong>.",
@@ -141,6 +190,38 @@ def build_lesson_34(full: str) -> list[dict]:
                 full,
                 "The question is present perfect, because it’s asking about experiences without mentioning a time. The answer mentions a time—two years ago—and so you need the past simple.",
             ),
+        ),
+        _food_tx(
+            "Food trip — present perfect → past simple",
+            [
+                ("A", "Have you ever been to Japan?"),
+                (
+                    "B",
+                    f"Yes — I went there two years ago. I ate {_fw('sushi')} almost every day when I was there.",
+                ),
+                ("A", f"Nice! Did you try {_fw('sake')}?"),
+                (
+                    "B",
+                    f"I didn’t drink a lot last year — but I did try {_fw('ramen')} in Osaka last summer.",
+                ),
+            ],
+        ),
+        _food_note(
+            "Talking about past experiences — past simple + time · food",
+            intro="Mention a time → switch to <strong>past simple</strong>.",
+            items=[
+                f'I <mark class="lr-hl">tried</mark> {_fw("Korean BBQ")} <mark class="lr-hl">last month</mark>.',
+                f'I <mark class="lr-hl">didn’t eat</mark> much {_fw("fast food")} <mark class="lr-hl">last year</mark>.',
+                f'<mark class="lr-hl">Did</mark> you <mark class="lr-hl">eat</mark> a lot of {_fw("sushi")} <mark class="lr-hl">when you were</mark> in Japan?',
+            ],
+            exchange=[
+                {
+                    "q": '"Have you ever tried pho?"',
+                    "q_hl": ["Have", "tried"],
+                    "a": '"Yes, I had it three years ago in Hanoi — it melted in my mouth."',
+                    "a_hl": ["had", "three years ago"],
+                },
+            ],
         ),
         _tx(
             "Comparing past and present — used to dialogue",
@@ -212,6 +293,33 @@ def build_lesson_34(full: str) -> list[dict]:
                 _chk(full, "I don’t have time to listen to music any more."),
             ],
         ),
+        _food_tx(
+            "Childhood food — used to / would / any more",
+            [
+                ("A", f"Wow! You used to hate {_fw('vegetables')}? You look so health-conscious now!"),
+                ("B", f"Yeah! That was during my {_fw('fast food')} phase."),
+                ("A", f"Really? Did you use to eat {_fw('junk food')} every day?"),
+                (
+                    "B",
+                    f"When I was a child, Mum would make us {_fw('pho')}, and we would eat {_fw('ice cream')} after school.",
+                ),
+                ("A", f"And now? You don’t eat {_fw('fast food')} any more?"),
+                (
+                    "B",
+                    f"I don’t have {_fw('junk food')} any more. I’d rather have a {_fw('vegetable salad')} or {_fw('fruit salad')}.",
+                ),
+            ],
+        ),
+        _food_note(
+            "Comparing past and present · food",
+            intro="Same structures — childhood eating habits vs now.",
+            items=[
+                f"I <mark class='lr-hl'>used to</mark> hate {_fw('vegetables')} — now I love a good {_fw('vegetable salad')}.",
+                f"They <mark class='lr-hl'>didn’t use to</mark> get on with {_fw('spicy food')} — now they order {_fw('curry')} every week.",
+                f"When we got home, Mum <mark class='lr-hl'>would</mark> make us {_fw('pho')} and then we’d watch cartoons.",
+                f"I don’t eat {_fw('processed food')} <mark class='lr-hl'>any more</mark>.",
+            ],
+        ),
         _tx(
             "Telling a story — setting the scene",
             _dlg(
@@ -253,6 +361,35 @@ def build_lesson_34(full: str) -> list[dict]:
                 _chk(full, "I was driving home after work."),
             ],
             tip="Useful for longer answers in a job interview or IELTS — not only long stories.",
+        ),
+        _food_tx(
+            "Kitchen story — past continuous",
+            [
+                ("A", "Have I told you what happened at the dinner party?"),
+                ("B", "No! What happened?"),
+                (
+                    "A",
+                    f"So, we were sitting in the kitchen, ready to {_fw('grill')} the {_fw('ribs')}…",
+                ),
+                ("B", "Who were you cooking with?"),
+                (
+                    "A",
+                    f"With my sister. I was {_fw('chopping')} {_fw('garlic')} and {_fw('ginger')}, and she was {_fw('marinating')} the meat, and…",
+                ),
+                ("B", "And then?"),
+                (
+                    "A",
+                    f"The weather was awful. It was raining so hard we couldn’t even use the {_fw('barbecue')} outside.",
+                ),
+            ],
+        ),
+        _food_note(
+            "Past continuous — set the scene · food",
+            items=[
+                f"I was {_fw('chopping')} vegetables when the guests arrived.",
+                f"We were {_fw('grilling')} {_fw('kebab')} in the garden.",
+                f"I was living on {_fw('instant noodles')} at the time.",
+            ],
         ),
         _tx(
             "Driving test story",
@@ -318,6 +455,36 @@ def build_lesson_34(full: str) -> list[dict]:
                 _chk(full, "I had a small accident on the way home."),
             ],
         ),
+        _food_tx(
+            "Dinner disaster — past perfect vs past simple",
+            [
+                ("A", "Did I tell you about last week’s dinner?"),
+                ("B", "No, what happened?"),
+                (
+                    "A",
+                    f"I invited friends last Saturday, and I hadn’t {_fw('marinated')} the {_fw('ribs')} the night before. Not once!",
+                ),
+                ("B", "No way! But you must have cooked something?"),
+                (
+                    "A",
+                    f"I’d never {_fw('roasted')} a whole chicken before that night. We sat in the kitchen for ages. I made three side dishes, and finally we {_fw('grilled')} everything outside instead.",
+                ),
+                ("B", "And that counted as a dinner party?"),
+                (
+                    "A",
+                    f"Hey, I didn’t burn anything. Well… I had a very small accident with the {_fw('frying pan')}.",
+                ),
+            ],
+        ),
+        _food_note(
+            "Past perfect vs past simple · food",
+            intro="Time reference fixes the story start. <strong>had + PP</strong> = before that; past simple = events in the story.",
+            items=[
+                f"I <mark class='lr-hl'>had never tasted</mark> {_fw('blue cheese')} before that trip.",
+                f"I <mark class='lr-hl'>hadn’t marinated</mark> the meat the night before.",
+                f"We <mark class='lr-hl'>grilled</mark> the {_fw('ribs')} outside instead.",
+            ],
+        ),
         _tx(
             "Regrets — languages",
             _dlg(
@@ -368,6 +535,33 @@ def build_lesson_34(full: str) -> list[dict]:
                     full,
                     "If I hadn’t left things to the last minute, I could have passed easily.",
                 ),
+            ],
+        ),
+        _food_tx(
+            "Food regrets — wish / if only / could have",
+            [
+                ("A", "Do you cook much at home?"),
+                (
+                    "B",
+                    f"Not really. I used to cook {_fw('pasta')} every night, but I haven’t used the {_fw('wok')} for years.",
+                ),
+                (
+                    "B",
+                    f"I wish I’d started eating {_fw('plant-based')} meals when I was younger. It’s so much easier if you start earlier.",
+                ),
+                ("A", f"Yeah. If only I’d kept my {_fw('low-carb diet')} going…"),
+                (
+                    "B",
+                    f"I could have learned to make {_fw('sushi')} when I had the chance. My {_fw('nutrition')} would have got really good.",
+                ),
+            ],
+        ),
+        _food_note(
+            "wish · if only · could have · food",
+            items=[
+                f"I wish I’d learned to cook {_fw('curry')} when I was younger.",
+                f"If only I hadn’t wasted so much money on {_fw('takeout')}.",
+                f"I could have tried harder with the {_fw('gluten-free diet')}.",
             ],
         ),
     ]
@@ -434,6 +628,39 @@ def build_lesson_57(full: str) -> list[dict]:
             ],
             formula=True,
         ),
+        _food_tx(
+            "Wedding buffet — past perfect",
+            [
+                ("A", "How was the wedding dinner?"),
+                ("B", "A disaster! I’ve never seen a buffet go so wrong."),
+                ("A", "Why? What happened?"),
+                (
+                    "B",
+                    f"First, they had booked a tiny hall, but they’d ordered {_fw('lobster')} and {_fw('oysters')} for 200 people. Only 30 could sit inside.",
+                ),
+                (
+                    "B",
+                    f"They’d booked a restaurant for the reception, but they hadn’t told them how many people were coming. So there wasn’t enough {_fw('seafood')} either!",
+                ),
+                (
+                    "A",
+                    f"And the {_fw('cheesecake')}? Had anyone even {_fw('marinated')} the meat?",
+                ),
+                (
+                    "B",
+                    f"You could tell that no one had prepared the {_fw('speeches')} — or the {_fw('mustard')} and {_fw('soy sauce')} for the table.",
+                ),
+            ],
+        ),
+        _food_note(
+            "Past perfect — form & meaning · food",
+            intro="had / hadn’t + past participle — food events <em>before</em> the meal.",
+            items=[
+                f"They <mark class='lr-hl'>had booked</mark> a restaurant, but it was much too small.",
+                f"They <mark class='lr-hl'>hadn’t told</mark> the chef how many guests were coming.",
+                f"I <mark class='lr-hl'>had never tasted</mark> {_fw('blue cheese')} before that dinner.",
+            ],
+        ),
         _note(
             "Bear in the forest — story excerpt",
             items_verbatim=[
@@ -481,6 +708,34 @@ def build_lesson_57(full: str) -> list[dict]:
                 _chk(full, "I had studied a little bit of Russian at university, but not enough to really be able to do anything."),
             ],
         ),
+        _food_tx(
+            "First cooking job — past in the past",
+            [
+                ("A", "When did you start cooking professionally?"),
+                (
+                    "B",
+                    f"It was 2018. I had just graduated, and I wasn’t sure what I wanted to do. So I took a six-month job in a {_fw('kebab')} shop.",
+                ),
+                ("A", "So you didn’t want to be a chef?"),
+                (
+                    "B",
+                    f"Not really! I had never considered it as a career. I had studied a little {_fw('nutrition')} at university, but not enough to run a kitchen.",
+                ),
+                ("A", "Had you ever lived abroad before?"),
+                (
+                    "B",
+                    f"Briefly. I’d spent some time in Thailand — that’s where I first tried {_fw('curry')} and {_fw('shellfish')}.",
+                ),
+            ],
+        ),
+        _food_note(
+            "Past perfect in conversation · food",
+            items=[
+                f"I had just graduated, so I took a job making {_fw('baguettes')}.",
+                f"I had never considered {_fw('plant-based')} cooking as a career.",
+                f"I had studied a little {_fw('nutrition')}, but not enough to be a chef.",
+            ],
+        ),
         _tx(
             "Late for work — when NOT to use past perfect",
             _dlg(
@@ -519,6 +774,14 @@ def build_lesson_57(full: str) -> list[dict]:
             ],
             tip="First = moved then found job. Second = found job before moving.",
         ),
+        _food_note(
+            "Past perfect vs past simple · food meaning",
+            intro="Sequence changes the meaning:",
+            items=[
+                f"When I moved to Italy, I found a job in a {_fw('pasta')} kitchen. → moved first, then the job.",
+                f"When I moved to Italy, I <mark class='lr-hl'>had found</mark> a job. → job first, then the move.",
+            ],
+        ),
     ]
 
 
@@ -549,6 +812,27 @@ def build_lesson_15(full: str) -> list[dict]:
                 _chk(full, "At university, I shared a flat with three other guys."),
             ],
         ),
+        _food_tx(
+            "Meal story — step 1 background",
+            [
+                (
+                    "A",
+                    f"It was last month, and I invited some friends over for {_fw('ribs')} and a {_fw('vegetable salad')}.",
+                ),
+                (
+                    "B",
+                    f"At university, I shared a flat with three other guys who lived on {_fw('instant noodles')} and {_fw('donuts')}.",
+                ),
+            ],
+        ),
+        _food_note(
+            "Step 1 · Background · food",
+            intro="who · when · where · what — for a meal story.",
+            items=[
+                f"It was last Sunday, and I {_fw('grilled')} {_fw('kebab')} in the garden with my cousins.",
+                f"At university, I shared a kitchen with three other guys.",
+            ],
+        ),
         _tx(
             "Story 1 — opening & background",
             _dlg(
@@ -577,6 +861,13 @@ def build_lesson_15(full: str) -> list[dict]:
                 ),
             ],
         ),
+        _food_note(
+            "Step 2 · Goal · food",
+            items=[
+                f"We had to finish {_fw('roasting')} the chicken before the guests arrived.",
+                f"I had to cross the market to buy {_fw('oysters')} before the stall closed.",
+            ],
+        ),
         _tx(
             "Story 2 — tension (mountain pass)",
             _dlg(
@@ -600,6 +891,26 @@ def build_lesson_15(full: str) -> list[dict]:
             items=[
                 "Problems or difficulties before the climax",
                 "Foreshadowing — e.g. I told them not to do anything to my room. I knew they were going to do something.",
+            ],
+        ),
+        _food_tx(
+            "Meal story — tension",
+            [
+                (
+                    "A",
+                    f"The oven broke. The {_fw('ribs')} weren’t ready, the guests were at the door, and we still had to {_fw('chop')} the {_fw('herbs')}.",
+                ),
+                (
+                    "B",
+                    f"I knew something would go wrong — I told them not to touch my {_fw('cheesecake')}. I knew they were going to do something…",
+                ),
+            ],
+        ),
+        _food_note(
+            "Step 3 · Tension · food",
+            items=[
+                "Broken oven / missing ingredient / rain on the barbecue",
+                f"Foreshadowing: I told them not to touch my {_fw('cheesecake')}. I knew they were going to do something.",
             ],
         ),
         _tx(
@@ -649,6 +960,26 @@ def build_lesson_15(full: str) -> list[dict]:
                 _chk(full, "It was a very frightening experience."),
             ],
         ),
+        _food_tx(
+            "Meal story — ending",
+            [
+                (
+                    "A",
+                    f"We {_fw('grilled')} everything outside instead. Looking back, it was stressful at the time, but it makes a good story!",
+                ),
+                (
+                    "B",
+                    f"They made my fridge into a {_fw('dessert')} shop — {_fw('cupcakes')}, {_fw('pudding')}, even a {_fw('popsicle')} tower. It took me three hours to clean up.",
+                ),
+            ],
+        ),
+        _food_note(
+            "Step 4 · Ending · food",
+            items=[
+                f"Looking back, it was one of the best {_fw('barbecues')} I’d ever shared with friends.",
+                f"In the end, we {_fw('grilled')} outside — and it tasted even better.",
+            ],
+        ),
     ]
 
 
@@ -685,6 +1016,32 @@ def build_lesson_23(full: str) -> list[dict]:
                 ),
             ],
         ),
+        _food_tx(
+            "Weekend food plans — present continuous",
+            [
+                ("A", "What are you doing this weekend?"),
+                (
+                    "B",
+                    f"I’m meeting some friends for {_fw('brunch')} on Saturday — {_fw('croissants')} and {_fw('latte')} — and then we’re going to a {_fw('barbecue')}.",
+                ),
+                ("A", "Sounds good! What about Sunday?"),
+                (
+                    "B",
+                    f"I’m cooking {_fw('pasta')} in the evening. What about you?",
+                ),
+                (
+                    "A",
+                    f"I’m going to a {_fw('cooking class')} on Sunday morning.",
+                ),
+            ],
+        ),
+        _food_note(
+            "Present continuous — food plans",
+            items=[
+                f"I’m meeting friends for {_fw('lunch')} on Saturday.",
+                f"I’m trying a {_fw('low-carb diet')} this month.",
+            ],
+        ),
         _tx(
             "Holiday plans — Egypt",
             _dlg(
@@ -712,6 +1069,28 @@ def build_lesson_23(full: str) -> list[dict]:
                 ),
                 _chk(full, "I’d like to start my own business."),
                 _chk(full, "My dream is to have my own small marketing firm."),
+            ],
+        ),
+        _food_tx(
+            "Food dreams — going to / I'd like to",
+            [
+                ("A", "What are you going to do after you graduate?"),
+                (
+                    "B",
+                    f"I’m planning to take a {_fw('nutrition')} course. I’d like to start my own small {_fw('café')} one day.",
+                ),
+                (
+                    "B",
+                    f"My dream is to live near the sea and cook {_fw('seafood')} every day. I’m hoping to start with {_fw('freelancing')} as a food writer.",
+                ),
+            ],
+        ),
+        _food_note(
+            "going to / planning to / I'd like to · food",
+            items=[
+                f"I’m planning to try a {_fw('gluten-free diet')} next month.",
+                f"I’d like to learn to cook {_fw('Thai curry')} one day.",
+                f"My dream is to open a small {_fw('café')} near the sea.",
             ],
         ),
         _tx(
@@ -768,6 +1147,14 @@ def build_lesson_23(full: str) -> list[dict]:
                 _chk(full, "Our class starts at eleven thirty."),
             ],
         ),
+        _food_note(
+            "Present simple — food timetables",
+            items=[
+                f"The {_fw('cooking class')} starts at eleven thirty.",
+                f"The last {_fw('food delivery')} leaves at ten fifteen.",
+                f"The wedding lunch is at three.",
+            ],
+        ),
         _tx(
             "World Cup predictions",
             _dlg(
@@ -786,6 +1173,27 @@ def build_lesson_23(full: str) -> list[dict]:
             items=[
                 _chk(full, "It’s going to rain—look at those clouds."),
                 "will and going to are often interchangeable for predictions",
+            ],
+        ),
+        _food_tx(
+            "Food trends — predictions",
+            [
+                ("A", "Who’s going to win the next food awards?"),
+                (
+                    "B",
+                    f"People will eat more {_fw('plant-based')} food. {_fw('Fast food')} definitely won’t win.",
+                ),
+                (
+                    "A",
+                    f"Look at those clouds — it’s going to rain before the {_fw('barbecue')}.",
+                ),
+            ],
+        ),
+        _food_note(
+            "will / going to — food predictions",
+            items=[
+                f"People will eat more {_fw('plant-based')} food.",
+                f"It’s going to rain — look at those clouds. We’ll have to cancel the {_fw('barbecue')}.",
             ],
         ),
         _tx(
@@ -856,6 +1264,28 @@ def build_lesson_23(full: str) -> list[dict]:
                 _chk(full, "It’s possible that we’ll have to replace some of the artwork."),
             ],
         ),
+        _food_tx(
+            "Dinner plans — uncertainty",
+            [
+                ("A", "Will the new menu be ready next week?"),
+                (
+                    "B",
+                    f"It may be ready — or it could take a few more days. I might order {_fw('takeout')} tonight.",
+                ),
+                (
+                    "A",
+                    f"Perhaps we won’t need to change the {_fw('dessert')}. It’s possible that we’ll have to replace some recipes.",
+                ),
+            ],
+        ),
+        _food_note(
+            "may / might / could · food",
+            items=[
+                f"I might order {_fw('takeout')} tonight.",
+                f"Perhaps we won’t need to change the {_fw('menu')}.",
+                f"It’s possible that we’ll have to replace the {_fw('cheesecake')} recipe.",
+            ],
+        ),
     ]
 
 
@@ -892,6 +1322,25 @@ def build_lesson_61(full: str) -> list[dict]:
                 "Stress <strong>he</strong> → other people are flying, but he isn’t.",
             ],
         ),
+        _food_tx(
+            "Food — word stress",
+            [
+                ("A", f"Are you cooking {_fw('pasta')} tomorrow?"),
+                ("B", f"I’m not cooking {_fw('pasta')} *tomorrow.* Maybe on Sunday."),
+                ("A", f"So you’re *eating out* tomorrow?"),
+                (
+                    "B",
+                    f"*He* isn’t cooking — I am. I’m making {_fw('curry')} tonight.",
+                ),
+            ],
+        ),
+        _food_note(
+            "Word stress · food",
+            items=[
+                f"Stress <strong>tomorrow</strong> → you’re cooking, but not tomorrow.",
+                f"Stress <strong>pasta</strong> → you’re cooking something, but not pasta (maybe {_fw('curry')}).",
+            ],
+        ),
         _tx(
             "After the movie — inversion",
             _dlg(
@@ -917,6 +1366,13 @@ def build_lesson_61(full: str) -> list[dict]:
                 _chk(full, "*Never* have I been so scared."),
                 _chk(full, "At no point did I see that coming."),
                 _chk(full, "Not only did she direct it, but she also wrote and starred in it too!"),
+            ],
+        ),
+        _food_note(
+            "Inversion · food",
+            items=[
+                f"*Never* have I tasted such good {_fw('pho')}.",
+                f"Not only did she {_fw('roast')} the chicken, but she also made the {_fw('cheesecake')}.",
             ],
         ),
         _tx(
@@ -945,6 +1401,28 @@ def build_lesson_61(full: str) -> list[dict]:
                 _chk(full, "I *am* coming!"),
                 _chk(full, "I *did* have a good time."),
                 _chk(full, "I *do* hope you’re bringing Michelle with you, too?"),
+            ],
+        ),
+        _food_tx(
+            "Spicy food — do / does / did",
+            [
+                ("A", f"You don’t eat {_fw('spicy food')}, do you?"),
+                (
+                    "B",
+                    f"I *do* like {_fw('spicy food')} — but not every day. I *did* have a good time at that {_fw('curry')} place last week.",
+                ),
+                (
+                    "A",
+                    f"She *does* make the best {_fw('cheesecake')}. I *am* bringing homemade {_fw('pasta')} tonight.",
+                ),
+            ],
+        ),
+        _food_note(
+            "do / does / did · food",
+            items=[
+                f"I <strong>do</strong> like {_fw('spicy food')}, but not every day.",
+                f"I <strong>absolutely love</strong> homemade {_fw('pasta')}.",
+                f"She <strong>does</strong> make the best {_fw('cakes')}.",
             ],
         ),
         _tx(
@@ -983,6 +1461,32 @@ def build_lesson_61(full: str) -> list[dict]:
                     full,
                     "‘Something you should think about is choosing the words you use more carefully.’",
                 ),
+            ],
+        ),
+        _food_tx(
+            "Memorable meal — cleft",
+            [
+                ("A", "Tell me about a meal you remember."),
+                (
+                    "B",
+                    f"It was the fresh {_fw('herbs')} that made the dish special — not the meat.",
+                ),
+                (
+                    "A",
+                    f"What I enjoy most is experimenting with {_fw('spices')} and {_fw('ginger')}.",
+                ),
+                (
+                    "B",
+                    f"All I want after work is a bowl of {_fw('pho')}. What I need right now is a good long {_fw('brunch')}.",
+                ),
+            ],
+        ),
+        _food_note(
+            "Cleft sentences · food",
+            items=[
+                f"What I enjoy most is trying new {_fw('cuisines')}.",
+                f"It was the fresh {_fw('herbs')} that made the dish special.",
+                f"What I don’t like is {_fw('processed food')}.",
             ],
         ),
     ]

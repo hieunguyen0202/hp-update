@@ -2821,6 +2821,30 @@ body.ex-hide-ipa .ipa {
   border: 1px solid rgba(148, 163, 184, 0.2);
 }
 
+.lr-segment--food {
+  border-left: 3px solid #fbbf24;
+}
+
+.lr-segment--food .lr-seg-label {
+  color: #fbbf24;
+}
+
+.lr-food-word {
+  font-style: italic;
+  font-weight: 600;
+  color: #fbbf24;
+}
+
+.docs-main .lr-segment--note .lr-food-word,
+.docs-main .lr-segment--food-note .lr-food-word {
+  color: #b45309 !important;
+  font-style: italic;
+}
+
+.lr-segment--food-note {
+  border-left: 3px solid #f59e0b;
+}
+
 .lr-segment--note {
   background: rgba(255, 255, 255, 0.98);
   color: #0f172a;
