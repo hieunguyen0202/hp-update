@@ -2504,6 +2504,74 @@ body.ex-hide-ipa .ipa {
   font-size: 0.88rem;
 }
 
+.lr-practice-refs {
+  margin: 16px 0 18px;
+  padding: 16px 18px;
+  border: 1px solid rgba(34, 211, 238, 0.28);
+  border-radius: 14px;
+  background: rgba(34, 211, 238, 0.04);
+}
+
+.lr-practice-refs-title {
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+  color: #a5f3fc;
+}
+
+.lr-practice-steps {
+  margin: 0 0 14px;
+  padding-left: 1.25rem;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: rgba(226, 232, 240, 0.78);
+}
+
+.lr-practice-steps a {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.lr-ref-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.lr-ref-card {
+  display: block;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+}
+
+.lr-ref-card:hover {
+  border-color: rgba(167, 139, 250, 0.45);
+  background: rgba(167, 139, 250, 0.06);
+  transform: translateY(-1px);
+}
+
+.lr-ref-card strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.88rem;
+  color: var(--accent);
+}
+
+.lr-ref-card > span:not(.lr-card-cta) {
+  display: block;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: rgba(226, 232, 240, 0.62);
+}
+
+.lr-ref-card .lr-card-cta {
+  margin-top: 8px;
+}
+
 .lr-model {
   padding: 18px 20px;
   border: 1px solid rgba(167, 139, 250, 0.35);

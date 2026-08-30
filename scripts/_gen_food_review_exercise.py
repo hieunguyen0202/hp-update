@@ -838,6 +838,35 @@ def speaking_mock_html() -> str:
     return "\n".join(lines)
 
 
+def mock_practice_refs_html() -> str:
+    return """
+        <aside class="lr-practice-refs" aria-label="Speaking practice references">
+          <h3 class="lr-practice-refs-title">Luyện nói với TTS</h3>
+          <ol class="lr-practice-steps">
+            <li>Chọn từ trong dropdown → chỉnh câu trả lời theo ý bạn.</li>
+            <li>Bấm <strong>Copy current answers</strong> — clipboard gồm <em>câu hỏi + câu trả lời</em> theo Part 1 / 2 / 3.</li>
+            <li>Mở <a href="https://www.naturalreaders.com/online/" target="_blank" rel="noopener noreferrer">NaturalReader Online</a> (hoặc TTS khác) → paste → nghe và lặp lại để luyện phát âm &amp; nhịp nói.</li>
+          </ol>
+          <div class="lr-ref-grid">
+            <a class="lr-ref-card" href="https://www.dolenglish.vn/blog/speaking-test-ielts" target="_blank" rel="noopener noreferrer">
+              <strong>DOL — Speaking Test IELTS Part 1, 2 &amp; 3</strong>
+              <span>Cấu trúc thi (11–14 phút), mục đích từng part, đề mẫu full test</span>
+              <span class="lr-card-cta">Đọc hướng dẫn ↗</span>
+            </a>
+            <a class="lr-ref-card" href="https://www.naturalreaders.com/online/" target="_blank" rel="noopener noreferrer">
+              <strong>NaturalReader Online</strong>
+              <span>Text-to-speech miễn phí — paste Q&amp;A đã copy để nghe examiner + câu trả lời</span>
+              <span class="lr-card-cta">Mở NaturalReader ↗</span>
+            </a>
+            <a class="lr-ref-card" href="https://www.dolenglish.vn/blog/ielts-speaking-food" target="_blank" rel="noopener noreferrer">
+              <strong>DOL — IELTS Speaking Food</strong>
+              <span>Chủ đề Food thực tế, câu hỏi Part 1/2/3 và gợi ý trả lời</span>
+              <span class="lr-card-cta">Xem chủ đề Food ↗</span>
+            </a>
+          </div>
+        </aside>"""
+
+
 def build_page() -> str:
     words = collect_review_words()
     home = "../../../../"  # review-exercise/ → public/
@@ -915,6 +944,7 @@ def build_page() -> str:
       <section class="lr-section lr-mock" id="mock-test">
         <h2>6 · IELTS Speaking mock — Food</h2>
         <p class="lr-section-hint">Part 1 / 2 / 3 thực chiến. Dùng dropdown để đổi từ (vd. <em>booze</em> → <em>cider</em> → <em>gin</em>) — không cần nhồi hết từ vào một câu.</p>
+{mock_practice_refs_html()}
         <div class="ex-toolbar lr-toolbar">
           <button type="button" class="ex-btn primary" id="btnCopyAnswer">Copy current answers</button>
         </div>
@@ -936,7 +966,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr3">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr5">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
