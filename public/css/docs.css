@@ -2458,6 +2458,32 @@ body.ex-hide-ipa .ipa {
   background: rgba(255, 255, 255, 0.02);
 }
 
+.lr-grammar-card--link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+  cursor: pointer;
+}
+
+.lr-grammar-card--link:hover {
+  border-color: rgba(167, 139, 250, 0.55);
+  background: rgba(167, 139, 250, 0.08);
+  transform: translateY(-1px);
+}
+
+.lr-grammar-card--link strong {
+  color: var(--accent);
+}
+
+.lr-card-cta {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.78rem;
+  color: rgba(34, 211, 238, 0.85);
+  font-weight: 600;
+}
+
 .lr-grammar-card a {
   color: var(--accent);
 }
@@ -2560,6 +2586,82 @@ body.ex-hide-ipa .ipa {
   border: 1px solid var(--border);
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.02);
+}
+
+.lr-lesson-card {
+  padding: 12px 14px;
+}
+
+.lr-lesson-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 12px;
+}
+
+.lr-lesson-head strong {
+  flex: 1 1 auto;
+}
+
+.lr-video-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #fca5a5 !important;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.lr-video-link:hover {
+  background: rgba(239, 68, 68, 0.25);
+}
+
+.lr-lesson-notes {
+  margin-top: 10px;
+}
+
+.lr-lesson-notes summary {
+  cursor: pointer;
+  font-size: 0.86rem;
+  color: rgba(34, 211, 238, 0.9);
+  font-weight: 600;
+}
+
+.lr-mini-model {
+  margin: 10px 0;
+  padding-left: 1.1rem;
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+.lr-mini-model li {
+  margin-bottom: 6px;
+  border: none;
+  padding: 0;
+  background: none;
+}
+
+.lr-think-tree {
+  margin: 0 0 12px;
+}
+
+.lr-tree {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px dashed rgba(167, 139, 250, 0.3);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: rgba(226, 232, 240, 0.82);
+  overflow-x: auto;
+  white-space: pre;
 }
 
 .lr-lesson-list a {

@@ -67,13 +67,73 @@ GRAMMAR_REFS = [
 ]
 
 SPEAKING_LESSONS = [
-    ("lesson-03-do-you-like-x", "Do you like X? — Yes/No + reasons", "Part 1 food questions"),
-    ("lesson-02-reasons-like-dislike", "Reasons like / dislike", "Because / This is because + S+V"),
-    ("lesson-34-how-to-talk-about-the-past-in-english", "Talk about the past", "Childhood food, used to"),
-    ("lesson-57-how-to-use-the-past-perfect-tense-in-english-english-grammar", "Past Perfect", "Before that meal, I had never…"),
-    ("lesson-15-how-to-tell-a-story-in-english-using-past-tense", "Tell a story (past)", "Part 2 meal narrative"),
-    ("lesson-23-future-in-english-how-to-talk-about-the-future", "Talk about the future", "Diet plans, food trends"),
-    ("lesson-61-how-to-add-emphasis-in-english-improve-your-spoken-english", "Add emphasis", "What I enjoy most is…"),
+    {
+        "slug": "lesson-34-how-to-talk-about-the-past-in-english",
+        "title": "Talk about the past",
+        "why": "Childhood food, used to, past habits",
+        "youtube": "https://www.youtube.com/watch?v=rZS5qlCGCIY",
+        "model": [
+            ("Past Simple", "finished events — <em>Last Sunday I grilled kebab.</em>"),
+            ("Past Continuous", "background action — <em>I was chopping vegetables when…</em>"),
+            ("used to / would", "past habits — <em>When I was a child, I would eat fast food every day.</em>"),
+            ("Time anchors", "when I was younger · last year · as a teenager"),
+        ],
+        "food": "When I was a child, I <strong>used to</strong> hate vegetables, but now I love a good <em>vegetable salad</em>.",
+    },
+    {
+        "slug": "lesson-57-how-to-use-the-past-perfect-tense-in-english-english-grammar",
+        "title": "Past Perfect",
+        "why": "Earlier past before another past event",
+        "youtube": "https://www.youtube.com/watch?v=iKi4Jy6r-0s",
+        "model": [
+            ("Form", "had + past participle"),
+            ("Earlier past", "event A happened <strong>before</strong> event B (both in the past)"),
+            ("Never before", "<em>I had never tried lobster before that trip.</em>"),
+            ("Timeline", "had tried → then visited → then tasted"),
+        ],
+        "food": "Before that dinner, I <strong>had never tasted</strong> blue cheese — so the flavour shocked me.",
+    },
+    {
+        "slug": "lesson-15-how-to-tell-a-story-in-english-using-past-tense",
+        "title": "Tell a story (past tense)",
+        "why": "Part 2 meal narrative — 4-step structure",
+        "youtube": "https://www.youtube.com/watch?v=m04lQ5BUAn0",
+        "model": [
+            ("1 · Background", "who / when / where / what — set the scene"),
+            ("2 · Goal", "what did people want? — <em>We had to finish cooking before guests arrived.</em>"),
+            ("3 · Tension", "problems, difficulties, foreshadowing"),
+            ("4 · Ending", "resolve tension + retrospective comment — <em>Looking back, it was stressful but fun.</em>"),
+        ],
+        "food": "It was last month… We wanted to <strong>roast</strong> ribs, but the oven broke — tension — we <strong>grilled</strong> outside instead.",
+    },
+    {
+        "slug": "lesson-23-future-in-english-how-to-talk-about-the-future",
+        "title": "Talk about the future",
+        "why": "Diet plans, food trends, predictions",
+        "youtube": "https://www.youtube.com/watch?v=0anZBvnj6LM",
+        "model": [
+            ("Present Continuous", "fixed plan with when/where — <em>I'm meeting friends for lunch on Saturday.</em>"),
+            ("going to / planning to", "intention, not fully fixed — <em>I'm planning to try a low-carb diet.</em>"),
+            ("Present Simple", "timetables — <em>The cooking class starts at 11:30.</em>"),
+            ("will / won't", "predictions — <em>People will eat more plant-based food.</em>"),
+            ("may / might", "uncertainty — <em>I might order takeout tonight.</em>"),
+        ],
+        "food": "Next month I'm <strong>going to</strong> cook more at home, and I <strong>will probably</strong> cut down on fast food.",
+    },
+    {
+        "slug": "lesson-61-how-to-add-emphasis-in-english-improve-your-spoken-english",
+        "title": "Add emphasis",
+        "why": "Highlight what matters most in your answer",
+        "youtube": "https://www.youtube.com/watch?v=P-PSlizktNU",
+        "model": [
+            ("What…is", "<em>What I enjoy most is</em> trying new cuisines."),
+            ("It was…that", "cleft — <em>It was the fresh herbs that made the dish special.</em>"),
+            ("do/does + V", "<em>I do like</em> spicy food, but not every day."),
+            ("so / really / absolutely", "degree — <em>I absolutely love</em> homemade pasta."),
+            ("Stress", "put emphasis on the key word when speaking"),
+        ],
+        "food": "<strong>What I enjoy most</strong> about cooking is the chance to experiment with <em>spices</em> and <em>herbs</em>.",
+    },
 ]
 
 # Hand-curated interchangeable vocab slots (B1/B2 heavy)
@@ -139,6 +199,65 @@ WORD_SLOTS: dict[str, list[dict]] = {
         {"form": "bagel", "vi": "bánh bagel"},
         {"form": "baguette", "vi": "bánh mì Pháp"},
         {"form": "croissant", "vi": "bánh sừng bò"},
+        {"form": "pastry", "vi": "bánh ngọt"},
+        {"form": "cereal", "vi": "ngũ cốc"},
+    ],
+    "meat": [
+        {"form": "bacon", "vi": "thịt xông khói"},
+        {"form": "veal", "vi": "thịt bê"},
+        {"form": "rib", "vi": "sườn"},
+        {"form": "lobster", "vi": "tôm hùm"},
+        {"form": "beefsteak", "vi": "bít tết"},
+    ],
+    "seafood": [
+        {"form": "seafood", "vi": "hải sản"},
+        {"form": "crab", "vi": "thịt cua"},
+        {"form": "oyster", "vi": "hàu"},
+        {"form": "shellfish", "vi": "hải sản có vỏ"},
+    ],
+    "cheese": [
+        {"form": "blue cheese", "vi": "phô mai xanh"},
+        {"form": "Cheddar", "vi": "phô mai cheddar"},
+        {"form": "goat cheese", "vi": "phô mai dê"},
+        {"form": "Swiss cheese", "vi": "phô mai Thụy Sĩ"},
+    ],
+    "fruit": [
+        {"form": "pomegranate", "vi": "lựu"},
+        {"form": "papaya", "vi": "đu đủ"},
+        {"form": "cranberry", "vi": "nam việt quất"},
+        {"form": "nectarine", "vi": "quả xuân đào"},
+        {"form": "coconut", "vi": "dừa"},
+    ],
+    "sauce": [
+        {"form": "soy sauce", "vi": "nước tương"},
+        {"form": "ketchup", "vi": "tương cà"},
+        {"form": "mustard", "vi": "mù tạt"},
+        {"form": "mayonnaise", "vi": "sốt mayonnaise"},
+    ],
+    "dessert": [
+        {"form": "cheesecake", "vi": "bánh phô mai"},
+        {"form": "cupcake", "vi": "bánh nướng nhỏ"},
+        {"form": "donut", "vi": "bánh rán"},
+        {"form": "pudding", "vi": "bánh pudding"},
+        {"form": "popsicle", "vi": "kem que"},
+    ],
+    "cuisine": [
+        {"form": "cuisine", "vi": "ẩm thực"},
+        {"form": "kebab", "vi": "kebab"},
+        {"form": "curry", "vi": "cà ri"},
+        {"form": "pasta", "vi": "mì Ý"},
+    ],
+    "diet_term": [
+        {"form": "calorie", "vi": "calo"},
+        {"form": "nutrition", "vi": "dinh dưỡng"},
+        {"form": "plant-based", "vi": "thuần chay"},
+        {"form": "sugar-free", "vi": "không đường"},
+    ],
+    "kitchen_tool": [
+        {"form": "blender", "vi": "máy xay"},
+        {"form": "wok", "vi": "wok"},
+        {"form": "frying pan", "vi": "chảo rán"},
+        {"form": "barbecue", "vi": "bếp nướng"},
     ],
 }
 
@@ -177,13 +296,12 @@ def grammar_section() -> str:
     cards = []
     for title, url, vi_use, ex in GRAMMAR_REFS:
         cards.append(
-            f"""        <li class="lr-grammar-card">
-          <a href="{esc(url)}" target="_blank" rel="noopener noreferrer">
-            <strong>{esc(title)}</strong>
-          </a>
+            f"""        <a class="lr-grammar-card lr-grammar-card--link" href="{esc(url)}" target="_blank" rel="noopener noreferrer">
+          <strong>{esc(title)}</strong>
           <p>{esc(vi_use)}</p>
           <p class="lr-grammar-ex"><em>e.g.</em> {esc(ex)}</p>
-        </li>"""
+          <span class="lr-card-cta">Read on IELTS Fighter ↗</span>
+        </a>"""
         )
     return "\n".join(cards)
 
@@ -226,28 +344,32 @@ def mental_model_html() -> str:
 
 def speaking_lessons_html() -> str:
     rows = []
-    for slug, title, why in SPEAKING_LESSONS:
+    for lesson in SPEAKING_LESSONS:
+        slug = lesson["slug"]
+        title = lesson["title"]
+        why = lesson["why"]
+        yt = lesson["youtube"]
+        model_items = "\n".join(
+            f'              <li><strong>{esc(label)}</strong> — {body}</li>'
+            for label, body in lesson["model"]
+        )
+        food_ex = lesson["food"]
         rows.append(
-            f"""        <li>
-          <strong>{esc(title)}</strong>
-          <code class="lr-path">IELTS/SPEAKING/spoken-english-lessons/{esc(slug)}.md</code>
-          <span class="lr-lesson-why">{esc(why)}</span>
+            f"""        <li class="lr-lesson-card">
+          <div class="lr-lesson-head">
+            <strong>{esc(title)}</strong>
+            <a class="lr-video-link" href="{esc(yt)}" target="_blank" rel="noopener noreferrer">Watch video ↗</a>
+            <span class="lr-lesson-why">{esc(why)}</span>
+          </div>
+          <details class="lr-lesson-notes">
+            <summary>Notes &amp; mental model (after watching)</summary>
+            <ul class="lr-mini-model">
+{model_items}
+            </ul>
+            <p class="lr-food-ex"><strong>Food:</strong> {food_ex}</p>
+          </details>
         </li>"""
         )
-    rows.append(
-        """        <li>
-          <strong>Lesson 2 — Reasons like / dislike</strong>
-          <code class="lr-path">IELTS/SPEAKING/lesson-2-reasons-like-dislike.md</code>
-          <span class="lr-lesson-why">Yes/No + because (food likes &amp; dislikes)</span>
-        </li>"""
-    )
-    rows.append(
-        """        <li>
-          <strong>Lesson 3 — Do you like X?</strong>
-          <code class="lr-path">IELTS/SPEAKING/lesson-3-do-you-like-x.md</code>
-          <span class="lr-lesson-why">Part 1 formula for food questions</span>
-        </li>"""
-    )
     return "\n".join(rows)
 
 
@@ -256,22 +378,45 @@ def lesson_highlights_html() -> str:
       <div class="lr-highlight-grid">
         <article class="lr-highlight-card">
           <h3>Lesson 3 · Do you like X?</h3>
-          <p class="lr-formula"><strong>Yes/No</strong> + <strong>Reasons</strong></p>
+          <p class="lr-formula"><strong>Yes/No</strong> + <strong>Reasons</strong> (Lesson 2)</p>
+          <div class="lr-think-tree">
+            <pre class="lr-tree">Do you like X?
+├── YES
+│   ├── Yes, definitely / absolutely
+│   ├── I + V (like / love / enjoy)
+│   ├── I'm + adj (keen on / interested in)
+│   └── I'm a + NP (big fan of)
+├── NO
+│   ├── No, definitely not / not really
+│   ├── I + DON'T + V
+│   └── I'm NOT a + NP
+└── REASONS
+    ├── Because / This is because + S + V
+    └── Because of + noun / noun phrase</pre>
+          </div>
           <ul>
-            <li><mark>Yes, definitely.</mark> / <mark>No, not really.</mark></li>
-            <li><mark>I'm keen on</mark> / <mark>I'm a big fan of</mark> + noun</li>
-            <li><mark>This is because</mark> + S + V</li>
             <li><mark>It gives me the chance to</mark> + V</li>
+            <li><mark>I also get the opportunity to</mark> + V</li>
+            <li><mark>can lead to</mark> + health problems</li>
           </ul>
           <p class="lr-food-ex"><strong>Food:</strong> Do you like cooking? → <em>Yes, definitely. I'm keen on cooking because it gives me the chance to try new recipes.</em></p>
         </article>
         <article class="lr-highlight-card">
-          <h3>Lesson 2 · Reasons</h3>
-          <p class="lr-formula">Like → <strong>entertaining</strong> or <strong>educational</strong> (+ health)</p>
+          <h3>Lesson 2 · Reasons like / dislike</h3>
+          <p class="lr-formula">Pick <strong>1–2 nhánh</strong> — không nhồi hết</p>
+          <div class="lr-think-tree">
+            <pre class="lr-tree">LÝ DO THÍCH
+├── Giải trí → relax / unwind / recharge batteries
+└── Giáo dục → learn skills / widen horizons / keep fit
+
+LÝ DO KHÔNG THÍCH
+├── Không giải trí → boring / stressful / makes me tired
+└── Không giáo dục → can't learn anything / hại sức khỏe
+    └── can lead to obesity, heart problems…</pre>
+          </div>
           <ul>
             <li><mark>It's a great way to</mark> unwind / relax</li>
             <li><mark>It helps me</mark> recharge my batteries</li>
-            <li>Dislike → <mark>can lead to</mark> health problems</li>
             <li><mark>not my cup of tea</mark> · <mark>can't stand</mark></li>
           </ul>
           <p class="lr-food-ex"><strong>Food:</strong> Why dislike fast food? → <em>Because it can lead to obesity and it's not my cup of tea.</em></p>
@@ -283,8 +428,8 @@ def vocab_chains_html(words: list[dict]) -> str:
     chains = [
         (
             "Morning routine (Time process)",
-            "wake up → sip {morning_drink} → grab {b2_bread} → check nutrition",
-            ["morning_drink", "b2_bread"],
+            "wake up → sip {morning_drink} → grab {b2_bread} → check {diet_term}",
+            ["morning_drink", "b2_bread", "diet_term"],
         ),
         (
             "Eating out (Cause → Effect)",
@@ -300,6 +445,36 @@ def vocab_chains_html(words: list[dict]) -> str:
             "Weekend drinks (Advantage / Disadvantage)",
             "Advantage: enjoy {alcohol} on special occasions · Disadvantage: need time to sober up → prefer {soft_drink}",
             ["alcohol", "soft_drink"],
+        ),
+        (
+            "Cooking at home (Process chain)",
+            "check {kitchen_tool} → read recipe → {cook_verb} {meat} → add {sauce} → garnish with {ingredient}",
+            ["kitchen_tool", "cook_verb", "meat", "sauce", "ingredient"],
+        ),
+        (
+            "Restaurant visit (Sequence)",
+            "read menu → order {cuisine} → pair with {soft_drink} → finish with {dessert}",
+            ["cuisine", "soft_drink", "dessert"],
+        ),
+        (
+            "Seafood dinner (Contrast)",
+            "Some love {seafood}, others prefer {meat} — both need good {sauce} and fresh {ingredient}",
+            ["seafood", "meat", "sauce", "ingredient"],
+        ),
+        (
+            "Cheese & bread (Comparison)",
+            "Compare {cheese} on {b2_bread} vs {fruit} with {morning_drink} — different {cuisine} styles",
+            ["cheese", "b2_bread", "fruit", "morning_drink", "cuisine"],
+        ),
+        (
+            "Diet awareness (Cause → Effect)",
+            "Track {diet_term} → reduce {dislike_food} → choose {healthy_item} → cook with {ingredient}",
+            ["diet_term", "dislike_food", "healthy_item", "ingredient"],
+        ),
+        (
+            "Party food (Advantage chain)",
+            "prepare {dessert} + {b2_drink} + {alcohol} → guests enjoy {cuisine} → everyone relaxes",
+            ["dessert", "b2_drink", "alcohol", "cuisine"],
         ),
     ]
     parts = []
@@ -384,19 +559,64 @@ def speaking_mock_html() -> str:
                 '<span class="lr-tense-tag">Present Simple · preference</span>'
             ),
         ),
+        (
+            "What kind of drinks do you like?",
+            "Bạn thích loại đồ uống nào?",
+            (
+                'I\'m quite flexible. In the morning I go for '
+                f'{slot_select("morning_drink", 1)}, but in the evening I might sip '
+                f'{slot_select("b2_drink", 2)} or just stick to {slot_select("soft_drink")}. '
+                '<span class="lr-tense-tag">Present Simple · habit</span>'
+            ),
+        ),
+        (
+            "Do you like trying new cuisines?",
+            "Bạn có thích thử ẩm thực mới không?",
+            (
+                'Yes, absolutely. <strong>What I enjoy most</strong> is exploring '
+                f'different {slot_select("cuisine")} styles — last month I tried '
+                f'{slot_select("meat", 4)} with {slot_select("sauce", 0)}. '
+                '<span class="lr-tense-tag">Present Perfect · emphasis</span>'
+            ),
+        ),
+        (
+            "Did you cook when you were younger?",
+            "Khi còn nhỏ bạn có nấu ăn không?",
+            (
+                'Not really. <strong>When I was a child</strong>, my parents did all the cooking. '
+                f'I <strong>would</strong> only help {slot_select("cook_verb", 3)} vegetables sometimes. '
+                '<span class="lr-tense-tag">Past Simple · would</span>'
+            ),
+        ),
+        (
+            "Are you trying to eat more healthily these days?",
+            "Dạo này bạn có cố ăn uống lành mạnh hơn không?",
+            (
+                'Yes, definitely. I\'m <strong>paying more attention to</strong> '
+                f'{slot_select("diet_term", 1)} and {slot_select("diet_term", 0)}. '
+                f'I\'ve been eating more {slot_select("fruit", 0)} and less '
+                f'{slot_select("dislike_food", 2)}. '
+                '<span class="lr-tense-tag">Present Perfect Continuous</span>'
+            ),
+        ),
     ]
 
     p2_en = (
         "I'm going to describe a meal I really enjoyed. "
         f"It was last month when my family cooked together. "
-        f"First, we decided to {slot_select('cook_verb', 2)} meat and prepare "
+        f"First, we decided to {slot_select('cook_verb', 2)} "
+        f"{slot_select('meat', 2)} and prepare "
         f"{slot_select('healthy_item', 1)} on the side. "
-        f"I was {slot_select('cook_verb', 4)} sauce while my mom chopped vegetables — "
+        f"I was {slot_select('cook_verb', 4)} sauce with {slot_select('sauce', 3)} "
+        f"while my mom chopped vegetables — "
         "<strong>Past Continuous</strong> for background. "
-        f"Before that day, I <strong>had never tried</strong> that recipe, so everything felt new. "
-        f"We finished with {slot_select('favourite_food', 0)} and shared "
+        f"Before that day, I <strong>had never tried</strong> that recipe with "
+        f"{slot_select('cheese', 0)}, so everything felt new. "
+        f"We used our {slot_select('kitchen_tool', 3)} and finished with "
+        f"{slot_select('dessert', 0)} and shared "
         f"{slot_select('alcohol', 0)} for a toast. "
-        "What I enjoyed most was spending time together — not just the food."
+        "<strong>What I enjoyed most</strong> was spending time together — not just the food. "
+        "Looking back now, it makes a good story!"
     )
 
     p3 = [
@@ -431,7 +651,54 @@ def speaking_mock_html() -> str:
                 '<span class="lr-tense-tag">Future Simple · Future Perfect</span>'
             ),
         ),
+        (
+            "What role does food play in your culture?",
+            "Thức ăn đóng vai trò gì trong văn hóa của bạn?",
+            (
+                'Food is <strong>extremely important</strong>. Sharing a meal brings families together, '
+                f'and traditional {slot_select("cuisine", 2)} is passed down through generations. '
+                f'On special occasions we prepare {slot_select("seafood", 0)} or '
+                f'{slot_select("meat", 0)} — it\'s a great way to unwind and reconnect. '
+                '<span class="lr-tense-tag">Present Simple · general truth</span>'
+            ),
+        ),
+        (
+            "Why do some people prefer cooking at home?",
+            "Tại sao một số người thích nấu ăn ở nhà?",
+            (
+                'I think <strong>because</strong> it helps them control '
+                f'{slot_select("diet_term", 1)} and save money. '
+                f'It\'s also a great way to experiment with {slot_select("ingredient", 0)} '
+                f'and {slot_select("sauce", 1)}. '
+                '<span class="lr-tense-tag">Because + S + V</span>'
+            ),
+        ),
+        (
+            "How important is it to know where your food comes from?",
+            "Biết nguồn gốc thức ăn quan trọng thế nào?",
+            (
+                'I think it\'s <strong>absolutely essential</strong>. '
+                f'If you care about {slot_select("diet_term", 2)} eating, you need to check '
+                'whether ingredients are fresh and sustainably sourced. '
+                f'<strong>More people have been paying attention to</strong> this lately. '
+                '<span class="lr-tense-tag">Present Perfect Continuous</span>'
+            ),
+        ),
+        (
+            "Do you think children should learn to cook?",
+            "Bạn có nghĩ trẻ em nên học nấu ăn không?",
+            (
+                'Yes, definitely. <strong>It gives them the chance to</strong> learn practical skills '
+                f'and understand {slot_select("diet_term", 1)}. '
+                f'If they start early, they <strong>will have developed</strong> healthy habits '
+                'by the time they leave home. '
+                '<span class="lr-tense-tag">Future Perfect · reasons</span>'
+            ),
+        ),
     ]
+
+    p2_idx = len(p1) + 1
+    p3_start = p2_idx + 1
 
     lines = []
     lines.append('        <div class="ex-ielts-part lr-mock-part" data-part="1">')
@@ -456,14 +723,14 @@ def speaking_mock_html() -> str:
         lines.append(f"              <li>{esc(b)}</li>")
     lines.append("            </ul></div>")
     lines.append('          <div class="ex-qa">')
-    lines.append('            <p class="ex-sent lr-answer" data-sent="6">')
+    lines.append(f'            <p class="ex-sent lr-answer" data-sent="{p2_idx}">')
     lines.append('              <span class="ex-a-label">You</span>')
     lines.append(f'              <span class="ex-en lr-answer-text">{p2_en}</span>')
     lines.append("            </p></div></div>")
 
     lines.append('        <div class="ex-ielts-part lr-mock-part" data-part="3">')
     lines.append('          <h2 class="ex-ielts-part-title">Part 3 · Discussion</h2>')
-    for j, (q, qvi, ans) in enumerate(p3, 7):
+    for j, (q, qvi, ans) in enumerate(p3, p3_start):
         lines.append('          <div class="ex-qa">')
         lines.append(f'            <p class="ex-q"><span class="ex-role">Examiner</span> {esc(q)}</p>')
         lines.append(f'            <p class="ex-q-vi">{esc(qvi)}</p>')
@@ -513,10 +780,10 @@ def build_page() -> str:
 
       <section class="lr-section" id="grammar">
         <h2>1 · Grammar foundations</h2>
-        <p class="lr-section-hint">Đọc lý thuyết cơ bản trước khi luyện nói. Mỗi thì gắn với ngữ cảnh Food &amp; Drink.</p>
-        <ul class="lr-grammar-list">
+        <p class="lr-section-hint">Click từng card để mở bài đọc trên IELTS Fighter. Mỗi thì gắn với ngữ cảnh Food &amp; Drink.</p>
+        <div class="lr-grammar-list">
 {grammar_section()}
-        </ul>
+        </div>
         <p class="lr-ref">Tham khảo thêm: <a href="https://www.dolenglish.vn/blog/linearthinking-trong-hoc-ngu-phap-grammar" target="_blank" rel="noopener noreferrer">Linear Thinking trong Grammar</a> · <a href="https://www.dolenglish.vn/blog/ielts-speaking-food" target="_blank" rel="noopener noreferrer">DOL — IELTS Speaking Food</a></p>
       </section>
 
@@ -528,7 +795,7 @@ def build_page() -> str:
 
       <section class="lr-section" id="structures">
         <h2>3 · Speaking structures (food + tenses)</h2>
-        <p class="lr-section-hint">Các bài trong <code>IELTS/SPEAKING/spoken-english-lessons</code> liên quan chủ đề Food và thì.</p>
+        <p class="lr-section-hint">Xem video gốc trước, sau đó mở <strong>Notes &amp; mental model</strong> để ôn cấu trúc. Lesson 2 &amp; 3 ở mục 4 bên dưới.</p>
         <ul class="lr-lesson-list">
 {speaking_lessons_html()}
         </ul>
@@ -571,7 +838,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr1">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr2">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -594,7 +861,7 @@ def build_page() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js"></script>
-  <script src="{home}js/linear-review.js?v=lr1"></script>
+  <script src="{home}js/linear-review.js?v=lr2"></script>
 </body>
 </html>"""
 
