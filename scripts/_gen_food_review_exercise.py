@@ -433,18 +433,35 @@ def _render_note_segment(seg: dict) -> str:
     tip_html = f'<p class="lr-note-tip">{tip}</p>\n' if tip else ""
 
     items = seg.get("items", [])
-    if seg.get("formula"):
-        items_html = "\n".join(
-            f"                <li><strong>{esc(label)}</strong> — {body}</li>"
-            for label, body in items
+    items_verbatim = seg.get("items_verbatim")
+    speaker = seg.get("speaker")
+
+    if speaker and items_verbatim:
+        lines_html = "\n".join(
+            f'                <p class="lr-verbatim-line">{esc(t)}</p>'
+            for t in items_verbatim
         )
+        body = f"""              <div class="lr-verbatim-block">
+                <span class="lr-speaker">{esc(speaker)}</span>
+{lines_html}
+              </div>"""
+    elif seg.get("formula"):
+        rows = []
+        for item in items:
+            if isinstance(item, tuple) and len(item) == 2:
+                label, body = item
+                rows.append(
+                    f"                <li><strong>{esc(label)}</strong> — {body}</li>"
+                )
+            else:
+                rows.append(f"                <li>{item}</li>")
+        items_html = "\n".join(rows)
         body = f"""              <ul class="lr-mini-model lr-note-list">
 {items_html}
               </ul>"""
     else:
-        items_html = "\n".join(
-            f"                <li>{item}</li>" for item in items
-        )
+        display = items if items else (items_verbatim or [])
+        items_html = "\n".join(f"                <li>{item}</li>" for item in display)
         body = f"""              <ul class="lr-note-list">
 {items_html}
               </ul>"""
@@ -496,7 +513,7 @@ def speaking_lessons_html() -> str:
           </div>
           <details class="lr-lesson-notes">
             <summary>Video catch-up — transcript &amp; notes</summary>
-            <p class="lr-catchup-hint">Đọc theo thứ tự: <strong>hội thoại → slide grammar</strong> → hội thoại → note… để ôn lại toàn bộ video.</p>
+            <p class="lr-catchup-hint">Transcript lấy <strong>nguyên văn</strong> từ phụ đề YouTube (Oxford Online English). Đọc theo thứ tự: hội thoại → slide grammar → hội thoại → note…</p>
             <div class="lr-video-timeline">
 {timeline}
             </div>
@@ -1373,7 +1390,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr10">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr11">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -1396,7 +1413,7 @@ def build_page() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js"></script>
-  <script src="{home}js/linear-review.js?v=lr10"></script>
+  <script src="{home}js/linear-review.js?v=lr11"></script>
 </body>
 </html>"""
 
