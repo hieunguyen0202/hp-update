@@ -139,4 +139,238 @@
       }
     });
   });
+
+  /** Scroll read teleprompter — built from mock Q&A + dropdown cloze */
+  const escapeHtml = (s) =>
+    String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+
+  const initMockScrollRead = () => {
+    const mock = document.getElementById("mockPassage");
+    const track = document.getElementById("scrollTrack");
+    const viewport = document.getElementById("scrollViewport");
+    if (!mock || !track || !viewport) return;
+
+    let slots = {};
+    try {
+      slots = JSON.parse(document.getElementById("lrWordSlots").textContent);
+    } catch {
+      /* no slots */
+    }
+
+    const speedRange = document.getElementById("scrollSpeed");
+    const speedVal = document.getElementById("scrollSpeedVal");
+    const hintMode = document.getElementById("scrollHintMode");
+    const revealTog = document.getElementById("scrollReveal");
+    const btnPlay = document.getElementById("btnScrollPlay");
+    const btnPause = document.getElementById("btnScrollPause");
+    const btnRestart = document.getElementById("btnScrollRestart");
+
+    let playing = false;
+    let offset = 0;
+    let raf = 0;
+    let lastTs = 0;
+    let pxPerSec = speedRange ? Number(speedRange.value) : 32;
+
+    const hintFor = (meta, mode) => {
+      const vi = (meta && meta.vi) || "";
+      const ipa = (meta && meta.ipa) || "";
+      if (mode === "ipa") return ipa ? `/${ipa}/` : "????";
+      if (mode === "both") {
+        if (vi && ipa) return `${vi} · /${ipa}/`;
+        return vi || (ipa ? `/${ipa}/` : "????");
+      }
+      return vi || (ipa ? `/${ipa}/` : "????");
+    };
+
+    const metaForPick = (slotId, form) => {
+      const opts = slots[slotId] || [];
+      return opts.find((o) => o.form === form) || { form, vi: "" };
+    };
+
+    const attachBlank = (form, meta, mode, reveal) => {
+      const blank = document.createElement("span");
+      blank.className = "scroll-blank";
+      blank.dataset.answer = form;
+      blank.title = "Click to peek answer";
+
+      const setContent = (revealed) => {
+        if (revealed) {
+          blank.classList.add("is-revealed");
+          blank.innerHTML = `<span class="scroll-blank-answer">${escapeHtml(form)}</span>`;
+        } else {
+          blank.classList.remove("is-revealed");
+          blank.innerHTML = `<span class="scroll-blank-gap">______</span><span class="scroll-blank-hint">${escapeHtml(
+            hintFor(meta, mode)
+          )}</span>`;
+        }
+      };
+
+      setContent(reveal);
+      blank.addEventListener("click", (e) => {
+        e.preventDefault();
+        setContent(!blank.classList.contains("is-revealed"));
+      });
+      return blank;
+    };
+
+    const answerToHtml = (answerEl, mode, reveal) => {
+      const liveSelects = [...answerEl.querySelectorAll(".lr-word-pick")];
+      const clone = answerEl.cloneNode(true);
+      clone.querySelectorAll(".lr-tense-tag, .ex-a-label").forEach((n) => n.remove());
+      [...clone.querySelectorAll(".lr-word-pick")].forEach((sel, i) => {
+        const form = liveSelects[i]?.value ?? sel.value;
+        const slotId = sel.dataset.slot || "";
+        const meta = metaForPick(slotId, form);
+        sel.replaceWith(attachBlank(form, meta, mode, reveal));
+      });
+      clone.querySelectorAll("strong, em").forEach((n) => {
+        n.replaceWith(document.createTextNode(n.textContent));
+      });
+      return clone.innerHTML.replace(/\s+/g, " ").trim();
+    };
+
+    const buildTrack = () => {
+      const mode = hintMode ? hintMode.value : "vi";
+      const reveal = !!(revealTog && revealTog.checked);
+      const blocks = [];
+      let lastPartTitle = "";
+
+      mock.querySelectorAll(".ex-ielts-part").forEach((part) => {
+        const partTitle =
+          part.querySelector(".ex-ielts-part-title")?.textContent.trim() || "";
+
+        if (partTitle && partTitle !== lastPartTitle) {
+          blocks.push(
+            `<p class="scroll-line scroll-line--part">${escapeHtml(partTitle)}</p>`
+          );
+          lastPartTitle = partTitle;
+        }
+
+        if (part.dataset.part === "2") {
+          const cue = part.querySelector(".ex-cue-title")?.textContent.trim();
+          const ans = part.querySelector(".lr-answer-text");
+          if (cue) {
+            blocks.push(
+              `<p class="scroll-line scroll-line--q">${escapeHtml(cue)}</p>`
+            );
+          }
+          if (ans) {
+            blocks.push(
+              `<p class="scroll-line scroll-line--a">${answerToHtml(ans, mode, reveal)}</p>`
+            );
+          }
+          return;
+        }
+
+        part.querySelectorAll(".ex-qa").forEach((qa) => {
+          const q = plainQuestion(qa);
+          const ans = qa.querySelector(".lr-answer-text");
+          if (q) {
+            blocks.push(
+              `<p class="scroll-line scroll-line--q">${escapeHtml(q)}</p>`
+            );
+          }
+          if (ans) {
+            blocks.push(
+              `<p class="scroll-line scroll-line--a">${answerToHtml(ans, mode, reveal)}</p>`
+            );
+          }
+        });
+      });
+
+      track.innerHTML = `<div class="scroll-pad scroll-pad--top"></div>${blocks.join(
+        ""
+      )}<div class="scroll-pad scroll-pad--bottom"></div>`;
+
+      const viewH = viewport.clientHeight || 420;
+      const topPad = track.querySelector(".scroll-pad--top");
+      const bottomPad = track.querySelector(".scroll-pad--bottom");
+      if (topPad) topPad.style.height = `${Math.round(viewH * 0.78)}px`;
+      if (bottomPad) bottomPad.style.height = `${Math.round(viewH * 0.55)}px`;
+    };
+
+    const applyTransform = () => {
+      track.style.transform = `translate3d(0, ${-offset}px, 0)`;
+    };
+
+    const maxOffset = () => {
+      const trackH = track.scrollHeight;
+      const viewH = viewport.clientHeight;
+      return Math.max(0, trackH - viewH);
+    };
+
+    const tick = (ts) => {
+      if (!playing) return;
+      if (!lastTs) lastTs = ts;
+      const dt = (ts - lastTs) / 1000;
+      lastTs = ts;
+      offset += pxPerSec * dt;
+      const max = maxOffset();
+      if (offset >= max) {
+        offset = max;
+        playing = false;
+        lastTs = 0;
+        if (btnPlay) btnPlay.textContent = "▶ Play";
+        applyTransform();
+        return;
+      }
+      applyTransform();
+      raf = requestAnimationFrame(tick);
+    };
+
+    const play = () => {
+      if (playing) return;
+      if (offset >= maxOffset() - 1) offset = 0;
+      playing = true;
+      lastTs = 0;
+      if (btnPlay) btnPlay.textContent = "▶ Playing…";
+      raf = requestAnimationFrame(tick);
+    };
+
+    const pause = () => {
+      playing = false;
+      lastTs = 0;
+      if (raf) cancelAnimationFrame(raf);
+      if (btnPlay) btnPlay.textContent = "▶ Play";
+    };
+
+    const restart = () => {
+      pause();
+      offset = 0;
+      applyTransform();
+    };
+
+    const rebuild = () => {
+      const wasPlaying = playing;
+      pause();
+      buildTrack();
+      offset = Math.min(offset, maxOffset());
+      applyTransform();
+      if (wasPlaying) play();
+    };
+
+    buildTrack();
+    applyTransform();
+
+    btnPlay && btnPlay.addEventListener("click", play);
+    btnPause && btnPause.addEventListener("click", pause);
+    btnRestart && btnRestart.addEventListener("click", restart);
+    if (speedRange && speedVal) {
+      speedRange.addEventListener("input", () => {
+        pxPerSec = Number(speedRange.value);
+        speedVal.textContent = String(pxPerSec);
+      });
+    }
+    hintMode && hintMode.addEventListener("change", rebuild);
+    revealTog && revealTog.addEventListener("change", rebuild);
+    mock.querySelectorAll(".lr-word-pick").forEach((sel) => {
+      sel.addEventListener("change", rebuild);
+    });
+  };
+
+  initMockScrollRead();
 })();

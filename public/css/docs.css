@@ -2101,6 +2101,32 @@ body.docs::before {
   margin: 0 0 1.1em;
 }
 
+.scroll-line--part {
+  font-size: 0.72em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(167, 139, 250, 0.85);
+  margin-top: 1.4em;
+}
+
+.scroll-line--q {
+  color: rgba(148, 163, 184, 0.92);
+  font-size: 0.92em;
+}
+
+.scroll-line--a {
+  padding-left: 0.35em;
+}
+
+.lr-scroll-read {
+  margin-top: 1.5rem;
+}
+
+.lr-scroll-read .ex-scroll-head h3 {
+  font-size: 1.15rem;
+  margin: 0 0 0.35rem;
+}
+
 .scroll-blank {
   display: inline-flex;
   flex-direction: column;

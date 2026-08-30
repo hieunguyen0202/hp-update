@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css?v=lr7">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=lr8">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -584,6 +584,7 @@ LÝ DO KHÔNG THÍCH
             <li>Chọn từ trong dropdown → chỉnh câu trả lời theo ý bạn.</li>
             <li>Bấm <strong>Copy current answers</strong> — clipboard gồm <em>câu hỏi + câu trả lời</em> theo Part 1 / 2 / 3.</li>
             <li>Mở <a href="https://www.naturalreaders.com/online/" target="_blank" rel="noopener noreferrer">NaturalReader Online</a> (hoặc TTS khác) → paste → nghe và lặp lại để luyện phát âm &amp; nhịp nói.</li>
+            <li>Hoặc dùng <strong>Scroll read · speaking</strong> bên dưới — teleprompter cuộn chữ, từ dropdown bị ẩn (gợi ý VI/IPA) để bạn tự nói.</li>
           </ol>
           <div class="lr-ref-grid">
             <a class="lr-ref-card" href="https://www.dolenglish.vn/blog/speaking-test-ielts" target="_blank" rel="noopener noreferrer">
@@ -881,12 +882,44 @@ LÝ DO KHÔNG THÍCH
             </p></div>
         </div>
         </section>
+
+        <section class="ex-scroll lr-scroll-read" id="exScroll" aria-label="Scroll reading teleprompter">
+          <div class="ex-scroll-head">
+            <div>
+              <h3>Scroll read · speaking</h3>
+              <p class="ex-scroll-hint">Đọc theo chữ cuộn kiểu teleprompter (VOA-style). Từ trong dropdown bị ẩn — hiện nghĩa VI hoặc IPA để bạn tự nhớ và nói ra tiếng Anh. Câu hỏi + câu trả lời cuộn theo Part 1 / 2 / 3.</p>
+            </div>
+          </div>
+          <div class="ex-scroll-toolbar">
+            <button type="button" class="ex-btn primary" id="btnScrollPlay">▶ Play</button>
+            <button type="button" class="ex-btn" id="btnScrollPause">Pause</button>
+            <button type="button" class="ex-btn" id="btnScrollRestart">⟲ Restart</button>
+            <label class="ex-voice">Speed
+              <input id="scrollSpeed" type="range" min="12" max="90" step="1" value="32">
+              <span id="scrollSpeedVal">32</span> px/s
+            </label>
+            <label class="ex-voice">Hint
+              <select id="scrollHintMode" aria-label="Hint mode for hidden words">
+                <option value="vi" selected>Nghĩa VI</option>
+                <option value="ipa">IPA</option>
+                <option value="both">VI + IPA</option>
+              </select>
+            </label>
+            <label class="ex-toggle"><input type="checkbox" id="scrollReveal"> Hiện từ EN</label>
+          </div>
+          <div class="ex-scroll-stage">
+            <div class="ex-scroll-focus" aria-hidden="true"></div>
+            <div class="ex-scroll-viewport" id="scrollViewport">
+              <div class="ex-scroll-track" id="scrollTrack"></div>
+            </div>
+          </div>
+        </section>
       </section>
 
       <script type="application/json" id="lrWordSlots">{"morning_drink": [{"form": "latte", "vi": "cà phê latte"}, {"form": "espresso", "vi": "espresso"}, {"form": "cappuccino", "vi": "cappuccino"}, {"form": "herbal tea", "vi": "trà thảo mộc"}, {"form": "smoothie", "vi": "sinh tố"}], "soft_drink": [{"form": "mineral water", "vi": "nước khoáng"}, {"form": "lemonade", "vi": "nước chanh"}, {"form": "soda", "vi": "nước ngọt có ga"}, {"form": "sparkling water", "vi": "nước có ga"}], "alcohol": [{"form": "wine", "vi": "rượu vang"}, {"form": "beer", "vi": "bia"}, {"form": "cider", "vi": "rượu táo"}, {"form": "gin", "vi": "gin"}, {"form": "booze", "vi": "đồ có cồn (thân mật)"}], "favourite_food": [{"form": "cheesecake", "vi": "bánh phô mai"}, {"form": "pasta", "vi": "mì Ý"}, {"form": "curry", "vi": "cà ri"}, {"form": "steak", "vi": "bít tết"}, {"form": "sushi", "vi": "sushi"}], "dislike_food": [{"form": "fast food", "vi": "đồ ăn nhanh"}, {"form": "junk food", "vi": "đồ ăn vặt không lành mạnh"}, {"form": "processed food", "vi": "đồ chế biến sẵn"}], "healthy_item": [{"form": "vegetable salad", "vi": "salad rau"}, {"form": "low-carb diet", "vi": "chế độ ít carb"}, {"form": "gluten-free diet", "vi": "chế độ không gluten"}, {"form": "fruit salad", "vi": "salad trái cây"}], "cook_verb": [{"form": "grill", "vi": "nướng"}, {"form": "roast", "vi": "quay"}, {"form": "marinate", "vi": "ướp"}, {"form": "chop", "vi": "thái nhỏ"}, {"form": "stir", "vi": "đảo"}], "ingredient": [{"form": "herb", "vi": "thảo mộc"}, {"form": "spice", "vi": "gia vị"}, {"form": "garlic", "vi": "tỏi"}, {"form": "ginger", "vi": "gừng"}], "b2_drink": [{"form": "mojito", "vi": "mojito"}, {"form": "margarita", "vi": "margarita"}, {"form": "martini", "vi": "martini"}, {"form": "ginger ale", "vi": "ginger ale"}], "b2_bread": [{"form": "bagel", "vi": "bánh bagel"}, {"form": "baguette", "vi": "bánh mì Pháp"}, {"form": "croissant", "vi": "bánh sừng bò"}, {"form": "pastry", "vi": "bánh ngọt"}, {"form": "cereal", "vi": "ngũ cốc"}], "meat": [{"form": "bacon", "vi": "thịt xông khói"}, {"form": "veal", "vi": "thịt bê"}, {"form": "rib", "vi": "sườn"}, {"form": "lobster", "vi": "tôm hùm"}, {"form": "beefsteak", "vi": "bít tết"}], "seafood": [{"form": "seafood", "vi": "hải sản"}, {"form": "crab", "vi": "thịt cua"}, {"form": "oyster", "vi": "hàu"}, {"form": "shellfish", "vi": "hải sản có vỏ"}], "cheese": [{"form": "blue cheese", "vi": "phô mai xanh"}, {"form": "Cheddar", "vi": "phô mai cheddar"}, {"form": "goat cheese", "vi": "phô mai dê"}, {"form": "Swiss cheese", "vi": "phô mai Thụy Sĩ"}], "fruit": [{"form": "pomegranate", "vi": "lựu"}, {"form": "papaya", "vi": "đu đủ"}, {"form": "cranberry", "vi": "nam việt quất"}, {"form": "nectarine", "vi": "quả xuân đào"}, {"form": "coconut", "vi": "dừa"}], "sauce": [{"form": "soy sauce", "vi": "nước tương"}, {"form": "ketchup", "vi": "tương cà"}, {"form": "mustard", "vi": "mù tạt"}, {"form": "mayonnaise", "vi": "sốt mayonnaise"}], "dessert": [{"form": "cheesecake", "vi": "bánh phô mai"}, {"form": "cupcake", "vi": "bánh nướng nhỏ"}, {"form": "donut", "vi": "bánh rán"}, {"form": "pudding", "vi": "bánh pudding"}, {"form": "popsicle", "vi": "kem que"}], "cuisine": [{"form": "cuisine", "vi": "ẩm thực"}, {"form": "kebab", "vi": "kebab"}, {"form": "curry", "vi": "cà ri"}, {"form": "pasta", "vi": "mì Ý"}], "diet_term": [{"form": "calorie", "vi": "calo"}, {"form": "nutrition", "vi": "dinh dưỡng"}, {"form": "plant-based", "vi": "thuần chay"}, {"form": "sugar-free", "vi": "không đường"}], "kitchen_tool": [{"form": "blender", "vi": "máy xay"}, {"form": "wok", "vi": "wok"}, {"form": "frying pan", "vi": "chảo rán"}, {"form": "barbecue", "vi": "bếp nướng"}], "idiom_taste": [{"form": "someone who has a sweet tooth", "vi": "người thích đồ ngọt"}, {"form": "a bit of a foodie", "vi": "hơi sành ăn"}, {"form": "not very fussy about food", "vi": "không kén ăn"}, {"form": "quite health-conscious", "vi": "khá chú ý sức khỏe"}], "idiom_ease": [{"form": "a piece of cake", "vi": "dễ như ăn bánh"}, {"form": "as easy as pie", "vi": "dễ như ăn bánh"}, {"form": "like taking candy from a baby", "vi": "dễ ợt"}, {"form": "sells like hotcakes", "vi": "bán chạy như tảo nước"}], "idiom_enjoy": [{"form": "melt in my mouth", "vi": "tan trong miệng"}, {"form": "the icing on the cake", "vi": "phần thưởng thêm"}, {"form": "food for thought", "vi": "điều đáng suy ngẫm"}, {"form": "the spice of life", "vi": "gia vị của cuộc sống (variety)"}], "idiom_social": [{"form": "chew the fat", "vi": "tám chuyện phiếm"}, {"form": "bring home the bacon", "vi": "kiếm tiền nuôi gia đình"}, {"form": "cool as a cucumber", "vi": "bình tĩnh như dưa chuột"}, {"form": "in a pickle", "vi": "trong tình thế khó"}], "idiom_health": [{"form": "watch what I eat", "vi": "chú ý thức ăn"}, {"form": "bite off more than I can chew", "vi": "tham lam quá sức"}, {"form": "sticks to my ribs", "vi": "no lâu, ấm bụng"}, {"form": "take health claims with a grain of salt", "vi": "hoài nghi quảng cáo sức khỏe"}], "phrase_food": [{"form": "grab a bite", "vi": "ăn vội một miếng"}, {"form": "dine out", "vi": "ăn ngoài"}, {"form": "treat yourself", "vi": "tự thưởng cho bản thân"}, {"form": "comfort food", "vi": "đồ ăn an ủi"}, {"form": "guilty pleasure", "vi": "thú thích tội lỗi"}, {"form": "home-cooked meal", "vi": "bữa ăn nấu ở nhà"}], "slang_food": [{"form": "pig out", "vi": "ăn thả ga (slang)"}, {"form": "scarf down", "vi": "nuốt vội (slang)"}, {"form": "splash out on food", "vi": "chi đậm cho đồ ăn"}, {"form": "grab takeaway", "vi": "mua đồ mang về"}, {"form": "booze", "vi": "uống có cồn (informal)"}]}</script>
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/linear-review.js?v=lr7"></script>
+  <script src="../../../../js/linear-review.js?v=lr8"></script>
 </body>
 </html>

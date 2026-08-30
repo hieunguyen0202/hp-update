@@ -952,6 +952,41 @@ def speaking_mock_html() -> str:
     return "\n".join(lines)
 
 
+def scroll_read_html() -> str:
+    return """
+        <section class="ex-scroll lr-scroll-read" id="exScroll" aria-label="Scroll reading teleprompter">
+          <div class="ex-scroll-head">
+            <div>
+              <h3>Scroll read · speaking</h3>
+              <p class="ex-scroll-hint">Đọc theo chữ cuộn kiểu teleprompter (VOA-style). Từ trong dropdown bị ẩn — hiện nghĩa VI hoặc IPA để bạn tự nhớ và nói ra tiếng Anh. Câu hỏi + câu trả lời cuộn theo Part 1 / 2 / 3.</p>
+            </div>
+          </div>
+          <div class="ex-scroll-toolbar">
+            <button type="button" class="ex-btn primary" id="btnScrollPlay">▶ Play</button>
+            <button type="button" class="ex-btn" id="btnScrollPause">Pause</button>
+            <button type="button" class="ex-btn" id="btnScrollRestart">⟲ Restart</button>
+            <label class="ex-voice">Speed
+              <input id="scrollSpeed" type="range" min="12" max="90" step="1" value="32">
+              <span id="scrollSpeedVal">32</span> px/s
+            </label>
+            <label class="ex-voice">Hint
+              <select id="scrollHintMode" aria-label="Hint mode for hidden words">
+                <option value="vi" selected>Nghĩa VI</option>
+                <option value="ipa">IPA</option>
+                <option value="both">VI + IPA</option>
+              </select>
+            </label>
+            <label class="ex-toggle"><input type="checkbox" id="scrollReveal"> Hiện từ EN</label>
+          </div>
+          <div class="ex-scroll-stage">
+            <div class="ex-scroll-focus" aria-hidden="true"></div>
+            <div class="ex-scroll-viewport" id="scrollViewport">
+              <div class="ex-scroll-track" id="scrollTrack"></div>
+            </div>
+          </div>
+        </section>"""
+
+
 def mock_practice_refs_html() -> str:
     return """
         <aside class="lr-practice-refs" aria-label="Speaking practice references">
@@ -960,6 +995,7 @@ def mock_practice_refs_html() -> str:
             <li>Chọn từ trong dropdown → chỉnh câu trả lời theo ý bạn.</li>
             <li>Bấm <strong>Copy current answers</strong> — clipboard gồm <em>câu hỏi + câu trả lời</em> theo Part 1 / 2 / 3.</li>
             <li>Mở <a href="https://www.naturalreaders.com/online/" target="_blank" rel="noopener noreferrer">NaturalReader Online</a> (hoặc TTS khác) → paste → nghe và lặp lại để luyện phát âm &amp; nhịp nói.</li>
+            <li>Hoặc dùng <strong>Scroll read · speaking</strong> bên dưới — teleprompter cuộn chữ, từ dropdown bị ẩn (gợi ý VI/IPA) để bạn tự nói.</li>
           </ol>
           <div class="lr-ref-grid">
             <a class="lr-ref-card" href="https://www.dolenglish.vn/blog/speaking-test-ielts" target="_blank" rel="noopener noreferrer">
@@ -1079,6 +1115,7 @@ def build_page() -> str:
         <section class="ex-passage ex-ielts lr-mock-passage" id="mockPassage" data-tts-root>
 {speaking_mock_html()}
         </section>
+{scroll_read_html()}
       </section>
 
       <script type="application/json" id="lrWordSlots">{slots_json}</script>
@@ -1094,7 +1131,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr7">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr8">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -1117,7 +1154,7 @@ def build_page() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js"></script>
-  <script src="{home}js/linear-review.js?v=lr7"></script>
+  <script src="{home}js/linear-review.js?v=lr8"></script>
 </body>
 </html>"""
 
