@@ -1,6 +1,6 @@
 (() => {
   const root = document.getElementById("passage");
-  if (!root) return;
+  const pageRoot = document.querySelector(".docs-main") || document.body;
 
   const body = document.body;
   const togHighlight = document.getElementById("togHighlight");
@@ -17,8 +17,10 @@
     body.classList.toggle("ex-hide-ipa", togIpa && !togIpa.checked);
     body.classList.toggle("ex-show-vi", togVi && togVi.checked);
   };
-  [togHighlight, togIpa, togVi].forEach((el) => el && el.addEventListener("change", applyToggles));
-  applyToggles();
+  if (root) {
+    [togHighlight, togIpa, togVi].forEach((el) => el && el.addEventListener("change", applyToggles));
+    applyToggles();
+  }
 
   /** Plain English from a sentence node — IPA is display-only, never spoken/copied. */
   const plainFromEn = (el) => {
@@ -28,12 +30,13 @@
   };
 
   const sentenceTexts = () =>
-    [...root.querySelectorAll(".ex-en")].map(plainFromEn).filter(Boolean);
+    root ? [...root.querySelectorAll(".ex-en")].map(plainFromEn).filter(Boolean) : [];
 
   const passageText = () => sentenceTexts().join(" ");
 
   /** One continuous paragraph for NaturalReader / external TTS paste. */
   const ensureContinuousBlock = () => {
+    if (!root) return;
     let section = document.getElementById("exContinuous");
     if (!section) {
       section = document.createElement("section");
@@ -74,7 +77,7 @@
       });
     }
   };
-  ensureContinuousBlock();
+  if (root) ensureContinuousBlock();
 
   const shuffle = (arr) => {
     const a = arr.slice();
@@ -116,6 +119,7 @@
 
   /* ── Scroll read (VOA-style teleprompter + cloze vocab) ───────────── */
   const initScrollRead = () => {
+    if (!root) return;
     const vocab = loadVocab();
     const byKey = new Map();
     vocab.forEach((w) => {
@@ -375,7 +379,7 @@
       if (scroll) scroll.insertAdjacentElement("afterend", section);
       else if (continuous) continuous.insertAdjacentElement("afterend", section);
       else if (vocabSec) vocabSec.insertAdjacentElement("beforebegin", section);
-      else root.insertAdjacentElement("afterend", section);
+      else pageRoot.insertAdjacentElement("afterend", section);
     }
 
     const grid = document.getElementById("matchGrid");
@@ -695,6 +699,7 @@
   };
 
   const passageContextsForWord = (w) => {
+    if (!root) return [];
     const form = String(w.form || "").trim();
     const keys = [w.word, w.form]
       .map((s) => String(s || "").toLowerCase().trim())
@@ -1183,7 +1188,7 @@
       const vocabSec = document.querySelector(".ex-vocab");
       if (match) match.insertAdjacentElement("afterend", section);
       else if (vocabSec) vocabSec.insertAdjacentElement("beforebegin", section);
-      else root.insertAdjacentElement("afterend", section);
+      else pageRoot.insertAdjacentElement("afterend", section);
     } else {
       const hint = section.querySelector(".ex-flash-hint");
       if (hint) {
@@ -1329,8 +1334,10 @@
 
       const card = document.getElementById("flashCard");
       const setFlip = (on) => {
+        if (flipped === on) return;
         flipped = on;
         card && card.classList.toggle("is-flipped", on);
+        speakText(w.form);
       };
 
       const speakBtn = document.getElementById("flashSpeak");

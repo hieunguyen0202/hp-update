@@ -448,26 +448,6 @@ def wrap_exercise(topic: dict, level: str, words: list[dict], sentences: list[di
     name = topic["name"]
     home = "../../../../"
     missing = verify_coverage(words, sentences)
-    if sentences and sentences[0].get("ielts_part"):
-        ielts_sents = [s for s in sentences if s.get("ielts_part")]
-        sent_html = render_ielts_passage_html(ielts_sents)
-        legacy = [s for s in sentences if not s.get("ielts_part")]
-        if legacy:
-            sent_html += "\n" + "\n".join(
-                f"""          <p class="ex-sent" data-sent="{i}">
-            <span class="ex-en">{s["en_html"]}</span>
-            <span class="ex-vi">{s.get("vi_html") or esc(s["vi"])}</span>
-          </p>"""
-                for i, s in enumerate(legacy, len(ielts_sents) + 1)
-            )
-    else:
-        sent_html = "\n".join(
-            f"""          <p class="ex-sent" data-sent="{i}">
-            <span class="ex-en">{s["en_html"]}</span>
-            <span class="ex-vi">{s.get("vi_html") or esc(s["vi"])}</span>
-          </p>"""
-            for i, s in enumerate(sentences, 1)
-        )
 
     vocab_chips = []
     for w in words:
@@ -512,7 +492,7 @@ def wrap_exercise(topic: dict, level: str, words: list[dict], sentences: list[di
         <img src="{EXERCISE_ICON}" alt="" width="112" height="112">
         <div>
           <h1>{esc(level)} Exercise · {esc(name)}</h1>
-          <p class="lede">IELTS Speaking practice — Part 1 / 2 / 3 Q&amp;A with vocabulary from this level’s LanGeek lessons. Answer structures follow Yes/No + reasons, cue-card long turn, and discussion (see IELTS Speaking notes). IPA, highlights, VI toggle, and TTS included.</p>
+          <p class="lede">Luyện từ vựng — <strong>Match quiz</strong>, <strong>Flashcards</strong> và <strong>Word checklist</strong> từ bài LanGeek cấp {esc(level)}. IELTS Speaking mock (Part 1/2/3) nằm ở <strong>Linear Thinking · Capstone exercise</strong> (Review) khi chủ đề có mục đó.</p>
           <div class="docs-meta">
             <span><strong>Words:</strong> {len(words)}</span>
             <span><strong>Lessons:</strong> {lessons_line}</span>
@@ -520,58 +500,7 @@ def wrap_exercise(topic: dict, level: str, words: list[dict], sentences: list[di
         </div>
       </div>
 
-      <div class="ex-toolbar" id="exToolbar">
-        <label class="ex-toggle"><input type="checkbox" id="togHighlight" checked> Highlights</label>
-        <label class="ex-toggle"><input type="checkbox" id="togIpa" checked> IPA</label>
-        <label class="ex-toggle"><input type="checkbox" id="togVi"> Dịch câu (VI)</label>
-        <span class="ex-sep"></span>
-        <label class="ex-voice">Voice
-          <select id="voiceSelect" aria-label="TTS voice"></select>
-        </label>
-        <label class="ex-voice">Speed
-          <input id="rateRange" type="range" min="0.7" max="1.15" step="0.05" value="0.95">
-          <span id="rateVal">0.95</span>
-        </label>
-        <button type="button" class="ex-btn primary" id="btnPlay">▶ Read answers</button>
-        <button type="button" class="ex-btn" id="btnStop">Stop</button>
-      </div>
       {warn}
-      <section class="ex-passage ex-ielts" id="passage" data-tts-root>
-{sent_html}
-      </section>
-      <!-- Continuous paragraph (no IPA) is filled by public/js/exercise.js for NaturalReader paste -->
-
-      <section class="ex-scroll" id="exScroll" aria-label="Scroll reading teleprompter">
-        <div class="ex-scroll-head">
-          <div>
-            <h2>Scroll read · speaking</h2>
-            <p class="ex-scroll-hint">Đọc theo chữ cuộn kiểu teleprompter (VOA-style). Từ mới bị ẩn — hiện nghĩa VI hoặc IPA để bạn tự nhớ và nói ra tiếng Anh.</p>
-          </div>
-        </div>
-        <div class="ex-scroll-toolbar">
-          <button type="button" class="ex-btn primary" id="btnScrollPlay">▶ Play</button>
-          <button type="button" class="ex-btn" id="btnScrollPause">Pause</button>
-          <button type="button" class="ex-btn" id="btnScrollRestart">⟲ Restart</button>
-          <label class="ex-voice">Speed
-            <input id="scrollSpeed" type="range" min="12" max="90" step="1" value="32">
-            <span id="scrollSpeedVal">32</span> px/s
-          </label>
-          <label class="ex-voice">Hint
-            <select id="scrollHintMode" aria-label="Hint mode for hidden words">
-              <option value="vi" selected>Nghĩa VI</option>
-              <option value="ipa">IPA</option>
-              <option value="both">VI + IPA</option>
-            </select>
-          </label>
-          <label class="ex-toggle"><input type="checkbox" id="scrollReveal"> Hiện từ EN</label>
-        </div>
-        <div class="ex-scroll-stage">
-          <div class="ex-scroll-focus" aria-hidden="true"></div>
-          <div class="ex-scroll-viewport" id="scrollViewport">
-            <div class="ex-scroll-track" id="scrollTrack"></div>
-          </div>
-        </div>
-      </section>
 
       <section class="ex-match" id="exMatch" aria-label="Vocabulary match quiz">
         <div class="ex-match-head">
@@ -633,11 +562,11 @@ def wrap_exercise(topic: dict, level: str, words: list[dict], sentences: list[di
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{esc(level)} Exercise · {esc(name)} — The Quiet Corner</title>
-  <meta name="description" content="{esc(level)} reading exercise for {esc(name)} vocabulary with IPA and bilingual sentences.">
+  <meta name="description" content="{esc(level)} vocabulary exercise for {esc(name)} — match quiz, flashcards, and word checklist.">
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=ielts1">
+  <link rel="stylesheet" href="{home}css/docs.css?v=ielts2">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -660,7 +589,7 @@ def wrap_exercise(topic: dict, level: str, words: list[dict], sentences: list[di
 {body}
   </div>
   <script src="{home}js/docs.js"></script>
-  <script src="{home}js/exercise.js?v=ielts1"></script>
+  <script src="{home}js/exercise.js?v=ielts2"></script>
 </body>
 </html>
 """
