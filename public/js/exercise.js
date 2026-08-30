@@ -1169,7 +1169,7 @@
         <div class="ex-flash-head">
           <div>
             <h2>Flashcards</h2>
-            <p class="ex-flash-hint">Mỗi từ có <strong>3 ngữ cảnh nói hàng ngày</strong> (có highlight từ mới) — học nghĩa và cách dùng khi nói chuyện. Đánh giá <strong>Chính xác</strong> / <strong>Không chính xác</strong>.</p>
+            <p class="ex-flash-hint">Lật thẻ — nghĩa VI, <strong>định nghĩa tiếng Anh</strong> và <strong>ví dụ</strong> từ LanGeek (có ảnh minh họa khi có). Đánh giá <strong>Chính xác</strong> / <strong>Không chính xác</strong>.</p>
           </div>
           <div class="ex-flash-controls">
             <div class="ex-flash-stats" aria-live="polite">
@@ -1193,7 +1193,7 @@
       const hint = section.querySelector(".ex-flash-hint");
       if (hint) {
         hint.innerHTML =
-          'Mỗi từ có <strong>3 ngữ cảnh nói hàng ngày</strong> (có highlight từ mới) — học nghĩa và cách dùng khi nói chuyện. Đánh giá <strong>Chính xác</strong> / <strong>Không chính xác</strong>.';
+          'Lật thẻ — nghĩa VI, <strong>định nghĩa tiếng Anh</strong> và <strong>ví dụ</strong> từ LanGeek (có ảnh minh họa khi có). Đánh giá <strong>Chính xác</strong> / <strong>Không chính xác</strong>.';
       }
     }
 
@@ -1234,25 +1234,35 @@
       return deck[idx + 1];
     };
 
-    const renderContextsHtml = (w, contexts) => {
-      const items = contexts
-        .map((c, i) => {
-          const enHtml = highlightWordHtml(c.en, w.form);
-          return `<article class="ex-flash-ctx">
-            <h3 class="ex-flash-ctx-title">${escapeHtml(c.title)}</h3>
-            <p class="ex-flash-ctx-sit"><span>Tình huống:</span> ${escapeHtml(c.situation)}</p>
-            <p class="ex-flash-example-en">
-              <span class="ex-flash-ctx-label">Câu:</span> ${enHtml}
-              <button type="button" class="ex-flash-example-speak" data-speak-en="${escapeHtml(c.en)}" aria-label="Nghe ví dụ ${i + 1}">▶</button>
-            </p>
-            <p class="ex-flash-example-vi"><span class="ex-flash-ctx-label">Dịch:</span> ${escapeHtml(c.vi)}</p>
-          </article>`;
-        })
-        .join("");
-      return `<div class="ex-flash-example">
-        <div class="ex-flash-example-label">Ví dụ · 3 ngữ cảnh nói</div>
-        <div class="ex-flash-contexts">${items}</div>
-      </div>`;
+    const stripMd = (s) => String(s || "").replace(/\*\*([^*]+)\*\*/g, "$1");
+
+    const renderLanGeekBack = (w) => {
+      const defEn = (w.def_en || "").trim();
+      const exEn = (w.ex_en || "").trim();
+      const exVi = stripMd(w.ex_vi || "");
+      const photo = (w.photo || "").trim();
+      let html = "";
+
+      if (defEn) {
+        html += `<p class="ex-flash-def-en">${escapeHtml(defEn)}</p>`;
+      }
+      if (photo) {
+        html += `<figure class="ex-flash-photo"><img src="${escapeHtml(photo)}" alt="" loading="lazy" decoding="async" width="280" height="200"></figure>`;
+      }
+      if (exEn) {
+        const enHtml = highlightWordHtml(exEn, w.form);
+        html += `<div class="ex-flash-example">
+          <div class="ex-flash-example-label">Ví dụ</div>
+          <p class="ex-flash-example-en">
+            ${enHtml}
+            <button type="button" class="ex-flash-example-speak" data-speak-en="${escapeHtml(exEn)}" aria-label="Nghe ví dụ">▶</button>
+          </p>
+          ${exVi ? `<p class="ex-flash-example-vi">${escapeHtml(exVi)}</p>` : ""}
+        </div>`;
+      } else if (!defEn) {
+        html += `<p class="ex-flash-def-en ex-flash-def-en--muted">${escapeHtml(w.vi || w.form)}</p>`;
+      }
+      return html;
     };
 
     const renderCard = () => {
@@ -1273,7 +1283,6 @@
 
       const pos = posLabel(w.pos);
       const ipa = w.ipa ? `/${w.ipa}/` : "";
-      const contexts = buildSpokenContexts(w);
       const next = peekWord();
 
       stage.innerHTML = `
@@ -1306,10 +1315,7 @@
                   <span class="ex-flash-star" aria-hidden="true">★</span>
                   <strong>${escapeHtml(w.vi || w.form)}</strong>
                 </div>
-                <p class="ex-flash-gloss"><em>${escapeHtml(w.form)}</em>${
-                  pos ? ` · ${escapeHtml(pos)}` : ""
-                }${ipa ? ` · ${escapeHtml(ipa)}` : ""}</p>
-                ${renderContextsHtml(w, contexts)}
+                ${renderLanGeekBack(w)}
               </div>
               <div class="ex-flash-grade">
                 <button type="button" class="ex-flash-grade-btn ex-flash-grade-btn--miss" id="flashMissBtn">

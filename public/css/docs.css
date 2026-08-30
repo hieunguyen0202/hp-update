@@ -1799,6 +1799,32 @@ body.docs::before {
   color: #1e293b;
 }
 
+.docs-main .ex-flash-def-en {
+  margin: 8px 0 0;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: #0f172a;
+  font-weight: 500;
+}
+
+.docs-main .ex-flash-def-en--muted {
+  color: #475569;
+  font-weight: 400;
+}
+
+.ex-flash-photo {
+  margin: 12px 0 0;
+  text-align: center;
+}
+
+.ex-flash-photo img {
+  max-width: min(100%, 280px);
+  height: auto;
+  border-radius: 12px;
+  background: #f1f5f9;
+  object-fit: contain;
+}
+
 .docs-main .ex-flash-gloss em {
   color: #0f172a;
   font-style: normal;

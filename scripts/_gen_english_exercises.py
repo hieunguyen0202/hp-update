@@ -65,6 +65,10 @@ def collect_words(lesson_ids: list[int]) -> list[dict]:
                     "ipa": (item.get("ipa") or "").strip().strip("/"),
                     "vi": (item.get("vi") or "").strip(),
                     "pos": item.get("pos") or "",
+                    "def_en": (item.get("def_en") or "").strip(),
+                    "ex_en": (item.get("ex_en") or "").strip(),
+                    "ex_vi": (item.get("ex_vi") or "").strip(),
+                    "photo": (item.get("photo") or "").strip(),
                 }
             )
     return out
@@ -526,7 +530,7 @@ def wrap_exercise(topic: dict, level: str, words: list[dict], sentences: list[di
         <div class="ex-flash-head">
           <div>
             <h2>Flashcards</h2>
-            <p class="ex-flash-hint">Lật thẻ kiểu LanGeek — xem từ / IPA, rồi định nghĩa + ví dụ. Đánh giá <strong>Chính xác</strong> hoặc <strong>Không chính xác</strong> để luyện từ mới.</p>
+            <p class="ex-flash-hint">Lật thẻ — nghĩa VI, <strong>định nghĩa tiếng Anh</strong> và <strong>ví dụ</strong> từ LanGeek (có ảnh minh họa khi có). Đánh giá <strong>Chính xác</strong> / <strong>Không chính xác</strong>.</p>
           </div>
           <div class="ex-flash-controls">
             <div class="ex-flash-stats" aria-live="polite">
@@ -541,7 +545,7 @@ def wrap_exercise(topic: dict, level: str, words: list[dict], sentences: list[di
         <div class="ex-flash-stage" id="flashStage"></div>
         <p class="ex-flash-msg" id="flashMsg" hidden></p>
       </section>
-      <script type="application/json" id="exVocabData">{json.dumps([{"id": i, "form": w["form"], "word": w["word"], "ipa": w["ipa"], "vi": w["vi"], "pos": w.get("pos") or ""} for i, w in enumerate(words)], ensure_ascii=False)}</script>
+      <script type="application/json" id="exVocabData">{json.dumps([{"id": i, "form": w["form"], "word": w["word"], "ipa": w["ipa"], "vi": w["vi"], "pos": w.get("pos") or "", "def_en": w.get("def_en") or "", "ex_en": w.get("ex_en") or "", "ex_vi": w.get("ex_vi") or "", "photo": w.get("photo") or ""} for i, w in enumerate(words)], ensure_ascii=False)}</script>
 
       <section class="ex-vocab">
         <h2>Word checklist · {len(words)}</h2>
@@ -566,7 +570,7 @@ def wrap_exercise(topic: dict, level: str, words: list[dict], sentences: list[di
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=ielts2">
+  <link rel="stylesheet" href="{home}css/docs.css?v=ielts3">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -589,7 +593,7 @@ def wrap_exercise(topic: dict, level: str, words: list[dict], sentences: list[di
 {body}
   </div>
   <script src="{home}js/docs.js"></script>
-  <script src="{home}js/exercise.js?v=ielts2"></script>
+  <script src="{home}js/exercise.js?v=ielts3"></script>
 </body>
 </html>
 """
