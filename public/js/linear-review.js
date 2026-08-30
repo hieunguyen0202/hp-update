@@ -7,13 +7,44 @@
     });
   }
 
+  /** Fill {slot} placeholders in a chain example from dropdowns in the same chain */
+  const fillChainTemplate = (template, chain) => {
+    if (!template) return "";
+    let out = template;
+    chain.querySelectorAll(".lr-word-pick").forEach((sel) => {
+      const slot = sel.dataset.slot;
+      if (!slot) return;
+      const word = sel.value;
+      const mark = `<mark class="vocab">${word}</mark>`;
+      out = out.split(`{${slot}}`).join(mark);
+    });
+    return out;
+  };
+
+  const updateChainExample = (chain) => {
+    const enTpl = chain.dataset.exEn || "";
+    const viTpl = chain.dataset.exVi || "";
+    const enEl = chain.querySelector(".lr-chain-ex-text");
+    const viEl = chain.querySelector(".lr-chain-ex-vi");
+    if (enEl) enEl.innerHTML = fillChainTemplate(enTpl, chain);
+    if (viEl) viEl.innerHTML = fillChainTemplate(viTpl, chain);
+  };
+
+  const initChainExamples = () => {
+    document.querySelectorAll(".lr-chain[data-ex-en]").forEach(updateChainExample);
+  };
+
   /** Sync visible answer text when user changes vocab dropdown */
   const picks = document.querySelectorAll(".lr-word-pick");
   picks.forEach((sel) => {
     sel.addEventListener("change", () => {
       sel.classList.add("lr-word-pick--changed");
+      const chain = sel.closest(".lr-chain");
+      if (chain) updateChainExample(chain);
     });
   });
+
+  initChainExamples();
 
   const plainAnswer = (root) => {
     const clone = root.cloneNode(true);

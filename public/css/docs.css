@@ -2747,6 +2747,53 @@ body.ex-hide-ipa .ipa {
   font-size: 0.95rem;
 }
 
+.lr-chain-ex {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(167, 139, 250, 0.35);
+}
+
+.lr-chain-ex-label {
+  margin: 0 0 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(196, 181, 253, 0.9);
+}
+
+.lr-chain-ex-text {
+  margin: 0 0 6px;
+  font-size: 0.93rem;
+  line-height: 1.65;
+  color: rgba(226, 232, 240, 0.92);
+}
+
+.lr-chain-ex-text mark.vocab,
+.lr-chain-ex-vi mark.vocab {
+  background: rgba(34, 211, 238, 0.18);
+  padding: 0.1em 0.3em;
+  border-radius: 4px;
+  color: #a5f3fc;
+}
+
+.lr-chain-ex-vi {
+  display: none;
+  margin: 0 0 8px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: rgba(226, 232, 240, 0.58);
+  font-style: italic;
+}
+
+.ex-show-vi .lr-chain-ex-vi {
+  display: block;
+}
+
+.lr-chain-ex .lr-tense-tag {
+  margin-top: 4px;
+}
+
 .lr-vocab-bank {
   margin-top: 20px;
 }
@@ -2794,6 +2841,11 @@ body.ex-hide-ipa .ipa {
 
 .lr-toolbar {
   margin-bottom: 16px;
+}
+
+.lr-toolbar--hero {
+  margin-top: 14px;
+  margin-bottom: 0;
 }
 
 .lr-mock-passage {

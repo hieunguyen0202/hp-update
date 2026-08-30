@@ -8,7 +8,7 @@
   <link rel="icon" href="../../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../css/docs.css?v=lr2">
+  <link rel="stylesheet" href="../../../../css/docs.css?v=lr3">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -57,6 +57,9 @@
           <a href="#vocab-chains">5 · Vocab chains</a>
           <a href="#mock-test">6 · Mock test</a>
         </nav>
+        <div class="ex-toolbar lr-toolbar lr-toolbar--hero">
+          <label class="ex-toggle"><input type="checkbox" id="togVi" /> Vietnamese</label>
+        </div>
       </header>
 
       <section class="lr-section" id="grammar">
@@ -290,8 +293,8 @@ LÝ DO KHÔNG THÍCH
 
       <section class="lr-section" id="vocab-chains">
         <h2>5 · Vocabulary — idea chains (Level 3)</h2>
-        <p class="lr-section-hint">Học từ theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-hoc-tu-vung-vocab" target="_blank" rel="noopener noreferrer">dòng ideas</a>, không liệt kê. Chọn từ trong dropdown — các lựa chọn cùng nhóm có thể thay thế nhau.</p>
-        <div class="lr-chain">
+        <p class="lr-section-hint">Học từ theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-hoc-tu-vung-vocab" target="_blank" rel="noopener noreferrer">dòng ideas</a>, không liệt kê. Chọn từ trong dropdown — bên dưới mỗi chain có <strong>Example sentence</strong> ghép từ + ngữ pháp đã học.</p>
+        <div class="lr-chain" data-ex-en="Every morning I &lt;strong&gt;usually&lt;/strong&gt; wake up and sip {morning_drink}. Then I grab {b2_bread} and check my {diet_term} intake before work." data-ex-vi="Mỗi sáng tôi &lt;strong&gt;thường&lt;/strong&gt; thức dậy và nhấp {morning_drink}. Sau đó tôi lấy {b2_bread} và kiểm tra lượng {diet_term} trước khi đi làm.">
           <h4>Morning routine (Time process)</h4>
           <p class="lr-chain-flow">wake up → sip <select class="lr-word-pick" data-slot="morning_drink" aria-label="Choose vocabulary"><option value="latte" selected>latte — cà phê latte</option>
 <option value="espresso">espresso — espresso</option>
@@ -305,8 +308,14 @@ LÝ DO KHÔNG THÍCH
 <option value="nutrition">nutrition — dinh dưỡng</option>
 <option value="plant-based">plant-based — thuần chay</option>
 <option value="sugar-free">sugar-free — không đường</option></select></p>
+          <div class="lr-chain-ex">
+            <p class="lr-chain-ex-label">Example sentence</p>
+            <p class="lr-chain-ex-text"></p>
+            <p class="lr-chain-ex-vi"></p>
+            <span class="lr-tense-tag">Present Simple · habit</span>
+          </div>
         </div>
-        <div class="lr-chain">
+        <div class="lr-chain" data-ex-en="When we eat out, we often order {favourite_food}, share it with friends, and feel satisfied — sometimes we even order {b2_drink} afterwards." data-ex-vi="Khi ăn ngoài, chúng tôi thường gọi {favourite_food}, chia sẻ với bạn bè và cảm thấy hài lòng — đôi khi còn gọi thêm {b2_drink}.">
           <h4>Eating out (Cause → Effect)</h4>
           <p class="lr-chain-flow">order <select class="lr-word-pick" data-slot="favourite_food" aria-label="Choose vocabulary"><option value="cheesecake" selected>cheesecake — bánh phô mai</option>
 <option value="pasta">pasta — mì Ý</option>
@@ -316,8 +325,14 @@ LÝ DO KHÔNG THÍCH
 <option value="margarita">margarita — margarita</option>
 <option value="martini">martini — martini</option>
 <option value="ginger ale">ginger ale — ginger ale</option></select></p>
+          <div class="lr-chain-ex">
+            <p class="lr-chain-ex-label">Example sentence</p>
+            <p class="lr-chain-ex-text"></p>
+            <p class="lr-chain-ex-vi"></p>
+            <span class="lr-tense-tag">When + Present Simple · cause → effect</span>
+          </div>
         </div>
-        <div class="lr-chain">
+        <div class="lr-chain" data-ex-en="I &lt;strong&gt;used to&lt;/strong&gt; eat {dislike_food} every day, but now I&#x27;m following {healthy_item} and I {cook_verb} at home with fresh {ingredient}." data-ex-vi="Tôi &lt;strong&gt;từng&lt;/strong&gt; ăn {dislike_food} mỗi ngày, nhưng giờ tôi đang theo {healthy_item} và {cook_verb} ở nhà với {ingredient} tươi.">
           <h4>Healthy choice (Problem → Solution)</h4>
           <p class="lr-chain-flow">avoid <select class="lr-word-pick" data-slot="dislike_food" aria-label="Choose vocabulary"><option value="fast food" selected>fast food — đồ ăn nhanh</option>
 <option value="junk food">junk food — đồ ăn vặt không lành mạnh</option>
@@ -332,8 +347,14 @@ LÝ DO KHÔNG THÍCH
 <option value="spice">spice — gia vị</option>
 <option value="garlic">garlic — tỏi</option>
 <option value="ginger">ginger — gừng</option></select></p>
+          <div class="lr-chain-ex">
+            <p class="lr-chain-ex-label">Example sentence</p>
+            <p class="lr-chain-ex-text"></p>
+            <p class="lr-chain-ex-vi"></p>
+            <span class="lr-tense-tag">used to · Present Continuous</span>
+          </div>
         </div>
-        <div class="lr-chain">
+        <div class="lr-chain" data-ex-en="On special occasions I enjoy {alcohol}, but the next day I need time to sober up, so during the week I &lt;strong&gt;prefer&lt;/strong&gt; {soft_drink} instead." data-ex-vi="Dịp đặc biệt tôi thích {alcohol}, nhưng hôm sau cần thời gian tỉnh rượu, nên trong tuần tôi &lt;strong&gt;thích&lt;/strong&gt; {soft_drink} hơn.">
           <h4>Weekend drinks (Advantage / Disadvantage)</h4>
           <p class="lr-chain-flow">Advantage: enjoy <select class="lr-word-pick" data-slot="alcohol" aria-label="Choose vocabulary"><option value="wine" selected>wine — rượu vang</option>
 <option value="beer">beer — bia</option>
@@ -343,8 +364,14 @@ LÝ DO KHÔNG THÍCH
 <option value="lemonade">lemonade — nước chanh</option>
 <option value="soda">soda — nước ngọt có ga</option>
 <option value="sparkling water">sparkling water — nước có ga</option></select></p>
+          <div class="lr-chain-ex">
+            <p class="lr-chain-ex-label">Example sentence</p>
+            <p class="lr-chain-ex-text"></p>
+            <p class="lr-chain-ex-vi"></p>
+            <span class="lr-tense-tag">Present Simple · contrast (but / so)</span>
+          </div>
         </div>
-        <div class="lr-chain">
+        <div class="lr-chain" data-ex-en="First I check the {kitchen_tool}, then I {cook_verb} {meat}, add {sauce}, and garnish everything with fresh {ingredient}." data-ex-vi="Đầu tiên tôi kiểm tra {kitchen_tool}, sau đó {cook_verb} {meat}, cho {sauce} vào và trang trí bằng {ingredient} tươi.">
           <h4>Cooking at home (Process chain)</h4>
           <p class="lr-chain-flow">check <select class="lr-word-pick" data-slot="kitchen_tool" aria-label="Choose vocabulary"><option value="blender" selected>blender — máy xay</option>
 <option value="wok">wok — wok</option>
@@ -364,8 +391,14 @@ LÝ DO KHÔNG THÍCH
 <option value="spice">spice — gia vị</option>
 <option value="garlic">garlic — tỏi</option>
 <option value="ginger">ginger — gừng</option></select></p>
+          <div class="lr-chain-ex">
+            <p class="lr-chain-ex-label">Example sentence</p>
+            <p class="lr-chain-ex-text"></p>
+            <p class="lr-chain-ex-vi"></p>
+            <span class="lr-tense-tag">First / then · sequence</span>
+          </div>
         </div>
-        <div class="lr-chain">
+        <div class="lr-chain" data-ex-en="Last weekend we read the menu, ordered {cuisine}, paired it with {soft_drink}, and finished with {dessert} — it was a lovely evening." data-ex-vi="Cuối tuần trước chúng tôi xem thực đơn, gọi {cuisine}, uống kèm {soft_drink} và kết thúc bằng {dessert} — một buổi tối rất vui.">
           <h4>Restaurant visit (Sequence)</h4>
           <p class="lr-chain-flow">read menu → order <select class="lr-word-pick" data-slot="cuisine" aria-label="Choose vocabulary"><option value="cuisine" selected>cuisine — ẩm thực</option>
 <option value="kebab">kebab — kebab</option>
@@ -378,8 +411,14 @@ LÝ DO KHÔNG THÍCH
 <option value="donut">donut — bánh rán</option>
 <option value="pudding">pudding — bánh pudding</option>
 <option value="popsicle">popsicle — kem que</option></select></p>
+          <div class="lr-chain-ex">
+            <p class="lr-chain-ex-label">Example sentence</p>
+            <p class="lr-chain-ex-text"></p>
+            <p class="lr-chain-ex-vi"></p>
+            <span class="lr-tense-tag">Past Simple · narrative</span>
+          </div>
         </div>
-        <div class="lr-chain">
+        <div class="lr-chain" data-ex-en="Some people love {seafood}, &lt;strong&gt;while&lt;/strong&gt; others prefer {meat} — but both taste better with good {sauce} and fresh {ingredient}." data-ex-vi="Một số người thích {seafood}, &lt;strong&gt;trong khi&lt;/strong&gt; người khác thích {meat} — nhưng cả hai đều ngon hơn với {sauce} và {ingredient} tươi.">
           <h4>Seafood dinner (Contrast)</h4>
           <p class="lr-chain-flow">Some love <select class="lr-word-pick" data-slot="seafood" aria-label="Choose vocabulary"><option value="seafood" selected>seafood — hải sản</option>
 <option value="crab">crab — thịt cua</option>
@@ -395,8 +434,14 @@ LÝ DO KHÔNG THÍCH
 <option value="spice">spice — gia vị</option>
 <option value="garlic">garlic — tỏi</option>
 <option value="ginger">ginger — gừng</option></select></p>
+          <div class="lr-chain-ex">
+            <p class="lr-chain-ex-label">Example sentence</p>
+            <p class="lr-chain-ex-text"></p>
+            <p class="lr-chain-ex-vi"></p>
+            <span class="lr-tense-tag">Present Simple · while (contrast)</span>
+          </div>
         </div>
-        <div class="lr-chain">
+        <div class="lr-chain" data-ex-en="&lt;strong&gt;I&#x27;ve tried&lt;/strong&gt; {cheese} on {b2_bread} and {fruit} with {morning_drink} — they reflect totally different {cuisine} styles." data-ex-vi="Tôi &lt;strong&gt;đã thử&lt;/strong&gt; {cheese} với {b2_bread} và {fruit} kèm {morning_drink} — chúng thể hiện phong cách {cuisine} hoàn toàn khác nhau.">
           <h4>Cheese &amp; bread (Comparison)</h4>
           <p class="lr-chain-flow">Compare <select class="lr-word-pick" data-slot="cheese" aria-label="Choose vocabulary"><option value="blue cheese" selected>blue cheese — phô mai xanh</option>
 <option value="Cheddar">Cheddar — phô mai cheddar</option>
@@ -417,8 +462,14 @@ LÝ DO KHÔNG THÍCH
 <option value="kebab">kebab — kebab</option>
 <option value="curry">curry — cà ri</option>
 <option value="pasta">pasta — mì Ý</option></select> styles</p>
+          <div class="lr-chain-ex">
+            <p class="lr-chain-ex-label">Example sentence</p>
+            <p class="lr-chain-ex-text"></p>
+            <p class="lr-chain-ex-vi"></p>
+            <span class="lr-tense-tag">Present Perfect · comparison</span>
+          </div>
         </div>
-        <div class="lr-chain">
+        <div class="lr-chain" data-ex-en="Lately &lt;strong&gt;I&#x27;ve been tracking&lt;/strong&gt; my {diet_term}, cutting down on {dislike_food}, and choosing {healthy_item} — I often cook with {ingredient} at home." data-ex-vi="Dạo này tôi &lt;strong&gt;đang theo dõi&lt;/strong&gt; {diet_term}, giảm {dislike_food}, chọn {healthy_item} — và thường nấu với {ingredient} ở nhà.">
           <h4>Diet awareness (Cause → Effect)</h4>
           <p class="lr-chain-flow">Track <select class="lr-word-pick" data-slot="diet_term" aria-label="Choose vocabulary"><option value="calorie" selected>calorie — calo</option>
 <option value="nutrition">nutrition — dinh dưỡng</option>
@@ -432,8 +483,14 @@ LÝ DO KHÔNG THÍCH
 <option value="spice">spice — gia vị</option>
 <option value="garlic">garlic — tỏi</option>
 <option value="ginger">ginger — gừng</option></select></p>
+          <div class="lr-chain-ex">
+            <p class="lr-chain-ex-label">Example sentence</p>
+            <p class="lr-chain-ex-text"></p>
+            <p class="lr-chain-ex-vi"></p>
+            <span class="lr-tense-tag">Present Perfect Continuous</span>
+          </div>
         </div>
-        <div class="lr-chain">
+        <div class="lr-chain" data-ex-en="For the party I&#x27;m &lt;strong&gt;going to&lt;/strong&gt; prepare {dessert}, serve {b2_drink} and {alcohol}, so guests can enjoy {cuisine} and relax together." data-ex-vi="Cho bữa tiệc tôi &lt;strong&gt;sẽ&lt;/strong&gt; làm {dessert}, phục vụ {b2_drink} và {alcohol}, để khách thưởng thức {cuisine} và thư giãn cùng nhau.">
           <h4>Party food (Advantage chain)</h4>
           <p class="lr-chain-flow">prepare <select class="lr-word-pick" data-slot="dessert" aria-label="Choose vocabulary"><option value="cheesecake" selected>cheesecake — bánh phô mai</option>
 <option value="cupcake">cupcake — bánh nướng nhỏ</option>
@@ -450,6 +507,12 @@ LÝ DO KHÔNG THÍCH
 <option value="kebab">kebab — kebab</option>
 <option value="curry">curry — cà ri</option>
 <option value="pasta">pasta — mì Ý</option></select> → everyone relaxes</p>
+          <div class="lr-chain-ex">
+            <p class="lr-chain-ex-label">Example sentence</p>
+            <p class="lr-chain-ex-text"></p>
+            <p class="lr-chain-ex-vi"></p>
+            <span class="lr-tense-tag">going to · future plan</span>
+          </div>
         </div>
         <details class="lr-vocab-bank">
           <summary>Vocabulary bank (229 words · B1/B2 focus)</summary>
@@ -461,7 +524,6 @@ LÝ DO KHÔNG THÍCH
         <h2>6 · IELTS Speaking mock — Food</h2>
         <p class="lr-section-hint">Part 1 / 2 / 3 thực chiến. Dùng dropdown để đổi từ (vd. <em>booze</em> → <em>cider</em> → <em>gin</em>) — không cần nhồi hết từ vào một câu.</p>
         <div class="ex-toolbar lr-toolbar">
-          <label class="ex-toggle"><input type="checkbox" id="togVi" /> Vietnamese</label>
           <button type="button" class="ex-btn primary" id="btnCopyAnswer">Copy current answers</button>
         </div>
         <section class="ex-passage ex-ielts lr-mock-passage" id="mockPassage" data-tts-root>
@@ -740,6 +802,6 @@ LÝ DO KHÔNG THÍCH
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/linear-review.js?v=lr2"></script>
+  <script src="../../../../js/linear-review.js?v=lr3"></script>
 </body>
 </html>

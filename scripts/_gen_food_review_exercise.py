@@ -426,66 +426,162 @@ LÝ DO KHÔNG THÍCH
 
 def vocab_chains_html(words: list[dict]) -> str:
     chains = [
-        (
-            "Morning routine (Time process)",
-            "wake up → sip {morning_drink} → grab {b2_bread} → check {diet_term}",
-            ["morning_drink", "b2_bread", "diet_term"],
-        ),
-        (
-            "Eating out (Cause → Effect)",
-            "order {favourite_food} → share with friends → feel satisfied → sometimes order {b2_drink}",
-            ["favourite_food", "b2_drink"],
-        ),
-        (
-            "Healthy choice (Problem → Solution)",
-            "avoid {dislike_food} → follow {healthy_item} → {cook_verb} at home with {ingredient}",
-            ["dislike_food", "healthy_item", "cook_verb", "ingredient"],
-        ),
-        (
-            "Weekend drinks (Advantage / Disadvantage)",
-            "Advantage: enjoy {alcohol} on special occasions · Disadvantage: need time to sober up → prefer {soft_drink}",
-            ["alcohol", "soft_drink"],
-        ),
-        (
-            "Cooking at home (Process chain)",
-            "check {kitchen_tool} → read recipe → {cook_verb} {meat} → add {sauce} → garnish with {ingredient}",
-            ["kitchen_tool", "cook_verb", "meat", "sauce", "ingredient"],
-        ),
-        (
-            "Restaurant visit (Sequence)",
-            "read menu → order {cuisine} → pair with {soft_drink} → finish with {dessert}",
-            ["cuisine", "soft_drink", "dessert"],
-        ),
-        (
-            "Seafood dinner (Contrast)",
-            "Some love {seafood}, others prefer {meat} — both need good {sauce} and fresh {ingredient}",
-            ["seafood", "meat", "sauce", "ingredient"],
-        ),
-        (
-            "Cheese & bread (Comparison)",
-            "Compare {cheese} on {b2_bread} vs {fruit} with {morning_drink} — different {cuisine} styles",
-            ["cheese", "b2_bread", "fruit", "morning_drink", "cuisine"],
-        ),
-        (
-            "Diet awareness (Cause → Effect)",
-            "Track {diet_term} → reduce {dislike_food} → choose {healthy_item} → cook with {ingredient}",
-            ["diet_term", "dislike_food", "healthy_item", "ingredient"],
-        ),
-        (
-            "Party food (Advantage chain)",
-            "prepare {dessert} + {b2_drink} + {alcohol} → guests enjoy {cuisine} → everyone relaxes",
-            ["dessert", "b2_drink", "alcohol", "cuisine"],
-        ),
+        {
+            "title": "Morning routine (Time process)",
+            "flow": "wake up → sip {morning_drink} → grab {b2_bread} → check {diet_term}",
+            "slots": ["morning_drink", "b2_bread", "diet_term"],
+            "ex_en": (
+                "Every morning I <strong>usually</strong> wake up and sip {morning_drink}. "
+                "Then I grab {b2_bread} and check my {diet_term} intake before work."
+            ),
+            "ex_vi": (
+                "Mỗi sáng tôi <strong>thường</strong> thức dậy và nhấp {morning_drink}. "
+                "Sau đó tôi lấy {b2_bread} và kiểm tra lượng {diet_term} trước khi đi làm."
+            ),
+            "tense": "Present Simple · habit",
+        },
+        {
+            "title": "Eating out (Cause → Effect)",
+            "flow": "order {favourite_food} → share with friends → feel satisfied → sometimes order {b2_drink}",
+            "slots": ["favourite_food", "b2_drink"],
+            "ex_en": (
+                "When we eat out, we often order {favourite_food}, share it with friends, "
+                "and feel satisfied — sometimes we even order {b2_drink} afterwards."
+            ),
+            "ex_vi": (
+                "Khi ăn ngoài, chúng tôi thường gọi {favourite_food}, chia sẻ với bạn bè "
+                "và cảm thấy hài lòng — đôi khi còn gọi thêm {b2_drink}."
+            ),
+            "tense": "When + Present Simple · cause → effect",
+        },
+        {
+            "title": "Healthy choice (Problem → Solution)",
+            "flow": "avoid {dislike_food} → follow {healthy_item} → {cook_verb} at home with {ingredient}",
+            "slots": ["dislike_food", "healthy_item", "cook_verb", "ingredient"],
+            "ex_en": (
+                "I <strong>used to</strong> eat {dislike_food} every day, but now "
+                "I'm following {healthy_item} and I {cook_verb} at home with fresh {ingredient}."
+            ),
+            "ex_vi": (
+                "Tôi <strong>từng</strong> ăn {dislike_food} mỗi ngày, nhưng giờ "
+                "tôi đang theo {healthy_item} và {cook_verb} ở nhà với {ingredient} tươi."
+            ),
+            "tense": "used to · Present Continuous",
+        },
+        {
+            "title": "Weekend drinks (Advantage / Disadvantage)",
+            "flow": "Advantage: enjoy {alcohol} on special occasions · Disadvantage: need time to sober up → prefer {soft_drink}",
+            "slots": ["alcohol", "soft_drink"],
+            "ex_en": (
+                "On special occasions I enjoy {alcohol}, but the next day I need time to sober up, "
+                "so during the week I <strong>prefer</strong> {soft_drink} instead."
+            ),
+            "ex_vi": (
+                "Dịp đặc biệt tôi thích {alcohol}, nhưng hôm sau cần thời gian tỉnh rượu, "
+                "nên trong tuần tôi <strong>thích</strong> {soft_drink} hơn."
+            ),
+            "tense": "Present Simple · contrast (but / so)",
+        },
+        {
+            "title": "Cooking at home (Process chain)",
+            "flow": "check {kitchen_tool} → read recipe → {cook_verb} {meat} → add {sauce} → garnish with {ingredient}",
+            "slots": ["kitchen_tool", "cook_verb", "meat", "sauce", "ingredient"],
+            "ex_en": (
+                "First I check the {kitchen_tool}, then I {cook_verb} {meat}, "
+                "add {sauce}, and garnish everything with fresh {ingredient}."
+            ),
+            "ex_vi": (
+                "Đầu tiên tôi kiểm tra {kitchen_tool}, sau đó {cook_verb} {meat}, "
+                "cho {sauce} vào và trang trí bằng {ingredient} tươi."
+            ),
+            "tense": "First / then · sequence",
+        },
+        {
+            "title": "Restaurant visit (Sequence)",
+            "flow": "read menu → order {cuisine} → pair with {soft_drink} → finish with {dessert}",
+            "slots": ["cuisine", "soft_drink", "dessert"],
+            "ex_en": (
+                "Last weekend we read the menu, ordered {cuisine}, paired it with {soft_drink}, "
+                "and finished with {dessert} — it was a lovely evening."
+            ),
+            "ex_vi": (
+                "Cuối tuần trước chúng tôi xem thực đơn, gọi {cuisine}, uống kèm {soft_drink} "
+                "và kết thúc bằng {dessert} — một buổi tối rất vui."
+            ),
+            "tense": "Past Simple · narrative",
+        },
+        {
+            "title": "Seafood dinner (Contrast)",
+            "flow": "Some love {seafood}, others prefer {meat} — both need good {sauce} and fresh {ingredient}",
+            "slots": ["seafood", "meat", "sauce", "ingredient"],
+            "ex_en": (
+                "Some people love {seafood}, <strong>while</strong> others prefer {meat} — "
+                "but both taste better with good {sauce} and fresh {ingredient}."
+            ),
+            "ex_vi": (
+                "Một số người thích {seafood}, <strong>trong khi</strong> người khác thích {meat} — "
+                "nhưng cả hai đều ngon hơn với {sauce} và {ingredient} tươi."
+            ),
+            "tense": "Present Simple · while (contrast)",
+        },
+        {
+            "title": "Cheese & bread (Comparison)",
+            "flow": "Compare {cheese} on {b2_bread} vs {fruit} with {morning_drink} — different {cuisine} styles",
+            "slots": ["cheese", "b2_bread", "fruit", "morning_drink", "cuisine"],
+            "ex_en": (
+                "<strong>I've tried</strong> {cheese} on {b2_bread} and {fruit} with {morning_drink} — "
+                "they reflect totally different {cuisine} styles."
+            ),
+            "ex_vi": (
+                "Tôi <strong>đã thử</strong> {cheese} với {b2_bread} và {fruit} kèm {morning_drink} — "
+                "chúng thể hiện phong cách {cuisine} hoàn toàn khác nhau."
+            ),
+            "tense": "Present Perfect · comparison",
+        },
+        {
+            "title": "Diet awareness (Cause → Effect)",
+            "flow": "Track {diet_term} → reduce {dislike_food} → choose {healthy_item} → cook with {ingredient}",
+            "slots": ["diet_term", "dislike_food", "healthy_item", "ingredient"],
+            "ex_en": (
+                "Lately <strong>I've been tracking</strong> my {diet_term}, cutting down on {dislike_food}, "
+                "and choosing {healthy_item} — I often cook with {ingredient} at home."
+            ),
+            "ex_vi": (
+                "Dạo này tôi <strong>đang theo dõi</strong> {diet_term}, giảm {dislike_food}, "
+                "chọn {healthy_item} — và thường nấu với {ingredient} ở nhà."
+            ),
+            "tense": "Present Perfect Continuous",
+        },
+        {
+            "title": "Party food (Advantage chain)",
+            "flow": "prepare {dessert} + {b2_drink} + {alcohol} → guests enjoy {cuisine} → everyone relaxes",
+            "slots": ["dessert", "b2_drink", "alcohol", "cuisine"],
+            "ex_en": (
+                "For the party I'm <strong>going to</strong> prepare {dessert}, serve {b2_drink} and {alcohol}, "
+                "so guests can enjoy {cuisine} and relax together."
+            ),
+            "ex_vi": (
+                "Cho bữa tiệc tôi <strong>sẽ</strong> làm {dessert}, phục vụ {b2_drink} và {alcohol}, "
+                "để khách thưởng thức {cuisine} và thư giãn cùng nhau."
+            ),
+            "tense": "going to · future plan",
+        },
     ]
     parts = []
-    for title, template, slot_ids in chains:
-        text = template
-        for sid in slot_ids:
+    for chain in chains:
+        text = chain["flow"]
+        for sid in chain["slots"]:
             text = text.replace("{" + sid + "}", slot_select(sid), 1)
         parts.append(
-            f"""        <div class="lr-chain">
-          <h4>{esc(title)}</h4>
+            f"""        <div class="lr-chain" data-ex-en="{esc(chain["ex_en"])}" data-ex-vi="{esc(chain["ex_vi"])}">
+          <h4>{esc(chain["title"])}</h4>
           <p class="lr-chain-flow">{text}</p>
+          <div class="lr-chain-ex">
+            <p class="lr-chain-ex-label">Example sentence</p>
+            <p class="lr-chain-ex-text"></p>
+            <p class="lr-chain-ex-vi"></p>
+            <span class="lr-tense-tag">{esc(chain["tense"])}</span>
+          </div>
         </div>"""
         )
     chips = []
@@ -776,6 +872,9 @@ def build_page() -> str:
           <a href="#vocab-chains">5 · Vocab chains</a>
           <a href="#mock-test">6 · Mock test</a>
         </nav>
+        <div class="ex-toolbar lr-toolbar lr-toolbar--hero">
+          <label class="ex-toggle"><input type="checkbox" id="togVi" /> Vietnamese</label>
+        </div>
       </header>
 
       <section class="lr-section" id="grammar">
@@ -809,7 +908,7 @@ def build_page() -> str:
 
       <section class="lr-section" id="vocab-chains">
         <h2>5 · Vocabulary — idea chains (Level 3)</h2>
-        <p class="lr-section-hint">Học từ theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-hoc-tu-vung-vocab" target="_blank" rel="noopener noreferrer">dòng ideas</a>, không liệt kê. Chọn từ trong dropdown — các lựa chọn cùng nhóm có thể thay thế nhau.</p>
+        <p class="lr-section-hint">Học từ theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-hoc-tu-vung-vocab" target="_blank" rel="noopener noreferrer">dòng ideas</a>, không liệt kê. Chọn từ trong dropdown — bên dưới mỗi chain có <strong>Example sentence</strong> ghép từ + ngữ pháp đã học.</p>
 {vocab_chains_html(words)}
       </section>
 
@@ -817,7 +916,6 @@ def build_page() -> str:
         <h2>6 · IELTS Speaking mock — Food</h2>
         <p class="lr-section-hint">Part 1 / 2 / 3 thực chiến. Dùng dropdown để đổi từ (vd. <em>booze</em> → <em>cider</em> → <em>gin</em>) — không cần nhồi hết từ vào một câu.</p>
         <div class="ex-toolbar lr-toolbar">
-          <label class="ex-toggle"><input type="checkbox" id="togVi" /> Vietnamese</label>
           <button type="button" class="ex-btn primary" id="btnCopyAnswer">Copy current answers</button>
         </div>
         <section class="ex-passage ex-ielts lr-mock-passage" id="mockPassage" data-tts-root>
@@ -838,7 +936,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr2">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr3">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -861,7 +959,7 @@ def build_page() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js"></script>
-  <script src="{home}js/linear-review.js?v=lr2"></script>
+  <script src="{home}js/linear-review.js?v=lr3"></script>
 </body>
 </html>"""
 
