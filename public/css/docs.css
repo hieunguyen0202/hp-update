@@ -2840,6 +2840,207 @@ body.ex-hide-ipa .ipa {
   border-radius: 4px;
 }
 
+/* Core formulas — Lesson 2 & 3 (full) */
+.lr-core-lessons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.lr-core-lesson {
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.lr-core-lesson-head h3 {
+  margin: 0 0 6px;
+  font-size: 1.1rem;
+  color: #c4b5fd;
+}
+
+.lr-core-subtitle {
+  margin: 18px 0 10px;
+  font-size: 0.92rem;
+  color: rgba(226, 232, 240, 0.88);
+}
+
+.lr-formula-table-wrap {
+  overflow-x: auto;
+  margin: 12px 0;
+}
+
+.lr-formula-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.lr-formula-table th,
+.lr-formula-table td {
+  padding: 8px 10px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  text-align: left;
+  vertical-align: top;
+}
+
+.lr-formula-table thead th {
+  background: rgba(167, 139, 250, 0.12);
+  color: #c4b5fd;
+  font-weight: 650;
+}
+
+.lr-formula-table tbody th {
+  color: rgba(226, 232, 240, 0.75);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.lr-formula-table--compact {
+  font-size: 0.78rem;
+}
+
+.lr-formula-bullets {
+  margin: 0 0 12px;
+  padding-left: 1.2rem;
+  font-size: 0.88rem;
+}
+
+.lr-formula-bullets mark {
+  background: rgba(34, 211, 238, 0.15);
+  padding: 0.1em 0.25em;
+  border-radius: 4px;
+}
+
+.lr-formula-note {
+  margin: 0 0 12px;
+  font-size: 0.84rem;
+  color: rgba(226, 232, 240, 0.72);
+  line-height: 1.5;
+}
+
+.lr-formula-pattern {
+  margin: 0 0 10px;
+  font-size: 0.86rem;
+}
+
+.lr-formula-pattern code {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.82em;
+  color: #67e8f9;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+}
+
+.lr-practice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.lr-practice-card {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.lr-practice-card--yes {
+  border-left: 3px solid rgba(52, 211, 153, 0.65);
+}
+
+.lr-practice-card--no {
+  border-left: 3px solid rgba(248, 113, 113, 0.65);
+}
+
+.lr-practice-q {
+  margin: 0 0 8px;
+  font-weight: 650;
+  font-size: 0.88rem;
+  color: #fbbf24;
+}
+
+.lr-practice-tag {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 0.1em 0.45em;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #a78bfa;
+  background: rgba(167, 139, 250, 0.15);
+}
+
+.lr-practice-en {
+  margin: 0 0 6px;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: rgba(226, 232, 240, 0.92);
+}
+
+.lr-practice-vi {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: rgba(226, 232, 240, 0.58);
+}
+
+.lr-formula-details {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px dashed rgba(148, 163, 184, 0.25);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.lr-formula-details summary {
+  cursor: pointer;
+  font-weight: 650;
+  font-size: 0.9rem;
+  color: #e2e8f0;
+  list-style-position: outside;
+}
+
+.lr-formula-details[open] summary {
+  margin-bottom: 10px;
+}
+
+.lr-vocab-mini {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 12px;
+}
+
+.lr-vocab-mini span {
+  padding: 0.2em 0.55em;
+  border-radius: 6px;
+  font-size: 0.76rem;
+  background: rgba(34, 211, 238, 0.1);
+  border: 1px solid rgba(34, 211, 238, 0.2);
+  color: rgba(226, 232, 240, 0.85);
+}
+
+.lr-pattern-list {
+  margin: 0 0 10px;
+  padding-left: 1.3rem;
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+.lr-pattern-list code {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.9em;
+  color: #67e8f9;
+}
+
+.lr-skill-table-wrap {
+  overflow-x: auto;
+  margin: 0 0 12px;
+}
+
 .lr-food-ex {
   margin: 0;
   font-size: 0.86rem;
