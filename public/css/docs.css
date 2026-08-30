@@ -2893,6 +2893,100 @@ body.ex-hide-ipa .ipa {
   color: var(--accent);
 }
 
+.lr-idiom-pick {
+  color: #e9d5ff !important;
+  background: rgba(167, 139, 250, 0.15) !important;
+  border-color: rgba(167, 139, 250, 0.55) !important;
+}
+
+.lr-idiom-pick.lr-word-pick--changed {
+  border-color: rgba(196, 181, 253, 0.85) !important;
+  background: rgba(167, 139, 250, 0.22) !important;
+}
+
+.lr-idiom-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.lr-idiom-card {
+  padding: 14px 16px;
+  border: 1px solid rgba(167, 139, 250, 0.28);
+  border-radius: 12px;
+  background: rgba(167, 139, 250, 0.05);
+}
+
+.lr-idiom-card h3 {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+  color: #c4b5fd;
+}
+
+.lr-idiom-hint {
+  margin: 0 0 10px;
+  font-size: 0.8rem;
+  color: rgba(226, 232, 240, 0.58);
+}
+
+.lr-idiom-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.lr-idiom-list li {
+  margin-bottom: 5px;
+}
+
+.lr-idiom-mark {
+  background: rgba(167, 139, 250, 0.2);
+  padding: 0.08em 0.25em;
+  border-radius: 4px;
+  color: #e9d5ff;
+}
+
+.lr-idiom-vi {
+  color: rgba(226, 232, 240, 0.52);
+  font-size: 0.82em;
+}
+
+.lr-idiom-practice {
+  grid-column: 1 / -1;
+  margin-top: 4px;
+  padding: 14px 16px;
+  border: 1px dashed rgba(167, 139, 250, 0.4);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.lr-idiom-practice-text {
+  margin: 0 0 10px;
+  line-height: 1.85;
+  font-size: 0.93rem;
+}
+
+.lr-idiom-legend {
+  display: inline-block;
+  padding: 0.1em 0.45em;
+  border-radius: 4px;
+  font-size: 0.85em;
+  font-weight: 600;
+  background: rgba(167, 139, 250, 0.25);
+  color: #e9d5ff;
+}
+
+.lr-vocab-legend {
+  display: inline-block;
+  padding: 0.1em 0.45em;
+  border-radius: 4px;
+  font-size: 0.85em;
+  font-weight: 600;
+  background: rgba(250, 204, 21, 0.2);
+  color: #fde68a;
+}
+
 .lr-tense-tag {
   display: inline-block;
   margin-left: 6px;
