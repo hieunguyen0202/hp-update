@@ -376,4 +376,99 @@
   };
 
   initMockScrollRead();
+
+  /** Horizontal mind map: SVG cubic bezier from measured node boxes */
+  const initTenseMindmap = () => {
+    const wrap = document.getElementById("tenseMindmap");
+    if (!wrap) return;
+    const viewport = wrap.querySelector(".lr-mmap-viewport");
+    const board = wrap.querySelector(".lr-mmap-board");
+    const svg = wrap.querySelector(".lr-mmap-svg");
+    const root = wrap.querySelector('[data-mmap-node="root"]');
+    if (!board || !svg || !root) return;
+
+    const NS = "http://www.w3.org/2000/svg";
+
+    const pt = (el, side) => {
+      const a = el.getBoundingClientRect();
+      const b = board.getBoundingClientRect();
+      const y = a.top + a.height / 2 - b.top;
+      const x =
+        side === "left"
+          ? a.left - b.left
+          : side === "right"
+            ? a.right - b.left
+            : a.left + a.width / 2 - b.left;
+      return { x, y };
+    };
+
+    const cubic = (a, b) => {
+      const dx = (b.x - a.x) * 0.52;
+      return `M ${a.x} ${a.y} C ${a.x + dx} ${a.y}, ${b.x - dx} ${b.y}, ${b.x} ${b.y}`;
+    };
+
+    const pathEl = (d, color, width) => {
+      const p = document.createElementNS(NS, "path");
+      p.setAttribute("d", d);
+      p.setAttribute("fill", "none");
+      p.setAttribute("stroke", color);
+      p.setAttribute("stroke-width", String(width));
+      p.setAttribute("stroke-linecap", "round");
+      p.setAttribute("opacity", "0.92");
+      return p;
+    };
+
+    const draw = () => {
+      const w = board.scrollWidth;
+      const h = board.scrollHeight;
+      svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+      svg.setAttribute("width", String(w));
+      svg.setAttribute("height", String(h));
+      svg.replaceChildren();
+
+      wrap.querySelectorAll(".lr-mmap-branch").forEach((branch) => {
+        const left = branch.closest(".lr-mmap-col--left");
+        const color =
+          getComputedStyle(branch).getPropertyValue("--mmap-c").trim() ||
+          "#7dd3fc";
+        const tense = branch.querySelector('[data-mmap-node="tense"]');
+        if (!tense) return;
+
+        const fromRoot = left ? pt(root, "left") : pt(root, "right");
+        const toTense = left ? pt(tense, "right") : pt(tense, "left");
+        svg.appendChild(pathEl(cubic(fromRoot, toTense), color, 2.2));
+
+        const tenseOut = left ? pt(tense, "left") : pt(tense, "right");
+        branch.querySelectorAll(".lr-mmap-group").forEach((group) => {
+          const fork = group.querySelector('[data-mmap-node="fork"]');
+          if (!fork) return;
+          const toFork = left ? pt(fork, "right") : pt(fork, "left");
+          svg.appendChild(pathEl(cubic(tenseOut, toFork), color, 1.7));
+
+          const forkOut = left ? pt(fork, "left") : pt(fork, "right");
+          group.querySelectorAll('[data-mmap-node="leaf"]').forEach((leaf) => {
+            const toLeaf = left ? pt(leaf, "right") : pt(leaf, "left");
+            svg.appendChild(pathEl(cubic(forkOut, toLeaf), color, 1.35));
+          });
+        });
+      });
+    };
+
+    const schedule = () => requestAnimationFrame(draw);
+    schedule();
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(schedule);
+    }
+    window.addEventListener("resize", schedule);
+    new ResizeObserver(schedule).observe(board);
+    const shell = document.querySelector(".docs-shell");
+    if (shell) {
+      new MutationObserver(schedule).observe(shell, {
+        attributes: true,
+        attributeFilter: ["class"],
+      });
+    }
+  };
+
+  initTenseMindmap();
 })();

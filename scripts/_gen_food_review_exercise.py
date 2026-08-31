@@ -346,157 +346,75 @@ WORD_SLOTS: dict[str, list[dict]] = {
     ],
 }
 
-# Tenses highlighted in Section 3 speaking lessons (core = daily food speaking)
-TENSE_MINDMAP = [
+# Horizontal mind map — 4 basic tenses (image-2 topology). Speaking-daily only.
+MINDMAP_BRANCHES = [
     {
-        "id": "pres-simple",
-        "name": "Present Simple",
-        "name_vi": "Hiện tại đơn",
-        "zone": "present",
-        "core": True,
+        "id": "past-cont",
+        "side": "left",
+        "color": "#67e8f9",
+        "name": "Past Continuous",
+        "name_vi": "Quá khứ tiếp diễn",
         "struct": [
-            ("+", "S + V(s/es)"),
-            ("−", "S + do/does + not + V"),
-            ("?", "Do/Does + S + V?"),
+            ("Khẳng định", "S + was/were + V-ing"),
+            ("Phủ định", "S + was/were + not + V-ing"),
+            ("Nghi vấn", "Was/Were + S + V-ing?"),
         ],
-        "signals": "always, usually, often, sometimes · every day/week/month",
-        "food": "I <strong>usually</strong> have rice. / Fast food <strong>is</strong> convenient.",
-        "ref": 0,
-    },
-    {
-        "id": "pres-cont",
-        "name": "Present Continuous",
-        "name_vi": "Hiện tại tiếp diễn",
-        "zone": "present",
-        "core": True,
-        "struct": [
-            ("+", "S + am/is/are + V-ing"),
-            ("−", "S + am/is/are + not + V-ing"),
-            ("?", "Am/Is/Are + S + V-ing?"),
+        "signals": [
+            "at this time last night, at 7pm yesterday",
+            "while, when (hành động đang diễn ra)",
+            "Food: I was chopping vegetables when…",
         ],
-        "signals": "now, right now, at the moment · look! / listen!",
-        "food": "I'm <strong>trying</strong> a low-carb diet. / People <strong>are eating</strong> more plant-based food.",
-        "ref": 0,
-    },
-    {
-        "id": "pres-perfect",
-        "name": "Present Perfect",
-        "name_vi": "Hiện tại hoàn thành",
-        "zone": "present",
-        "core": True,
-        "struct": [
-            ("+", "S + have/has + V₃"),
-            ("−", "S + have/has + not + V₃"),
-            ("?", "Have/Has + S + V₃?"),
-        ],
-        "signals": "ever, never, already, yet · for/since (no specific past time)",
-        "food": "I've <strong>tried</strong> sushi. / I've <strong>always liked</strong> spicy food.",
-        "ref": 5,
-    },
-    {
-        "id": "pres-ppc",
-        "name": "Present Perfect Continuous",
-        "name_vi": "HT hoàn thành tiếp diễn",
-        "zone": "present",
-        "core": False,
-        "struct": [
-            ("+", "S + have/has been + V-ing"),
-            ("−", "S + haven't/hasn't been + V-ing"),
-            ("?", "Have/Has + S + been + V-ing?"),
-        ],
-        "signals": "for, since, lately, recently",
-        "food": "I've <strong>been cooking</strong> at home more lately.",
-        "ref": 5,
     },
     {
         "id": "past-simple",
+        "side": "left",
+        "color": "#5eead4",
         "name": "Past Simple",
         "name_vi": "Quá khứ đơn",
-        "zone": "past",
-        "core": True,
         "struct": [
-            ("+", "S + V(ed) / cột 2"),
-            ("−", "S + did + not + V"),
-            ("?", "Did + S + V?"),
+            ("Khẳng định", "S + V(ed / cột 2)"),
+            ("Phủ định", "S + did + not + V"),
+            ("Nghi vấn", "Did + S + V?"),
         ],
-        "signals": "yesterday, last night/week · ago · in 2000",
-        "food": "Last Sunday I <strong>grilled</strong> kebab in the garden.",
-        "ref": 1,
+        "signals": [
+            "yesterday, last night / week / month / year",
+            "ago, in 2000 · used to / would (thói quen quá khứ)",
+            "Food: Last Sunday I grilled kebab.",
+        ],
     },
     {
-        "id": "past-cont",
-        "name": "Past Continuous",
-        "name_vi": "Quá khứ tiếp diễn",
-        "zone": "past",
-        "core": True,
+        "id": "pres-simple",
+        "side": "right",
+        "color": "#93c5fd",
+        "name": "Present Simple",
+        "name_vi": "Hiện tại đơn",
         "struct": [
-            ("+", "S + was/were + V-ing"),
-            ("−", "S + was/were + not + V-ing"),
-            ("?", "Was/Were + S + V-ing?"),
+            ("Khẳng định", "S + V(s/es)"),
+            ("Phủ định", "S + do/does + not + V"),
+            ("Nghi vấn", "Do/Does + S + V?"),
         ],
-        "signals": "while, when · at this time yesterday · at 7pm last night",
-        "food": "I <strong>was chopping</strong> vegetables when my friend arrived.",
-        "ref": 1,
+        "signals": [
+            "always, usually, often, sometimes",
+            "every day / week / month",
+            "Food: I usually have rice.",
+        ],
     },
     {
-        "id": "past-perfect",
-        "name": "Past Perfect",
-        "name_vi": "Quá khứ hoàn thành",
-        "zone": "past",
-        "core": False,
+        "id": "pres-cont",
+        "side": "right",
+        "color": "#60a5fa",
+        "name": "Present Continuous",
+        "name_vi": "Hiện tại tiếp diễn",
         "struct": [
-            ("+", "S + had + V₃"),
-            ("−", "S + had + not + V₃"),
-            ("?", "Had + S + V₃?"),
+            ("Khẳng định", "S + am/is/are + V-ing"),
+            ("Phủ định", "S + am/is/are + not + V-ing"),
+            ("Nghi vấn", "Am/Is/Are + S + V-ing?"),
         ],
-        "signals": "before, after, by the time, already (earlier past)",
-        "food": "I <strong>had never tried</strong> lobster before that trip.",
-        "ref": 4,
-    },
-    {
-        "id": "used-to",
-        "name": "used to / would",
-        "name_vi": "Thói quen quá khứ",
-        "zone": "past",
-        "core": True,
-        "struct": [
-            ("+", "S + used to + V · S + would + V"),
-            ("−", "S + didn't use to + V"),
-            ("?", "Did + S + use to + V?"),
+        "signals": [
+            "now, right now, at the moment",
+            "at present · look! / listen!",
+            "Food: I'm trying a low-carb diet.",
         ],
-        "signals": "when I was a child · as a teenager · in the past",
-        "food": "When I was a child, I <strong>would eat</strong> fast food every day.",
-        "ref": 1,
-    },
-    {
-        "id": "future-near",
-        "name": "going to / will",
-        "name_vi": "Tương lai gần",
-        "zone": "future",
-        "core": True,
-        "struct": [
-            ("+", "S + am/is/are going to + V · S + will + V"),
-            ("−", "S + isn't/aren't going to + V · won't + V"),
-            ("?", "Are you going to…? · Will + S + V?"),
-        ],
-        "signals": "tonight, tomorrow, next week · probably, might",
-        "food": "I'm <strong>going to cook</strong> pasta tonight. / People <strong>will eat</strong> healthier.",
-        "ref": 2,
-    },
-    {
-        "id": "future-perf",
-        "name": "Future Perfect",
-        "name_vi": "Tương lai hoàn thành",
-        "zone": "future",
-        "core": False,
-        "struct": [
-            ("+", "S + will have + V₃"),
-            ("−", "S + won't have + V₃"),
-            ("?", "Will + S + have + V₃?"),
-        ],
-        "signals": "by next year, by 2030, by the time",
-        "food": "By next year I <strong>will have tried</strong> ten new cuisines.",
-        "ref": 3,
     },
 ]
 
@@ -540,37 +458,38 @@ def phrase_pick(slot_id: str, default_idx: int = 0) -> str:
     return slot_select(slot_id, default_idx, kind="phrase")
 
 
-def _tense_card_html(node: dict) -> str:
-    core_badge = (
-        '<span class="lr-tm-badge">Speaking ✓</span>' if node["core"] else ""
+def _mmap_branch_html(node: dict) -> str:
+    color = esc(node["color"])
+    nid = esc(node["id"])
+    struct_items = "\n".join(
+        f'                <li class="lr-mmap-leaf" data-mmap-node="leaf">'
+        f'<span class="lr-mmap-k">{esc(label)}</span> {esc(form)}</li>'
+        for label, form in node["struct"]
     )
-    struct_rows = "\n".join(
-        f'                    <li><span class="lr-tm-struct-tag">{esc(tag)}</span> '
-        f'<code>{esc(form)}</code></li>'
-        for tag, form in node["struct"]
+    signal_items = "\n".join(
+        f'                <li class="lr-mmap-leaf" data-mmap-node="leaf">{esc(line)}</li>'
+        for line in node["signals"]
     )
-    ref_url = GRAMMAR_REFS[node["ref"]][1]
-    zone = node["zone"]
-    return f"""          <article class="lr-tm-card lr-tm-card--{esc(zone)}{"" if node["core"] else " lr-tm-card--extra"}" id="tense-{esc(node["id"])}">
-            <header class="lr-tm-card-head">
-              <h4 class="lr-tm-name">{esc(node["name"])}</h4>
-              <span class="lr-tm-name-vi">{esc(node["name_vi"])}</span>
-              {core_badge}
-            </header>
-            <div class="lr-tm-body">
-              <div class="lr-tm-col">
-                <p class="lr-tm-col-label">Cấu trúc</p>
-                <ul class="lr-tm-struct">{struct_rows}
+    return f"""          <div class="lr-mmap-branch" data-mmap-branch="{nid}" style="--mmap-c:{color}">
+            <div class="lr-mmap-tense" data-mmap-node="tense">
+              <strong>{esc(node["name"])}</strong>
+              <span>{esc(node["name_vi"])}</span>
+            </div>
+            <div class="lr-mmap-forks">
+              <div class="lr-mmap-group">
+                <span class="lr-mmap-fork" data-mmap-node="fork">Cấu trúc</span>
+                <ul class="lr-mmap-leaves">
+{struct_items}
                 </ul>
               </div>
-              <div class="lr-tm-col">
-                <p class="lr-tm-col-label">Dấu hiệu</p>
-                <p class="lr-tm-signals">{esc(node["signals"])}</p>
+              <div class="lr-mmap-group">
+                <span class="lr-mmap-fork" data-mmap-node="fork">Dấu hiệu nhận biết</span>
+                <ul class="lr-mmap-leaves">
+{signal_items}
+                </ul>
               </div>
             </div>
-            <p class="lr-tm-food"><span class="lr-tm-food-label">Food</span> {node["food"]}</p>
-            <a class="lr-tm-ref" href="{esc(ref_url)}" target="_blank" rel="noopener noreferrer">IELTS Fighter ↗</a>
-          </article>"""
+          </div>"""
 
 
 def grammar_section() -> str:
@@ -588,42 +507,31 @@ def grammar_section() -> str:
 
 
 def mental_model_html() -> str:
-    present = [_tense_card_html(n) for n in TENSE_MINDMAP if n["zone"] == "present"]
-    past = [_tense_card_html(n) for n in TENSE_MINDMAP if n["zone"] == "past"]
-    future = [_tense_card_html(n) for n in TENSE_MINDMAP if n["zone"] == "future"]
+    left = "\n".join(
+        _mmap_branch_html(n) for n in MINDMAP_BRANCHES if n["side"] == "left"
+    )
+    right = "\n".join(
+        _mmap_branch_html(n) for n in MINDMAP_BRANCHES if n["side"] == "right"
+    )
     return f"""
-      <div class="lr-tense-mindmap" aria-label="Tense mind map for Food speaking">
-        <div class="lr-tm-hub">
-          <span class="lr-tm-hub-title">Food &amp; habits</span>
-          <span class="lr-tm-hub-sub">6 nhóm thì · 3 nhánh thời gian</span>
+      <div class="lr-mmap" id="tenseMindmap" aria-label="Sơ đồ tư duy 4 thì cơ bản">
+        <p class="lr-mmap-scroll-hint">Vuốt ngang nếu sơ đồ rộng hơn màn hình</p>
+        <div class="lr-mmap-viewport">
+          <div class="lr-mmap-board">
+            <svg class="lr-mmap-svg" aria-hidden="true"></svg>
+            <div class="lr-mmap-col lr-mmap-col--left">
+{left}
+            </div>
+            <div class="lr-mmap-root" data-mmap-node="root">
+              <span class="lr-mmap-root-title">4 thì cơ bản</span>
+              <span class="lr-mmap-root-sub">Food speaking</span>
+            </div>
+            <div class="lr-mmap-col lr-mmap-col--right">
+{right}
+            </div>
+          </div>
         </div>
-
-        <div class="lr-tm-zones">
-          <section class="lr-tm-zone lr-tm-zone--present">
-            <h3 class="lr-tm-zone-label">Present</h3>
-            <div class="lr-tm-cards">
-{chr(10).join(present)}
-            </div>
-          </section>
-          <section class="lr-tm-zone lr-tm-zone--past">
-            <h3 class="lr-tm-zone-label">Past</h3>
-            <div class="lr-tm-cards">
-{chr(10).join(past)}
-            </div>
-          </section>
-          <section class="lr-tm-zone lr-tm-zone--future">
-            <h3 class="lr-tm-zone-label">Future</h3>
-            <div class="lr-tm-cards">
-{chr(10).join(future)}
-            </div>
-          </section>
-        </div>
-
-        <p class="lr-tm-legend">
-          <span class="lr-tm-badge">Speaking ✓</span> = dùng thường xuyên trong Section 3 (video catch-up).
-          Thẻ mờ hơn = biết thêm, không cần nhồi mỗi câu.
-        </p>
-        <p class="lr-tm-note">Linear Thinking: chọn <strong>một nhánh thời gian</strong> cho mỗi câu — chỉ trộn thì khi có mốc rõ (when / before / after / by the time).</p>
+        <p class="lr-mmap-note">Speaking còn dùng thêm (xem Section 3): <strong>Present Perfect</strong> (Have you ever…), <strong>used to / would</strong>, <strong>going to / will</strong>. Chọn một thì cho mỗi câu.</p>
       </div>"""
 
 
@@ -1737,7 +1645,7 @@ def build_page() -> str:
 
       <section class="lr-section" id="mental-model">
         <h2>2 · Mental model — Tenses for Food speaking</h2>
-        <p class="lr-section-hint">Mind map theo IELTS Fighter — thẻ <strong>Speaking ✓</strong> là thì xuất hiện trong Section 3. Chọn <strong>một nhánh</strong> cho mỗi câu trả lời.</p>
+        <p class="lr-section-hint">Sơ đồ tư duy 4 thì hay dùng khi nói về Food — cấu trúc + dấu hiệu. Vuốt ngang nếu cần.</p>
 {mental_model_html()}
       </section>
 
@@ -1795,7 +1703,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr15">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr16">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -1815,11 +1723,11 @@ def build_page() -> str:
     <span class="docs-topbar-spacer"></span>
     <a class="docs-top-link" href="{home}#blogs">blogs</a>
   </header>
-  <div class="docs-shell">
+  <div class="docs-shell docs-shell--wide">
 {body}
   </div>
-  <script src="{home}js/docs.js?v=lr15"></script>
-  <script src="{home}js/linear-review.js?v=lr15"></script>
+  <script src="{home}js/docs.js?v=lr16"></script>
+  <script src="{home}js/linear-review.js?v=lr16"></script>
 </body>
 </html>"""
 
