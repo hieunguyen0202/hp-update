@@ -754,6 +754,136 @@ TENSE_MINDMAP_RIGHT = [
     },
 ]
 
+# Cách đọc -ed · Past Simple / V₃ (video: How to pronounce -ed)
+ED_MINDMAP_LEFT = [
+    {
+        "id": "ed-id",
+        "color": "#a78bfa",
+        "name": "/ɪd/",
+        "name_vi": "thêm 1 âm tiết",
+        "forks": [
+            {
+                "label": "Quy tắc",
+                "leaves": [
+                    "Root kết thúc bằng âm <strong>/t/</strong> hoặc <strong>/d/</strong>",
+                    "Đọc <code>/ɪd/</code> — đây là trường hợp <strong>có thêm âm tiết</strong>",
+                ],
+            },
+            {
+                "label": "Âm đứng trước /ɪd/",
+                "leaves": [
+                    ("/t/", "wanted · part → <code>/ˈpɑːtɪd/</code> · test → <code>/ˈtestɪd/</code>"),
+                    ("/d/", "decided · end → <code>/ˈendɪd/</code> · need → <code>/ˈniːdɪd/</code>"),
+                ],
+            },
+            {
+                "label": "Food",
+                "leaves": [
+                    "I <strong>tasted</strong> <code>/ˈteɪstɪd/</code> the soup.",
+                    "We <strong>needed</strong> <code>/ˈniːdɪd/</code> more salt.",
+                    "They <strong>roasted</strong> <code>/ˈrəʊstɪd/</code> the ribs.",
+                ],
+            },
+        ],
+    },
+    {
+        "id": "ed-adj",
+        "color": "#c4b5fd",
+        "name": "Irregular adjectives",
+        "name_vi": "luôn /ɪd/ — ngoại lệ",
+        "forks": [
+            {
+                "label": "Quy tắc",
+                "leaves": [
+                    "Tính từ này <strong>luôn</strong> đọc <code>/ɪd/</code>",
+                    "Dù root <em>không</em> kết thúc /t/ hay /d/",
+                ],
+            },
+            {
+                "label": "Học thuộc",
+                "leaves": [
+                    ("naked", "<code>/ˈneɪkɪd/</code>"),
+                    ("wicked", "<code>/ˈwɪkɪd/</code>"),
+                    ("jagged", "<code>/ˈdʒæɡɪd/</code>"),
+                    ("rugged", "<code>/ˈrʌɡɪd/</code>"),
+                ],
+            },
+        ],
+    },
+]
+
+ED_MINDMAP_RIGHT = [
+    {
+        "id": "ed-t",
+        "color": "#fb7185",
+        "name": "/t/",
+        "name_vi": "unvoiced + unvoiced",
+        "forks": [
+            {
+                "label": "Quy tắc",
+                "leaves": [
+                    "Root kết thúc bằng phụ âm <strong>unvoiced</strong> (không phải /t/)",
+                    "<em>we match unvoiced with unvoiced</em> → <code>/t/</code>",
+                    "<strong>Không</strong> thêm âm tiết",
+                ],
+            },
+            {
+                "label": "Âm đứng trước /t/",
+                "leaves": [
+                    ("/p/", "helped · clap → <code>/klæpt/</code>"),
+                    ("/k/", "asked · kick → <code>/kɪkt/</code>"),
+                    ("/f/", "sniffed · laughed"),
+                    ("/s/", "missed · dance → <code>/dɑːnst/</code>"),
+                    ("/ʃ/", "washed → <code>/wɒʃt/</code>"),
+                    ("/tʃ/", "matched"),
+                    ("/θ/", "unearthed"),
+                ],
+            },
+            {
+                "label": "Food",
+                "leaves": [
+                    "I <strong>chopped</strong> <code>/tʃɒpt/</code> the herbs.",
+                    "We <strong>cooked</strong> <code>/kʊkt/</code> pasta.",
+                    "She <strong>sliced</strong> <code>/slaɪst/</code> the fruit.",
+                ],
+            },
+        ],
+    },
+    {
+        "id": "ed-d",
+        "color": "#2dd4bf",
+        "name": "/d/",
+        "name_vi": "voiced + voiced",
+        "forks": [
+            {
+                "label": "Quy tắc",
+                "leaves": [
+                    "Root kết thúc bằng âm <strong>voiced</strong> (không phải /d/) — nguyên âm + phụ âm hữu thanh",
+                    "<em>we match voiced with voiced</em> → <code>/d/</code>",
+                    "<strong>Không</strong> thêm âm tiết",
+                ],
+            },
+            {
+                "label": "Âm đứng trước /d/",
+                "leaves": [
+                    ("/b v z g/", "robbed · lived · amazed · rigged"),
+                    ("/n m ŋ/", "fined · climbed · winged"),
+                    ("/dʒ ð l r/", "judged · soothed · called · remembered"),
+                    ("nguyên âm", "love → <code>/lʌvd/</code> · dine → <code>/daɪnd/</code> · comply → <code>/kəmˈplaɪd/</code>"),
+                ],
+            },
+            {
+                "label": "Food",
+                "leaves": [
+                    "I <strong>grilled</strong> <code>/ɡrɪld/</code> kebab.",
+                    "We <strong>loved</strong> <code>/lʌvd/</code> the pho.",
+                    "They <strong>fried</strong> <code>/fraɪd/</code> the eggs.",
+                ],
+            },
+        ],
+    },
+]
+
 # Lesson 2 · flow mind map — trái = DISLIKE, phải = LIKE
 LESSON2_MINDMAP_LEFT = [
     {
@@ -1661,11 +1791,32 @@ def mental_model_html() -> str:
         extra_class=" lr-mmap--tenses",
         min_width="1380px",
     )
+    ed_map = mind_map_html(
+        "edMindmap",
+        "Sơ đồ tư duy cách đọc -ed — Past Simple / V₃",
+        "-ed",
+        "Past Simple · V₃",
+        ED_MINDMAP_LEFT,
+        ED_MINDMAP_RIGHT,
+        note=(
+            "Nghe <strong>âm cuối của root</strong> (không nhìn chính tả). "
+            "Ngoại trừ <strong>/t/</strong> và <strong>/d/</strong> → không thêm âm tiết. "
+            "Nguồn: "
+            '<a href="https://www.youtube.com/watch?v=vv7cBMCBUdk" target="_blank" rel="noopener noreferrer">'
+            "How to pronounce -ed</a>."
+        ),
+        extra_class=" lr-mmap--ed",
+        min_width="1280px",
+    )
     return (
         fighter_map
         + """
+        <h3 class="lr-subsection-title" id="ed-ending">Cách đọc <em>-ed</em> — Past Simple / V₃</h3>
+        <p class="lr-section-hint lr-section-hint--sub">Khi nói thì quá khứ đơn và V₃ động từ có quy tắc, đuôi <strong>-ed</strong> có 3 cách đọc. Quyết định theo <em>âm cuối của root</em>, không theo chữ cái.</p>"""
+        + ed_map
+        + """
         <h3 class="lr-subsection-title">Văn nói thực tế — timeline 12 thì</h3>
-        <p class="lr-section-hint lr-section-hint--sub">Sơ đồ thứ hai: cách người bản xứ <em>thật sự</em> chọn thì khi nói — theo tình huống, không theo bảng dấu hiệu.</p>"""
+        <p class="lr-section-hint lr-section-hint--sub">Sơ đồ tiếp theo: cách người bản xứ <em>thật sự</em> chọn thì khi nói — theo tình huống, không theo bảng dấu hiệu.</p>"""
         + hana_timeline_html()
         + _food_tense_dialogue_html()
     )
@@ -2597,6 +2748,7 @@ def build_page() -> str:
         <nav class="lr-toc" aria-label="On this page">
           <a href="#grammar">1 · Grammar</a>
           <a href="#mental-model">2 · Mental model</a>
+          <a href="#ed-ending">2b · -ed</a>
           <a href="#structures">3 · Structures</a>
           <a href="#lessons">4 · Lesson highlights</a>
           <a href="#food-lang">5 · Idioms &amp; phrases</a>
@@ -2619,7 +2771,7 @@ def build_page() -> str:
 
       <section class="lr-section" id="mental-model">
         <h2>2 · Mental model — Tenses for Food speaking</h2>
-        <p class="lr-section-hint">Hai lớp: <strong>sơ đồ ngữ pháp</strong> (công thức + dấu hiệu, badge <strong>1–12</strong>) và <strong>timeline use case</strong> + <strong>hội thoại Food</strong>. <span class="lr-mmap-star">★</span> = Section 3.</p>
+        <p class="lr-section-hint">Ba lớp: <strong>sơ đồ ngữ pháp</strong> (công thức + dấu hiệu, badge <strong>1–12</strong>) · <strong>cách đọc -ed</strong> (Past Simple / V₃) · <strong>timeline use case</strong> + <strong>hội thoại Food</strong>. <span class="lr-mmap-star">★</span> = Section 3.</p>
 {mental_model_html()}
       </section>
 
@@ -2677,7 +2829,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr21">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr22">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -2700,8 +2852,8 @@ def build_page() -> str:
   <div class="docs-shell docs-shell--wide">
 {body}
   </div>
-  <script src="{home}js/docs.js?v=lr21"></script>
-  <script src="{home}js/linear-review.js?v=lr21"></script>
+  <script src="{home}js/docs.js?v=lr22"></script>
+  <script src="{home}js/linear-review.js?v=lr22"></script>
 </body>
 </html>"""
 
@@ -2726,6 +2878,8 @@ def patch_topic_index() -> None:
         </div>
       </section>
 """
+    if 'id="review"' in text:
+        return
     # Insert before closing article or after B2 section
     marker = '      <section class="vocab-level" id="b2">'
     if marker not in text:

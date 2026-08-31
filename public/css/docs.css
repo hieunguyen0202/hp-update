@@ -3018,8 +3018,28 @@ body.ex-hide-ipa .ipa {
 }
 
 .lr-mmap--lesson2,
-.lr-mmap--lesson3 {
+.lr-mmap--lesson3,
+.lr-mmap--ed {
   margin-top: 12px;
+}
+
+.lr-mmap--ed .lr-mmap-tense {
+  white-space: normal;
+}
+
+.docs-main .lr-mmap--ed .lr-mmap-fork,
+.docs-main .lr-mmap--ed .lr-mmap-leaf {
+  white-space: normal;
+  max-width: 26rem;
+}
+
+.docs-main .lr-mmap--ed .lr-mmap-leaf code {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--mmap-c);
+  background: transparent;
+  padding: 0;
 }
 
 /* Lesson 2/3 · flow pipeline (① Mở → because → 2 nhánh) */
