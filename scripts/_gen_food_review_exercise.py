@@ -971,8 +971,360 @@ def phrase_pick(slot_id: str, default_idx: int = 0) -> str:
     return slot_select(slot_id, default_idx, kind="phrase")
 
 
+# 12 thì văn nói thực tế — Hana's Lexis (timeline quá khứ → hiện tại → tương lai)
+HANA_TIMELINE_ZONES = [
+    {
+        "id": "past",
+        "label": "Quá khứ",
+        "label_en": "Past",
+        "tenses": [
+            {
+                "num": 9,
+                "id": "past-simple",
+                "name": "Past Simple",
+                "name_vi": "Quá khứ đơn",
+                "color": "#f87171",
+                "examples": [
+                    ("I went to bed at 10pm yesterday.", None),
+                ],
+                "uses": [
+                    "Đã xảy ra xong, kết thúc rồi — có thời điểm rõ ràng",
+                    "Hành động ngắn, một mảnh trong câu chuyện quá khứ",
+                ],
+            },
+            {
+                "num": 10,
+                "id": "past-continuous",
+                "name": "Past Continuous",
+                "name_vi": "Quá khứ tiếp diễn",
+                "color": "#fb923c",
+                "examples": [
+                    (
+                        "I was going to bed at 10pm yesterday but then my friend came over "
+                        "so I had to stay up and talk to her.",
+                        None,
+                    ),
+                    (
+                        "I was watching movie with my friend when you called me.",
+                        None,
+                    ),
+                ],
+                "uses": [
+                    "Hành động trong quá khứ <strong>đang kéo dài</strong>",
+                    "Bị hành động khác chen vào → không kết thúc được việc đang làm",
+                ],
+                "tip": (
+                    "Hành động <strong>cắt ngang</strong> (chen vào) → chỉ dùng "
+                    "<strong>quá khứ đơn</strong> (came over, called me)."
+                ),
+            },
+            {
+                "num": 11,
+                "id": "past-perfect",
+                "name": "Past Perfect",
+                "name_vi": "Quá khứ hoàn thành",
+                "color": "#c084fc",
+                "examples": [
+                    (
+                        "She had broken up with her ex-boyfriend before she started "
+                        "dating her new boyfriend.",
+                        None,
+                    ),
+                ],
+                "uses": [
+                    "Một hành động xảy ra <strong>trước</strong> một hành động khác trong quá khứ",
+                    "Thường đi với <em>before / after / by the time</em>",
+                ],
+            },
+            {
+                "num": 12,
+                "id": "past-ppc",
+                "name": "Past Perfect Continuous",
+                "name_vi": "QK hoàn thành tiếp diễn",
+                "color": "#a78bfa",
+                "examples": [
+                    (
+                        "She had been trying to break up with her ex-bf before she "
+                        "started dating a new one.",
+                        None,
+                    ),
+                ],
+                "uses": [
+                    "Chuyện đã xảy ra trước trong quá khứ, nhưng <strong>kéo dài</strong>",
+                    "Cố gắng chia tay — chưa chắc đã kết thúc hay chưa",
+                ],
+                "tip": (
+                    "Khác <strong>quá khứ hoàn thành</strong>: had broken up = "
+                    "<strong>đã chia tay xong</strong> rồi."
+                ),
+            },
+        ],
+    },
+    {
+        "id": "present",
+        "label": "Hiện tại",
+        "label_en": "Present",
+        "tenses": [
+            {
+                "num": 1,
+                "id": "pres-simple",
+                "name": "Present Simple",
+                "name_vi": "Hiện tại đơn",
+                "color": "#34d399",
+                "examples": [
+                    ("The sun rises in the east.", None),
+                    ("I love eating spicy food.", None),
+                    ("The bus runs at 8am every morning.", None),
+                    ("My friend hates reading.", None),
+                ],
+                "uses": [
+                    "Sự kiện xảy ra thường xuyên, thói quen",
+                    "Sự thật chân lý hiển nhiên",
+                    "Sở thích bản thân; chuyện của người khác",
+                    "Lịch trình cố định, không thay đổi",
+                ],
+            },
+            {
+                "num": 2,
+                "id": "pres-continuous",
+                "name": "Present Continuous",
+                "name_vi": "Hiện tại tiếp diễn",
+                "color": "#60a5fa",
+                "examples": [
+                    ("I'm eating pears right now.", "đang ăn lê ngay lúc nói"),
+                    (
+                        "I'm traveling to Vegas at the end of this month.",
+                        "đã có kế hoạch đi Vegas cuối tháng",
+                    ),
+                ],
+                "uses": [
+                    "Hành động <strong>đang diễn ra</strong> tại thời điểm mình nói",
+                    "Nhấn mạnh tính chất <strong>kéo dài</strong> của hành động",
+                    "Dự định tương lai gần — đã có <strong>kế hoạch</strong>",
+                ],
+                "tip": (
+                    "Gần <strong>going to</strong> nhưng going to nhấn mạnh "
+                    "<strong>ý định</strong> hơn. Việc <strong>bộc phát</strong>, "
+                    "mới nghĩ ra → dùng <strong>will</strong>."
+                ),
+            },
+            {
+                "num": 3,
+                "id": "pres-perfect",
+                "name": "Present Perfect",
+                "name_vi": "Hiện tại hoàn thành",
+                "color": "#38bdf8",
+                "examples": [
+                    ("I've graduated.", "đã tốt nghiệp — không nói khi nào"),
+                    (
+                        "I have lived in Vietnam for 20 years.",
+                        "và hiện tại vẫn còn sống ở Việt Nam",
+                    ),
+                    (
+                        "I have lived in Vietnam since 1990.",
+                        "và hiện tại vẫn còn sống ở Việt Nam",
+                    ),
+                    (
+                        "I've been to Europe 3 times.",
+                        "đã làm nhiều lần trong quá khứ",
+                    ),
+                ],
+                "uses": [
+                    "Hành động quá khứ <strong>không có thời điểm xác định</strong>",
+                    "Bắt đầu trong quá khứ, <strong>kéo dài tới hiện tại</strong> (for / since)",
+                    "Kinh nghiệm / số lần đã làm (ever, times)",
+                ],
+            },
+            {
+                "num": 4,
+                "id": "pres-ppc",
+                "name": "Present Perfect Continuous",
+                "name_vi": "HT hoàn thành tiếp diễn",
+                "color": "#7dd3fc",
+                "examples": [
+                    (
+                        "I've been working at this company for 20 years.",
+                        None,
+                    ),
+                    (
+                        "I've been working at this company since I graduated from high school.",
+                        None,
+                    ),
+                ],
+                "uses": [
+                    "Hành động quá khứ kéo dài đến hiện tại — "
+                    "<strong>khả năng tiếp tục</strong> trong tương lai",
+                ],
+                "tip": (
+                    "<em>I've worked at this company for 20 years</em> → có thể "
+                    "đổi việc sau này, không nhấn mạnh vẫn đang làm."
+                ),
+            },
+        ],
+    },
+    {
+        "id": "future",
+        "label": "Tương lai",
+        "label_en": "Future",
+        "tenses": [
+            {
+                "num": 5,
+                "id": "future-will",
+                "name": "Future Simple (will)",
+                "name_vi": "Tương lai đơn",
+                "color": "#fbbf24",
+                "examples": [
+                    ("I will go to Vegas.", "quyết định / lời hứa / bộc phát"),
+                ],
+                "uses": [
+                    "Quyết định lúc đang nói, <strong>mới nghĩ ra</strong>",
+                    "Lời hứa, dự đoán không chắc chắn",
+                ],
+            },
+            {
+                "num": 6,
+                "id": "future-continuous",
+                "name": "Future Continuous",
+                "name_vi": "Tương lai tiếp diễn",
+                "color": "#fb923c",
+                "examples": [
+                    (
+                        "This time tomorrow I will be lying on the beach.",
+                        "đúng lúc đó ngày mai sẽ đang nằm trên bãi",
+                    ),
+                ],
+                "uses": [
+                    "Hành động trong tương lai mang tính <strong>kéo dài</strong>",
+                    "Nhìn từ hiện tại vào một mốc tương lai (this time tomorrow…)",
+                ],
+            },
+            {
+                "num": 7,
+                "id": "future-perfect",
+                "name": "Future Perfect",
+                "name_vi": "Tương lai hoàn thành",
+                "color": "#f97316",
+                "examples": [
+                    (
+                        "She will have dated her boyfriend for 5 years by May of next year.",
+                        "đến tháng 5 năm sau sẽ tròn 5 năm yêu",
+                    ),
+                ],
+                "uses": [
+                    "Diễn tả sự <strong>hoàn thành</strong> trước một mốc trong tương lai",
+                    "Thường có <em>by … / by the time …</em>",
+                ],
+            },
+            {
+                "num": 8,
+                "id": "future-ppc",
+                "name": "Future Perfect Continuous",
+                "name_vi": "TL hoàn thành tiếp diễn",
+                "color": "#fb7185",
+                "examples": [
+                    (
+                        "I will have been eating 5 meals by 6pm tonight.",
+                        "đến 6h tối nay sẽ đã ăn đủ 5 bữa (kéo dài)",
+                    ),
+                ],
+                "uses": [
+                    "Hoàn thành trong tương lai <strong>và có kéo dài</strong> "
+                    "trước mốc thời gian",
+                ],
+            },
+        ],
+    },
+]
+
+
+def _ttimeline_card_html(tense: dict) -> str:
+    color = esc(tense["color"])
+    ex_items = []
+    for ex in tense["examples"]:
+        if isinstance(ex, tuple):
+            en, gloss = ex
+            gloss_html = (
+                f'<span class="lr-ttimeline-gloss">→ {esc(gloss)}</span>'
+                if gloss
+                else ""
+            )
+            ex_items.append(
+                f'<li><q>{esc(en)}</q>{gloss_html}</li>'
+            )
+        else:
+            ex_items.append(f"<li><q>{esc(ex)}</q></li>")
+    uses = "\n".join(
+        f"<li>{u}</li>" for u in tense["uses"]
+    )
+    tip = tense.get("tip")
+    tip_html = (
+        f'<p class="lr-ttimeline-tip"><strong>Phân biệt:</strong> {tip}</p>'
+        if tip
+        else ""
+    )
+    return f"""            <article class="lr-ttimeline-card" id="hana-{esc(tense['id'])}" style="--tt-c:{color}">
+              <header class="lr-ttimeline-card-head">
+                <span class="lr-ttimeline-num">{tense['num']}</span>
+                <div>
+                  <strong>{esc(tense['name'])}</strong>
+                  <span class="lr-ttimeline-vi">{esc(tense['name_vi'])}</span>
+                </div>
+              </header>
+              <div class="lr-ttimeline-body">
+                <p class="lr-ttimeline-label">Ví dụ</p>
+                <ul class="lr-ttimeline-ex">
+{chr(10).join(ex_items)}
+                </ul>
+                <p class="lr-ttimeline-label">Khi nào dùng (đời thường)</p>
+                <ul class="lr-ttimeline-use">
+{uses}
+                </ul>
+                {tip_html}
+              </div>
+            </article>"""
+
+
+def hana_timeline_html() -> str:
+    zones_html = []
+    for zone in HANA_TIMELINE_ZONES:
+        cards = "\n".join(
+            _ttimeline_card_html(t) for t in zone["tenses"]
+        )
+        zones_html.append(
+            f"""        <section class="lr-ttimeline-zone lr-ttimeline-zone--{esc(zone['id'])}" aria-label="{esc(zone['label'])}">
+          <div class="lr-ttimeline-zone-head">
+            <span class="lr-ttimeline-zone-label">{esc(zone['label'])}</span>
+            <span class="lr-ttimeline-zone-en">{esc(zone['label_en'])}</span>
+          </div>
+          <div class="lr-ttimeline-cards">
+{cards}
+          </div>
+        </section>"""
+        )
+    return f"""
+      <div class="lr-ttimeline-wrap">
+        <p class="lr-ttimeline-intro">
+          Tóm tắt từ video
+          <a href="https://www.youtube.com/watch?v=0mhWAFhs7KQ" target="_blank" rel="noopener noreferrer">Các thì tiếng Anh thật sự dùng trong văn nói</a>
+          (Hana's Lexis) — tập trung <strong>use case thực tế</strong>, không học thuộc dấu hiệu khô khan.
+        </p>
+        <div class="lr-ttimeline" id="hanaTenseTimeline" aria-label="Timeline 12 thì văn nói — quá khứ đến tương lai">
+          <div class="lr-ttimeline-axis" aria-hidden="true">
+            <span class="lr-ttimeline-axis-past">◀ Quá khứ</span>
+            <span class="lr-ttimeline-axis-now">Bây giờ</span>
+            <span class="lr-ttimeline-axis-future">Tương lai ▶</span>
+          </div>
+{chr(10).join(zones_html)}
+        </div>
+        <p class="lr-ttimeline-note">
+          Đọc theo mũi tên thời gian: quá khứ (9→12) · hiện tại (1→4) · tương lai (5→8).
+          Mỗi thẻ = <strong>ví dụ gốc</strong> + <strong>khi nào nói như vậy</strong> trong đời thường.
+        </p>
+      </div>"""
+
+
 def mental_model_html() -> str:
-    return mind_map_html(
+    fighter_map = mind_map_html(
         "tenseMindmap",
         "Sơ đồ tư duy 6 nhóm thì — Food speaking",
         "6 nhóm thì",
@@ -987,6 +1339,13 @@ def mental_model_html() -> str:
         ),
         extra_class=" lr-mmap--tenses",
         min_width="1380px",
+    )
+    return (
+        fighter_map
+        + """
+        <h3 class="lr-subsection-title">Văn nói thực tế — timeline 12 thì</h3>
+        <p class="lr-section-hint lr-section-hint--sub">Sơ đồ thứ hai: cách người bản xứ <em>thật sự</em> chọn thì khi nói — theo tình huống, không theo bảng dấu hiệu.</p>"""
+        + hana_timeline_html()
     )
 
 
@@ -1969,7 +2328,7 @@ def build_page() -> str:
 
       <section class="lr-section" id="mental-model">
         <h2>2 · Mental model — Tenses for Food speaking</h2>
-        <p class="lr-section-hint">6 nhóm thì IELTS Fighter — <span class="lr-mmap-star">★</span> = có trong Section 3. Vuốt ngang nếu cần.</p>
+        <p class="lr-section-hint">Hai lớp: <strong>6 nhóm thì IELTS Fighter</strong> (công thức + dấu hiệu) và <strong>timeline văn nói thực tế</strong> (use case đời thường). <span class="lr-mmap-star">★</span> = có trong Section 3.</p>
 {mental_model_html()}
       </section>
 
@@ -2027,7 +2386,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr17">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr18">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -2050,8 +2409,8 @@ def build_page() -> str:
   <div class="docs-shell docs-shell--wide">
 {body}
   </div>
-  <script src="{home}js/docs.js?v=lr17"></script>
-  <script src="{home}js/linear-review.js?v=lr17"></script>
+  <script src="{home}js/docs.js?v=lr18"></script>
+  <script src="{home}js/linear-review.js?v=lr18"></script>
 </body>
 </html>"""
 

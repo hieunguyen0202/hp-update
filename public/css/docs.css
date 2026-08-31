@@ -3016,6 +3016,256 @@ body.ex-hide-ipa .ipa {
   }
 }
 
+/* Section 2b — Hana timeline (past → present → future) */
+.lr-subsection-title {
+  margin: 2rem 0 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+.lr-section-hint--sub {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.lr-ttimeline-wrap {
+  margin-top: 0.5rem;
+}
+
+.lr-ttimeline-intro,
+.lr-ttimeline-note {
+  margin: 0 0 12px;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: rgba(226, 232, 240, 0.68);
+}
+
+.lr-ttimeline-intro a {
+  color: #7dd3fc;
+  font-weight: 600;
+}
+
+.lr-ttimeline {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(280px, 1fr));
+  gap: 14px;
+  position: relative;
+  padding-top: 36px;
+}
+
+.lr-ttimeline-axis {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 0.75);
+}
+
+.lr-ttimeline-axis::before {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 50%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(248, 113, 113, 0.55),
+    rgba(96, 165, 250, 0.7) 50%,
+    rgba(251, 191, 36, 0.55)
+  );
+  z-index: 0;
+}
+
+.lr-ttimeline-axis-past,
+.lr-ttimeline-axis-now,
+.lr-ttimeline-axis-future {
+  position: relative;
+  z-index: 1;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.lr-ttimeline-axis-now {
+  color: #93c5fd;
+}
+
+.lr-ttimeline-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.lr-ttimeline-zone-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.lr-ttimeline-zone--past .lr-ttimeline-zone-head {
+  border-left: 3px solid #f87171;
+}
+
+.lr-ttimeline-zone--present .lr-ttimeline-zone-head {
+  border-left: 3px solid #60a5fa;
+}
+
+.lr-ttimeline-zone--future .lr-ttimeline-zone-head {
+  border-left: 3px solid #fbbf24;
+}
+
+.lr-ttimeline-zone-label {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #f1f5f9;
+}
+
+.lr-ttimeline-zone-en {
+  font-size: 0.72rem;
+  color: rgba(148, 163, 184, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.lr-ttimeline-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lr-ttimeline-card {
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(15, 23, 42, 0.55);
+  border-left: 4px solid var(--tt-c, #60a5fa);
+  overflow: hidden;
+}
+
+.lr-ttimeline-card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.28);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.lr-ttimeline-num {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #0f172a;
+  background: var(--tt-c, #60a5fa);
+}
+
+.docs-main .lr-ttimeline-card-head strong {
+  display: block;
+  font-size: 0.88rem;
+  color: #f8fafc !important;
+}
+
+.lr-ttimeline-vi {
+  display: block;
+  font-size: 0.74rem;
+  color: rgba(148, 163, 184, 0.9);
+}
+
+.lr-ttimeline-body {
+  padding: 10px 12px 12px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.lr-ttimeline-label {
+  margin: 0 0 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 0.85);
+}
+
+.lr-ttimeline-ex,
+.lr-ttimeline-use {
+  margin: 0 0 10px;
+  padding-left: 1.1rem;
+}
+
+.lr-ttimeline-ex li,
+.lr-ttimeline-use li {
+  margin-bottom: 6px;
+  color: rgba(226, 232, 240, 0.9);
+}
+
+.lr-ttimeline-ex q {
+  quotes: none;
+  font-style: italic;
+  color: #e2e8f0;
+}
+
+.lr-ttimeline-gloss {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.76rem;
+  font-style: normal;
+  color: rgba(125, 211, 252, 0.9);
+}
+
+.lr-ttimeline-tip {
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  background: rgba(251, 191, 36, 0.08);
+  border: 1px solid rgba(251, 191, 36, 0.22);
+  color: rgba(254, 243, 199, 0.92);
+}
+
+.lr-ttimeline-tip strong {
+  color: #fcd34d;
+}
+
+@media (max-width: 1100px) {
+  .lr-ttimeline {
+    grid-template-columns: 1fr;
+    padding-top: 0;
+  }
+
+  .lr-ttimeline-axis {
+    position: static;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+  }
+
+  .lr-ttimeline-axis::before {
+    display: none;
+  }
+}
+
 /* Lesson 2 practice chains with phrase dropdowns */
 .lr-practice-chain {
   margin-top: 10px;
