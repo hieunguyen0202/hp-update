@@ -14,11 +14,14 @@
     chain.querySelectorAll(".lr-word-pick").forEach((sel) => {
       const slot = sel.dataset.slot;
       if (!slot) return;
-      const word = sel.value;
-      const mark = `<mark class="vocab">${word}</mark>`;
+      const word = sel.value.trim();
+      const mark =
+        word && word !== "—"
+          ? `<mark class="vocab">${word}</mark>`
+          : "";
       out = out.split(`{${slot}}`).join(mark);
     });
-    return out;
+    return out.replace(/\s{2,}/g, " ").replace(/\s+([.,!?])/g, "$1").trim();
   };
 
   const updateChainExample = (chain) => {

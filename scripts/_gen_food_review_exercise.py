@@ -313,7 +313,192 @@ WORD_SLOTS: dict[str, list[dict]] = {
         {"form": "grab takeaway", "vi": "mua đồ mang về"},
         {"form": "booze", "vi": "uống có cồn (informal)"},
     ],
+    # Lesson 2 · interchangeable benefit phrases (dropdown in practice cards)
+    "relax_phrase": [
+        {"form": "unwind and recharge their batteries", "vi": "thư giãn và nạp lại năng lượng"},
+        {"form": "relax and clear their head", "vi": "thư giãn và giải tỏa đầu óc"},
+        {"form": "reduce stress after a long day", "vi": "giảm căng thẳng sau ngày dài"},
+        {"form": "escape from the hustle and bustle of the city", "vi": "thoát khỏi sự hối hả thành phố"},
+        {"form": "temporarily forget all the pressures from their work", "vi": "tạm quên áp lực công việc"},
+    ],
+    "relax_followup": [
+        {"form": "Being in the kitchen also helps them temporarily forget all the pressures from their work.", "vi": "Ở trong bếp cũng giúp họ tạm quên áp lực công việc."},
+        {"form": "Cooking at home also gives them a chance to escape from reality for a while.", "vi": "Nấu ở nhà cũng cho họ cơ hội thoát khỏi thực tại một lúc."},
+        {"form": "It also helps them express their inner feelings through food.", "vi": "Nó cũng giúp họ thể hiện cảm xúc qua món ăn."},
+        {"form": "—", "vi": "không thêm câu"},
+    ],
+    "health_phrase": [
+        {"form": "stay healthy and prevent various health problems", "vi": "giữ khỏe và phòng bệnh"},
+        {"form": "keep fit and burn excess calories", "vi": "giữ dáng và đốt calo thừa"},
+        {"form": "strengthen their muscles and maintain a healthy weight", "vi": "tăng cơ và duy trì cân nặng"},
+        {"form": "improve their health and keep in shape", "vi": "cải thiện sức khỏe và giữ dáng"},
+    ],
+    "health_followup": [
+        {"form": "It also helps them strengthen their muscles.", "vi": "Nó cũng giúp tăng cơ bắp."},
+        {"form": "Eating vegetables can also prevent problems such as high blood pressure.", "vi": "Ăn rau cũng có thể phòng cao huyết áp."},
+        {"form": "—", "vi": "không thêm câu"},
+    ],
+    "edu_phrase": [
+        {"form": "learn how to manage my diet better and make healthier choices", "vi": "học cách quản lý chế độ ăn tốt hơn"},
+        {"form": "enrich my knowledge about nutrition and cooking", "vi": "làm giàu kiến thức dinh dưỡng và nấu ăn"},
+        {"form": "learn skills such as money management and problem-solving", "vi": "học kỹ năng như quản lý tiền và giải quyết vấn đề"},
+        {"form": "widen my horizons by exploring different food cultures", "vi": "mở rộng tầm nhìn qua ẩm thực đa dạng"},
+    ],
 }
+
+# Tenses highlighted in Section 3 speaking lessons (core = daily food speaking)
+TENSE_MINDMAP = [
+    {
+        "id": "pres-simple",
+        "name": "Present Simple",
+        "name_vi": "Hiện tại đơn",
+        "zone": "present",
+        "core": True,
+        "struct": [
+            ("+", "S + V(s/es)"),
+            ("−", "S + do/does + not + V"),
+            ("?", "Do/Does + S + V?"),
+        ],
+        "signals": "always, usually, often, sometimes · every day/week/month",
+        "food": "I <strong>usually</strong> have rice. / Fast food <strong>is</strong> convenient.",
+        "ref": 0,
+    },
+    {
+        "id": "pres-cont",
+        "name": "Present Continuous",
+        "name_vi": "Hiện tại tiếp diễn",
+        "zone": "present",
+        "core": True,
+        "struct": [
+            ("+", "S + am/is/are + V-ing"),
+            ("−", "S + am/is/are + not + V-ing"),
+            ("?", "Am/Is/Are + S + V-ing?"),
+        ],
+        "signals": "now, right now, at the moment · look! / listen!",
+        "food": "I'm <strong>trying</strong> a low-carb diet. / People <strong>are eating</strong> more plant-based food.",
+        "ref": 0,
+    },
+    {
+        "id": "pres-perfect",
+        "name": "Present Perfect",
+        "name_vi": "Hiện tại hoàn thành",
+        "zone": "present",
+        "core": True,
+        "struct": [
+            ("+", "S + have/has + V₃"),
+            ("−", "S + have/has + not + V₃"),
+            ("?", "Have/Has + S + V₃?"),
+        ],
+        "signals": "ever, never, already, yet · for/since (no specific past time)",
+        "food": "I've <strong>tried</strong> sushi. / I've <strong>always liked</strong> spicy food.",
+        "ref": 5,
+    },
+    {
+        "id": "pres-ppc",
+        "name": "Present Perfect Continuous",
+        "name_vi": "HT hoàn thành tiếp diễn",
+        "zone": "present",
+        "core": False,
+        "struct": [
+            ("+", "S + have/has been + V-ing"),
+            ("−", "S + haven't/hasn't been + V-ing"),
+            ("?", "Have/Has + S + been + V-ing?"),
+        ],
+        "signals": "for, since, lately, recently",
+        "food": "I've <strong>been cooking</strong> at home more lately.",
+        "ref": 5,
+    },
+    {
+        "id": "past-simple",
+        "name": "Past Simple",
+        "name_vi": "Quá khứ đơn",
+        "zone": "past",
+        "core": True,
+        "struct": [
+            ("+", "S + V(ed) / cột 2"),
+            ("−", "S + did + not + V"),
+            ("?", "Did + S + V?"),
+        ],
+        "signals": "yesterday, last night/week · ago · in 2000",
+        "food": "Last Sunday I <strong>grilled</strong> kebab in the garden.",
+        "ref": 1,
+    },
+    {
+        "id": "past-cont",
+        "name": "Past Continuous",
+        "name_vi": "Quá khứ tiếp diễn",
+        "zone": "past",
+        "core": True,
+        "struct": [
+            ("+", "S + was/were + V-ing"),
+            ("−", "S + was/were + not + V-ing"),
+            ("?", "Was/Were + S + V-ing?"),
+        ],
+        "signals": "while, when · at this time yesterday · at 7pm last night",
+        "food": "I <strong>was chopping</strong> vegetables when my friend arrived.",
+        "ref": 1,
+    },
+    {
+        "id": "past-perfect",
+        "name": "Past Perfect",
+        "name_vi": "Quá khứ hoàn thành",
+        "zone": "past",
+        "core": False,
+        "struct": [
+            ("+", "S + had + V₃"),
+            ("−", "S + had + not + V₃"),
+            ("?", "Had + S + V₃?"),
+        ],
+        "signals": "before, after, by the time, already (earlier past)",
+        "food": "I <strong>had never tried</strong> lobster before that trip.",
+        "ref": 4,
+    },
+    {
+        "id": "used-to",
+        "name": "used to / would",
+        "name_vi": "Thói quen quá khứ",
+        "zone": "past",
+        "core": True,
+        "struct": [
+            ("+", "S + used to + V · S + would + V"),
+            ("−", "S + didn't use to + V"),
+            ("?", "Did + S + use to + V?"),
+        ],
+        "signals": "when I was a child · as a teenager · in the past",
+        "food": "When I was a child, I <strong>would eat</strong> fast food every day.",
+        "ref": 1,
+    },
+    {
+        "id": "future-near",
+        "name": "going to / will",
+        "name_vi": "Tương lai gần",
+        "zone": "future",
+        "core": True,
+        "struct": [
+            ("+", "S + am/is/are going to + V · S + will + V"),
+            ("−", "S + isn't/aren't going to + V · won't + V"),
+            ("?", "Are you going to…? · Will + S + V?"),
+        ],
+        "signals": "tonight, tomorrow, next week · probably, might",
+        "food": "I'm <strong>going to cook</strong> pasta tonight. / People <strong>will eat</strong> healthier.",
+        "ref": 2,
+    },
+    {
+        "id": "future-perf",
+        "name": "Future Perfect",
+        "name_vi": "Tương lai hoàn thành",
+        "zone": "future",
+        "core": False,
+        "struct": [
+            ("+", "S + will have + V₃"),
+            ("−", "S + won't have + V₃"),
+            ("?", "Will + S + have + V₃?"),
+        ],
+        "signals": "by next year, by 2030, by the time",
+        "food": "By next year I <strong>will have tried</strong> ten new cuisines.",
+        "ref": 3,
+    },
+]
 
 
 def collect_review_words() -> list[dict]:
@@ -351,6 +536,43 @@ def idiom_pick(slot_id: str, default_idx: int = 0) -> str:
     return slot_select(slot_id, default_idx, kind="idiom")
 
 
+def phrase_pick(slot_id: str, default_idx: int = 0) -> str:
+    return slot_select(slot_id, default_idx, kind="phrase")
+
+
+def _tense_card_html(node: dict) -> str:
+    core_badge = (
+        '<span class="lr-tm-badge">Speaking ✓</span>' if node["core"] else ""
+    )
+    struct_rows = "\n".join(
+        f'                    <li><span class="lr-tm-struct-tag">{esc(tag)}</span> '
+        f'<code>{esc(form)}</code></li>'
+        for tag, form in node["struct"]
+    )
+    ref_url = GRAMMAR_REFS[node["ref"]][1]
+    zone = node["zone"]
+    return f"""          <article class="lr-tm-card lr-tm-card--{esc(zone)}{"" if node["core"] else " lr-tm-card--extra"}" id="tense-{esc(node["id"])}">
+            <header class="lr-tm-card-head">
+              <h4 class="lr-tm-name">{esc(node["name"])}</h4>
+              <span class="lr-tm-name-vi">{esc(node["name_vi"])}</span>
+              {core_badge}
+            </header>
+            <div class="lr-tm-body">
+              <div class="lr-tm-col">
+                <p class="lr-tm-col-label">Cấu trúc</p>
+                <ul class="lr-tm-struct">{struct_rows}
+                </ul>
+              </div>
+              <div class="lr-tm-col">
+                <p class="lr-tm-col-label">Dấu hiệu</p>
+                <p class="lr-tm-signals">{esc(node["signals"])}</p>
+              </div>
+            </div>
+            <p class="lr-tm-food"><span class="lr-tm-food-label">Food</span> {node["food"]}</p>
+            <a class="lr-tm-ref" href="{esc(ref_url)}" target="_blank" rel="noopener noreferrer">IELTS Fighter ↗</a>
+          </article>"""
+
+
 def grammar_section() -> str:
     cards = []
     for title, url, vi_use, ex in GRAMMAR_REFS:
@@ -366,38 +588,42 @@ def grammar_section() -> str:
 
 
 def mental_model_html() -> str:
-    return """
-      <div class="lr-model lr-model--tenses">
-        <div class="lr-model-root">Food &amp; habits · Tense map</div>
-        <div class="lr-model-branches">
-          <div class="lr-branch lr-branch--blue">
-            <span class="lr-branch-label">Present</span>
-            <ul>
-              <li><strong>Simple</strong> — facts, habits, preferences<br><em>I usually have rice. / Fast food is convenient.</em></li>
-              <li><strong>Continuous</strong> — now, changing trends<br><em>I'm trying a low-carb diet. / People are eating more plant-based food.</em></li>
-              <li><strong>Perfect</strong> — experience until now<br><em>I've tried sushi. / I've always liked spicy food.</em></li>
-              <li><strong>Perfect Continuous</strong> — duration until now<br><em>I've been cooking at home more lately.</em></li>
-            </ul>
-          </div>
-          <div class="lr-branch lr-branch--green">
-            <span class="lr-branch-label">Past</span>
-            <ul>
-              <li><strong>Simple</strong> — finished events<br><em>Last Sunday I grilled kebab in the garden.</em></li>
-              <li><strong>Continuous</strong> — background action<br><em>I was chopping vegetables when my friend arrived.</em></li>
-              <li><strong>Perfect</strong> — earlier past<br><em>I had never tried lobster before that trip.</em></li>
-              <li><strong>used to / would</strong> — past habits<br><em>I would eat fast food every day as a teenager.</em></li>
-            </ul>
-          </div>
-          <div class="lr-branch lr-branch--orange">
-            <span class="lr-branch-label">Future</span>
-            <ul>
-              <li><strong>will / going to</strong> — plans &amp; predictions<br><em>I'm going to cook pasta tonight. / People will eat healthier.</em></li>
-              <li><strong>Future Perfect</strong> — completed by a deadline<br><em>By next year I will have tried ten new cuisines.</em></li>
-              <li><strong>be about to</strong> — immediate future<br><em>I'm about to order takeout.</em></li>
-            </ul>
-          </div>
+    present = [_tense_card_html(n) for n in TENSE_MINDMAP if n["zone"] == "present"]
+    past = [_tense_card_html(n) for n in TENSE_MINDMAP if n["zone"] == "past"]
+    future = [_tense_card_html(n) for n in TENSE_MINDMAP if n["zone"] == "future"]
+    return f"""
+      <div class="lr-tense-mindmap" aria-label="Tense mind map for Food speaking">
+        <div class="lr-tm-hub">
+          <span class="lr-tm-hub-title">Food &amp; habits</span>
+          <span class="lr-tm-hub-sub">6 nhóm thì · 3 nhánh thời gian</span>
         </div>
-        <p class="lr-model-note">Linear Thinking rule: pick <strong>one time frame</strong> per sentence — don't mix tenses without a clear link (when / before / after).</p>
+
+        <div class="lr-tm-zones">
+          <section class="lr-tm-zone lr-tm-zone--present">
+            <h3 class="lr-tm-zone-label">Present</h3>
+            <div class="lr-tm-cards">
+{chr(10).join(present)}
+            </div>
+          </section>
+          <section class="lr-tm-zone lr-tm-zone--past">
+            <h3 class="lr-tm-zone-label">Past</h3>
+            <div class="lr-tm-cards">
+{chr(10).join(past)}
+            </div>
+          </section>
+          <section class="lr-tm-zone lr-tm-zone--future">
+            <h3 class="lr-tm-zone-label">Future</h3>
+            <div class="lr-tm-cards">
+{chr(10).join(future)}
+            </div>
+          </section>
+        </div>
+
+        <p class="lr-tm-legend">
+          <span class="lr-tm-badge">Speaking ✓</span> = dùng thường xuyên trong Section 3 (video catch-up).
+          Thẻ mờ hơn = biết thêm, không cần nhồi mỗi câu.
+        </p>
+        <p class="lr-tm-note">Linear Thinking: chọn <strong>một nhánh thời gian</strong> cho mỗi câu — chỉ trộn thì khi có mốc rõ (when / before / after / by the time).</p>
       </div>"""
 
 
@@ -531,7 +757,19 @@ def speaking_lessons_html() -> str:
 
 
 def lesson_highlights_html() -> str:
-    return """
+    relax_ex = (
+        "I think because it's a great way to {relax_phrase} — especially when they're tired after work. "
+        "{relax_followup}"
+    )
+    edu_ex = (
+        "Yes, because it helps me {edu_phrase}. "
+        "It also gives me the chance to enrich my knowledge."
+    )
+    health_ex = (
+        "Yes, because it's a great way to {health_phrase}. "
+        "{health_followup}"
+    )
+    return f"""
       <div class="lr-core-lessons">
 
         <article class="lr-core-lesson" id="lesson3-formulas">
@@ -800,9 +1038,10 @@ def lesson_highlights_html() -> str:
               <span>temporarily forget all the pressures or worries from your daily life</span>
               <span>being in nature</span>
             </div>
-            <div class="lr-practice-card lr-practice-card--yes">
+            <div class="lr-practice-chain lr-chain" data-ex-en="{esc(relax_ex)}">
               <p class="lr-practice-q">Why do people like home-cooked meals?</p>
-              <p class="lr-practice-en">I think because it's a great way to unwind and recharge their batteries — especially when they're tired after work. Being in the kitchen also helps them temporarily forget all the pressures from their work.</p>
+              <p class="lr-chain-flow lr-practice-flow">I think because it's a great way to {phrase_pick("relax_phrase")} — especially when they're tired after work. {phrase_pick("relax_followup", 0)}</p>
+              <p class="lr-practice-en lr-chain-ex-text"></p>
             </div>
           </details>
 
@@ -835,9 +1074,10 @@ def lesson_highlights_html() -> str:
               <span>become a more well-rounded person</span>
               <span>develop my imagination and creativity</span>
             </div>
-            <div class="lr-practice-card lr-practice-card--yes">
+            <div class="lr-practice-chain lr-chain" data-ex-en="{esc(edu_ex)}">
               <p class="lr-practice-q">Do you like reading about food &amp; nutrition?</p>
-              <p class="lr-practice-en">Yes, because it helps me learn how to manage my diet better and make healthier choices. It also gives me the chance to enrich my knowledge.</p>
+              <p class="lr-chain-flow lr-practice-flow">Yes, because it helps me {phrase_pick("edu_phrase")}. It also gives me the chance to enrich my knowledge.</p>
+              <p class="lr-practice-en lr-chain-ex-text"></p>
             </div>
           </details>
 
@@ -851,9 +1091,10 @@ def lesson_highlights_html() -> str:
               <span>maintain a healthy weight</span>
               <span>prevent various health problems such as high blood pressure / stroke / heart attack / cancer</span>
             </div>
-            <div class="lr-practice-card lr-practice-card--yes">
+            <div class="lr-practice-chain lr-chain" data-ex-en="{esc(health_ex)}">
               <p class="lr-practice-q">Do you like eating vegetables?</p>
-              <p class="lr-practice-en">Yes, because it's a great way to stay healthy and prevent various health problems such as high blood pressure or heart attack.</p>
+              <p class="lr-chain-flow lr-practice-flow">Yes, because it's a great way to {phrase_pick("health_phrase")}. {phrase_pick("health_followup", 0)}</p>
+              <p class="lr-practice-en lr-chain-ex-text"></p>
             </div>
           </details>
 
@@ -1496,7 +1737,7 @@ def build_page() -> str:
 
       <section class="lr-section" id="mental-model">
         <h2>2 · Mental model — Tenses for Food speaking</h2>
-        <p class="lr-section-hint">Gom 6 nhóm thì thành 3 nhánh thời gian — chọn <strong>một nhánh</strong> cho mỗi câu trả lời.</p>
+        <p class="lr-section-hint">Mind map theo IELTS Fighter — thẻ <strong>Speaking ✓</strong> là thì xuất hiện trong Section 3. Chọn <strong>một nhánh</strong> cho mỗi câu trả lời.</p>
 {mental_model_html()}
       </section>
 
@@ -1554,7 +1795,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr14">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr15">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -1577,8 +1818,8 @@ def build_page() -> str:
   <div class="docs-shell">
 {body}
   </div>
-  <script src="{home}js/docs.js?v=lr14"></script>
-  <script src="{home}js/linear-review.js?v=lr14"></script>
+  <script src="{home}js/docs.js?v=lr15"></script>
+  <script src="{home}js/linear-review.js?v=lr15"></script>
 </body>
 </html>"""
 

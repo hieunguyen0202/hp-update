@@ -2752,6 +2752,280 @@ body.ex-hide-ipa .ipa {
   color: rgba(226, 232, 240, 0.65);
 }
 
+/* Section 2 · Tense mind map (IELTS Fighter style) */
+.lr-tense-mindmap {
+  position: relative;
+  padding: 22px 20px 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(30, 58, 138, 0.45) 0%, transparent 55%),
+    linear-gradient(165deg, rgba(15, 23, 42, 0.92) 0%, rgba(2, 6, 23, 0.88) 100%);
+  box-shadow: inset 0 1px 0 rgba(148, 163, 184, 0.08);
+}
+
+.lr-tm-hub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 0 auto 22px;
+  padding: 12px 28px;
+  max-width: 320px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #1e3a5f 0%, #0f2744 100%);
+  border: 1px solid rgba(96, 165, 250, 0.35);
+  box-shadow: 0 0 24px rgba(37, 99, 235, 0.18);
+  text-align: center;
+}
+
+.lr-tm-hub-title {
+  font-weight: 800;
+  font-size: 1rem;
+  color: #e2e8f0;
+  letter-spacing: 0.02em;
+}
+
+.lr-tm-hub-sub {
+  font-size: 0.72rem;
+  color: rgba(148, 163, 184, 0.85);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.lr-tm-zones {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 960px) {
+  .lr-tm-zones {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lr-tm-zone {
+  padding: 12px 10px 10px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.lr-tm-zone--present {
+  border: 1px solid rgba(59, 130, 246, 0.28);
+}
+
+.lr-tm-zone--past {
+  border: 1px solid rgba(52, 211, 153, 0.25);
+}
+
+.lr-tm-zone--future {
+  border: 1px solid rgba(251, 146, 60, 0.28);
+}
+
+.lr-tm-zone-label {
+  margin: 0 0 10px;
+  padding: 0 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(226, 232, 240, 0.7);
+}
+
+.lr-tm-zone--present .lr-tm-zone-label { color: #93c5fd; }
+.lr-tm-zone--past .lr-tm-zone-label { color: #6ee7b7; }
+.lr-tm-zone--future .lr-tm-zone-label { color: #fdba74; }
+
+.lr-tm-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lr-tm-card {
+  position: relative;
+  padding: 10px 11px 9px;
+  border-radius: 10px;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  transition: border-color 0.15s, opacity 0.15s;
+}
+
+.lr-tm-card--present { border-left: 3px solid rgba(59, 130, 246, 0.65); }
+.lr-tm-card--past { border-left: 3px solid rgba(52, 211, 153, 0.55); }
+.lr-tm-card--future { border-left: 3px solid rgba(251, 146, 60, 0.55); }
+
+.lr-tm-card--extra {
+  opacity: 0.72;
+}
+
+.lr-tm-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 8px;
+  margin-bottom: 8px;
+}
+
+.lr-tm-name {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+.lr-tm-name-vi {
+  font-size: 0.68rem;
+  color: rgba(148, 163, 184, 0.9);
+}
+
+.lr-tm-badge {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  font-weight: 650;
+  letter-spacing: 0.03em;
+  color: #a5f3fc;
+  background: rgba(34, 211, 238, 0.14);
+  border: 1px solid rgba(34, 211, 238, 0.28);
+}
+
+.lr-tm-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 520px) {
+  .lr-tm-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lr-tm-col-label {
+  margin: 0 0 4px;
+  font-size: 0.64rem;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(148, 163, 184, 0.85);
+}
+
+.lr-tm-struct {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lr-tm-struct li {
+  margin-bottom: 3px;
+}
+
+.lr-tm-struct-tag {
+  display: inline-block;
+  min-width: 1.1rem;
+  font-weight: 700;
+  color: #7dd3fc;
+}
+
+.lr-tm-struct code {
+  font-size: 0.7rem;
+  color: #e2e8f0;
+  background: rgba(30, 41, 59, 0.8);
+  padding: 1px 4px;
+  border-radius: 4px;
+}
+
+.lr-tm-signals {
+  margin: 0;
+  font-size: 0.72rem;
+  color: rgba(226, 232, 240, 0.78);
+}
+
+.lr-tm-food {
+  margin: 0 0 6px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-style: italic;
+  color: rgba(226, 232, 240, 0.82);
+  background: rgba(30, 58, 95, 0.35);
+  border: 1px solid rgba(56, 189, 248, 0.12);
+}
+
+.lr-tm-food-label {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 0 5px;
+  border-radius: 4px;
+  font-size: 0.62rem;
+  font-style: normal;
+  font-weight: 650;
+  text-transform: uppercase;
+  color: #fcd34d;
+  background: rgba(251, 191, 36, 0.12);
+}
+
+.lr-tm-ref {
+  font-size: 0.64rem;
+  color: rgba(125, 211, 252, 0.75);
+  text-decoration: none;
+}
+
+.lr-tm-ref:hover {
+  color: #7dd3fc;
+  text-decoration: underline;
+}
+
+.lr-tm-legend,
+.lr-tm-note {
+  margin: 14px 0 0;
+  font-size: 0.8rem;
+  color: rgba(226, 232, 240, 0.62);
+}
+
+.lr-tm-note {
+  margin-top: 6px;
+}
+
+/* Lesson 2 practice chains with phrase dropdowns */
+.lr-practice-chain {
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(52, 211, 153, 0.22);
+  background: rgba(0, 0, 0, 0.22);
+  border-left: 3px solid rgba(52, 211, 153, 0.45);
+}
+
+.lr-practice-flow {
+  margin: 8px 0;
+  font-size: 0.86rem;
+  line-height: 1.65;
+  color: rgba(226, 232, 240, 0.88);
+}
+
+.lr-practice-chain .lr-practice-en {
+  margin: 8px 0 0;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(148, 163, 184, 0.2);
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+.lr-practice-chain .lr-word-pick[data-kind="phrase"] {
+  max-width: 100%;
+  font-size: 0.82rem;
+  border-color: rgba(34, 211, 238, 0.35);
+  background: rgba(8, 47, 73, 0.55);
+  color: #a5f3fc;
+}
+
 .lr-lesson-list {
   list-style: none;
   padding: 0;
