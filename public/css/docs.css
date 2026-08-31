@@ -2888,14 +2888,36 @@ body.ex-hide-ipa .ipa {
 .lr-mmap-tense {
   flex: 0 0 auto;
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
   padding: 10px 16px;
   border-radius: 12px;
   background: rgba(8, 20, 42, 0.92);
   border: 1.5px solid var(--mmap-c);
   box-shadow: 0 0 0 1px rgba(2, 8, 22, 0.5);
   white-space: nowrap;
+}
+
+.lr-mmap-num {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 800;
+  line-height: 1;
+  color: #0f172a;
+  background: var(--mmap-c);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--mmap-c) 45%, transparent);
+}
+
+.lr-mmap-tense .lr-mmap-num + strong {
+  margin-left: 0;
 }
 
 .docs-main .lr-mmap-tense strong {
@@ -3264,6 +3286,184 @@ body.ex-hide-ipa .ipa {
   .lr-ttimeline-axis::before {
     display: none;
   }
+}
+
+/* Tense highlight marks (dialogue + cross-ref) */
+mark.lr-tn {
+  padding: 1px 5px;
+  margin: 0 1px;
+  border-radius: 4px;
+  font-style: normal;
+  font-weight: 650;
+  color: #f8fafc;
+  background: color-mix(in srgb, var(--tn-c, #60a5fa) 38%, rgba(15, 23, 42, 0.9));
+  border: 1px solid color-mix(in srgb, var(--tn-c, #60a5fa) 65%, transparent);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--tn-c, #60a5fa) 25%, transparent);
+}
+
+mark.lr-tn-sample {
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-style: normal;
+  font-weight: 600;
+  color: #f8fafc;
+  background: color-mix(in srgb, #60a5fa 38%, rgba(15, 23, 42, 0.9));
+  border: 1px solid rgba(96, 165, 250, 0.55);
+}
+
+.lr-tn-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 14px;
+}
+
+.lr-tn-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px 3px 4px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  text-decoration: none;
+  color: rgba(226, 232, 240, 0.9);
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid color-mix(in srgb, var(--tn-c, #60a5fa) 45%, transparent);
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.lr-tn-chip:hover {
+  background: color-mix(in srgb, var(--tn-c, #60a5fa) 18%, rgba(15, 23, 42, 0.85));
+  border-color: var(--tn-c, #60a5fa);
+}
+
+.lr-tn-chip-num {
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-weight: 800;
+  font-size: 0.62rem;
+  color: #0f172a;
+  background: var(--tn-c, #60a5fa);
+}
+
+.lr-tn-chip-label {
+  white-space: nowrap;
+}
+
+/* Food tense dialogue */
+.lr-ftd-wrap {
+  margin-top: 2rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+.lr-ftd-intro {
+  margin: 0 0 12px;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: rgba(226, 232, 240, 0.68);
+}
+
+.lr-ftd-dialogue {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.lr-ftd-act {
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.lr-ftd-act-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.28);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.lr-ftd-act-head h4 {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+.lr-ftd-act-head span {
+  font-size: 0.72rem;
+  color: rgba(148, 163, 184, 0.85);
+}
+
+.lr-ftd-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+}
+
+.lr-ftd-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.lr-ftd-num {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #0f172a;
+  background: var(--tn-c, #60a5fa);
+}
+
+.lr-ftd-bubble {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+.lr-ftd-speaker {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #7dd3fc;
+}
+
+.lr-ftd-text {
+  margin: 0 0 6px;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: rgba(226, 232, 240, 0.92);
+}
+
+.lr-ftd-tag {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  font-weight: 650;
+  color: color-mix(in srgb, var(--tn-c, #60a5fa) 85%, white);
+  background: color-mix(in srgb, var(--tn-c, #60a5fa) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--tn-c, #60a5fa) 40%, transparent);
 }
 
 /* Lesson 2 practice chains with phrase dropdowns */

@@ -365,6 +365,13 @@ def _mmap_branch_html(node: dict) -> str:
         if node.get("speaking")
         else ""
     )
+    num = node.get("hana_num")
+    num_html = (
+        f'<span class="lr-mmap-num" title="Khớp timeline #{num}">{num}</span>'
+        if num
+        else ""
+    )
+    branch_id = f' id="mmap-tn-{num}"' if num else ""
     name_vi = (
         f'<span>{esc(node["name_vi"])}</span>' if node.get("name_vi") else ""
     )
@@ -380,9 +387,9 @@ def _mmap_branch_html(node: dict) -> str:
               </div>"""
         )
     extra = " lr-mmap-tense--starred" if node.get("speaking") else ""
-    return f"""          <div class="lr-mmap-branch" data-mmap-branch="{esc(node["id"])}" style="--mmap-c:{color}">
+    return f"""          <div class="lr-mmap-branch" data-mmap-branch="{esc(node["id"])}"{branch_id} style="--mmap-c:{color}">
             <div class="lr-mmap-tense{extra}" data-mmap-node="tense">
-              <strong>{esc(node["name"])}</strong>{star}
+              {num_html}<strong>{esc(node["name"])}</strong>{star}
               {name_vi}
             </div>
             <div class="lr-mmap-forks">
@@ -441,6 +448,7 @@ TENSE_MINDMAP_LEFT = [
         "color": "#a78bfa",
         "name": "Past Perfect Continuous",
         "name_vi": "QK hoàn thành tiếp diễn",
+        "hana_num": 12,
         "forks": _tense_forks(
             [
                 ("Khẳng định", "S + had been + V-ing"),
@@ -455,6 +463,7 @@ TENSE_MINDMAP_LEFT = [
         "color": "#c4b5fd",
         "name": "Past Perfect",
         "name_vi": "Quá khứ hoàn thành",
+        "hana_num": 11,
         "speaking": True,
         "forks": _tense_forks(
             [
@@ -473,6 +482,7 @@ TENSE_MINDMAP_LEFT = [
         "color": "#67e8f9",
         "name": "Past Continuous",
         "name_vi": "Quá khứ tiếp diễn",
+        "hana_num": 10,
         "speaking": True,
         "forks": _tense_forks(
             [
@@ -491,6 +501,7 @@ TENSE_MINDMAP_LEFT = [
         "color": "#5eead4",
         "name": "Past Simple",
         "name_vi": "Quá khứ đơn",
+        "hana_num": 9,
         "speaking": True,
         "forks": _tense_forks(
             [
@@ -531,6 +542,7 @@ TENSE_MINDMAP_RIGHT = [
         "color": "#93c5fd",
         "name": "Present Simple",
         "name_vi": "Hiện tại đơn",
+        "hana_num": 1,
         "speaking": True,
         "forks": _tense_forks(
             [
@@ -550,6 +562,7 @@ TENSE_MINDMAP_RIGHT = [
         "color": "#60a5fa",
         "name": "Present Continuous",
         "name_vi": "Hiện tại tiếp diễn",
+        "hana_num": 2,
         "speaking": True,
         "forks": _tense_forks(
             [
@@ -569,6 +582,7 @@ TENSE_MINDMAP_RIGHT = [
         "color": "#38bdf8",
         "name": "Present Perfect",
         "name_vi": "Hiện tại hoàn thành",
+        "hana_num": 3,
         "speaking": True,
         "forks": _tense_forks(
             [
@@ -588,6 +602,7 @@ TENSE_MINDMAP_RIGHT = [
         "color": "#7dd3fc",
         "name": "Present Perfect Continuous",
         "name_vi": "HT hoàn thành tiếp diễn",
+        "hana_num": 4,
         "speaking": True,
         "forks": _tense_forks(
             [
@@ -606,6 +621,7 @@ TENSE_MINDMAP_RIGHT = [
         "color": "#fbbf24",
         "name": "going to / will",
         "name_vi": "Tương lai gần",
+        "hana_num": 5,
         "speaking": True,
         "forks": _tense_forks(
             [
@@ -625,6 +641,7 @@ TENSE_MINDMAP_RIGHT = [
         "color": "#fb923c",
         "name": "Future Continuous",
         "name_vi": "Tương lai tiếp diễn",
+        "hana_num": 6,
         "forks": _tense_forks(
             [
                 ("Khẳng định", "S + will be + V-ing"),
@@ -639,6 +656,7 @@ TENSE_MINDMAP_RIGHT = [
         "color": "#f97316",
         "name": "Future Perfect",
         "name_vi": "Tương lai hoàn thành",
+        "hana_num": 7,
         "forks": _tense_forks(
             [
                 ("Khẳng định", "S + will have + V₃"),
@@ -656,6 +674,7 @@ TENSE_MINDMAP_RIGHT = [
         "color": "#fb7185",
         "name": "Future Perfect Continuous",
         "name_vi": "TL hoàn thành tiếp diễn",
+        "hana_num": 8,
         "forks": _tense_forks(
             [
                 ("Khẳng định", "S + will have been + V-ing"),
@@ -1237,6 +1256,183 @@ HANA_TIMELINE_ZONES = [
 ]
 
 
+HANA_TENSE_BY_NUM: dict[int, dict] = {
+    t["num"]: t for zone in HANA_TIMELINE_ZONES for t in zone["tenses"]
+}
+
+# Hội thoại Food — 12 thì, theo mốc hiện tại → quá khứ → tương lai
+FOOD_TENSE_DIALOGUE = [
+    {
+        "act": "Hiện tại",
+        "act_hint": "Thói quen & việc đang diễn ra",
+        "lines": [
+            {
+                "speaker": "Lan",
+                "num": 1,
+                "phrase": "I usually eat",
+                "text": "Honestly, I usually eat quite healthy — lots of vegetables, not much fried food.",
+            },
+            {
+                "speaker": "Tom",
+                "num": 2,
+                "phrase": "I'm trying",
+                "text": "Same here, though I'm trying to cut sugar this month.",
+            },
+            {
+                "speaker": "Lan",
+                "num": 3,
+                "phrase": "I've tried",
+                "text": "I've tried almost every street food stall on this street since I moved here.",
+            },
+            {
+                "speaker": "Tom",
+                "num": 4,
+                "phrase": "I've been cooking",
+                "text": "I've been cooking at home a lot lately — it's cheaper and I control the ingredients.",
+            },
+        ],
+    },
+    {
+        "act": "Quá khứ",
+        "act_hint": "Chuyện đã xong & hành động chen ngang",
+        "lines": [
+            {
+                "speaker": "Lan",
+                "num": 9,
+                "phrase": "I ate",
+                "text": "Last Sunday I ate way too much at my cousin's wedding buffet.",
+            },
+            {
+                "speaker": "Tom",
+                "num": 10,
+                "phrase": "I was making",
+                "text": "Ha! I was making spring rolls when you sent me that photo from the party.",
+            },
+            {
+                "speaker": "Lan",
+                "num": 11,
+                "phrase": "I'd already had",
+                "text": "Yeah, and I'd already had a big lunch before the ceremony, so I wasn't even hungry.",
+            },
+            {
+                "speaker": "Tom",
+                "num": 12,
+                "phrase": "had been baking",
+                "text": "My neighbour had been baking bread every morning for years before she opened her bakery.",
+            },
+        ],
+    },
+    {
+        "act": "Tương lai",
+        "act_hint": "Kế hoạch & mốc thời gian phía trước",
+        "lines": [
+            {
+                "speaker": "Lan",
+                "num": 5,
+                "phrase": "I'll cook",
+                "text": "I'll cook Vietnamese food for you this Saturday — you pick the dish.",
+            },
+            {
+                "speaker": "Tom",
+                "num": 6,
+                "phrase": "I'll be having",
+                "text": "Deal! This time tomorrow I'll be having lunch with my parents at that new vegetarian place.",
+            },
+            {
+                "speaker": "Lan",
+                "num": 7,
+                "phrase": "I will have tried",
+                "text": "By December I will have tried every night-market dish in this district.",
+            },
+            {
+                "speaker": "Tom",
+                "num": 8,
+                "phrase": "I will have been working",
+                "text": "And by 6 pm I will have been working without a proper meal — I'll be starving!",
+            },
+        ],
+    },
+]
+
+
+def _hl_tense_phrase(text: str, phrase: str, num: int) -> str:
+    meta = HANA_TENSE_BY_NUM[num]
+    label = f"#{num} · {meta['name_vi']}"
+    color = esc(meta["color"])
+    idx = text.find(phrase)
+    if idx < 0:
+        return esc(text)
+    before = esc(text[:idx])
+    mid = esc(phrase)
+    after = esc(text[idx + len(phrase) :])
+    return (
+        f'{before}<mark class="lr-tn lr-tn--{num}" data-tn="{num}" '
+        f'style="--tn-c:{color}" title="{esc(label)}">{mid}</mark>{after}'
+    )
+
+
+def _hana_tense_legend_html() -> str:
+    chips = []
+    for num in sorted(HANA_TENSE_BY_NUM):
+        t = HANA_TENSE_BY_NUM[num]
+        chips.append(
+            f'<a class="lr-tn-chip" href="#hana-{esc(t["id"])}" '
+            f'style="--tn-c:{esc(t["color"])}" title="{esc(t["name"])}">'
+            f'<span class="lr-tn-chip-num">{num}</span>'
+            f'<span class="lr-tn-chip-label">{esc(t["name_vi"])}</span></a>'
+        )
+    return (
+        '<div class="lr-tn-legend" aria-label="Chú thích số thì 1–12">'
+        + "\n".join(chips)
+        + "</div>"
+    )
+
+
+def _food_tense_dialogue_html() -> str:
+    acts = []
+    for act in FOOD_TENSE_DIALOGUE:
+        lines_html = []
+        for line in act["lines"]:
+            num = line["num"]
+            meta = HANA_TENSE_BY_NUM[num]
+            body = _hl_tense_phrase(line["text"], line["phrase"], num)
+            lines_html.append(
+                f"""            <div class="lr-ftd-line" data-tn="{num}">
+              <span class="lr-ftd-num" style="--tn-c:{esc(meta['color'])}">{num}</span>
+              <div class="lr-ftd-bubble">
+                <span class="lr-ftd-speaker">{esc(line['speaker'])}</span>
+                <p class="lr-ftd-text">{body}</p>
+                <span class="lr-ftd-tag" style="--tn-c:{esc(meta['color'])}">{esc(meta['name_vi'])}</span>
+              </div>
+            </div>"""
+            )
+        acts.append(
+            f"""        <section class="lr-ftd-act">
+          <header class="lr-ftd-act-head">
+            <h4>{esc(act['act'])}</h4>
+            <span>{esc(act['act_hint'])}</span>
+          </header>
+          <div class="lr-ftd-lines">
+{chr(10).join(lines_html)}
+          </div>
+        </section>"""
+        )
+    return f"""
+      <div class="lr-ftd-wrap" id="foodTenseDialogue">
+        <h3 class="lr-subsection-title">Hội thoại Food — 12 thì trong thực tế</h3>
+        <p class="lr-ftd-intro">
+          Sau khi đọc use case, đọc hội thoại này: cùng chủ đề ẩm thực, đi từ
+          <strong>hiện tại</strong> → <strong>quá khứ</strong> → <strong>tương lai</strong>.
+          Phần <mark class="lr-tn-sample">highlight</mark> = cụm động từ đang dùng thì đó;
+          số <strong>1–12</strong> khớp sơ đồ ngữ pháp phía trên và timeline bên dưới.
+        </p>
+        {_hana_tense_legend_html()}
+        <div class="lr-ftd-dialogue" aria-label="Hội thoại minh họa 12 thì chủ đề food">
+{chr(10).join(acts)}
+        </div>
+      </div>"""
+
+
 def _ttimeline_card_html(tense: dict) -> str:
     color = esc(tense["color"])
     ex_items = []
@@ -1317,8 +1513,9 @@ def hana_timeline_html() -> str:
 {chr(10).join(zones_html)}
         </div>
         <p class="lr-ttimeline-note">
-          Đọc theo mũi tên thời gian: quá khứ (9→12) · hiện tại (1→4) · tương lai (5→8).
-          Mỗi thẻ = <strong>ví dụ gốc</strong> + <strong>khi nào nói như vậy</strong> trong đời thường.
+          Số trên mỗi thẻ khớp badge <strong>1–12</strong> trên sơ đồ ngữ pháp phía trên
+          và highlight trong hội thoại Food bên dưới.
+          Quá khứ (9→12) · hiện tại (1→4) · tương lai (5→8).
         </p>
       </div>"""
 
@@ -1332,8 +1529,10 @@ def mental_model_html() -> str:
         TENSE_MINDMAP_LEFT,
         TENSE_MINDMAP_RIGHT,
         note=(
+            'Badge <strong>1–12</strong> khớp timeline + hội thoại bên dưới '
+            '(<em>used to / would</em>, <em>be about to</em> không có số). '
             '<span class="lr-mmap-star">★</span> = có trong '
-            '<strong>Section 3 · Speaking structures</strong> — ôn kỹ hơn. '
+            '<strong>Section 3 · Speaking structures</strong>. '
             "Chọn <strong>một thì</strong> cho mỗi câu; chỉ trộn khi có mốc "
             "(when / before / after / by the time)."
         ),
@@ -1346,6 +1545,7 @@ def mental_model_html() -> str:
         <h3 class="lr-subsection-title">Văn nói thực tế — timeline 12 thì</h3>
         <p class="lr-section-hint lr-section-hint--sub">Sơ đồ thứ hai: cách người bản xứ <em>thật sự</em> chọn thì khi nói — theo tình huống, không theo bảng dấu hiệu.</p>"""
         + hana_timeline_html()
+        + _food_tense_dialogue_html()
     )
 
 
@@ -2328,7 +2528,7 @@ def build_page() -> str:
 
       <section class="lr-section" id="mental-model">
         <h2>2 · Mental model — Tenses for Food speaking</h2>
-        <p class="lr-section-hint">Hai lớp: <strong>6 nhóm thì IELTS Fighter</strong> (công thức + dấu hiệu) và <strong>timeline văn nói thực tế</strong> (use case đời thường). <span class="lr-mmap-star">★</span> = có trong Section 3.</p>
+        <p class="lr-section-hint">Hai lớp: <strong>sơ đồ ngữ pháp</strong> (công thức + dấu hiệu, badge <strong>1–12</strong>) và <strong>timeline use case</strong> + <strong>hội thoại Food</strong>. <span class="lr-mmap-star">★</span> = Section 3.</p>
 {mental_model_html()}
       </section>
 
@@ -2386,7 +2586,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr18">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr19">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -2409,8 +2609,8 @@ def build_page() -> str:
   <div class="docs-shell docs-shell--wide">
 {body}
   </div>
-  <script src="{home}js/docs.js?v=lr18"></script>
-  <script src="{home}js/linear-review.js?v=lr18"></script>
+  <script src="{home}js/docs.js?v=lr19"></script>
+  <script src="{home}js/linear-review.js?v=lr19"></script>
 </body>
 </html>"""
 
