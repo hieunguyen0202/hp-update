@@ -2514,13 +2514,14 @@ body.ex-hide-ipa .ipa {
 }
 
 .lr-body .lr-hero,
-.lr-body .lr-section:not(#mental-model) {
+.lr-body .lr-section:not(#mental-model):not(#lessons) {
   max-width: 56rem;
   margin-left: auto;
   margin-right: auto;
 }
 
-.lr-body #mental-model {
+.lr-body #mental-model,
+.lr-body #lessons {
   max-width: none;
 }
 
@@ -2821,7 +2822,7 @@ body.ex-hide-ipa .ipa {
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 40px 48px;
-  min-width: 1240px;
+  min-width: var(--mmap-min, 1240px);
 }
 
 .lr-mmap-root {
@@ -2857,7 +2858,11 @@ body.ex-hide-ipa .ipa {
 .lr-mmap-col {
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  gap: 28px;
+}
+
+.lr-mmap--tenses .lr-mmap-col {
+  gap: 22px;
 }
 
 .lr-mmap-col--left .lr-mmap-tense,
@@ -2897,6 +2902,19 @@ body.ex-hide-ipa .ipa {
   font-size: 0.86rem;
   font-weight: 750;
   color: #f8fafc;
+}
+
+.lr-mmap-star {
+  display: inline-block;
+  margin-left: 4px;
+  font-size: 0.82rem;
+  color: #fcd34d;
+  text-shadow: 0 0 8px rgba(251, 191, 36, 0.55);
+  vertical-align: middle;
+}
+
+.lr-mmap-tense--starred {
+  box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.35), 0 0 18px rgba(251, 191, 36, 0.12);
 }
 
 .docs-main .lr-mmap-tense span {
@@ -2958,10 +2976,33 @@ body.ex-hide-ipa .ipa {
   color: #bae6fd;
 }
 
+.lr-mm-starters--compact {
+  margin: 0 0 14px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: rgba(226, 232, 240, 0.85);
+  background: rgba(34, 211, 238, 0.06);
+  border: 1px solid rgba(34, 211, 238, 0.2);
+}
+
+.lr-mm-starters--compact code {
+  font-size: 0.78rem;
+  color: #a5f3fc;
+  background: rgba(8, 47, 73, 0.55);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.lr-mmap--lesson2,
+.lr-mmap--lesson3 {
+  margin-top: 12px;
+}
+
 .lr-mmap-note {
   margin: 12px 8px 0;
   font-size: 0.82rem;
-  color: rgba(226, 232, 240, 0.62);
 }
 
 .docs-main .lr-mmap-note,

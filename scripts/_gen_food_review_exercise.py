@@ -346,74 +346,587 @@ WORD_SLOTS: dict[str, list[dict]] = {
     ],
 }
 
-# Horizontal mind map — 4 basic tenses (image-2 topology). Speaking-daily only.
-MINDMAP_BRANCHES = [
+# ── Mind map helpers (shared: Section 2 tenses + Lesson 2/3) ───────────────
+
+def _mmap_leaf_html(leaf) -> str:
+    if isinstance(leaf, tuple):
+        label, body = leaf
+        return (
+            f'                <li class="lr-mmap-leaf" data-mmap-node="leaf">'
+            f'<span class="lr-mmap-k">{esc(label)}</span> {body}</li>'
+        )
+    return f'                <li class="lr-mmap-leaf" data-mmap-node="leaf">{leaf}</li>'
+
+
+def _mmap_branch_html(node: dict) -> str:
+    color = esc(node["color"])
+    star = (
+        '<span class="lr-mmap-star" title="Có trong Section 3 · Speaking structures — xem kỹ">★</span>'
+        if node.get("speaking")
+        else ""
+    )
+    name_vi = (
+        f'<span>{esc(node["name_vi"])}</span>' if node.get("name_vi") else ""
+    )
+    forks = []
+    for fork in node["forks"]:
+        leaves = "\n".join(_mmap_leaf_html(leaf) for leaf in fork["leaves"])
+        forks.append(
+            f"""              <div class="lr-mmap-group">
+                <span class="lr-mmap-fork" data-mmap-node="fork">{esc(fork["label"])}</span>
+                <ul class="lr-mmap-leaves">
+{leaves}
+                </ul>
+              </div>"""
+        )
+    extra = " lr-mmap-tense--starred" if node.get("speaking") else ""
+    return f"""          <div class="lr-mmap-branch" data-mmap-branch="{esc(node["id"])}" style="--mmap-c:{color}">
+            <div class="lr-mmap-tense{extra}" data-mmap-node="tense">
+              <strong>{esc(node["name"])}</strong>{star}
+              {name_vi}
+            </div>
+            <div class="lr-mmap-forks">
+{chr(10).join(forks)}
+            </div>
+          </div>"""
+
+
+def mind_map_html(
+    map_id: str,
+    aria_label: str,
+    root_title: str,
+    root_sub: str,
+    left: list[dict],
+    right: list[dict],
+    *,
+    note: str = "",
+    extra_class: str = "",
+    min_width: str = "1240px",
+) -> str:
+    left_html = "\n".join(_mmap_branch_html(n) for n in left)
+    right_html = "\n".join(_mmap_branch_html(n) for n in right)
+    note_html = f'\n        <p class="lr-mmap-note">{note}</p>' if note else ""
+    return f"""
+      <div class="lr-mmap{extra_class}" id="{esc(map_id)}" aria-label="{esc(aria_label)}" style="--mmap-min:{esc(min_width)}">
+        <p class="lr-mmap-scroll-hint">Vuốt ngang nếu sơ đồ rộng hơn màn hình</p>
+        <div class="lr-mmap-viewport">
+          <div class="lr-mmap-board">
+            <svg class="lr-mmap-svg" aria-hidden="true"></svg>
+            <div class="lr-mmap-col lr-mmap-col--left">
+{left_html}
+            </div>
+            <div class="lr-mmap-root" data-mmap-node="root">
+              <span class="lr-mmap-root-title">{root_title}</span>
+              <span class="lr-mmap-root-sub">{root_sub}</span>
+            </div>
+            <div class="lr-mmap-col lr-mmap-col--right">
+{right_html}
+            </div>
+          </div>
+        </div>{note_html}
+      </div>"""
+
+
+def _tense_forks(struct: list[tuple], signals: list[str]) -> list[dict]:
+    return [
+        {"label": "Cấu trúc", "leaves": list(struct)},
+        {"label": "Dấu hiệu nhận biết", "leaves": signals},
+    ]
+
+
+# 6 nhóm IELTS Fighter · ★ = xuất hiện Section 3 speaking catch-up
+TENSE_MINDMAP_LEFT = [
+    {
+        "id": "past-ppc",
+        "color": "#a78bfa",
+        "name": "Past Perfect Continuous",
+        "name_vi": "QK hoàn thành tiếp diễn",
+        "forks": _tense_forks(
+            [
+                ("Khẳng định", "S + had been + V-ing"),
+                ("Phủ định", "S + hadn't been + V-ing"),
+                ("Nghi vấn", "Had + S + been + V-ing?"),
+            ],
+            ["for, since (đến một mốc trong quá khứ)", "had been cooking for hours when…"],
+        ),
+    },
+    {
+        "id": "past-perfect",
+        "color": "#c4b5fd",
+        "name": "Past Perfect",
+        "name_vi": "Quá khứ hoàn thành",
+        "speaking": True,
+        "forks": _tense_forks(
+            [
+                ("Khẳng định", "S + had + V₃"),
+                ("Phủ định", "S + had + not + V₃"),
+                ("Nghi vấn", "Had + S + V₃?"),
+            ],
+            [
+                "before, after, by the time, already",
+                "Food: I <strong>had never tried</strong> lobster before that trip.",
+            ],
+        ),
+    },
     {
         "id": "past-cont",
-        "side": "left",
         "color": "#67e8f9",
         "name": "Past Continuous",
         "name_vi": "Quá khứ tiếp diễn",
-        "struct": [
-            ("Khẳng định", "S + was/were + V-ing"),
-            ("Phủ định", "S + was/were + not + V-ing"),
-            ("Nghi vấn", "Was/Were + S + V-ing?"),
-        ],
-        "signals": [
-            "at this time last night, at 7pm yesterday",
-            "while, when (hành động đang diễn ra)",
-            "Food: I was chopping vegetables when…",
-        ],
+        "speaking": True,
+        "forks": _tense_forks(
+            [
+                ("Khẳng định", "S + was/were + V-ing"),
+                ("Phủ định", "S + was/were + not + V-ing"),
+                ("Nghi vấn", "Was/Were + S + V-ing?"),
+            ],
+            [
+                "while, when · at this time yesterday",
+                "Food: I <strong>was chopping</strong> vegetables when…",
+            ],
+        ),
     },
     {
         "id": "past-simple",
-        "side": "left",
         "color": "#5eead4",
         "name": "Past Simple",
         "name_vi": "Quá khứ đơn",
-        "struct": [
-            ("Khẳng định", "S + V(ed / cột 2)"),
-            ("Phủ định", "S + did + not + V"),
-            ("Nghi vấn", "Did + S + V?"),
-        ],
-        "signals": [
-            "yesterday, last night / week / month / year",
-            "ago, in 2000 · used to / would (thói quen quá khứ)",
-            "Food: Last Sunday I grilled kebab.",
-        ],
+        "speaking": True,
+        "forks": _tense_forks(
+            [
+                ("Khẳng định", "S + V(ed / cột 2)"),
+                ("Phủ định", "S + did + not + V"),
+                ("Nghi vấn", "Did + S + V?"),
+            ],
+            [
+                "yesterday, last week, ago, in 2000",
+                "Food: Last Sunday I <strong>grilled</strong> kebab.",
+            ],
+        ),
     },
     {
+        "id": "used-to",
+        "color": "#34d399",
+        "name": "used to / would",
+        "name_vi": "Thói quen quá khứ",
+        "speaking": True,
+        "forks": _tense_forks(
+            [
+                ("Khẳng định", "S + used to + V · S + would + V"),
+                ("Phủ định", "S + didn't use to + V"),
+                ("Nghi vấn", "Did + S + use to + V?"),
+            ],
+            [
+                "when I was a child · as a teenager",
+                "don't … any more ≈ used to",
+                "Food: I <strong>would eat</strong> fast food every day.",
+            ],
+        ),
+    },
+]
+
+TENSE_MINDMAP_RIGHT = [
+    {
         "id": "pres-simple",
-        "side": "right",
         "color": "#93c5fd",
         "name": "Present Simple",
         "name_vi": "Hiện tại đơn",
-        "struct": [
-            ("Khẳng định", "S + V(s/es)"),
-            ("Phủ định", "S + do/does + not + V"),
-            ("Nghi vấn", "Do/Does + S + V?"),
-        ],
-        "signals": [
-            "always, usually, often, sometimes",
-            "every day / week / month",
-            "Food: I usually have rice.",
-        ],
+        "speaking": True,
+        "forks": _tense_forks(
+            [
+                ("Khẳng định", "S + V(s/es)"),
+                ("Phủ định", "S + do/does + not + V"),
+                ("Nghi vấn", "Do/Does + S + V?"),
+            ],
+            [
+                "always, usually, often · every day/week",
+                "timetables: The class <strong>starts</strong> at 11:30",
+                "Food: I <strong>usually</strong> have rice.",
+            ],
+        ),
     },
     {
         "id": "pres-cont",
-        "side": "right",
         "color": "#60a5fa",
         "name": "Present Continuous",
         "name_vi": "Hiện tại tiếp diễn",
-        "struct": [
-            ("Khẳng định", "S + am/is/are + V-ing"),
-            ("Phủ định", "S + am/is/are + not + V-ing"),
-            ("Nghi vấn", "Am/Is/Are + S + V-ing?"),
+        "speaking": True,
+        "forks": _tense_forks(
+            [
+                ("Khẳng định", "S + am/is/are + V-ing"),
+                ("Phủ định", "S + am/is/are + not + V-ing"),
+                ("Nghi vấn", "Am/Is/Are + S + V-ing?"),
+            ],
+            [
+                "now, at the moment · fixed future plan (when/where)",
+                "Food: I'm <strong>trying</strong> a low-carb diet.",
+                "Food: I'm <strong>meeting</strong> friends for lunch Saturday.",
+            ],
+        ),
+    },
+    {
+        "id": "pres-perfect",
+        "color": "#38bdf8",
+        "name": "Present Perfect",
+        "name_vi": "Hiện tại hoàn thành",
+        "speaking": True,
+        "forks": _tense_forks(
+            [
+                ("Khẳng định", "S + have/has + V₃"),
+                ("Phủ định", "S + have/has + not + V₃"),
+                ("Nghi vấn", "Have/Has + S + V₃?"),
+            ],
+            [
+                "ever, never, already, yet · for/since (no time)",
+                "Food: <strong>Have you ever tried</strong> sushi?",
+                "+ time → switch to Past Simple",
+            ],
+        ),
+    },
+    {
+        "id": "pres-ppc",
+        "color": "#7dd3fc",
+        "name": "Present Perfect Continuous",
+        "name_vi": "HT hoàn thành tiếp diễn",
+        "speaking": True,
+        "forks": _tense_forks(
+            [
+                ("Khẳng định", "S + have/has been + V-ing"),
+                ("Phủ định", "S + haven't/hasn't been + V-ing"),
+                ("Nghi vấn", "Have/Has + S + been + V-ing?"),
+            ],
+            [
+                "for, since, lately, recently",
+                "Food: I've <strong>been cooking</strong> at home more lately.",
+            ],
+        ),
+    },
+    {
+        "id": "going-to-will",
+        "color": "#fbbf24",
+        "name": "going to / will",
+        "name_vi": "Tương lai gần",
+        "speaking": True,
+        "forks": _tense_forks(
+            [
+                ("Kế hoạch", "S + am/is/are going to + V"),
+                ("Dự đoán", "S + will / won't + V"),
+                ("Gần", "may / might + V (không chắc)"),
+            ],
+            [
+                "tonight, tomorrow, next week",
+                "Food: I'm <strong>going to cook</strong> pasta tonight.",
+                "Food: People <strong>will eat</strong> more plant-based food.",
+            ],
+        ),
+    },
+    {
+        "id": "future-cont",
+        "color": "#fb923c",
+        "name": "Future Continuous",
+        "name_vi": "Tương lai tiếp diễn",
+        "forks": _tense_forks(
+            [
+                ("Khẳng định", "S + will be + V-ing"),
+                ("Phủ định", "S + won't be + V-ing"),
+                ("Nghi vấn", "Will + S + be + V-ing?"),
+            ],
+            ["this time tomorrow, at 7pm next Friday"],
+        ),
+    },
+    {
+        "id": "future-perf",
+        "color": "#f97316",
+        "name": "Future Perfect",
+        "name_vi": "Tương lai hoàn thành",
+        "forks": _tense_forks(
+            [
+                ("Khẳng định", "S + will have + V₃"),
+                ("Phủ định", "S + won't have + V₃"),
+                ("Nghi vấn", "Will + S + have + V₃?"),
+            ],
+            [
+                "by next year, by 2030, by the time",
+                "Food: By next year I <strong>will have tried</strong> ten cuisines.",
+            ],
+        ),
+    },
+    {
+        "id": "future-ppc",
+        "color": "#fb7185",
+        "name": "Future Perfect Continuous",
+        "name_vi": "TL hoàn thành tiếp diễn",
+        "forks": _tense_forks(
+            [
+                ("Khẳng định", "S + will have been + V-ing"),
+                ("Phủ định", "S + won't have been + V-ing"),
+                ("Nghi vấn", "Will + S + have been + V-ing?"),
+            ],
+            [
+                "by … · for + period (đến mốc tương lai)",
+                "By June I will have been living here for 5 years.",
+            ],
+        ),
+    },
+    {
+        "id": "be-about-to",
+        "color": "#fdba74",
+        "name": "be about to",
+        "name_vi": "Sắp xảy ra ngay",
+        "forks": [
+            {
+                "label": "Cấu trúc",
+                "leaves": [
+                    ("Khẳng định", "S + am/is/are about to + V"),
+                    ("Phủ định", "S + am/is/are not about to + V"),
+                ],
+            },
+            {
+                "label": "Dấu hiệu",
+                "leaves": ["about to, on the point of", "Food: I'm <strong>about to order</strong> takeout."],
+            },
         ],
-        "signals": [
-            "now, right now, at the moment",
-            "at present · look! / listen!",
-            "Food: I'm trying a low-carb diet.",
+    },
+]
+
+LESSON3_MINDMAP_LEFT = [
+    {
+        "id": "yes-direct",
+        "color": "#6ee7b7",
+        "name": "Direct · YES",
+        "forks": [
+            {
+                "label": "Mở đầu",
+                "leaves": ["Yes, definitely", "Yes, absolutely"],
+            },
+            {
+                "label": "Ghép reason",
+                "leaves": ["+ because … (Lesson 2)", "+ This is because …"],
+            },
+        ],
+    },
+    {
+        "id": "yes-verb",
+        "color": "#34d399",
+        "name": "Verb pattern",
+        "forks": [
+            {
+                "label": "Cấu trúc",
+                "leaves": [
+                    ("Like", "I like / love / enjoy + V-ing"),
+                    ("Food", "I enjoy <strong>cooking</strong> / trying new cuisines"),
+                ],
+            },
+        ],
+    },
+    {
+        "id": "yes-adj",
+        "color": "#2dd4bf",
+        "name": "Adj / NP",
+        "forks": [
+            {
+                "label": "Adj",
+                "leaves": ["I'm keen on …", "I'm interested in …"],
+            },
+            {
+                "label": "NP",
+                "leaves": ["I'm a big fan of …"],
+            },
+        ],
+    },
+]
+
+LESSON3_MINDMAP_RIGHT = [
+    {
+        "id": "no-direct",
+        "color": "#fca5a5",
+        "name": "Direct · NO",
+        "forks": [
+            {
+                "label": "Mạnh",
+                "leaves": ["No, definitely not", "No, absolutely not"],
+            },
+            {
+                "label": "Nhẹ",
+                "leaves": ["No, not really", "Well, not really because …"],
+            },
+        ],
+    },
+    {
+        "id": "no-verb",
+        "color": "#f87171",
+        "name": "Verb pattern",
+        "forks": [
+            {
+                "label": "Cấu trúc",
+                "leaves": [
+                    ("Phủ định", "I <strong>don't</strong> like / love / enjoy"),
+                    ("Food", "I don't like fast food"),
+                ],
+            },
+        ],
+    },
+    {
+        "id": "no-adj",
+        "color": "#ef4444",
+        "name": "Adj / NP",
+        "forks": [
+            {
+                "label": "Adj",
+                "leaves": ["I'm <strong>not</strong> keen on …", "I'm not interested in …"],
+            },
+            {
+                "label": "NP",
+                "leaves": ["I'm <strong>not</strong> a big fan of …"],
+            },
+        ],
+    },
+    {
+        "id": "reasons",
+        "color": "#fcd34d",
+        "name": "Reasons",
+        "forks": [
+            {
+                "label": "Mệnh đề",
+                "leaves": [
+                    "because + S + V",
+                    "This is because + S + V",
+                ],
+            },
+            {
+                "label": "Danh từ",
+                "leaves": [
+                    "because of + noun / NP",
+                    "e.g. because of its harmful effects on my health",
+                ],
+            },
+            {
+                "label": "Mở rộng",
+                "leaves": [
+                    "It gives me the chance to + V",
+                    "It's a great way to + V",
+                    "can lead to … health problems",
+                ],
+            },
+        ],
+    },
+]
+
+LESSON2_MINDMAP_LEFT = [
+    {
+        "id": "like-fun",
+        "color": "#67e8f9",
+        "name": "Giải trí",
+        "name_vi": "entertainment",
+        "forks": [
+            {
+                "label": "Công thức",
+                "leaves": ["It's + relaxing / exciting / thrilling / entertaining …"],
+            },
+            {
+                "label": "Cụm V",
+                "leaves": [
+                    "relax / unwind · clear my head",
+                    "recharge my batteries",
+                    "escape from the hustle and bustle",
+                    "temporarily forget pressures from work",
+                ],
+            },
+        ],
+    },
+    {
+        "id": "like-edu",
+        "color": "#5eead4",
+        "name": "Giáo dục",
+        "name_vi": "educational",
+        "forks": [
+            {
+                "label": "Công thức",
+                "leaves": [
+                    "It's + educational / useful / practical",
+                    "learn skills such as … ↔ learn how to + V",
+                ],
+            },
+            {
+                "label": "Cụm V",
+                "leaves": [
+                    "widen my horizons · enrich my knowledge",
+                    "meet people from all walks of life",
+                    "challenge myself",
+                ],
+            },
+        ],
+    },
+    {
+        "id": "like-health",
+        "color": "#34d399",
+        "name": "Sức khỏe",
+        "name_vi": "health",
+        "forks": [
+            {
+                "label": "Starter",
+                "leaves": ["It's a great way to + keep fit / stay healthy"],
+            },
+            {
+                "label": "Cụm V",
+                "leaves": [
+                    "strengthen my muscles · burn excess calories",
+                    "maintain a healthy weight",
+                    "prevent health problems (diabetes, heart attack…)",
+                ],
+            },
+        ],
+    },
+]
+
+LESSON2_MINDMAP_RIGHT = [
+    {
+        "id": "dis-fun",
+        "color": "#fca5a5",
+        "name": "Không giải trí",
+        "forks": [
+            {
+                "label": "Pattern",
+                "leaves": [
+                    "It's + not + interesting / entertaining …",
+                    "It's + boring / stressful / difficult",
+                    "It makes me + bored / tired / stressed",
+                ],
+            },
+            {
+                "label": "Idiom",
+                "leaves": ["not my cup of tea · can't stand · I can't bear"],
+            },
+        ],
+    },
+    {
+        "id": "dis-edu",
+        "color": "#f87171",
+        "name": "Không giáo dục",
+        "forks": [
+            {
+                "label": "Rule",
+                "leaves": [
+                    "<code>doesn't</code> + V nguyên mẫu",
+                    "It doesn't give me the chance to …",
+                    "It doesn't help me learn skills such as …",
+                ],
+            },
+        ],
+    },
+    {
+        "id": "dis-health",
+        "color": "#ef4444",
+        "name": "Hại sức khỏe",
+        "forks": [
+            {
+                "label": "Pattern",
+                "leaves": [
+                    "not good <strong>for</strong> your health",
+                    "harmful / detrimental <strong>to</strong> your health",
+                    "… can lead to obesity / diabetes / cancer",
+                ],
+            },
         ],
     },
 ]
@@ -458,38 +971,23 @@ def phrase_pick(slot_id: str, default_idx: int = 0) -> str:
     return slot_select(slot_id, default_idx, kind="phrase")
 
 
-def _mmap_branch_html(node: dict) -> str:
-    color = esc(node["color"])
-    nid = esc(node["id"])
-    struct_items = "\n".join(
-        f'                <li class="lr-mmap-leaf" data-mmap-node="leaf">'
-        f'<span class="lr-mmap-k">{esc(label)}</span> {esc(form)}</li>'
-        for label, form in node["struct"]
+def mental_model_html() -> str:
+    return mind_map_html(
+        "tenseMindmap",
+        "Sơ đồ tư duy 6 nhóm thì — Food speaking",
+        "6 nhóm thì",
+        "Food &amp; habits",
+        TENSE_MINDMAP_LEFT,
+        TENSE_MINDMAP_RIGHT,
+        note=(
+            '<span class="lr-mmap-star">★</span> = có trong '
+            '<strong>Section 3 · Speaking structures</strong> — ôn kỹ hơn. '
+            "Chọn <strong>một thì</strong> cho mỗi câu; chỉ trộn khi có mốc "
+            "(when / before / after / by the time)."
+        ),
+        extra_class=" lr-mmap--tenses",
+        min_width="1380px",
     )
-    signal_items = "\n".join(
-        f'                <li class="lr-mmap-leaf" data-mmap-node="leaf">{esc(line)}</li>'
-        for line in node["signals"]
-    )
-    return f"""          <div class="lr-mmap-branch" data-mmap-branch="{nid}" style="--mmap-c:{color}">
-            <div class="lr-mmap-tense" data-mmap-node="tense">
-              <strong>{esc(node["name"])}</strong>
-              <span>{esc(node["name_vi"])}</span>
-            </div>
-            <div class="lr-mmap-forks">
-              <div class="lr-mmap-group">
-                <span class="lr-mmap-fork" data-mmap-node="fork">Cấu trúc</span>
-                <ul class="lr-mmap-leaves">
-{struct_items}
-                </ul>
-              </div>
-              <div class="lr-mmap-group">
-                <span class="lr-mmap-fork" data-mmap-node="fork">Dấu hiệu nhận biết</span>
-                <ul class="lr-mmap-leaves">
-{signal_items}
-                </ul>
-              </div>
-            </div>
-          </div>"""
 
 
 def grammar_section() -> str:
@@ -504,35 +1002,6 @@ def grammar_section() -> str:
         </a>"""
         )
     return "\n".join(cards)
-
-
-def mental_model_html() -> str:
-    left = "\n".join(
-        _mmap_branch_html(n) for n in MINDMAP_BRANCHES if n["side"] == "left"
-    )
-    right = "\n".join(
-        _mmap_branch_html(n) for n in MINDMAP_BRANCHES if n["side"] == "right"
-    )
-    return f"""
-      <div class="lr-mmap" id="tenseMindmap" aria-label="Sơ đồ tư duy 4 thì cơ bản">
-        <p class="lr-mmap-scroll-hint">Vuốt ngang nếu sơ đồ rộng hơn màn hình</p>
-        <div class="lr-mmap-viewport">
-          <div class="lr-mmap-board">
-            <svg class="lr-mmap-svg" aria-hidden="true"></svg>
-            <div class="lr-mmap-col lr-mmap-col--left">
-{left}
-            </div>
-            <div class="lr-mmap-root" data-mmap-node="root">
-              <span class="lr-mmap-root-title">4 thì cơ bản</span>
-              <span class="lr-mmap-root-sub">Food speaking</span>
-            </div>
-            <div class="lr-mmap-col lr-mmap-col--right">
-{right}
-            </div>
-          </div>
-        </div>
-        <p class="lr-mmap-note">Speaking còn dùng thêm (xem Section 3): <strong>Present Perfect</strong> (Have you ever…), <strong>used to / would</strong>, <strong>going to / will</strong>. Chọn một thì cho mỗi câu.</p>
-      </div>"""
 
 
 def _render_transcript_segment(seg: dict) -> str:
@@ -686,42 +1155,17 @@ def lesson_highlights_html() -> str:
             <p class="lr-formula"><strong>Công thức:</strong> Yes/No + Reasons (dùng Lesson 2)</p>
           </header>
 
-          <div class="lr-think-tree">
-            <pre class="lr-tree">Do you like X?
-├── YES
-│   ├── Yes, definitely / absolutely
-│   ├── I + V (like / love / enjoy) + V-ing
-│   ├── I'm + adj (interested in / keen on)
-│   └── I'm a + NP (big fan of)
-├── NO
-│   ├── No, definitely / absolutely not · No, not really
-│   ├── I + DON'T + V
-│   ├── I'm + NOT + adj
-│   └── I'm NOT a + NP
-└── REASONS
-    ├── Because / This is because + S + V
-    └── Because of + noun / noun phrase</pre>
-          </div>
-
-          <div class="lr-formula-table-wrap">
-            <table class="lr-formula-table">
-              <thead><tr><th></th><th>Yes</th><th>No</th></tr></thead>
-              <tbody>
-                <tr><th>Direct</th><td>Yes, definitely / absolutely</td><td>No, definitely not · No, not really</td></tr>
-                <tr><th>Verb</th><td>I like / love / enjoy + V-ing</td><td>I <strong>don't</strong> like / love / enjoy</td></tr>
-                <tr><th>Adj</th><td>I'm keen on / interested in</td><td>I'm <strong>not</strong> keen on / interested in</td></tr>
-                <tr><th>NP</th><td>I'm a big fan of</td><td>I'm <strong>not</strong> a big fan of</td></tr>
-                <tr><th>Reason</th><td colspan="2">because / This is because + S + V · because of + noun/NP</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <ul class="lr-formula-bullets">
-            <li><mark>It gives me the chance to</mark> + V</li>
-            <li><mark>I also get the opportunity to</mark> + V</li>
-            <li><mark>It's a great way to</mark> + V · <mark>It also helps me</mark> + V</li>
-            <li><mark>can lead to</mark> various health problems, such as…</li>
-          </ul>
+{mind_map_html(
+            "lesson3Mindmap",
+            "Lesson 3 · Do you like X?",
+            "Do you like X?",
+            "Yes / No + Reasons",
+            LESSON3_MINDMAP_LEFT,
+            LESSON3_MINDMAP_RIGHT,
+            note="Trái = <strong>YES</strong> · Phải = <strong>NO</strong> + Reasons. Ghép reason từ Lesson 2.",
+            extra_class=" lr-mmap--lesson3",
+            min_width="1100px",
+        )}
 
           <p class="lr-formula-note"><strong>Lưu ý:</strong> <em>because it is not good for my health</em> (mệnh đề) ↔ <em>because of its harmful effects on my health</em> (cụm danh từ)</p>
 
@@ -775,143 +1219,24 @@ def lesson_highlights_html() -> str:
             <p class="lr-formula">Hai trụ: <strong>mang tính giải trí</strong> · <strong>mang tính giáo dục</strong> (+ sức khỏe)</p>
           </header>
 
-          <div class="lr-mm" aria-label="Mental model Lesson 2">
-            <p class="lr-mm-hint">Nhìn sơ đồ → ráp câu theo đường: <strong>Starter</strong> → <strong>Nhánh</strong> → <strong>1–2 cụm</strong>. Chọn tối đa 1–2 nhánh, không nhồi hết.</p>
+          <p class="lr-mm-hint">Ráp câu: <strong>Starter</strong> → <strong>nhánh</strong> → <strong>1–2 cụm</strong>. Chọn tối đa 1–2 nhánh.</p>
+          <div class="lr-mm-starters lr-mm-starters--compact">
+            <code>It helps me</code> + V · <code>It's a great way to</code> + V · <code>It gives me the chance to</code> + V
+          </div>
 
-            <div class="lr-mm-flow" aria-hidden="true">
-              <span class="lr-mm-chip lr-mm-chip--cyan">1 · Starter</span>
-              <span class="lr-mm-plus">+</span>
-              <span class="lr-mm-chip lr-mm-chip--violet">2 · Nhánh</span>
-              <span class="lr-mm-plus">+</span>
-              <span class="lr-mm-chip lr-mm-chip--amber">3 · Cụm V / adj</span>
-              <span class="lr-mm-eq">=</span>
-              <span class="lr-mm-chip lr-mm-chip--green">Câu hoàn chỉnh</span>
-            </div>
+{mind_map_html(
+            "lesson2Mindmap",
+            "Lesson 2 · Reasons like / dislike",
+            "Reasons",
+            "Like ↔ Dislike",
+            LESSON2_MINDMAP_LEFT,
+            LESSON2_MINDMAP_RIGHT,
+            note="Trái = <strong>LÝ DO THÍCH</strong> · Phải = <strong>LÝ DO KHÔNG THÍCH</strong>.",
+            extra_class=" lr-mmap--lesson2",
+            min_width="1100px",
+        )}
 
-            <div class="lr-mm-starters">
-              <p class="lr-mm-label">Cấu trúc mở đầu (dùng chung)</p>
-              <div class="lr-mm-starter-row">
-                <code>It helps me</code><span>+ V</span>
-                <code>It's a great way to</code><span>+ V</span>
-                <code>It gives me the chance to</code><span>+ V</span>
-                <code>I also get the opportunity to</code><span>+ V</span>
-              </div>
-            </div>
-
-            <div class="lr-mm-grid">
-              <section class="lr-mm-panel lr-mm-panel--like">
-                <h4 class="lr-mm-title lr-mm-title--like">LÝ DO THÍCH</h4>
-
-                <div class="lr-mm-branch">
-                  <div class="lr-mm-branch-head">
-                    <span class="lr-mm-pill">Mang tính giải trí</span>
-                    <code class="lr-mm-formula">It's + interesting / entertaining / exciting / thrilling / relaxing …</code>
-                  </div>
-                  <ul class="lr-mm-phrases">
-                    <li><strong>reduce stress</strong> <em>giảm căng thẳng</em></li>
-                    <li><strong>relax / unwind</strong> <em>thư giãn</em></li>
-                    <li><strong>clear my head</strong> <em>giải tỏa đầu óc</em></li>
-                    <li><strong>recharge my batteries</strong> <em>nạp lại năng lượng</em></li>
-                    <li><strong>express my inner feelings</strong> <em>thổ lộ cảm xúc</em></li>
-                    <li><strong>escape from reality</strong> <em>thoát khỏi thực tại</em></li>
-                    <li><strong>escape from the hustle and bustle of the city</strong> <em>thoát khỏi sự hối hả thành phố</em></li>
-                    <li><strong>temporarily forget all the pressures from my work</strong> <em>tạm quên áp lực công việc</em></li>
-                    <li><strong>temporarily forget all the pressures or worries from your daily life</strong> <em>tạm quên lo lắng đời thường</em></li>
-                    <li><strong>being in nature</strong> <em>ở gần thiên nhiên</em></li>
-                  </ul>
-                  <p class="lr-mm-example">→ <em>It helps me relax / It's a great way to unwind and recharge my batteries.</em></p>
-                </div>
-
-                <div class="lr-mm-branch">
-                  <div class="lr-mm-branch-head">
-                    <span class="lr-mm-pill">Mang tính giáo dục</span>
-                    <code class="lr-mm-formula">It's + educational / useful / practical …</code>
-                  </div>
-                  <p class="lr-mm-sub">Hai cách nói kỹ năng: <code>learn various skills such as</code> + N ↔ <code>learn how to</code> + V</p>
-                  <div class="lr-mm-skills">
-                    <div class="lr-mm-skill"><span class="lr-mm-skill-n">problem-solving</span><span class="lr-mm-skill-v">deal with difficult situations more effectively</span></div>
-                    <div class="lr-mm-skill"><span class="lr-mm-skill-n">money management</span><span class="lr-mm-skill-v">manage my money / budgets better</span></div>
-                    <div class="lr-mm-skill"><span class="lr-mm-skill-n">stress management</span><span class="lr-mm-skill-v">curb stress more effectively</span></div>
-                    <div class="lr-mm-skill"><span class="lr-mm-skill-n">teamwork</span><span class="lr-mm-skill-v">work as a team / work effectively in a team environment</span></div>
-                    <div class="lr-mm-skill"><span class="lr-mm-skill-n">independent thinking</span><span class="lr-mm-skill-v">think more independently</span></div>
-                  </div>
-                  <ul class="lr-mm-phrases">
-                    <li><strong>meet different people</strong> · people from all walks of life</li>
-                    <li><strong>explore different parts of the world</strong></li>
-                    <li><strong>explore different cultures and traditions</strong></li>
-                    <li><strong>widen my horizons</strong> <em>mở rộng tầm nhìn</em></li>
-                    <li><strong>enrich my knowledge</strong> <em>làm giàu kiến thức</em></li>
-                    <li><strong>challenge myself / push myself to the limit</strong></li>
-                    <li><strong>become more confident and independent</strong></li>
-                    <li><strong>become a better version of myself</strong></li>
-                    <li><strong>become a more well-rounded person</strong></li>
-                    <li><strong>develop my imagination and creativity</strong></li>
-                  </ul>
-                  <p class="lr-mm-example">→ <em>It gives me the chance to learn skills such as teamwork / learn how to manage my money better.</em></p>
-                </div>
-
-                <div class="lr-mm-branch">
-                  <div class="lr-mm-branch-head">
-                    <span class="lr-mm-pill">Sức khỏe</span>
-                    <code class="lr-mm-formula">It's a great way to + keep fit / stay healthy …</code>
-                  </div>
-                  <ul class="lr-mm-phrases">
-                    <li><strong>keep fit / stay healthy / keep in shape</strong> <em>giữ dáng / khỏe mạnh</em></li>
-                    <li><strong>improve my health</strong></li>
-                    <li><strong>strengthen my muscles</strong> <em>tăng cường cơ bắp</em></li>
-                    <li><strong>burn excess calories</strong> <em>đốt calo thừa</em></li>
-                    <li><strong>maintain a healthy weight</strong></li>
-                    <li><strong>prevent various health problems such as</strong> high blood pressure / stroke / heart attack / cancer</li>
-                  </ul>
-                  <p class="lr-mm-example">→ <em>It's a great way to burn excess calories and maintain a healthy weight.</em></p>
-                </div>
-              </section>
-
-              <section class="lr-mm-panel lr-mm-panel--dislike">
-                <h4 class="lr-mm-title lr-mm-title--dislike">LÝ DO KHÔNG THÍCH</h4>
-                <p class="lr-mm-logic">Logic: <strong>không</strong> mang tính giải trí / giáo dục → không giúp mình / làm tình hình tồi tệ hơn</p>
-
-                <div class="lr-mm-branch">
-                  <div class="lr-mm-branch-head">
-                    <span class="lr-mm-pill lr-mm-pill--warn">Không giải trí</span>
-                  </div>
-                  <ol class="lr-mm-patterns">
-                    <li><code>It's + not + adj</code> — not interesting / entertaining / exciting / thrilling / relaxing</li>
-                    <li><code>It's + adj</code> tiêu cực — boring / terrible / scary / difficult / stressful / noisy</li>
-                    <li><code>It makes me + adj</code> — stressed / exhausted / bored / tired</li>
-                    <li><code>I have to</code> + do lots of homework · learn lots of vocabulary · memorise long lists of new words · deal with difficult customers · deal with the same tasks and the same clients every day</li>
-                  </ol>
-                  <p class="lr-mm-idioms"><mark>not my cup of tea</mark> · <mark>can't stand</mark> · <mark>I can't bear</mark></p>
-                </div>
-
-                <div class="lr-mm-branch">
-                  <div class="lr-mm-branch-head">
-                    <span class="lr-mm-pill lr-mm-pill--warn">Không giáo dục</span>
-                    <code class="lr-mm-formula">It's + not + educational / useful / practical</code>
-                  </div>
-                  <p class="lr-mm-sub"><strong>Rule:</strong> <code>doesn't</code> + V nguyên mẫu — <em>It doesn't help me…</em> · <em>It doesn't give me the chance to…</em></p>
-                  <ul class="lr-mm-phrases">
-                    <li>It doesn't give me the chance to <strong>challenge myself</strong></li>
-                    <li>It doesn't help me learn skills such as <strong>problem-solving / teamwork</strong></li>
-                    <li>It doesn't give me the opportunity to <strong>widen my horizons</strong></li>
-                  </ul>
-                </div>
-
-                <div class="lr-mm-branch">
-                  <div class="lr-mm-branch-head">
-                    <span class="lr-mm-pill lr-mm-pill--warn">Hại sức khỏe</span>
-                  </div>
-                  <ul class="lr-mm-phrases">
-                    <li><code>It's + unhealthy</code></li>
-                    <li><code>not good <strong>for</strong> your health</code></li>
-                    <li><code>harmful <strong>to</strong> / detrimental <strong>to</strong> your health</code></li>
-                    <li><code>… can lead to</code> diabetes / high blood pressure / stroke / heart attack / cancer / obesity</li>
-                  </ul>
-                </div>
-              </section>
-            </div>
-
-            <div class="lr-mm-assemble">
+          <div class="lr-mm-assemble">
               <p class="lr-mm-label">Ví dụ ráp nhanh (Food)</p>
               <div class="lr-mm-assemble-grid">
                 <p><span class="lr-mm-tag-yes">YES</span> Cooking + giải trí: <em>Yes, because it's relaxing. It helps me unwind and temporarily forget all the pressures from my work.</em></p>
@@ -919,7 +1244,6 @@ def lesson_highlights_html() -> str:
                 <p><span class="lr-mm-tag-no">NO</span> Fast food + SK: <em>No, because it's not good for my health. Consuming too much can lead to obesity and heart problems.</em></p>
               </div>
             </div>
-          </div>
 
           <details class="lr-formula-details">
             <summary>2 · Cấu trúc mở đầu (dùng chung) — chi tiết</summary>
@@ -1645,7 +1969,7 @@ def build_page() -> str:
 
       <section class="lr-section" id="mental-model">
         <h2>2 · Mental model — Tenses for Food speaking</h2>
-        <p class="lr-section-hint">Sơ đồ tư duy 4 thì hay dùng khi nói về Food — cấu trúc + dấu hiệu. Vuốt ngang nếu cần.</p>
+        <p class="lr-section-hint">6 nhóm thì IELTS Fighter — <span class="lr-mmap-star">★</span> = có trong Section 3. Vuốt ngang nếu cần.</p>
 {mental_model_html()}
       </section>
 
@@ -1703,7 +2027,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr16">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr17">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -1726,8 +2050,8 @@ def build_page() -> str:
   <div class="docs-shell docs-shell--wide">
 {body}
   </div>
-  <script src="{home}js/docs.js?v=lr16"></script>
-  <script src="{home}js/linear-review.js?v=lr16"></script>
+  <script src="{home}js/docs.js?v=lr17"></script>
+  <script src="{home}js/linear-review.js?v=lr17"></script>
 </body>
 </html>"""
 
