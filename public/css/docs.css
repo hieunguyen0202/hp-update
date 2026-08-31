@@ -3022,6 +3022,126 @@ body.ex-hide-ipa .ipa {
   margin-top: 12px;
 }
 
+/* Lesson 2/3 · flow pipeline (① Mở → because → 2 nhánh) */
+.lr-mmap-branch--flow .lr-mmap-tense {
+  white-space: normal;
+  min-width: 10rem;
+}
+
+.lr-flow-pipeline {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 6px;
+  min-width: 0;
+}
+
+.lr-flow-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.32);
+  border: 1px dashed color-mix(in srgb, var(--mmap-c) 55%, transparent);
+}
+
+.lr-flow-step-label {
+  flex-shrink: 0;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--mmap-c);
+}
+
+.lr-flow-step-body {
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: rgba(226, 232, 240, 0.9);
+}
+
+.lr-flow-because {
+  align-self: center;
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 750;
+  color: #fcd34d;
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+}
+
+.lr-flow-branches {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lr-flow-branch {
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(8, 20, 42, 0.55);
+  border-left: 3px solid var(--mmap-c);
+}
+
+.lr-flow-branch-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--mmap-c);
+}
+
+.lr-flow-patterns {
+  margin: 0 0 6px;
+  font-size: 0.7rem;
+  line-height: 1.45;
+  color: rgba(186, 230, 253, 0.85);
+}
+
+.lr-flow-link {
+  margin: 4px 0 0;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: rgba(226, 232, 240, 0.75);
+}
+
+.lr-mmap-branch--flow .lr-mmap-leaf {
+  white-space: normal;
+  max-width: 22rem;
+}
+
+.lr-practice-chains {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lr-practice-chain--yes {
+  border-left-color: rgba(52, 211, 153, 0.55) !important;
+}
+
+.lr-practice-chain--no {
+  border-left-color: rgba(248, 113, 113, 0.55) !important;
+}
+
+.lr-chain-vi-hint {
+  margin: 6px 0 0;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: rgba(148, 163, 184, 0.9);
+  font-style: italic;
+}
+
+.lr-ftd-vi {
+  margin: 0 0 6px;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: rgba(125, 211, 252, 0.88);
+  font-style: italic;
+}
+
 .lr-mmap-note {
   margin: 12px 8px 0;
   font-size: 0.82rem;

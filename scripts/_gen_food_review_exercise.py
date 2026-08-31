@@ -359,6 +359,8 @@ def _mmap_leaf_html(leaf) -> str:
 
 
 def _mmap_branch_html(node: dict) -> str:
+    if node.get("flow"):
+        return _lesson_flow_branch_html(node)
     color = esc(node["color"])
     star = (
         '<span class="lr-mmap-star" title="Có trong Section 3 · Speaking structures — xem kỹ">★</span>'
@@ -394,6 +396,50 @@ def _mmap_branch_html(node: dict) -> str:
             </div>
             <div class="lr-mmap-forks">
 {chr(10).join(forks)}
+            </div>
+          </div>"""
+
+
+def _lesson_flow_branch_html(node: dict) -> str:
+    color = esc(node["color"])
+    name_vi = (
+        f'<span>{esc(node["name_vi"])}</span>' if node.get("name_vi") else ""
+    )
+    branches = []
+    for br in node["branches"]:
+        pattern_html = ""
+        if br.get("patterns"):
+            pattern_html = (
+                f'<p class="lr-flow-patterns">{br["patterns"]}</p>'
+            )
+        leaves = "\n".join(_mmap_leaf_html(leaf) for leaf in br["leaves"])
+        branches.append(
+            f"""              <div class="lr-flow-branch" data-mmap-node="fork">
+                <span class="lr-flow-branch-label">{esc(br["label"])}</span>
+                {pattern_html}
+                <ul class="lr-mmap-leaves">
+{leaves}
+                </ul>
+              </div>"""
+        )
+    link_html = ""
+    if node.get("link"):
+        link_html = f'<p class="lr-flow-link">{node["link"]}</p>'
+    return f"""          <div class="lr-mmap-branch lr-mmap-branch--flow" data-mmap-branch="{esc(node["id"])}" style="--mmap-c:{color}">
+            <div class="lr-mmap-tense" data-mmap-node="tense">
+              <strong>{esc(node["name"])}</strong>
+              {name_vi}
+            </div>
+            <div class="lr-flow-pipeline">
+              <div class="lr-flow-step lr-flow-step--opener" data-mmap-node="fork">
+                <span class="lr-flow-step-label">① Mở</span>
+                <span class="lr-flow-step-body">{node["opener"]}</span>
+              </div>
+              <div class="lr-flow-because" data-mmap-node="fork">because</div>
+              <div class="lr-flow-branches">
+{chr(10).join(branches)}
+              </div>
+              {link_html}
             </div>
           </div>"""
 
@@ -708,147 +754,138 @@ TENSE_MINDMAP_RIGHT = [
     },
 ]
 
-LESSON3_MINDMAP_LEFT = [
-    {
-        "id": "yes-direct",
-        "color": "#6ee7b7",
-        "name": "Direct · YES",
-        "forks": [
-            {
-                "label": "Mở đầu",
-                "leaves": ["Yes, definitely", "Yes, absolutely"],
-            },
-            {
-                "label": "Ghép reason",
-                "leaves": ["+ because … (Lesson 2)", "+ This is because …"],
-            },
-        ],
-    },
-    {
-        "id": "yes-verb",
-        "color": "#34d399",
-        "name": "Verb pattern",
-        "forks": [
-            {
-                "label": "Cấu trúc",
-                "leaves": [
-                    ("Like", "I like / love / enjoy + V-ing"),
-                    ("Food", "I enjoy <strong>cooking</strong> / trying new cuisines"),
-                ],
-            },
-        ],
-    },
-    {
-        "id": "yes-adj",
-        "color": "#2dd4bf",
-        "name": "Adj / NP",
-        "forks": [
-            {
-                "label": "Adj",
-                "leaves": ["I'm keen on …", "I'm interested in …"],
-            },
-            {
-                "label": "NP",
-                "leaves": ["I'm a big fan of …"],
-            },
-        ],
-    },
-]
-
-LESSON3_MINDMAP_RIGHT = [
-    {
-        "id": "no-direct",
-        "color": "#fca5a5",
-        "name": "Direct · NO",
-        "forks": [
-            {
-                "label": "Mạnh",
-                "leaves": ["No, definitely not", "No, absolutely not"],
-            },
-            {
-                "label": "Nhẹ",
-                "leaves": ["No, not really", "Well, not really because …"],
-            },
-        ],
-    },
-    {
-        "id": "no-verb",
-        "color": "#f87171",
-        "name": "Verb pattern",
-        "forks": [
-            {
-                "label": "Cấu trúc",
-                "leaves": [
-                    ("Phủ định", "I <strong>don't</strong> like / love / enjoy"),
-                    ("Food", "I don't like fast food"),
-                ],
-            },
-        ],
-    },
-    {
-        "id": "no-adj",
-        "color": "#ef4444",
-        "name": "Adj / NP",
-        "forks": [
-            {
-                "label": "Adj",
-                "leaves": ["I'm <strong>not</strong> keen on …", "I'm not interested in …"],
-            },
-            {
-                "label": "NP",
-                "leaves": ["I'm <strong>not</strong> a big fan of …"],
-            },
-        ],
-    },
-    {
-        "id": "reasons",
-        "color": "#fcd34d",
-        "name": "Reasons",
-        "forks": [
-            {
-                "label": "Mệnh đề",
-                "leaves": [
-                    "because + S + V",
-                    "This is because + S + V",
-                ],
-            },
-            {
-                "label": "Danh từ",
-                "leaves": [
-                    "because of + noun / NP",
-                    "e.g. because of its harmful effects on my health",
-                ],
-            },
-            {
-                "label": "Mở rộng",
-                "leaves": [
-                    "It gives me the chance to + V",
-                    "It's a great way to + V",
-                    "can lead to … health problems",
-                ],
-            },
-        ],
-    },
-]
-
+# Lesson 2 · flow mind map — trái = DISLIKE, phải = LIKE
 LESSON2_MINDMAP_LEFT = [
+    {
+        "id": "dis-fun",
+        "color": "#fca5a5",
+        "name": "Không giải trí",
+        "name_vi": "not entertaining",
+        "flow": True,
+        "opener": "I don't like this · I can't stand … · It's not my cup of tea",
+        "branches": [
+            {
+                "label": "Nhánh 1 · It's + adj",
+                "leaves": [
+                    "It's + not + interesting / entertaining / exciting / thrilling / relaxing",
+                    "It's + boring / terrible / scary / difficult / stressful / noisy",
+                ],
+            },
+            {
+                "label": "Nhánh 2 · It makes me + adj",
+                "patterns": (
+                    "It makes me + bored / tired / stressed / exhausted · "
+                    "I have to + deal with the same tasks every day"
+                ),
+                "leaves": [
+                    "not my cup of tea",
+                    "can't stand",
+                    "I can't bear",
+                    "I have to do lots of homework",
+                    "I have to memorise long lists of new words",
+                    "I have to deal with difficult customers",
+                    "I have to deal with the same tasks and the same clients every day",
+                ],
+            },
+        ],
+    },
+    {
+        "id": "dis-edu",
+        "color": "#f87171",
+        "name": "Không giáo dục",
+        "name_vi": "not educational",
+        "flow": True,
+        "opener": "I don't think … · To be honest, I don't enjoy …",
+        "branches": [
+            {
+                "label": "Nhánh 1 · It's + not + adj",
+                "leaves": [
+                    "It's + not + educational / useful / practical",
+                ],
+            },
+            {
+                "label": "Nhánh 2 · doesn't + V",
+                "patterns": (
+                    "<code>doesn't</code> + V nguyên mẫu · "
+                    "It doesn't give me the chance to … · "
+                    "It doesn't help me learn skills such as …"
+                ),
+                "leaves": [
+                    "It doesn't help me relax",
+                    "It doesn't give me the chance to challenge myself",
+                    "It doesn't help me learn skills such as problem-solving",
+                    "It doesn't give me the opportunity to widen my horizons",
+                    "It doesn't help me enrich my knowledge",
+                    "It doesn't give me the chance to try anything new",
+                ],
+            },
+        ],
+    },
+    {
+        "id": "dis-health",
+        "color": "#ef4444",
+        "name": "Hại sức khỏe",
+        "name_vi": "bad for health",
+        "flow": True,
+        "opener": "No, definitely not because … · I avoid …",
+        "branches": [
+            {
+                "label": "Nhánh 1 · not good / harmful",
+                "leaves": [
+                    "not good <strong>for</strong> your health",
+                    "harmful / detrimental <strong>to</strong> your health",
+                    "It's + unhealthy",
+                ],
+            },
+            {
+                "label": "Nhánh 2 · can lead to …",
+                "patterns": "Consuming too much … can lead to …",
+                "leaves": [
+                    "diabetes",
+                    "high blood pressure",
+                    "stroke",
+                    "heart attack",
+                    "cancer",
+                    "obesity",
+                ],
+            },
+        ],
+    },
+]
+
+LESSON2_MINDMAP_RIGHT = [
     {
         "id": "like-fun",
         "color": "#67e8f9",
         "name": "Giải trí",
         "name_vi": "entertainment",
-        "forks": [
+        "flow": True,
+        "opener": "I love this · I think … · I'm keen on …",
+        "branches": [
             {
-                "label": "Công thức",
-                "leaves": ["It's + relaxing / exciting / thrilling / entertaining …"],
+                "label": "Nhánh 1 · It's + adj",
+                "leaves": [
+                    "It's + relaxing / exciting / thrilling / entertaining / interesting …",
+                ],
             },
             {
-                "label": "Cụm V",
+                "label": "Nhánh 2 · Starter + V",
+                "patterns": (
+                    "It helps me + V · It's a great way to + V · "
+                    "It gives me the chance to + V · "
+                    "I also get the opportunity to + V"
+                ),
                 "leaves": [
-                    "relax / unwind · clear my head",
+                    "reduce stress",
+                    "relax / unwind",
+                    "clear my head",
                     "recharge my batteries",
-                    "escape from the hustle and bustle",
-                    "temporarily forget pressures from work",
+                    "express my inner feelings",
+                    "escape from reality",
+                    "escape from the hustle and bustle of the city",
+                    "temporarily forget all the pressures from my work",
+                    "temporarily forget all the pressures or worries from your daily life",
+                    "being in nature",
                 ],
             },
         ],
@@ -858,20 +895,39 @@ LESSON2_MINDMAP_LEFT = [
         "color": "#5eead4",
         "name": "Giáo dục",
         "name_vi": "educational",
-        "forks": [
+        "flow": True,
+        "opener": "I love this · I think it's useful · Yes, because …",
+        "branches": [
             {
-                "label": "Công thức",
+                "label": "Nhánh 1 · It's + adj",
                 "leaves": [
                     "It's + educational / useful / practical",
                     "learn skills such as … ↔ learn how to + V",
                 ],
             },
             {
-                "label": "Cụm V",
+                "label": "Nhánh 2 · Starter + V",
+                "patterns": (
+                    "It helps me + V · It gives me the chance to + V · "
+                    "I also get the opportunity to + V"
+                ),
                 "leaves": [
-                    "widen my horizons · enrich my knowledge",
+                    "meet different people",
                     "meet people from all walks of life",
-                    "challenge myself",
+                    "explore different parts of the world",
+                    "explore different cultures and traditions",
+                    "widen my horizons",
+                    "enrich my knowledge",
+                    "challenge myself / push myself to the limit",
+                    "become more confident and independent",
+                    "become a better version of myself",
+                    "become a more well-rounded person",
+                    "develop my imagination and creativity",
+                    "learn how to deal with difficult situations more effectively",
+                    "learn how to manage my money / budgets better",
+                    "learn how to curb stress more effectively",
+                    "learn how to work as a team / work effectively in a team environment",
+                    "learn how to think more independently",
                 ],
             },
         ],
@@ -881,69 +937,122 @@ LESSON2_MINDMAP_LEFT = [
         "color": "#34d399",
         "name": "Sức khỏe",
         "name_vi": "health",
-        "forks": [
+        "flow": True,
+        "opener": "I love this · Yes, because it's a great way to …",
+        "branches": [
             {
-                "label": "Starter",
-                "leaves": ["It's a great way to + keep fit / stay healthy"],
+                "label": "Nhánh 1 · It's a great way to",
+                "leaves": [
+                    "It's a great way to + keep fit / stay healthy / keep in shape",
+                    "It's + good for your health",
+                ],
             },
             {
-                "label": "Cụm V",
+                "label": "Nhánh 2 · Cụm V",
+                "patterns": (
+                    "It helps me + V · It also helps me + V · "
+                    "Eating … can also prevent …"
+                ),
                 "leaves": [
-                    "strengthen my muscles · burn excess calories",
+                    "keep fit / stay healthy / keep in shape",
+                    "improve my health",
+                    "strengthen my muscles",
+                    "burn excess calories",
                     "maintain a healthy weight",
-                    "prevent health problems (diabetes, heart attack…)",
+                    "prevent various health problems such as high blood pressure",
+                    "prevent stroke / heart attack / cancer",
                 ],
             },
         ],
     },
 ]
 
-LESSON2_MINDMAP_RIGHT = [
+# Lesson 3 · flow — trái = NO, phải = YES
+LESSON3_MINDMAP_LEFT = [
     {
-        "id": "dis-fun",
+        "id": "no-flow",
         "color": "#fca5a5",
-        "name": "Không giải trí",
-        "forks": [
+        "name": "NO",
+        "name_vi": "phủ định",
+        "flow": True,
+        "opener": "No, definitely not · No, absolutely not · No, not really · Well, not really",
+        "branches": [
             {
-                "label": "Pattern",
+                "label": "Nhánh 1 · Verb",
                 "leaves": [
-                    "It's + not + interesting / entertaining …",
-                    "It's + boring / stressful / difficult",
-                    "It makes me + bored / tired / stressed",
+                    "I <strong>don't</strong> like / love / enjoy + V-ing",
+                    "Food: I don't like fast food / eating too much {dessert}",
                 ],
             },
             {
-                "label": "Idiom",
-                "leaves": ["not my cup of tea · can't stand · I can't bear"],
-            },
-        ],
-    },
-    {
-        "id": "dis-edu",
-        "color": "#f87171",
-        "name": "Không giáo dục",
-        "forks": [
-            {
-                "label": "Rule",
+                "label": "Nhánh 2 · Adj / NP",
                 "leaves": [
-                    "<code>doesn't</code> + V nguyên mẫu",
-                    "It doesn't give me the chance to …",
-                    "It doesn't help me learn skills such as …",
+                    "I'm <strong>not</strong> keen on …",
+                    "I'm not interested in …",
+                    "I'm <strong>not</strong> a big fan of …",
                 ],
             },
         ],
+        "link": "→ <strong>because</strong> + Lesson 2 <em>Không thích</em> (trái)",
+    },
+]
+
+LESSON3_MINDMAP_RIGHT = [
+    {
+        "id": "yes-flow",
+        "color": "#6ee7b7",
+        "name": "YES",
+        "name_vi": "khẳng định",
+        "flow": True,
+        "opener": "Yes, definitely · Yes, absolutely",
+        "branches": [
+            {
+                "label": "Nhánh 1 · Verb",
+                "leaves": [
+                    "I like / love / enjoy + V-ing",
+                    "Food: I enjoy <strong>cooking</strong> / trying new {cuisine}",
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Adj / NP",
+                "leaves": [
+                    "I'm keen on … · I'm interested in …",
+                    "I'm a big fan of …",
+                    "This is because + S + V",
+                ],
+            },
+        ],
+        "link": "→ <strong>because</strong> + Lesson 2 <em>Thích</em> (phải)",
     },
     {
-        "id": "dis-health",
-        "color": "#ef4444",
-        "name": "Hại sức khỏe",
-        "forks": [
+        "id": "reasons-flow",
+        "color": "#fcd34d",
+        "name": "Reasons",
+        "name_vi": "lý do",
+        "flow": True,
+        "opener": "because · This is because · because of",
+        "branches": [
             {
-                "label": "Pattern",
+                "label": "Nhánh 1 · Mệnh đề",
                 "leaves": [
-                    "not good <strong>for</strong> your health",
-                    "harmful / detrimental <strong>to</strong> your health",
-                    "… can lead to obesity / diabetes / cancer",
+                    "because + S + V",
+                    "This is because + S + V",
+                    "<em>because it is not good for my health</em> (mệnh đề)",
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Danh từ / mở rộng",
+                "patterns": (
+                    "because of + noun / NP · "
+                    "It gives me the chance to + V · "
+                    "It's a great way to + V · can lead to …"
+                ),
+                "leaves": [
+                    "because of its harmful effects on my health",
+                    "It gives me the chance to + V",
+                    "I also get the opportunity to + V",
+                    "It also helps me + V",
+                    "can lead to various health problems",
                 ],
             },
         ],
@@ -1271,24 +1380,28 @@ FOOD_TENSE_DIALOGUE = [
                 "num": 1,
                 "phrase": "I usually eat",
                 "text": "Honestly, I usually eat quite healthy — lots of vegetables, not much fried food.",
+                "vi": "Thật ra tôi thường ăn khá lành mạnh — nhiều rau, ít đồ chiên.",
             },
             {
                 "speaker": "Tom",
                 "num": 2,
                 "phrase": "I'm trying",
                 "text": "Same here, though I'm trying to cut sugar this month.",
+                "vi": "Tôi cũng vậy, dù tháng này tôi đang cố giảm đường.",
             },
             {
                 "speaker": "Lan",
                 "num": 3,
                 "phrase": "I've tried",
                 "text": "I've tried almost every street food stall on this street since I moved here.",
+                "vi": "Tôi đã thử gần hết các quán ăn đường phố trên phố này từ khi chuyển đến đây.",
             },
             {
                 "speaker": "Tom",
                 "num": 4,
                 "phrase": "I've been cooking",
                 "text": "I've been cooking at home a lot lately — it's cheaper and I control the ingredients.",
+                "vi": "Dạo này tôi nấu ở nhà nhiều — rẻ hơn và tôi kiểm soát được nguyên liệu.",
             },
         ],
     },
@@ -1301,24 +1414,28 @@ FOOD_TENSE_DIALOGUE = [
                 "num": 9,
                 "phrase": "I ate",
                 "text": "Last Sunday I ate way too much at my cousin's wedding buffet.",
+                "vi": "Chủ nhật tuần trước tôi ăn quá nhiều ở tiệc buffet đám cưới của anh họ.",
             },
             {
                 "speaker": "Tom",
                 "num": 10,
                 "phrase": "I was making",
                 "text": "Ha! I was making spring rolls when you sent me that photo from the party.",
+                "vi": "Ha! Tôi đang cuốn nem khi bạn gửi ảnh từ bữa tiệc cho tôi.",
             },
             {
                 "speaker": "Lan",
                 "num": 11,
                 "phrase": "I'd already had",
                 "text": "Yeah, and I'd already had a big lunch before the ceremony, so I wasn't even hungry.",
+                "vi": "Ừ, và tôi đã ăn trưa no trước lễ rồi nên chẳng đói chút nào.",
             },
             {
                 "speaker": "Tom",
                 "num": 12,
                 "phrase": "had been baking",
                 "text": "My neighbour had been baking bread every morning for years before she opened her bakery.",
+                "vi": "Hàng xóm tôi đã nướng bánh mì mỗi sáng suốt nhiều năm trước khi mở tiệm bánh.",
             },
         ],
     },
@@ -1331,24 +1448,28 @@ FOOD_TENSE_DIALOGUE = [
                 "num": 5,
                 "phrase": "I'll cook",
                 "text": "I'll cook Vietnamese food for you this Saturday — you pick the dish.",
+                "vi": "Thứ Bảy này tôi sẽ nấu món Việt cho bạn — bạn chọn món nhé.",
             },
             {
                 "speaker": "Tom",
                 "num": 6,
                 "phrase": "I'll be having",
                 "text": "Deal! This time tomorrow I'll be having lunch with my parents at that new vegetarian place.",
+                "vi": "Được! Đúng giờ này ngày mai tôi sẽ đang ăn trưa với bố mẹ ở quán chay mới kia.",
             },
             {
                 "speaker": "Lan",
                 "num": 7,
                 "phrase": "I will have tried",
                 "text": "By December I will have tried every night-market dish in this district.",
+                "vi": "Đến tháng 12 tôi sẽ đã thử hết các món chợ đêm trong quận này.",
             },
             {
                 "speaker": "Tom",
                 "num": 8,
                 "phrase": "I will have been working",
                 "text": "And by 6 pm I will have been working without a proper meal — I'll be starving!",
+                "vi": "Và đến 6 giờ tối tôi sẽ đã làm việc cả ngày không ăn bữa nào đàng hoàng — chắc đói lắm!",
             },
         ],
     },
@@ -1402,6 +1523,7 @@ def _food_tense_dialogue_html() -> str:
               <div class="lr-ftd-bubble">
                 <span class="lr-ftd-speaker">{esc(line['speaker'])}</span>
                 <p class="lr-ftd-text">{body}</p>
+                <p class="lr-ftd-vi">{esc(line.get('vi', ''))}</p>
                 <span class="lr-ftd-tag" style="--tn-c:{esc(meta['color'])}">{esc(meta['name_vi'])}</span>
               </div>
             </div>"""
@@ -1692,6 +1814,94 @@ def speaking_lessons_html() -> str:
     return "\n".join(rows)
 
 
+def _lesson3_practice_html() -> str:
+    chains = [
+        (
+            "yes",
+            "Do you like cooking?",
+            (
+                "Yes, definitely. I'm keen on cooking {cuisine} at home because it gives me "
+                "the chance to try new recipes and {relax_phrase}. {relax_followup}"
+            ),
+            "Vâng, chắc chắn. Tôi thích nấu {cuisine} ở nhà vì được thử công thức mới và thư giãn.",
+        ),
+        (
+            "no",
+            "Do you like fast food?",
+            (
+                "No, definitely not because it's not good for my health. Consuming too much "
+                "{slang_food} and greasy {dessert} can lead to various health problems, "
+                "such as diabetes, high blood pressure or even cancer."
+            ),
+            "Không, chắc chắn không — không tốt cho sức khỏe. Ăn quá nhiều đồ nhanh có thể gây bệnh.",
+        ),
+        (
+            "yes",
+            "Do you like trying new cuisines?",
+            (
+                "Yes, absolutely. I'm a big fan of {cuisine} from different cultures. "
+                "This is because it helps me {edu_phrase}."
+            ),
+            "Có, tôi là fan của {cuisine} đa dạng — giúp mở rộng kiến thức ẩm thực.",
+        ),
+        (
+            "yes",
+            "Do you like eating vegetables?",
+            (
+                "Yes, definitely, because it's a great way to {health_phrase}. "
+                "It also helps me strengthen my muscles. "
+                "<span class='lr-practice-tag'>B1/B2</span>"
+            ),
+            "Vâng — rau giúp giữ dáng, khỏe mạnh và phòng bệnh.",
+        ),
+        (
+            "yes",
+            "Do you like seafood?",
+            (
+                "Yes, absolutely. I enjoy eating {seafood} and {meat} because "
+                "{phrase_food} with friends is a great way to unwind. "
+                "<span class='lr-practice-tag'>V-ing</span>"
+            ),
+            "Tôi thích hải sản — ăn cùng bạn bè là cách thư giãn tuyệt vời.",
+        ),
+        (
+            "no",
+            "Do you like your job in a busy kitchen?",
+            (
+                "Well, not really because my job is quite boring. It doesn't give me "
+                "the chance to try anything new. I have to deal with the same tasks "
+                "and the same {kitchen_tool} every day."
+            ),
+            "Không thực sự thích — công việc nhàm, lặp lại mỗi ngày.",
+        ),
+    ]
+    blocks = []
+    for kind, question, template, vi_hint in chains:
+        tag_cls = "lr-practice-chain--yes" if kind == "yes" else "lr-practice-chain--no"
+        flow = template.format(
+            cuisine=slot_select("cuisine"),
+            dessert=slot_select("dessert"),
+            seafood=slot_select("seafood"),
+            meat=slot_select("meat"),
+            kitchen_tool=slot_select("kitchen_tool"),
+            relax_phrase=phrase_pick("relax_phrase"),
+            relax_followup=phrase_pick("relax_followup"),
+            edu_phrase=phrase_pick("edu_phrase"),
+            health_phrase=phrase_pick("health_phrase"),
+            phrase_food=phrase_pick("phrase_food"),
+            slang_food=idiom_pick("slang_food"),
+        )
+        blocks.append(
+            f"""          <div class="lr-practice-chain lr-chain {tag_cls}" data-ex-en="{esc(template)}">
+            <p class="lr-practice-q">{esc(question)}</p>
+            <p class="lr-chain-flow lr-practice-flow">{flow}</p>
+            <p class="lr-practice-vi lr-chain-vi-hint">{esc(vi_hint)}</p>
+            <p class="lr-practice-en lr-chain-ex-text"></p>
+          </div>"""
+        )
+    return "\n".join(blocks)
+
+
 def lesson_highlights_html() -> str:
     relax_ex = (
         "I think because it's a great way to {relax_phrase} — especially when they're tired after work. "
@@ -1708,6 +1918,65 @@ def lesson_highlights_html() -> str:
     return f"""
       <div class="lr-core-lessons">
 
+        <article class="lr-core-lesson" id="lesson2-formulas">
+          <header class="lr-core-lesson-head">
+            <h3>Lesson 2 · Reasons like / dislike</h3>
+            <p class="lr-formula">Hai trụ: <strong>mang tính giải trí</strong> · <strong>mang tính giáo dục</strong> (+ sức khỏe)</p>
+          </header>
+
+          <p class="lr-mm-hint">Luồng ráp câu: <strong>① Mở</strong> (I love this…) → <strong>because</strong> → <strong>Nhánh 1</strong> (It's + adj) hoặc <strong>Nhánh 2</strong> (starter + cụm V). Chọn tối đa 1–2 nhánh.</p>
+
+{mind_map_html(
+            "lesson2Mindmap",
+            "Lesson 2 · Reasons like / dislike",
+            "Reasons",
+            "Dislike ↔ Like",
+            LESSON2_MINDMAP_LEFT,
+            LESSON2_MINDMAP_RIGHT,
+            note="Trái = <strong>KHÔNG THÍCH</strong> · Phải = <strong>THÍCH</strong>. Mỗi nhánh: ① Mở → because → 2 nhánh con.",
+            extra_class=" lr-mmap--lesson2",
+            min_width="1280px",
+        )}
+
+          <div class="lr-mm-assemble">
+              <p class="lr-mm-label">Ví dụ ráp nhanh (Food)</p>
+              <div class="lr-mm-assemble-grid">
+                <p><span class="lr-mm-tag-yes">YES</span> Cooking + giải trí: <em>I love cooking because it's relaxing. It helps me unwind and temporarily forget all the pressures from my work.</em></p>
+                <p><span class="lr-mm-tag-yes">YES</span> Vegetables + SK: <em>Yes, because it's a great way to stay healthy and prevent various health problems.</em></p>
+                <p><span class="lr-mm-tag-no">NO</span> Fast food + SK: <em>No, because it's not good for my health. Consuming too much can lead to obesity and heart problems.</em></p>
+              </div>
+            </div>
+
+          <details class="lr-formula-details">
+            <summary>Chi tiết · Cấu trúc mở đầu (dùng chung)</summary>
+            <ul class="lr-formula-bullets">
+              <li><mark>It helps me</mark> + V</li>
+              <li><mark>It's a great way to</mark> + V</li>
+              <li><mark>It gives me the chance to</mark> + V</li>
+              <li><mark>I also get the opportunity to</mark> + V</li>
+            </ul>
+          </details>
+
+          <details class="lr-formula-details">
+            <summary>Thực hành dropdown · Giải trí / Giáo dục / Sức khỏe</summary>
+            <div class="lr-practice-chain lr-chain" data-ex-en="{esc(relax_ex)}">
+              <p class="lr-practice-q">Why do people like home-cooked meals?</p>
+              <p class="lr-chain-flow lr-practice-flow">I think because it's a great way to {phrase_pick("relax_phrase")} — especially when they're tired after work. {phrase_pick("relax_followup", 0)}</p>
+              <p class="lr-practice-en lr-chain-ex-text"></p>
+            </div>
+            <div class="lr-practice-chain lr-chain" data-ex-en="{esc(edu_ex)}">
+              <p class="lr-practice-q">Do you like reading about food &amp; nutrition?</p>
+              <p class="lr-chain-flow lr-practice-flow">Yes, because it helps me {phrase_pick("edu_phrase")}. It also gives me the chance to enrich my knowledge.</p>
+              <p class="lr-practice-en lr-chain-ex-text"></p>
+            </div>
+            <div class="lr-practice-chain lr-chain" data-ex-en="{esc(health_ex)}">
+              <p class="lr-practice-q">Do you like eating vegetables?</p>
+              <p class="lr-chain-flow lr-practice-flow">Yes, because it's a great way to {phrase_pick("health_phrase")}. {phrase_pick("health_followup", 0)}</p>
+              <p class="lr-practice-en lr-chain-ex-text"></p>
+            </div>
+          </details>
+        </article>
+
         <article class="lr-core-lesson" id="lesson3-formulas">
           <header class="lr-core-lesson-head">
             <h3>Lesson 3 · Do you like X?</h3>
@@ -1718,48 +1987,20 @@ def lesson_highlights_html() -> str:
             "lesson3Mindmap",
             "Lesson 3 · Do you like X?",
             "Do you like X?",
-            "Yes / No + Reasons",
+            "No ↔ Yes + Reasons",
             LESSON3_MINDMAP_LEFT,
             LESSON3_MINDMAP_RIGHT,
-            note="Trái = <strong>YES</strong> · Phải = <strong>NO</strong> + Reasons. Ghép reason từ Lesson 2.",
+            note="Trái = <strong>NO</strong> · Phải = <strong>YES</strong> + Reasons. Cùng luồng ① Mở → because → ghép Lesson 2.",
             extra_class=" lr-mmap--lesson3",
             min_width="1100px",
         )}
 
           <p class="lr-formula-note"><strong>Lưu ý:</strong> <em>because it is not good for my health</em> (mệnh đề) ↔ <em>because of its harmful effects on my health</em> (cụm danh từ)</p>
 
-          <h4 class="lr-core-subtitle">Thực hành · Food &amp; general</h4>
-          <div class="lr-practice-grid">
-            <div class="lr-practice-card lr-practice-card--yes">
-              <p class="lr-practice-q">Do you like cooking?</p>
-              <p class="lr-practice-en">Yes, definitely. I'm keen on cooking because it gives me the chance to try new recipes and unwind after work.</p>
-              <p class="lr-practice-vi">Vâng, chắc chắn. Tôi thích nấu ăn vì nó cho tôi cơ hội thử món mới và thư giãn sau giờ làm.</p>
-            </div>
-            <div class="lr-practice-card lr-practice-card--no">
-              <p class="lr-practice-q">Do you like fast food?</p>
-              <p class="lr-practice-en">No, definitely not because it's not good for my health. Consuming too much fast food can lead to various health problems, such as diabetes, high blood pressure or even cancer.</p>
-              <p class="lr-practice-vi">Không, chắc chắn không vì không tốt cho sức khỏe. Ăn quá nhiều đồ ăn nhanh có thể dẫn đến tiểu đường, cao huyết áp hoặc ung thư.</p>
-            </div>
-            <div class="lr-practice-card lr-practice-card--yes">
-              <p class="lr-practice-q">Do you like trying new cuisines?</p>
-              <p class="lr-practice-en">Yes, absolutely. I'm a big fan of food from different cultures. This is because it gives me the chance to explore different traditions and widen my horizons.</p>
-              <p class="lr-practice-vi">Có, tôi là fan của ẩm thực đa dạng — được khám phá truyền thống và mở rộng tầm nhìn.</p>
-            </div>
-            <div class="lr-practice-card lr-practice-card--yes">
-              <p class="lr-practice-q">Do you like playing sports? <span class="lr-practice-tag">health</span></p>
-              <p class="lr-practice-en">Yes, definitely, because it's a great way to keep fit and stay healthy. It also helps me strengthen my muscles and burn excess calories.</p>
-              <p class="lr-practice-vi">Vâng — giữ dáng, khỏe mạnh, tăng cơ và đốt calo.</p>
-            </div>
-            <div class="lr-practice-card lr-practice-card--yes">
-              <p class="lr-practice-q">Do you like music? <span class="lr-practice-tag">V-ing subject</span></p>
-              <p class="lr-practice-en">Yes, absolutely. I'm a big fan of music. This is because <strong>listening to music</strong> helps me relax, unwind and temporarily forget all the pressures from my work.</p>
-              <p class="lr-practice-vi">Nghe nhạc giúp thư giãn và tạm quên áp lực công việc. (<em>listening to music</em> = V-ing làm chủ ngữ)</p>
-            </div>
-            <div class="lr-practice-card lr-practice-card--no">
-              <p class="lr-practice-q">Do you like your job? <span class="lr-practice-tag">soft no</span></p>
-              <p class="lr-practice-en">Well, not really because my job is quite boring. It doesn't give me the chance to try anything new. I have to deal with the same tasks every day.</p>
-              <p class="lr-practice-vi">Không thực sự thích — công việc nhàm, không có gì mới, lặp lại mỗi ngày.</p>
-            </div>
+          <h4 class="lr-core-subtitle">Thực hành · Food &amp; general (dropdown B1/B2)</h4>
+          <p class="lr-mm-hint">Chọn từ trong dropdown — câu mẫu cập nhật bên dưới. Ghép cấu trúc Lesson 3 + lý do Lesson 2.</p>
+          <div class="lr-practice-chains">
+{_lesson3_practice_html()}
           </div>
 
           <details class="lr-formula-details">
@@ -1769,161 +2010,6 @@ def lesson_highlights_html() -> str:
               <li><strong>-ing vs -ed:</strong> boring (tính chất) vs bored (cảm xúc) — <em>This movie is boring</em> · <em>It makes me bored</em></li>
               <li><strong>every day</strong> (adv) vs <strong>everyday</strong> (adj)</li>
             </ul>
-          </details>
-        </article>
-
-        <article class="lr-core-lesson" id="lesson2-formulas">
-          <header class="lr-core-lesson-head">
-            <h3>Lesson 2 · Reasons like / dislike</h3>
-            <p class="lr-formula">Hai trụ: <strong>mang tính giải trí</strong> · <strong>mang tính giáo dục</strong> (+ sức khỏe)</p>
-          </header>
-
-          <p class="lr-mm-hint">Ráp câu: <strong>Starter</strong> → <strong>nhánh</strong> → <strong>1–2 cụm</strong>. Chọn tối đa 1–2 nhánh.</p>
-          <div class="lr-mm-starters lr-mm-starters--compact">
-            <code>It helps me</code> + V · <code>It's a great way to</code> + V · <code>It gives me the chance to</code> + V
-          </div>
-
-{mind_map_html(
-            "lesson2Mindmap",
-            "Lesson 2 · Reasons like / dislike",
-            "Reasons",
-            "Like ↔ Dislike",
-            LESSON2_MINDMAP_LEFT,
-            LESSON2_MINDMAP_RIGHT,
-            note="Trái = <strong>LÝ DO THÍCH</strong> · Phải = <strong>LÝ DO KHÔNG THÍCH</strong>.",
-            extra_class=" lr-mmap--lesson2",
-            min_width="1100px",
-        )}
-
-          <div class="lr-mm-assemble">
-              <p class="lr-mm-label">Ví dụ ráp nhanh (Food)</p>
-              <div class="lr-mm-assemble-grid">
-                <p><span class="lr-mm-tag-yes">YES</span> Cooking + giải trí: <em>Yes, because it's relaxing. It helps me unwind and temporarily forget all the pressures from my work.</em></p>
-                <p><span class="lr-mm-tag-yes">YES</span> Vegetables + SK: <em>Yes, because it's a great way to stay healthy and prevent various health problems.</em></p>
-                <p><span class="lr-mm-tag-no">NO</span> Fast food + SK: <em>No, because it's not good for my health. Consuming too much can lead to obesity and heart problems.</em></p>
-              </div>
-            </div>
-
-          <details class="lr-formula-details">
-            <summary>2 · Cấu trúc mở đầu (dùng chung) — chi tiết</summary>
-            <ul class="lr-formula-bullets">
-              <li><mark>It helps me</mark> + V</li>
-              <li><mark>It's a great way to</mark> + V</li>
-              <li><mark>It gives me the chance to</mark> + V</li>
-              <li><mark>I also get the opportunity to</mark> + V</li>
-            </ul>
-          </details>
-
-          <details class="lr-formula-details">
-            <summary>3 · LÝ DO THÍCH — Mang tính giải trí</summary>
-            <p class="lr-formula-pattern"><code>It's + adj</code> (interesting / entertaining / exciting / thrilling / relaxing …)</p>
-            <div class="lr-vocab-mini">
-              <span>reduce stress</span>
-              <span>relax / unwind</span>
-              <span>clear my head</span>
-              <span>recharge my batteries</span>
-              <span>express my inner feelings</span>
-              <span>escape from reality</span>
-              <span>escape from the hustle and bustle of the city</span>
-              <span>temporarily forget all the pressures from my work</span>
-              <span>temporarily forget all the pressures or worries from your daily life</span>
-              <span>being in nature</span>
-            </div>
-            <div class="lr-practice-chain lr-chain" data-ex-en="{esc(relax_ex)}">
-              <p class="lr-practice-q">Why do people like home-cooked meals?</p>
-              <p class="lr-chain-flow lr-practice-flow">I think because it's a great way to {phrase_pick("relax_phrase")} — especially when they're tired after work. {phrase_pick("relax_followup", 0)}</p>
-              <p class="lr-practice-en lr-chain-ex-text"></p>
-            </div>
-          </details>
-
-          <details class="lr-formula-details">
-            <summary>4 · LÝ DO THÍCH — Mang tính giáo dục</summary>
-            <p class="lr-formula-pattern"><code>It's + adj</code> (educational / useful / practical …)</p>
-            <p class="lr-formula-note"><code>learn various skills such as</code> + N/NP ↔ <code>learn how to</code> + V</p>
-            <div class="lr-skill-table-wrap">
-              <table class="lr-formula-table lr-formula-table--compact">
-                <thead><tr><th>Skill</th><th>learn how to…</th></tr></thead>
-                <tbody>
-                  <tr><td>problem-solving</td><td>deal with difficult situations more effectively</td></tr>
-                  <tr><td>money management</td><td>manage my money / budgets better</td></tr>
-                  <tr><td>stress management</td><td>curb stress more effectively</td></tr>
-                  <tr><td>teamwork</td><td>work as a team / work effectively in a team environment</td></tr>
-                  <tr><td>independent thinking</td><td>think more independently</td></tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="lr-vocab-mini">
-              <span>meet different people</span>
-              <span>people from all walks of life</span>
-              <span>explore different parts of the world</span>
-              <span>explore different cultures and traditions</span>
-              <span>widen my horizons</span>
-              <span>enrich my knowledge</span>
-              <span>challenge myself / push myself to the limit</span>
-              <span>become more confident and independent</span>
-              <span>become a better version of myself</span>
-              <span>become a more well-rounded person</span>
-              <span>develop my imagination and creativity</span>
-            </div>
-            <div class="lr-practice-chain lr-chain" data-ex-en="{esc(edu_ex)}">
-              <p class="lr-practice-q">Do you like reading about food &amp; nutrition?</p>
-              <p class="lr-chain-flow lr-practice-flow">Yes, because it helps me {phrase_pick("edu_phrase")}. It also gives me the chance to enrich my knowledge.</p>
-              <p class="lr-practice-en lr-chain-ex-text"></p>
-            </div>
-          </details>
-
-          <details class="lr-formula-details">
-            <summary>5 · LÝ DO THÍCH — Sức khỏe</summary>
-            <div class="lr-vocab-mini">
-              <span>keep fit / stay healthy / keep in shape</span>
-              <span>improve my health</span>
-              <span>strengthen my muscles</span>
-              <span>burn excess calories</span>
-              <span>maintain a healthy weight</span>
-              <span>prevent various health problems such as high blood pressure / stroke / heart attack / cancer</span>
-            </div>
-            <div class="lr-practice-chain lr-chain" data-ex-en="{esc(health_ex)}">
-              <p class="lr-practice-q">Do you like eating vegetables?</p>
-              <p class="lr-chain-flow lr-practice-flow">Yes, because it's a great way to {phrase_pick("health_phrase")}. {phrase_pick("health_followup", 0)}</p>
-              <p class="lr-practice-en lr-chain-ex-text"></p>
-            </div>
-          </details>
-
-          <details class="lr-formula-details">
-            <summary>7 · LÝ DO KHÔNG THÍCH — Mang tính giải trí</summary>
-            <ol class="lr-pattern-list">
-              <li><code>It's + not + adj</code> (not interesting / entertaining / exciting / thrilling / relaxing)</li>
-              <li><code>It's + adj</code> tiêu cực (boring / terrible / scary / difficult / stressful / noisy)</li>
-              <li><code>It makes me + adj</code> (stressed / exhausted / bored / tired)</li>
-              <li><code>I have to</code> + do lots of homework · learn lots of vocabulary · memorise long lists of new words and grammatical points · deal with difficult customers · deal with the same tasks and the same clients every day</li>
-            </ol>
-            <p class="lr-formula-note"><mark>not my cup of tea</mark> · <mark>can't stand</mark> · <mark>I can't bear</mark></p>
-          </details>
-
-          <details class="lr-formula-details">
-            <summary>8 · LÝ DO KHÔNG THÍCH — Mang tính giáo dục</summary>
-            <p class="lr-formula-pattern"><code>It's + not + adj</code> (educational / useful / practical)</p>
-            <p class="lr-formula-note"><strong>Rule:</strong> <code>doesn't</code> + V nguyên mẫu — <em>It doesn't help me relax</em> · <em>It doesn't give me the chance to…</em></p>
-            <div class="lr-vocab-mini">
-              <span>doesn't give me the chance to challenge myself</span>
-              <span>doesn't help me learn skills such as problem-solving</span>
-              <span>doesn't give me the opportunity to widen my horizons</span>
-              <span>doesn't help me enrich my knowledge</span>
-            </div>
-            <div class="lr-practice-card lr-practice-card--no">
-              <p class="lr-practice-q">Do you like repetitive kitchen work?</p>
-              <p class="lr-practice-en">No, because it doesn't give me the chance to learn anything new — I have to do the same tasks every day, which makes me bored.</p>
-            </div>
-          </details>
-
-          <details class="lr-formula-details">
-            <summary>9 · LÝ DO KHÔNG THÍCH — Sức khỏe</summary>
-            <p class="lr-formula-pattern"><code>It's + unhealthy / not good for / harmful to / detrimental to</code> + your health</p>
-            <p class="lr-formula-pattern"><code>… can lead to</code> diabetes, high blood pressure, stroke, heart attack, cancer, obesity</p>
-            <div class="lr-practice-card lr-practice-card--no">
-              <p class="lr-practice-q">Do you like fast food?</p>
-              <p class="lr-practice-en">No, because it's not good for my health. Consuming too much can lead to obesity and heart problems.</p>
-            </div>
           </details>
         </article>
 
@@ -2542,7 +2628,7 @@ def build_page() -> str:
 
       <section class="lr-section" id="lessons">
         <h2>4 · Core formulas — Lesson 2 &amp; 3</h2>
-        <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — Lesson 3 (Yes/No + Reasons) ghép Lesson 2 (lý do thích / không thích). Chọn <strong>1–2 nhánh</strong>, không nhồi hết.</p>
+        <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — <strong>Lesson 2</strong> (lý do thích / không thích) trước, <strong>Lesson 3</strong> (Yes/No + Reasons) sau. Chọn <strong>1–2 nhánh</strong>, không nhồi hết.</p>
 {lesson_highlights_html()}
       </section>
 
@@ -2586,7 +2672,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr19">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr20">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -2609,8 +2695,8 @@ def build_page() -> str:
   <div class="docs-shell docs-shell--wide">
 {body}
   </div>
-  <script src="{home}js/docs.js?v=lr19"></script>
-  <script src="{home}js/linear-review.js?v=lr19"></script>
+  <script src="{home}js/docs.js?v=lr20"></script>
+  <script src="{home}js/linear-review.js?v=lr20"></script>
 </body>
 </html>"""
 
