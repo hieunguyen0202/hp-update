@@ -84,6 +84,15 @@ def _food_note(title: str, **kwargs) -> dict:
     return {"type": "note", "food": True, "title": title, **kwargs}
 
 
+def _viz(title: str, html: str, **kwargs) -> dict:
+    """Grammar slide — visual timeline / compare (Lesson 57 Past Perfect)."""
+    return {"type": "note", "title": title, "visual_html": html, **kwargs}
+
+
+def _m(text: str) -> str:
+    return f'<mark class="lr-pp-hl">{text}</mark>'
+
+
 def build_lesson_34(full: str) -> list[dict]:
     return [
         _tx(
@@ -480,7 +489,7 @@ def build_lesson_34(full: str) -> list[dict]:
             "Past perfect vs past simple · food",
             intro="Time reference fixes the story start. <strong>had + PP</strong> = before that; past simple = events in the story.",
             items=[
-                f"I <mark class='lr-hl'>had never tasted</mark> {_fw('blue cheese')} before that trip.",
+                f"I <mark class='lr-pp-hl'>had never tasted</mark> {_fw('blue cheese')} before that trip.",
                 f"I <mark class='lr-hl'>hadn’t marinated</mark> the meat the night before.",
                 f"We <mark class='lr-hl'>grilled</mark> the {_fw('ribs')} outside instead.",
             ],
@@ -567,6 +576,152 @@ def build_lesson_34(full: str) -> list[dict]:
     ]
 
 
+def _pp_viz_form() -> str:
+    return f"""<div class="lr-pp-viz">
+  <p class="lr-pp-rule"><strong>Form:</strong> {_m("had")} / {_m("hadn't")} + past participle</p>
+  <p class="lr-pp-examples">e.g. {_m("had gone")} · {_m("hadn't prepared")} · {_m("had booked")}</p>
+  <p class="lr-pp-note-sm"><code>'d</code> = had (don't confuse with <code>would</code>)</p>
+</div>"""
+
+
+def _pp_viz_wedding_list() -> str:
+    items = [
+        f"They {_m('had booked')} a hall for the ceremony.",
+        f"Surely they knew how many people they {_m('had invited')}?",
+        f"They{_m("'d booked")} a restaurant for the reception.",
+        f'They {_m("hadn\'t told")} them how many people were coming.',
+        f"No one {_m('had prepared')} their speeches.",
+    ]
+    lis = "\n".join(f"  <li>{x}</li>" for x in items)
+    return f"""<div class="lr-pp-viz">
+  <p class="lr-pp-axis-label lr-pp-axis-label--pp">past perfect = <strong>before</strong> the wedding</p>
+  <ul class="lr-pp-list">{lis}
+  </ul>
+</div>"""
+
+
+def _pp_viz_wedding_compare() -> str:
+    return f"""<div class="lr-pp-viz lr-pp-viz--split">
+  <p class="lr-pp-sentence">They {_m('had booked')} a hall for the ceremony... but it {_m('was')} much too small.</p>
+  <div class="lr-pp-split">
+    <div class="lr-pp-split-col lr-pp-split-col--pp">
+      <span class="lr-pp-tag">→ past perfect</span>
+      <p>= <strong>before</strong> the wedding</p>
+    </div>
+    <div class="lr-pp-split-col lr-pp-split-col--ps">
+      <span class="lr-pp-tag">→ past simple</span>
+      <p>= <strong>during</strong> the wedding</p>
+    </div>
+  </div>
+</div>"""
+
+
+def _pp_viz_during_wedding() -> str:
+    return f"""<div class="lr-pp-viz">
+  <p class="lr-pp-axis-label lr-pp-axis-label--ps">past simple = <strong>during</strong> the wedding</p>
+  <p class="lr-pp-q"><strong>What happened?</strong></p>
+  <ul class="lr-pp-list">
+    <li>Everyone else {_m('had to')} wait outside. <span class="lr-pp-gloss">(modal — not past perfect)</span></li>
+    <li>There {_m("wasn't")} enough food.</li>
+  </ul>
+</div>"""
+
+
+def _pp_viz_story_timeline() -> str:
+    return f"""<div class="lr-pp-viz lr-pp-viz--timeline">
+  <div class="lr-pp-tl" aria-hidden="true">
+    <div class="lr-pp-tl-line"></div>
+    <div class="lr-pp-tl-further">
+      <span class="lr-pp-dot lr-pp-dot--pp">4</span>
+      <span class="lr-pp-tl-cap">further in past<br><strong>= past perfect</strong></span>
+    </div>
+    <div class="lr-pp-tl-story">
+      <span class="lr-pp-tl-arc">Your story</span>
+      <div class="lr-pp-tl-dots">
+        <span class="lr-pp-dot">1</span>
+        <span class="lr-pp-dot">2</span>
+        <span class="lr-pp-dot">3</span>
+      </div>
+      <span class="lr-pp-tl-cap">past</span>
+    </div>
+    <span class="lr-pp-tl-now">now</span>
+  </div>
+  <div class="lr-pp-tl-examples">
+    <p class="lr-pp-tl-hint"><strong>Past simple</strong> — one thing after another:</p>
+    <ol>
+      <li>I {_m('bought')} a new car.</li>
+      <li>I {_m('took')} it for a drive.</li>
+      <li>I {_m('crashed')} it into a tree.</li>
+    </ol>
+    <p class="lr-pp-tl-hint"><strong>Past perfect</strong> — before your story starts (point 4).</p>
+  </div>
+</div>"""
+
+
+def _pp_viz_bear_story() -> str:
+    return f"""<div class="lr-pp-viz lr-pp-viz--story">
+  <p class="lr-pp-story">I'm going to tell you a story. This happened to me when I was twelve years old. I was on holiday with my family, and we were walking in a forest. My Dad {_m('had told')} me that there were bears in the forest, but I didn't really take him seriously. I was walking in front; I turned a corner, and… there was a bear! I {_m('had never seen')} such a big animal in the wild before. I remembered something I {_m('had read')} about bears: you should stay calm and try to move away slowly. So, I walked backwards, very slowly.</p>
+  <p class="lr-pp-note-sm">3 past perfect verbs — all <strong>before</strong> the time of the story.</p>
+</div>"""
+
+
+def _pp_viz_teaching_timeline() -> str:
+    return f"""<div class="lr-pp-viz lr-pp-viz--timeline lr-pp-viz--teach">
+  <div class="lr-pp-tl" aria-hidden="true">
+    <div class="lr-pp-tl-line"></div>
+    <div class="lr-pp-tl-further">
+      <span class="lr-pp-dot lr-pp-dot--pp">2</span>
+      <span class="lr-pp-tl-cap">further in past<br>(before I started teaching)</span>
+    </div>
+    <div class="lr-pp-tl-story">
+      <span class="lr-pp-dot lr-pp-dot--ps">1</span>
+      <span class="lr-pp-tl-cap">past<br>(2005, when I started teaching)</span>
+    </div>
+    <span class="lr-pp-tl-now">now</span>
+  </div>
+  <div class="lr-pp-tl-examples">
+    <p><strong>1.</strong> When {_m('did')} you start teaching?</p>
+    <ul class="lr-pp-list lr-pp-list--inline">
+      <li>I {_m('wanted')} to live abroad.</li>
+      <li>I {_m("wasn't")} sure what I {_m('wanted')} to do.</li>
+    </ul>
+    <p><strong>2.</strong> (before 2005)</p>
+    <ul class="lr-pp-list lr-pp-list--inline">
+      <li>I {_m('had just graduated')}.</li>
+      <li>I{_m("'d spent")} some time in Canada.</li>
+    </ul>
+    <p class="lr-pp-note-sm">Past perfect = the <strong>past in the past</strong> — further back than the time you're talking about.</p>
+  </div>
+</div>"""
+
+
+def _pp_viz_not_needed() -> str:
+    return f"""<div class="lr-pp-viz">
+  <p class="lr-pp-axis-label lr-pp-axis-label--ps">past simple = <strong>during</strong> the morning / evening</p>
+  <p class="lr-pp-q"><strong>What happened?</strong></p>
+  <ul class="lr-pp-list">
+    <li>My alarm clock {_m("didn't")} go off this morning.</li>
+    <li>Why {_m('did')} you wake up so late?</li>
+    <li>I probably {_m('got')} four hours of sleep.</li>
+  </ul>
+  <p class="lr-pp-note-sm">No past perfect in this dialogue — the order of events is already <strong>clear</strong>. Using <em>had woken up</em> sounds unnatural here.</p>
+</div>"""
+
+
+def _pp_viz_when_compare() -> str:
+    return f"""<div class="lr-pp-viz lr-pp-viz--when">
+  <div class="lr-pp-when-row">
+    <p>When I moved to the USA, I {_m('found')} a job.</p>
+    <p class="lr-pp-eq">= I found a job <strong>{_m('after')}</strong> I moved to the USA.</p>
+  </div>
+  <div class="lr-pp-when-row">
+    <p>When I moved to the USA, I {_m('had found')} a job.</p>
+    <p class="lr-pp-eq">= I found a job <strong>{_m('before')}</strong> I moved to the USA.</p>
+  </div>
+  <p class="lr-pp-note-sm">When sequence matters, past perfect is <strong>necessary</strong> — past simple changes the meaning.</p>
+</div>"""
+
+
 def build_lesson_57(full: str) -> list[dict]:
     return [
         _tx(
@@ -600,34 +755,12 @@ def build_lesson_57(full: str) -> list[dict]:
                 "wedding",
             ),
         ),
-        _note(
-            "Past perfect — form",
-            items=[
-                _chk(
-                    full,
-                    "You need ‘had’ or ‘hadn’t’ plus a past participle. For example, ‘had gone’, ‘hadn’t prepared’, and so on.",
-                ),
-            ],
-        ),
-        _note(
-            "Past perfect examples from the wedding dialogue",
-            items=[
-                _chk(full, "they had booked a hall for the ceremony"),
-                _chk(full, "They’d booked a restaurant for the reception"),
-                _chk(full, "they hadn’t told them how many people were coming"),
-                _chk(full, "no one had prepared their speeches"),
-            ],
-        ),
-        _note(
-            "Past perfect — form & meaning",
-            intro="Form: <strong>had / hadn’t + past participle</strong>. Use when you need the <em>past in the past</em> — something before another past time.",
-            items=[
-                ("Form", "had + past participle — <em>had booked</em> · <em>hadn’t prepared</em>"),
-                ("Earlier past", _chk(full, "They had booked a hall for the ceremony, but it was much too small.")),
-                ("Timeline", "preparations (had…) → wedding day (past simple)"),
-            ],
-            formula=True,
-        ),
+        _viz("Form — had / hadn't + past participle", _pp_viz_form()),
+        _viz("Past perfect = before the wedding", _pp_viz_wedding_list()),
+        _viz("One sentence — two tenses", _pp_viz_wedding_compare()),
+        _viz("Past simple = during the wedding", _pp_viz_during_wedding()),
+        _viz("Timeline — your story vs further in the past", _pp_viz_story_timeline()),
+        _viz("Bear story — past perfect in narrative", _pp_viz_bear_story()),
         _food_tx(
             "Wedding buffet — past perfect",
             [
@@ -656,19 +789,10 @@ def build_lesson_57(full: str) -> list[dict]:
             "Past perfect — form & meaning · food",
             intro="had / hadn’t + past participle — food events <em>before</em> the meal.",
             items=[
-                f"They <mark class='lr-hl'>had booked</mark> a restaurant, but it was much too small.",
-                f"They <mark class='lr-hl'>hadn’t told</mark> the chef how many guests were coming.",
-                f"I <mark class='lr-hl'>had never tasted</mark> {_fw('blue cheese')} before that dinner.",
+                f"They <mark class='lr-pp-hl'>had booked</mark> a restaurant, but it was much too small.",
+                f"They <mark class='lr-pp-hl'>hadn't told</mark> the chef how many guests were coming.",
+                f"I <mark class='lr-pp-hl'>had never tasted</mark> {_fw('blue cheese')} before that dinner.",
             ],
-        ),
-        _note(
-            "Bear in the forest — story excerpt",
-            items_verbatim=[
-                _chk(full, "My Dad had told me that there were bears in the forest, but I didn’t really take him seriously."),
-                _chk(full, "I had never seen such a big animal in the wild before."),
-                _chk(full, "I remembered something I had read about bears: you should stay calm and try to move away slowly."),
-            ],
-            speaker="Oli",
         ),
         _tx(
             "When did you start teaching?",
@@ -696,6 +820,7 @@ def build_lesson_57(full: str) -> list[dict]:
                 "teaching",
             ),
         ),
+        _viz("Timeline — teaching (2005)", _pp_viz_teaching_timeline()),
         _note(
             "Past perfect in conversation",
             tip=_chk(
@@ -754,26 +879,8 @@ def build_lesson_57(full: str) -> list[dict]:
                 "late for work",
             ),
         ),
-        _note(
-            "When past perfect is NOT needed",
-            tip=_chk(
-                full,
-                "When the order that things happened is clear, you don’t need to use the past perfect.",
-            ),
-            items=[
-                _chk(full, "When I moved to the USA, I found a job."),
-                _chk(full, "When I moved to the USA, I had found a job."),
-            ],
-        ),
-        _note(
-            "Past perfect vs past simple — meaning",
-            intro="When the order of events is obvious, past simple is enough. Past perfect changes meaning when sequence matters:",
-            items=[
-                _chk(full, "When I moved to the USA, I found a job."),
-                _chk(full, "When I moved to the USA, I had found a job."),
-            ],
-            tip="First = moved then found job. Second = found job before moving.",
-        ),
+        _viz("Past simple only — late for work", _pp_viz_not_needed()),
+        _viz("When + past perfect changes the meaning", _pp_viz_when_compare()),
         _food_note(
             "Past perfect vs past simple · food meaning",
             intro="Sequence changes the meaning:",

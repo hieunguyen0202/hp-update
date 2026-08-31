@@ -4757,3 +4757,250 @@ mark.lr-hl,
 .vocab-lesson-card--review:hover {
   box-shadow: 0 0 20px rgba(167, 139, 250, 0.2);
 }
+
+/* Past Perfect — Lesson 57 slide visuals */
+.lr-segment--viz .lr-pp-viz {
+  margin-top: 8px;
+}
+
+mark.lr-pp-hl,
+.lr-pp-hl {
+  background: none;
+  color: #be123c;
+  font-weight: 600;
+  padding: 0;
+}
+
+.lr-pp-axis-label {
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.lr-pp-axis-label--pp {
+  color: #1d4ed8;
+}
+
+.lr-pp-axis-label--ps {
+  color: #b45309;
+}
+
+.lr-pp-list {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.lr-pp-list li {
+  margin-bottom: 6px;
+  line-height: 1.45;
+}
+
+.lr-pp-list--inline {
+  list-style: none;
+  padding-left: 0;
+}
+
+.lr-pp-sentence {
+  margin: 0 0 12px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.lr-pp-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+@media (max-width: 560px) {
+  .lr-pp-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lr-pp-split-col {
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+}
+
+.lr-pp-split-col--pp {
+  background: rgba(59, 130, 246, 0.08);
+  border-left: 3px solid #3b82f6;
+}
+
+.lr-pp-split-col--ps {
+  background: rgba(245, 158, 11, 0.08);
+  border-left: 3px solid #f59e0b;
+}
+
+.lr-pp-tag {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #be123c;
+}
+
+.lr-pp-q {
+  margin: 0 0 8px;
+}
+
+.lr-pp-gloss {
+  font-size: 0.8rem;
+  color: rgba(100, 116, 139, 0.9);
+}
+
+.lr-pp-note-sm {
+  margin: 10px 0 0;
+  font-size: 0.82rem;
+  color: rgba(100, 116, 139, 0.95);
+  line-height: 1.45;
+}
+
+.lr-pp-rule,
+.lr-pp-examples {
+  margin: 0 0 8px;
+  line-height: 1.45;
+}
+
+.lr-pp-story {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.lr-pp-viz--timeline {
+  display: grid;
+  gap: 14px;
+}
+
+@media (min-width: 720px) {
+  .lr-pp-viz--timeline {
+    grid-template-columns: minmax(200px, 42%) 1fr;
+    align-items: start;
+  }
+}
+
+.lr-pp-tl {
+  position: relative;
+  min-height: 120px;
+  padding: 28px 8px 24px;
+}
+
+.lr-pp-tl-line {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 50%;
+  height: 2px;
+  background: #3b82f6;
+}
+
+.lr-pp-tl-line::after {
+  content: "";
+  position: absolute;
+  right: -6px;
+  top: -4px;
+  border: 5px solid transparent;
+  border-left-color: #3b82f6;
+}
+
+.lr-pp-tl-now {
+  position: absolute;
+  right: 8%;
+  top: calc(50% + 8px);
+  font-size: 0.75rem;
+  color: rgba(100, 116, 139, 0.95);
+}
+
+.lr-pp-tl-story {
+  position: absolute;
+  left: 28%;
+  top: 8px;
+  text-align: center;
+}
+
+.lr-pp-tl-further {
+  position: absolute;
+  left: 8%;
+  top: 8px;
+  text-align: center;
+}
+
+.lr-pp-tl-arc {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #3b82f6;
+  margin-bottom: 4px;
+}
+
+.lr-pp-tl-dots {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.lr-pp-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #3b82f6;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.lr-pp-dot--pp {
+  background: #be123c;
+}
+
+.lr-pp-dot--ps {
+  background: #f59e0b;
+}
+
+.lr-pp-tl-cap {
+  display: block;
+  font-size: 0.68rem;
+  line-height: 1.35;
+  color: rgba(71, 85, 105, 0.95);
+  max-width: 110px;
+  margin: 0 auto;
+}
+
+.lr-pp-tl-examples {
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.lr-pp-tl-examples ol {
+  margin: 6px 0 10px;
+  padding-left: 1.2rem;
+}
+
+.lr-pp-tl-hint {
+  margin: 0 0 6px;
+  font-size: 0.85rem;
+}
+
+.lr-pp-viz--when .lr-pp-when-row {
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed rgba(148, 163, 184, 0.45);
+}
+
+.lr-pp-viz--when .lr-pp-when-row:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.lr-pp-eq {
+  margin: 6px 0 0;
+  font-size: 0.88rem;
+  color: rgba(71, 85, 105, 0.95);
+}

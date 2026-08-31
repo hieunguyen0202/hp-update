@@ -1766,9 +1766,14 @@ def _render_note_segment(seg: dict) -> str:
               </div>
 """
 
-    return f"""            <div class="lr-segment lr-segment--note{' lr-segment--food-note' if seg.get('food') else ''}">
+    visual_html = seg.get("visual_html", "")
+    visual_block = f"{visual_html}\n" if visual_html else ""
+    if visual_html and not items and not items_verbatim and not seg.get("formula") and not speaker:
+        body = ""
+
+    return f"""            <div class="lr-segment lr-segment--note{' lr-segment--food-note' if seg.get('food') else ''}{' lr-segment--viz' if visual_html else ''}">
               <h4 class="lr-note-title">{title}</h4>
-{intro_html}{body}
+{intro_html}{visual_block}{body}
 {exchange_html}{tip_html}            </div>"""
 
 
@@ -2672,7 +2677,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr20">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr21">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -2695,8 +2700,8 @@ def build_page() -> str:
   <div class="docs-shell docs-shell--wide">
 {body}
   </div>
-  <script src="{home}js/docs.js?v=lr20"></script>
-  <script src="{home}js/linear-review.js?v=lr20"></script>
+  <script src="{home}js/docs.js?v=lr21"></script>
+  <script src="{home}js/linear-review.js?v=lr21"></script>
 </body>
 </html>"""
 
