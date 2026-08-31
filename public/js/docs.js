@@ -376,6 +376,28 @@
     });
   }
 
+  const shell = document.querySelector(".docs-shell");
+  const sidebarToggle = document.getElementById("docsSidebarToggle");
+  const SIDEBAR_KEY = "docs-sidebar-collapsed";
+  const applySidebarCollapsed = (collapsed) => {
+    if (!shell) return;
+    shell.classList.toggle("sidebar-collapsed", collapsed);
+    if (sidebarToggle) {
+      sidebarToggle.setAttribute("aria-expanded", collapsed ? "false" : "true");
+      sidebarToggle.textContent = collapsed ? "nav ▸" : "nav ◂";
+      sidebarToggle.title = collapsed ? "Mở thanh điều hướng" : "Thu thanh điều hướng";
+    }
+  };
+  if (shell && sidebarToggle) {
+    const saved = localStorage.getItem(SIDEBAR_KEY) === "1";
+    applySidebarCollapsed(saved);
+    sidebarToggle.addEventListener("click", () => {
+      const next = !shell.classList.contains("sidebar-collapsed");
+      applySidebarCollapsed(next);
+      localStorage.setItem(SIDEBAR_KEY, next ? "1" : "0");
+    });
+  }
+
   document.querySelectorAll(".docs-nav .group > button").forEach((btn) => {
     btn.addEventListener("click", () => {
       btn.parentElement.classList.toggle("open");

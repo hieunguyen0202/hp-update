@@ -629,19 +629,154 @@ def lesson_highlights_html() -> str:
             <p class="lr-formula">Hai trụ: <strong>mang tính giải trí</strong> · <strong>mang tính giáo dục</strong> (+ sức khỏe)</p>
           </header>
 
-          <div class="lr-think-tree">
-            <pre class="lr-tree">BẢNG LÝ DO THÍCH &amp; KHÔNG THÍCH
-├── LÝ DO THÍCH
-│   ├── Giải trí → relax / unwind / recharge / escape…
-│   ├── Giáo dục → learn skills / widen horizons / enrich knowledge
-│   └── Sức khỏe → keep fit / prevent health problems
-└── LÝ DO KHÔNG THÍCH
-    ├── Không giải trí → boring / stressful / makes me tired
-    └── Không giáo dục / hại SK → doesn't help · can lead to obesity, cancer…</pre>
+          <div class="lr-mm" aria-label="Mental model Lesson 2">
+            <p class="lr-mm-hint">Nhìn sơ đồ → ráp câu theo đường: <strong>Starter</strong> → <strong>Nhánh</strong> → <strong>1–2 cụm</strong>. Chọn tối đa 1–2 nhánh, không nhồi hết.</p>
+
+            <div class="lr-mm-flow" aria-hidden="true">
+              <span class="lr-mm-chip lr-mm-chip--cyan">1 · Starter</span>
+              <span class="lr-mm-plus">+</span>
+              <span class="lr-mm-chip lr-mm-chip--violet">2 · Nhánh</span>
+              <span class="lr-mm-plus">+</span>
+              <span class="lr-mm-chip lr-mm-chip--amber">3 · Cụm V / adj</span>
+              <span class="lr-mm-eq">=</span>
+              <span class="lr-mm-chip lr-mm-chip--green">Câu hoàn chỉnh</span>
+            </div>
+
+            <div class="lr-mm-starters">
+              <p class="lr-mm-label">Cấu trúc mở đầu (dùng chung)</p>
+              <div class="lr-mm-starter-row">
+                <code>It helps me</code><span>+ V</span>
+                <code>It's a great way to</code><span>+ V</span>
+                <code>It gives me the chance to</code><span>+ V</span>
+                <code>I also get the opportunity to</code><span>+ V</span>
+              </div>
+            </div>
+
+            <div class="lr-mm-grid">
+              <section class="lr-mm-panel lr-mm-panel--like">
+                <h4 class="lr-mm-title lr-mm-title--like">LÝ DO THÍCH</h4>
+
+                <div class="lr-mm-branch">
+                  <div class="lr-mm-branch-head">
+                    <span class="lr-mm-pill">Mang tính giải trí</span>
+                    <code class="lr-mm-formula">It's + interesting / entertaining / exciting / thrilling / relaxing …</code>
+                  </div>
+                  <ul class="lr-mm-phrases">
+                    <li><strong>reduce stress</strong> <em>giảm căng thẳng</em></li>
+                    <li><strong>relax / unwind</strong> <em>thư giãn</em></li>
+                    <li><strong>clear my head</strong> <em>giải tỏa đầu óc</em></li>
+                    <li><strong>recharge my batteries</strong> <em>nạp lại năng lượng</em></li>
+                    <li><strong>express my inner feelings</strong> <em>thổ lộ cảm xúc</em></li>
+                    <li><strong>escape from reality</strong> <em>thoát khỏi thực tại</em></li>
+                    <li><strong>escape from the hustle and bustle of the city</strong> <em>thoát khỏi sự hối hả thành phố</em></li>
+                    <li><strong>temporarily forget all the pressures from my work</strong> <em>tạm quên áp lực công việc</em></li>
+                    <li><strong>temporarily forget all the pressures or worries from your daily life</strong> <em>tạm quên lo lắng đời thường</em></li>
+                    <li><strong>being in nature</strong> <em>ở gần thiên nhiên</em></li>
+                  </ul>
+                  <p class="lr-mm-example">→ <em>It helps me relax / It's a great way to unwind and recharge my batteries.</em></p>
+                </div>
+
+                <div class="lr-mm-branch">
+                  <div class="lr-mm-branch-head">
+                    <span class="lr-mm-pill">Mang tính giáo dục</span>
+                    <code class="lr-mm-formula">It's + educational / useful / practical …</code>
+                  </div>
+                  <p class="lr-mm-sub">Hai cách nói kỹ năng: <code>learn various skills such as</code> + N ↔ <code>learn how to</code> + V</p>
+                  <div class="lr-mm-skills">
+                    <div class="lr-mm-skill"><span class="lr-mm-skill-n">problem-solving</span><span class="lr-mm-skill-v">deal with difficult situations more effectively</span></div>
+                    <div class="lr-mm-skill"><span class="lr-mm-skill-n">money management</span><span class="lr-mm-skill-v">manage my money / budgets better</span></div>
+                    <div class="lr-mm-skill"><span class="lr-mm-skill-n">stress management</span><span class="lr-mm-skill-v">curb stress more effectively</span></div>
+                    <div class="lr-mm-skill"><span class="lr-mm-skill-n">teamwork</span><span class="lr-mm-skill-v">work as a team / work effectively in a team environment</span></div>
+                    <div class="lr-mm-skill"><span class="lr-mm-skill-n">independent thinking</span><span class="lr-mm-skill-v">think more independently</span></div>
+                  </div>
+                  <ul class="lr-mm-phrases">
+                    <li><strong>meet different people</strong> · people from all walks of life</li>
+                    <li><strong>explore different parts of the world</strong></li>
+                    <li><strong>explore different cultures and traditions</strong></li>
+                    <li><strong>widen my horizons</strong> <em>mở rộng tầm nhìn</em></li>
+                    <li><strong>enrich my knowledge</strong> <em>làm giàu kiến thức</em></li>
+                    <li><strong>challenge myself / push myself to the limit</strong></li>
+                    <li><strong>become more confident and independent</strong></li>
+                    <li><strong>become a better version of myself</strong></li>
+                    <li><strong>become a more well-rounded person</strong></li>
+                    <li><strong>develop my imagination and creativity</strong></li>
+                  </ul>
+                  <p class="lr-mm-example">→ <em>It gives me the chance to learn skills such as teamwork / learn how to manage my money better.</em></p>
+                </div>
+
+                <div class="lr-mm-branch">
+                  <div class="lr-mm-branch-head">
+                    <span class="lr-mm-pill">Sức khỏe</span>
+                    <code class="lr-mm-formula">It's a great way to + keep fit / stay healthy …</code>
+                  </div>
+                  <ul class="lr-mm-phrases">
+                    <li><strong>keep fit / stay healthy / keep in shape</strong> <em>giữ dáng / khỏe mạnh</em></li>
+                    <li><strong>improve my health</strong></li>
+                    <li><strong>strengthen my muscles</strong> <em>tăng cường cơ bắp</em></li>
+                    <li><strong>burn excess calories</strong> <em>đốt calo thừa</em></li>
+                    <li><strong>maintain a healthy weight</strong></li>
+                    <li><strong>prevent various health problems such as</strong> high blood pressure / stroke / heart attack / cancer</li>
+                  </ul>
+                  <p class="lr-mm-example">→ <em>It's a great way to burn excess calories and maintain a healthy weight.</em></p>
+                </div>
+              </section>
+
+              <section class="lr-mm-panel lr-mm-panel--dislike">
+                <h4 class="lr-mm-title lr-mm-title--dislike">LÝ DO KHÔNG THÍCH</h4>
+                <p class="lr-mm-logic">Logic: <strong>không</strong> mang tính giải trí / giáo dục → không giúp mình / làm tình hình tồi tệ hơn</p>
+
+                <div class="lr-mm-branch">
+                  <div class="lr-mm-branch-head">
+                    <span class="lr-mm-pill lr-mm-pill--warn">Không giải trí</span>
+                  </div>
+                  <ol class="lr-mm-patterns">
+                    <li><code>It's + not + adj</code> — not interesting / entertaining / exciting / thrilling / relaxing</li>
+                    <li><code>It's + adj</code> tiêu cực — boring / terrible / scary / difficult / stressful / noisy</li>
+                    <li><code>It makes me + adj</code> — stressed / exhausted / bored / tired</li>
+                    <li><code>I have to</code> + do lots of homework · learn lots of vocabulary · memorise long lists of new words · deal with difficult customers · deal with the same tasks and the same clients every day</li>
+                  </ol>
+                  <p class="lr-mm-idioms"><mark>not my cup of tea</mark> · <mark>can't stand</mark> · <mark>I can't bear</mark></p>
+                </div>
+
+                <div class="lr-mm-branch">
+                  <div class="lr-mm-branch-head">
+                    <span class="lr-mm-pill lr-mm-pill--warn">Không giáo dục</span>
+                    <code class="lr-mm-formula">It's + not + educational / useful / practical</code>
+                  </div>
+                  <p class="lr-mm-sub"><strong>Rule:</strong> <code>doesn't</code> + V nguyên mẫu — <em>It doesn't help me…</em> · <em>It doesn't give me the chance to…</em></p>
+                  <ul class="lr-mm-phrases">
+                    <li>It doesn't give me the chance to <strong>challenge myself</strong></li>
+                    <li>It doesn't help me learn skills such as <strong>problem-solving / teamwork</strong></li>
+                    <li>It doesn't give me the opportunity to <strong>widen my horizons</strong></li>
+                  </ul>
+                </div>
+
+                <div class="lr-mm-branch">
+                  <div class="lr-mm-branch-head">
+                    <span class="lr-mm-pill lr-mm-pill--warn">Hại sức khỏe</span>
+                  </div>
+                  <ul class="lr-mm-phrases">
+                    <li><code>It's + unhealthy</code></li>
+                    <li><code>not good <strong>for</strong> your health</code></li>
+                    <li><code>harmful <strong>to</strong> / detrimental <strong>to</strong> your health</code></li>
+                    <li><code>… can lead to</code> diabetes / high blood pressure / stroke / heart attack / cancer / obesity</li>
+                  </ul>
+                </div>
+              </section>
+            </div>
+
+            <div class="lr-mm-assemble">
+              <p class="lr-mm-label">Ví dụ ráp nhanh (Food)</p>
+              <div class="lr-mm-assemble-grid">
+                <p><span class="lr-mm-tag-yes">YES</span> Cooking + giải trí: <em>Yes, because it's relaxing. It helps me unwind and temporarily forget all the pressures from my work.</em></p>
+                <p><span class="lr-mm-tag-yes">YES</span> Vegetables + SK: <em>Yes, because it's a great way to stay healthy and prevent various health problems.</em></p>
+                <p><span class="lr-mm-tag-no">NO</span> Fast food + SK: <em>No, because it's not good for my health. Consuming too much can lead to obesity and heart problems.</em></p>
+              </div>
+            </div>
           </div>
 
-          <details class="lr-formula-details" open>
-            <summary>2 · Cấu trúc mở đầu (dùng chung)</summary>
+          <details class="lr-formula-details">
+            <summary>2 · Cấu trúc mở đầu (dùng chung) — chi tiết</summary>
             <ul class="lr-formula-bullets">
               <li><mark>It helps me</mark> + V</li>
               <li><mark>It's a great way to</mark> + V</li>
@@ -652,16 +787,22 @@ def lesson_highlights_html() -> str:
 
           <details class="lr-formula-details">
             <summary>3 · LÝ DO THÍCH — Mang tính giải trí</summary>
-            <p class="lr-formula-pattern"><code>It's + adj</code> (interesting / entertaining / exciting / relaxing …)</p>
+            <p class="lr-formula-pattern"><code>It's + adj</code> (interesting / entertaining / exciting / thrilling / relaxing …)</p>
             <div class="lr-vocab-mini">
-              <span>reduce stress</span><span>relax / unwind</span><span>clear my head</span>
-              <span>recharge my batteries</span><span>escape from reality</span>
+              <span>reduce stress</span>
+              <span>relax / unwind</span>
+              <span>clear my head</span>
+              <span>recharge my batteries</span>
+              <span>express my inner feelings</span>
+              <span>escape from reality</span>
               <span>escape from the hustle and bustle of the city</span>
-              <span>temporarily forget pressures from work</span><span>being in nature</span>
+              <span>temporarily forget all the pressures from my work</span>
+              <span>temporarily forget all the pressures or worries from your daily life</span>
+              <span>being in nature</span>
             </div>
             <div class="lr-practice-card lr-practice-card--yes">
               <p class="lr-practice-q">Why do people like home-cooked meals?</p>
-              <p class="lr-practice-en">I think because it's a great way to unwind and recharge their batteries — especially when they're tired after work.</p>
+              <p class="lr-practice-en">I think because it's a great way to unwind and recharge their batteries — especially when they're tired after work. Being in the kitchen also helps them temporarily forget all the pressures from their work.</p>
             </div>
           </details>
 
@@ -675,43 +816,54 @@ def lesson_highlights_html() -> str:
                 <tbody>
                   <tr><td>problem-solving</td><td>deal with difficult situations more effectively</td></tr>
                   <tr><td>money management</td><td>manage my money / budgets better</td></tr>
-                  <tr><td>teamwork</td><td>work effectively in a team environment</td></tr>
+                  <tr><td>stress management</td><td>curb stress more effectively</td></tr>
+                  <tr><td>teamwork</td><td>work as a team / work effectively in a team environment</td></tr>
                   <tr><td>independent thinking</td><td>think more independently</td></tr>
                 </tbody>
               </table>
             </div>
             <div class="lr-vocab-mini">
-              <span>meet different people</span><span>explore cultures &amp; traditions</span>
-              <span>widen my horizons</span><span>enrich my knowledge</span>
-              <span>challenge myself</span><span>become more confident</span>
+              <span>meet different people</span>
+              <span>people from all walks of life</span>
+              <span>explore different parts of the world</span>
+              <span>explore different cultures and traditions</span>
+              <span>widen my horizons</span>
+              <span>enrich my knowledge</span>
+              <span>challenge myself / push myself to the limit</span>
+              <span>become more confident and independent</span>
+              <span>become a better version of myself</span>
+              <span>become a more well-rounded person</span>
+              <span>develop my imagination and creativity</span>
             </div>
             <div class="lr-practice-card lr-practice-card--yes">
               <p class="lr-practice-q">Do you like reading about food &amp; nutrition?</p>
-              <p class="lr-practice-en">Yes, because it helps me learn how to manage my diet better and make healthier choices.</p>
+              <p class="lr-practice-en">Yes, because it helps me learn how to manage my diet better and make healthier choices. It also gives me the chance to enrich my knowledge.</p>
             </div>
           </details>
 
           <details class="lr-formula-details">
             <summary>5 · LÝ DO THÍCH — Sức khỏe</summary>
             <div class="lr-vocab-mini">
-              <span>keep fit / stay healthy</span><span>improve my health</span>
-              <span>strengthen my muscles</span><span>burn excess calories</span>
+              <span>keep fit / stay healthy / keep in shape</span>
+              <span>improve my health</span>
+              <span>strengthen my muscles</span>
+              <span>burn excess calories</span>
               <span>maintain a healthy weight</span>
-              <span>prevent high blood pressure / stroke / heart attack / cancer</span>
+              <span>prevent various health problems such as high blood pressure / stroke / heart attack / cancer</span>
             </div>
             <div class="lr-practice-card lr-practice-card--yes">
               <p class="lr-practice-q">Do you like eating vegetables?</p>
-              <p class="lr-practice-en">Yes, because it's a great way to stay healthy and prevent various health problems.</p>
+              <p class="lr-practice-en">Yes, because it's a great way to stay healthy and prevent various health problems such as high blood pressure or heart attack.</p>
             </div>
           </details>
 
           <details class="lr-formula-details">
             <summary>7 · LÝ DO KHÔNG THÍCH — Mang tính giải trí</summary>
             <ol class="lr-pattern-list">
-              <li><code>It's + not + adj</code> (not interesting / relaxing …)</li>
-              <li><code>It's + adj</code> tiêu cực (boring / terrible / stressful / noisy)</li>
-              <li><code>It makes me + adj</code> (stressed / exhausted / bored)</li>
-              <li><code>I have to</code> + … (deal with the same tasks every day)</li>
+              <li><code>It's + not + adj</code> (not interesting / entertaining / exciting / thrilling / relaxing)</li>
+              <li><code>It's + adj</code> tiêu cực (boring / terrible / scary / difficult / stressful / noisy)</li>
+              <li><code>It makes me + adj</code> (stressed / exhausted / bored / tired)</li>
+              <li><code>I have to</code> + do lots of homework · learn lots of vocabulary · memorise long lists of new words and grammatical points · deal with difficult customers · deal with the same tasks and the same clients every day</li>
             </ol>
             <p class="lr-formula-note"><mark>not my cup of tea</mark> · <mark>can't stand</mark> · <mark>I can't bear</mark></p>
           </details>
@@ -720,6 +872,12 @@ def lesson_highlights_html() -> str:
             <summary>8 · LÝ DO KHÔNG THÍCH — Mang tính giáo dục</summary>
             <p class="lr-formula-pattern"><code>It's + not + adj</code> (educational / useful / practical)</p>
             <p class="lr-formula-note"><strong>Rule:</strong> <code>doesn't</code> + V nguyên mẫu — <em>It doesn't help me relax</em> · <em>It doesn't give me the chance to…</em></p>
+            <div class="lr-vocab-mini">
+              <span>doesn't give me the chance to challenge myself</span>
+              <span>doesn't help me learn skills such as problem-solving</span>
+              <span>doesn't give me the opportunity to widen my horizons</span>
+              <span>doesn't help me enrich my knowledge</span>
+            </div>
             <div class="lr-practice-card lr-practice-card--no">
               <p class="lr-practice-q">Do you like repetitive kitchen work?</p>
               <p class="lr-practice-en">No, because it doesn't give me the chance to learn anything new — I have to do the same tasks every day, which makes me bored.</p>
@@ -729,7 +887,7 @@ def lesson_highlights_html() -> str:
           <details class="lr-formula-details">
             <summary>9 · LÝ DO KHÔNG THÍCH — Sức khỏe</summary>
             <p class="lr-formula-pattern"><code>It's + unhealthy / not good for / harmful to / detrimental to</code> + your health</p>
-            <p class="lr-formula-pattern"><code>… can lead to</code> diabetes, high blood pressure, heart attack, cancer</p>
+            <p class="lr-formula-pattern"><code>… can lead to</code> diabetes, high blood pressure, stroke, heart attack, cancer, obesity</p>
             <div class="lr-practice-card lr-practice-card--no">
               <p class="lr-practice-q">Do you like fast food?</p>
               <p class="lr-practice-en">No, because it's not good for my health. Consuming too much can lead to obesity and heart problems.</p>
@@ -1396,7 +1554,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr13">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr14">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -1405,6 +1563,7 @@ def build_page() -> str:
   <div class="grid-bg"></div>
   <header class="docs-topbar">
     <button class="docs-menu-btn" id="docsMenuBtn" type="button">menu</button>
+    <button class="docs-sidebar-toggle" id="docsSidebarToggle" type="button" aria-expanded="true" title="Thu thanh điều hướng">nav ◂</button>
     <a class="docs-brand" href="{home}"><span>✦</span> The Quiet Corner <span>✦</span></a>
     <nav class="docs-series">
       <a href="{home}blog/web-security/">DevSecOps</a>
@@ -1418,8 +1577,8 @@ def build_page() -> str:
   <div class="docs-shell">
 {body}
   </div>
-  <script src="{home}js/docs.js"></script>
-  <script src="{home}js/linear-review.js?v=lr13"></script>
+  <script src="{home}js/docs.js?v=lr14"></script>
+  <script src="{home}js/linear-review.js?v=lr14"></script>
 </body>
 </html>"""
 
