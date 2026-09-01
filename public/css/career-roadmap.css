@@ -7,17 +7,14 @@
 :root {
   --kk-tech: #2ee6d6;
   --kk-tech-2: #5ef0e4;
-  --kk-tech-glow: rgba(46, 230, 214, 0.45);
   --kk-tech-soft: rgba(46, 230, 214, 0.14);
 
   --kk-lead: #f5c842;
   --kk-lead-2: #ffe566;
-  --kk-lead-glow: rgba(245, 200, 66, 0.42);
   --kk-lead-soft: rgba(245, 200, 66, 0.14);
 
   --kk-biz: #ff4d9a;
   --kk-biz-2: #ff7eb3;
-  --kk-biz-glow: rgba(255, 77, 154, 0.42);
   --kk-biz-soft: rgba(255, 77, 154, 0.14);
 }
 
@@ -42,21 +39,18 @@
   color: var(--kk-tech-2);
   border-color: var(--kk-tech);
   background: var(--kk-tech-soft);
-  box-shadow: 0 0 14px var(--kk-tech-glow);
 }
 
 .kk-legend__item--lead {
   color: var(--kk-lead-2);
   border-color: var(--kk-lead);
   background: var(--kk-lead-soft);
-  box-shadow: 0 0 14px var(--kk-lead-glow);
 }
 
 .kk-legend__item--biz {
   color: var(--kk-biz-2);
   border-color: var(--kk-biz);
   background: var(--kk-biz-soft);
-  box-shadow: 0 0 14px var(--kk-biz-glow);
 }
 
 .career-estimator--compact {
@@ -112,7 +106,6 @@
   background: var(--kk-tech-soft);
   border-color: var(--kk-tech);
   color: var(--kk-tech-2);
-  box-shadow: 0 0 16px var(--kk-tech-glow);
 }
 
 .career-muted {
@@ -154,7 +147,6 @@
     rgba(46, 230, 214, 0.35)
   );
   border-radius: 999px;
-  box-shadow: 0 0 12px rgba(46, 230, 214, 0.35);
   pointer-events: none;
 }
 
@@ -176,9 +168,7 @@
   border-radius: 14px;
   border: 1px solid rgba(46, 230, 214, 0.45);
   background: rgba(10, 10, 15, 0.96);
-  box-shadow:
-    0 0 0 4px rgba(10, 10, 15, 0.9),
-    0 0 18px rgba(46, 230, 214, 0.2);
+  box-shadow: 0 0 0 4px rgba(10, 10, 15, 0.9);
   font-size: 0.88rem;
   font-weight: 600;
   line-height: 1.35;
@@ -198,16 +188,10 @@
 .kk-phase__node--done {
   border-color: rgba(46, 230, 214, 0.65);
   color: var(--kk-tech-2);
-  box-shadow:
-    0 0 0 4px rgba(10, 10, 15, 0.9),
-    0 0 22px var(--kk-tech-glow);
 }
 
 .kk-phase__node--goal {
   border-color: rgba(245, 200, 66, 0.7);
-  box-shadow:
-    0 0 0 4px rgba(10, 10, 15, 0.9),
-    0 0 24px var(--kk-lead-glow);
 }
 
 .kk-phase__rail {
@@ -246,7 +230,8 @@
   background: rgba(12, 14, 22, 0.92);
   text-decoration: none !important;
   color: #f4f4f5 !important;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  box-shadow: none;
+  transition: transform 0.15s ease, border-color 0.15s ease;
 }
 
 a.kk-card:hover {
@@ -254,55 +239,34 @@ a.kk-card:hover {
   color: #f4f4f5 !important;
 }
 
-/* Tech = cyan / mint neon */
+/* Tech = cyan / mint */
 .kk-card--tech {
   border-color: var(--kk-tech);
-  box-shadow:
-    0 0 0 1px rgba(46, 230, 214, 0.12),
-    0 0 16px var(--kk-tech-glow),
-    0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
 a.kk-card--tech:hover {
   border-color: var(--kk-tech-2);
-  box-shadow:
-    0 0 0 1px rgba(46, 230, 214, 0.25),
-    0 0 28px var(--kk-tech-glow),
-    0 10px 28px rgba(0, 0, 0, 0.4);
+  box-shadow: none;
 }
 
-/* Leadership = golden yellow neon */
+/* Leadership = golden yellow */
 .kk-card--lead {
   border-color: var(--kk-lead);
-  box-shadow:
-    0 0 0 1px rgba(245, 200, 66, 0.12),
-    0 0 16px var(--kk-lead-glow),
-    0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
 a.kk-card--lead:hover {
   border-color: var(--kk-lead-2);
-  box-shadow:
-    0 0 0 1px rgba(245, 200, 66, 0.25),
-    0 0 28px var(--kk-lead-glow),
-    0 10px 28px rgba(0, 0, 0, 0.4);
+  box-shadow: none;
 }
 
-/* Business = magenta / pink neon */
+/* Business = magenta / pink */
 .kk-card--biz {
   border-color: var(--kk-biz);
-  box-shadow:
-    0 0 0 1px rgba(255, 77, 154, 0.12),
-    0 0 16px var(--kk-biz-glow),
-    0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
 a.kk-card--biz:hover {
   border-color: var(--kk-biz-2);
-  box-shadow:
-    0 0 0 1px rgba(255, 77, 154, 0.25),
-    0 0 28px var(--kk-biz-glow),
-    0 10px 28px rgba(0, 0, 0, 0.4);
+  box-shadow: none;
 }
 
 .kk-card--lab {
@@ -313,10 +277,6 @@ a.kk-card--biz:hover {
 
 .kk-card--done {
   border-color: var(--kk-tech);
-  box-shadow:
-    0 0 0 1px rgba(46, 230, 214, 0.15),
-    0 0 18px var(--kk-tech-glow),
-    0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
 .kk-card--goal {
@@ -324,10 +284,6 @@ a.kk-card--biz:hover {
   background:
     linear-gradient(135deg, rgba(245, 200, 66, 0.12), transparent 55%),
     rgba(12, 14, 22, 0.95);
-  box-shadow:
-    0 0 0 1px rgba(245, 200, 66, 0.2),
-    0 0 24px var(--kk-lead-glow),
-    0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
 .kk-card__thumb {
