@@ -8,8 +8,8 @@
   <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../css/docs.css?v=career13">
-  <link rel="stylesheet" href="../../css/career-roadmap.css?v=career13">
+  <link rel="stylesheet" href="../../css/docs.css?v=career15">
+  <link rel="stylesheet" href="../../css/career-roadmap.css?v=career15">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -473,17 +473,16 @@
       }
 
       function trackLineColor(card) {
-        if (card.classList.contains("kk-card--lead")) return "rgba(245, 200, 66, 0.42)";
-        if (card.classList.contains("kk-card--biz")) return "rgba(255, 77, 154, 0.42)";
-        return "rgba(46, 230, 214, 0.42)";
+        if (card.classList.contains("kk-card--lead")) return "rgba(245, 200, 66, 0.28)";
+        if (card.classList.contains("kk-card--biz")) return "rgba(255, 77, 154, 0.28)";
+        return "rgba(46, 230, 214, 0.28)";
       }
 
       function addConnectorPath(svg, d, color) {
         var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         path.setAttribute("d", d);
         path.setAttribute("stroke", color);
-        path.setAttribute("stroke-width", "2");
-        path.setAttribute("stroke-dasharray", "5 4");
+        path.setAttribute("stroke-width", "1.5");
         path.setAttribute("fill", "none");
         path.setAttribute("stroke-linejoin", "miter");
         path.setAttribute("stroke-linecap", "butt");
