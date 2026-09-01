@@ -8,8 +8,8 @@
   <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../css/docs.css?v=career11">
-  <link rel="stylesheet" href="../../css/career-roadmap.css?v=career11">
+  <link rel="stylesheet" href="../../css/docs.css?v=career12">
+  <link rel="stylesheet" href="../../css/career-roadmap.css?v=career12">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -472,8 +472,6 @@
         fmt(2);
       }
 
-      var CORNER_R = 10;
-
       function trackLineColor(card) {
         if (card.classList.contains("kk-card--lead")) return "rgba(245, 200, 66, 0.42)";
         if (card.classList.contains("kk-card--biz")) return "rgba(255, 77, 154, 0.42)";
@@ -491,23 +489,11 @@
         svg.appendChild(path);
       }
 
-      /* Branch: sharp inner corner at spine, rounded outer corner toward card */
-      function branchPath(spineX, cy, edge, isLeft, ny) {
-        var r = CORNER_R;
-        var fromAbove = cy >= ny;
-        var approachY = fromAbove ? cy - r : cy + r;
-        var outerX = isLeft ? spineX - r : spineX + r;
-        var ctrlY = fromAbove ? cy - r : cy + r;
-
-        return (
-          "M " + spineX + " " + approachY +
-          " L " + spineX + " " + cy +
-          " Q " + outerX + " " + ctrlY + " " + outerX + " " + cy +
-          " L " + edge + " " + cy
-        );
+      function branchPath(spineX, cy, edge) {
+        return "M " + spineX + " " + cy + " L " + edge + " " + cy;
       }
 
-      function drawRailBus(svg, nx, ny, cardData, isLeft) {
+      function drawRailBus(svg, nx, ny, cardData) {
         if (!cardData.length) return;
 
         if (cardData.length === 1) {
@@ -530,7 +516,6 @@
           busEnd = Math.max(busEnd, cd.cy);
         });
 
-        /* Stem + bus: sharp 90° inner corners only */
         addConnectorPath(svg, "M " + nx + " " + ny + " L " + spineX + " " + ny, stemColor);
         addConnectorPath(
           svg,
@@ -539,11 +524,7 @@
         );
 
         cardData.forEach(function (cd) {
-          addConnectorPath(
-            svg,
-            branchPath(spineX, cd.cy, cd.edge, isLeft, ny),
-            cd.color
-          );
+          addConnectorPath(svg, branchPath(spineX, cd.cy, cd.edge), cd.color);
         });
       }
 
@@ -597,7 +578,7 @@
               };
             });
 
-            drawRailBus(svg, nx, ny, cardData, isLeft);
+            drawRailBus(svg, nx, ny, cardData);
           });
         });
       }
