@@ -8,8 +8,8 @@
   <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../css/docs.css?v=career8">
-  <link rel="stylesheet" href="../../css/career-roadmap.css?v=career8">
+  <link rel="stylesheet" href="../../css/docs.css?v=career9">
+  <link rel="stylesheet" href="../../css/career-roadmap.css?v=career9">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -483,9 +483,6 @@
           document.querySelectorAll(".kk-phase__lines").forEach(function (svg) {
             svg.innerHTML = "";
           });
-          document.querySelectorAll(".kk-phase__rail").forEach(function (rail) {
-            rail.style.paddingTop = "";
-          });
           return;
         }
 
@@ -506,15 +503,6 @@
           var cards = rail.querySelectorAll(".kk-card");
           if (!cards.length) return;
 
-          var nodeMid = node.offsetHeight / 2;
-          var branchGap = 10;
-
-          if (cards.length > 1) {
-            rail.style.paddingTop = Math.round(nodeMid + branchGap) + "px";
-          } else {
-            rail.style.paddingTop = "0";
-          }
-
           var phaseRect = phase.getBoundingClientRect();
           var nr = node.getBoundingClientRect();
           var isLeft = rail.classList.contains("kk-phase__rail--left");
@@ -528,30 +516,38 @@
           var nx = (isLeft ? nr.left : nr.right) - phaseRect.left;
           var ny = nr.top - phaseRect.top + nr.height / 2;
 
-          var first = cards[0].getBoundingClientRect();
-          var trunkX = isLeft
-            ? first.right - phaseRect.left
-            : first.left - phaseRect.left;
-          var firstTop = first.top - phaseRect.top;
-          var color = trackLineColor(cards[0]);
+          var cardData = Array.prototype.map.call(cards, function (card) {
+            var r = card.getBoundingClientRect();
+            return {
+              cy: r.top - phaseRect.top + r.height / 2,
+              edge: isLeft ? r.right - phaseRect.left : r.left - phaseRect.left,
+              color: trackLineColor(card),
+            };
+          });
 
-          if (cards.length === 1) {
-            var cardEdge = isLeft
-              ? first.right - phaseRect.left
-              : first.left - phaseRect.left;
-            addConnectorLine(svg, nx, ny, cardEdge, ny, color);
-          } else {
-            addConnectorLine(svg, nx, ny, trunkX, ny, color);
-            addConnectorLine(svg, trunkX, ny, trunkX, firstTop, color);
-
-            for (var i = 1; i < cards.length; i++) {
-              var prev = cards[i - 1].getBoundingClientRect();
-              var cur = cards[i].getBoundingClientRect();
-              var y1 = prev.bottom - phaseRect.top;
-              var y2 = cur.top - phaseRect.top;
-              addConnectorLine(svg, trunkX, y1, trunkX, y2, trackLineColor(cards[i - 1]));
-            }
+          if (cardData.length === 1) {
+            var one = cardData[0];
+            addConnectorLine(svg, nx, ny, one.edge, one.cy, one.color);
+            return;
           }
+
+          /* KodeKloud bus: stem → vertical spine → horizontal tick per card (all at vertical center) */
+          var spineX = (nx + cardData[0].edge) / 2;
+          var stemColor = cardData[0].color;
+          var busStart = ny;
+          var busEnd = ny;
+
+          cardData.forEach(function (cd) {
+            busStart = Math.min(busStart, cd.cy);
+            busEnd = Math.max(busEnd, cd.cy);
+          });
+
+          addConnectorLine(svg, nx, ny, spineX, ny, stemColor);
+          addConnectorLine(svg, spineX, busStart, spineX, busEnd, stemColor);
+
+          cardData.forEach(function (cd) {
+            addConnectorLine(svg, spineX, cd.cy, cd.edge, cd.cy, cd.color);
+          });
         });
       }
 

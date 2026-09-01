@@ -156,7 +156,7 @@
   position: relative;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-  align-items: start;
+  align-items: center;
   width: 100%;
   padding: 20px 0 36px;
 }
@@ -404,6 +404,5 @@ a.kk-card--biz:hover {
     width: 100%;
     justify-self: stretch;
     margin-top: 14px;
-    padding-top: 0 !important;
   }
 }
