@@ -150,23 +150,42 @@
   pointer-events: none;
 }
 
+/* 3-column: left rail | node | right rail (KodeKloud-style) */
 .kk-phase {
+  --kk-branch-w: 40px;
+  --kk-branch-drop: 44px;
+  --kk-branch-color: var(--kk-tech);
+  --kk-card-gap: 12px;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: start;
   width: 100%;
-  padding: 18px 0 28px;
-  gap: 14px;
+  padding: 20px 0 36px;
+}
+
+.kk-phase:has(> .kk-phase__rail > .kk-card--tech:first-child) {
+  --kk-branch-color: var(--kk-tech);
+}
+
+.kk-phase:has(> .kk-phase__rail > .kk-card--lead:first-child) {
+  --kk-branch-color: var(--kk-lead);
+}
+
+.kk-phase:has(> .kk-phase__rail > .kk-card--biz:first-child) {
+  --kk-branch-color: var(--kk-biz);
 }
 
 .kk-phase__node {
   position: relative;
   z-index: 2;
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
   text-align: center;
   padding: 12px 16px;
   border-radius: 14px;
-  border: 1px solid rgba(46, 230, 214, 0.45);
+  border: 1px solid var(--kk-branch-color);
   background: rgba(10, 10, 15, 0.96);
   box-shadow: 0 0 0 4px rgba(10, 10, 15, 0.9);
   font-size: 0.88rem;
@@ -186,34 +205,94 @@
 }
 
 .kk-phase__node--done {
-  border-color: rgba(46, 230, 214, 0.65);
+  border-color: var(--kk-tech);
   color: var(--kk-tech-2);
 }
 
 .kk-phase__node--goal {
-  border-color: rgba(245, 200, 66, 0.7);
+  border-color: var(--kk-lead);
+}
+
+/* L-branch: node mid → out → down onto first card top (┐ / ┌) */
+.kk-phase:has(> .kk-phase__rail--right) .kk-phase__node::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 1px);
+  width: var(--kk-branch-w);
+  height: var(--kk-branch-drop);
+  border-top: 2px solid var(--kk-branch-color);
+  border-right: 2px solid var(--kk-branch-color);
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.kk-phase:has(> .kk-phase__rail--left) .kk-phase__node::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 1px);
+  width: var(--kk-branch-w);
+  height: var(--kk-branch-drop);
+  border-top: 2px solid var(--kk-branch-color);
+  border-left: 2px solid var(--kk-branch-color);
+  box-sizing: border-box;
+  pointer-events: none;
 }
 
 .kk-phase__rail {
   position: relative;
   z-index: 1;
+  grid-row: 1;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  width: min(440px, calc(50% - 36px));
+  gap: var(--kk-card-gap);
+  width: min(420px, 100%);
   max-width: 100%;
 }
 
+/* Align first-card top with bottom of the L-drop from node mid */
 .kk-phase__rail--left {
-  align-self: flex-start;
-  margin-right: auto;
-  padding-right: 12px;
+  grid-column: 1;
+  justify-self: end;
+  padding-right: var(--kk-branch-w);
+  margin-top: calc(var(--kk-node-mid, 30px) + var(--kk-branch-drop));
 }
 
 .kk-phase__rail--right {
-  align-self: flex-end;
-  margin-left: auto;
-  padding-left: 12px;
+  grid-column: 3;
+  justify-self: start;
+  padding-left: var(--kk-branch-w);
+  margin-top: calc(var(--kk-node-mid, 30px) + var(--kk-branch-drop));
+}
+
+/* Vertical connectors between stacked cards */
+.kk-phase__rail > .kk-card {
+  position: relative;
+}
+
+.kk-phase__rail > .kk-card + .kk-card::before {
+  content: "";
+  position: absolute;
+  top: calc(-1 * var(--kk-card-gap));
+  left: 50%;
+  width: 2px;
+  height: var(--kk-card-gap);
+  transform: translateX(-50%);
+  background: var(--kk-branch-color);
+  pointer-events: none;
+}
+
+.kk-phase__rail > .kk-card + .kk-card--tech::before {
+  background: var(--kk-tech);
+}
+
+.kk-phase__rail > .kk-card + .kk-card--lead::before {
+  background: var(--kk-lead);
+}
+
+.kk-phase__rail > .kk-card + .kk-card--biz::before {
+  background: var(--kk-biz);
 }
 
 /* Compact course card */
@@ -369,6 +448,8 @@ a.kk-card--biz:hover {
   }
 
   .kk-phase {
+    display: flex;
+    flex-direction: column;
     align-items: stretch;
     padding-left: 36px;
   }
@@ -379,12 +460,23 @@ a.kk-card--biz:hover {
     max-width: none;
   }
 
+  .kk-phase:has(> .kk-phase__rail--right) .kk-phase__node::after,
+  .kk-phase:has(> .kk-phase__rail--left) .kk-phase__node::before {
+    display: none;
+  }
+
   .kk-phase__rail,
   .kk-phase__rail--left,
   .kk-phase__rail--right {
     width: 100%;
-    align-self: stretch;
-    margin: 0;
-    padding: 0;
+    justify-self: stretch;
+    margin-top: 14px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .kk-phase__rail > .kk-card + .kk-card::before {
+    left: 16px;
+    transform: none;
   }
 }

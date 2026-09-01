@@ -8,8 +8,8 @@
   <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../css/docs.css?v=career6">
-  <link rel="stylesheet" href="../../css/career-roadmap.css?v=career6">
+  <link rel="stylesheet" href="../../css/docs.css?v=career7">
+  <link rel="stylesheet" href="../../css/career-roadmap.css?v=career7">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -437,25 +437,41 @@
       var btns = document.getElementById("careerHoursBtns");
       var result = document.getElementById("careerEstResult");
       var hint = document.getElementById("careerEstHint");
-      if (!btns || !result) return;
-      function fmt(h) {
-        var days = Math.ceil(totalHours / h);
-        var months = days / 30.4;
-        result.textContent =
-          months < 1.5
-            ? "~" + Math.ceil(days / 7) + " weeks"
-            : "~" + (Math.round(months * 10) / 10) + " months";
-        hint.textContent = "study time at " + h + "h/day · calendar plan remains 24 months";
-      }
-      btns.addEventListener("click", function (e) {
-        var btn = e.target.closest("button[data-hours]");
-        if (!btn) return;
-        btns.querySelectorAll("button").forEach(function (b) {
-          b.classList.toggle("is-active", b === btn);
+      if (btns && result) {
+        function fmt(h) {
+          var days = Math.ceil(totalHours / h);
+          var months = days / 30.4;
+          result.textContent =
+            months < 1.5
+              ? "~" + Math.ceil(days / 7) + " weeks"
+              : "~" + (Math.round(months * 10) / 10) + " months";
+          hint.textContent = "study time at " + h + "h/day · calendar plan remains 24 months";
+        }
+        btns.addEventListener("click", function (e) {
+          var btn = e.target.closest("button[data-hours]");
+          if (!btn) return;
+          btns.querySelectorAll("button").forEach(function (b) {
+            b.classList.toggle("is-active", b === btn);
+          });
+          fmt(Number(btn.getAttribute("data-hours")));
         });
-        fmt(Number(btn.getAttribute("data-hours")));
-      });
-      fmt(2);
+        fmt(2);
+      }
+
+      function syncBranches() {
+        document.querySelectorAll(".kk-phase").forEach(function (phase) {
+          var node = phase.querySelector(".kk-phase__node");
+          var rail = phase.querySelector(".kk-phase__rail");
+          if (!node || !rail) return;
+          var mid = Math.round(node.offsetHeight / 2);
+          phase.style.setProperty("--kk-node-mid", mid + "px");
+        });
+      }
+      syncBranches();
+      window.addEventListener("resize", syncBranches);
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(syncBranches);
+      }
     })();
   </script>
 </body>
