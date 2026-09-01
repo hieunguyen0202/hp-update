@@ -2719,6 +2719,22 @@ def mock_practice_refs_html() -> str:
         </aside>"""
 
 
+def natural_vlog_html() -> str:
+    return """      <section class="lr-section lr-vlog-section" id="natural-vlog">
+        <h2>0 · Real talk — Food vlogger vlog</h2>
+        <p class="lr-section-hint">Văn nói tự sự kiểu vlog — không phải IELTS script. Nghe nhịp tự nhiên: filler (<mark class="lr-filler">yeah</mark>, <mark class="lr-filler">like</mark>, <mark class="lr-filler">kind of</mark>, <mark class="lr-filler">I mean</mark>…), câu chạy dài, hạ giọng cuối câu. Bật <strong>Vietnamese</strong> ở trên để xem bản dịch.</p>
+        <blockquote class="lr-vlog" cite="food-vlogger-vlog">
+          <p class="lr-vlog-text"><mark class="lr-filler">Yeah</mark> <mark class="lr-filler">so</mark> um I've been <mark class="lr-filler">like</mark> doing this food vlog thing for maybe two years now, and honestly it's been pretty wild — <mark class="lr-filler">like</mark> I never thought people would actually watch me eat street food at midnight, <mark class="lr-filler">you know</mark>, but here we are.</p>
+          <p class="lr-vlog-text"><mark class="lr-filler">So</mark> basically my whole thing is I just walk around the city, find <mark class="lr-filler">like</mark> a random little spot, order whatever looks good, and I <mark class="lr-filler">kind of</mark> talk to the camera while I'm eating — <mark class="lr-filler">I mean</mark> I'm not trying to be super fancy, it's more <mark class="lr-filler">like</mark> hanging out with a friend, <mark class="lr-filler">I guess</mark>.</p>
+          <p class="lr-vlog-text">The tricky part is when the food's really hot and I'm <mark class="lr-filler">like</mark> still filming — you have to keep talking even when your mouth is <mark class="lr-filler">kind of</mark> on fire — but that's <mark class="lr-filler">kind of</mark> the fun part too, <mark class="lr-filler">you know</mark>?</p>
+          <p class="lr-vlog-text">And <mark class="lr-filler">yeah</mark> I get comments <mark class="lr-filler">like</mark> oh you should review more desserts or whatever, and I'm <mark class="lr-filler">like</mark> okay maybe next week, because I do want to mix it up — sometimes noodles, sometimes coffee, sometimes just <mark class="lr-filler">like</mark> a really good bánh mì on the corner.</p>
+          <p class="lr-vlog-text"><mark class="lr-filler">I mean</mark> at the end of the day it's not really about getting everything perfect on camera — it's more about sharing what actually tastes good and <mark class="lr-filler">kind of</mark> showing people the places I'd go with my friends anyway.</p>
+          <p class="ex-vi lr-vlog-vi">Ừ thì mình làm food vlog được khoảng hai năm rồi, thật sự cũng hơi “điên” — kiểu không ngờ có người xem mình ăn đồ ăn đường phố lúc nửa đêm, nhưng mà giờ thì cứ thế. Cơ bản là đi loanh quanh thành phố, tìm quán nhỏ bất kỳ, gọi món trông ngon là quay và nói chuyện với camera — không cần sang, giống đi ăn với bạn thôi. Khó nhất là món còn nóng mà vẫn phải nói, miệng “cháy” mà vẫn quay — nhưng đó cũng là phần vui. Viewer bảo nên review thêm dessert, mình bảo tuần sau đi, vì muốn đổi gu: mì, cà phê, hay bánh mì góc phố. Cuối cùng không phải quay cho hoàn hảo, mà chia sẻ chỗ ngon và nơi mình sẽ rủ bạn bè đi.</p>
+        </blockquote>
+        <p class="lr-note-tip">Tip: Đọc to với tốc độ hơi nhanh, nuốt âm nhẹ ở <em>kind of</em> → <em>kinda</em>, <em>going to</em> → <em>gonna</em> nếu muốn giống native casual hơn.</p>
+      </section>"""
+
+
 def build_page() -> str:
     words = collect_review_words()
     home = "../../../../"  # review-exercise/ → public/
@@ -2746,6 +2762,7 @@ def build_page() -> str:
         <h1>Food &amp; Drink — Review Exercise</h1>
         <p class="lede">Sau khi hoàn thành B2, ôn tập theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-speaking" target="_blank" rel="noopener noreferrer">Linear Thinking</a>: ngữ pháp (6 thì) → mental model → cấu trúc Speaking → từ vựng B1/B2 → mock IELTS Part 1/2/3 với dropdown từ thay thế.</p>
         <nav class="lr-toc" aria-label="On this page">
+          <a href="#natural-vlog">0 · Real talk</a>
           <a href="#grammar">1 · Grammar</a>
           <a href="#mental-model">2 · Mental model</a>
           <a href="#ed-ending">2b · -ed</a>
@@ -2759,6 +2776,8 @@ def build_page() -> str:
           <label class="ex-toggle"><input type="checkbox" id="togVi" /> Vietnamese</label>
         </div>
       </header>
+
+{natural_vlog_html()}
 
       <section class="lr-section" id="grammar">
         <h2>1 · Grammar foundations</h2>
