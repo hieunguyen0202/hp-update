@@ -251,24 +251,37 @@
   align-self: center;
 }
 
-/* Q8 finale — goal card on spine axis (right of center node) */
+/* Q8 finale — goal card on center spine below Q8 node */
 .kk-phase--finale {
-  padding-bottom: 48px;
+  padding-bottom: 56px;
 }
 
-.kk-phase__goal {
+.kk-phase__spine {
   position: relative;
-  z-index: 1;
-  grid-column: 3;
+  z-index: 2;
+  grid-column: 2;
   grid-row: 1;
-  justify-self: start;
+  justify-self: center;
   align-self: center;
-  width: min(420px, 100%);
-  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: min(320px, 100%);
 }
 
-.kk-phase__goal .kk-card--goal {
+.kk-phase__spine .kk-phase__node {
   width: 100%;
+  max-width: 280px;
+}
+
+.kk-phase__spine .kk-card--goal {
+  width: 100%;
+  max-width: 320px;
+}
+
+.kk-phase--finale .kk-phase__rail--left {
+  align-self: center;
 }
 
 /* Icon-only cards (no LinkedIn thumb) */
@@ -489,10 +502,14 @@ a.kk-card--biz:hover {
   .kk-phase__rail,
   .kk-phase__rail--left,
   .kk-phase__rail--right,
-  .kk-phase__goal {
+  .kk-phase__spine {
     width: 100%;
     justify-self: stretch;
     align-self: stretch;
     margin-top: 14px;
+  }
+
+  .kk-phase__spine {
+    align-items: stretch;
   }
 }
