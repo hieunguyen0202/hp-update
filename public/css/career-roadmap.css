@@ -131,7 +131,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 8px 0 40px;
+  padding: 8px 0 8px;
   width: 100%;
 }
 
@@ -139,7 +139,7 @@
   content: "";
   position: absolute;
   top: 12px;
-  bottom: 12px;
+  bottom: 0;
   left: 50%;
   width: 2px;
   transform: translateX(-50%);
@@ -149,7 +149,7 @@
     rgba(46, 230, 214, 0.75),
     rgba(245, 200, 66, 0.7),
     rgba(255, 77, 154, 0.7),
-    rgba(46, 230, 214, 0.35)
+    rgba(255, 77, 106, 0.85)
   );
   border-radius: 999px;
   pointer-events: none;
@@ -251,33 +251,43 @@
   align-self: center;
 }
 
-/* Q8 finale — goal card on center spine below Q8 node */
+/* Q8 finale */
 .kk-phase--finale {
-  padding-bottom: 56px;
+  padding-bottom: 12px;
 }
 
-.kk-phase__spine {
+/* Target — terminal node at end of spine */
+.kk-phase--target {
+  padding: 4px 0 28px;
+  min-height: 0;
+}
+
+.kk-phase--target::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: var(--kk-goal);
+  box-shadow: 0 0 12px var(--kk-goal-glow);
+  z-index: 1;
+}
+
+.kk-phase__goal-terminal {
   position: relative;
   z-index: 2;
   grid-column: 2;
   grid-row: 1;
   justify-self: center;
-  align-self: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  width: min(320px, 100%);
+  align-self: start;
+  width: min(360px, 100%);
 }
 
-.kk-phase__spine .kk-phase__node {
+.kk-phase__goal-terminal .kk-card--goal {
   width: 100%;
-  max-width: 280px;
-}
-
-.kk-phase__spine .kk-card--goal {
-  width: 100%;
-  max-width: 320px;
 }
 
 .kk-phase--finale .kk-phase__rail--left {
@@ -502,14 +512,10 @@ a.kk-card--biz:hover {
   .kk-phase__rail,
   .kk-phase__rail--left,
   .kk-phase__rail--right,
-  .kk-phase__spine {
+  .kk-phase__goal-terminal {
     width: 100%;
     justify-self: stretch;
     align-self: stretch;
     margin-top: 14px;
-  }
-
-  .kk-phase__spine {
-    align-items: stretch;
   }
 }
