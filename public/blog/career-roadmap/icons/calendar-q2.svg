@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" aria-hidden="true">
+  <rect x="5" y="9" width="38" height="34" rx="7" fill="#11151f" stroke="#22d3ee" stroke-width="2"/>
+  <rect x="5" y="9" width="38" height="11" rx="7" fill="#22d3ee"/>
+  <circle cx="15" cy="7" r="2.5" fill="#67e8f9"/>
+  <circle cx="33" cy="7" r="2.5" fill="#67e8f9"/>
+  <text x="24" y="36" text-anchor="middle" font-family="Outfit,Arial,sans-serif" font-size="13" font-weight="700" fill="#67e8f9">Q2</text>
+</svg>
