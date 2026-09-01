@@ -629,6 +629,43 @@ body.docs::before {
   margin: 0;
 }
 
+/* Career map: logo always on the left of every card (no empty left side) */
+.career-cert-roadmap .cert-step--left .cert-step__card {
+  grid-template-columns: 104px minmax(0, 1fr);
+  text-align: left;
+}
+
+.career-cert-roadmap .cert-step--left .cert-step__logo,
+.career-cert-roadmap .cert-step--left .cert-step__mark {
+  order: 0;
+}
+
+.career-cert-roadmap .cert-step--left .cert-step__card .cert-step__meta,
+.career-cert-roadmap .cert-step--left .cert-step__card .cert-step__cta,
+.career-cert-roadmap .cert-step--left .cert-step__body {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.career-cert-roadmap .cert-step__body a {
+  color: #67e8f9;
+  text-decoration: none;
+}
+
+.career-cert-roadmap .cert-step__body a:hover {
+  text-decoration: underline;
+}
+
+.career-cert-roadmap .cert-step__body strong {
+  color: rgba(226, 232, 240, 0.92);
+  font-weight: 600;
+}
+
+.career-cert-roadmap .cert-step__card p {
+  font-size: 13px;
+  line-height: 1.55;
+}
+
 .docs-top-link {
   font-size: 12px;
   font-weight: 500;
@@ -1101,6 +1138,10 @@ body.docs::before {
 
   .cert-step--left .cert-step__mark {
     order: 0;
+  }
+
+  .career-cert-roadmap .cert-step--left .cert-step__card {
+    grid-template-columns: 84px minmax(0, 1fr);
   }
 }
 
