@@ -222,11 +222,13 @@
 .kk-phase__rail--left {
   grid-column: 1;
   justify-self: end;
+  align-self: center;
 }
 
 .kk-phase__rail--right {
   grid-column: 3;
   justify-self: start;
+  align-self: center;
 }
 
 /* Compact course card */
@@ -403,6 +405,7 @@ a.kk-card--biz:hover {
   .kk-phase__rail--right {
     width: 100%;
     justify-self: stretch;
+    align-self: stretch;
     margin-top: 14px;
   }
 }
