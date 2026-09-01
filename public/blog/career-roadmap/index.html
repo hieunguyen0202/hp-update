@@ -8,8 +8,8 @@
   <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../css/docs.css?v=career10">
-  <link rel="stylesheet" href="../../css/career-roadmap.css?v=career10">
+  <link rel="stylesheet" href="../../css/docs.css?v=career11">
+  <link rel="stylesheet" href="../../css/career-roadmap.css?v=career11">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -486,9 +486,25 @@
         path.setAttribute("stroke", color);
         path.setAttribute("stroke-width", "2");
         path.setAttribute("fill", "none");
-        path.setAttribute("stroke-linejoin", "round");
-        path.setAttribute("stroke-linecap", "round");
+        path.setAttribute("stroke-linejoin", "miter");
+        path.setAttribute("stroke-linecap", "butt");
         svg.appendChild(path);
+      }
+
+      /* Branch: sharp inner corner at spine, rounded outer corner toward card */
+      function branchPath(spineX, cy, edge, isLeft, ny) {
+        var r = CORNER_R;
+        var fromAbove = cy >= ny;
+        var approachY = fromAbove ? cy - r : cy + r;
+        var outerX = isLeft ? spineX - r : spineX + r;
+        var ctrlY = fromAbove ? cy - r : cy + r;
+
+        return (
+          "M " + spineX + " " + approachY +
+          " L " + spineX + " " + cy +
+          " Q " + outerX + " " + ctrlY + " " + outerX + " " + cy +
+          " L " + edge + " " + cy
+        );
       }
 
       function drawRailBus(svg, nx, ny, cardData, isLeft) {
@@ -498,7 +514,7 @@
           var one = cardData[0];
           addConnectorPath(
             svg,
-            "M " + nx + " " + ny + " H " + one.edge,
+            "M " + nx + " " + one.cy + " L " + one.edge + " " + one.cy,
             one.color
           );
           return;
@@ -506,7 +522,6 @@
 
         var spineX = (nx + cardData[0].edge) / 2;
         var stemColor = cardData[0].color;
-        var r = CORNER_R;
         var busStart = ny;
         var busEnd = ny;
 
@@ -515,43 +530,20 @@
           busEnd = Math.max(busEnd, cd.cy);
         });
 
-        var down = busEnd >= ny;
-        var vSign = down ? 1 : -1;
-
-        var stemBus;
-        if (isLeft) {
-          stemBus =
-            "M " + nx + " " + ny +
-            " H " + (spineX + r) +
-            " Q " + spineX + " " + ny + " " + spineX + " " + (ny + vSign * r) +
-            " V " + busEnd;
-        } else {
-          stemBus =
-            "M " + nx + " " + ny +
-            " H " + (spineX - r) +
-            " Q " + spineX + " " + ny + " " + spineX + " " + (ny + vSign * r) +
-            " V " + busEnd;
-        }
-        addConnectorPath(svg, stemBus, stemColor);
-
-        if (busStart < ny - vSign * r) {
-          addConnectorPath(svg, "M " + spineX + " " + (ny - vSign * r) + " V " + busStart, stemColor);
-        }
+        /* Stem + bus: sharp 90° inner corners only */
+        addConnectorPath(svg, "M " + nx + " " + ny + " L " + spineX + " " + ny, stemColor);
+        addConnectorPath(
+          svg,
+          "M " + spineX + " " + busStart + " L " + spineX + " " + busEnd,
+          stemColor
+        );
 
         cardData.forEach(function (cd) {
-          var branch;
-          if (isLeft) {
-            branch =
-              "M " + spineX + " " + (cd.cy - r) +
-              " Q " + spineX + " " + cd.cy + " " + (spineX - r) + " " + cd.cy +
-              " H " + cd.edge;
-          } else {
-            branch =
-              "M " + spineX + " " + (cd.cy - r) +
-              " Q " + spineX + " " + cd.cy + " " + (spineX + r) + " " + cd.cy +
-              " H " + cd.edge;
-          }
-          addConnectorPath(svg, branch, cd.color);
+          addConnectorPath(
+            svg,
+            branchPath(spineX, cd.cy, cd.edge, isLeft, ny),
+            cd.color
+          );
         });
       }
 
