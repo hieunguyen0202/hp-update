@@ -8,8 +8,8 @@
   <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../css/docs.css?v=career7">
-  <link rel="stylesheet" href="../../css/career-roadmap.css?v=career7">
+  <link rel="stylesheet" href="../../css/docs.css?v=career8">
+  <link rel="stylesheet" href="../../css/career-roadmap.css?v=career8">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -458,20 +458,118 @@
         fmt(2);
       }
 
-      function syncBranches() {
+      function trackLineColor(card) {
+        if (card.classList.contains("kk-card--lead")) return "rgba(245, 200, 66, 0.42)";
+        if (card.classList.contains("kk-card--biz")) return "rgba(255, 77, 154, 0.42)";
+        return "rgba(46, 230, 214, 0.42)";
+      }
+
+      function addConnectorLine(svg, x1, y1, x2, y2, color) {
+        var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("x1", String(Math.round(x1)));
+        line.setAttribute("y1", String(Math.round(y1)));
+        line.setAttribute("x2", String(Math.round(x2)));
+        line.setAttribute("y2", String(Math.round(y2)));
+        line.setAttribute("stroke", color);
+        line.setAttribute("stroke-width", "2");
+        line.setAttribute("stroke-linecap", "round");
+        svg.appendChild(line);
+      }
+
+      function drawConnectors() {
+        var mobile = window.matchMedia("(max-width: 900px)").matches;
+
+        if (mobile) {
+          document.querySelectorAll(".kk-phase__lines").forEach(function (svg) {
+            svg.innerHTML = "";
+          });
+          document.querySelectorAll(".kk-phase__rail").forEach(function (rail) {
+            rail.style.paddingTop = "";
+          });
+          return;
+        }
+
         document.querySelectorAll(".kk-phase").forEach(function (phase) {
           var node = phase.querySelector(".kk-phase__node");
           var rail = phase.querySelector(".kk-phase__rail");
+          var svg = phase.querySelector(".kk-phase__lines");
+          if (!svg) {
+            svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.classList.add("kk-phase__lines");
+            svg.setAttribute("aria-hidden", "true");
+            phase.appendChild(svg);
+          }
+          svg.innerHTML = "";
+
           if (!node || !rail) return;
-          var mid = Math.round(node.offsetHeight / 2);
-          phase.style.setProperty("--kk-node-mid", mid + "px");
+
+          var cards = rail.querySelectorAll(".kk-card");
+          if (!cards.length) return;
+
+          var nodeMid = node.offsetHeight / 2;
+          var branchGap = 10;
+
+          if (cards.length > 1) {
+            rail.style.paddingTop = Math.round(nodeMid + branchGap) + "px";
+          } else {
+            rail.style.paddingTop = "0";
+          }
+
+          var phaseRect = phase.getBoundingClientRect();
+          var nr = node.getBoundingClientRect();
+          var isLeft = rail.classList.contains("kk-phase__rail--left");
+          var w = phase.offsetWidth;
+          var h = phase.offsetHeight;
+
+          svg.setAttribute("width", String(w));
+          svg.setAttribute("height", String(h));
+          svg.setAttribute("viewBox", "0 0 " + w + " " + h);
+
+          var nx = (isLeft ? nr.left : nr.right) - phaseRect.left;
+          var ny = nr.top - phaseRect.top + nr.height / 2;
+
+          var first = cards[0].getBoundingClientRect();
+          var trunkX = isLeft
+            ? first.right - phaseRect.left
+            : first.left - phaseRect.left;
+          var firstTop = first.top - phaseRect.top;
+          var color = trackLineColor(cards[0]);
+
+          if (cards.length === 1) {
+            var cardEdge = isLeft
+              ? first.right - phaseRect.left
+              : first.left - phaseRect.left;
+            addConnectorLine(svg, nx, ny, cardEdge, ny, color);
+          } else {
+            addConnectorLine(svg, nx, ny, trunkX, ny, color);
+            addConnectorLine(svg, trunkX, ny, trunkX, firstTop, color);
+
+            for (var i = 1; i < cards.length; i++) {
+              var prev = cards[i - 1].getBoundingClientRect();
+              var cur = cards[i].getBoundingClientRect();
+              var y1 = prev.bottom - phaseRect.top;
+              var y2 = cur.top - phaseRect.top;
+              addConnectorLine(svg, trunkX, y1, trunkX, y2, trackLineColor(cards[i - 1]));
+            }
+          }
         });
       }
-      syncBranches();
-      window.addEventListener("resize", syncBranches);
-      if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(syncBranches);
+
+      var redrawTimer;
+      function scheduleRedraw() {
+        clearTimeout(redrawTimer);
+        redrawTimer = setTimeout(drawConnectors, 50);
       }
+
+      drawConnectors();
+      window.addEventListener("resize", scheduleRedraw);
+      window.addEventListener("load", drawConnectors);
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(drawConnectors);
+      }
+      document.querySelectorAll(".kk-card__thumb").forEach(function (img) {
+        img.addEventListener("load", scheduleRedraw);
+      });
     })();
   </script>
 </body>
