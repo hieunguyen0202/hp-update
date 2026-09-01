@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Career Roadmap — Senior DevOps Engineer — Hieu Nguyen</title>
-  <meta name="description" content="24-month Senior DevOps roadmap: LinkedIn Learning path across tech, leadership, and business — 8 quarters with milestones.">
+  <meta name="description" content="24-month Senior DevOps roadmap — compact course cards by track: Tech, Leadership, Business.">
   <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -40,11 +40,16 @@
       </div>
 
       <h1>My Career Roadmap</h1>
-      <p class="lede">24-month path to Senior DevOps Engineer — technical depth, leadership, and business acumen.</p>
+      <p class="lede">24-month path to Senior DevOps Engineer.</p>
       <div class="docs-meta">
         <span><strong>Start:</strong> Sep 2026</span>
         <span><strong>Target:</strong> Aug 2028</span>
-        <span><strong>Tracks:</strong> Tech · Leadership · Business</span>
+      </div>
+
+      <div class="kk-legend" aria-label="Track colors">
+        <span class="kk-legend__item kk-legend__item--tech">Tech</span>
+        <span class="kk-legend__item kk-legend__item--lead">Leadership</span>
+        <span class="kk-legend__item kk-legend__item--biz">Business / Finance</span>
       </div>
 
       <div class="career-estimator career-estimator--compact" aria-label="Duration estimator">
@@ -65,240 +70,361 @@
         </div>
       </div>
 
-      <div class="cert-roadmap career-cert-roadmap">
+      <div class="kk-path">
 
         <!-- Baseline -->
-        <div class="cert-step cert-step--right">
-          <div class="cert-step__milestone" data-short="0">Done</div>
-          <a class="cert-step__card is-done" href="../kubestronaut/">
-            <img class="cert-step__logo" src="../../badges/cncf/cka.svg" alt="Kubestronaut" width="104" height="104">
-            <div class="cert-step__body">
-              <span class="cert-step__badge">Baseline · Completed</span>
-              <h2>Kubestronaut</h2>
-              <p>KCNA · CKA · CKAD · KCSA · CKS — CNCF Kubernetes certification track completed.</p>
-              <div class="cert-step__meta"><span>Notes available</span></div>
-              <span class="cert-step__cta">Open Kubestronaut notes →</span>
-            </div>
-          </a>
-        </div>
+        <section class="kk-phase">
+          <div class="kk-phase__node kk-phase__node--done">Baseline completed</div>
+          <div class="kk-phase__rail kk-phase__rail--right">
+            <a class="kk-card kk-card--tech kk-card--done" href="../kubestronaut/">
+              <img class="kk-card__logo-img" src="../../badges/cncf/cka.svg" alt="" width="48" height="48">
+              <span class="kk-card__title">Kubestronaut</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </section>
 
         <!-- Q1 -->
-        <div class="cert-step cert-step--left">
-          <div class="cert-step__milestone" data-short="1">Q1</div>
-          <div class="cert-step__card">
-            <div class="cert-step__mark" aria-hidden="true">DEV</div>
-            <div class="cert-step__body">
-              <span class="cert-step__badge">Year 1 · Months 1–3</span>
-              <h2>Foundations + Career Mindset</h2>
-              <p>
-                <strong>Tech:</strong>
-                <a href="https://www.linkedin.com/learning/paths/getting-started-with-devops" target="_blank" rel="noopener noreferrer">Getting Started with DevOps</a>,
-                <a href="https://www.linkedin.com/learning/devops-foundations-23454205" target="_blank" rel="noopener noreferrer">DevOps Foundations</a>,
-                CI/CD Foundations, IaC Foundations,
-                <a href="https://www.linkedin.com/learning/learning-linux-command-line-14447912" target="_blank" rel="noopener noreferrer">Linux Command Line</a>.
-                <br>
-                <strong>Leadership:</strong>
-                <a href="https://www.linkedin.com/learning/succeeding-in-devops" target="_blank" rel="noopener noreferrer">Succeeding in DevOps</a>,
-                <a href="https://www.linkedin.com/learning/tech-career-skills-effective-technical-communication" target="_blank" rel="noopener noreferrer">Effective Technical Communication</a>.
-              </p>
-              <div class="cert-step__meta"><span>Lab: GitHub Actions CI/CD → cloud · RFC — tool selection</span></div>
-              <span class="cert-step__cta">Sep – Nov 2026</span>
+        <section class="kk-phase">
+          <div class="kk-phase__node">Q1 · Foundations + Career mindset<br><small>Months 1–3 · Sep–Nov 2026</small></div>
+          <div class="kk-phase__rail kk-phase__rail--left">
+            <a class="kk-card kk-card--tech" href="https://www.linkedin.com/learning/paths/getting-started-with-devops" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">PATH</span>
+              <span class="kk-card__title">Getting Started with DevOps</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--tech" href="https://www.linkedin.com/learning/devops-foundations-23454205" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">DF</span>
+              <span class="kk-card__title">DevOps Foundations</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--tech" href="https://www.linkedin.com/learning/devops-foundations-continuous-delivery-continuous-integration-14449917" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">CI</span>
+              <span class="kk-card__title">DevOps Foundations: CI/CD</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--tech" href="https://www.linkedin.com/learning/devops-foundations-infrastructure-as-code" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">IaC</span>
+              <span class="kk-card__title">DevOps Foundations: Infrastructure as Code</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--tech" href="https://www.linkedin.com/learning/learning-linux-command-line-14447912" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">LX</span>
+              <span class="kk-card__title">Learning Linux Command Line</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--lead" href="https://www.linkedin.com/learning/succeeding-in-devops" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">SD</span>
+              <span class="kk-card__title">Succeeding in DevOps</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--lead" href="https://www.linkedin.com/learning/tech-career-skills-effective-technical-communication" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">TC</span>
+              <span class="kk-card__title">Effective Technical Communication</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <div class="kk-card kk-card--tech kk-card--lab">
+              <span class="kk-card__logo">LAB</span>
+              <span class="kk-card__title">CI/CD pipeline → cloud</span>
+            </div>
+            <div class="kk-card kk-card--tech kk-card--lab">
+              <span class="kk-card__logo">LAB</span>
+              <span class="kk-card__title">RFC — tool selection</span>
             </div>
           </div>
-        </div>
+        </section>
 
         <!-- Q2 -->
-        <div class="cert-step cert-step--right">
-          <div class="cert-step__milestone" data-short="2">Q2</div>
-          <div class="cert-step__card">
-            <div class="cert-step__mark cert-step__mark--tf" aria-hidden="true">IaC</div>
-            <div class="cert-step__body">
-              <span class="cert-step__badge">Year 1 · Months 4–6</span>
-              <h2>Cloud + Terraform + Automation</h2>
-              <p>
-                <strong>Tech:</strong>
-                <a href="https://www.linkedin.com/learning/essential-terraform-in-aws" target="_blank" rel="noopener noreferrer">Essential Terraform in AWS</a>,
-                <a href="https://www.linkedin.com/learning/learning-ansible-24687086" target="_blank" rel="noopener noreferrer">Learning Ansible</a>,
-                <a href="https://www.linkedin.com/learning/build-a-ci-cd-pipeline" target="_blank" rel="noopener noreferrer">Build a CI/CD Pipeline</a>,
-                <a href="https://www.linkedin.com/learning/google-cloud-foundations-google-kubernetes-engine-gke" target="_blank" rel="noopener noreferrer">GKE Foundations</a>,
-                <a href="https://www.linkedin.com/learning/devops-with-aws-tools-for-automated-workflows" target="_blank" rel="noopener noreferrer">DevOps with AWS</a>.
-                <br>
-                <strong>Business:</strong>
-                <a href="https://www.linkedin.com/learning/finance-for-non-financial-managers-23778630" target="_blank" rel="noopener noreferrer">Finance for Non-Financial Managers</a>,
-                <a href="https://www.linkedin.com/learning/economics-for-business-leaders" target="_blank" rel="noopener noreferrer">Economics for Business Leaders</a>.
-              </p>
-              <div class="cert-step__meta"><span>Lab: Terraform VPC + GKE/EKS · monthly cost estimate</span></div>
-              <span class="cert-step__cta">Dec 2026 – Feb 2027</span>
+        <section class="kk-phase">
+          <div class="kk-phase__node">Q2 · Cloud + Terraform + Automation<br><small>Months 4–6 · Dec 2026–Feb 2027</small></div>
+          <div class="kk-phase__rail kk-phase__rail--right">
+            <a class="kk-card kk-card--tech" href="https://www.linkedin.com/learning/essential-terraform-in-aws" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">TF</span>
+              <span class="kk-card__title">Essential Terraform in AWS</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--tech" href="https://www.linkedin.com/learning/learning-ansible-24687086" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">AN</span>
+              <span class="kk-card__title">Learning Ansible</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--tech" href="https://www.linkedin.com/learning/build-a-ci-cd-pipeline" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">PIP</span>
+              <span class="kk-card__title">Build a CI/CD Pipeline</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--tech" href="https://www.linkedin.com/learning/google-cloud-foundations-google-kubernetes-engine-gke" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">GKE</span>
+              <span class="kk-card__title">Google Cloud Foundations: GKE</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--tech" href="https://www.linkedin.com/learning/devops-with-aws-tools-for-automated-workflows" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">AWS</span>
+              <span class="kk-card__title">DevOps with AWS</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--biz" href="https://www.linkedin.com/learning/finance-for-non-financial-managers-23778630" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">FN</span>
+              <span class="kk-card__title">Finance for Non-Financial Managers</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--biz" href="https://www.linkedin.com/learning/economics-for-business-leaders" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">EC</span>
+              <span class="kk-card__title">Economics for Business Leaders</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <div class="kk-card kk-card--tech kk-card--lab">
+              <span class="kk-card__logo">LAB</span>
+              <span class="kk-card__title">Terraform VPC + GKE/EKS</span>
+            </div>
+            <div class="kk-card kk-card--biz kk-card--lab">
+              <span class="kk-card__logo">LAB</span>
+              <span class="kk-card__title">Monthly cost estimate</span>
             </div>
           </div>
-        </div>
+        </section>
 
         <!-- Q3 -->
-        <div class="cert-step cert-step--left">
-          <div class="cert-step__milestone" data-short="3">Q3</div>
-          <div class="cert-step__card">
-            <img class="cert-step__logo" src="../../badges/cncf/ckad.svg" alt="Kubernetes" width="104" height="104">
-            <div class="cert-step__body">
-              <span class="cert-step__badge">Year 1 · Months 7–9</span>
-              <h2>Kubernetes Depth + GitOps</h2>
-              <p>
-                <strong>Tech:</strong>
-                <a href="https://www.linkedin.com/learning/devops-foundations-containers-14207858" target="_blank" rel="noopener noreferrer">Containers</a>,
-                <a href="https://www.linkedin.com/learning/learning-kubernetes-16086900" target="_blank" rel="noopener noreferrer">Learning Kubernetes</a>,
-                <a href="https://www.linkedin.com/learning/kubernetes-your-first-project" target="_blank" rel="noopener noreferrer">Kubernetes: Your First Project</a>,
-                <a href="https://www.linkedin.com/learning/kubernetes-and-cloud-native-associate-kcna-cert-prep" target="_blank" rel="noopener noreferrer">KCNA Cert Prep</a>,
-                <a href="https://www.linkedin.com/learning/automating-kubernetes-with-gitops" target="_blank" rel="noopener noreferrer">Automating Kubernetes with GitOps</a>.
-                <br>
-                <strong>Leadership:</strong>
-                <a href="https://www.linkedin.com/learning/devops-foundations-transforming-the-enterprise" target="_blank" rel="noopener noreferrer">Transforming the Enterprise</a>,
-                <a href="https://www.linkedin.com/learning/devops-tips" target="_blank" rel="noopener noreferrer">DevOps Tips</a>.
-              </p>
-              <div class="cert-step__meta"><span>Lab: Helm staging/prod · GitOps (Argo CD / Flux)</span></div>
-              <span class="cert-step__cta">Mar – May 2027</span>
+        <section class="kk-phase">
+          <div class="kk-phase__node">Q3 · Kubernetes depth + GitOps<br><small>Months 7–9 · Mar–May 2027</small></div>
+          <div class="kk-phase__rail kk-phase__rail--left">
+            <a class="kk-card kk-card--tech" href="https://www.linkedin.com/learning/devops-foundations-containers-14207858" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">CT</span>
+              <span class="kk-card__title">DevOps Foundations: Containers</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--tech" href="https://www.linkedin.com/learning/learning-kubernetes-16086900" target="_blank" rel="noopener noreferrer">
+              <img class="kk-card__logo-img" src="../../badges/cncf/ckad.svg" alt="" width="48" height="48">
+              <span class="kk-card__title">Learning Kubernetes</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--tech" href="https://www.linkedin.com/learning/kubernetes-your-first-project" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">K8s</span>
+              <span class="kk-card__title">Kubernetes: Your First Project</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--tech" href="https://www.linkedin.com/learning/kubernetes-and-cloud-native-associate-kcna-cert-prep" target="_blank" rel="noopener noreferrer">
+              <img class="kk-card__logo-img" src="../../badges/cncf/kcna.svg" alt="" width="48" height="48">
+              <span class="kk-card__title">KCNA Cert Prep</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--tech" href="https://www.linkedin.com/learning/automating-kubernetes-with-gitops" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">GO</span>
+              <span class="kk-card__title">Automating Kubernetes with GitOps</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--lead" href="https://www.linkedin.com/learning/devops-foundations-transforming-the-enterprise" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">TE</span>
+              <span class="kk-card__title">Transforming the Enterprise</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--lead" href="https://www.linkedin.com/learning/devops-tips" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">TIP</span>
+              <span class="kk-card__title">DevOps Tips</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <div class="kk-card kk-card--tech kk-card--lab">
+              <span class="kk-card__logo">LAB</span>
+              <span class="kk-card__title">Helm staging / prod</span>
+            </div>
+            <div class="kk-card kk-card--tech kk-card--lab">
+              <span class="kk-card__logo">LAB</span>
+              <span class="kk-card__title">GitOps — Argo CD / Flux</span>
             </div>
           </div>
-        </div>
+        </section>
 
         <!-- Q4 -->
-        <div class="cert-step cert-step--right">
-          <div class="cert-step__milestone" data-short="4">Q4</div>
-          <div class="cert-step__card">
-            <div class="cert-step__mark cert-step__mark--git" aria-hidden="true">CI</div>
-            <div class="cert-step__body">
-              <span class="cert-step__badge">Year 1 · Months 10–12</span>
-              <h2>Observability + GitHub Actions + Finance</h2>
-              <p>
-                <strong>Tech:</strong>
-                <a href="https://www.linkedin.com/learning/devops-foundations-monitoring-and-observability" target="_blank" rel="noopener noreferrer">Monitoring &amp; Observability</a>,
-                <a href="https://www.linkedin.com/learning/github-actions-for-ci-cd" target="_blank" rel="noopener noreferrer">GitHub Actions for CI/CD</a>,
-                <a href="https://www.linkedin.com/learning/github-actions-for-ci-cd-build-test-and-deploy" target="_blank" rel="noopener noreferrer">Build, Test, and Deploy</a>,
-                <a href="https://www.linkedin.com/learning/github-actions-workshop-create-ci-cd-pipelines-to-automate-build-test-and-deploy-your-application-by-microsoft" target="_blank" rel="noopener noreferrer">GitHub Actions Workshop</a>.
-                <br>
-                <strong>Business:</strong>
-                <a href="https://www.linkedin.com/learning/paths/finance-for-managers-professional-certificate-by-linkedin-learning" target="_blank" rel="noopener noreferrer">Finance for Managers Professional Certificate</a>.
-                <br>
-                <strong>Leadership:</strong>
-                <a href="https://www.linkedin.com/learning/nail-your-devops-interview" target="_blank" rel="noopener noreferrer">Nail Your DevOps Interview</a>.
-              </p>
-              <div class="cert-step__meta"><span>Milestone: 2–3 public projects · own 1 pipeline/env · reliability · cost · tradeoffs</span></div>
-              <span class="cert-step__cta">Jun – Aug 2027 · End of Year 1</span>
+        <section class="kk-phase">
+          <div class="kk-phase__node">Q4 · Observability + Actions + Finance<br><small>Months 10–12 · Jun–Aug 2027</small></div>
+          <div class="kk-phase__rail kk-phase__rail--right">
+            <a class="kk-card kk-card--tech" href="https://www.linkedin.com/learning/devops-foundations-monitoring-and-observability" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">OBS</span>
+              <span class="kk-card__title">Monitoring &amp; Observability</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--tech" href="https://www.linkedin.com/learning/github-actions-for-ci-cd" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">GHA</span>
+              <span class="kk-card__title">GitHub Actions for CI/CD</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--tech" href="https://www.linkedin.com/learning/github-actions-for-ci-cd-build-test-and-deploy" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">BTD</span>
+              <span class="kk-card__title">GitHub Actions: Build, Test, Deploy</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--tech" href="https://www.linkedin.com/learning/github-actions-workshop-create-ci-cd-pipelines-to-automate-build-test-and-deploy-your-application-by-microsoft" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">WS</span>
+              <span class="kk-card__title">GitHub Actions Workshop</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--biz" href="https://www.linkedin.com/learning/paths/finance-for-managers-professional-certificate-by-linkedin-learning" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">FM</span>
+              <span class="kk-card__title">Finance for Managers Certificate</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--lead" href="https://www.linkedin.com/learning/nail-your-devops-interview" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">IV</span>
+              <span class="kk-card__title">Nail Your DevOps Interview</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <div class="kk-card kk-card--tech kk-card--lab">
+              <span class="kk-card__logo">M1</span>
+              <span class="kk-card__title">Year 1 milestone — portfolio &amp; ownership</span>
             </div>
           </div>
-        </div>
+        </section>
 
         <!-- Q5 -->
-        <div class="cert-step cert-step--left">
-          <div class="cert-step__milestone" data-short="5">Q5</div>
-          <div class="cert-step__card">
-            <div class="cert-step__mark cert-step__mark--sec" aria-hidden="true">SRE</div>
-            <div class="cert-step__body">
-              <span class="cert-step__badge">Year 2 · Months 13–15</span>
-              <h2>SRE + Reliability</h2>
-              <p>
-                <strong>Tech:</strong>
-                <a href="https://www.linkedin.com/learning/devops-institute-cert-prep-sre-foundation-sre" target="_blank" rel="noopener noreferrer">SRE Foundation</a>,
-                <a href="https://www.linkedin.com/learning/google-kubernetes-engine-gke-foundations-deploying-stateful-applications" target="_blank" rel="noopener noreferrer">GKE Stateful Applications</a>,
-                <a href="https://www.linkedin.com/learning/leveraging-google-cloud-developer-and-devops-tools" target="_blank" rel="noopener noreferrer">GCP Developer &amp; DevOps Tools</a>.
-                <br>
-                <strong>Leadership:</strong>
-                <a href="https://www.linkedin.com/learning/devops-for-managers" target="_blank" rel="noopener noreferrer">DevOps for Managers</a>.
-              </p>
-              <div class="cert-step__meta"><span>Lab: SLI/SLO · alerting + runbook · postmortem</span></div>
-              <span class="cert-step__cta">Sep – Nov 2027</span>
+        <section class="kk-phase">
+          <div class="kk-phase__node">Q5 · SRE + Reliability<br><small>Months 13–15 · Sep–Nov 2027</small></div>
+          <div class="kk-phase__rail kk-phase__rail--left">
+            <a class="kk-card kk-card--tech" href="https://www.linkedin.com/learning/devops-institute-cert-prep-sre-foundation-sre" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">SRE</span>
+              <span class="kk-card__title">SRE Foundation</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--tech" href="https://www.linkedin.com/learning/google-kubernetes-engine-gke-foundations-deploying-stateful-applications" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">ST</span>
+              <span class="kk-card__title">GKE Stateful Applications</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--tech" href="https://www.linkedin.com/learning/leveraging-google-cloud-developer-and-devops-tools" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">GCP</span>
+              <span class="kk-card__title">GCP Developer &amp; DevOps Tools</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--lead" href="https://www.linkedin.com/learning/devops-for-managers" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">DM</span>
+              <span class="kk-card__title">DevOps for Managers</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <div class="kk-card kk-card--tech kk-card--lab">
+              <span class="kk-card__logo">LAB</span>
+              <span class="kk-card__title">SLI / SLO for one service</span>
+            </div>
+            <div class="kk-card kk-card--tech kk-card--lab">
+              <span class="kk-card__logo">LAB</span>
+              <span class="kk-card__title">Alerting · runbook · postmortem</span>
             </div>
           </div>
-        </div>
+        </section>
 
         <!-- Q6 -->
-        <div class="cert-step cert-step--right">
-          <div class="cert-step__milestone" data-short="6">Q6</div>
-          <div class="cert-step__card">
-            <div class="cert-step__mark cert-step__mark--lead" aria-hidden="true">LEAD</div>
-            <div class="cert-step__body">
-              <span class="cert-step__badge">Year 2 · Months 16–18</span>
-              <h2>Leadership in Practice</h2>
-              <p>
-                Path:
-                <a href="https://www.linkedin.com/learning/paths/managing-and-leading-developers" target="_blank" rel="noopener noreferrer">Managing and Leading Developers</a>
-                —
-                <a href="https://www.linkedin.com/learning/tech-career-skills-moving-from-developer-to-engineering-manager" target="_blank" rel="noopener noreferrer">Developer → EM</a>,
-                <a href="https://www.linkedin.com/learning/succeeding-as-a-first-time-tech-manager-23674826" target="_blank" rel="noopener noreferrer">First-Time Tech Manager</a>,
-                <a href="https://www.linkedin.com/learning/coaching-skills-for-leaders-and-managers" target="_blank" rel="noopener noreferrer">Coaching Skills</a>,
-                <a href="https://www.linkedin.com/learning/the-manager-s-guide-to-difficult-conversations" target="_blank" rel="noopener noreferrer">Difficult Conversations</a>.
-              </p>
-              <div class="cert-step__meta"><span>Practice: mentor 1 junior · lead 1 initiative · facilitate retro / design review</span></div>
-              <span class="cert-step__cta">Dec 2027 – Feb 2028</span>
+        <section class="kk-phase">
+          <div class="kk-phase__node">Q6 · Leadership in practice<br><small>Months 16–18 · Dec 2027–Feb 2028</small></div>
+          <div class="kk-phase__rail kk-phase__rail--right">
+            <a class="kk-card kk-card--lead" href="https://www.linkedin.com/learning/paths/managing-and-leading-developers" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">PATH</span>
+              <span class="kk-card__title">Managing and Leading Developers</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--lead" href="https://www.linkedin.com/learning/tech-career-skills-moving-from-developer-to-engineering-manager" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">EM</span>
+              <span class="kk-card__title">Developer → Engineering Manager</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--lead" href="https://www.linkedin.com/learning/succeeding-as-a-first-time-tech-manager-23674826" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">FT</span>
+              <span class="kk-card__title">Succeeding as a First-Time Tech Manager</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--lead" href="https://www.linkedin.com/learning/coaching-skills-for-leaders-and-managers" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">CO</span>
+              <span class="kk-card__title">Coaching Skills for Leaders</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--lead" href="https://www.linkedin.com/learning/the-manager-s-guide-to-difficult-conversations" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">DC</span>
+              <span class="kk-card__title">Difficult Conversations</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <div class="kk-card kk-card--lead kk-card--lab">
+              <span class="kk-card__logo">LAB</span>
+              <span class="kk-card__title">Mentor · lead initiative · facilitate</span>
             </div>
           </div>
-        </div>
+        </section>
 
         <!-- Q7 -->
-        <div class="cert-step cert-step--left">
-          <div class="cert-step__milestone" data-short="7">Q7</div>
-          <div class="cert-step__card">
-            <div class="cert-step__mark cert-step__mark--aws" aria-hidden="true">ARCH</div>
-            <div class="cert-step__body">
-              <span class="cert-step__badge">Year 2 · Months 19–21</span>
-              <h2>Architecture + Business Strategy</h2>
-              <p>
-                <strong>Tech:</strong>
-                <a href="https://www.linkedin.com/learning/kubernetes-provisioning-with-terraform-and-kops" target="_blank" rel="noopener noreferrer">Kubernetes + Terraform + kOps</a>,
-                <a href="https://www.linkedin.com/learning/paths/advance-as-a-tech-leader" target="_blank" rel="noopener noreferrer">Advance as a Tech Leader</a>.
-                <br>
-                <strong>Business:</strong>
-                <a href="https://www.linkedin.com/learning/corporate-finance-for-non-financial-managers" target="_blank" rel="noopener noreferrer">Corporate Finance for Non-Financial Managers</a>,
-                <a href="https://www.linkedin.com/learning/finance-strategies-for-business-leaders" target="_blank" rel="noopener noreferrer">Finance Strategies for Business Leaders</a>.
-              </p>
-              <div class="cert-step__meta"><span>Lab: ADR · cost-saving proposal with before/after metrics</span></div>
-              <span class="cert-step__cta">Mar – May 2028</span>
+        <section class="kk-phase">
+          <div class="kk-phase__node">Q7 · Architecture + Business strategy<br><small>Months 19–21 · Mar–May 2028</small></div>
+          <div class="kk-phase__rail kk-phase__rail--left">
+            <a class="kk-card kk-card--tech" href="https://www.linkedin.com/learning/kubernetes-provisioning-with-terraform-and-kops" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">TF</span>
+              <span class="kk-card__title">Kubernetes + Terraform + kOps</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--lead" href="https://www.linkedin.com/learning/paths/advance-as-a-tech-leader" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">ATL</span>
+              <span class="kk-card__title">Advance as a Tech Leader</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--biz" href="https://www.linkedin.com/learning/corporate-finance-for-non-financial-managers" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">CF</span>
+              <span class="kk-card__title">Corporate Finance for Non-Financial Managers</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--biz" href="https://www.linkedin.com/learning/finance-strategies-for-business-leaders" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">FS</span>
+              <span class="kk-card__title">Finance Strategies for Business Leaders</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <div class="kk-card kk-card--tech kk-card--lab">
+              <span class="kk-card__logo">LAB</span>
+              <span class="kk-card__title">Architecture Decision Record</span>
+            </div>
+            <div class="kk-card kk-card--biz kk-card--lab">
+              <span class="kk-card__logo">LAB</span>
+              <span class="kk-card__title">Cost-saving proposal</span>
             </div>
           </div>
-        </div>
+        </section>
 
         <!-- Q8 -->
-        <div class="cert-step cert-step--right">
-          <div class="cert-step__milestone" data-short="8">Q8</div>
-          <div class="cert-step__card is-goal">
-            <div class="cert-step__mark cert-step__mark--goal" aria-hidden="true">SR</div>
-            <div class="cert-step__body">
-              <span class="cert-step__badge">Year 2 · Months 22–24</span>
-              <h2>Senior Packaging</h2>
-              <p>
-                <strong>Cert (pick 1–2):</strong> CKA · Terraform Associate · GCP Professional DevOps
-                · AZ-400 only if Azure stack.
-                <br>
-                <strong>Career:</strong>
-                <a href="https://www.linkedin.com/learning/paths/starting-your-career-in-tech-devops" target="_blank" rel="noopener noreferrer">Starting Your Career in Tech: DevOps</a>,
-                <a href="https://www.linkedin.com/learning/writing-a-tech-resume" target="_blank" rel="noopener noreferrer">Writing a Tech Resume</a>.
-              </p>
-              <div class="cert-step__meta"><span>Target: Senior DevOps Engineer · promote or external apply</span></div>
-              <span class="cert-step__cta">Jun – Aug 2028</span>
+        <section class="kk-phase">
+          <div class="kk-phase__node kk-phase__node--goal">Q8 · Senior packaging<br><small>Months 22–24 · Jun–Aug 2028</small></div>
+          <div class="kk-phase__rail kk-phase__rail--right">
+            <a class="kk-card kk-card--tech" href="../kubestronaut/cka/">
+              <img class="kk-card__logo-img" src="../../badges/cncf/cka.svg" alt="" width="48" height="48">
+              <span class="kk-card__title">CKA (optional cert)</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <div class="kk-card kk-card--tech kk-card--lab">
+              <span class="kk-card__logo">TF</span>
+              <span class="kk-card__title">Terraform Associate (optional)</span>
+            </div>
+            <div class="kk-card kk-card--tech kk-card--lab">
+              <span class="kk-card__logo">GCP</span>
+              <span class="kk-card__title">GCP Professional DevOps (optional)</span>
+            </div>
+            <a class="kk-card kk-card--tech" href="https://www.linkedin.com/learning/microsoft-azure-devops-engineer-expert-az-400-cert-prep-by-microsoft-press" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">AZ</span>
+              <span class="kk-card__title">AZ-400 Cert Prep (if Azure)</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--lead" href="https://www.linkedin.com/learning/paths/starting-your-career-in-tech-devops" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">CR</span>
+              <span class="kk-card__title">Starting Your Career in Tech: DevOps</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <a class="kk-card kk-card--lead" href="https://www.linkedin.com/learning/writing-a-tech-resume" target="_blank" rel="noopener noreferrer">
+              <span class="kk-card__logo">CV</span>
+              <span class="kk-card__title">Writing a Tech Resume</span>
+              <span class="kk-card__go" aria-hidden="true">↗</span>
+            </a>
+            <div class="kk-card kk-card--tech kk-card--goal">
+              <span class="kk-card__logo">SR</span>
+              <span class="kk-card__title">Senior DevOps Engineer</span>
             </div>
           </div>
-        </div>
+        </section>
 
       </div>
 
-      <section class="career-checklist-block" id="senior-checklist">
-        <h2 class="career-h2">Senior readiness checklist</h2>
-        <p class="career-muted">Progress is stored locally in this browser.</p>
-        <ul class="career-readiness" id="careerReadiness">
-          <li><label><input type="checkbox" data-key="own"> Own production system (on-call / incident / postmortem)</label></li>
-          <li><label><input type="checkbox" data-key="tf"> Terraform multi-env + remote state</label></li>
-          <li><label><input type="checkbox" data-key="gitops"> CI/CD or GitOps path others can use</label></li>
-          <li><label><input type="checkbox" data-key="folio"> Portfolio: 2–3 public projects</label></li>
-          <li><label><input type="checkbox" data-key="slo"> SLI/SLO + runbook + postmortem</label></li>
-          <li><label><input type="checkbox" data-key="biz"> Can explain reliability, cost, and tradeoffs</label></li>
-          <li><label><input type="checkbox" data-key="mentor"> Mentored a junior successfully</label></li>
-          <li><label><input type="checkbox" data-key="arch"> ADR + approved cost/architecture proposal</label></li>
-          <li><label><input type="checkbox" data-key="lead"> Led an initiative / design review</label></li>
-          <li><label><input type="checkbox" data-key="pack"> Resume + interview loop ready</label></li>
-        </ul>
-      </section>
-
       <p class="career-footer-note">
-        Calendar span: 24 months alongside full-time work.
-        Estimator above converts course + lab hours into study time at the selected daily pace.
+        Blue = Tech · Orange = Leadership · Red = Business / Finance.
+        Calendar span remains 24 months alongside full-time work.
       </p>
     </article>
   </div>
@@ -306,52 +432,29 @@
   <script src="../../js/docs.js"></script>
   <script>
     (function () {
-      /* Full roadmap: ~480h courses + labs across 8 quarters */
       var totalHours = 480;
       var btns = document.getElementById("careerHoursBtns");
       var result = document.getElementById("careerEstResult");
       var hint = document.getElementById("careerEstHint");
-      if (btns && result) {
-        function fmt(h) {
-          var days = Math.ceil(totalHours / h);
-          var months = days / 30.4;
-          var label;
-          if (months < 1.5) label = "~" + Math.ceil(days / 7) + " weeks";
-          else label = "~" + (Math.round(months * 10) / 10) + " months";
-          result.textContent = label;
-          hint.textContent = "study time at " + h + "h/day · calendar plan remains 24 months";
-        }
-        btns.addEventListener("click", function (e) {
-          var btn = e.target.closest("button[data-hours]");
-          if (!btn) return;
-          btns.querySelectorAll("button").forEach(function (b) {
-            b.classList.toggle("is-active", b === btn);
-          });
-          fmt(Number(btn.getAttribute("data-hours")));
-        });
-        fmt(2);
+      if (!btns || !result) return;
+      function fmt(h) {
+        var days = Math.ceil(totalHours / h);
+        var months = days / 30.4;
+        result.textContent =
+          months < 1.5
+            ? "~" + Math.ceil(days / 7) + " weeks"
+            : "~" + (Math.round(months * 10) / 10) + " months";
+        hint.textContent = "study time at " + h + "h/day · calendar plan remains 24 months";
       }
-
-      var list = document.getElementById("careerReadiness");
-      if (list) {
-        var storageKey = "career-roadmap-checklist-v2";
-        var saved = {};
-        try {
-          saved = JSON.parse(localStorage.getItem(storageKey) || "{}") || {};
-        } catch (err) {
-          saved = {};
-        }
-        list.querySelectorAll("input[data-key]").forEach(function (input) {
-          var key = input.getAttribute("data-key");
-          input.checked = !!saved[key];
-          input.addEventListener("change", function () {
-            saved[key] = input.checked;
-            try {
-              localStorage.setItem(storageKey, JSON.stringify(saved));
-            } catch (err2) {}
-          });
+      btns.addEventListener("click", function (e) {
+        var btn = e.target.closest("button[data-hours]");
+        if (!btn) return;
+        btns.querySelectorAll("button").forEach(function (b) {
+          b.classList.toggle("is-active", b === btn);
         });
-      }
+        fmt(Number(btn.getAttribute("data-hours")));
+      });
+      fmt(2);
     })();
   </script>
 </body>
