@@ -251,6 +251,45 @@
   align-self: center;
 }
 
+/* Q8 finale — goal card on spine axis (right of center node) */
+.kk-phase--finale {
+  padding-bottom: 48px;
+}
+
+.kk-phase__goal {
+  position: relative;
+  z-index: 1;
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: start;
+  align-self: center;
+  width: min(420px, 100%);
+  max-width: 100%;
+}
+
+.kk-phase__goal .kk-card--goal {
+  width: 100%;
+}
+
+/* Icon-only cards (no LinkedIn thumb) */
+.kk-card--tech .kk-card__logo-img {
+  padding: 6px;
+  background: var(--kk-tech-soft);
+  border: 1px solid rgba(46, 230, 214, 0.35);
+}
+
+.kk-card--lead .kk-card__logo-img {
+  padding: 6px;
+  background: var(--kk-lead-soft);
+  border: 1px solid rgba(245, 200, 66, 0.35);
+}
+
+.kk-card--biz .kk-card__logo-img {
+  padding: 6px;
+  background: var(--kk-biz-soft);
+  border: 1px solid rgba(255, 77, 154, 0.35);
+}
+
 /* Compact course card */
 .kk-card {
   display: flex !important;
@@ -449,7 +488,8 @@ a.kk-card--biz:hover {
 
   .kk-phase__rail,
   .kk-phase__rail--left,
-  .kk-phase__rail--right {
+  .kk-phase__rail--right,
+  .kk-phase__goal {
     width: 100%;
     justify-self: stretch;
     align-self: stretch;
