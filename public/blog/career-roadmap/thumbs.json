@@ -1,0 +1,219 @@
+{
+  "getting-started-devops": {
+    "url": "https://www.linkedin.com/learning/paths/getting-started-with-devops",
+    "og": "https://media.licdn.com/dms/image/v2/C4E0DAQEBHK3IO_it-A/learning-public-crop_240_432/learning-public-crop_240_432/0/1582672212660?e=2147483647&amp;v=beta&amp;t=21SB_ES1K62K-fjGK1hwqqswy3xBxF7iA4u8P1xWOCE",
+    "ok": true
+  },
+  "devops-foundations": {
+    "url": "https://www.linkedin.com/learning/devops-foundations-23454205",
+    "og": "https://media.licdn.com/dms/image/v2/D560DAQEP0x26XHV_6Q/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1707936080464?e=2147483647&amp;v=beta&amp;t=eY0oG3GST15nq73m3MDYw7vwjkIV9T-Q8yTLGvUyWAA",
+    "ok": true
+  },
+  "devops-cicd": {
+    "url": "https://www.linkedin.com/learning/devops-foundations-continuous-delivery-continuous-integration-14449917",
+    "og": "https://media.licdn.com/dms/image/v2/C560DAQFoucftXzxg0w/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1640024951192?e=2147483647&amp;v=beta&amp;t=QTDoUDzbLAbWJp42HuYoRhMiG5nu5NRliPfBASTGslQ",
+    "ok": true
+  },
+  "devops-iac": {
+    "url": "https://www.linkedin.com/learning/devops-foundations-infrastructure-as-code",
+    "og": "https://media.licdn.com/dms/image/v2/D4D0DAQFmY9NJZYpOwA/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1684264315878?e=2147483647&amp;v=beta&amp;t=4qCLR83v3x6q-68w1xWs8zjnjhKrw6WqL_Ink-ijQ10",
+    "ok": true
+  },
+  "linux-cli": {
+    "url": "https://www.linkedin.com/learning/learning-linux-command-line-14447912",
+    "og": "https://media.licdn.com/dms/image/v2/D4E0DAQFKBIqdHlpLgQ/learning-public-crop_675_1200/B4EZjohj_CGYAY-/0/1756247769738?e=2147483647&amp;v=beta&amp;t=SwNwvjs-GlmU-hOVIUVJA3cB6sHvgoD0SaeCgHZWJik",
+    "ok": true
+  },
+  "succeeding-devops": {
+    "url": "https://www.linkedin.com/learning/succeeding-in-devops",
+    "og": null,
+    "ok": false,
+    "err": "HTTP Error 404: Not Found"
+  },
+  "tech-communication": {
+    "url": "https://www.linkedin.com/learning/tech-career-skills-effective-technical-communication",
+    "og": "https://media.licdn.com/dms/image/v2/C4E0DAQGe_XBEUaYAHA/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1568669412428?e=2147483647&amp;v=beta&amp;t=QEso6-1Lc9Ph5lSUygZxhuAC_R3CXpoXTTv-FsIkdIg",
+    "ok": true
+  },
+  "terraform-aws": {
+    "url": "https://www.linkedin.com/learning/essential-terraform-in-aws",
+    "og": "https://media.licdn.com/dms/image/v2/D4E0DAQE6LyTn2Hb50w/learning-public-crop_675_1200/B4EZepIq6DHwBo-/0/1750889313525?e=2147483647&amp;v=beta&amp;t=p5DpHQSWF5T_Z_0mDxEjT5RHxwk-tF3ZPhgTWDAeN0o",
+    "ok": true
+  },
+  "ansible": {
+    "url": "https://www.linkedin.com/learning/learning-ansible-24687086",
+    "og": "https://media.licdn.com/dms/image/v2/D560DAQHQAHv4J1Qlsw/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1727911714372?e=2147483647&amp;v=beta&amp;t=8np2FEHWG5fTk-HUZS68iEbkMvMy688uU2m1CBd1sSs",
+    "ok": true
+  },
+  "build-cicd": {
+    "url": "https://www.linkedin.com/learning/build-a-ci-cd-pipeline",
+    "og": "https://media.licdn.com/dms/image/v2/D4E0DAQHUS0kuKfAZng/learning-public-crop_675_1200/B4EZepIhTpGwAc-/0/1750889273424?e=2147483647&amp;v=beta&amp;t=1XAv3cTiLhraABagAqnAlrs_Sb2u-hXDnFYSMJD0oEA",
+    "ok": true
+  },
+  "gke-foundations": {
+    "url": "https://www.linkedin.com/learning/google-cloud-foundations-google-kubernetes-engine-gke",
+    "og": "https://media.licdn.com/dms/image/v2/D560DAQE0uQtO5NORZw/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1719008991824?e=2147483647&amp;v=beta&amp;t=5XbakBosBUYaOCZPqtfoyY2Kd7Ch_fQmWV-RCzxqP3c",
+    "ok": true
+  },
+  "devops-aws": {
+    "url": "https://www.linkedin.com/learning/devops-with-aws-tools-for-automated-workflows",
+    "og": "https://media.licdn.com/dms/image/v2/D4D0DAQFOQsi4YDT7rA/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1733964567940?e=2147483647&amp;v=beta&amp;t=yzo05lB0TkS93Dx2DFOXOiScMttQ9tdaoUHRNp3MQZU",
+    "ok": true
+  },
+  "finance-nfm": {
+    "url": "https://www.linkedin.com/learning/finance-for-non-financial-managers-23778630",
+    "og": "https://media.licdn.com/dms/image/v2/D560DAQE1B6A9yIuxjg/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1713394694274?e=2147483647&amp;v=beta&amp;t=QfeyRf9EQeb30jg1UTfQ2kWusuT-AVzXCwP9zWuAEWI",
+    "ok": true
+  },
+  "economics-leaders": {
+    "url": "https://www.linkedin.com/learning/economics-for-business-leaders",
+    "og": "https://media.licdn.com/dms/image/v2/C4E0DAQHekppcGO5niA/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1599861318495?e=2147483647&amp;v=beta&amp;t=cDayqwLIH9UoQ5hbbSDEZgI-x6y1PhneBMJYF_Ww_Kc",
+    "ok": true
+  },
+  "containers": {
+    "url": "https://www.linkedin.com/learning/devops-foundations-containers-14207858",
+    "og": "https://media.licdn.com/dms/image/v2/C560DAQFLV5Q1If5ZYA/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1629739321434?e=2147483647&amp;v=beta&amp;t=BL5t6XYFCMiiyeTjJSI7l66jVx9ZFIwwbLdCevZvR3A",
+    "ok": true
+  },
+  "learning-k8s": {
+    "url": "https://www.linkedin.com/learning/learning-kubernetes-16086900",
+    "og": "https://media.licdn.com/dms/image/v2/C560DAQHvMfWguLq9Qw/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1668460173594?e=2147483647&amp;v=beta&amp;t=TFNzmvkGWIHyltpUBdmMZUMiH90oDmjYbZ03xi5S_uQ",
+    "ok": true
+  },
+  "k8s-first-project": {
+    "url": "https://www.linkedin.com/learning/kubernetes-your-first-project",
+    "og": "https://media.licdn.com/dms/image/v2/D4E0DAQHMTGjVlXuQmA/learning-public-crop_675_1200/B4EZeEFPhJH0Ac-/0/1750267656589?e=2147483647&amp;v=beta&amp;t=0BcznFJ6yJkpiZWXMeV3wrlaSmujdatBy0We1E5Euok",
+    "ok": true
+  },
+  "kcna": {
+    "url": "https://www.linkedin.com/learning/kubernetes-and-cloud-native-associate-kcna-cert-prep",
+    "og": "https://media.licdn.com/dms/image/v2/D4E0DAQHqLPLvgLZw2g/learning-public-crop_675_1200/B4EZepIeToHgAg-/0/1750889260579?e=2147483647&amp;v=beta&amp;t=dsH8No8E-Hv2C7GuE14Kf1QYqfkEsChNhn4c2IjvlSA",
+    "ok": true
+  },
+  "gitops": {
+    "url": "https://www.linkedin.com/learning/automating-kubernetes-with-gitops",
+    "og": "https://media.licdn.com/dms/image/v2/D4E0DAQEz3s7O_E29yg/learning-public-crop_675_1200/B4EZepIjWgG4Ag-/0/1750889281206?e=2147483647&amp;v=beta&amp;t=Ds2iJfKYcbdvyra_Di8aMPIJIiquY1BszAAIYxygwOU",
+    "ok": true
+  },
+  "transforming-enterprise": {
+    "url": "https://www.linkedin.com/learning/devops-foundations-transforming-the-enterprise",
+    "og": "https://media.licdn.com/dms/image/v2/C4E0DAQHsgDGz0eQUxA/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1569955973652?e=2147483647&amp;v=beta&amp;t=jmi_w10fS0k77kCB4SUUOE0GNnToXOM5434-tEBRxhE",
+    "ok": true
+  },
+  "devops-tips": {
+    "url": "https://www.linkedin.com/learning/devops-tips",
+    "og": null,
+    "ok": false,
+    "err": "HTTP Error 404: Not Found"
+  },
+  "observability": {
+    "url": "https://www.linkedin.com/learning/devops-foundations-monitoring-and-observability",
+    "og": "https://media.licdn.com/dms/image/v2/D4D0DAQEkT2ZrH_6N_w/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1702681529716?e=2147483647&amp;v=beta&amp;t=GgZMMC0Az7fItVt8tSebIcj_dcJu833s2zBqgRKbd5g",
+    "ok": true
+  },
+  "gha-cicd": {
+    "url": "https://www.linkedin.com/learning/github-actions-for-ci-cd",
+    "og": "https://media.licdn.com/dms/image/v2/D4E0DAQF1PtBN7adoKw/learning-public-crop_675_1200/B4EZwlu_OvJ4AY-/0/1770159600817?e=2147483647&amp;v=beta&amp;t=UDPojpNIcetWVycagpgpIgWbIXgejrr7s6To0aKhhPY",
+    "ok": true
+  },
+  "gha-btd": {
+    "url": "https://www.linkedin.com/learning/github-actions-for-ci-cd-build-test-and-deploy",
+    "og": "https://media.licdn.com/dms/image/v2/D4E0DAQF1PtBN7adoKw/learning-public-crop_675_1200/B4EZwlu_OvJ4AY-/0/1770159600817?e=2147483647&amp;v=beta&amp;t=UDPojpNIcetWVycagpgpIgWbIXgejrr7s6To0aKhhPY",
+    "ok": true
+  },
+  "gha-workshop": {
+    "url": "https://www.linkedin.com/learning/github-actions-workshop-create-ci-cd-pipelines-to-automate-build-test-and-deploy-your-application-by-microsoft",
+    "og": "https://media.licdn.com/dms/image/v2/D560DAQFbQZ8WTrWa7Q/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1721840094943?e=2147483647&amp;v=beta&amp;t=x9z3MeZTeyj4aombXT2OFBZVQf6Z2h7LnmSroyoN-_I",
+    "ok": true
+  },
+  "finance-managers": {
+    "url": "https://www.linkedin.com/learning/paths/finance-for-managers-professional-certificate-by-linkedin-learning",
+    "og": "https://media.licdn.com/dms/image/v2/D4E0DAQFDzy9JaTiLCA/learning-public-banner-crop_300_1400/learning-public-banner-crop_300_1400/0/1726873684466?e=2147483647&amp;v=beta&amp;t=LYp-TbqRKz-2nCMJJGMp-IxW50ap1CC3FKbKInwBiP8",
+    "ok": true
+  },
+  "nail-interview": {
+    "url": "https://www.linkedin.com/learning/nail-your-devops-interview",
+    "og": "https://media.licdn.com/dms/image/v2/C4E0DAQECwpzmHys7xQ/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1572464186175?e=2147483647&amp;v=beta&amp;t=2VlIqkFdSxT2eBLkD3TyX8jl9v0MTSpKZnE7AZViB0E",
+    "ok": true
+  },
+  "sre-foundation": {
+    "url": "https://www.linkedin.com/learning/devops-institute-cert-prep-sre-foundation-sre",
+    "og": "https://media.licdn.com/dms/image/v2/C560DAQHH2VkDXuNlkA/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1656609129208?e=2147483647&amp;v=beta&amp;t=nDatfJ3Z2iB6Hna0DmO-s-UtFtqBTf6bD4HfgVrShL0",
+    "ok": true
+  },
+  "gke-stateful": {
+    "url": "https://www.linkedin.com/learning/google-kubernetes-engine-gke-foundations-deploying-stateful-applications",
+    "og": "https://media.licdn.com/dms/image/v2/D560DAQEh0Jikb25jCg/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1685551745507?e=2147483647&amp;v=beta&amp;t=1mc_AGAliuxSxIc7vKO4cSSzHlfZRtS45Fa8X15IRS0",
+    "ok": true
+  },
+  "gcp-devops-tools": {
+    "url": "https://www.linkedin.com/learning/leveraging-google-cloud-developer-and-devops-tools",
+    "og": "https://media.licdn.com/dms/image/v2/C4E0DAQGNj0oA1ccRkA/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1662645118935?e=2147483647&amp;v=beta&amp;t=ZStBusfFobd7cSAQm5sPTt6kKro_eE-tYW01_1vc2AA",
+    "ok": true
+  },
+  "devops-managers": {
+    "url": "https://www.linkedin.com/learning/devops-for-managers",
+    "og": "https://media.licdn.com/dms/image/v2/D560DAQE1qI0PRl4HKw/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1681341028626?e=2147483647&amp;v=beta&amp;t=Id60ThiQPyT6DJNjAiN2r6GyniOX4zi1E03Gefncd7M",
+    "ok": true
+  },
+  "managing-leading": {
+    "url": "https://www.linkedin.com/learning/paths/managing-and-leading-developers",
+    "og": "https://media.licdn.com/dms/image/v2/C4E0DAQHOW3NHHm3sbA/learning-public-crop_240_432/learning-public-crop_240_432/0/1588193009656?e=2147483647&amp;v=beta&amp;t=oKWfRdhgwvXQ9sj5wq3xWY9s3jW4pt7t20IbEh1zMfs",
+    "ok": true
+  },
+  "dev-to-em": {
+    "url": "https://www.linkedin.com/learning/tech-career-skills-moving-from-developer-to-engineering-manager",
+    "og": "https://media.licdn.com/dms/image/v2/C4E0DAQHWO-MrAlQlYQ/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1581710297848?e=2147483647&amp;v=beta&amp;t=iCNHPdpAHaWUUocgGTHURyVIIPudX95V76aQ_QSNCuM",
+    "ok": true
+  },
+  "first-time-manager": {
+    "url": "https://www.linkedin.com/learning/succeeding-as-a-first-time-tech-manager-23674826",
+    "og": "https://media.licdn.com/dms/image/v2/D4D0DAQFMCycApffsMA/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1732234285462?e=2147483647&amp;v=beta&amp;t=_c4nx89z7jbIJeS-Yj62y9KjaMx1IM-_TvNYiZ2kgac",
+    "ok": true
+  },
+  "coaching": {
+    "url": "https://www.linkedin.com/learning/coaching-skills-for-leaders-and-managers",
+    "og": "https://media.licdn.com/dms/image/v2/C560DAQEDfcYbJ5pA8Q/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1567122036825?e=2147483647&amp;v=beta&amp;t=gdDRsmrY9ubbZRyFj12mH19RbCq1u3lzwg51VUEolp8",
+    "ok": true
+  },
+  "difficult-conversations": {
+    "url": "https://www.linkedin.com/learning/the-manager-s-guide-to-difficult-conversations",
+    "og": "https://media.licdn.com/dms/image/v2/C4E0DAQEwW3mZ1jF7kw/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1581358192160?e=2147483647&amp;v=beta&amp;t=DG1dkCksuZ4r8KDbw-JZlQLC6GUsMikZ97ueABEfJKA",
+    "ok": true
+  },
+  "k8s-terraform-kops": {
+    "url": "https://www.linkedin.com/learning/kubernetes-provisioning-with-terraform-and-kops",
+    "og": "https://media.licdn.com/dms/image/v2/D560DAQHA6TJQvV2YcA/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1694821635296?e=2147483647&amp;v=beta&amp;t=fuaiO6VUBBBUzqoSY4cqhQCIGz6scUZz6IK0hgqfRS8",
+    "ok": true
+  },
+  "advance-tech-leader": {
+    "url": "https://www.linkedin.com/learning/paths/advance-as-a-tech-leader",
+    "og": "https://media.licdn.com/dms/image/v2/C560DAQHjT8w6SsC0YA/learning-public-crop_240_432/learning-public-crop_240_432/0/1637180284482?e=2147483647&amp;v=beta&amp;t=6KrcXYCAlMSWsz3h1Iy2_kwXdxo18ZRiKkdjvwTLYmI",
+    "ok": true
+  },
+  "corporate-finance": {
+    "url": "https://www.linkedin.com/learning/corporate-finance-for-non-financial-managers",
+    "og": "https://media.licdn.com/dms/image/v2/D560DAQEYMbg7IqFVXQ/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1722891211136?e=2147483647&amp;v=beta&amp;t=fQaf9yslcXFa6MQaNEKFOHBF0n--A-ToKjUpRLOhNV8",
+    "ok": true
+  },
+  "finance-strategies": {
+    "url": "https://www.linkedin.com/learning/finance-strategies-for-business-leaders",
+    "og": "https://media.licdn.com/dms/image/v2/C4E0DAQHS-rmgvwYpKg/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1602009223268?e=2147483647&amp;v=beta&amp;t=6YhK0YoW7cbYvWdl16D6LmVVwU9I6VERWwkO-G_QhKE",
+    "ok": true
+  },
+  "az400": {
+    "url": "https://www.linkedin.com/learning/microsoft-azure-devops-engineer-expert-az-400-cert-prep-by-microsoft-press",
+    "og": "https://media.licdn.com/dms/image/v2/D560DAQH30rdFzP0J8g/learning-public-crop_675_1200/B56ZbF4z3nGkAY-/0/1747076726956?e=2147483647&amp;v=beta&amp;t=QeCLdLPVPJ_zRLkkRC_vTdGUkZYHK5pjBOu8fyTRNCo",
+    "ok": true
+  },
+  "career-devops": {
+    "url": "https://www.linkedin.com/learning/paths/starting-your-career-in-tech-devops",
+    "og": "https://media.licdn.com/dms/image/v2/C4D0DAQGd7E_kLma1KQ/learning-public-crop_240_432/learning-public-crop_240_432/0/1635979856913?e=2147483647&amp;v=beta&amp;t=T_ojBlsfEgn81EKtBjGuuxnOXj6MRBnO8KQsD0JI2e4",
+    "ok": true
+  },
+  "tech-resume": {
+    "url": "https://www.linkedin.com/learning/writing-a-tech-resume",
+    "og": "https://media.licdn.com/dms/image/v2/C4D0DAQEE8o-OhfIwTQ/learning-public-crop_675_1200/learning-public-crop_675_1200/0/1586792860695?e=2147483647&amp;v=beta&amp;t=N8W06U4nszwEaCkqB38tsAoC6Zd8bDHIMY3YVDB5_uk",
+    "ok": true
+  }
+}

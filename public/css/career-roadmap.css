@@ -207,7 +207,7 @@
   gap: 12px;
   width: 100%;
   box-sizing: border-box;
-  padding: 12px 14px;
+  padding: 10px 12px;
   border-radius: 14px;
   border: 1px solid rgba(56, 189, 248, 0.4);
   background: rgba(17, 17, 24, 0.96);
@@ -264,6 +264,18 @@ a.kk-card--biz:hover {
   background:
     linear-gradient(135deg, rgba(56, 189, 248, 0.16), transparent 55%),
     rgba(17, 17, 24, 0.96);
+}
+
+.kk-card__thumb {
+  width: 96px;
+  height: 54px;
+  flex: 0 0 96px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 8px;
+  background: #0a0a0f;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: block;
 }
 
 .kk-card__logo,
