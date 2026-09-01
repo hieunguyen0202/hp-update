@@ -16,6 +16,11 @@
   --kk-biz: #ff4d9a;
   --kk-biz-2: #ff7eb3;
   --kk-biz-soft: rgba(255, 77, 154, 0.14);
+
+  --kk-goal: #ff4d6a;
+  --kk-goal-2: #ff8fa3;
+  --kk-goal-soft: rgba(255, 77, 106, 0.16);
+  --kk-goal-glow: rgba(255, 77, 106, 0.35);
 }
 
 .kk-legend {
@@ -310,18 +315,27 @@ a.kk-card--biz:hover {
 }
 
 .kk-card--goal {
-  border-color: var(--kk-lead);
+  border-color: var(--kk-goal);
   background:
-    linear-gradient(135deg, rgba(245, 200, 66, 0.12), transparent 55%),
+    linear-gradient(135deg, var(--kk-goal-soft), transparent 55%),
     rgba(12, 14, 22, 0.95);
+  box-shadow:
+    0 0 0 1px rgba(255, 77, 106, 0.2),
+    0 8px 28px var(--kk-goal-glow),
+    0 4px 16px rgba(0, 0, 0, 0.45);
+}
+
+.kk-card--goal .kk-card__title {
+  color: #fff5f7;
 }
 
 .kk-card--goal .kk-card__logo-img {
   object-fit: contain;
   padding: 4px;
-  background: rgba(245, 200, 66, 0.08);
-  border: 1px solid rgba(245, 200, 66, 0.35);
+  background: var(--kk-goal-soft);
+  border: 1px solid rgba(255, 77, 106, 0.45);
   border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(255, 77, 106, 0.25);
 }
 
 .career-footer-note a {
