@@ -6067,3 +6067,26 @@ mark.lr-filler {
   font-style: normal;
   font-weight: 600;
 }
+
+.lr-mock-natural {
+  margin-top: 20px;
+}
+
+.lr-mock-natural .lr-vlog--part2 {
+  margin-top: 10px;
+}
+
+.ex-a-label-hint {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(34, 211, 238, 0.75);
+  vertical-align: middle;
+}
+
+.lr-answer--natural .ex-a-label {
+  vertical-align: top;
+}
