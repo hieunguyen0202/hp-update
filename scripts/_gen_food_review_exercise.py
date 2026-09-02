@@ -2513,23 +2513,23 @@ def speaking_mock_html() -> str:
         '<p class="lr-vlog-text"><mark class="lr-filler">Okay</mark> <mark class="lr-filler">so</mark> um I\'m supposed to talk about a meal I enjoyed, right? '
         "This was last Saturday evening — our first proper dinner date, and honestly I was "
         '<mark class="lr-filler">kind of</mark> nervous the whole way there.</p>'
-        '<p class="lr-vlog-text">I went with someone I\'d been texting for maybe two weeks — we picked this little Italian place near the river, '
-        "nothing fancy, just warm lights and, <mark class=\"lr-filler\">you know</mark>, that smell of garlic bread when you walk in.</p>"
-        '<p class="lr-vlog-text">We ordered spaghetti carbonara to share, and a small tiramisu at the end — '
-        '<mark class="lr-filler">I mean</mark> the pasta was really good, but what stuck with me is we kept laughing because I '
-        '<mark class="lr-filler">literally</mark> could not twist the fork properly and she had to show me, which was embarrassing but '
+        '<p class="lr-vlog-text">I went with someone I\'d been texting for maybe two weeks — we picked a small restaurant near the river, '
+        "nothing fancy, just warm lights and, <mark class=\"lr-filler\">you know</mark>, that nice smell when you walk in.</p>"
+        '<p class="lr-vlog-text">We shared fried rice and grilled chicken, and a small fruit cake at the end — '
+        '<mark class="lr-filler">I mean</mark> the food was really good, but what stuck with me is we kept laughing because I '
+        'could not use the chopsticks properly and she had to show me, which was embarrassing but '
         '<mark class="lr-filler">like</mark>… cute, <mark class="lr-filler">I guess</mark>.</p>'
-        '<p class="lr-vlog-text"><mark class="lr-filler">And</mark> <mark class="lr-filler">yeah</mark> why I enjoyed it — it wasn\'t because the food was Michelin-level or anything. '
-        "For the first time that week I wasn't checking my phone or thinking about work. It just felt easy — "
-        '<mark class="lr-filler">like</mark> eating with someone you actually want to see again. '
+        '<p class="lr-vlog-text"><mark class="lr-filler">And</mark> <mark class="lr-filler">yeah</mark> why I enjoyed it — it wasn\'t because the food was '
+        "super expensive or anything. For the first time that week I wasn't checking my phone or thinking about work. "
+        'It just felt easy — <mark class="lr-filler">like</mark> eating with someone you actually want to see again. '
         "<mark class=\"lr-filler\">That's</mark> the meal I still think about.</p>"
         '<details class="lr-vlog-vi-details">'
         '<summary>Bản dịch tiếng Việt</summary>'
         '<div class="lr-vlog-vi-body">'
         '<p>Mình kể về một bữa ăn thật sự thích nhé — tối thứ Bảy tuần trước, buổi hẹn ăn tối đầu tiên, đi đến quán mà hơi hồi hộp cả đường.</p>'
-        '<p>Đi với người mình nhắn tin khoảng hai tuần — chọn quán Ý nhỏ gần sông, không sang, chỉ đèn ấm và mùi bánh mì tỏi khi bước vào.</p>'
-        '<p>Gọi mì carbonara ăn chung, cuối buổi thêm tiramisu — mì ngon thật, nhưng nhớ nhất là hai đứa cười vì mình xoắn mì vụng quá, cô ấy phải chỉ, hơi ngại mà cũng dễ thương.</p>'
-        '<p>Thích vì không phải đồ ăn kiểu Michelin — mà vì lần đầu cả tuần mình không cắm điện thoại hay nghĩ việc. Cảm giác nhẹ nhàng, kiểu muốn gặp lại người đó. Bữa đó mình vẫn nhớ.</p>'
+        '<p>Đi với người mình nhắn tin khoảng hai tuần — chọn quán nhỏ gần sông, không sang, chỉ đèn ấm và mùi thơm dễ chịu khi bước vào.</p>'
+        '<p>Gọi cơm chiên và gà nướng ăn chung, cuối buổi thêm bánh tráng miệng nhỏ — đồ ăn ngon thật, nhưng nhớ nhất là hai đứa cười vì mình cầm đũa vụng quá, cô ấy phải chỉ, hơi ngại mà cũng dễ thương.</p>'
+        '<p>Thích vì không phải đồ ăn đắt đỏ — mà vì lần đầu cả tuần mình không cắm điện thoại hay nghĩ việc. Cảm giác nhẹ nhàng, kiểu muốn gặp lại người đó. Bữa đó mình vẫn nhớ.</p>'
         '</div></details>'
         "</blockquote>"
     )
@@ -2750,6 +2750,45 @@ def mock_practice_refs_html() -> str:
               <strong>LangGo — 70+ Food idioms</strong>
               <span>Thành ngữ đồ ăn — nguồn idiom &amp; phrase trong mục 5</span>
               <span class="lr-card-cta">Xem idioms ↗</span>
+            </a>
+          </div>
+          <h4 class="lr-ref-subtitle">Giọng tự nhiên · kể chuyện Food (Part 2)</h4>
+          <p class="lr-ref-subhint">Tổng hợp hướng dẫn nói <strong>như kể chuyện thật</strong> — dùng giác quan (sight, smell, taste…), beginning–middle–end. Phù hợp luyện <strong>Real talk</strong> &amp; Date story bên dưới; tránh nhồi từ khó.</p>
+          <div class="lr-ref-grid lr-ref-grid--natural">
+            <a class="lr-ref-card lr-ref-card--featured" href="https://www.ieltsjacky.com/ielts-speaking-test-sample.html" target="_blank" rel="noopener noreferrer">
+              <strong>IELTS Jacky — Tell a story · Food</strong>
+              <span>Method 3: <em>Using the Senses</em> · mẫu Part 2 “food you disliked but now enjoy” (figs — Christmas → Spain) · beginning / middle / end</span>
+              <span class="lr-card-cta">Đọc bài mẫu ↗</span>
+            </a>
+            <a class="lr-ref-card" href="https://www.ieltsjacky.com/ielts-speaking-part-2.html" target="_blank" rel="noopener noreferrer">
+              <strong>IELTS Jacky — Part 2 format &amp; cue cards</strong>
+              <span>1 phút chuẩn bị, cách tránh lỗi thường gặp, thêm cue card Food &amp; topic vocabulary</span>
+              <span class="lr-card-cta">Xem Part 2 ↗</span>
+            </a>
+            <a class="lr-ref-card" href="https://ielts.idp.com/prepare/article-how-to-talk-naturally-about-food-in-ielts-speaking" target="_blank" rel="noopener noreferrer">
+              <strong>IDP — Talk naturally about food</strong>
+              <span>Nói như hội thoại thật · collocation (home-cooked, eat out) · phrasal verb · không cố nghe “band cao”</span>
+              <span class="lr-card-cta">Đọc IDP ↗</span>
+            </a>
+            <a class="lr-ref-card" href="https://engage.mosaicbc.org/blog/ielts-tips-speaking-part-2-practice" target="_blank" rel="noopener noreferrer">
+              <strong>MOSAIC — Meal at a restaurant</strong>
+              <span>Mẫu Part 2 ~2 phút: sinh nhật bạn, quán vegan, bowl &amp; rice — giọng đơn giản, kết bằng “enjoyed the company”</span>
+              <span class="lr-card-cta">Xem mẫu ↗</span>
+            </a>
+            <a class="lr-ref-card" href="https://careerwiseenglish.com.au/ielts-speaking-part-2-food-and-cooking-cue-card-sample/" target="_blank" rel="noopener noreferrer">
+              <strong>CareerWise — Homemade chicken curry</strong>
+              <span>Kể một trải nghiệm nấu ăn với chị · mùi trong bếp · “organised and real”, không cố nghe band 9</span>
+              <span class="lr-card-cta">Đọc mẫu ↗</span>
+            </a>
+            <a class="lr-ref-card" href="https://www.ieltsjacky.com/ielts-speaking-samples.html" target="_blank" rel="noopener noreferrer">
+              <strong>IELTS Jacky — Sample 1 · Question prompts</strong>
+              <span>Method 1: ghi chú theo bullet points trên cue card — mẫu “healthy activity” (circuit training)</span>
+              <span class="lr-card-cta">Sample 1 ↗</span>
+            </a>
+            <a class="lr-ref-card" href="https://www.ieltsjacky.com/ielts-speaking-sample.html" target="_blank" rel="noopener noreferrer">
+              <strong>IELTS Jacky — Sample 2 · Brainstorming</strong>
+              <span>Method 2: liệt kê ý tự do rồi xếp thành story — mẫu “place near water”</span>
+              <span class="lr-card-cta">Sample 2 ↗</span>
             </a>
           </div>
         </aside>"""
