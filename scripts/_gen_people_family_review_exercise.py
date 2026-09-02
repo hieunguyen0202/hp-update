@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Generate People & Family · Linear Thinking review exercise (capstone after B2).
 
-Grammar focus (2 topics, tied to Lesson 4 & 5):
+Grammar focus (3 topics, tied to Lesson 4 & 5 + DOL paraphrase):
   1. Gerunds & preferences (like/enjoy/prefer/hardly ever)
   2. Because vs because of + Conditional Type 2 (if I had to choose…)
+  3. Paraphrase — synonym, antonym, word order, wordform, passive (DOL)
 """
 from __future__ import annotations
 
@@ -48,6 +49,12 @@ GRAMMAR_REFS = [
         "Lesson 5 · What kind of X…? — if I had to choose, I would… + lý do",
         "…because it helps me relax / because of my busy schedule / if I had to choose one, I would go for…",
     ),
+    (
+        "Paraphrase trong IELTS — 6 kỹ thuật",
+        "https://www.dolenglish.vn/blog/paraphrase-trong-ielts",
+        "Synonym · antonym · word order · passive · wordform (V→N) · đổi cấu trúc câu — tránh lặp từ khi nói Family",
+        "hold immense importance → matter deeply to me / support (v) → unwavering support (n)",
+    ),
 ]
 
 SPEAKING_VIDEOS = [
@@ -77,15 +84,41 @@ SPEAKING_VIDEOS = [
     },
 ]
 
+FAMILY_SCORING_PHRASES = [
+    ("hold immense importance", "có ý nghĩa to lớn"),
+    ("my pillars of strength", "những trụ cột của sức mạnh"),
+    ("unwavering support", "sự hỗ trợ kiên định, không dao động"),
+    ("a sense of belonging", "cảm giác thuộc về"),
+    ("lend a listening ear", "lắng nghe, đồng hành"),
+    ("bring immense happiness and contentment", "mang đến hạnh phúc và mãn nguyện"),
+    ("live under the same roof", "sống chung một mái nhà"),
+    ("maintain strong bonds", "duy trì mối quan hệ gắn kết"),
+    ("through thick and thin", "trong mọi hoàn cảnh"),
+    ("a wide range of topics", "nhiều chủ đề đa dạng"),
+]
+
+FAMILY_COLLOCATIONS = [
+    ("maintain a good relationship with", "giữ mối quan hệ tốt với"),
+    ("connect with someone on a deep level", "kết nối sâu sắc với ai đó"),
+    ("make efforts to stay connected", "nỗ lực giữ liên lạc"),
+    ("pass down traditional values", "truyền giá trị truyền thống"),
+    ("share and discuss things", "chia sẻ và thảo luận"),
+    ("lay the groundwork for", "đặt nền tảng cho"),
+    ("foster a sense of security", "nuôi dưỡng cảm giác an toàn"),
+    ("a sense of companionship and support", "cảm giác có bạn đồng hành"),
+    ("household and childcare responsibilities", "trách nhiệm gia đình & chăm con"),
+    ("personal growth and social development", "phát triển cá nhân & xã hội"),
+]
+
 FAMILY_IDIOMS = [
     ("blood is thicker than water", "máu mủ ruột thịt — gia đình quan trọng hơn"),
+    ("the apple never falls far from the tree", "con nhà tông không giống lông cũng giống cánh"),
     ("like two peas in a pod", "giống nhau như đúc"),
-    ("the apple of someone's eye", "người được cưng chiều nhất"),
+    ("like father, like son", "cha nào con nấy"),
     ("black sheep of the family", "thành viên cá biệt trong gia đình"),
     ("bring home the bacon", "kiếm tiền nuôi gia đình"),
-    ("like father, like son", "con nhà tông không giống lông cũng giống cánh"),
-    ("break one's neck", "cố gắng hết sức (cha mẹ vì con)"),
     ("when the blood sheds, the heart aches", "máu chảy ruột mềm"),
+    ("family values", "giá trị đạo đức trong gia đình"),
 ]
 
 WORD_SLOTS: dict[str, list[dict]] = {
@@ -150,9 +183,89 @@ WORD_SLOTS: dict[str, list[dict]] = {
     "family_idiom": [
         {"form": "blood is thicker than water", "vi": "máu mủ ruột thịt"},
         {"form": "like two peas in a pod", "vi": "giống nhau như đúc"},
-        {"form": "the apple of someone's eye", "vi": "người được cưng chiều"},
+        {"form": "the apple never falls far from the tree", "vi": "con nhà tông không giống lông cũng giống cánh"},
         {"form": "black sheep of the family", "vi": "thành viên cá biệt"},
-        {"form": "like father, like son", "vi": "con nhà tông không giống lông cũng giống cánh"},
+        {"form": "like father, like son", "vi": "cha nào con nấy"},
+    ],
+    "score_phrase": [
+        {"form": "hold immense importance", "vi": "có ý nghĩa to lớn"},
+        {"form": "my pillars of strength", "vi": "những trụ cột của sức mạnh"},
+        {"form": "unwavering support", "vi": "sự hỗ trợ kiên định"},
+        {"form": "a sense of belonging", "vi": "cảm giác thuộc về"},
+        {"form": "lend a listening ear", "vi": "lắng nghe, đồng hành"},
+        {"form": "bring immense happiness and contentment", "vi": "mang hạnh phúc & mãn nguyện"},
+        {"form": "through thick and thin", "vi": "trong mọi hoàn cảnh"},
+        {"form": "a wide range of topics", "vi": "nhiều chủ đề đa dạng"},
+    ],
+    "collocation": [
+        {"form": "live under the same roof", "vi": "sống chung một mái nhà"},
+        {"form": "maintain strong bonds", "vi": "duy trì mối quan hệ gắn kết"},
+        {"form": "make efforts to stay connected", "vi": "nỗ lực giữ liên lạc"},
+        {"form": "pass down traditional values", "vi": "truyền giá trị truyền thống"},
+        {"form": "maintain a good relationship with", "vi": "giữ mối quan hệ tốt"},
+        {"form": "lay the groundwork for", "vi": "đặt nền tảng cho"},
+        {"form": "foster a sense of security", "vi": "nuôi dưỡng cảm giác an toàn"},
+        {"form": "a sense of companionship and support", "vi": "có bạn đồng hành & hỗ trợ"},
+        {"form": "personal growth and social development", "vi": "phát triển cá nhân & xã hội"},
+        {"form": "promote a supportive atmosphere", "vi": "thúc đẩy môi trường tương trợ"},
+    ],
+    "paraphrase_syn": [
+        {"form": "matter deeply to me", "vi": "rất quan trọng với tôi (↔ hold immense importance)"},
+        {"form": "are always there for me", "vi": "luôn ở bên tôi (↔ unwavering support)"},
+        {"form": "feel truly at home", "vi": "cảm giác thuộc về (↔ sense of belonging)"},
+        {"form": "listen without judging", "vi": "lắng nghe không phán xét (↔ lend a listening ear)"},
+        {"form": "tightly bonded", "vi": "gắn kết chặt (↔ close-knit)"},
+        {"form": "relatives beyond the nuclear unit", "vi": "họ hàng ngoài hạt nhân (↔ extended family)"},
+    ],
+    "family_role": [
+        {"form": "homemaker", "vi": "nội trợ"},
+        {"form": "engineer", "vi": "kỹ sư"},
+        {"form": "teacher", "vi": "giáo viên"},
+        {"form": "renowned surgeon", "vi": "bác sĩ phẫu thuật nổi tiếng"},
+        {"form": "professor of literature", "vi": "giáo sư văn học"},
+        {"form": "businessman", "vi": "doanh nhân"},
+        {"form": "engineering", "vi": "kỹ thuật"},
+    ],
+    "b2_vocab": [
+        {"form": "extended family", "vi": "gia đình mở rộng"},
+        {"form": "close-knit", "vi": "gắn bó chặt chẽ"},
+        {"form": "sibling", "vi": "anh chị em ruột"},
+        {"form": "household", "vi": "hộ gia đình"},
+        {"form": "bond", "vi": "mối liên kết"},
+        {"form": "spouse", "vi": "vợ/chồng"},
+        {"form": "single parent", "vi": "cha mẹ đơn thân"},
+        {"form": "foster parent", "vi": "cha mẹ nuôi"},
+        {"form": "generation", "vi": "thế hệ"},
+        {"form": "upbringing", "vi": "sự nuôi dưỡng"},
+        {"form": "childhood", "vi": "tuổi thơ"},
+        {"form": "adulthood", "vi": "tuổi trưởng thành"},
+        {"form": "elderly", "vi": "lớn tuổi"},
+        {"form": "relationship", "vi": "mối quan hệ"},
+        {"form": "relative", "vi": "người thân"},
+        {"form": "marriage", "vi": "hôn nhân"},
+        {"form": "family tree", "vi": "cây gia đình"},
+        {"form": "bring up", "vi": "nuôi dưỡng"},
+        {"form": "take after", "vi": "giống (người thân)"},
+        {"form": "stand by", "vi": "đứng về phía"},
+        {"form": "adore", "vi": "yêu quý"},
+        {"form": "beloved", "vi": "được yêu mến"},
+        {"form": "loving", "vi": "yêu thương"},
+        {"form": "nurturing", "vi": "nuôi dưỡng, chăm sóc"},
+        {"form": "significant other", "vi": "người bạn đời"},
+        {"form": "soulmate", "vi": "tri kỷ"},
+        {"form": "get together", "vi": "gặp gỡ, sum họp"},
+        {"form": "lineage", "vi": "dòng dõi"},
+        {"form": "ancestor", "vi": "tổ tiên"},
+        {"form": "stepmother", "vi": "mẹ kế"},
+        {"form": "mother-in-law", "vi": "mẹ chồng/vợ"},
+        {"form": "only child", "vi": "con một"},
+        {"form": "engaged", "vi": "đã đính hôn"},
+        {"form": "separated", "vi": "ly thân"},
+        {"form": "aspirations", "vi": "khát vọng"},
+        {"form": "renowned", "vi": "nổi tiếng"},
+        {"form": "lively", "vi": "sôi nổi"},
+        {"form": "egalitarian", "vi": "bình đẳng"},
+        {"form": "significant", "vi": "đáng kể"},
     ],
 }
 
@@ -231,6 +344,31 @@ GRAMMAR_MINDMAP_RIGHT = [
             },
         ],
     },
+    {
+        "id": "paraphrase",
+        "color": "#22d3ee",
+        "name": "Paraphrase",
+        "name_vi": "DOL · 6 kỹ thuật",
+        "speaking": True,
+        "forks": [
+            {
+                "label": "Từ vựng",
+                "leaves": [
+                    ("Synonym", "important → <strong>hold immense importance</strong>"),
+                    ("Antonym", "stay close → avoid drifting apart"),
+                    ("Wordform", "support (v) → <strong>unwavering support</strong> (n)"),
+                ],
+            },
+            {
+                "label": "Cấu trúc",
+                "leaves": [
+                    ("Word order", "My family is important → <strong>One thing that matters</strong> is my family"),
+                    ("Passive", "People value family → Family <strong>is highly valued</strong>"),
+                    ("Dummy It", "It is vital <strong>that families stay connected</strong>"),
+                ],
+            },
+        ],
+    },
 ]
 
 
@@ -279,7 +417,7 @@ def grammar_mind_map_section() -> str:
         "Lesson 4 & 5",
         GRAMMAR_MINDMAP_LEFT,
         GRAMMAR_MINDMAP_RIGHT,
-        note="Trái = <strong>thích</strong> · Phải = <strong>không thích + lý do + chọn loại</strong>. <span class='lr-mmap-star'>★</span> = công thức trong mock test.",
+        note="Trái = <strong>thích</strong> · Phải = <strong>không thích + lý do + paraphrase</strong>. <span class='lr-mmap-star'>★</span> = công thức trong mock test.",
         extra_class=" lr-mmap--lesson3",
         min_width="1180px",
     )
@@ -351,26 +489,60 @@ def lesson_highlights_html() -> str:
 
 
 def family_lang_html() -> str:
-    items = []
+    score_items = []
+    for en, vi in FAMILY_SCORING_PHRASES:
+        score_items.append(
+            f'<li><mark class="lr-idiom-mark">{esc(en)}</mark>'
+            f' <span class="lr-idiom-vi">— {esc(vi)}</span></li>'
+        )
+    coll_items = []
+    for en, vi in FAMILY_COLLOCATIONS:
+        coll_items.append(
+            f'<li><mark class="lr-idiom-mark">{esc(en)}</mark>'
+            f' <span class="lr-idiom-vi">— {esc(vi)}</span></li>'
+        )
+    idiom_items = []
     for en, vi in FAMILY_IDIOMS:
-        items.append(
+        idiom_items.append(
             f'<li><mark class="lr-idiom-mark">{esc(en)}</mark>'
             f' <span class="lr-idiom-vi">— {esc(vi)}</span></li>'
         )
     practice = (
-        f'My little brother is {slot_select("family_idiom", 2)} — he really '
-        f'{slot_select("relationship", 1)} our dad. People say we are '
+        f'My family {slot_select("score_phrase", 0)} in my life — they are '
+        f'{slot_select("score_phrase", 1)} who always '
+        f'{slot_select("collocation", 1)}. When I need advice, they '
+        f'{slot_select("score_phrase", 4)}, which gives me '
+        f'{slot_select("score_phrase", 3)}. In other words, they '
+        f'{slot_select("paraphrase_syn", 1)} and help me '
+        f'{slot_select("paraphrase_syn", 2)}.'
+    )
+    practice2 = (
+        f'We are a {slot_select("b2_vocab", 1)} {slot_select("family_type", 0)}. '
+        f'My father works as a {slot_select("family_role", 1)} while my mother is a '
+        f'{slot_select("family_role", 0)}. My {slot_select("b2_vocab", 2)} really '
+        f'{slot_select("relationship", 1)} our dad — people say we are '
         f'{slot_select("family_idiom", 1)}.'
     )
     return f"""        <article class="lr-idiom-card">
+          <h3>Vocabulary ghi điểm · IDP</h3>
+          <p class="lr-idiom-hint">Cụm từ band cao từ <a href="https://ielts.idp.com/vietnam/about/news-and-articles/article-talk-about-your-family" target="_blank" rel="noopener noreferrer">IDP — Talk about your family</a>. Chọn 2–3 cụm phù hợp Part 1/2.</p>
+          <ul class="lr-idiom-list">{"".join(score_items)}</ul>
+        </article>
+        <article class="lr-idiom-card">
+          <h3>Collocations &amp; phrases</h3>
+          <p class="lr-idiom-hint">Kết hợp với cấu trúc Lesson 4/5 — paraphrase bằng synonym hoặc đổi wordform.</p>
+          <ul class="lr-idiom-list">{"".join(coll_items)}</ul>
+        </article>
+        <article class="lr-idiom-card">
           <h3>Family idioms</h3>
-          <p class="lr-idiom-hint">Chọn 1–2 idiom phù hợp Part 2/3 — không nhồi hết.</p>
-          <ul class="lr-idiom-list">{"".join(items)}</ul>
+          <p class="lr-idiom-hint">Chọn 1 idiom phù hợp Part 2/3 — không nhồi hết.</p>
+          <ul class="lr-idiom-list">{"".join(idiom_items)}</ul>
         </article>
         <div class="lr-idiom-practice">
-          <p class="lr-chain-ex-label">Try combining (dropdown)</p>
+          <p class="lr-chain-ex-label">Try combining (dropdown) · Paraphrase + IDP phrases</p>
           <p class="lr-idiom-practice-text">{practice}</p>
-          <p class="lr-ref">Nguồn: <a href="https://www.dolenglish.vn/blog/family-ielts-speaking" target="_blank" rel="noopener noreferrer">DOL — Family IELTS Speaking</a> · <a href="https://zim.vn/ielts-speaking-part-1-family-and-friends-1" target="_blank" rel="noopener noreferrer">ZIM — Family &amp; Friends</a></p>
+          <p class="lr-idiom-practice-text">{practice2}</p>
+          <p class="lr-ref">Nguồn: <a href="https://ielts.idp.com/vietnam/about/news-and-articles/article-talk-about-your-family" target="_blank" rel="noopener noreferrer">IDP — Talk about your family</a> · <a href="https://www.dolenglish.vn/blog/paraphrase-trong-ielts" target="_blank" rel="noopener noreferrer">DOL — Paraphrase trong IELTS</a> · <a href="https://www.dolenglish.vn/blog/family-ielts-speaking" target="_blank" rel="noopener noreferrer">DOL — Family IELTS Speaking</a></p>
         </div>"""
 
 
@@ -468,44 +640,74 @@ def vocab_chains_html(words: list[dict]) -> str:
 def speaking_mock_html() -> str:
     p1 = [
         (
-            "Do you have a large or small family?",
-            "Bạn có gia đình đông hay ít người?",
+            "Can you describe your family?",
+            "Bạn có thể mô tả gia đình mình không?",
             (
-                "I'd say I come from a fairly large family. Besides my "
-                f'{slot_select("relative", 0)}, I have many cousins in my '
-                f'{slot_select("family_type", 1)}. '
-                '<span class="lr-tense-tag">Present Simple</span>'
+                "Sure — I live in a "
+                f'{slot_select("family_type", 0)} with my parents and a younger brother. '
+                f"My father is a {slot_select('family_role', 1)} and my mother is a "
+                f"{slot_select('family_role', 0)}. My brother is studying "
+                f"{slot_select('family_role', 6)} at university. "
+                '<span class="lr-tense-tag">Present Simple · describe</span>'
             ),
         ),
         (
-            "How much time do you spend with your family?",
-            "Bạn dành bao nhiêu thời gian cho gia đình?",
+            "How is your family important to you?",
+            "Gia đình quan trọng với bạn như thế nào?",
+            (
+                "My family "
+                f'{slot_select("score_phrase", 0)} in my life — they are '
+                f'{slot_select("score_phrase", 1)} who give me '
+                f'{slot_select("score_phrase", 2)} and '
+                f'{slot_select("score_phrase", 3)}. They always '
+                f'{slot_select("score_phrase", 4)} when I need guidance. '
+                f"Their presence {slot_select('score_phrase', 5)} to my life. "
+                '<span class="lr-tense-tag">Paraphrase · IDP scoring phrases</span>'
+            ),
+        ),
+        (
+            "Do you all live in the same house?",
+            "Cả nhà bạn có sống chung một nhà không?",
+            (
+                "No, we don't all "
+                f'{slot_select("collocation", 0)}. My parents and I live together, but my older brother '
+                "lives in another city <strong>because of</strong> his job. However, we "
+                f'{slot_select("collocation", 2)} through calls and visits. '
+                '<span class="lr-tense-tag">because of · although</span>'
+            ),
+        ),
+        (
+            "How much time do you manage to spend with members of your family?",
+            "Bạn dành được bao nhiêu thời gian cho gia đình?",
             (
                 "Honestly, not as much as I'd like <strong>because of</strong> my busy schedule, "
                 "but I try to see them every weekend. We usually enjoy "
-                f'{slot_select("activity", 0)}. '
+                f'{slot_select("activity", 0)} and sometimes '
+                f'{slot_select("activity", 2)}. '
                 '<span class="lr-tense-tag">because of + noun · try to + V</span>'
             ),
         ),
         (
-            "What do you like to do together as a family?",
-            "Gia đình bạn thích làm gì cùng nhau?",
+            "Do you have a large extended family?",
+            "Bạn có đại gia đình đông người không?",
             (
-                'Yes, definitely — I <strong>love</strong> '
-                f'{slot_select("activity", 2)} because it gives us the chance to relax together. '
-                '<span class="lr-tense-tag">love + V-ing · because + S + V</span>'
+                "Yes, I'd say so. Besides my immediate family, I have many "
+                f'{slot_select("b2_vocab", 14)} in my '
+                f'{slot_select("family_type", 1)} — cousins, aunts and uncles spread across '
+                f"different cities. We {slot_select('collocation', 1)} despite the distance. "
+                '<span class="lr-tense-tag">Present Simple · extended family</span>'
             ),
         ),
         (
-            "Do you get along well with your family?",
-            "Bạn có hòa thuận với gia đình không?",
+            "What things do you like doing together?",
+            "Bạn thích làm gì cùng gia đình?",
             (
-                "Yes, absolutely. I "
-                f'{slot_select("relationship", 0)} most of my relatives, especially my parents. '
-                "They're really "
-                f'{slot_select("trait_pos", 1)} and '
-                f'{slot_select("trait_pos", 2)}. '
-                '<span class="lr-tense-tag">Present Simple · personality</span>'
+                'Yes, definitely — I <strong>love</strong> '
+                f'{slot_select("activity", 2)} because it gives us the chance to relax together. '
+                "We also enjoy "
+                f'{slot_select("activity", 3)} during every '
+                f'{slot_select("gathering", 0)}. '
+                '<span class="lr-tense-tag">love + V-ing · because + S + V</span>'
             ),
         ),
         (
@@ -520,6 +722,18 @@ def speaking_mock_html() -> str:
             ),
         ),
         (
+            "Who do you get on best with in your family?",
+            "Bạn hòa hợp nhất với ai trong gia đình?",
+            (
+                "I'd say my mother. I "
+                f"{slot_select('relationship', 0)} her the most — she's "
+                f'{slot_select("trait_pos", 1)} and always '
+                f'{slot_select("collocation", 4)} everyone in the '
+                f'{slot_select("b2_vocab", 3)}. '
+                '<span class="lr-tense-tag">get on well with · personality</span>'
+            ),
+        ),
+        (
             "Do you prefer spending time with family or friends?",
             "Bạn thích ở với gia đình hay bạn bè hơn?",
             (
@@ -527,7 +741,32 @@ def speaking_mock_html() -> str:
                 "<strong>prefer sharing</strong> personal news with my family "
                 "<strong>rather than</strong> posting online, but I "
                 f'<strong>prefer going</strong> out with friends <strong>to</strong> staying home sometimes. '
-                '<span class="lr-tense-tag">prefer V-ing to V-ing</span>'
+                '<span class="lr-tense-tag">prefer V-ing to V-ing · rather than</span>'
+            ),
+        ),
+        (
+            "Do you have a large or small family?",
+            "Bạn có gia đình đông hay ít người?",
+            (
+                "I'd say I come from a fairly "
+                f'{slot_select("b2_vocab", 1)} family of four. Besides my '
+                f'{slot_select("relative", 0)}, I have a strong '
+                f'{slot_select("b2_vocab", 4)} with my '
+                f'{slot_select("b2_vocab", 2)}. '
+                '<span class="lr-tense-tag">Present Simple · B2 vocab</span>'
+            ),
+        ),
+        (
+            "Do you get along well with your family?",
+            "Bạn có hòa thuận với gia đình không?",
+            (
+                "Yes, absolutely. I "
+                f'{slot_select("relationship", 0)} most of my '
+                f'{slot_select("b2_vocab", 14)}, especially my parents. '
+                "They're really "
+                f'{slot_select("trait_pos", 1)} and '
+                f'{slot_select("b2_vocab", 22)}. '
+                '<span class="lr-tense-tag">Present Simple · personality</span>'
             ),
         ),
         (
@@ -537,7 +776,8 @@ def speaking_mock_html() -> str:
                 "Well, I love all kinds of activities, but if I <strong>had</strong> to choose one, "
                 f'I <strong>would opt for</strong> {slot_select("activity", 3)}. '
                 "<strong>This is because</strong> it reminds me of my "
-                f'{slot_select("life_stage", 2)}. '
+                f'{slot_select("life_stage", 2)} and strengthens our '
+                f'{slot_select("b2_vocab", 4)}. '
                 '<span class="lr-tense-tag">Conditional 2 · because clause</span>'
             ),
         ),
@@ -545,31 +785,69 @@ def speaking_mock_html() -> str:
             "Is family important in your country?",
             "Gia đình có quan trọng ở nước bạn không?",
             (
-                "Yes, definitely. Most people still respect "
-                f'{slot_select("society", 0)}, although '
-                f'{slot_select("society", 2)} are becoming more common in big cities. '
-                '<span class="lr-tense-tag">Present Simple · although</span>'
+                "Yes, definitely — family "
+                f'{slot_select("paraphrase_syn", 0)} in Vietnam. Most people still respect '
+                f'{slot_select("society", 0)}, although more '
+                f'{slot_select("society", 2)} live in cities now. '
+                '<span class="lr-tense-tag">Paraphrase synonym · although</span>'
             ),
         ),
     ]
 
     p2_en = (
-        "I'd like to talk about a family member I really admire — my mother. "
-        f"She's quite tall and slim, with short dark hair, and she's incredibly "
-        f'{slot_select("trait_pos", 0)}. '
-        f"What I admire most is that she always "
-        f'{slot_select("relationship", 1)} her own parents — she is patient and '
-        f'{slot_select("trait_pos", 4)}. '
-        f"When I was in {slot_select('life_stage', 1)}, she would "
-        f"encourage me to study hard without being too "
-        f'{slot_select("trait_neg", 0)}. '
-        f"One special moment was during a {slot_select('gathering', 0)} last "
-        f"{slot_select('gathering', 2)} — the whole family cooked together, and "
-        "<strong>what I enjoyed most</strong> was seeing everyone laugh. "
-        "Looking back, she has had a huge influence on who I am today."
+        "I'd like to talk about my family — we're a "
+        f'{slot_select("b2_vocab", 1)} {slot_select("family_type", 0)} of four. '
+        f"My father is a {slot_select('family_role', 5)} with a passion for cooking, and my mother is a "
+        f"{slot_select('family_role', 2)} whose dedication inspires us all. My brother is studying "
+        f"{slot_select('family_role', 6)} at a top university. "
+        f"We share a strong {slot_select('b2_vocab', 4)} and often have "
+        f"{slot_select('b2_vocab', 36)} discussions about "
+        f"{slot_select('score_phrase', 7)}. "
+        f"What I value most is their {slot_select('score_phrase', 2)} — they've shaped my "
+        f"{slot_select('b2_vocab', 34)} and given me a "
+        f"{slot_select('b2_vocab', 24)} environment to grow in. "
+        f"They've stood by me {slot_select('score_phrase', 6)}, and I'm deeply grateful."
     )
 
     p3 = [
+        (
+            "In what ways have families in your country changed recently?",
+            "Gia đình ở nước bạn đã thay đổi gần đây như thế nào?",
+            (
+                "From my view, families have undergone "
+                f'{slot_select("b2_vocab", 38)} changes. More '
+                f'{slot_select("society", 2)} live '
+                "<strong>separately from</strong> their "
+                f'{slot_select("family_type", 1)}, and there has been '
+                f'<strong>a shift towards</strong> more {slot_select("b2_vocab", 37)} '
+                f'{slot_select("society", 1)}. '
+                '<span class="lr-tense-tag">Present Perfect · IDP Part 3</span>'
+            ),
+        ),
+        (
+            "What are the benefits of having siblings?",
+            "Lợi ích của việc có anh chị em là gì?",
+            (
+                "Having siblings enriches your life and contributes to "
+                f'{slot_select("collocation", 9)}. They provide '
+                f'{slot_select("collocation", 7)} that can last a lifetime. '
+                f"Growing up with a {slot_select('b2_vocab', 2)} also teaches "
+                "communication and conflict resolution. "
+                '<span class="lr-tense-tag">Paraphrase · IDP scoring</span>'
+            ),
+        ),
+        (
+            "How important is it for children to grow up in a stable family environment?",
+            "Môi trường gia đình ổn định quan trọng với trẻ em thế nào?",
+            (
+                "A stable environment "
+                f'{slot_select("collocation", 5)} children\'s well-being. It '
+                f'{slot_select("collocation", 6)} and '
+                "allows them to build strong bonds. Moreover, it "
+                f'{slot_select("collocation", 10)} for learning and growth. '
+                '<span class="lr-tense-tag">Paraphrase wordform · IDP</span>'
+            ),
+        ),
         (
             "How have families changed in your country?",
             "Gia đình ở nước bạn đã thay đổi thế nào?",
@@ -577,6 +855,8 @@ def speaking_mock_html() -> str:
                 "I think they've changed quite a bit. More "
                 f'{slot_select("society", 2)} live in cities, and '
                 f'{slot_select("society", 1)} are less rigid than before. '
+                f"Many {slot_select('b2_vocab', 3)} now share "
+                f'{slot_select("collocation", 8)} equally. '
                 '<span class="lr-tense-tag">Present Perfect · society</span>'
             ),
         ),
@@ -584,7 +864,8 @@ def speaking_mock_html() -> str:
             "Should husbands and wives have different roles?",
             "Vợ chồng có nên có vai trò khác nhau không?",
             (
-                "Not necessarily. Couples should share household chores and support each other. "
+                "Not necessarily. Couples should share "
+                f'{slot_select("collocation", 8)} and support each other. '
                 f'In modern families, both partners may {slot_select("relationship", 4)} '
                 "their careers equally. "
                 '<span class="lr-tense-tag">modal · equality</span>'
@@ -594,19 +875,45 @@ def speaking_mock_html() -> str:
             "Which are more important: family or friends?",
             "Gia đình hay bạn bè quan trọng hơn?",
             (
-                "For me, family comes first <strong>because of</strong> the bond we share, "
-                "but close friends are equally valuable. "
-                '<span class="lr-tense-tag">because of · comparison</span>'
+                "For me, family comes first <strong>because of</strong> the "
+                f'{slot_select("b2_vocab", 5)} we share, but close friends also provide '
+                f'{slot_select("score_phrase", 3)}. '
+                '<span class="lr-tense-tag">because of · paraphrase</span>'
             ),
         ),
         (
             "What role do grandparents play?",
             "Ông bà đóng vai trò gì trong gia đình?",
             (
-                "They often help raise grandchildren and pass down "
-                f'{slot_select("society", 0)}. Many children '
+                "They often help raise grandchildren and "
+                f'{slot_select("collocation", 3)}. Many children '
                 f'{slot_select("relationship", 1)} their grandparents in personality. '
+                f"My {slot_select('relative', 2)} always "
+                f'{slot_select("score_phrase", 4)} when I visit. '
                 '<span class="lr-tense-tag">take after · traditions</span>'
+            ),
+        ),
+        (
+            "Do you think the concept of family will change in the future?",
+            "Bạn nghĩ khái niệm gia đình sẽ thay đổi trong tương lai không?",
+            (
+                "Yes, probably. If society keeps moving fast, I think more people "
+                f'<strong>would choose</strong> smaller {slot_select("b2_vocab", 3)} units, '
+                "but the emotional "
+                f'{slot_select("b2_vocab", 5)} might stay equally strong. '
+                '<span class="lr-tense-tag">Conditional 2 · future</span>'
+            ),
+        ),
+        (
+            "What can parents do to strengthen family bonds?",
+            "Cha mẹ có thể làm gì để gắn kết gia đình?",
+            (
+                "They should "
+                f'{slot_select("collocation", 4)} each other, spend quality time together, and '
+                f'{slot_select("collocation", 5)}. Regular '
+                f'{slot_select("gathering", 0)} and open communication really help '
+                f'{slot_select("collocation", 1)}. '
+                '<span class="lr-tense-tag">should · collocation chain</span>'
             ),
         ),
     ]
@@ -617,7 +924,7 @@ def speaking_mock_html() -> str:
     lines.append('        <div class="ex-ielts-part lr-mock-part" data-part="1">')
     lines.append('          <h2 class="ex-ielts-part-title">Part 1 · Interview</h2>')
     lines.append(
-        '          <p class="ex-ielts-part-hint">Yes/No + reasons · pick vocabulary from dropdowns · Lesson 4 &amp; 5 grammar tags.</p>'
+        '          <p class="ex-ielts-part-hint">Yes/No + reasons · B1/B2 + IDP phrases · Lesson 4/5 + paraphrase tags.</p>'
     )
     for i, (q, qvi, ans) in enumerate(p1, 1):
         lines.append('          <div class="ex-qa">')
@@ -633,14 +940,14 @@ def speaking_mock_html() -> str:
     lines.append('          <h2 class="ex-ielts-part-title">Part 2 · Long turn</h2>')
     lines.append('          <div class="ex-cue-card">')
     lines.append(
-        '            <p class="ex-cue-title">Describe a family member you admire. You should say:</p>'
+        '            <p class="ex-cue-title">Describe your family. You should say:</p>'
     )
     lines.append("            <ul>")
     for b in [
-        "who they are",
-        "what they look like",
-        "what they are like",
-        "and explain why you admire them",
+        "how many family members your family has",
+        "what they do",
+        "how close you are",
+        "and explain why your family is important to you",
     ]:
         lines.append(f"              <li>{esc(b)}</li>")
     lines.append("            </ul></div>")
@@ -776,7 +1083,7 @@ def build_page() -> str:
       <header class="lr-hero">
         <p class="lr-hero-badge">Linear Thinking · Capstone</p>
         <h1>People &amp; Family — Review Exercise</h1>
-        <p class="lede">Sau khi hoàn thành B2, ôn tập theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-speaking" target="_blank" rel="noopener noreferrer">Linear Thinking</a>: ngữ pháp (gerunds &amp; preferences, because/conditional 2) → mental model → cấu trúc Speaking → từ vựng B1/B2 → mock IELTS Part 1/2/3 với dropdown từ thay thế.</p>
+        <p class="lede">Sau khi hoàn thành B2, ôn tập theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-speaking" target="_blank" rel="noopener noreferrer">Linear Thinking</a>: ngữ pháp (gerunds &amp; preferences, because/conditional 2, <a href="https://www.dolenglish.vn/blog/paraphrase-trong-ielts" target="_blank" rel="noopener noreferrer">paraphrase</a>) → mental model → cấu trúc Speaking → từ vựng B1/B2 &amp; IDP → mock IELTS Part 1/2/3 với dropdown từ thay thế.</p>
         <nav class="lr-toc" aria-label="On this page">
           <a href="#natural-vlog">0 · Real talk</a>
           <a href="#grammar">1 · Grammar</a>
@@ -796,7 +1103,7 @@ def build_page() -> str:
 
       <section class="lr-section" id="grammar">
         <h2>1 · Grammar foundations</h2>
-        <p class="lr-section-hint">Hai chủ điểm từ <a href="https://www.dolenglish.vn/blog/ngu-phap-ielts" target="_blank" rel="noopener noreferrer">DOL — Ngữ pháp IELTS</a>, gắn Lesson 4 (<em>Do you like X?</em>) và Lesson 5 (<em>What kind of X…?</em>).</p>
+        <p class="lr-section-hint">Ba chủ điểm từ <a href="https://www.dolenglish.vn/blog/ngu-phap-ielts" target="_blank" rel="noopener noreferrer">DOL — Ngữ pháp IELTS</a> + <a href="https://www.dolenglish.vn/blog/paraphrase-trong-ielts" target="_blank" rel="noopener noreferrer">Paraphrase</a>, gắn Lesson 4 (<em>Do you like X?</em>) và Lesson 5 (<em>What kind of X…?</em>).</p>
         <div class="lr-grammar-list">
 {grammar_section()}
         </div>
@@ -805,7 +1112,7 @@ def build_page() -> str:
 
       <section class="lr-section" id="mental-model">
         <h2>2 · Mental model — Grammar for family speaking</h2>
-        <p class="lr-section-hint">Sơ đồ tư duy 2 chủ điểm ngữ pháp — gerunds/prefer (Lesson 4) và because/conditional 2 (Lesson 5). <span class="lr-mmap-star">★</span> = dùng trong mock test.</p>
+        <p class="lr-section-hint">Sơ đồ tư duy 3 chủ điểm — gerunds/prefer (Lesson 4), because/conditional 2 (Lesson 5), paraphrase (DOL). <span class="lr-mmap-star">★</span> = dùng trong mock test.</p>
 {grammar_mind_map_section()}
       </section>
 
@@ -825,7 +1132,7 @@ def build_page() -> str:
 
       <section class="lr-section" id="family-lang">
         <h2>5 · Family lang · idioms &amp; phrases</h2>
-        <p class="lr-section-hint">IELTS đánh giá <strong>Lexical Resource</strong> — chọn 1–2 idiom phù hợp ngữ cảnh (không nhồi).</p>
+        <p class="lr-section-hint">Từ vựng ghi điểm &amp; collocation từ <a href="https://ielts.idp.com/vietnam/about/news-and-articles/article-talk-about-your-family" target="_blank" rel="noopener noreferrer">IDP</a> — kết hợp paraphrase (DOL) và Lesson 4/5.</p>
         <div class="lr-idiom-grid">
 {family_lang_html()}
         </div>
@@ -839,7 +1146,7 @@ def build_page() -> str:
 
       <section class="lr-section lr-mock" id="mock-test">
         <h2>7 · IELTS Speaking mock — People &amp; Family</h2>
-        <p class="lr-section-hint">Part 1 / 2 / 3 thực chiến. Dùng dropdown để đổi từ — không cần nhồi hết từ vào một câu.</p>
+        <p class="lr-section-hint">Part 1 (14 câu) / Part 2 / Part 3 (9 câu) — câu hỏi từ IDP, DOL, ZIM. Dropdown = B1/B2 + cụm IDP + paraphrase. Dùng grammar tags để luyện tư duy trả lời.</p>
 {mock_practice_refs_html()}
         <div class="ex-toolbar lr-toolbar">
           <button type="button" class="ex-btn primary" id="btnCopyAnswer">Copy current answers</button>
