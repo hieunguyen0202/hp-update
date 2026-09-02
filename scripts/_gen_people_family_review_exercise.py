@@ -23,6 +23,14 @@ _gen = importlib.util.module_from_spec(_spec)
 assert _spec and _spec.loader
 _spec.loader.exec_module(_gen)
 
+_food_spec = importlib.util.spec_from_file_location(
+    "food_rev", Path(__file__).with_name("_gen_food_review_exercise.py")
+)
+_food = importlib.util.module_from_spec(_food_spec)
+assert _food_spec and _food_spec.loader
+_food_spec.loader.exec_module(_food)
+mind_map_html = _food.mind_map_html
+
 esc = _gen.esc
 collect_words = _gen.collect_words
 TOPICS = _gen.TOPICS
@@ -139,7 +147,91 @@ WORD_SLOTS: dict[str, list[dict]] = {
         {"form": "nuclear households", "vi": "hộ gia đình nhỏ"},
         {"form": "aging population", "vi": "dân số già hóa"},
     ],
+    "family_idiom": [
+        {"form": "blood is thicker than water", "vi": "máu mủ ruột thịt"},
+        {"form": "like two peas in a pod", "vi": "giống nhau như đúc"},
+        {"form": "the apple of someone's eye", "vi": "người được cưng chiều"},
+        {"form": "black sheep of the family", "vi": "thành viên cá biệt"},
+        {"form": "like father, like son", "vi": "con nhà tông không giống lông cũng giống cánh"},
+    ],
 }
+
+GRAMMAR_MINDMAP_LEFT = [
+    {
+        "id": "gerunds-yes",
+        "color": "#6ee7b7",
+        "name": "Gerunds & YES",
+        "name_vi": "Lesson 4 · thích",
+        "speaking": True,
+        "forks": [
+            {
+                "label": "Cấu trúc",
+                "leaves": [
+                    ("Verb", "I like / love / enjoy + <strong>V-ing</strong>"),
+                    ("Adj", "I'm keen on / interested in + N/V-ing"),
+                    ("NP", "I'm a big fan of + N/V-ing"),
+                ],
+            },
+            {
+                "label": "FAVOURITE",
+                "leaves": [
+                    "My favourite … is/are + who/when/where",
+                    "Family: My favourite thing is having dinner with my parents",
+                ],
+            },
+        ],
+    },
+]
+
+GRAMMAR_MINDMAP_RIGHT = [
+    {
+        "id": "gerunds-no",
+        "color": "#fca5a5",
+        "name": "NO + prefer",
+        "name_vi": "Lesson 4 · không thích",
+        "forks": [
+            {
+                "label": "Phủ định",
+                "leaves": [
+                    "No, not really · I don't enjoy + V-ing",
+                    "I'm not keen on …",
+                ],
+            },
+            {
+                "label": "Mở rộng",
+                "leaves": [
+                    ("HARDLY EVER", "I hardly ever + V"),
+                    ("prefer", "prefer V-ing <strong>to</strong> V-ing"),
+                    ("rather than", "prefer to V <strong>rather than</strong> V"),
+                ],
+            },
+        ],
+    },
+    {
+        "id": "reasons-cond",
+        "color": "#a78bfa",
+        "name": "Reasons & Type 2",
+        "name_vi": "Lesson 5",
+        "speaking": True,
+        "forks": [
+            {
+                "label": "Lý do",
+                "leaves": [
+                    ("Clause", "because / This is because + <strong>S + V</strong>"),
+                    ("Noun", "because of + <strong>noun phrase</strong>"),
+                ],
+            },
+            {
+                "label": "Chọn loại",
+                "leaves": [
+                    "if I <strong>had</strong> to choose one, I <strong>would</strong> go for…",
+                    "it would have to be … / I would opt for …",
+                    "would = chưa chắc · will = chắc chắn hơn",
+                ],
+            },
+        ],
+    },
+]
 
 
 def collect_review_words() -> list[dict]:
@@ -166,184 +258,211 @@ def slot_select(slot_id: str, default_idx: int = 0) -> str:
 
 
 def grammar_section() -> str:
-    parts = []
-    for title, url, hint, ex in GRAMMAR_REFS:
-        parts.append(
+    cards = []
+    for title, url, vi_use, ex in GRAMMAR_REFS:
+        cards.append(
             f"""        <a class="lr-grammar-card lr-grammar-card--link" href="{esc(url)}" target="_blank" rel="noopener noreferrer">
-          <h3>{esc(title)}</h3>
-          <p class="lr-grammar-hint">{esc(hint)}</p>
-          <p class="lr-grammar-ex"><em>{esc(ex)}</em></p>
-          <span class="lr-grammar-cta">Đọc trên DOL English →</span>
+          <strong>{esc(title)}</strong>
+          <p>{esc(vi_use)}</p>
+          <p class="lr-grammar-ex"><em>e.g.</em> {esc(ex)}</p>
+          <span class="lr-card-cta">Read on DOL English ↗</span>
         </a>"""
         )
-    return "\n".join(parts)
+    return "\n".join(cards)
 
 
-def mind_map_html() -> str:
-    return """
-      <div class="lr-mmap lr-mmap--grammar" id="grammarMindmap" aria-label="Sơ đồ tư duy ngữ pháp People & Family" style="--mmap-min:920px">
-        <p class="lr-mmap-scroll-hint">Vuốt ngang nếu sơ đồ rộng hơn màn hình</p>
-        <div class="lr-mmap-viewport">
-          <div class="lr-mmap-board">
-            <svg class="lr-mmap-svg" aria-hidden="true"></svg>
-            <div class="lr-mmap-root" data-mmap-node="root">
-              <div class="lr-mmap-root-title">People &amp; Family</div>
-              <div class="lr-mmap-root-sub">Lesson 4 &amp; 5</div>
-            </div>
-            <div class="lr-mmap-col lr-mmap-col--right">
-              <div class="lr-mmap-branch" data-mmap-branch="gerunds" style="--mmap-c:#22d3ee">
-                <div class="lr-mmap-tense lr-mmap-tense--starred" data-mmap-node="tense">
-                  <span class="lr-mmap-num">1</span><strong>Gerunds &amp; preferences</strong>
-                  <span class="lr-mmap-star" title="Lesson 4 · Do you like X?">★</span>
-                </div>
-                <div class="lr-mmap-forks">
-                  <div class="lr-mmap-group">
-                    <span class="lr-mmap-fork" data-mmap-node="fork">Yes</span>
-                    <ul class="lr-mmap-leaves">
-                      <li class="lr-mmap-leaf" data-mmap-node="leaf"><span class="lr-mmap-k">Verb</span> I + like/love/enjoy + <strong>V-ing</strong></li>
-                      <li class="lr-mmap-leaf" data-mmap-node="leaf"><span class="lr-mmap-k">Adj</span> I'm keen on / interested in + N/V-ing</li>
-                      <li class="lr-mmap-leaf" data-mmap-node="leaf"><span class="lr-mmap-k">Noun</span> I'm a big fan of + N/V-ing</li>
-                      <li class="lr-mmap-leaf" data-mmap-node="leaf"><span class="lr-mmap-k">FAVOURITE</span> My favourite … is/are + who/when/where</li>
-                    </ul>
-                  </div>
-                  <div class="lr-mmap-group">
-                    <span class="lr-mmap-fork" data-mmap-node="fork">No</span>
-                    <ul class="lr-mmap-leaves">
-                      <li class="lr-mmap-leaf" data-mmap-node="leaf">No, not really / I don't enjoy + V-ing</li>
-                      <li class="lr-mmap-leaf" data-mmap-node="leaf"><span class="lr-mmap-k">HARDLY EVER</span> I hardly ever + V</li>
-                      <li class="lr-mmap-leaf" data-mmap-node="leaf"><span class="lr-mmap-k">prefer</span> prefer V-ing <strong>to</strong> V-ing</li>
-                      <li class="lr-mmap-leaf" data-mmap-node="leaf">prefer to V <strong>rather than</strong> V (bare)</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="lr-mmap-branch" data-mmap-branch="reasons" style="--mmap-c:#a78bfa">
-                <div class="lr-mmap-tense lr-mmap-tense--starred" data-mmap-node="tense">
-                  <span class="lr-mmap-num">2</span><strong>Reasons &amp; hypothetical choice</strong>
-                  <span class="lr-mmap-star" title="Lesson 5 · What kind of X…?">★</span>
-                </div>
-                <div class="lr-mmap-forks">
-                  <div class="lr-mmap-group">
-                    <span class="lr-mmap-fork" data-mmap-node="fork">Lý do</span>
-                    <ul class="lr-mmap-leaves">
-                      <li class="lr-mmap-leaf" data-mmap-node="leaf"><span class="lr-mmap-k">Clause</span> because / This is because + <strong>S + V</strong></li>
-                      <li class="lr-mmap-leaf" data-mmap-node="leaf"><span class="lr-mmap-k">Noun</span> because of + <strong>noun phrase</strong></li>
-                      <li class="lr-mmap-leaf" data-mmap-node="leaf">V-ing làm chủ ngữ: Spending time with family <strong>is</strong> relaxing</li>
-                    </ul>
-                  </div>
-                  <div class="lr-mmap-group">
-                    <span class="lr-mmap-fork" data-mmap-node="fork">Chọn loại (L5)</span>
-                    <ul class="lr-mmap-leaves">
-                      <li class="lr-mmap-leaf" data-mmap-node="leaf">I like … most.</li>
-                      <li class="lr-mmap-leaf" data-mmap-node="leaf">if I <strong>had</strong> to choose one, I <strong>would</strong> go for…</li>
-                      <li class="lr-mmap-leaf" data-mmap-node="leaf">it would have to be … / I would opt for …</li>
-                      <li class="lr-mmap-leaf" data-mmap-node="leaf"><span class="lr-mmap-k">Modal</span> would = chưa chắc · will = chắc chắn hơn</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>"""
+def grammar_mind_map_section() -> str:
+    return mind_map_html(
+        "grammarMindmap",
+        "Sơ đồ tư duy ngữ pháp People & Family",
+        "People & Family",
+        "Lesson 4 & 5",
+        GRAMMAR_MINDMAP_LEFT,
+        GRAMMAR_MINDMAP_RIGHT,
+        note="Trái = <strong>thích</strong> · Phải = <strong>không thích + lý do + chọn loại</strong>. <span class='lr-mmap-star'>★</span> = công thức trong mock test.",
+        extra_class=" lr-mmap--lesson3",
+        min_width="1180px",
+    )
 
 
-def videos_html() -> str:
-    items = []
+def speaking_lessons_html() -> str:
+    rows = []
     for v in SPEAKING_VIDEOS:
-        vid = re.search(r"v=([\w-]+)", v["youtube"])
-        embed = f'https://www.youtube.com/embed/{vid.group(1)}' if vid else v["youtube"]
-        items.append(
-            f"""        <li class="lr-lesson-item">
+        rows.append(
+            f"""        <li class="lr-lesson-card">
           <div class="lr-lesson-head">
-            <h3>{esc(v["title"])}</h3>
-            <p class="lr-lesson-why">{esc(v["why"])}</p>
+            <strong>{esc(v["title"])}</strong>
+            <a class="lr-video-link" href="{esc(v["youtube"])}" target="_blank" rel="noopener noreferrer">Watch video ↗</a>
+            <span class="lr-lesson-why">{esc(v["why"])}</span>
           </div>
-          <div class="lr-lesson-embed">
-            <iframe src="{esc(embed)}" title="{esc(v["title"])}" loading="lazy" allowfullscreen></iframe>
-          </div>
-          <p class="lr-lesson-practice"><strong>Family practice:</strong> {esc(v["family"])}</p>
-          <p class="ex-vi lr-lesson-vi"><strong>VI:</strong> (đọc lại câu trên bằng tiếng Việt khi bật Vietnamese)</p>
+          <details class="lr-lesson-notes">
+            <summary>Family practice — example sentence</summary>
+            <p class="lr-catchup-hint">Xem video trước, sau đó đọc câu mẫu và tự nói lại — áp dụng công thức Lesson 4 &amp; 5.</p>
+            <p class="lr-food-ex"><strong>Family:</strong> {esc(v["family"])}</p>
+          </details>
         </li>"""
         )
-    return "\n".join(items)
+    return "\n".join(rows)
 
 
 def lesson_highlights_html() -> str:
-    return """
-        <div class="lr-formula-grid">
-          <article class="lr-formula-card" id="lesson-4">
-            <h3>Lesson 4 · Do you like X?</h3>
-            <p class="lr-formula-q">Do you like spending time with your family?</p>
-            <table class="lr-table">
-              <thead><tr><th>Yes</th><th>No + HARDLY EVER + prefer</th></tr></thead>
-              <tbody>
-                <tr><td>Yes, definitely — I <strong>love enjoying</strong> → I <strong>love spending</strong> time with my family.</td>
-                    <td>No, not really. I <strong>hardly ever</strong> visit relatives. I <strong>prefer staying</strong> at home <strong>to going</strong> to big parties.</td></tr>
-              </tbody>
-            </table>
-            <details class="lr-example">
-              <summary>Model answer (family)</summary>
-              <p>Yes, absolutely. I'm a big fan of family gatherings. <strong>My favourite thing</strong> is having dinner with my parents at the weekend because it helps me unwind and forget work pressure.</p>
-              <p class="ex-vi">Vâng, chắc chắn. Tôi rất thích các buổi sum họp gia đình. Điều tôi thích nhất là ăn tối với bố mẹ vào cuối tuần vì điều đó giúp tôi thư giãn và quên áp lực công việc.</p>
-            </details>
-          </article>
-          <article class="lr-formula-card" id="lesson-5">
-            <h3>Lesson 5 · What kind of X do you like most?</h3>
-            <p class="lr-formula-q">What kind of family activities do you like most?</p>
-            <table class="lr-table">
-              <thead><tr><th>Loại gì?</th><th>Lý do</th></tr></thead>
-              <tbody>
-                <tr><td>I love all kinds of activities, but if I <strong>had</strong> to choose one, I <strong>would opt for</strong> cooking together.</td>
-                    <td><strong>This is because</strong> it gives us a chance to talk and strengthen our bond.</td></tr>
-              </tbody>
-            </table>
-            <details class="lr-example">
-              <summary>Model answer (family)</summary>
-              <p>Well, I love all kinds of family activities, but if I had to choose one, it would have to be going on short trips together. This is because travelling helps us create shared memories and understand each other better.</p>
-              <p class="ex-vi">Tôi thích mọi hoạt động gia đình, nhưng nếu phải chọn một, đó sẽ là những chuyến đi ngắn cùng nhau. Điều này là vì du lịch giúp chúng tôi tạo kỷ niệm chung và hiểu nhau hơn.</p>
-            </details>
-            <p class="lr-note-tip"><strong>prefer:</strong> prefer V-ing <strong>to</strong> V-ing · prefer to V <strong>rather than</strong> V (bare infinitive)</p>
-          </article>
-        </div>"""
-
-
-def idioms_html() -> str:
-    rows = []
-    for en, vi in FAMILY_IDIOMS:
-        rows.append(f"<tr><td><strong>{esc(en)}</strong></td><td>{esc(vi)}</td></tr>")
+    l4_practice = f"""
+            <div class="lr-practice-chain lr-chain lr-practice-chain--yes" data-ex-en="Yes, definitely. I'm keen on {{activity}} because it gives me the chance to relax with my family.">
+              <p class="lr-practice-q">Do you like spending time with your family?</p>
+              <p class="lr-chain-flow lr-practice-flow">Yes, definitely. I'm keen on {slot_select("activity", 0)} because it gives me the chance to relax with my family.</p>
+              <p class="lr-practice-en lr-chain-ex-text"></p>
+            </div>
+            <div class="lr-practice-chain lr-chain lr-practice-chain--no" data-ex-en="No, not really. I hardly ever visit my extended family. I prefer staying at home rather than going to big parties.">
+              <p class="lr-practice-q">Do you like large family parties?</p>
+              <p class="lr-chain-flow lr-practice-flow">No, not really. I <strong>hardly ever</strong> visit my {slot_select("family_type", 1)}. I <strong>prefer staying</strong> at home <strong>rather than</strong> going to big parties.</p>
+              <p class="lr-practice-en lr-chain-ex-text"></p>
+            </div>"""
+    l5_practice = f"""
+            <div class="lr-practice-chain lr-chain" data-ex-en="Well, I love all kinds of family activities, but if I had to choose one, I would opt for {{activity}}. This is because it helps us strengthen our bond.">
+              <p class="lr-practice-q">What kind of family activities do you like most?</p>
+              <p class="lr-chain-flow lr-practice-flow">Well, I love all kinds of family activities, but if I <strong>had</strong> to choose one, I <strong>would opt for</strong> {slot_select("activity", 3)}. <strong>This is because</strong> it helps us strengthen our bond.</p>
+              <p class="lr-practice-en lr-chain-ex-text"></p>
+            </div>"""
     return f"""
-        <table class="lr-table lr-table--idioms">
-          <thead><tr><th>Idiom / phrase</th><th>Nghĩa</th></tr></thead>
-          <tbody>{"".join(rows)}</tbody>
-        </table>
-        <p class="lr-ref">Nguồn: <a href="https://www.dolenglish.vn/blog/family-ielts-speaking" target="_blank" rel="noopener noreferrer">DOL — Family IELTS Speaking</a> · <a href="https://ielts.idp.com/vietnam/about/news-and-articles/article-talk-about-your-family" target="_blank" rel="noopener noreferrer">IDP — Talk about your family</a></p>"""
+      <div class="lr-core-lessons">
+        <article class="lr-core-lesson" id="lesson4-formulas">
+          <header class="lr-core-lesson-head">
+            <h3>Lesson 4 · Do you like X?</h3>
+            <p class="lr-formula"><strong>Công thức:</strong> Yes/No + FAVOURITE / HARDLY EVER + prefer</p>
+          </header>
+          <p class="lr-mm-hint">YES → love/enjoy + V-ing · FAVOURITE · NO → hardly ever · prefer V-ing to V-ing</p>
+          <details class="lr-formula-details" open>
+            <summary>Thực hành dropdown · Family</summary>
+{l4_practice}
+          </details>
+        </article>
+        <article class="lr-core-lesson" id="lesson5-formulas">
+          <header class="lr-core-lesson-head">
+            <h3>Lesson 5 · What kind of X do you like most?</h3>
+            <p class="lr-formula"><strong>Công thức:</strong> if I had to choose… + because / because of</p>
+          </header>
+          <p class="lr-mm-hint">Loại gì? → I would opt for… → This is because + S + V</p>
+          <details class="lr-formula-details" open>
+            <summary>Thực hành dropdown · Family</summary>
+{l5_practice}
+          </details>
+        </article>
+      </div>"""
+
+
+def family_lang_html() -> str:
+    items = []
+    for en, vi in FAMILY_IDIOMS:
+        items.append(
+            f'<li><mark class="lr-idiom-mark">{esc(en)}</mark>'
+            f' <span class="lr-idiom-vi">— {esc(vi)}</span></li>'
+        )
+    practice = (
+        f'My little brother is {slot_select("family_idiom", 2)} — he really '
+        f'{slot_select("relationship", 1)} our dad. People say we are '
+        f'{slot_select("family_idiom", 1)}.'
+    )
+    return f"""        <article class="lr-idiom-card">
+          <h3>Family idioms</h3>
+          <p class="lr-idiom-hint">Chọn 1–2 idiom phù hợp Part 2/3 — không nhồi hết.</p>
+          <ul class="lr-idiom-list">{"".join(items)}</ul>
+        </article>
+        <div class="lr-idiom-practice">
+          <p class="lr-chain-ex-label">Try combining (dropdown)</p>
+          <p class="lr-idiom-practice-text">{practice}</p>
+          <p class="lr-ref">Nguồn: <a href="https://www.dolenglish.vn/blog/family-ielts-speaking" target="_blank" rel="noopener noreferrer">DOL — Family IELTS Speaking</a> · <a href="https://zim.vn/ielts-speaking-part-1-family-and-friends-1" target="_blank" rel="noopener noreferrer">ZIM — Family &amp; Friends</a></p>
+        </div>"""
 
 
 def vocab_chains_html(words: list[dict]) -> str:
     chains = [
-        ("nuclear family", "parents", "siblings", "upbringing"),
-        ("extended family", "cousins", "grandparents", "family gathering"),
-        ("get on well with", "supportive", "rely on", "keep in touch"),
-        ("look up to", "take after", "role model", "influence"),
+        {
+            "title": "Family types (describe)",
+            "flow": "nuclear family → parents → siblings → upbringing",
+            "slots": ["family_type", "relative", "life_stage"],
+            "ex_en": (
+                "I come from a {family_type} — I live with my {relative}, "
+                "and my {life_stage} shaped who I am today."
+            ),
+            "ex_vi": (
+                "Tôi đến từ {family_type} — sống với {relative}, "
+                "và {life_stage} định hình con người tôi."
+            ),
+            "tense": "Present Simple · describe",
+        },
+        {
+            "title": "Time with family (habit)",
+            "flow": "get on well → activity together → family gathering",
+            "slots": ["relationship", "activity", "gathering"],
+            "ex_en": (
+                "I {relationship} my parents, and we enjoy {activity} "
+                "during every {gathering}."
+            ),
+            "ex_vi": (
+                "Tôi {relationship} bố mẹ, và chúng tôi thích {activity} "
+                "mỗi {gathering}."
+            ),
+            "tense": "Present Simple · habit",
+        },
+        {
+            "title": "Admire a member (Part 2)",
+            "flow": "look up to → trait → take after → influence",
+            "slots": ["relationship", "trait_pos", "life_stage"],
+            "ex_en": (
+                "I really {relationship} my mother — she is so {trait_pos}, "
+                "and I think my {life_stage} values come from her."
+            ),
+            "ex_vi": (
+                "Tôi {relationship} mẹ — bà rất {trait_pos}, "
+                "và giá trị {life_stage} của tôi đến từ bà."
+            ),
+            "tense": "Present Simple · Part 2",
+        },
+        {
+            "title": "Preference (Lesson 4)",
+            "flow": "prefer small gatherings → hardly ever big parties → close-knit",
+            "slots": ["activity", "family_type"],
+            "ex_en": (
+                "I <strong>prefer</strong> {activity} <strong>to</strong> loud parties, "
+                "and I hardly ever see my whole {family_type} at once."
+            ),
+            "ex_vi": (
+                "Tôi <strong>thích</strong> {activity} <strong>hơn</strong> tiệc ồn ào, "
+                "và hiếm khi gặp cả {family_type}."
+            ),
+            "tense": "prefer V-ing to V-ing · hardly ever",
+        },
     ]
-    parts = ['<div class="lr-chain-grid">']
+    parts = []
     for chain in chains:
-        chips = " → ".join(f'<span class="lr-chain-chip">{esc(w)}</span>' for w in chain)
-        parts.append(f'<div class="lr-chain">{chips}</div>')
-    parts.append("</div>")
+        text = chain["flow"]
+        for sid in chain["slots"]:
+            text = text.replace("{" + sid + "}", slot_select(sid), 1)
+        parts.append(
+            f"""        <div class="lr-chain" data-ex-en="{esc(chain["ex_en"])}" data-ex-vi="{esc(chain["ex_vi"])}">
+          <h4>{esc(chain["title"])}</h4>
+          <p class="lr-chain-flow">{text}</p>
+          <div class="lr-chain-ex">
+            <p class="lr-chain-ex-label">Example sentence</p>
+            <p class="lr-chain-ex-text"></p>
+            <p class="lr-chain-ex-vi"></p>
+            <span class="lr-tense-tag">{esc(chain["tense"])}</span>
+          </div>
+        </div>"""
+        )
     chips = []
     for w in words[:48]:
         ipa = f' <span class="ipa">/{esc(w["ipa"])}/</span>' if w.get("ipa") else ""
         vi = f' — {esc(w["vi"])}' if w.get("vi") else ""
         chips.append(f'<li><mark class="vocab">{esc(w["form"])}</mark>{ipa}{vi}</li>')
-    parts.append(
-        f"""<details class="lr-vocab-bank">
+    return (
+        "\n".join(parts)
+        + f"""
+        <details class="lr-vocab-bank">
           <summary>Vocabulary bank ({len(words)} words · B1/B2 focus)</summary>
           <ul class="ex-vocab-list">{"".join(chips)}</ul>
         </details>"""
     )
-    return "\n".join(parts)
 
 
 def speaking_mock_html() -> str:
@@ -355,14 +474,14 @@ def speaking_mock_html() -> str:
                 "I'd say I come from a fairly large family. Besides my "
                 f'{slot_select("relative", 0)}, I have many cousins in my '
                 f'{slot_select("family_type", 1)}. '
-                '<span class="lr-tense-tag">There are… · family types</span>'
+                '<span class="lr-tense-tag">Present Simple</span>'
             ),
         ),
         (
             "How much time do you spend with your family?",
             "Bạn dành bao nhiêu thời gian cho gia đình?",
             (
-                "Honestly, not as much as I'd like because of my busy schedule, "
+                "Honestly, not as much as I'd like <strong>because of</strong> my busy schedule, "
                 "but I try to see them every weekend. We usually enjoy "
                 f'{slot_select("activity", 0)}. '
                 '<span class="lr-tense-tag">because of + noun · try to + V</span>'
@@ -372,7 +491,7 @@ def speaking_mock_html() -> str:
             "What do you like to do together as a family?",
             "Gia đình bạn thích làm gì cùng nhau?",
             (
-                "Yes, definitely — I <strong>love</strong> "
+                'Yes, definitely — I <strong>love</strong> '
                 f'{slot_select("activity", 2)} because it gives us the chance to relax together. '
                 '<span class="lr-tense-tag">love + V-ing · because + S + V</span>'
             ),
@@ -386,7 +505,7 @@ def speaking_mock_html() -> str:
                 "They're really "
                 f'{slot_select("trait_pos", 1)} and '
                 f'{slot_select("trait_pos", 2)}. '
-                '<span class="lr-tense-tag">get on well · personality adj</span>'
+                '<span class="lr-tense-tag">Present Simple · personality</span>'
             ),
         ),
         (
@@ -429,7 +548,7 @@ def speaking_mock_html() -> str:
                 "Yes, definitely. Most people still respect "
                 f'{slot_select("society", 0)}, although '
                 f'{slot_select("society", 2)} are becoming more common in big cities. '
-                '<span class="lr-tense-tag">although · society vocab</span>'
+                '<span class="lr-tense-tag">Present Simple · although</span>'
             ),
         ),
     ]
@@ -475,7 +594,7 @@ def speaking_mock_html() -> str:
             "Which are more important: family or friends?",
             "Gia đình hay bạn bè quan trọng hơn?",
             (
-                "For me, family comes first because of the bond we share, "
+                "For me, family comes first <strong>because of</strong> the bond we share, "
                 "but close friends are equally valuable. "
                 '<span class="lr-tense-tag">because of · comparison</span>'
             ),
@@ -492,37 +611,127 @@ def speaking_mock_html() -> str:
         ),
     ]
 
-    def part_block(title: str, qs: list, part_id: str) -> str:
-        cards = []
-        for i, (en, vi, ans) in enumerate(qs, 1):
-            cards.append(
-                f"""          <article class="lr-mock-q" id="{part_id}-q{i}">
-            <h4>Q{i}. {esc(en)}</h4>
-            <p class="ex-vi lr-mock-vi">{esc(vi)}</p>
-            <div class="lr-mock-answer">{ans}</div>
-          </article>"""
-            )
-        return f"""        <div class="lr-mock-part" id="{part_id}">
-          <h3>{esc(title)}</h3>
-{chr(10).join(cards)}
-        </div>"""
-
-    p2_block = f"""        <div class="lr-mock-part" id="part2">
-          <h3>Part 2 · Cue card</h3>
-          <p class="lr-mock-cue"><strong>Describe a family member you admire.</strong> You should say who they are, what they look like, what they are like, and explain why you admire them.</p>
-          <p class="ex-vi lr-mock-vi">Mô tả một thành viên gia đình bạn ngưỡng mộ — ai, ngoại hình, tính cách, vì sao.</p>
-          <article class="lr-mock-q" id="part2-answer">
-            <div class="lr-mock-answer">{p2_en}</div>
-          </article>
-        </div>"""
-
-    return (
-        part_block("Part 1 · Family & friends", p1, "part1")
-        + "\n"
-        + p2_block
-        + "\n"
-        + part_block("Part 3 · Discussion", p3, "part3")
+    p2_idx = len(p1) + 1
+    p3_start = p2_idx + 1
+    lines = []
+    lines.append('        <div class="ex-ielts-part lr-mock-part" data-part="1">')
+    lines.append('          <h2 class="ex-ielts-part-title">Part 1 · Interview</h2>')
+    lines.append(
+        '          <p class="ex-ielts-part-hint">Yes/No + reasons · pick vocabulary from dropdowns · Lesson 4 &amp; 5 grammar tags.</p>'
     )
+    for i, (q, qvi, ans) in enumerate(p1, 1):
+        lines.append('          <div class="ex-qa">')
+        lines.append(f'            <p class="ex-q"><span class="ex-role">Examiner</span> {esc(q)}</p>')
+        lines.append(f'            <p class="ex-q-vi">{esc(qvi)}</p>')
+        lines.append(f'            <p class="ex-sent lr-answer" data-sent="{i}">')
+        lines.append('              <span class="ex-a-label">You</span>')
+        lines.append(f'              <span class="ex-en lr-answer-text">{ans}</span>')
+        lines.append("            </p></div>")
+    lines.append("        </div>")
+
+    lines.append('        <div class="ex-ielts-part lr-mock-part" data-part="2">')
+    lines.append('          <h2 class="ex-ielts-part-title">Part 2 · Long turn</h2>')
+    lines.append('          <div class="ex-cue-card">')
+    lines.append(
+        '            <p class="ex-cue-title">Describe a family member you admire. You should say:</p>'
+    )
+    lines.append("            <ul>")
+    for b in [
+        "who they are",
+        "what they look like",
+        "what they are like",
+        "and explain why you admire them",
+    ]:
+        lines.append(f"              <li>{esc(b)}</li>")
+    lines.append("            </ul></div>")
+    lines.append('          <div class="ex-qa">')
+    lines.append(f'            <p class="ex-sent lr-answer" data-sent="{p2_idx}">')
+    lines.append('              <span class="ex-a-label">You</span>')
+    lines.append(f'              <span class="ex-en lr-answer-text">{p2_en}</span>')
+    lines.append("            </p></div></div>")
+
+    lines.append('        <div class="ex-ielts-part lr-mock-part" data-part="3">')
+    lines.append('          <h2 class="ex-ielts-part-title">Part 3 · Discussion</h2>')
+    for j, (q, qvi, ans) in enumerate(p3, p3_start):
+        lines.append('          <div class="ex-qa">')
+        lines.append(f'            <p class="ex-q"><span class="ex-role">Examiner</span> {esc(q)}</p>')
+        lines.append(f'            <p class="ex-q-vi">{esc(qvi)}</p>')
+        lines.append(f'            <p class="ex-sent lr-answer" data-sent="{j}">')
+        lines.append('              <span class="ex-a-label">You</span>')
+        lines.append(f'              <span class="ex-en lr-answer-text">{ans}</span>')
+        lines.append("            </p></div>")
+    lines.append("        </div>")
+    return "\n".join(lines)
+
+
+def scroll_read_html() -> str:
+    return """
+        <section class="ex-scroll lr-scroll-read" id="exScroll" aria-label="Scroll reading teleprompter">
+          <div class="ex-scroll-head">
+            <div>
+              <h3>Scroll read · speaking</h3>
+              <p class="ex-scroll-hint">Đọc theo chữ cuộn kiểu teleprompter (VOA-style). Từ trong dropdown bị ẩn — hiện nghĩa VI hoặc IPA để bạn tự nhớ và nói ra tiếng Anh. Câu hỏi + câu trả lời cuộn theo Part 1 / 2 / 3.</p>
+            </div>
+          </div>
+          <div class="ex-scroll-toolbar">
+            <button type="button" class="ex-btn primary" id="btnScrollPlay">▶ Play</button>
+            <button type="button" class="ex-btn" id="btnScrollPause">Pause</button>
+            <button type="button" class="ex-btn" id="btnScrollRestart">⟲ Restart</button>
+            <label class="ex-voice">Speed
+              <input id="scrollSpeed" type="range" min="12" max="90" step="1" value="32">
+              <span id="scrollSpeedVal">32</span> px/s
+            </label>
+            <label class="ex-voice">Hint
+              <select id="scrollHintMode" aria-label="Hint mode for hidden words">
+                <option value="vi" selected>Nghĩa VI</option>
+                <option value="ipa">IPA</option>
+                <option value="both">VI + IPA</option>
+              </select>
+            </label>
+            <label class="ex-toggle"><input type="checkbox" id="scrollReveal"> Hiện từ EN</label>
+          </div>
+          <div class="ex-scroll-stage">
+            <div class="ex-scroll-focus" aria-hidden="true"></div>
+            <div class="ex-scroll-viewport" id="scrollViewport">
+              <div class="ex-scroll-track" id="scrollTrack"></div>
+            </div>
+          </div>
+        </section>"""
+
+
+def mock_practice_refs_html() -> str:
+    return """
+        <aside class="lr-practice-refs" aria-label="Speaking practice references">
+          <h3 class="lr-practice-refs-title">Luyện nói với TTS</h3>
+          <ol class="lr-practice-steps">
+            <li>Chọn từ trong dropdown → chỉnh câu trả lời theo ý bạn.</li>
+            <li>Bấm <strong>Copy current answers</strong> — clipboard gồm <em>câu hỏi + câu trả lời</em> theo Part 1 / 2 / 3.</li>
+            <li>Mở <a href="https://www.naturalreaders.com/online/" target="_blank" rel="noopener noreferrer">NaturalReader Online</a> (hoặc TTS khác) → paste → nghe và lặp lại để luyện phát âm &amp; nhịp nói.</li>
+            <li>Hoặc dùng <strong>Scroll read · speaking</strong> bên dưới — teleprompter cuộn chữ, từ dropdown bị ẩn (gợi ý VI/IPA) để bạn tự nói.</li>
+          </ol>
+          <div class="lr-ref-grid">
+            <a class="lr-ref-card" href="https://www.dolenglish.vn/blog/speaking-test-ielts" target="_blank" rel="noopener noreferrer">
+              <strong>DOL — Speaking Test IELTS Part 1, 2 &amp; 3</strong>
+              <span>Cấu trúc thi (11–14 phút), mục đích từng part, đề mẫu full test</span>
+              <span class="lr-card-cta">Đọc hướng dẫn ↗</span>
+            </a>
+            <a class="lr-ref-card" href="https://www.naturalreaders.com/online/" target="_blank" rel="noopener noreferrer">
+              <strong>NaturalReader Online</strong>
+              <span>Text-to-speech miễn phí — paste Q&amp;A đã copy để nghe examiner + câu trả lời</span>
+              <span class="lr-card-cta">Mở NaturalReader ↗</span>
+            </a>
+            <a class="lr-ref-card" href="https://www.dolenglish.vn/blog/family-ielts-speaking" target="_blank" rel="noopener noreferrer">
+              <strong>DOL — IELTS Speaking Family</strong>
+              <span>Chủ đề Family thực tế, câu hỏi Part 1/2/3 và gợi ý trả lời</span>
+              <span class="lr-card-cta">Xem chủ đề Family ↗</span>
+            </a>
+            <a class="lr-ref-card" href="https://ielts.idp.com/vietnam/about/news-and-articles/article-talk-about-your-family" target="_blank" rel="noopener noreferrer">
+              <strong>IDP — Talk about your family</strong>
+              <span>Từ vựng &amp; mẹo nói về gia đình trong IELTS Speaking</span>
+              <span class="lr-card-cta">Đọc bài IDP ↗</span>
+            </a>
+          </div>
+        </aside>"""
 
 
 def natural_vlog_html() -> str:
@@ -546,6 +755,103 @@ def build_page() -> str:
     words = collect_review_words()
     home = "../../../../"
     slots_json = json.dumps(WORD_SLOTS, ensure_ascii=False)
+
+    body = f"""    <aside class="docs-sidebar" id="docsSidebar" data-nav="english" data-docs-root="../../" data-active="people-family">
+      <div class="docs-nav-label">English</div>
+      <ul class="docs-nav" id="docsNav">
+        <li><a href="../../">All topics</a></li>
+        <li><a href="../">People &amp; Family</a></li>
+        <li><a class="active" href="./">Review Exercise</a></li>
+      </ul>
+    </aside>
+    <article class="docs-main lr-page">
+      <div class="docs-breadcrumb">
+        <a href="{home}">Home</a><span>›</span>
+        <a href="{home}#blogs">Blogs</a><span>›</span>
+        <a href="../../">English</a><span>›</span>
+        <a href="../">People &amp; Family</a><span>›</span>
+        <span>Review Exercise</span>
+      </div>
+
+      <header class="lr-hero">
+        <p class="lr-hero-badge">Linear Thinking · Capstone</p>
+        <h1>People &amp; Family — Review Exercise</h1>
+        <p class="lede">Sau khi hoàn thành B2, ôn tập theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-speaking" target="_blank" rel="noopener noreferrer">Linear Thinking</a>: ngữ pháp (gerunds &amp; preferences, because/conditional 2) → mental model → cấu trúc Speaking → từ vựng B1/B2 → mock IELTS Part 1/2/3 với dropdown từ thay thế.</p>
+        <nav class="lr-toc" aria-label="On this page">
+          <a href="#natural-vlog">0 · Real talk</a>
+          <a href="#grammar">1 · Grammar</a>
+          <a href="#mental-model">2 · Mental model</a>
+          <a href="#structures">3 · Structures</a>
+          <a href="#lessons">4 · Lesson highlights</a>
+          <a href="#family-lang">5 · Idioms &amp; phrases</a>
+          <a href="#vocab-chains">6 · Vocab chains</a>
+          <a href="#mock-test">7 · Mock test</a>
+        </nav>
+        <div class="ex-toolbar lr-toolbar lr-toolbar--hero">
+          <label class="ex-toggle"><input type="checkbox" id="togVi" /> Vietnamese</label>
+        </div>
+      </header>
+
+{natural_vlog_html()}
+
+      <section class="lr-section" id="grammar">
+        <h2>1 · Grammar foundations</h2>
+        <p class="lr-section-hint">Hai chủ điểm từ <a href="https://www.dolenglish.vn/blog/ngu-phap-ielts" target="_blank" rel="noopener noreferrer">DOL — Ngữ pháp IELTS</a>, gắn Lesson 4 (<em>Do you like X?</em>) và Lesson 5 (<em>What kind of X…?</em>).</p>
+        <div class="lr-grammar-list">
+{grammar_section()}
+        </div>
+        <p class="lr-ref">Tham khảo thêm: <a href="https://www.dolenglish.vn/blog/linearthinking-trong-hoc-ngu-phap-grammar" target="_blank" rel="noopener noreferrer">Linear Thinking trong Grammar</a> · <a href="https://www.dolenglish.vn/blog/family-ielts-speaking" target="_blank" rel="noopener noreferrer">DOL — IELTS Speaking Family</a></p>
+      </section>
+
+      <section class="lr-section" id="mental-model">
+        <h2>2 · Mental model — Grammar for family speaking</h2>
+        <p class="lr-section-hint">Sơ đồ tư duy 2 chủ điểm ngữ pháp — gerunds/prefer (Lesson 4) và because/conditional 2 (Lesson 5). <span class="lr-mmap-star">★</span> = dùng trong mock test.</p>
+{grammar_mind_map_section()}
+      </section>
+
+      <section class="lr-section" id="structures">
+        <h2>3 · Speaking structures (family + grammar)</h2>
+        <p class="lr-section-hint">Xem video gốc trước, sau đó mở <strong>Family practice</strong>. Playlist: <a href="https://www.youtube.com/playlist?list=PLD6t6ckHsruYoalxbzcjX1TNn4h7ShiRk" target="_blank" rel="noopener noreferrer">Oxford Online English · Spoken English Lessons</a>.</p>
+        <ul class="lr-lesson-list">
+{speaking_lessons_html()}
+        </ul>
+      </section>
+
+      <section class="lr-section" id="lessons">
+        <h2>4 · Core formulas — Lesson 4 &amp; 5</h2>
+        <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — <strong>Lesson 4</strong> (Do you like X?) trước, <strong>Lesson 5</strong> (What kind of X…) sau. Chọn <strong>1–2 nhánh</strong>, không nhồi hết.</p>
+{lesson_highlights_html()}
+      </section>
+
+      <section class="lr-section" id="family-lang">
+        <h2>5 · Family lang · idioms &amp; phrases</h2>
+        <p class="lr-section-hint">IELTS đánh giá <strong>Lexical Resource</strong> — chọn 1–2 idiom phù hợp ngữ cảnh (không nhồi).</p>
+        <div class="lr-idiom-grid">
+{family_lang_html()}
+        </div>
+      </section>
+
+      <section class="lr-section" id="vocab-chains">
+        <h2>6 · Vocabulary — idea chains (Level 3)</h2>
+        <p class="lr-section-hint">Học từ theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-hoc-tu-vung-vocab" target="_blank" rel="noopener noreferrer">dòng ideas</a>, không liệt kê. Chọn từ trong dropdown — bên dưới mỗi chain có <strong>Example sentence</strong> ghép từ + ngữ pháp đã học.</p>
+{vocab_chains_html(words)}
+      </section>
+
+      <section class="lr-section lr-mock" id="mock-test">
+        <h2>7 · IELTS Speaking mock — People &amp; Family</h2>
+        <p class="lr-section-hint">Part 1 / 2 / 3 thực chiến. Dùng dropdown để đổi từ — không cần nhồi hết từ vào một câu.</p>
+{mock_practice_refs_html()}
+        <div class="ex-toolbar lr-toolbar">
+          <button type="button" class="ex-btn primary" id="btnCopyAnswer">Copy current answers</button>
+        </div>
+        <section class="ex-passage ex-ielts lr-mock-passage" id="mockPassage" data-tts-root>
+{speaking_mock_html()}
+        </section>
+{scroll_read_html()}
+      </section>
+
+      <script type="application/json" id="lrWordSlots">{slots_json}</script>
+    </article>"""
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -578,137 +884,9 @@ def build_page() -> str:
     <a class="docs-top-link" href="{home}#blogs">blogs</a>
   </header>
   <div class="docs-shell docs-shell--wide">
-    <aside class="docs-sidebar" id="docsSidebar" data-nav="english" data-docs-root="../../" data-active="people-family">
-      <div class="docs-nav-label">English</div>
-      <ul class="docs-nav" id="docsNav">
-        <li><a href="../../">All topics</a></li>
-        <li><a href="../">People &amp; Family</a></li>
-        <li><a class="active" href="./">Review Exercise</a></li>
-      </ul>
-    </aside>
-    <article class="docs-main lr-page">
-      <div class="docs-breadcrumb">
-        <a href="{home}">Home</a><span>›</span>
-        <a href="{home}#blogs">Blogs</a><span>›</span>
-        <a href="../../">English</a><span>›</span>
-        <a href="../">People &amp; Family</a><span>›</span>
-        <span>Review Exercise</span>
-      </div>
-
-      <header class="lr-hero">
-        <p class="lr-hero-badge">Linear Thinking · Capstone</p>
-        <h1>People &amp; Family — Review Exercise</h1>
-        <p class="lede">Sau B2, ôn theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-speaking" target="_blank" rel="noopener noreferrer">Linear Thinking</a>: <strong>2 chủ điểm ngữ pháp</strong> (gerunds &amp; preferences · because/conditional 2) gắn <strong>Lesson 4 &amp; 5</strong> → sơ đồ tư duy → video → mock IELTS Part 1/2/3 (dropdown từ B1/B2).</p>
-        <nav class="lr-toc" aria-label="On this page">
-          <a href="#natural-vlog">0 · Real talk</a>
-          <a href="#grammar">1 · Grammar</a>
-          <a href="#mental-model">2 · Mind map</a>
-          <a href="#videos">3 · Videos</a>
-          <a href="#lessons">4 · Lesson highlights</a>
-          <a href="#family-lang">5 · Idioms</a>
-          <a href="#vocab-chains">6 · Vocab chains</a>
-          <a href="#practice">7 · Practice</a>
-          <a href="#mock-test">8 · Mock test</a>
-        </nav>
-        <div class="ex-toolbar lr-toolbar lr-toolbar--hero">
-          <label class="ex-toggle"><input type="checkbox" id="togVi" /> Vietnamese</label>
-        </div>
-      </header>
-
-{natural_vlog_html()}
-
-      <section class="lr-section" id="grammar">
-        <h2>1 · Grammar foundations (2 chủ điểm)</h2>
-        <p class="lr-section-hint">Chọn từ <a href="https://www.dolenglish.vn/blog/ngu-phap-ielts" target="_blank" rel="noopener noreferrer">DOL — Ngữ pháp IELTS</a> và <a href="https://ielts-fighter.com/tin-tuc/grammar_c16.html" target="_blank" rel="noopener noreferrer">IELTS Fighter — Grammar</a>, gắn Lesson 4 (<em>Do you like X?</em>) và Lesson 5 (<em>What kind of X…?</em>).</p>
-        <div class="lr-grammar-list">
-{grammar_section()}
-        </div>
-      </section>
-
-      <section class="lr-section" id="mental-model">
-        <h2>2 · Mind map — Grammar for family speaking</h2>
-        <p class="lr-section-hint">Hai nhánh chính: <strong>thích / không thích</strong> (gerund &amp; prefer) và <strong>lý do / chọn loại</strong> (because · conditional 2). <span class="lr-mmap-star">★</span> = công thức Lesson 4 &amp; 5.</p>
-{mind_map_html()}
-      </section>
-
-      <section class="lr-section" id="videos">
-        <h2>3 · Video — Spoken English Lessons</h2>
-        <p class="lr-section-hint">Playlist <a href="https://www.youtube.com/playlist?list=PLD6t6ckHsruYoalxbzcjX1TNn4h7ShiRk" target="_blank" rel="noopener noreferrer">Oxford Online English · Spoken English Lessons</a> — family, likes/dislikes, describe a person, compare.</p>
-        <ul class="lr-lesson-list">
-{videos_html()}
-        </ul>
-      </section>
-
-      <section class="lr-section" id="lessons">
-        <h2>4 · Core formulas — Lesson 4 &amp; 5</h2>
-        <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> áp dụng cho chủ đề People &amp; Family.</p>
-{lesson_highlights_html()}
-      </section>
-
-      <section class="lr-section" id="family-lang">
-        <h2>5 · Idioms &amp; phrases — Family</h2>
-        <p class="lr-section-hint">Dùng 1–2 idiom trong Part 2/3 — không nhồi hết.</p>
-{idioms_html()}
-      </section>
-
-      <section class="lr-section" id="vocab-chains">
-        <h2>6 · Vocab chains (B1/B2)</h2>
-        <p class="lr-section-hint">Chuỗi từ theo chủ đề — kết hợp dropdown trong mock test bên dưới.</p>
-{vocab_chains_html(words)}
-      </section>
-
-      <section class="lr-section" id="practice">
-        <h2>7 · Practice — People &amp; Family</h2>
-        <p class="lr-section-hint">Tham khảo câu hỏi &amp; bài mẫu: <a href="https://www.dolenglish.vn/blog/family-ielts-speaking" target="_blank" rel="noopener noreferrer">DOL</a> · <a href="https://zim.vn/ielts-speaking-part-1-family-and-friends-1" target="_blank" rel="noopener noreferrer">ZIM</a> · <a href="https://ielts.idp.com/vietnam/about/news-and-articles/article-talk-about-your-family" target="_blank" rel="noopener noreferrer">IDP</a>.</p>
-        <div class="lr-practice-grid">
-          <article class="lr-practice-card">
-            <h3>Part 1 warm-up</h3>
-            <ol>
-              <li>Do you have a large or small family?</li>
-              <li>How much time do you spend with your family?</li>
-              <li>What do you like to do together as a family?</li>
-              <li>Do you get along well with your family?</li>
-              <li>Who are you closest to in your family?</li>
-            </ol>
-            <p class="lr-practice-tip">Dùng <strong>Yes/No + FAVOURITE</strong> hoặc <strong>hardly ever + prefer</strong> (Lesson 4).</p>
-          </article>
-          <article class="lr-practice-card">
-            <h3>Part 2 cue cards</h3>
-            <ul>
-              <li>Describe a family member you admire</li>
-              <li>Describe a family member who has influenced you</li>
-              <li>Describe a happy family event</li>
-            </ul>
-            <p class="lr-practice-tip">Kết hợp Lesson 06 (describe a person) + idioms nhẹ.</p>
-          </article>
-          <article class="lr-practice-card">
-            <h3>Part 3 discussion</h3>
-            <ul>
-              <li>How have families changed in your country?</li>
-              <li>Should husbands and wives have different roles?</li>
-              <li>Family or friends — which is more important?</li>
-              <li>What role do grandparents play?</li>
-            </ul>
-            <p class="lr-practice-tip">Dùng <strong>if I had to choose</strong> + <strong>because/because of</strong> (Lesson 5).</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="lr-section" id="mock-test">
-        <h2>8 · Mock IELTS Speaking — dropdown từ vựng</h2>
-        <p class="lr-section-hint">Đổi từ trong dropdown để luyện paraphrase. Grammar tags gắn Lesson 4 &amp; 5.</p>
-        <div class="lr-mock">
-{speaking_mock_html()}
-        </div>
-      </section>
-
-      <p class="lr-ref lr-ref--footer">Nguồn: IELTS Nguyễn Huyền (Lesson 4 &amp; 5) · DOL · ZIM · IDP · Oxford Online English playlist.</p>
-    </article>
+{body}
   </div>
-  <script>
-    window.LR_WORD_SLOTS = {slots_json};
-  </script>
-  <script src="{home}js/docs.js"></script>
+  <script src="{home}js/docs.js?v=lr24"></script>
   <script src="{home}js/linear-review.js?v=lr24"></script>
 </body>
 </html>"""
