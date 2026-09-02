@@ -6090,3 +6090,50 @@ mark.lr-filler {
 .lr-answer--natural .ex-a-label {
   vertical-align: top;
 }
+
+.lr-vlog-vi-details {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(34, 211, 238, 0.22);
+}
+
+.lr-vlog-vi-details summary {
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: rgba(34, 211, 238, 0.88);
+  list-style: none;
+  user-select: none;
+}
+
+.lr-vlog-vi-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.lr-vlog-vi-details summary::before {
+  content: "▸ ";
+  display: inline-block;
+  transition: transform 0.15s ease;
+}
+
+.lr-vlog-vi-details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.lr-vlog-vi-body {
+  margin-top: 12px;
+}
+
+.lr-vlog-vi-body p {
+  margin: 0 0 10px;
+  font-style: normal;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: rgba(203, 213, 225, 0.92);
+}
+
+.lr-vlog-vi-body p:last-child {
+  margin-bottom: 0;
+}

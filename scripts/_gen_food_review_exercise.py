@@ -2509,25 +2509,28 @@ def speaking_mock_html() -> str:
     ]
 
     p2_natural = (
-        '<blockquote class="lr-vlog lr-vlog--part2" cite="food-vlogger-part2">'
-        '<p class="lr-vlog-text"><mark class="lr-filler">Yeah</mark> <mark class="lr-filler">so</mark> um I\'m gonna talk about '
-        "a meal I genuinely loved — it was maybe two weeks ago, a Friday night, "
-        '<mark class="lr-filler">like</mark> around midnight when I was out filming.</p>'
-        '<p class="lr-vlog-text">I was with my friend Linh — she\'s <mark class="lr-filler">kind of</mark> my '
-        "go-to person when I find a random street stall — and we ended up at this tiny spot in District 4 "
-        "that only had three plastic chairs, <mark class=\"lr-filler\">you know</mark>?</p>"
-        '<p class="lr-vlog-text">We ordered bún riêu — the broth was still steaming, super hot — and I was '
-        '<mark class="lr-filler">literally</mark> talking to the camera while my mouth was '
-        '<mark class="lr-filler">kind of</mark> on fire. Linh was laughing but she kept eating too, '
-        '<mark class="lr-filler">I mean</mark> that\'s <mark class="lr-filler">like</mark> the whole vibe.</p>'
-        '<p class="lr-vlog-text"><mark class="lr-filler">And</mark> <mark class="lr-filler">yeah</mark> what I enjoyed most '
-        "wasn't fancy plating or anything — it was just real street food, the kind of place I'd drag my friends to anyway. "
-        '<mark class="lr-filler">I guess</mark> I loved it because it felt honest — not performing for the vlog, '
-        "just eating something that actually tastes good with someone I like.</p>"
-        '<p class="ex-vi lr-vlog-vi">Ừ thì mình kể về một bữa thật sự thích — khoảng hai tuần trước, tối thứ Sáu, gần nửa đêm đi quay. '
-        "Đi với bạn Linh — bạn hay đi ăn vặt cùng mình — tình cờ gặp quán nhỏ ở Quận 4, chỉ vài ghế nhựa. "
-        "Gọi bún riêu, nước còn bốc khói, nóng ơi là nóng, vừa quay vừa nói miệng như cháy; Linh cười mà vẫn ăn tiếp. "
-        "Thích nhất không phải vì sang, mà vì đồ thật, chỗ mình sẽ rủ bạn bè — cảm giác chân thật, không diễn cho vlog.</p>"
+        '<blockquote class="lr-vlog lr-vlog--part2" cite="food-date-part2">'
+        '<p class="lr-vlog-text"><mark class="lr-filler">Okay</mark> <mark class="lr-filler">so</mark> um I\'m supposed to talk about a meal I enjoyed, right? '
+        "This was last Saturday evening — our first proper dinner date, and honestly I was "
+        '<mark class="lr-filler">kind of</mark> nervous the whole way there.</p>'
+        '<p class="lr-vlog-text">I went with someone I\'d been texting for maybe two weeks — we picked this little Italian place near the river, '
+        "nothing fancy, just warm lights and, <mark class=\"lr-filler\">you know</mark>, that smell of garlic bread when you walk in.</p>"
+        '<p class="lr-vlog-text">We ordered spaghetti carbonara to share, and a small tiramisu at the end — '
+        '<mark class="lr-filler">I mean</mark> the pasta was really good, but what stuck with me is we kept laughing because I '
+        '<mark class="lr-filler">literally</mark> could not twist the fork properly and she had to show me, which was embarrassing but '
+        '<mark class="lr-filler">like</mark>… cute, <mark class="lr-filler">I guess</mark>.</p>'
+        '<p class="lr-vlog-text"><mark class="lr-filler">And</mark> <mark class="lr-filler">yeah</mark> why I enjoyed it — it wasn\'t because the food was Michelin-level or anything. '
+        "For the first time that week I wasn't checking my phone or thinking about work. It just felt easy — "
+        '<mark class="lr-filler">like</mark> eating with someone you actually want to see again. '
+        "<mark class=\"lr-filler\">That's</mark> the meal I still think about.</p>"
+        '<details class="lr-vlog-vi-details">'
+        '<summary>Bản dịch tiếng Việt</summary>'
+        '<div class="lr-vlog-vi-body">'
+        '<p>Mình kể về một bữa ăn thật sự thích nhé — tối thứ Bảy tuần trước, buổi hẹn ăn tối đầu tiên, đi đến quán mà hơi hồi hộp cả đường.</p>'
+        '<p>Đi với người mình nhắn tin khoảng hai tuần — chọn quán Ý nhỏ gần sông, không sang, chỉ đèn ấm và mùi bánh mì tỏi khi bước vào.</p>'
+        '<p>Gọi mì carbonara ăn chung, cuối buổi thêm tiramisu — mì ngon thật, nhưng nhớ nhất là hai đứa cười vì mình xoắn mì vụng quá, cô ấy phải chỉ, hơi ngại mà cũng dễ thương.</p>'
+        '<p>Thích vì không phải đồ ăn kiểu Michelin — mà vì lần đầu cả tuần mình không cắm điện thoại hay nghĩ việc. Cảm giác nhẹ nhàng, kiểu muốn gặp lại người đó. Bữa đó mình vẫn nhớ.</p>'
+        '</div></details>'
         "</blockquote>"
     )
 
@@ -2660,11 +2663,11 @@ def speaking_mock_html() -> str:
     lines.append(f'              <span class="ex-en lr-answer-text">{p2_en}</span>')
     lines.append("            </p></div>")
     lines.append('          <div class="ex-qa lr-mock-natural">')
-    lines.append('            <p class="lr-chain-ex-label">Real talk · same cue card (natural voice)</p>')
-    lines.append('            <p class="lr-idiom-hint">Giọng food vlogger — filler tự nhiên, vẫn trả lời đủ when / who / what / why.</p>')
+    lines.append('            <p class="lr-chain-ex-label">Real talk · dinner date (natural voice)</p>')
+    lines.append('            <p class="lr-idiom-hint">Tự sự buổi hẹn ăn — filler tự nhiên · when / who / what / why · bấm <strong>Bản dịch tiếng Việt</strong> để mở/đóng.</p>')
     lines.append(f'            <div class="ex-sent lr-answer lr-answer--natural" data-sent="{p2_natural_idx}">')
     lines.append('              <span class="ex-a-label">You</span>')
-    lines.append('              <span class="ex-a-label-hint">Vlog style</span>')
+    lines.append('              <span class="ex-a-label-hint">Date story</span>')
     lines.append(f'              {p2_natural}')
     lines.append("            </div></div></div>")
 
