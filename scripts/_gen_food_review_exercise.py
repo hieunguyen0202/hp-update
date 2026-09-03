@@ -2378,11 +2378,51 @@ def food_phrase_drills_html() -> str:
         },
     ]
 
+    def _role_of(frame: str) -> str:
+        f = frame.lower()
+        if "avoid" in f:
+            return "ket"
+        if any(
+            x in f
+            for x in (
+                "helps me",
+                "chance to",
+                "opportunity",
+                "can lead",
+                "it's +",
+                "relaxing",
+                "interesting",
+                "entertaining",
+                "what i like",
+            )
+        ):
+            return "than"
+        if any(
+            x in f
+            for x in (
+                "keen on",
+                "big fan",
+                "i love",
+                "i think",
+                "don't think",
+                "don't like",
+                "can't stand",
+                "cup of tea",
+                "to be honest",
+            )
+        ):
+            return "mo"
+        return "than"
+
     cards = []
     for d in drills:
+        role = d.get("role") or _role_of(d["frame"])
+        role_label = {"mo": "Mở", "than": "Thân", "ket": "Kết"}.get(role, "Thân")
+        role_cls = {"mo": "open", "than": "body", "ket": "close"}.get(role, "body")
         cards.append(
-            f"""          <article class="lr-phrase-card lr-idiom-ex-card">
+            f"""          <article class="lr-phrase-card lr-idiom-ex-card lr-phrase-card--{role_cls}">
             <div class="lr-phrase-meta">
+              <span class="lr-role-tag lr-role-tag--{role_cls}">{role_label}</span>
               <mark class="vocab">{esc(d["form"])}</mark>
               <span class="lr-phrase-vi-word">{esc(d["vi"])}</span>
               <span class="lr-tense-tag">{esc(d["tense"])}</span>
@@ -2414,6 +2454,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˈsmuːði/",
             "frame": "It helps me + V",
             "group": "yes",
+            "role": "than",
             "tense": "Present Simple · habit",
             "en": "Drinking a <mark class=\"vocab\">smoothie</mark> every morning helps me stay full until lunch.",
             "vi_ex": "Uống một ly smoothie mỗi sáng giúp tôi no đến tận giờ trưa.",
@@ -2424,6 +2465,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/fruːt ˈsæləd/",
             "frame": "It gives me the chance to + V",
             "group": "yes",
+            "role": "than",
             "tense": "Present Simple",
             "en": "Making a <mark class=\"vocab\">fruit salad</mark> gives me the chance to add more vitamins to my diet.",
             "vi_ex": "Làm salad trái cây cho tôi cơ hội bổ sung thêm vitamin vào chế độ ăn.",
@@ -2434,6 +2476,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˈplæntˌbeɪst/",
             "frame": "I also get the opportunity to + V",
             "group": "yes",
+            "role": "than",
             "tense": "Present Continuous",
             "en": "These days I'm following a <mark class=\"vocab\">plant-based</mark> diet, so I also get the opportunity to try new recipes every week.",
             "vi_ex": "Dạo này tôi đang theo chế độ plant-based, nên cũng có cơ hội thử công thức mới mỗi tuần.",
@@ -2444,6 +2487,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/nuˈtrɪʃən/",
             "frame": "It helps me + V",
             "group": "yes",
+            "role": "than",
             "tense": "Present Perfect Continuous",
             "en": "I've been paying more attention to <mark class=\"vocab\">nutrition</mark> lately because it helps me feel more energetic at work.",
             "vi_ex": "Gần đây tôi chú ý hơn đến dinh dưỡng vì nó giúp tôi thấy nhiều năng lượng hơn khi làm việc.",
@@ -2454,6 +2498,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˈɡɑrlɪk/",
             "frame": "It helps me + V",
             "group": "yes",
+            "role": "than",
             "tense": "Present Simple",
             "en": "Cooking with <mark class=\"vocab\">garlic</mark> helps me add flavour without using too much salt.",
             "vi_ex": "Nấu với tỏi giúp tôi tăng hương vị mà không cần nhiều muối.",
@@ -2464,6 +2509,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˈmɪnərəl ˌwɔtɚ/",
             "frame": "It helps me + V",
             "group": "yes",
+            "role": "than",
             "tense": "Present Simple · habit",
             "en": "Keeping a bottle of <mark class=\"vocab\">mineral water</mark> on my desk helps me drink more water throughout the day.",
             "vi_ex": "Để sẵn một chai nước khoáng trên bàn giúp tôi uống nhiều nước hơn trong ngày.",
@@ -2475,6 +2521,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/pænkeɪk/",
             "frame": "It's + interesting / relaxing …",
             "group": "adj",
+            "role": "than",
             "tense": "Present Simple",
             "en": "Making homemade <mark class=\"vocab\">pancake</mark>s with fresh berries on Sunday is always interesting for me.",
             "vi_ex": "Làm bánh kếp homemade với quả mọng tươi vào Chủ nhật luôn thú vị với tôi.",
@@ -2485,6 +2532,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˈtʃiːzˌkeɪk/",
             "frame": "It's + relaxing",
             "group": "adj",
+            "role": "than",
             "tense": "Present Simple",
             "en": "Having a small slice of <mark class=\"vocab\">cheesecake</mark> after a long day is so relaxing.",
             "vi_ex": "Ăn một miếng cheesecake nhỏ sau ngày dài thật sự rất thư giãn.",
@@ -2495,6 +2543,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˈɔɪstɚ/",
             "frame": "It's + exciting / thrilling",
             "group": "adj",
+            "role": "than",
             "tense": "Past Simple",
             "en": "Trying <mark class=\"vocab\">oyster</mark> for the first time was exciting, though I was a bit nervous.",
             "vi_ex": "Lần đầu thử hàu khá hồi hộp, dù lúc đó tôi hơi lo.",
@@ -2505,6 +2554,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˈkɑkˌteɪl/",
             "frame": "It's + entertaining",
             "group": "adj",
+            "role": "than",
             "tense": "Present Simple · can",
             "en": "Mixing a <mark class=\"vocab\">nonalcoholic</mark> <mark class=\"vocab\">cocktail</mark> at home can be quite entertaining with friends.",
             "vi_ex": "Pha cocktail không cồn ở nhà với bạn bè có thể khá vui.",
@@ -2515,6 +2565,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˌnɑnˌælkəˈhɑlɪk/",
             "frame": "It's + interesting",
             "group": "adj",
+            "role": "than",
             "tense": "Present Perfect",
             "en": "I've tried a few <mark class=\"vocab\">nonalcoholic</mark> options lately, and it's more interesting than I expected.",
             "vi_ex": "Gần đây tôi đã thử vài lựa chọn không cồn, thú vị hơn tôi nghĩ.",
@@ -2526,6 +2577,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˈsɪtrəs/",
             "frame": "I'm keen on + N / V-ing",
             "group": "like",
+            "role": "mo",
             "tense": "Present Simple · opinion",
             "en": "To be honest, I'm keen on eating healthy food, so <mark class=\"vocab\">citrus</mark> fruit is always my top choice for breakfast.",
             "vi_ex": "Thành thật mà nói, tôi khá thích ăn lành mạnh, nên trái cây có múi luôn là lựa chọn hàng đầu cho bữa sáng.",
@@ -2536,6 +2588,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˈbeɪkən/",
             "frame": "I love this · I love + N",
             "group": "like",
+            "role": "mo",
             "tense": "Present Simple · habit",
             "en": "I love crispy <mark class=\"vocab\">bacon</mark> with eggs on Sunday mornings.",
             "vi_ex": "Tôi thích bacon giòn kèm trứng vào sáng Chủ nhật.",
@@ -2546,6 +2599,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˈtʃiːzˌbɝːɡɚ/",
             "frame": "I think …",
             "group": "like",
+            "role": "mo",
             "tense": "Present Simple · opinion",
             "en": "I think a classic <mark class=\"vocab\">cheeseburger</mark> tastes better when the meat is juicy and the bun is soft.",
             "vi_ex": "Tôi nghĩ một chiếc cheeseburger cổ điển ngon hơn khi thịt mọng nước và bánh mềm.",
@@ -2556,6 +2610,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˌmækəˈdeɪmiə ˈnʌt/",
             "frame": "I'm keen on + V-ing",
             "group": "like",
+            "role": "mo",
             "tense": "Present Simple",
             "en": "I'm keen on snacking on <mark class=\"vocab\">macadamia nut</mark>s instead of chips.",
             "vi_ex": "Tôi thích ăn vặt hạt mắc ca thay vì snack.",
@@ -2566,6 +2621,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˌtændʒəˈrin/",
             "frame": "I love + V-ing",
             "group": "like",
+            "role": "mo",
             "tense": "Present Simple · habit",
             "en": "I love peeling a sweet <mark class=\"vocab\">tangerine</mark> after lunch — it's my little reset.",
             "vi_ex": "Tôi thích bóc một quả quýt ngọt sau bữa trưa — kiểu reset nhỏ của mình.",
@@ -2576,6 +2632,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/raɪp/",
             "frame": "I think …",
             "group": "like",
+            "role": "mo",
             "tense": "Present Simple · opinion",
             "en": "I think choosing <mark class=\"vocab\">ripe</mark> fruit makes every salad taste better.",
             "vi_ex": "Tôi nghĩ chọn trái cây chín làm mọi món salad ngon hơn rõ.",
@@ -2586,6 +2643,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/loʊf/",
             "frame": "I'm keen on + V-ing",
             "group": "like",
+            "role": "mo",
             "tense": "Present Continuous · these days",
             "en": "These days I'm keen on baking a fresh <mark class=\"vocab\">loaf</mark> at home at the weekend.",
             "vi_ex": "Dạo này tôi thích tự nướng một ổ bánh mì ở nhà vào cuối tuần.",
@@ -2596,6 +2654,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/brɛd roʊl/",
             "frame": "I love this",
             "group": "like",
+            "role": "mo",
             "tense": "Present Simple",
             "en": "I love a warm <mark class=\"vocab\">bread roll</mark> with soup on rainy days.",
             "vi_ex": "Tôi thích một ổ bánh mì tròn nóng kèm súp vào ngày mưa.",
@@ -2606,6 +2665,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˈbɛri/",
             "frame": "I'm a big fan of + N",
             "group": "like",
+            "role": "mo",
             "tense": "Present Simple",
             "en": "I'm a big fan of fresh <mark class=\"vocab\">berry</mark> toppings on yoghurt.",
             "vi_ex": "Tôi là fan lớn của topping quả mọng tươi trên sữa chua.",
@@ -2616,6 +2676,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˈpɑməˌɡrænɪt/",
             "frame": "I'm keen on + N",
             "group": "like",
+            "role": "mo",
             "tense": "Present Perfect",
             "en": "I've become keen on <mark class=\"vocab\">pomegranate</mark> seeds in salads — they add a nice crunch.",
             "vi_ex": "Tôi đã bắt đầu thích hạt lựu trong salad — chúng thêm độ giòn dễ chịu.",
@@ -2626,6 +2687,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˈkæntəˌloʊp/",
             "frame": "I love + N",
             "group": "like",
+            "role": "mo",
             "tense": "Present Simple · habit",
             "en": "In summer I love chilled <mark class=\"vocab\">cantaloupe</mark> as a light dessert.",
             "vi_ex": "Mùa hè tôi thích dưa lưới mát lạnh làm món tráng miệng nhẹ.",
@@ -2636,6 +2698,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/laɪm/",
             "frame": "I think … · It helps me",
             "group": "like",
+            "role": "mo",
             "tense": "Present Simple",
             "en": "I think a squeeze of <mark class=\"vocab\">lime</mark> helps me brighten up almost any seafood dish.",
             "vi_ex": "Tôi nghĩ một chút chanh xanh giúp tôi làm dậy vị hầu như mọi món hải sản.",
@@ -2646,6 +2709,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˈloʊ ˈkɑrb ˈdaɪət/",
             "frame": "I'm keen on + N",
             "group": "like",
+            "role": "mo",
             "tense": "Present Continuous",
             "en": "Right now I'm keen on a simple <mark class=\"vocab\">low-carb diet</mark> during the week.",
             "vi_ex": "Hiện tại tôi đang theo một chế độ low-carb đơn giản trong tuần.",
@@ -2657,6 +2721,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˈsoʊdə/",
             "frame": "I can't stand …",
             "group": "soft",
+            "role": "mo",
             "tense": "Present Simple · dislike",
             "en": "I can't stand drinking too much <mark class=\"vocab\">soda</mark> because it's way too sweet.",
             "vi_ex": "Tôi không chịu nổi việc uống quá nhiều soda vì nó ngọt gắt.",
@@ -2667,6 +2732,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˈɛnɚdʒi ˌdrɪŋk/",
             "frame": "I don't like this · I avoid …",
             "group": "soft",
+            "role": "ket",
             "tense": "Present Simple",
             "en": "I don't like drinking an <mark class=\"vocab\">energy drink</mark> late at night, so I avoid it after 6 p.m.",
             "vi_ex": "Tôi không thích uống nước tăng lực muộn, nên tránh sau 6 giờ tối.",
@@ -2677,6 +2743,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˈteɪk əˌweɪ/",
             "frame": "It's not my cup of tea",
             "group": "soft",
+            "role": "mo",
             "tense": "Present Simple · soft no",
             "en": "Ordering greasy <mark class=\"vocab\">take-away</mark> every night is not my cup of tea.",
             "vi_ex": "Gọi đồ take-away dầu mỡ mỗi tối không phải gu của tôi.",
@@ -2687,6 +2754,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/viːl/",
             "frame": "It's not my cup of tea",
             "group": "soft",
+            "role": "mo",
             "tense": "Present Simple · opinion",
             "en": "To be honest, <mark class=\"vocab\">veal</mark> is not really my cup of tea.",
             "vi_ex": "Thành thật thì thịt bê không thật sự hợp gu tôi.",
@@ -2697,6 +2765,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˈʤɛloʊ/",
             "frame": "I don't like this",
             "group": "soft",
+            "role": "mo",
             "tense": "Present Simple",
             "en": "I don't like <mark class=\"vocab\">Jell-O</mark> desserts — the texture feels strange to me.",
             "vi_ex": "Tôi không thích món thạch Jell-O — cảm giác kết cấu hơi lạ.",
@@ -2707,6 +2776,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˈsɔft ˌdrɪŋk/",
             "frame": "To be honest, I don't enjoy …",
             "group": "soft",
+            "role": "mo",
             "tense": "Present Simple · soft no",
             "en": "To be honest, I don't enjoy sugary <mark class=\"vocab\">soft drink</mark>s with meals.",
             "vi_ex": "Thành thật thì tôi không thích uống nước ngọt có ga kèm bữa ăn.",
@@ -2717,6 +2787,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˌælkəˈhɑlɪk/",
             "frame": "I don't think …",
             "group": "soft",
+            "role": "mo",
             "tense": "Present Simple · opinion",
             "en": "I don't think <mark class=\"vocab\">alcoholic</mark> drinks are necessary at every dinner.",
             "vi_ex": "Tôi không nghĩ đồ uống có cồn là bắt buộc ở mọi bữa tối.",
@@ -2728,6 +2799,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˈloʊ ˈfæt ˈdaɪət/",
             "frame": "It's + not + practical / useful",
             "group": "neg",
+            "role": "than",
             "tense": "Present Simple · opinion",
             "en": "Following a strict <mark class=\"vocab\">low-fat diet</mark> is not always practical when I eat out.",
             "vi_ex": "Theo một chế độ low-fat quá chặt không phải lúc nào cũng thực tế khi ăn ngoài.",
@@ -2738,6 +2810,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˈʃʊɡɚˌfriː/",
             "frame": "It's + not + useful",
             "group": "neg",
+            "role": "than",
             "tense": "Present Simple · opinion",
             "en": "Choosing only <mark class=\"vocab\">sugar-free</mark> snacks is not always useful if the ingredients are still heavily processed.",
             "vi_ex": "Chỉ chọn snack sugar-free không phải lúc nào cũng hữu ích nếu nguyên liệu vẫn chế biến sẵn nặng.",
@@ -2748,6 +2821,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˌwaɪt ˈmiːt/",
             "frame": "doesn't + V nguyên mẫu",
             "group": "neg",
+            "role": "than",
             "tense": "Present Simple",
             "en": "Eating only <mark class=\"vocab\">white meat</mark> doesn't automatically make a meal healthy.",
             "vi_ex": "Chỉ ăn thịt trắng không tự động làm bữa ăn trở nên lành mạnh.",
@@ -2758,6 +2832,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/brɛst/",
             "frame": "It doesn't give me the chance to …",
             "group": "neg",
+            "role": "than",
             "tense": "Present Simple · contrast",
             "en": "Plain grilled chicken <mark class=\"vocab\">breast</mark> doesn't give me the chance to enjoy richer flavours like ribs.",
             "vi_ex": "Ức gà nướng trơn không cho tôi cơ hội thưởng thức vị đậm hơn như sườn.",
@@ -2768,6 +2843,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/joʊk/",
             "frame": "It doesn't help me …",
             "group": "neg",
+            "role": "than",
             "tense": "Present Simple",
             "en": "Skipping the <mark class=\"vocab\">yolk</mark> doesn't help me feel satisfied after breakfast.",
             "vi_ex": "Bỏ lòng đỏ trứng không giúp tôi cảm thấy no đủ sau bữa sáng.",
@@ -2778,6 +2854,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˈkælɚi/",
             "frame": "I don't think … · It doesn't help me",
             "group": "neg",
+            "role": "than",
             "tense": "Present Simple · opinion",
             "en": "I don't think counting every <mark class=\"vocab\">calorie</mark> helps me build a healthier relationship with food.",
             "vi_ex": "Tôi không nghĩ đếm từng calo giúp tôi xây quan hệ lành mạnh hơn với đồ ăn.",
@@ -2789,6 +2866,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/rɪb/",
             "frame": "I avoid …",
             "group": "avoid",
+            "role": "ket",
             "tense": "Present Simple · habit",
             "en": "I avoid ordering huge <mark class=\"vocab\">rib</mark> portions on weekdays because I feel too heavy afterwards.",
             "vi_ex": "Tôi tránh gọi phần sườn quá lớn vào ngày thường vì sau đó thấy nặng bụng.",
@@ -2799,6 +2877,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˈʃɛlˌfɪʃ/",
             "frame": "No, definitely not because … · I avoid …",
             "group": "avoid",
+            "role": "mo",
             "tense": "Present Simple · strong no",
             "en": "No, definitely not — I avoid raw <mark class=\"vocab\">shellfish</mark> when I'm unsure about freshness.",
             "vi_ex": "Không, chắc chắn không — tôi tránh hải sản có vỏ sống khi không chắc độ tươi.",
@@ -2809,6 +2888,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "/ˈmiːtˌbɔl/",
             "frame": "Consuming too much … can lead to …",
             "group": "avoid",
+            "role": "than",
             "tense": "Present Simple · cause → effect",
             "en": "Consuming too many fried <mark class=\"vocab\">meatball</mark>s can lead to feeling heavy after meals.",
             "vi_ex": "Ăn quá nhiều thịt viên chiên có thể khiến bạn thấy nặng bụng sau bữa ăn.",
@@ -2819,6 +2899,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "",
             "frame": "Consuming too much … can lead to …",
             "group": "avoid",
+            "role": "than",
             "tense": "Present Simple · warning",
             "en": "Consuming too much <mark class=\"vocab\">soda</mark> or other sugary <mark class=\"vocab\">soft drink</mark>s can lead to various health problems.",
             "vi_ex": "Uống quá nhiều soda hay nước ngọt có ga có thể dẫn đến nhiều vấn đề sức khỏe.",
@@ -2830,6 +2911,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "",
             "frame": "Consuming too much … can lead to …",
             "group": "avoid",
+            "role": "than",
             "tense": "Present Simple · cause → effect",
             "en": "Consuming too much <mark class=\"vocab\">bacon</mark> can lead to a high salt intake over time.",
             "vi_ex": "Ăn quá nhiều bacon lâu dần có thể dẫn đến lượng muối cao.",
@@ -2841,6 +2923,7 @@ def gold_phrase_drills_html() -> str:
             "ipa": "",
             "frame": "Consuming too much … can lead to …",
             "group": "avoid",
+            "role": "than",
             "tense": "Present Simple · cause → effect",
             "en": "Consuming too many <mark class=\"vocab\">pancake</mark>s with syrup can lead to a sugar crash later.",
             "vi_ex": "Ăn quá nhiều bánh kếp với siro có thể khiến bạn tụt đường huyết sau đó.",
@@ -2889,9 +2972,13 @@ def gold_phrase_drills_html() -> str:
         card_html = []
         for d in uniq:
             ipa = f'<span class="ipa">{esc(d["ipa"])}</span>' if d.get("ipa") else ""
+            role = d.get("role", "than")
+            role_label = {"mo": "Mở", "than": "Thân", "ket": "Kết"}.get(role, "Thân")
+            role_cls = {"mo": "open", "than": "body", "ket": "close"}.get(role, "body")
             card_html.append(
-                f"""          <article class="lr-phrase-card">
+                f"""          <article class="lr-phrase-card lr-phrase-card--{role_cls}">
             <div class="lr-phrase-meta">
+              <span class="lr-role-tag lr-role-tag--{role_cls}">{role_label}</span>
               <mark class="vocab">{esc(d["form"].rstrip("+"))}</mark>
               {ipa}
               <span class="lr-phrase-vi-word">{esc(d["vi"])}</span>
@@ -2927,7 +3014,12 @@ def gold_phrase_drills_html() -> str:
         )
 
     return (
-        "\n".join(parts)
+        '<p class="lr-role-legend">Mỗi thẻ có tag vai trò khi ghép đoạn: '
+        '<span class="lr-role-tag lr-role-tag--open">Mở</span> '
+        '<span class="lr-role-tag lr-role-tag--body">Thân</span> '
+        '<span class="lr-role-tag lr-role-tag--close">Kết</span> '
+        "— nhớ tag này khi làm Bước 2.</p>\n"
+        + "\n".join(parts)
         + f"""
         <details class="lr-vocab-bank">
           <summary>Phải học bank ({len(bank_items)} từ · Pareto gold)</summary>
@@ -3627,7 +3719,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr23">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr24">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
