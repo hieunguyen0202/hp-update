@@ -2937,6 +2937,88 @@ def gold_phrase_drills_html() -> str:
 
 
 
+
+def phrase_assemble_html() -> str:
+    """Step 2 after memorising single frames: label roles → assemble a short paragraph."""
+    return """
+        <div class="lr-assemble" id="phrase-assemble">
+          <h3>Bước 2 · Ghép câu đơn thành đoạn (hiểu vai trò — không học vẹt đoạn)</h3>
+          <p class="lr-assemble-lead">Bước 1 chỉ giúp bạn <strong>thuộc câu đơn + hiểu nghĩa</strong>. Bước 2 không phải thuộc một đoạn mẫu dài, mà là biết mỗi câu đang đóng vai gì rồi <strong>xếp đúng chỗ</strong>.</p>
+
+          <div class="lr-assemble-roles">
+            <article class="lr-assemble-role lr-assemble-role--open">
+              <span class="lr-assemble-badge">Mở</span>
+              <h4>Trả lời trực tiếp</h4>
+              <p>Thái độ Yes / No / soft no. Dùng khung: <code>I'm keen on…</code> · <code>I love…</code> · <code>To be honest…</code> · <code>No, definitely not…</code> · <code>It's not my cup of tea</code></p>
+            </article>
+            <article class="lr-assemble-role lr-assemble-role--body">
+              <span class="lr-assemble-badge">Thân</span>
+              <h4>Lý do + ví dụ</h4>
+              <p>Giải thích vì sao. Dùng khung: <code>It helps me…</code> · <code>It gives me the chance to…</code> · <code>Whenever I…</code> · <code>I think…</code> · <code>Consuming too much… can lead to…</code></p>
+            </article>
+            <article class="lr-assemble-role lr-assemble-role--close">
+              <span class="lr-assemble-badge">Kết</span>
+              <h4>Chốt / giới hạn</h4>
+              <p>Nhấn lại ý hoặc đối chiếu nhẹ. Dùng: <code>so / that's why</code> · <code>but I still…</code> · <code>I avoid…</code> · <code>I don't think…</code></p>
+            </article>
+          </div>
+
+          <div class="lr-assemble-flow">
+            <p class="lr-assemble-flow-label">Công thức ráp đoạn Part 1</p>
+            <p class="lr-assemble-flow-line"><strong>1 Mở</strong> → <strong>1–2 Thân</strong> → <strong>(optional) 1 Kết</strong></p>
+            <p class="lr-assemble-glue">Keo nối ngắn: <code>because</code> · <code>This is because</code> · <code>so</code> · <code>but</code> · <code>that's why</code> · <code>and</code></p>
+          </div>
+
+          <ol class="lr-assemble-howto">
+            <li><strong>Hiểu từng câu đơn</strong> — biết câu đó nói thái độ, lý do, hay giới hạn.</li>
+            <li><strong>Gắn nhãn vai</strong> — Mở / Thân / Kết (một câu chỉ một việc).</li>
+            <li><strong>Chọn theo câu hỏi</strong> — lấy 1 Mở + 1–2 Thân (+ 1 Kết nếu cần), <em>không</em> nhồi hết 40 câu.</li>
+            <li><strong>Nối bằng keo ngắn</strong> — because / so / but / that's why. Đọc to 2–3 lần để nghe nhịp đoạn.</li>
+          </ol>
+          <p class="lr-note-tip">Mục tiêu: hiểu mối quan hệ giữa câu → tự ghép. Đừng thuộc nguyên một đoạn rồi “xả” mỗi lần thi.</p>
+
+          <h4 class="lr-assemble-samples-title">Đoạn mẫu · thấy rõ Mở → Thân → Kết</h4>
+          <p class="lr-assemble-samples-hint">Mỗi dòng màu = một câu đơn đã học ở trên. Đọc từng dòng trước, rồi đọc cả đoạn.</p>
+
+          <article class="lr-assemble-sample">
+            <p class="lr-assemble-q">Q: Do you eat healthy food?</p>
+            <div class="lr-assemble-lines">
+              <p class="lr-line lr-line--open"><span class="lr-line-tag">Mở</span> To be honest, I'm keen on eating healthy food, so <mark class="vocab">citrus</mark> fruit is always my top choice for breakfast.</p>
+              <p class="lr-line lr-line--body"><span class="lr-line-tag">Thân</span> Drinking a <mark class="vocab">smoothie</mark> every morning helps me stay full until lunch.</p>
+              <p class="lr-line lr-line--body"><span class="lr-line-tag">Thân</span> Making a <mark class="vocab">fruit salad</mark> also gives me the chance to add more vitamins to my diet.</p>
+              <p class="lr-line lr-line--close"><span class="lr-line-tag">Kết</span> That's why I avoid sugary <mark class="vocab">soft drink</mark>s with meals.</p>
+            </div>
+            <p class="lr-assemble-joined"><strong>Đọc liền:</strong> To be honest, I'm keen on eating healthy food, so citrus fruit is always my top choice for breakfast. Drinking a smoothie every morning helps me stay full until lunch, and making a fruit salad also gives me the chance to add more vitamins to my diet — that's why I avoid sugary soft drinks with meals.</p>
+            <p class="lr-phrase-vi">Thành thật thì tôi thích ăn lành, nên trái cây có múi luôn là lựa chọn sáng. Uống smoothie mỗi sáng giúp no đến trưa, và làm salad trái cây cũng cho cơ hội thêm vitamin — vì vậy tôi tránh nước ngọt có ga kèm bữa.</p>
+          </article>
+
+          <article class="lr-assemble-sample">
+            <p class="lr-assemble-q">Q: Do you like eating out / fast food?</p>
+            <div class="lr-assemble-lines">
+              <p class="lr-line lr-line--open"><span class="lr-line-tag">Mở</span> Well, not really — ordering greasy <mark class="vocab">take-away</mark> every night is not my cup of tea.</p>
+              <p class="lr-line lr-line--body"><span class="lr-line-tag">Thân</span> I think a classic <mark class="vocab">cheeseburger</mark> tastes better sometimes, but consuming too much <mark class="vocab">bacon</mark> can lead to a high salt intake.</p>
+              <p class="lr-line lr-line--body"><span class="lr-line-tag">Thân</span> I'm still keen on a <mark class="vocab">home-cooked meal</mark> most evenings because it helps me eat healthier.</p>
+              <p class="lr-line lr-line--close"><span class="lr-line-tag">Kết</span> So I might <mark class="vocab">grab a bite</mark> with friends at the weekend, but I don't dine out every night.</p>
+            </div>
+            <p class="lr-assemble-joined"><strong>Đọc liền:</strong> Well, not really — ordering greasy take-away every night is not my cup of tea. I think a classic cheeseburger tastes better sometimes, but consuming too much bacon can lead to a high salt intake. I'm still keen on a home-cooked meal most evenings because it helps me eat healthier. So I might grab a bite with friends at the weekend, but I don't dine out every night.</p>
+            <p class="lr-phrase-vi">À không hẳn — gọi take-away dầu mỡ mỗi tối không hợp tôi. Đôi khi cheeseburger ngon, nhưng ăn quá nhiều bacon dễ tăng muối. Tôi vẫn thích bữa nấu ở nhà hầu hết các tối vì ăn lành hơn. Cuối tuần có thể ăn vội với bạn, nhưng không ăn ngoài mỗi tối.</p>
+          </article>
+
+          <article class="lr-assemble-sample">
+            <p class="lr-assemble-q">Q: What's your favourite drink?</p>
+            <div class="lr-assemble-lines">
+              <p class="lr-line lr-line--open"><span class="lr-line-tag">Mở</span> I'm a big fan of fresh <mark class="vocab">berry</mark> toppings in a yoghurt drink, and I love chilled <mark class="vocab">cantaloupe</mark> in summer.</p>
+              <p class="lr-line lr-line--body"><span class="lr-line-tag">Thân</span> Keeping <mark class="vocab">mineral water</mark> on my desk helps me drink more water throughout the day.</p>
+              <p class="lr-line lr-line--body"><span class="lr-line-tag">Thân</span> I've tried a few <mark class="vocab">nonalcoholic</mark> <mark class="vocab">cocktail</mark>s lately — mixing them at home can be quite entertaining with friends.</p>
+              <p class="lr-line lr-line--close"><span class="lr-line-tag">Kết</span> But I don't like an <mark class="vocab">energy drink</mark> late at night, so I avoid it after 6 p.m.</p>
+            </div>
+            <p class="lr-assemble-joined"><strong>Đọc liền:</strong> I'm a big fan of fresh berry toppings in a yoghurt drink, and I love chilled cantaloupe in summer. Keeping mineral water on my desk helps me drink more water throughout the day. I've tried a few nonalcoholic cocktails lately — mixing them at home can be quite entertaining with friends. But I don't like an energy drink late at night, so I avoid it after 6 p.m.</p>
+            <p class="lr-phrase-vi">Tôi thích topping quả mọng trong sữa chua uống, và mùa hè thích dưa lưới mát. Để nước khoáng trên bàn giúp uống nhiều nước hơn. Gần đây thử vài cocktail không cồn — pha ở nhà với bạn khá vui. Nhưng không thích nước tăng lực muộn tối, nên tránh sau 6 giờ.</p>
+          </article>
+        </div>"""
+
+
+
 def speaking_mock_html() -> str:
     """IELTS Part 1 / 2 / 3 with grammar + interchangeable vocab slots."""
     p1 = [
@@ -3463,6 +3545,7 @@ def build_page() -> str:
           <a href="#lessons">4 · Lesson highlights</a>
           <a href="#food-lang">5 · Idioms &amp; phrases</a>
           <a href="#phrase-drills">6 · Phrase drills</a>
+          <a href="#phrase-assemble">6b · Ghép đoạn</a>
           <a href="#mock-test">7 · Mock test</a>
         </nav>
         <div class="ex-toolbar lr-toolbar lr-toolbar--hero">
@@ -3513,8 +3596,9 @@ def build_page() -> str:
 
       <section class="lr-section" id="phrase-drills">
         <h2>6 · Phrase drills · khung câu + từ “Phải học”</h2>
-        <p class="lr-section-hint">Sau Pareto — <strong>chỉ học 40 từ vàng</strong>. Mỗi thẻ = <strong>1 khung Lesson 3</strong> + <strong>1 cụm hoàn chỉnh</strong> có từ mới bên trong. Học thuộc cả câu (không học lemma đơn). Bật <strong>Vietnamese</strong> để xem bản dịch. Sau đó mới ghép idea thành câu Speaking của bạn.</p>
+        <p class="lr-section-hint"><strong>Bước 1:</strong> thuộc từng câu đơn (khung + từ vàng) và hiểu nghĩa. <strong>Bước 2:</strong> gắn vai <em>Mở / Thân / Kết</em> rồi ghép 3–4 câu thành đoạn — không học vẹt cả đoạn. Xem <a href="#phrase-assemble">6b · Ghép đoạn</a>.</p>
 {gold_phrase_drills_html()}
+{phrase_assemble_html()}
       </section>
 
       <section class="lr-section lr-mock" id="mock-test">
@@ -3543,7 +3627,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr22">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr23">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
