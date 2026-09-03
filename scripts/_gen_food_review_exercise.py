@@ -2,7 +2,8 @@
 """Generate Food & Drink · Linear Thinking review exercise (capstone after B2).
 
 Flow: Grammar refs → tense mental model → speaking structures → lesson highlights
-      → vocab idea chains → IELTS Speaking mock (Part 1/2/3) with word dropdowns.
+      → phrase drills (Lesson-3 frames × Pareto gold words)
+      → IELTS Speaking mock (Part 1/2/3) with word dropdowns.
 """
 from __future__ import annotations
 
@@ -2235,181 +2236,538 @@ def food_lang_html() -> str:
     )
 
 
-def vocab_chains_html(words: list[dict]) -> str:
-    chains = [
+def gold_phrase_drills_html() -> str:
+    """Lesson-3 frames × Pareto 'Phải học' words — memorise whole chunks, not bare lemmas."""
+    # form | vi | ipa | frame | tense | en | vi_ex
+    drills: list[dict] = [
+        # ── Positive reasons: helps / chance / opportunity ──
         {
-            "title": "Morning routine (Time process)",
-            "flow": "wake up → sip {morning_drink} → grab {b2_bread} → check {diet_term}",
-            "slots": ["morning_drink", "b2_bread", "diet_term"],
-            "ex_en": (
-                "Every morning I <strong>usually</strong> wake up and sip {morning_drink}. "
-                "Then I grab {b2_bread} and check my {diet_term} intake before work."
-            ),
-            "ex_vi": (
-                "Mỗi sáng tôi <strong>thường</strong> thức dậy và nhấp {morning_drink}. "
-                "Sau đó tôi lấy {b2_bread} và kiểm tra lượng {diet_term} trước khi đi làm."
-            ),
+            "form": "smoothie",
+            "vi": "sinh tố",
+            "ipa": "/ˈsmuːði/",
+            "frame": "It helps me + V",
+            "group": "yes",
             "tense": "Present Simple · habit",
+            "en": "Drinking a <mark class=\"vocab\">smoothie</mark> every morning helps me stay full until lunch.",
+            "vi_ex": "Uống một ly smoothie mỗi sáng giúp tôi no đến tận giờ trưa.",
         },
         {
-            "title": "Eating out (Cause → Effect)",
-            "flow": "order {favourite_food} → share with friends → feel satisfied → sometimes order {b2_drink}",
-            "slots": ["favourite_food", "b2_drink"],
-            "ex_en": (
-                "When we eat out, we often order {favourite_food}, share it with friends, "
-                "and feel satisfied — sometimes we even order {b2_drink} afterwards."
-            ),
-            "ex_vi": (
-                "Khi ăn ngoài, chúng tôi thường gọi {favourite_food}, chia sẻ với bạn bè "
-                "và cảm thấy hài lòng — đôi khi còn gọi thêm {b2_drink}."
-            ),
-            "tense": "When + Present Simple · cause → effect",
+            "form": "fruit salad",
+            "vi": "salad trái cây",
+            "ipa": "/fruːt ˈsæləd/",
+            "frame": "It gives me the chance to + V",
+            "group": "yes",
+            "tense": "Present Simple",
+            "en": "Making a <mark class=\"vocab\">fruit salad</mark> gives me the chance to add more vitamins to my diet.",
+            "vi_ex": "Làm salad trái cây cho tôi cơ hội bổ sung thêm vitamin vào chế độ ăn.",
         },
         {
-            "title": "Healthy choice (Problem → Solution)",
-            "flow": "avoid {dislike_food} → follow {healthy_item} → {cook_verb} at home with {ingredient}",
-            "slots": ["dislike_food", "healthy_item", "cook_verb", "ingredient"],
-            "ex_en": (
-                "I <strong>used to</strong> eat {dislike_food} every day, but now "
-                "I'm following {healthy_item} and I {cook_verb} at home with fresh {ingredient}."
-            ),
-            "ex_vi": (
-                "Tôi <strong>từng</strong> ăn {dislike_food} mỗi ngày, nhưng giờ "
-                "tôi đang theo {healthy_item} và {cook_verb} ở nhà với {ingredient} tươi."
-            ),
-            "tense": "used to · Present Continuous",
+            "form": "plant-based",
+            "vi": "thuần chay",
+            "ipa": "/ˈplæntˌbeɪst/",
+            "frame": "I also get the opportunity to + V",
+            "group": "yes",
+            "tense": "Present Continuous",
+            "en": "These days I'm following a <mark class=\"vocab\">plant-based</mark> diet, so I also get the opportunity to try new recipes every week.",
+            "vi_ex": "Dạo này tôi đang theo chế độ plant-based, nên cũng có cơ hội thử công thức mới mỗi tuần.",
         },
         {
-            "title": "Weekend drinks (Advantage / Disadvantage)",
-            "flow": "Advantage: enjoy {alcohol} on special occasions · Disadvantage: need time to sober up → prefer {soft_drink}",
-            "slots": ["alcohol", "soft_drink"],
-            "ex_en": (
-                "On special occasions I enjoy {alcohol}, but the next day I need time to sober up, "
-                "so during the week I <strong>prefer</strong> {soft_drink} instead."
-            ),
-            "ex_vi": (
-                "Dịp đặc biệt tôi thích {alcohol}, nhưng hôm sau cần thời gian tỉnh rượu, "
-                "nên trong tuần tôi <strong>thích</strong> {soft_drink} hơn."
-            ),
-            "tense": "Present Simple · contrast (but / so)",
-        },
-        {
-            "title": "Cooking at home (Process chain)",
-            "flow": "check {kitchen_tool} → read recipe → {cook_verb} {meat} → add {sauce} → garnish with {ingredient}",
-            "slots": ["kitchen_tool", "cook_verb", "meat", "sauce", "ingredient"],
-            "ex_en": (
-                "First I check the {kitchen_tool}, then I {cook_verb} {meat}, "
-                "add {sauce}, and garnish everything with fresh {ingredient}."
-            ),
-            "ex_vi": (
-                "Đầu tiên tôi kiểm tra {kitchen_tool}, sau đó {cook_verb} {meat}, "
-                "cho {sauce} vào và trang trí bằng {ingredient} tươi."
-            ),
-            "tense": "First / then · sequence",
-        },
-        {
-            "title": "Restaurant visit (Sequence)",
-            "flow": "read menu → order {cuisine} → pair with {soft_drink} → finish with {dessert}",
-            "slots": ["cuisine", "soft_drink", "dessert"],
-            "ex_en": (
-                "Last weekend we read the menu, ordered {cuisine}, paired it with {soft_drink}, "
-                "and finished with {dessert} — it was a lovely evening."
-            ),
-            "ex_vi": (
-                "Cuối tuần trước chúng tôi xem thực đơn, gọi {cuisine}, uống kèm {soft_drink} "
-                "và kết thúc bằng {dessert} — một buổi tối rất vui."
-            ),
-            "tense": "Past Simple · narrative",
-        },
-        {
-            "title": "Seafood dinner (Contrast)",
-            "flow": "Some love {seafood}, others prefer {meat} — both need good {sauce} and fresh {ingredient}",
-            "slots": ["seafood", "meat", "sauce", "ingredient"],
-            "ex_en": (
-                "Some people love {seafood}, <strong>while</strong> others prefer {meat} — "
-                "but both taste better with good {sauce} and fresh {ingredient}."
-            ),
-            "ex_vi": (
-                "Một số người thích {seafood}, <strong>trong khi</strong> người khác thích {meat} — "
-                "nhưng cả hai đều ngon hơn với {sauce} và {ingredient} tươi."
-            ),
-            "tense": "Present Simple · while (contrast)",
-        },
-        {
-            "title": "Cheese & bread (Comparison)",
-            "flow": "Compare {cheese} on {b2_bread} vs {fruit} with {morning_drink} — different {cuisine} styles",
-            "slots": ["cheese", "b2_bread", "fruit", "morning_drink", "cuisine"],
-            "ex_en": (
-                "<strong>I've tried</strong> {cheese} on {b2_bread} and {fruit} with {morning_drink} — "
-                "they reflect totally different {cuisine} styles."
-            ),
-            "ex_vi": (
-                "Tôi <strong>đã thử</strong> {cheese} với {b2_bread} và {fruit} kèm {morning_drink} — "
-                "chúng thể hiện phong cách {cuisine} hoàn toàn khác nhau."
-            ),
-            "tense": "Present Perfect · comparison",
-        },
-        {
-            "title": "Diet awareness (Cause → Effect)",
-            "flow": "Track {diet_term} → reduce {dislike_food} → choose {healthy_item} → cook with {ingredient}",
-            "slots": ["diet_term", "dislike_food", "healthy_item", "ingredient"],
-            "ex_en": (
-                "Lately <strong>I've been tracking</strong> my {diet_term}, cutting down on {dislike_food}, "
-                "and choosing {healthy_item} — I often cook with {ingredient} at home."
-            ),
-            "ex_vi": (
-                "Dạo này tôi <strong>đang theo dõi</strong> {diet_term}, giảm {dislike_food}, "
-                "chọn {healthy_item} — và thường nấu với {ingredient} ở nhà."
-            ),
+            "form": "nutrition",
+            "vi": "dinh dưỡng",
+            "ipa": "/nuˈtrɪʃən/",
+            "frame": "It helps me + V",
+            "group": "yes",
             "tense": "Present Perfect Continuous",
+            "en": "I've been paying more attention to <mark class=\"vocab\">nutrition</mark> lately because it helps me feel more energetic at work.",
+            "vi_ex": "Gần đây tôi chú ý hơn đến dinh dưỡng vì nó giúp tôi thấy nhiều năng lượng hơn khi làm việc.",
         },
         {
-            "title": "Party food (Advantage chain)",
-            "flow": "prepare {dessert} + {b2_drink} + {alcohol} → guests enjoy {cuisine} → everyone relaxes",
-            "slots": ["dessert", "b2_drink", "alcohol", "cuisine"],
-            "ex_en": (
-                "For the party I'm <strong>going to</strong> prepare {dessert}, serve {b2_drink} and {alcohol}, "
-                "so guests can enjoy {cuisine} and relax together."
-            ),
-            "ex_vi": (
-                "Cho bữa tiệc tôi <strong>sẽ</strong> làm {dessert}, phục vụ {b2_drink} và {alcohol}, "
-                "để khách thưởng thức {cuisine} và thư giãn cùng nhau."
-            ),
-            "tense": "going to · future plan",
+            "form": "garlic",
+            "vi": "tỏi",
+            "ipa": "/ˈɡɑrlɪk/",
+            "frame": "It helps me + V",
+            "group": "yes",
+            "tense": "Present Simple",
+            "en": "Cooking with <mark class=\"vocab\">garlic</mark> helps me add flavour without using too much salt.",
+            "vi_ex": "Nấu với tỏi giúp tôi tăng hương vị mà không cần nhiều muối.",
+        },
+        {
+            "form": "mineral water",
+            "vi": "nước khoáng",
+            "ipa": "/ˈmɪnərəl ˌwɔtɚ/",
+            "frame": "It helps me + V",
+            "group": "yes",
+            "tense": "Present Simple · habit",
+            "en": "Keeping a bottle of <mark class=\"vocab\">mineral water</mark> on my desk helps me drink more water throughout the day.",
+            "vi_ex": "Để sẵn một chai nước khoáng trên bàn giúp tôi uống nhiều nước hơn trong ngày.",
+        },
+        # ── It's + adj ──
+        {
+            "form": "pancake",
+            "vi": "bánh kếp",
+            "ipa": "/pænkeɪk/",
+            "frame": "It's + interesting / relaxing …",
+            "group": "adj",
+            "tense": "Present Simple",
+            "en": "Making homemade <mark class=\"vocab\">pancake</mark>s with fresh berries on Sunday is always interesting for me.",
+            "vi_ex": "Làm bánh kếp homemade với quả mọng tươi vào Chủ nhật luôn thú vị với tôi.",
+        },
+        {
+            "form": "cheesecake",
+            "vi": "bánh phô mai",
+            "ipa": "/ˈtʃiːzˌkeɪk/",
+            "frame": "It's + relaxing",
+            "group": "adj",
+            "tense": "Present Simple",
+            "en": "Having a small slice of <mark class=\"vocab\">cheesecake</mark> after a long day is so relaxing.",
+            "vi_ex": "Ăn một miếng cheesecake nhỏ sau ngày dài thật sự rất thư giãn.",
+        },
+        {
+            "form": "oyster",
+            "vi": "hàu",
+            "ipa": "/ˈɔɪstɚ/",
+            "frame": "It's + exciting / thrilling",
+            "group": "adj",
+            "tense": "Past Simple",
+            "en": "Trying <mark class=\"vocab\">oyster</mark> for the first time was exciting, though I was a bit nervous.",
+            "vi_ex": "Lần đầu thử hàu khá hồi hộp, dù lúc đó tôi hơi lo.",
+        },
+        {
+            "form": "cocktail",
+            "vi": "cocktail",
+            "ipa": "/ˈkɑkˌteɪl/",
+            "frame": "It's + entertaining",
+            "group": "adj",
+            "tense": "Present Simple · can",
+            "en": "Mixing a <mark class=\"vocab\">nonalcoholic</mark> <mark class=\"vocab\">cocktail</mark> at home can be quite entertaining with friends.",
+            "vi_ex": "Pha cocktail không cồn ở nhà với bạn bè có thể khá vui.",
+        },
+        {
+            "form": "nonalcoholic",
+            "vi": "không cồn",
+            "ipa": "/ˌnɑnˌælkəˈhɑlɪk/",
+            "frame": "It's + interesting",
+            "group": "adj",
+            "tense": "Present Perfect",
+            "en": "I've tried a few <mark class=\"vocab\">nonalcoholic</mark> options lately, and it's more interesting than I expected.",
+            "vi_ex": "Gần đây tôi đã thử vài lựa chọn không cồn, thú vị hơn tôi nghĩ.",
+        },
+        # ── Like / keen on / I think / I love ──
+        {
+            "form": "citrus",
+            "vi": "trái cây có múi",
+            "ipa": "/ˈsɪtrəs/",
+            "frame": "I'm keen on + N / V-ing",
+            "group": "like",
+            "tense": "Present Simple · opinion",
+            "en": "To be honest, I'm keen on eating healthy food, so <mark class=\"vocab\">citrus</mark> fruit is always my top choice for breakfast.",
+            "vi_ex": "Thành thật mà nói, tôi khá thích ăn lành mạnh, nên trái cây có múi luôn là lựa chọn hàng đầu cho bữa sáng.",
+        },
+        {
+            "form": "bacon",
+            "vi": "thịt xông khói",
+            "ipa": "/ˈbeɪkən/",
+            "frame": "I love this · I love + N",
+            "group": "like",
+            "tense": "Present Simple · habit",
+            "en": "I love crispy <mark class=\"vocab\">bacon</mark> with eggs on Sunday mornings.",
+            "vi_ex": "Tôi thích bacon giòn kèm trứng vào sáng Chủ nhật.",
+        },
+        {
+            "form": "cheeseburger",
+            "vi": "bánh mì kẹp thịt phô mai",
+            "ipa": "/ˈtʃiːzˌbɝːɡɚ/",
+            "frame": "I think …",
+            "group": "like",
+            "tense": "Present Simple · opinion",
+            "en": "I think a classic <mark class=\"vocab\">cheeseburger</mark> tastes better when the meat is juicy and the bun is soft.",
+            "vi_ex": "Tôi nghĩ một chiếc cheeseburger cổ điển ngon hơn khi thịt mọng nước và bánh mềm.",
+        },
+        {
+            "form": "macadamia nut",
+            "vi": "hạt mắc ca",
+            "ipa": "/ˌmækəˈdeɪmiə ˈnʌt/",
+            "frame": "I'm keen on + V-ing",
+            "group": "like",
+            "tense": "Present Simple",
+            "en": "I'm keen on snacking on <mark class=\"vocab\">macadamia nut</mark>s instead of chips.",
+            "vi_ex": "Tôi thích ăn vặt hạt mắc ca thay vì snack.",
+        },
+        {
+            "form": "tangerine",
+            "vi": "quýt",
+            "ipa": "/ˌtændʒəˈrin/",
+            "frame": "I love + V-ing",
+            "group": "like",
+            "tense": "Present Simple · habit",
+            "en": "I love peeling a sweet <mark class=\"vocab\">tangerine</mark> after lunch — it's my little reset.",
+            "vi_ex": "Tôi thích bóc một quả quýt ngọt sau bữa trưa — kiểu reset nhỏ của mình.",
+        },
+        {
+            "form": "ripe",
+            "vi": "chín",
+            "ipa": "/raɪp/",
+            "frame": "I think …",
+            "group": "like",
+            "tense": "Present Simple · opinion",
+            "en": "I think choosing <mark class=\"vocab\">ripe</mark> fruit makes every salad taste better.",
+            "vi_ex": "Tôi nghĩ chọn trái cây chín làm mọi món salad ngon hơn rõ.",
+        },
+        {
+            "form": "loaf",
+            "vi": "ổ bánh mì",
+            "ipa": "/loʊf/",
+            "frame": "I'm keen on + V-ing",
+            "group": "like",
+            "tense": "Present Continuous · these days",
+            "en": "These days I'm keen on baking a fresh <mark class=\"vocab\">loaf</mark> at home at the weekend.",
+            "vi_ex": "Dạo này tôi thích tự nướng một ổ bánh mì ở nhà vào cuối tuần.",
+        },
+        {
+            "form": "bread roll",
+            "vi": "ổ bánh mì tròn",
+            "ipa": "/brɛd roʊl/",
+            "frame": "I love this",
+            "group": "like",
+            "tense": "Present Simple",
+            "en": "I love a warm <mark class=\"vocab\">bread roll</mark> with soup on rainy days.",
+            "vi_ex": "Tôi thích một ổ bánh mì tròn nóng kèm súp vào ngày mưa.",
+        },
+        {
+            "form": "berry",
+            "vi": "quả mọng",
+            "ipa": "/ˈbɛri/",
+            "frame": "I'm a big fan of + N",
+            "group": "like",
+            "tense": "Present Simple",
+            "en": "I'm a big fan of fresh <mark class=\"vocab\">berry</mark> toppings on yoghurt.",
+            "vi_ex": "Tôi là fan lớn của topping quả mọng tươi trên sữa chua.",
+        },
+        {
+            "form": "pomegranate",
+            "vi": "lựu",
+            "ipa": "/ˈpɑməˌɡrænɪt/",
+            "frame": "I'm keen on + N",
+            "group": "like",
+            "tense": "Present Perfect",
+            "en": "I've become keen on <mark class=\"vocab\">pomegranate</mark> seeds in salads — they add a nice crunch.",
+            "vi_ex": "Tôi đã bắt đầu thích hạt lựu trong salad — chúng thêm độ giòn dễ chịu.",
+        },
+        {
+            "form": "cantaloupe",
+            "vi": "dưa lưới",
+            "ipa": "/ˈkæntəˌloʊp/",
+            "frame": "I love + N",
+            "group": "like",
+            "tense": "Present Simple · habit",
+            "en": "In summer I love chilled <mark class=\"vocab\">cantaloupe</mark> as a light dessert.",
+            "vi_ex": "Mùa hè tôi thích dưa lưới mát lạnh làm món tráng miệng nhẹ.",
+        },
+        {
+            "form": "lime",
+            "vi": "chanh xanh",
+            "ipa": "/laɪm/",
+            "frame": "I think … · It helps me",
+            "group": "like",
+            "tense": "Present Simple",
+            "en": "I think a squeeze of <mark class=\"vocab\">lime</mark> helps me brighten up almost any seafood dish.",
+            "vi_ex": "Tôi nghĩ một chút chanh xanh giúp tôi làm dậy vị hầu như mọi món hải sản.",
+        },
+        {
+            "form": "low-carb diet",
+            "vi": "chế độ ăn kiêng low-carb",
+            "ipa": "/ˈloʊ ˈkɑrb ˈdaɪət/",
+            "frame": "I'm keen on + N",
+            "group": "like",
+            "tense": "Present Continuous",
+            "en": "Right now I'm keen on a simple <mark class=\"vocab\">low-carb diet</mark> during the week.",
+            "vi_ex": "Hiện tại tôi đang theo một chế độ low-carb đơn giản trong tuần.",
+        },
+        # ── Soft dislike ──
+        {
+            "form": "soda",
+            "vi": "soda",
+            "ipa": "/ˈsoʊdə/",
+            "frame": "I can't stand …",
+            "group": "soft",
+            "tense": "Present Simple · dislike",
+            "en": "I can't stand drinking too much <mark class=\"vocab\">soda</mark> because it's way too sweet.",
+            "vi_ex": "Tôi không chịu nổi việc uống quá nhiều soda vì nó ngọt gắt.",
+        },
+        {
+            "form": "energy drink",
+            "vi": "nước tăng lực",
+            "ipa": "/ˈɛnɚdʒi ˌdrɪŋk/",
+            "frame": "I don't like this · I avoid …",
+            "group": "soft",
+            "tense": "Present Simple",
+            "en": "I don't like drinking an <mark class=\"vocab\">energy drink</mark> late at night, so I avoid it after 6 p.m.",
+            "vi_ex": "Tôi không thích uống nước tăng lực muộn, nên tránh sau 6 giờ tối.",
+        },
+        {
+            "form": "take-away",
+            "vi": "mang đi",
+            "ipa": "/ˈteɪk əˌweɪ/",
+            "frame": "It's not my cup of tea",
+            "group": "soft",
+            "tense": "Present Simple · soft no",
+            "en": "Ordering greasy <mark class=\"vocab\">take-away</mark> every night is not my cup of tea.",
+            "vi_ex": "Gọi đồ take-away dầu mỡ mỗi tối không phải gu của tôi.",
+        },
+        {
+            "form": "veal",
+            "vi": "thịt bê",
+            "ipa": "/viːl/",
+            "frame": "It's not my cup of tea",
+            "group": "soft",
+            "tense": "Present Simple · opinion",
+            "en": "To be honest, <mark class=\"vocab\">veal</mark> is not really my cup of tea.",
+            "vi_ex": "Thành thật thì thịt bê không thật sự hợp gu tôi.",
+        },
+        {
+            "form": "Jell-O",
+            "vi": "thạch",
+            "ipa": "/ˈʤɛloʊ/",
+            "frame": "I don't like this",
+            "group": "soft",
+            "tense": "Present Simple",
+            "en": "I don't like <mark class=\"vocab\">Jell-O</mark> desserts — the texture feels strange to me.",
+            "vi_ex": "Tôi không thích món thạch Jell-O — cảm giác kết cấu hơi lạ.",
+        },
+        {
+            "form": "soft drink",
+            "vi": "nước ngọt có ga",
+            "ipa": "/ˈsɔft ˌdrɪŋk/",
+            "frame": "To be honest, I don't enjoy …",
+            "group": "soft",
+            "tense": "Present Simple · soft no",
+            "en": "To be honest, I don't enjoy sugary <mark class=\"vocab\">soft drink</mark>s with meals.",
+            "vi_ex": "Thành thật thì tôi không thích uống nước ngọt có ga kèm bữa ăn.",
+        },
+        {
+            "form": "alcoholic",
+            "vi": "có cồn",
+            "ipa": "/ˌælkəˈhɑlɪk/",
+            "frame": "I don't think …",
+            "group": "soft",
+            "tense": "Present Simple · opinion",
+            "en": "I don't think <mark class=\"vocab\">alcoholic</mark> drinks are necessary at every dinner.",
+            "vi_ex": "Tôi không nghĩ đồ uống có cồn là bắt buộc ở mọi bữa tối.",
+        },
+        # ── It's not + adj / doesn't … ──
+        {
+            "form": "low-fat diet",
+            "vi": "chế độ ăn ít chất béo",
+            "ipa": "/ˈloʊ ˈfæt ˈdaɪət/",
+            "frame": "It's + not + practical / useful",
+            "group": "neg",
+            "tense": "Present Simple · opinion",
+            "en": "Following a strict <mark class=\"vocab\">low-fat diet</mark> is not always practical when I eat out.",
+            "vi_ex": "Theo một chế độ low-fat quá chặt không phải lúc nào cũng thực tế khi ăn ngoài.",
+        },
+        {
+            "form": "sugar-free",
+            "vi": "không đường",
+            "ipa": "/ˈʃʊɡɚˌfriː/",
+            "frame": "It's + not + useful",
+            "group": "neg",
+            "tense": "Present Simple · opinion",
+            "en": "Choosing only <mark class=\"vocab\">sugar-free</mark> snacks is not always useful if the ingredients are still heavily processed.",
+            "vi_ex": "Chỉ chọn snack sugar-free không phải lúc nào cũng hữu ích nếu nguyên liệu vẫn chế biến sẵn nặng.",
+        },
+        {
+            "form": "white meat",
+            "vi": "thịt trắng",
+            "ipa": "/ˌwaɪt ˈmiːt/",
+            "frame": "doesn't + V nguyên mẫu",
+            "group": "neg",
+            "tense": "Present Simple",
+            "en": "Eating only <mark class=\"vocab\">white meat</mark> doesn't automatically make a meal healthy.",
+            "vi_ex": "Chỉ ăn thịt trắng không tự động làm bữa ăn trở nên lành mạnh.",
+        },
+        {
+            "form": "breast",
+            "vi": "ức",
+            "ipa": "/brɛst/",
+            "frame": "It doesn't give me the chance to …",
+            "group": "neg",
+            "tense": "Present Simple · contrast",
+            "en": "Plain grilled chicken <mark class=\"vocab\">breast</mark> doesn't give me the chance to enjoy richer flavours like ribs.",
+            "vi_ex": "Ức gà nướng trơn không cho tôi cơ hội thưởng thức vị đậm hơn như sườn.",
+        },
+        {
+            "form": "yolk",
+            "vi": "lòng đỏ trứng",
+            "ipa": "/joʊk/",
+            "frame": "It doesn't help me …",
+            "group": "neg",
+            "tense": "Present Simple",
+            "en": "Skipping the <mark class=\"vocab\">yolk</mark> doesn't help me feel satisfied after breakfast.",
+            "vi_ex": "Bỏ lòng đỏ trứng không giúp tôi cảm thấy no đủ sau bữa sáng.",
+        },
+        {
+            "form": "calorie",
+            "vi": "calo",
+            "ipa": "/ˈkælɚi/",
+            "frame": "I don't think … · It doesn't help me",
+            "group": "neg",
+            "tense": "Present Simple · opinion",
+            "en": "I don't think counting every <mark class=\"vocab\">calorie</mark> helps me build a healthier relationship with food.",
+            "vi_ex": "Tôi không nghĩ đếm từng calo giúp tôi xây quan hệ lành mạnh hơn với đồ ăn.",
+        },
+        # ── Strong no / avoid / can lead to ──
+        {
+            "form": "rib",
+            "vi": "sườn",
+            "ipa": "/rɪb/",
+            "frame": "I avoid …",
+            "group": "avoid",
+            "tense": "Present Simple · habit",
+            "en": "I avoid ordering huge <mark class=\"vocab\">rib</mark> portions on weekdays because I feel too heavy afterwards.",
+            "vi_ex": "Tôi tránh gọi phần sườn quá lớn vào ngày thường vì sau đó thấy nặng bụng.",
+        },
+        {
+            "form": "shellfish",
+            "vi": "hải sản có vỏ",
+            "ipa": "/ˈʃɛlˌfɪʃ/",
+            "frame": "No, definitely not because … · I avoid …",
+            "group": "avoid",
+            "tense": "Present Simple · strong no",
+            "en": "No, definitely not — I avoid raw <mark class=\"vocab\">shellfish</mark> when I'm unsure about freshness.",
+            "vi_ex": "Không, chắc chắn không — tôi tránh hải sản có vỏ sống khi không chắc độ tươi.",
+        },
+        {
+            "form": "meatball",
+            "vi": "viên thịt",
+            "ipa": "/ˈmiːtˌbɔl/",
+            "frame": "Consuming too much … can lead to …",
+            "group": "avoid",
+            "tense": "Present Simple · cause → effect",
+            "en": "Consuming too many fried <mark class=\"vocab\">meatball</mark>s can lead to feeling heavy after meals.",
+            "vi_ex": "Ăn quá nhiều thịt viên chiên có thể khiến bạn thấy nặng bụng sau bữa ăn.",
+        },
+        {
+            "form": "soda+",
+            "vi": "soda / soft drink",
+            "ipa": "",
+            "frame": "Consuming too much … can lead to …",
+            "group": "avoid",
+            "tense": "Present Simple · warning",
+            "en": "Consuming too much <mark class=\"vocab\">soda</mark> or other sugary <mark class=\"vocab\">soft drink</mark>s can lead to various health problems.",
+            "vi_ex": "Uống quá nhiều soda hay nước ngọt có ga có thể dẫn đến nhiều vấn đề sức khỏe.",
+            "skip_bank": True,
+        },
+        {
+            "form": "bacon+",
+            "vi": "bacon",
+            "ipa": "",
+            "frame": "Consuming too much … can lead to …",
+            "group": "avoid",
+            "tense": "Present Simple · cause → effect",
+            "en": "Consuming too much <mark class=\"vocab\">bacon</mark> can lead to a high salt intake over time.",
+            "vi_ex": "Ăn quá nhiều bacon lâu dần có thể dẫn đến lượng muối cao.",
+            "skip_bank": True,
+        },
+        {
+            "form": "pancake+",
+            "vi": "pancake",
+            "ipa": "",
+            "frame": "Consuming too much … can lead to …",
+            "group": "avoid",
+            "tense": "Present Simple · cause → effect",
+            "en": "Consuming too many <mark class=\"vocab\">pancake</mark>s with syrup can lead to a sugar crash later.",
+            "vi_ex": "Ăn quá nhiều bánh kếp với siro có thể khiến bạn tụt đường huyết sau đó.",
+            "skip_bank": True,
         },
     ]
-    parts = []
-    for chain in chains:
-        text = chain["flow"]
-        for sid in chain["slots"]:
-            text = text.replace("{" + sid + "}", slot_select(sid), 1)
+
+    group_meta = [
+        (
+            "yes",
+            "Yes · lý do tích cực",
+            "It helps me + V · It gives me the chance to + V · I also get the opportunity to + V",
+        ),
+        (
+            "adj",
+            "Cảm xúc · It's + adj",
+            "It's + relaxing / exciting / thrilling / entertaining / interesting …",
+        ),
+        (
+            "like",
+            "Thích · love / keen on / I think",
+            "I love this · I think … · I'm keen on … · I'm a big fan of …",
+        ),
+        (
+            "soft",
+            "Không thích · soft no",
+            "I don't like this · I can't stand … · It's not my cup of tea · I don't think … · To be honest, I don't enjoy …",
+        ),
+        (
+            "neg",
+            "Phủ định cấu trúc · not / doesn't",
+            "It's + not + useful / practical · doesn't + V · It doesn't give me the chance to … · It doesn't help me …",
+        ),
+        (
+            "avoid",
+            "Tránh / hệ quả",
+            "No, definitely not because … · I avoid … · Consuming too much … can lead to …",
+        ),
+    ]
+
+    parts: list[str] = []
+    for gid, title, formula in group_meta:
+        uniq = [d for d in drills if d["group"] == gid]
+        if not uniq:
+            continue
+        card_html = []
+        for d in uniq:
+            ipa = f'<span class="ipa">{esc(d["ipa"])}</span>' if d.get("ipa") else ""
+            card_html.append(
+                f"""          <article class="lr-phrase-card">
+            <div class="lr-phrase-meta">
+              <mark class="vocab">{esc(d["form"].rstrip("+"))}</mark>
+              {ipa}
+              <span class="lr-phrase-vi-word">{esc(d["vi"])}</span>
+              <span class="lr-tense-tag">{esc(d["tense"])}</span>
+            </div>
+            <p class="lr-phrase-frame"><code>{esc(d["frame"])}</code></p>
+            <p class="lr-phrase-en">{d["en"]}</p>
+            <p class="lr-phrase-vi">{esc(d["vi_ex"])}</p>
+          </article>"""
+            )
         parts.append(
-            f"""        <div class="lr-chain" data-ex-en="{esc(chain["ex_en"])}" data-ex-vi="{esc(chain["ex_vi"])}">
-          <h4>{esc(chain["title"])}</h4>
-          <p class="lr-chain-flow">{text}</p>
-          <div class="lr-chain-ex">
-            <p class="lr-chain-ex-label">Example sentence</p>
-            <p class="lr-chain-ex-text"></p>
-            <p class="lr-chain-ex-vi"></p>
-            <span class="lr-tense-tag">{esc(chain["tense"])}</span>
+            f"""        <div class="lr-phrase-group">
+          <h3>{esc(title)}</h3>
+          <p class="lr-phrase-formula">{esc(formula)}</p>
+          <div class="lr-phrase-grid">
+{chr(10).join(card_html)}
           </div>
         </div>"""
         )
-    chips = []
-    for w in words[:48]:
-        ipa = f' <span class="ipa">/{esc(w["ipa"])}/</span>' if w.get("ipa") else ""
-        vi = f' — {esc(w["vi"])}' if w.get("vi") else ""
-        chips.append(
-            f'<li><mark class="vocab">{esc(w["form"])}</mark>{ipa}{vi}</li>'
+
+    bank_items = []
+    bank_seen: set[str] = set()
+    for d in drills:
+        if d.get("skip_bank"):
+            continue
+        form = d["form"]
+        if form in bank_seen:
+            continue
+        bank_seen.add(form)
+        ipa = f' <span class="ipa">{esc(d["ipa"])}</span>' if d.get("ipa") else ""
+        bank_items.append(
+            f'<li><mark class="vocab">{esc(form)}</mark>{ipa} — {esc(d["vi"])}</li>'
         )
+
     return (
         "\n".join(parts)
         + f"""
         <details class="lr-vocab-bank">
-          <summary>Vocabulary bank ({len(words)} words · B1/B2 focus)</summary>
-          <ul class="ex-vocab-list">{"".join(chips)}</ul>
+          <summary>Phải học bank ({len(bank_items)} từ · Pareto gold)</summary>
+          <ul class="ex-vocab-list">{"".join(bank_items)}</ul>
         </details>"""
     )
+
 
 
 def speaking_mock_html() -> str:
@@ -2904,7 +3262,6 @@ def natural_vlog_html() -> str:
 
 
 def build_page() -> str:
-    words = collect_review_words()
     home = "../../../../"  # review-exercise/ → public/
     slots_json = json.dumps(WORD_SLOTS, ensure_ascii=False)
 
@@ -2938,7 +3295,7 @@ def build_page() -> str:
           <a href="#structures">3 · Structures</a>
           <a href="#lessons">4 · Lesson highlights</a>
           <a href="#food-lang">5 · Idioms &amp; phrases</a>
-          <a href="#vocab-chains">6 · Vocab chains</a>
+          <a href="#phrase-drills">6 · Phrase drills</a>
           <a href="#mock-test">7 · Mock test</a>
         </nav>
         <div class="ex-toolbar lr-toolbar lr-toolbar--hero">
@@ -2987,10 +3344,10 @@ def build_page() -> str:
         </div>
       </section>
 
-      <section class="lr-section" id="vocab-chains">
-        <h2>6 · Vocabulary — idea chains (Level 3)</h2>
-        <p class="lr-section-hint">Học từ theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-hoc-tu-vung-vocab" target="_blank" rel="noopener noreferrer">dòng ideas</a>, không liệt kê. Chọn từ trong dropdown — bên dưới mỗi chain có <strong>Example sentence</strong> ghép từ + ngữ pháp đã học.</p>
-{vocab_chains_html(words)}
+      <section class="lr-section" id="phrase-drills">
+        <h2>6 · Phrase drills · khung câu + từ “Phải học”</h2>
+        <p class="lr-section-hint">Sau Pareto — <strong>chỉ học 40 từ vàng</strong>. Mỗi thẻ = <strong>1 khung Lesson 3</strong> + <strong>1 cụm hoàn chỉnh</strong> có từ mới bên trong. Học thuộc cả câu (không học lemma đơn). Bật <strong>Vietnamese</strong> để xem bản dịch. Sau đó mới ghép idea thành câu Speaking của bạn.</p>
+{gold_phrase_drills_html()}
       </section>
 
       <section class="lr-section lr-mock" id="mock-test">

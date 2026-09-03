@@ -5127,6 +5127,90 @@ mark.lr-hl,
   margin-top: 4px;
 }
 
+/* Phrase drills · Lesson-3 frames × Pareto gold words */
+.lr-phrase-group {
+  margin-bottom: 22px;
+}
+
+.lr-phrase-group h3 {
+  margin: 0 0 6px;
+  font-size: 1.02rem;
+  color: #c4b5fd;
+}
+
+.lr-phrase-formula {
+  margin: 0 0 12px;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: rgba(226, 232, 240, 0.62);
+}
+
+.lr-phrase-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.lr-phrase-card {
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(34, 211, 238, 0.22);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.lr-phrase-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin-bottom: 8px;
+}
+
+.lr-phrase-vi-word {
+  font-size: 0.84rem;
+  color: rgba(226, 232, 240, 0.55);
+}
+
+.lr-phrase-frame {
+  margin: 0 0 8px;
+}
+
+.lr-phrase-frame code {
+  display: inline-block;
+  padding: 0.25em 0.55em;
+  border-radius: 6px;
+  background: rgba(167, 139, 250, 0.14);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  color: #ddd6fe;
+  font-size: 0.78rem;
+}
+
+.lr-phrase-en {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: rgba(226, 232, 240, 0.92);
+}
+
+.lr-phrase-en mark.vocab {
+  background: rgba(34, 211, 238, 0.18);
+  padding: 0.1em 0.3em;
+  border-radius: 4px;
+  color: #a5f3fc;
+}
+
+.lr-phrase-vi {
+  display: none;
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: rgba(226, 232, 240, 0.58);
+  font-style: italic;
+}
+
+.ex-show-vi .lr-phrase-vi {
+  display: block;
+}
+
 .lr-vocab-bank {
   margin-top: 20px;
 }
