@@ -3550,8 +3550,29 @@ body.ex-hide-ipa .ipa {
 
 .lr-mmap--lesson2,
 .lr-mmap--lesson3,
-.lr-mmap--ed {
+.lr-mmap--ed,
+.lr-mmap--food-phrase {
   margin-top: 12px;
+}
+
+.lr-food-phrase-map {
+  margin-bottom: 24px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(167, 139, 250, 0.22);
+}
+
+.lr-food-phrase-map > h3 {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  color: #c4b5fd;
+}
+
+.lr-mmap--food-phrase .lr-flow-step--opener .lr-flow-step-label {
+  color: #fde68a;
+}
+
+.lr-mmap--food-phrase .lr-mmap-root-sub {
+  font-size: 0.82rem;
 }
 
 .lr-mmap--ed .lr-mmap-tense {

@@ -1098,6 +1098,178 @@ LESSON2_MINDMAP_RIGHT = [
     },
 ]
 
+# §6 · Food phrase drills — mind map (structures + idea lists, Food-specific)
+FOOD_PHRASE_MINDMAP_LEFT = [
+    {
+        "id": "food-dis-health",
+        "color": "#f87171",
+        "name": "Không lành mạnh",
+        "name_vi": "unhealthy food",
+        "flow": True,
+        "opener": "🕐 MỞ · No, definitely not because … · I avoid … · It's not my cup of tea",
+        "branches": [
+            {
+                "label": "Nhánh 1 · not good / harmful",
+                "leaves": [
+                    "not good <strong>for</strong> your health",
+                    "harmful / detrimental <strong>to</strong> your health",
+                    "It's + unhealthy · not practical for a daily diet",
+                    "<mark class=\"vocab\">take-away</mark> every night",
+                    "too much <mark class=\"vocab\">soda</mark> / <mark class=\"vocab\">soft drink</mark>",
+                    "<mark class=\"vocab\">energy drink</mark> late at night",
+                ],
+            },
+            {
+                "label": "Nhánh 2 · can lead to …",
+                "patterns": "Consuming too much … can lead to …",
+                "leaves": [
+                    "fast food / greasy <mark class=\"vocab\">take-away</mark>",
+                    "too much <mark class=\"vocab\">bacon</mark> → high salt intake",
+                    "fried <mark class=\"vocab\">meatball</mark>s → feel heavy",
+                    "sugary <mark class=\"vocab\">soft drink</mark>s → health problems",
+                    "obesity · high blood pressure · diabetes",
+                ],
+            },
+        ],
+    },
+    {
+        "id": "food-dis-soft",
+        "color": "#fca5a5",
+        "name": "Không thích · soft no",
+        "name_vi": "dislike",
+        "flow": True,
+        "opener": "🕐 MỞ · I don't think … · To be honest, I don't enjoy … · I can't stand …",
+        "branches": [
+            {
+                "label": "Nhánh 1 · It's + not + adj",
+                "leaves": [
+                    "It's + not + useful / practical / worth it",
+                    "<mark class=\"vocab\">veal</mark> is not really my cup of tea",
+                    "<mark class=\"vocab\">Jell-O</mark> — texture feels strange",
+                    "greasy <mark class=\"vocab\">take-away</mark> every night",
+                ],
+            },
+            {
+                "label": "Nhánh 2 · doesn't + V",
+                "patterns": (
+                    "<code>doesn't</code> + V nguyên mẫu · "
+                    "It doesn't give me the chance to … · It doesn't help me …"
+                ),
+                "leaves": [
+                    "plain <mark class=\"vocab\">chicken breast</mark> doesn't give richer flavours",
+                    "skipping the <mark class=\"vocab\">yolk</mark> doesn't help me feel satisfied",
+                    "counting every <mark class=\"vocab\">calorie</mark> doesn't help a healthy relationship with food",
+                    "<mark class=\"vocab\">alcoholic</mark> drinks aren't necessary every dinner",
+                ],
+            },
+        ],
+    },
+]
+
+FOOD_PHRASE_MINDMAP_RIGHT = [
+    {
+        "id": "food-like-healthy",
+        "color": "#34d399",
+        "name": "Ăn lành mạnh",
+        "name_vi": "healthy eating",
+        "flow": True,
+        "opener": "🕐 MỞ · To be honest, I'm keen on … · I'm a big fan of … · Yes, because …",
+        "branches": [
+            {
+                "label": "Nhánh 1 · It's + adj / nutritious",
+                "leaves": [
+                    "It's + healthy / nutritious / practical",
+                    "<mark class=\"vocab\">plant-based</mark> diet",
+                    "<mark class=\"vocab\">low-carb diet</mark> / <mark class=\"vocab\">sugar-free</mark> options",
+                    "<mark class=\"vocab\">ripe</mark> fruit makes salad taste better",
+                    "<mark class=\"vocab\">white meat</mark> as a lighter choice",
+                ],
+            },
+            {
+                "label": "Nhánh 2 · helps / chance / opportunity",
+                "patterns": (
+                    "It helps me + V · It gives me the chance to + V · "
+                    "I also get the opportunity to + V"
+                ),
+                "leaves": [
+                    "<mark class=\"vocab\">smoothie</mark> every morning → stay full until lunch",
+                    "<mark class=\"vocab\">fruit salad</mark> → add more vitamins",
+                    "pay attention to <mark class=\"vocab\">nutrition</mark> → more energetic",
+                    "cooking with <mark class=\"vocab\">garlic</mark> → flavour without too much salt",
+                    "<mark class=\"vocab\">mineral water</mark> on my desk → drink more water",
+                    "<mark class=\"vocab\">citrus</mark> fruit → top choice for breakfast",
+                ],
+            },
+        ],
+    },
+    {
+        "id": "food-like-enjoy",
+        "color": "#67e8f9",
+        "name": "Thích · tận hưởng",
+        "name_vi": "enjoy food",
+        "flow": True,
+        "opener": "🕐 MỞ · I love … · I think … · Whenever I have free time, I really love to …",
+        "branches": [
+            {
+                "label": "Nhánh 1 · It's + adj",
+                "leaves": [
+                    "It's + relaxing / exciting / entertaining / mouth-watering",
+                    "<mark class=\"vocab\">cheesecake</mark> after a long day → so relaxing",
+                    "trying <mark class=\"vocab\">oyster</mark> for the first time → exciting",
+                    "mixing <mark class=\"vocab\">nonalcoholic cocktail</mark>s at home → entertaining",
+                    "<mark class=\"vocab\">pancake</mark>s with berries on Sunday → interesting",
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Phrases + social",
+                "patterns": (
+                    "<mark class=\"vocab\">grab a bite</mark> · <mark class=\"vocab\">dine out</mark> · "
+                    "<mark class=\"vocab\">comfort food</mark> · <mark class=\"vocab\">home-cooked meal</mark>"
+                ),
+                "leaves": [
+                    "<mark class=\"vocab\">grab a bite</mark> with friends → helps me unwind",
+                    "<mark class=\"vocab\">dining out</mark> on Friday → try new restaurants",
+                    "<mark class=\"vocab\">comfort food</mark> → forget work stress",
+                    "<mark class=\"vocab\">home-cooked meal</mark> → practise cooking",
+                    "<mark class=\"vocab\">guilty pleasure</mark> — snack khuya, thỉnh thoảng vẫn thích",
+                    "<mark class=\"vocab\">cheeseburger</mark> · <mark class=\"vocab\">bacon</mark> · <mark class=\"vocab\">rib</mark>",
+                ],
+            },
+        ],
+    },
+    {
+        "id": "food-like-cook",
+        "color": "#5eead4",
+        "name": "Nấu ăn · tại nhà",
+        "name_vi": "cooking",
+        "flow": True,
+        "opener": "🕐 MỞ · I'm keen on … · What I like most about … is that …",
+        "branches": [
+            {
+                "label": "Nhánh 1 · What I like most about …",
+                "leaves": [
+                    "What I like most about a <mark class=\"vocab\">home-cooked meal</mark> is a warm experience",
+                    "a fresh <mark class=\"vocab\">loaf</mark> at the weekend",
+                    "warm <mark class=\"vocab\">bread roll</mark> with soup on rainy days",
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Ingredients & dishes",
+                "patterns": "It helps me + V · I also get the opportunity to + V",
+                "leaves": [
+                    "<mark class=\"vocab\">garlic</mark> · <mark class=\"vocab\">lime</mark> · fresh <mark class=\"vocab\">berry</mark>",
+                    "<mark class=\"vocab\">shellfish</mark> when fresh · <mark class=\"vocab\">oyster</mark>",
+                    "<mark class=\"vocab\">pomegranate</mark> seeds in salad — nice crunch",
+                    "<mark class=\"vocab\">cantaloupe</mark> chilled in summer",
+                    "<mark class=\"vocab\">macadamia nut</mark> instead of chips",
+                    "<mark class=\"vocab\">tangerine</mark> after lunch — little reset",
+                ],
+            },
+        ],
+        "link": "🔗 Kết: <code>so / that's why / but I still / I avoid …</code> — chốt hoặc giới hạn (xem Bước 2 bên dưới)",
+    },
+]
+
 # Lesson 3 · flow — trái = NO, phải = YES
 LESSON3_MINDMAP_LEFT = [
     {
@@ -2443,6 +2615,38 @@ def food_phrase_drills_html() -> str:
         </div>"""
 
 
+def food_phrase_mindmap_html() -> str:
+    """Food-specific reasons mind map for §6 — structures + idea lists."""
+    return f"""
+        <div class="lr-food-phrase-map" id="food-phrase-map">
+          <h3>Sơ đồ tư duy · Food — cấu trúc + cụm ý</h3>
+          <p class="lr-section-hint">Nhìn tổng thể trước khi học thẻ: <strong>① Mở</strong> (thái độ) → <strong>because</strong> → <strong>② Thân</strong> (1–2 nhánh) → <strong>③ Kết</strong> (optional). Trái = không thích · Phải = thích. Các từ <mark class="vocab">vàng</mark> trùng với Phrase drills bên dưới.</p>
+{mind_map_html(
+            "foodPhraseMindmap",
+            "Food · Reasons like / dislike",
+            "Food",
+            "Dislike ↔ Like",
+            FOOD_PHRASE_MINDMAP_LEFT,
+            FOOD_PHRASE_MINDMAP_RIGHT,
+            note=(
+                "Luồng: <strong>🕐 MỞ</strong> → <strong>because</strong> → <strong>Nhánh 1</strong> (It's + adj) "
+                "hoặc <strong>Nhánh 2</strong> (helps / chance / can lead to). "
+                "Chọn <strong>1 nhánh LIKE</strong> hoặc <strong>1 nhánh DISLIKE</strong> — không nhồi hết."
+            ),
+            extra_class=" lr-mmap--lesson2 lr-mmap--food-phrase",
+            min_width="1320px",
+        )}
+          <div class="lr-mm-assemble">
+            <p class="lr-mm-label">Ví dụ ráp nhanh (từ sơ đồ → đoạn)</p>
+            <div class="lr-mm-assemble-grid">
+              <p><span class="lr-mm-tag-yes">LIKE</span> Healthy: <em>To be honest, I'm keen on eating healthy food. Drinking a smoothie every morning helps me stay full — that's why I avoid sugary soft drinks.</em></p>
+              <p><span class="lr-mm-tag-yes">LIKE</span> Enjoy: <em>Whenever I have free time, I love to grab a bite with friends because it helps me unwind. A home-cooked meal also gives me the chance to practise cooking.</em></p>
+              <p><span class="lr-mm-tag-no">DISLIKE</span> Fast food: <em>Well, not really — greasy take-away every night is not my cup of tea. Consuming too much bacon can lead to a high salt intake, so I avoid it on weekdays.</em></p>
+            </div>
+          </div>
+        </div>"""
+
+
 def gold_phrase_drills_html() -> str:
     """Lesson-3 frames × Pareto 'Phải học' words — memorise whole chunks, not bare lemmas."""
     # form | vi | ipa | frame | tense | en | vi_ex
@@ -3637,6 +3841,7 @@ def build_page() -> str:
           <a href="#lessons">4 · Lesson highlights</a>
           <a href="#food-lang">5 · Idioms &amp; phrases</a>
           <a href="#phrase-drills">6 · Phrase drills</a>
+          <a href="#food-phrase-map">6 · Mind map</a>
           <a href="#phrase-assemble">6b · Ghép đoạn</a>
           <a href="#mock-test">7 · Mock test</a>
         </nav>
@@ -3688,7 +3893,8 @@ def build_page() -> str:
 
       <section class="lr-section" id="phrase-drills">
         <h2>6 · Phrase drills · khung câu + từ “Phải học”</h2>
-        <p class="lr-section-hint"><strong>Bước 1:</strong> thuộc từng câu đơn (khung + từ vàng) và hiểu nghĩa. <strong>Bước 2:</strong> gắn vai <em>Mở / Thân / Kết</em> rồi ghép 3–4 câu thành đoạn — không học vẹt cả đoạn. Xem <a href="#phrase-assemble">6b · Ghép đoạn</a>.</p>
+        <p class="lr-section-hint"><strong>Bước 1:</strong> xem <a href="#food-phrase-map">sơ đồ tư duy Food</a> → thuộc từng câu đơn (khung + từ vàng). <strong>Bước 2:</strong> gắn vai <em>Mở / Thân / Kết</em> rồi ghép 3–4 câu thành đoạn — không học vẹt cả đoạn. Xem <a href="#phrase-assemble">6b · Ghép đoạn</a>.</p>
+{food_phrase_mindmap_html()}
 {gold_phrase_drills_html()}
 {phrase_assemble_html()}
       </section>
@@ -3719,7 +3925,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr24">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr25">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
