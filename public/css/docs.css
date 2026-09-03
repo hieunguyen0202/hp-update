@@ -5309,6 +5309,223 @@ mark.lr-hl,
   box-shadow: 0 0 20px rgba(167, 139, 250, 0.2);
 }
 
+/* Core steps teaser on topic index (under Review card) */
+.vocab-core-steps {
+  margin-top: 18px;
+  padding: 16px 18px 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(167, 139, 250, 0.28);
+  background: rgba(26, 16, 51, 0.45);
+  max-width: 42rem;
+}
+
+.vocab-core-steps-title {
+  margin: 0 0 6px;
+  font-size: 0.98rem;
+  color: #c4b5fd;
+}
+
+.vocab-core-steps-lead {
+  margin: 0 0 10px;
+  font-size: 0.88rem;
+  color: rgba(226, 232, 240, 0.7);
+}
+
+.vocab-core-steps-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: rgba(226, 232, 240, 0.82);
+}
+
+.vocab-core-steps-list li + li {
+  margin-top: 8px;
+}
+
+.vocab-core-steps-more {
+  margin: 12px 0 0;
+  font-size: 0.86rem;
+}
+
+.vocab-core-steps-more a {
+  color: #a5f3fc;
+}
+
+/* Full Core steps on Review Exercise page */
+.lr-core-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.lr-core-step {
+  padding: 18px 20px;
+  border-radius: 14px;
+  border: 1px solid rgba(167, 139, 250, 0.22);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.lr-core-step-head {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.lr-core-step-num {
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #1a1033;
+  background: #c4b5fd;
+}
+
+.lr-core-step-head h3 {
+  margin: 0 0 2px;
+  font-size: 1.05rem;
+  color: #e9d5ff;
+}
+
+.lr-core-step-sub {
+  margin: 0;
+  font-size: 0.84rem;
+  color: rgba(226, 232, 240, 0.6);
+}
+
+.lr-core-step > p {
+  margin: 0 0 12px;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: rgba(226, 232, 240, 0.82);
+}
+
+.lr-core-groups {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lr-core-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.lr-core-group strong {
+  font-size: 0.9rem;
+}
+
+.lr-core-group--trash {
+  background: rgba(248, 113, 113, 0.1);
+  border: 1px solid rgba(248, 113, 113, 0.28);
+  color: #fecaca;
+}
+
+.lr-core-group--gold {
+  background: rgba(250, 204, 21, 0.1);
+  border: 1px solid rgba(250, 204, 21, 0.32);
+  color: #fde68a;
+}
+
+.lr-core-group--known {
+  background: rgba(148, 163, 184, 0.1);
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  color: #cbd5e1;
+}
+
+.lr-core-result {
+  margin: 0 !important;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid rgba(34, 211, 238, 0.25);
+  color: #a5f3fc !important;
+  font-size: 0.88rem !important;
+}
+
+.lr-core-compare {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.lr-core-wrong,
+.lr-core-right {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.lr-core-wrong {
+  background: rgba(248, 113, 113, 0.08);
+  border: 1px solid rgba(248, 113, 113, 0.25);
+  color: #fecaca;
+}
+
+.lr-core-right {
+  background: rgba(74, 222, 128, 0.08);
+  border: 1px solid rgba(74, 222, 128, 0.28);
+  color: #bbf7d0;
+}
+
+.lr-core-wrong > span,
+.lr-core-right > span {
+  display: inline-block;
+  margin-right: 8px;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.lr-core-frames {
+  margin: 0 0 12px;
+  padding-left: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lr-core-frames li {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: rgba(226, 232, 240, 0.85);
+}
+
+.lr-core-frames code {
+  display: block;
+  margin-bottom: 4px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.35);
+  color: #e9d5ff;
+  font-size: 0.84rem;
+  white-space: pre-wrap;
+}
+
+.lr-core-ex {
+  display: block;
+  font-size: 0.84rem;
+  color: rgba(226, 232, 240, 0.62);
+  font-style: italic;
+}
+
 /* Past Perfect — Lesson 57 slide visuals */
 .lr-segment--viz .lr-pp-viz {
   margin-top: 8px;

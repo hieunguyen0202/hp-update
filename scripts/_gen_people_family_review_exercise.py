@@ -1041,6 +1041,99 @@ def mock_practice_refs_html() -> str:
         </aside>"""
 
 
+def core_steps_html() -> str:
+    """Method notes before vocab drill + review — Pareto → anchor → safe frames."""
+    return """
+      <section class="lr-section lr-core-steps" id="core-steps">
+        <h2>Core · 3 bước trước khi học từ mới</h2>
+        <p class="lr-section-hint">Đọc xong 3 bước này rồi mới sang Flashcards A1–B2 / Review. Mục tiêu: rút còn <strong>20–30 từ vàng</strong>, neo vào 1 câu mẫu, rồi lắp vào khung câu an toàn — không ôm đồm 100 từ.</p>
+
+        <article class="lr-core-step">
+          <header class="lr-core-step-head">
+            <span class="lr-core-step-num">1</span>
+            <div>
+              <h3>Sàng lọc tàn nhẫn (Pareto 80/20)</h3>
+              <p class="lr-core-step-sub">Chỉ giữ lại 20–30 từ “vàng”</p>
+            </div>
+          </header>
+          <p>Đừng ôm đồm học cả 100 từ. Chia đống từ thành <strong>3 nhóm</strong> (Flashcards đã có nút phân loại + tải <code>.txt</code>):</p>
+          <ul class="lr-core-groups">
+            <li class="lr-core-group lr-core-group--trash">
+              <strong>Nhóm 1 · Rác / Quá khó</strong>
+              <span>Từ hàn lâm, hiếm dùng trong văn nói hàng ngày. Gạt bỏ ngay.</span>
+            </li>
+            <li class="lr-core-group lr-core-group--gold">
+              <strong>Nhóm 2 · Dễ dùng, Đa năng</strong>
+              <span>Áp dụng được nhiều chủ đề (vd. <em>close-knit</em>, <em>get along well</em>, <em>look up to</em>, <em>take after</em>). Giữ lại và tập trung toàn lực.</span>
+            </li>
+            <li class="lr-core-group lr-core-group--known">
+              <strong>Nhóm 3 · Đã biết</strong>
+              <span>Từ đã quen — bỏ qua, đừng lãng phí slot nhớ.</span>
+            </li>
+          </ul>
+          <p class="lr-core-result"><strong>Kết quả:</strong> ~100 từ → còn khoảng <strong>20–30 từ</strong> thực sự chất lượng.</p>
+        </article>
+
+        <article class="lr-core-step">
+          <header class="lr-core-step-head">
+            <span class="lr-core-step-num">2</span>
+            <div>
+              <h3>Neo ngữ cảnh (Contextual Anchoring)</h3>
+              <p class="lr-core-step-sub">Học cụm trong 1 câu mẫu — không học từ đơn</p>
+            </div>
+          </header>
+          <p>Học từ độc lập là cách nhanh nhất để quên. Với chủ đề Family, đừng học <em>close-knit</em> rồi để đấy — gắn chết dính vào <strong>một câu trả lời mẫu</strong> thuận miệng nhất:</p>
+          <div class="lr-core-compare">
+            <p class="lr-core-wrong"><span>Sai</span> Học từ <em>close-knit</em> = gắn bó chặt chẽ.</p>
+            <p class="lr-core-right"><span>Đúng</span> Nhớ luôn câu: <em>“We're a close-knit family, so we talk almost every day.”</em></p>
+          </div>
+          <p class="lr-note-tip">Lặp câu này 5–10 lần — não ghi nhớ cụm ngữ pháp, ngữ điệu và phản xạ; không đứng hình đi ghép từ.</p>
+        </article>
+
+        <article class="lr-core-step">
+          <header class="lr-core-step-head">
+            <span class="lr-core-step-num">3</span>
+            <div>
+              <h3>Khung câu an toàn — chữa “sợ sai ngữ pháp”</h3>
+              <p class="lr-core-step-sub">1–2 công thức bất bại · chỉ lắp từ mới vào chỗ trống</p>
+            </div>
+          </header>
+          <p>Ú á vì vừa nghĩ từ khó vừa lo cấu trúc phức tạp. Dùng khung đệm an toàn để <strong>bọc</strong> từ mới — đóng khung cả ý trả lời vào đúng 1–2 công thức ngắn:</p>
+          <ol class="lr-core-frames">
+            <li>
+              <code>To be honest, I'm a big fan of + [từ mới / cụm chủ đề].</code>
+              <span class="lr-core-ex">“To be honest, I'm a big fan of spending quality time with my parents.”</span>
+            </li>
+            <li>
+              <code>Whenever I have free time, I really love to + [từ mới] because it helps me unwind.</code>
+              <span class="lr-core-ex">“Whenever I have free time, I really love to catch up with my siblings because it helps me unwind.”</span>
+            </li>
+            <li>
+              <code>What I like most about [my family] is that it always gives me a + [từ mới] experience.</code>
+              <span class="lr-core-ex">“What I like most about my family is that it always gives me a warm, supportive experience.”</span>
+            </li>
+          </ol>
+          <p class="lr-note-tip">Bonus khung quan hệ: <code>To be honest, I really look up to + [người / từ mới] because…</code></p>
+        </article>
+      </section>
+"""
+
+
+def core_steps_teaser_html() -> str:
+    return """
+        <div class="vocab-core-steps">
+          <h3 class="vocab-core-steps-title">Core steps · trước khi học &amp; ôn</h3>
+          <p class="vocab-core-steps-lead">Đừng ôm 100 từ. Làm 3 bước này trước Flashcards / Review Exercise:</p>
+          <ol class="vocab-core-steps-list">
+            <li><strong>Pareto 80/20</strong> — chia 3 nhóm: Không thông dụng · Phải học · Đã biết. Chỉ giữ ~20–30 từ vàng (Flashcards có nút phân loại + tải <code>.txt</code>).</li>
+            <li><strong>Neo ngữ cảnh</strong> — gắn mỗi từ vào 1 câu mẫu duy nhất (vd. “We're a <em>close-knit</em> family, so we talk almost every day.”), lặp 5–10 lần.</li>
+            <li><strong>Khung câu an toàn</strong> — lắp từ vào: <em>I'm a big fan of…</em> · <em>Whenever I have free time, I really love to…</em> · <em>What I like most about…</em></li>
+          </ol>
+          <p class="vocab-core-steps-more"><a href="review-exercise/#core-steps">Xem hướng dẫn đầy đủ trong Review Exercise →</a></p>
+        </div>
+"""
+
+
 def natural_vlog_html() -> str:
     return """
       <section class="lr-section lr-vlog-section" id="natural-vlog">
@@ -1085,6 +1178,7 @@ def build_page() -> str:
         <h1>People &amp; Family — Review Exercise</h1>
         <p class="lede">Sau khi hoàn thành B2, ôn tập theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-speaking" target="_blank" rel="noopener noreferrer">Linear Thinking</a>: ngữ pháp (gerunds &amp; preferences, because/conditional 2, <a href="https://www.dolenglish.vn/blog/paraphrase-trong-ielts" target="_blank" rel="noopener noreferrer">paraphrase</a>) → mental model → cấu trúc Speaking → từ vựng B1/B2 &amp; IDP → mock IELTS Part 1/2/3 với dropdown từ thay thế.</p>
         <nav class="lr-toc" aria-label="On this page">
+          <a href="#core-steps">Core · 3 bước</a>
           <a href="#natural-vlog">0 · Real talk</a>
           <a href="#grammar">1 · Grammar</a>
           <a href="#mental-model">2 · Mental model</a>
@@ -1098,6 +1192,8 @@ def build_page() -> str:
           <label class="ex-toggle"><input type="checkbox" id="togVi" /> Vietnamese</label>
         </div>
       </header>
+
+{core_steps_html()}
 
 {natural_vlog_html()}
 
@@ -1200,25 +1296,37 @@ def build_page() -> str:
 
 
 def patch_topic_index() -> None:
+    import re
+
     path = ROOT / "public" / "blog" / "english" / "people-family" / "index.html"
     text = path.read_text(encoding="utf-8")
-    if 'id="review"' in text:
-        return
-    review_section = """
+    review_section = f"""
       <section class="vocab-level vocab-level--review" id="review">
         <div class="vocab-level__head">
           <span class="vocab-level__badge vocab-level__badge--review">Review</span>
           <h2>Linear Thinking · Capstone exercise</h2>
         </div>
-        <p class="vocab-level__desc">Sau B2 — ôn ngữ pháp (gerunds &amp; preferences, because/conditional 2), mind map, Lesson 4/5, và mock IELTS Part 1/2/3 (từ vựng B1/B2, dropdown thay từ).</p>
+        <p class="vocab-level__desc">Sau B2 — ôn ngữ pháp (gerunds &amp; preferences, because/conditional 2), mind map, Lesson 4/5, và mock IELTS Part 1/2/3 (từ vựng B1/B2, dropdown thay từ). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
         <div class="vocab-lesson-grid">
           <a class="vocab-lesson-card vocab-lesson-card--review" href="review-exercise/">
             <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72' fill='none'%3E%3Crect width='72' height='72' rx='14' fill='%231a1033'/%3E%3Ccircle cx='36' cy='36' r='22' stroke='%23a78bfa' stroke-width='2.5'/%3E%3Cpath d='M36 20v16l10 8' stroke='%2322d3ee' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M22 48h28' stroke='%23e4e4e7' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E" alt="" width="72" height="72" loading="lazy">
             <span>Review Exercise</span>
           </a>
         </div>
+{core_steps_teaser_html()}
       </section>
 """
+    if 'id="review"' in text:
+        text, n = re.subn(
+            r'\s*<section class="vocab-level vocab-level--review" id="review">.*?</section>',
+            "\n" + review_section.rstrip() + "\n",
+            text,
+            count=1,
+            flags=re.S,
+        )
+        if n:
+            path.write_text(text, encoding="utf-8")
+        return
     marker = '      <div class="docs-pager">'
     if marker in text:
         text = text.replace(marker, review_section + "\n" + marker)
