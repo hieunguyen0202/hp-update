@@ -2197,7 +2197,6 @@ FOOD_LANG_GROUPS = [
     ),
 ]
 
-
 def food_lang_html() -> str:
     cards = []
     for title, hint, slot_ids in FOOD_LANG_GROUPS:
@@ -2208,15 +2207,18 @@ def food_lang_html() -> str:
                     f'<li><mark class="lr-idiom-mark">{esc(o["form"])}</mark>'
                     f' <span class="lr-idiom-vi">— {esc(o["vi"])}</span></li>'
                 )
+        extra = ""
+        if title == "Phrases":
+            extra = ' lr-idiom-card--phrases'
         cards.append(
-            f"""        <article class="lr-idiom-card">
+            f"""        <article class="lr-idiom-card{extra}">
           <h3>{esc(title)}</h3>
           <p class="lr-idiom-hint">{esc(hint)}</p>
           <ul class="lr-idiom-list">{"".join(items)}</ul>
         </article>"""
         )
 
-  # practice sentence with dropdowns
+    # practice sentence with dropdowns
     practice = (
         f'When friends ask about my diet, I admit I\'m {idiom_pick("idiom_taste", 1)} — '
         f'but cooking at home is {idiom_pick("idiom_ease", 0)} once you practise. '
@@ -2225,8 +2227,11 @@ def food_lang_html() -> str:
         f'that\'s {idiom_pick("idiom_enjoy", 3)} when you travel.'
     )
 
+    phrase_drills = food_phrase_drills_html()
+
     return (
         "\n".join(cards)
+        + phrase_drills
         + f"""
         <div class="lr-idiom-practice">
           <p class="lr-chain-ex-label">Try combining (dropdown)</p>
@@ -2234,6 +2239,168 @@ def food_lang_html() -> str:
           <p class="lr-ref">Nguồn: <a href="https://langgo.edu.vn/food-idioms-thanh-ngu-ve-do-an-tieng-anh" target="_blank" rel="noopener noreferrer">LangGo — 70+ Food idioms</a> · Ôn ở đây trước — áp dụng vào mock test khi đã quen.</p>
         </div>"""
     )
+
+
+def food_phrase_drills_html() -> str:
+    """Example chunks for each Phrases item × Lesson-3 speaking frames."""
+    drills = [
+        {
+            "form": "grab a bite",
+            "vi": "ăn vội một miếng",
+            "frame": "Whenever I have free time, I really love to + V · because it helps me unwind",
+            "tense": "Present Simple · habit",
+            "en": (
+                "Whenever I have free time, I really love to "
+                "<mark class=\"vocab\">grab a bite</mark> with friends because it helps me unwind."
+            ),
+            "vi_ex": "Mỗi khi rảnh, tôi rất thích ăn vội với bạn vì nó giúp tôi thư giãn.",
+        },
+        {
+            "form": "grab a bite",
+            "vi": "ăn vội một miếng",
+            "frame": "It gives me the chance to + V",
+            "tense": "Present Simple",
+            "en": (
+                "A short lunch break gives me the chance to "
+                "<mark class=\"vocab\">grab a bite</mark> near the office without wasting time."
+            ),
+            "vi_ex": "Giờ nghỉ trưa ngắn cho tôi cơ hội ăn vội gần công ty mà không mất nhiều thời gian.",
+        },
+        {
+            "form": "dine out",
+            "vi": "ăn ngoài",
+            "frame": "I'm a big fan of + V-ing · It gives me the chance to + V",
+            "tense": "Present Simple · opinion",
+            "en": (
+                "To be honest, I'm a big fan of <mark class=\"vocab\">dining out</mark> on Friday nights "
+                "because it gives me the chance to try new restaurants."
+            ),
+            "vi_ex": "Thành thật thì tôi rất thích ăn ngoài tối Thứ Sáu vì có cơ hội thử quán mới.",
+        },
+        {
+            "form": "dine out",
+            "vi": "ăn ngoài",
+            "frame": "I don't think … · soft no",
+            "tense": "Present Simple · soft no",
+            "en": (
+                "I don't think we should <mark class=\"vocab\">dine out</mark> every night — "
+                "it's not practical for my budget."
+            ),
+            "vi_ex": "Tôi không nghĩ nên ăn ngoài mỗi tối — không thực tế với túi tiền của tôi.",
+        },
+        {
+            "form": "treat yourself",
+            "vi": "tự thưởng cho bản thân",
+            "frame": "To be honest · I love to + V · It's + relaxing",
+            "tense": "Present Simple · opinion",
+            "en": (
+                "To be honest, I love to <mark class=\"vocab\">treat myself</mark> to dessert "
+                "after a tough week — it's so relaxing."
+            ),
+            "vi_ex": "Thành thật thì tôi thích tự thưởng dessert sau tuần mệt — rất thư giãn.",
+        },
+        {
+            "form": "treat yourself",
+            "vi": "tự thưởng cho bản thân",
+            "frame": "It helps me + V",
+            "tense": "Present Simple",
+            "en": (
+                "Knowing I can <mark class=\"vocab\">treat myself</mark> once in a while "
+                "helps me stay motivated on a healthy diet."
+            ),
+            "vi_ex": "Biết mình thỉnh thoảng được tự thưởng giúp tôi giữ động lực khi ăn uống lành mạnh.",
+        },
+        {
+            "form": "comfort food",
+            "vi": "đồ ăn an ủi",
+            "frame": "I think … · It's + relaxing · It helps me + V",
+            "tense": "Present Simple · opinion",
+            "en": (
+                "I think a bowl of <mark class=\"vocab\">comfort food</mark> after a long day "
+                "is so relaxing — it helps me forget work stress for a while."
+            ),
+            "vi_ex": "Tôi nghĩ một tô comfort food sau ngày dài rất thư giãn — giúp tôi tạm quên stress công việc.",
+        },
+        {
+            "form": "comfort food",
+            "vi": "đồ ăn an ủi",
+            "frame": "I'm keen on + N",
+            "tense": "Present Simple · habit",
+            "en": (
+                "I'm keen on simple <mark class=\"vocab\">comfort food</mark> like rice and soup "
+                "when the weather turns cold."
+            ),
+            "vi_ex": "Tôi thích comfort food đơn giản như cơm với canh khi trời trở lạnh.",
+        },
+        {
+            "form": "guilty pleasure",
+            "vi": "thú thích tội lỗi",
+            "frame": "To be honest · I don't think … · soft admission",
+            "tense": "Present Simple · opinion",
+            "en": (
+                "To be honest, late-night snacks are my <mark class=\"vocab\">guilty pleasure</mark> — "
+                "I don't think it's perfect, but I enjoy it sometimes."
+            ),
+            "vi_ex": "Thành thật thì snack khuya là guilty pleasure của tôi — không hoàn hảo, nhưng thỉnh thoảng vẫn thích.",
+        },
+        {
+            "form": "guilty pleasure",
+            "vi": "thú thích tội lỗi",
+            "frame": "It's not my cup of tea · contrast",
+            "tense": "Present Simple · contrast",
+            "en": (
+                "Fancy desserts are not my cup of tea, but ice cream is still a "
+                "<mark class=\"vocab\">guilty pleasure</mark> I can't stand giving up."
+            ),
+            "vi_ex": "Bánh ngọt sang chảnh không hợp gu tôi, nhưng kem vẫn là guilty pleasure tôi không bỏ được.",
+        },
+        {
+            "form": "home-cooked meal",
+            "vi": "bữa ăn nấu ở nhà",
+            "frame": "I'm keen on + N · It helps me + V · I also get the opportunity to + V",
+            "tense": "Present Simple · habit",
+            "en": (
+                "I'm keen on a <mark class=\"vocab\">home-cooked meal</mark> most evenings "
+                "because it helps me eat healthier, and I also get the opportunity to practise cooking."
+            ),
+            "vi_ex": "Tôi thích bữa ăn nấu ở nhà hầu hết các tối vì giúp ăn lành hơn, và cũng có cơ hội luyện nấu ăn.",
+        },
+        {
+            "form": "home-cooked meal",
+            "vi": "bữa ăn nấu ở nhà",
+            "frame": "What I like most about … is that … · It's + interesting",
+            "tense": "Present Simple · opinion",
+            "en": (
+                "What I like most about a <mark class=\"vocab\">home-cooked meal</mark> "
+                "is that it always gives me a warm, interesting experience with family."
+            ),
+            "vi_ex": "Điều tôi thích nhất ở bữa ăn nấu ở nhà là nó luôn mang lại trải nghiệm ấm áp, thú vị với gia đình.",
+        },
+    ]
+
+    cards = []
+    for d in drills:
+        cards.append(
+            f"""          <article class="lr-phrase-card lr-idiom-ex-card">
+            <div class="lr-phrase-meta">
+              <mark class="vocab">{esc(d["form"])}</mark>
+              <span class="lr-phrase-vi-word">{esc(d["vi"])}</span>
+              <span class="lr-tense-tag">{esc(d["tense"])}</span>
+            </div>
+            <p class="lr-phrase-frame"><code>{esc(d["frame"])}</code></p>
+            <p class="lr-phrase-en">{d["en"]}</p>
+            <p class="lr-phrase-vi">{esc(d["vi_ex"])}</p>
+          </article>"""
+        )
+
+    return f"""
+        <div class="lr-idiom-ex-block">
+          <h3 class="lr-idiom-ex-title">Phrases · ví dụ theo khung câu</h3>
+          <p class="lr-idiom-ex-hint">Mỗi cụm gắn vào <strong>1–2 khung Lesson 3</strong> — học thuộc cả câu, không học lemma đơn. Bật <strong>Vietnamese</strong> để xem bản dịch.</p>
+          <div class="lr-phrase-grid">
+{chr(10).join(cards)}
+          </div>
+        </div>"""
 
 
 def gold_phrase_drills_html() -> str:
@@ -3338,7 +3505,7 @@ def build_page() -> str:
 
       <section class="lr-section" id="food-lang">
         <h2>5 · Food lang · idioms &amp; phrases</h2>
-        <p class="lr-section-hint">IELTS đánh giá <strong>Lexical Resource</strong> — không chỉ từ đúng nghĩa mà còn idiom, phrase, collocation tự nhiên. Học theo nhóm, chọn 1–2 cái phù hợp ngữ cảnh (không nhồi).</p>
+        <p class="lr-section-hint">IELTS đánh giá <strong>Lexical Resource</strong> — không chỉ từ đúng nghĩa mà còn idiom, phrase, collocation tự nhiên. Phần <strong>Phrases</strong> có ví dụ gắn khung Lesson 3 — học thuộc cả cụm. Chọn 1–2 cái phù hợp ngữ cảnh (không nhồi).</p>
         <div class="lr-idiom-grid">
 {food_lang_html()}
         </div>
