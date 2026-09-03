@@ -87,14 +87,16 @@
         <div class="ex-flash-head">
           <div>
             <h2>Flashcards</h2>
-            <p class="ex-flash-hint">Lật thẻ — nghĩa VI, <strong>định nghĩa tiếng Anh</strong> và <strong>ví dụ</strong> từ LanGeek (có ảnh minh họa khi có). Đánh giá <strong>Chính xác</strong> / <strong>Không chính xác</strong>.</p>
+            <p class="ex-flash-hint">Pareto 80/20 — lật thẻ rồi phân loại: <strong>Đã biết</strong> · <strong>Phải học</strong> (dễ dùng, đa năng) · <strong>Không thông dụng</strong>. Tải <strong>.txt</strong> để lưu kết quả (refresh sẽ mất).</p>
           </div>
           <div class="ex-flash-controls">
             <div class="ex-flash-stats" aria-live="polite">
               <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
-              <span>Known <strong id="flashKnown">0</strong></span>
-              <span>Learning <strong id="flashMiss">0</strong></span>
+              <span>Phải học <strong id="flashGold">0</strong></span>
+              <span>Đã biết <strong id="flashKnown">0</strong></span>
+              <span>Không thông dụng <strong id="flashTrash">0</strong></span>
             </div>
+            <button type="button" class="ex-btn" id="btnFlashDownload">Tải .txt</button>
             <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
             <button type="button" class="ex-btn primary" id="btnFlashRestart">Restart</button>
           </div>
@@ -219,6 +221,6 @@
     </article>
   </div>
   <script src="../../../../js/docs.js"></script>
-  <script src="../../../../js/exercise.js?v=ielts4"></script>
+  <script src="../../../../js/exercise.js?v=ielts5"></script>
 </body>
 </html>

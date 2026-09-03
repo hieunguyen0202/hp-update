@@ -1182,6 +1182,32 @@
     });
   };
 
+  const upgradeFlashChrome = (root) => {
+    const hint = root.querySelector(".ex-flash-hint");
+    if (hint) {
+      hint.innerHTML =
+        'Pareto 80/20 — lật thẻ rồi phân loại: <strong>Đã biết</strong> · <strong>Phải học</strong> (dễ dùng, đa năng) · <strong>Không thông dụng</strong>. Tải <strong>.txt</strong> để lưu kết quả (refresh sẽ mất).';
+    }
+    const stats = root.querySelector(".ex-flash-stats");
+    if (stats) {
+      stats.innerHTML = `
+              <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
+              <span>Phải học <strong id="flashGold">0</strong></span>
+              <span>Đã biết <strong id="flashKnown">0</strong></span>
+              <span>Không thông dụng <strong id="flashTrash">0</strong></span>`;
+    }
+    const controls = root.querySelector(".ex-flash-controls");
+    if (controls && !document.getElementById("btnFlashDownload")) {
+      const dl = document.createElement("button");
+      dl.type = "button";
+      dl.className = "ex-btn";
+      dl.id = "btnFlashDownload";
+      dl.textContent = "Tải .txt";
+      const restart = document.getElementById("btnFlashRestart");
+      controls.insertBefore(dl, restart || null);
+    }
+  };
+
   const initFlashcards = () => {
     const vocab = loadVocab();
     let section = document.getElementById("exFlash");
@@ -1199,14 +1225,16 @@
         <div class="ex-flash-head">
           <div>
             <h2>Flashcards</h2>
-            <p class="ex-flash-hint">Lật thẻ — nghĩa VI, <strong>định nghĩa tiếng Anh</strong> và <strong>ví dụ</strong> từ LanGeek (có ảnh minh họa khi có). Đánh giá <strong>Chính xác</strong> / <strong>Không chính xác</strong>.</p>
+            <p class="ex-flash-hint">Pareto 80/20 — lật thẻ rồi phân loại: <strong>Đã biết</strong> · <strong>Phải học</strong> (dễ dùng, đa năng) · <strong>Không thông dụng</strong>. Tải <strong>.txt</strong> để lưu kết quả (refresh sẽ mất).</p>
           </div>
           <div class="ex-flash-controls">
             <div class="ex-flash-stats" aria-live="polite">
               <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
-              <span>Known <strong id="flashKnown">0</strong></span>
-              <span>Learning <strong id="flashMiss">0</strong></span>
+              <span>Phải học <strong id="flashGold">0</strong></span>
+              <span>Đã biết <strong id="flashKnown">0</strong></span>
+              <span>Không thông dụng <strong id="flashTrash">0</strong></span>
             </div>
+            <button type="button" class="ex-btn" id="btnFlashDownload">Tải .txt</button>
             <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
             <button type="button" class="ex-btn primary" id="btnFlashRestart">Restart</button>
           </div>
@@ -1220,28 +1248,75 @@
       else if (vocabSec) vocabSec.insertAdjacentElement("beforebegin", section);
       else pageRoot.insertAdjacentElement("afterend", section);
     } else {
-      const hint = section.querySelector(".ex-flash-hint");
-      if (hint) {
-        hint.innerHTML =
-          'Lật thẻ — nghĩa VI, <strong>định nghĩa tiếng Anh</strong> và <strong>ví dụ</strong> từ LanGeek (có ảnh minh họa khi có). Đánh giá <strong>Chính xác</strong> / <strong>Không chính xác</strong>.';
-      }
+      upgradeFlashChrome(section);
     }
 
     const stage = document.getElementById("flashStage");
     const elIndex = document.getElementById("flashIndex");
     const elTotal = document.getElementById("flashTotal");
+    const elGold = document.getElementById("flashGold");
     const elKnown = document.getElementById("flashKnown");
-    const elMiss = document.getElementById("flashMiss");
+    const elTrash = document.getElementById("flashTrash");
     const elMsg = document.getElementById("flashMsg");
     const btnShuffle = document.getElementById("btnFlashShuffle");
     const btnRestart = document.getElementById("btnFlashRestart");
+    const btnDownload = document.getElementById("btnFlashDownload");
     if (!stage) return;
 
     let deck = [];
     let idx = 0;
-    let known = 0;
-    let learning = 0;
+    const classified = { known: [], gold: [], trash: [] };
     let flipped = false;
+
+    const exportSlug = () => {
+      const m = window.location.pathname.match(/english\/([^/]+)\/([^/]+)-exercise/);
+      if (m) return `${m[1]}-${m[2]}-pareto`;
+      return "vocab-pareto";
+    };
+
+    const formatWordLine = (w) => {
+      const parts = [w.form];
+      if (w.vi) parts.push(w.vi);
+      if (w.pos) parts.push(w.pos);
+      if (w.ipa) parts.push(`/${w.ipa}/`);
+      return parts.join(" | ");
+    };
+
+    const buildExportTxt = () => {
+      const title = (document.title || "Vocabulary").replace(/\s*·.*$/, "").trim();
+      const pending = deck.slice(idx);
+      const lines = [
+        `# Pareto 80/20 · ${title}`,
+        `# Exported: ${new Date().toISOString().slice(0, 10)}`,
+        "",
+        `## Phải học (Dễ dùng, đa năng) — ${classified.gold.length}`,
+        ...classified.gold.map(formatWordLine),
+        "",
+        `## Đã biết — ${classified.known.length}`,
+        ...classified.known.map(formatWordLine),
+        "",
+        `## Không thông dụng — ${classified.trash.length}`,
+        ...classified.trash.map(formatWordLine),
+      ];
+      if (pending.length) {
+        lines.push("", `## Chưa phân loại — ${pending.length}`, ...pending.map(formatWordLine));
+      }
+      return lines.join("\n");
+    };
+
+    const downloadClassified = () => {
+      if (!deck.length) {
+        showMsg("Chưa có từ vựng để xuất.", false);
+        return;
+      }
+      const blob = new Blob([buildExportTxt()], { type: "text/plain;charset=utf-8" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `${exportSlug()}.txt`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+      showMsg(`Đã tải ${exportSlug()}.txt — Phải học: ${classified.gold.length}`, true);
+    };
 
     const showMsg = (text, ok) => {
       if (!elMsg) return;
@@ -1253,8 +1328,9 @@
     const renderStats = () => {
       if (elIndex) elIndex.textContent = String(deck.length ? idx + 1 : 0);
       if (elTotal) elTotal.textContent = String(deck.length);
-      if (elKnown) elKnown.textContent = String(known);
-      if (elMiss) elMiss.textContent = String(learning);
+      if (elGold) elGold.textContent = String(classified.gold.length);
+      if (elKnown) elKnown.textContent = String(classified.known.length);
+      if (elTrash) elTrash.textContent = String(classified.trash.length);
     };
 
     const current = () => deck[idx] || null;
@@ -1304,12 +1380,18 @@
       renderStats();
       if (!w) {
         stage.innerHTML = `<div class="ex-flash-done">
-          <p>Hoàn thành bộ thẻ.</p>
-          <p class="ex-flash-done-meta">Known ${known} · Learning ${learning}</p>
-          <button type="button" class="ex-btn primary" id="btnFlashAgain">Luyện lại</button>
+          <p>Hoàn thành sàng lọc Pareto.</p>
+          <p class="ex-flash-done-meta">Phải học <strong>${classified.gold.length}</strong> · Đã biết ${classified.known.length} · Không thông dụng ${classified.trash.length}</p>
+          <p class="ex-flash-done-hint">Tải file .txt để giữ danh sách — đặc biệt nhóm <strong>Phải học</strong> (~20–30 từ vàng).</p>
+          <div class="ex-flash-done-actions">
+            <button type="button" class="ex-btn primary" id="btnFlashDownloadDone">Tải .txt</button>
+            <button type="button" class="ex-btn" id="btnFlashAgain">Luyện lại</button>
+          </div>
         </div>`;
         const again = document.getElementById("btnFlashAgain");
         again && again.addEventListener("click", () => restart(true));
+        const dlDone = document.getElementById("btnFlashDownloadDone");
+        dlDone && dlDone.addEventListener("click", downloadClassified);
         return;
       }
 
@@ -1349,12 +1431,15 @@
                 </div>
                 ${renderLanGeekBack(w)}
               </div>
-              <div class="ex-flash-grade">
-                <button type="button" class="ex-flash-grade-btn ex-flash-grade-btn--miss" id="flashMissBtn">
-                  ✕ Không chính xác
+              <div class="ex-flash-grade ex-flash-grade--pareto">
+                <button type="button" class="ex-flash-grade-btn ex-flash-grade-btn--known" id="flashKnownBtn" title="Nhóm 3 — đã quen, bỏ qua">
+                  Đã biết
                 </button>
-                <button type="button" class="ex-flash-grade-btn ex-flash-grade-btn--ok" id="flashOkBtn">
-                  ✓ Chính xác
+                <button type="button" class="ex-flash-grade-btn ex-flash-grade-btn--gold" id="flashGoldBtn" title="Nhóm 2 — giữ lại, tập trung học">
+                  ★ Phải học
+                </button>
+                <button type="button" class="ex-flash-grade-btn ex-flash-grade-btn--trash" id="flashTrashBtn" title="Nhóm 1 — hiếm dùng, gạt bỏ">
+                  Không thông dụng
                 </button>
               </div>
             </div>
@@ -1414,26 +1499,32 @@
         });
       });
 
-      const advance = (ok) => {
-        if (ok) known += 1;
-        else learning += 1;
+      const advance = (bucket) => {
+        const w = current();
+        if (!w || !classified[bucket]) return;
+        classified[bucket].push(w);
         idx += 1;
         renderCard();
       };
 
-      const missBtn = document.getElementById("flashMissBtn");
-      const okBtn = document.getElementById("flashOkBtn");
-      missBtn && missBtn.addEventListener("click", () => advance(false));
-      okBtn && okBtn.addEventListener("click", () => advance(true));
+      const knownBtn = document.getElementById("flashKnownBtn");
+      const goldBtn = document.getElementById("flashGoldBtn");
+      const trashBtn = document.getElementById("flashTrashBtn");
+      knownBtn && knownBtn.addEventListener("click", () => advance("known"));
+      goldBtn && goldBtn.addEventListener("click", () => advance("gold"));
+      trashBtn && trashBtn.addEventListener("click", () => advance("trash"));
     };
 
     const restart = (doShuffle) => {
       deck = doShuffle ? shuffle(vocab) : vocab.slice();
       idx = 0;
-      known = 0;
-      learning = 0;
+      classified.known = [];
+      classified.gold = [];
+      classified.trash = [];
       renderCard();
     };
+
+    btnDownload && btnDownload.addEventListener("click", downloadClassified);
 
     btnShuffle &&
       btnShuffle.addEventListener("click", () => {

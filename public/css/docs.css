@@ -2499,6 +2499,51 @@ a.kk-card--biz:hover {
   background: #86efac;
 }
 
+.ex-flash-grade--pareto {
+  grid-template-columns: repeat(3, 1fr);
+  min-height: auto;
+}
+
+.ex-flash-grade-btn--known {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.ex-flash-grade-btn--known:hover {
+  background: #cbd5e1;
+}
+
+.ex-flash-grade-btn--gold {
+  background: #fef08a;
+  color: #854d0e;
+}
+
+.ex-flash-grade-btn--gold:hover {
+  background: #fde047;
+}
+
+.ex-flash-grade-btn--trash {
+  background: #fecaca;
+  color: #991b1b;
+}
+
+.ex-flash-grade-btn--trash:hover {
+  background: #fca5a5;
+}
+
+.ex-flash-done-hint {
+  margin-bottom: 16px !important;
+  font-size: 0.88rem !important;
+  color: rgba(226, 232, 240, 0.55) !important;
+}
+
+.ex-flash-done-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
 .ex-flash-peek {
   position: absolute;
   top: 28px;
@@ -2567,6 +2612,10 @@ a.kk-card--biz:hover {
 
   .ex-flash-grade-btn {
     font-size: 0.84rem;
+  }
+
+  .ex-flash-grade--pareto {
+    grid-template-columns: 1fr;
   }
 }
 
