@@ -15,6 +15,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "public" / "blog" / "english" / "food-drink" / "review-exercise"
+OUT2 = ROOT / "public" / "blog" / "english" / "food-drink" / "review-exercise-2"
 
 _spec = importlib.util.spec_from_file_location(
     "gen_ex", Path(__file__).with_name("_gen_english_exercises.py")
@@ -2231,7 +2232,65 @@ def _lesson3_practice_html() -> str:
     return "\n".join(blocks)
 
 
-def lesson_highlights_html() -> str:
+def food_lesson_examples_html() -> str:
+    """Annotated Food examples (Lesson 2 reasons + Lesson 3 Yes/No) — whiteboard style."""
+    return """
+        <div class="lr-food-examples" id="food-examples">
+          <h3 class="lr-core-subtitle">Ví dụ Food · ráp Yes/No + Reasons</h3>
+          <p class="lr-mm-hint">Cùng một câu hỏi — từ câu ngắn → mở rộng (mệnh đề ↔ <code>because of</code> + NP ↔ <code>can lead to</code>).</p>
+
+          <article class="lr-food-ex-card">
+            <p class="lr-food-ex-q">Do you like fast food?</p>
+            <div class="lr-food-ex-build">
+              <p class="lr-food-ex-core"><span class="lr-mm-tag-no">NO</span> No, definitely not <strong>because</strong> <mark class="lr-ex-mark">it's not good for my health</mark>.</p>
+              <p class="lr-food-ex-note">↔ <code>it is</code> · mệnh đề: <em>because + S + V</em></p>
+              <p class="lr-food-ex-alt">Nâng cấp NP: <em>because of its <strong>harmful effects on my health</strong></em></p>
+              <p class="lr-food-ex-expand"><span class="lr-food-ex-bullet">●</span> Consuming too much fast food <strong>can lead to</strong> various health problems, <strong>such as</strong> diabetes, heart attack, high blood pressure or even cancer.</p>
+            </div>
+            <div class="lr-food-ex-full">
+              <p class="lr-food-ex-en">No, definitely not because it's not good for my health. Consuming too much fast food can lead to various health problems, such as diabetes, heart attack, high blood pressure or even cancer.</p>
+              <p class="lr-food-ex-vi lr-practice-vi">Không, chắc chắn không rồi vì nó không tốt cho sức khỏe của tôi. Tiêu thụ quá nhiều thức ăn nhanh có thể dẫn đến các vấn đề sức khỏe khác nhau, chẳng hạn như bệnh tiểu đường, đau tim, huyết áp cao hoặc thậm chí là ung thư.</p>
+            </div>
+          </article>
+
+          <article class="lr-food-ex-card lr-food-ex-card--yes">
+            <p class="lr-food-ex-q">Do you like cooking?</p>
+            <div class="lr-food-ex-build">
+              <p class="lr-food-ex-core"><span class="lr-mm-tag-yes">YES</span> Yes, definitely. I'm keen on cooking at home <strong>because</strong> <mark class="lr-ex-mark">it's relaxing</mark>.</p>
+              <p class="lr-food-ex-expand"><span class="lr-food-ex-bullet">●</span> It <strong>helps me</strong> unwind and temporarily forget all the pressures from my work. It also <strong>gives me the chance to</strong> try new recipes.</p>
+            </div>
+            <div class="lr-food-ex-full">
+              <p class="lr-food-ex-en">Yes, definitely. I'm keen on cooking at home because it's relaxing. It helps me unwind and temporarily forget all the pressures from my work. It also gives me the chance to try new recipes.</p>
+              <p class="lr-food-ex-vi lr-practice-vi">Vâng, chắc chắn. Tôi thích nấu ăn ở nhà vì nó thư giãn. Nó giúp tôi xả stress và tạm quên áp lực công việc. Cũng cho tôi cơ hội thử công thức mới.</p>
+            </div>
+          </article>
+
+          <article class="lr-food-ex-card lr-food-ex-card--yes">
+            <p class="lr-food-ex-q">Do you like eating vegetables?</p>
+            <div class="lr-food-ex-build">
+              <p class="lr-food-ex-core"><span class="lr-mm-tag-yes">YES</span> Yes, because <mark class="lr-ex-mark">it's a great way to stay healthy</mark> and prevent various health problems.</p>
+              <p class="lr-food-ex-expand"><span class="lr-food-ex-bullet">●</span> It also <strong>helps me</strong> strengthen my muscles.</p>
+            </div>
+            <div class="lr-food-ex-full">
+              <p class="lr-food-ex-en">Yes, definitely, because it's a great way to stay healthy and prevent various health problems. It also helps me strengthen my muscles.</p>
+              <p class="lr-food-ex-vi lr-practice-vi">Vâng — rau giúp giữ dáng, khỏe mạnh và phòng bệnh. Nó cũng giúp tăng cơ bắp.</p>
+            </div>
+          </article>
+        </div>"""
+
+
+def lesson_highlights_html(
+    *,
+    map_suffix: str = "",
+    include_food_examples: bool = False,
+    open_practice: bool = False,
+) -> str:
+    """Lesson 2 + 3 mind maps and dropdown practice.
+
+    map_suffix: unique id suffix when the same maps appear on Review Exercise 2.
+    include_food_examples: annotated Food Yes/No cards (Review Exercise 2).
+    open_practice: expand Lesson 2 dropdown practice by default.
+    """
     relax_ex = (
         "I think because it's a great way to {relax_phrase} — especially when they're tired after work. "
         "{relax_followup}"
@@ -2244,6 +2303,10 @@ def lesson_highlights_html() -> str:
         "Yes, because it's a great way to {health_phrase}. "
         "{health_followup}"
     )
+    m2 = f"lesson2Mindmap{map_suffix}"
+    m3 = f"lesson3Mindmap{map_suffix}"
+    open_attr = " open" if open_practice else ""
+    examples_block = food_lesson_examples_html() if include_food_examples else ""
     return f"""
       <div class="lr-core-lessons">
 
@@ -2256,7 +2319,7 @@ def lesson_highlights_html() -> str:
           <p class="lr-mm-hint">Luồng ráp câu: <strong>① Mở</strong> (I love this…) → <strong>because</strong> → <strong>Nhánh 1</strong> (It's + adj) hoặc <strong>Nhánh 2</strong> (starter + cụm V). Chọn tối đa 1–2 nhánh.</p>
 
 {mind_map_html(
-            "lesson2Mindmap",
+            m2,
             "Lesson 2 · Reasons like / dislike",
             "Reasons",
             "Dislike ↔ Like",
@@ -2286,7 +2349,7 @@ def lesson_highlights_html() -> str:
             </ul>
           </details>
 
-          <details class="lr-formula-details">
+          <details class="lr-formula-details"{open_attr}>
             <summary>Thực hành dropdown · Giải trí / Giáo dục / Sức khỏe</summary>
             <div class="lr-practice-chain lr-chain" data-ex-en="{esc(relax_ex)}">
               <p class="lr-practice-q">Why do people like home-cooked meals?</p>
@@ -2313,7 +2376,7 @@ def lesson_highlights_html() -> str:
           </header>
 
 {mind_map_html(
-            "lesson3Mindmap",
+            m3,
             "Lesson 3 · Do you like X?",
             "Do you like X?",
             "No ↔ Yes + Reasons",
@@ -2325,6 +2388,8 @@ def lesson_highlights_html() -> str:
         )}
 
           <p class="lr-formula-note"><strong>Lưu ý:</strong> <em>because it is not good for my health</em> (mệnh đề) ↔ <em>because of its harmful effects on my health</em> (cụm danh từ)</p>
+
+{examples_block}
 
           <h4 class="lr-core-subtitle">Thực hành · Food &amp; general (dropdown B1/B2)</h4>
           <p class="lr-mm-hint">Chọn từ trong dropdown — câu mẫu cập nhật bên dưới. Ghép cấu trúc Lesson 3 + lý do Lesson 2.</p>
@@ -3785,7 +3850,7 @@ def core_steps_teaser_html() -> str:
             <li><strong>Neo ngữ cảnh</strong> — gắn mỗi từ vào 1 câu mẫu duy nhất (vd. “The street food in Vietnam is just <em>mouth-watering</em>.”), lặp 5–10 lần.</li>
             <li><strong>Khung câu an toàn</strong> — lắp từ vào: <em>I'm a big fan of…</em> · <em>Whenever I have free time, I really love to…</em> · <em>What I like most about…</em></li>
           </ol>
-          <p class="vocab-core-steps-more"><a href="review-exercise/#core-steps">Xem hướng dẫn đầy đủ trong Review Exercise →</a></p>
+          <p class="vocab-core-steps-more"><a href="review-exercise/#core-steps">Xem hướng dẫn đầy đủ trong Review Exercise 1 →</a></p>
         </div>
 """
 
@@ -3815,7 +3880,8 @@ def build_page() -> str:
       <ul class="docs-nav" id="docsNav">
         <li><a href="../../">All topics</a></li>
         <li><a href="../">Food &amp; Drink</a></li>
-        <li><a class="active" href="./">Review Exercise</a></li>
+        <li><a class="active" href="./">Review Exercise 1</a></li>
+        <li><a href="../review-exercise-2/">Review Exercise 2</a></li>
       </ul>
     </aside>
     <article class="docs-main lr-page">
@@ -3824,13 +3890,13 @@ def build_page() -> str:
         <a href="{home}#blogs">Blogs</a><span>›</span>
         <a href="../../">English</a><span>›</span>
         <a href="../">Food &amp; Drink</a><span>›</span>
-        <span>Review Exercise</span>
+        <span>Review Exercise 1</span>
       </div>
 
       <header class="lr-hero">
         <p class="lr-hero-badge">Linear Thinking · Capstone</p>
-        <h1>Food &amp; Drink — Review Exercise</h1>
-        <p class="lede">Sau khi hoàn thành B2, ôn tập theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-speaking" target="_blank" rel="noopener noreferrer">Linear Thinking</a>: ngữ pháp (6 thì) → mental model → cấu trúc Speaking → từ vựng B1/B2 → mock IELTS Part 1/2/3 với dropdown từ thay thế.</p>
+        <h1>Food &amp; Drink — Review Exercise 1</h1>
+        <p class="lede">Sau khi hoàn thành B2, ôn tập theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-speaking" target="_blank" rel="noopener noreferrer">Linear Thinking</a>: ngữ pháp (6 thì) → mental model → cấu trúc Speaking → từ vựng B1/B2 → mock IELTS Part 1/2/3 với dropdown từ thay thế. Chỉ muốn Lesson 2 &amp; 3? Xem <a href="../review-exercise-2/">Review Exercise 2</a>.</p>
         <nav class="lr-toc" aria-label="On this page">
           <a href="#core-steps">Core · 3 bước</a>
           <a href="#natural-vlog">0 · Real talk</a>
@@ -3920,12 +3986,97 @@ def build_page() -> str:
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Review Exercise · Food &amp; Drink — The Quiet Corner</title>
+  <title>Review Exercise 1 · Food &amp; Drink — The Quiet Corner</title>
   <meta name="description" content="Linear Thinking review: grammar, mental models, and IELTS Speaking mock for Food &amp; Drink (B1/B2 focus).">
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr25">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr26">
+</head>
+<body class="docs lr-body">
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <canvas id="matrix-canvas"></canvas>
+  <div class="grid-bg"></div>
+  <header class="docs-topbar">
+    <button class="docs-menu-btn" id="docsMenuBtn" type="button">menu</button>
+    <button class="docs-sidebar-toggle" id="docsSidebarToggle" type="button" aria-expanded="true" title="Thu thanh điều hướng">nav ◂</button>
+    <a class="docs-brand" href="{home}"><span>✦</span> The Quiet Corner <span>✦</span></a>
+    <nav class="docs-series">
+      <a href="{home}blog/web-security/">DevSecOps</a>
+      <a href="{home}blog/kubestronaut/">Kubestronaut</a>
+      <a class="active" href="../../">English</a>
+      <a href="{home}blog/tech-hub/">Tech Hub</a>
+    </nav>
+    <span class="docs-topbar-spacer"></span>
+    <a class="docs-top-link" href="{home}#blogs">blogs</a>
+  </header>
+  <div class="docs-shell docs-shell--wide">
+{body}
+  </div>
+  <script src="{home}js/docs.js?v=lr22"></script>
+  <script src="{home}js/linear-review.js?v=lr22"></script>
+</body>
+</html>"""
+
+
+def build_page_review2() -> str:
+    """Focused page: Lesson 2 & 3 mind maps + Food examples + dropdown practice only."""
+    home = "../../../../"  # review-exercise-2/ → public/
+    slots_json = json.dumps(WORD_SLOTS, ensure_ascii=False)
+
+    body = f"""    <aside class="docs-sidebar" id="docsSidebar" data-nav="english" data-docs-root="../../" data-active="food-drink">
+      <div class="docs-nav-label">English</div>
+      <ul class="docs-nav" id="docsNav">
+        <li><a href="../../">All topics</a></li>
+        <li><a href="../">Food &amp; Drink</a></li>
+        <li><a href="../review-exercise/">Review Exercise 1</a></li>
+        <li><a class="active" href="./">Review Exercise 2</a></li>
+      </ul>
+    </aside>
+    <article class="docs-main lr-page">
+      <div class="docs-breadcrumb">
+        <a href="{home}">Home</a><span>›</span>
+        <a href="{home}#blogs">Blogs</a><span>›</span>
+        <a href="../../">English</a><span>›</span>
+        <a href="../">Food &amp; Drink</a><span>›</span>
+        <span>Review Exercise 2</span>
+      </div>
+
+      <header class="lr-hero">
+        <p class="lr-hero-badge">Linear Thinking · Lesson 2 &amp; 3</p>
+        <h1>Food &amp; Drink — Review Exercise 2</h1>
+        <p class="lede">Chỉ <strong>Lesson 2</strong> (Reasons like/dislike) + <strong>Lesson 3</strong> (Do you like X?). Hai sơ đồ tư duy → ví dụ Food → dropdown thực hành. Full capstone (ngữ pháp, mock…): <a href="../review-exercise/">Review Exercise 1</a>.</p>
+        <nav class="lr-toc" aria-label="On this page">
+          <a href="#lesson2-formulas">Lesson 2 · Reasons</a>
+          <a href="#lesson3-formulas">Lesson 3 · Do you like X?</a>
+          <a href="#food-examples">Ví dụ Food</a>
+        </nav>
+        <div class="ex-toolbar lr-toolbar lr-toolbar--hero">
+          <label class="ex-toggle"><input type="checkbox" id="togVi" /> Vietnamese</label>
+        </div>
+      </header>
+
+      <section class="lr-section" id="lessons">
+        <h2>Core formulas — Lesson 2 &amp; 3</h2>
+        <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — chọn <strong>1–2 nhánh</strong>, không nhồi hết. Dropdown bên dưới để thay từ B1/B2.</p>
+{lesson_highlights_html(map_suffix="R2", include_food_examples=True, open_practice=True)}
+      </section>
+
+      <script type="application/json" id="lrWordSlots">{slots_json}</script>
+    </article>"""
+
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review Exercise 2 · Food &amp; Drink — The Quiet Corner</title>
+  <meta name="description" content="Lesson 2 &amp; 3 only: Reasons like/dislike mind maps, Food examples, and dropdown practice for Food &amp; Drink.">
+  <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr26">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -3957,17 +4108,35 @@ def build_page() -> str:
 def patch_topic_index() -> None:
     path = ROOT / "public" / "blog" / "english" / "food-drink" / "index.html"
     text = path.read_text(encoding="utf-8")
+    review_icon = (
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72' fill='none'%3E"
+        "%3Crect width='72' height='72' rx='14' fill='%231a1033'/%3E"
+        "%3Ccircle cx='36' cy='36' r='22' stroke='%23a78bfa' stroke-width='2.5'/%3E"
+        "%3Cpath d='M36 20v16l10 8' stroke='%2322d3ee' stroke-width='2.5' stroke-linecap='round'/%3E"
+        "%3Cpath d='M22 48h28' stroke='%23e4e4e7' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"
+    )
+    review2_icon = (
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72' fill='none'%3E"
+        "%3Crect width='72' height='72' rx='14' fill='%23101828'/%3E"
+        "%3Ccircle cx='36' cy='36' r='18' stroke='%2334d399' stroke-width='2.5'/%3E"
+        "%3Cpath d='M24 36h24M36 24v24' stroke='%2367e8f9' stroke-width='2.5' stroke-linecap='round'/%3E"
+        "%3C/svg%3E"
+    )
     review_section = f"""
       <section class="vocab-level vocab-level--review" id="review">
         <div class="vocab-level__head">
           <span class="vocab-level__badge vocab-level__badge--review">Review</span>
           <h2>Linear Thinking · Capstone exercise</h2>
         </div>
-        <p class="vocab-level__desc">Sau B2 — ôn ngữ pháp (6 thì), mental model, cấu trúc Speaking, và mock IELTS Part 1/2/3 (từ vựng B1/B2, dropdown thay từ). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
+        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — chỉ Lesson 2 &amp; 3 (mind map + ví dụ Food + dropdown). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
         <div class="vocab-lesson-grid">
           <a class="vocab-lesson-card vocab-lesson-card--review" href="review-exercise/">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72' fill='none'%3E%3Crect width='72' height='72' rx='14' fill='%231a1033'/%3E%3Ccircle cx='36' cy='36' r='22' stroke='%23a78bfa' stroke-width='2.5'/%3E%3Cpath d='M36 20v16l10 8' stroke='%2322d3ee' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M22 48h28' stroke='%23e4e4e7' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E" alt="" width="72" height="72" loading="lazy">
-            <span>Review Exercise</span>
+            <img src="{review_icon}" alt="" width="72" height="72" loading="lazy">
+            <span>Review Exercise 1</span>
+          </a>
+          <a class="vocab-lesson-card vocab-lesson-card--review" href="review-exercise-2/">
+            <img src="{review2_icon}" alt="" width="72" height="72" loading="lazy">
+            <span>Review Exercise 2</span>
           </a>
         </div>
 {core_steps_teaser_html()}
@@ -3999,9 +4168,12 @@ def patch_topic_index() -> None:
 
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
+    OUT2.mkdir(parents=True, exist_ok=True)
     (OUT / "index.html").write_text(build_page(), encoding="utf-8")
+    (OUT2 / "index.html").write_text(build_page_review2(), encoding="utf-8")
     patch_topic_index()
     print("Wrote", OUT / "index.html")
+    print("Wrote", OUT2 / "index.html")
     print("Patched food-drink/index.html with Review section")
 
 
