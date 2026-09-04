@@ -490,20 +490,19 @@
         const blocks = [];
 
         source.querySelectorAll(".lr-scroll-qa").forEach((qa) => {
+          const cardQ = qa.closest(".lr-food-ex-card")?.querySelector(".lr-food-ex-q");
           const qEl =
             qa.querySelector(".lr-scroll-q") ||
             qa.querySelector(".lr-practice-q") ||
-            qa.querySelector(".lr-food-ex-q");
+            cardQ;
           const ans =
             qa.querySelector(".lr-answer-text") ||
             qa.querySelector(".lr-practice-flow");
           if (!ans) return;
-          let qText = qEl ? qEl.textContent.replace(/\s+/g, " ").trim() : "";
-          if (qEl && qEl.hasAttribute("hidden") && qa.closest(".lr-food-ex-card")) {
-            const cardQ = qa.closest(".lr-food-ex-card")?.querySelector(".lr-food-ex-q");
-            const tag = qa.dataset.tag || "";
-            qText = `${cardQ ? cardQ.textContent.trim() : ""} · ${tag}`.trim();
-          }
+          // English question only — never append Thích / Không thích
+          let qText = "";
+          if (cardQ) qText = cardQ.textContent.replace(/\s+/g, " ").trim();
+          else if (qEl) qText = qEl.textContent.replace(/\s+/g, " ").trim();
           if (qText) {
             blocks.push(`<p class="scroll-line scroll-line--q">${escapeHtml(qText)}</p>`);
           }
@@ -585,24 +584,17 @@
       const copyText = () => {
         const parts = [];
         source.querySelectorAll(".lr-scroll-qa").forEach((qa) => {
-          const qEl =
-            qa.querySelector(".lr-scroll-q:not([hidden])") ||
-            qa.querySelector(".lr-practice-q") ||
-            qa.closest(".lr-food-ex-card")?.querySelector(".lr-food-ex-q");
+          const cardQ = qa.closest(".lr-food-ex-card")?.querySelector(".lr-food-ex-q");
           const ans =
             qa.querySelector(".lr-answer-text") ||
             qa.querySelector(".lr-practice-flow");
           if (!ans) return;
-          let qText = qEl ? qEl.textContent.replace(/\s+/g, " ").trim() : "";
-          if (qa.dataset.tag && qa.closest(".lr-food-ex-card")) {
-            const cardQ = qa.closest(".lr-food-ex-card")?.querySelector(".lr-food-ex-q");
-            qText = `${cardQ ? cardQ.textContent.trim() : ""} · ${qa.dataset.tag}`;
-          }
+          // Clean English only — no Thích/Không thích, no IPA, no Vietnamese
+          const qText = cardQ
+            ? cardQ.textContent.replace(/\s+/g, " ").trim()
+            : "";
           if (qText) parts.push(qText);
           parts.push(plainFromAnswer(ans));
-          if (showIpaTog && showIpaTog.checked && qa.dataset.ipaFull) {
-            parts.push(qa.dataset.ipaFull);
-          }
         });
         return parts.filter(Boolean).join("\n\n");
       };

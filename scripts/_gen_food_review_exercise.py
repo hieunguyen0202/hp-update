@@ -1513,13 +1513,14 @@ def slot_select(slot_id: str, default_idx: int = 0, *, kind: str = "vocab") -> s
     idx = min(default_idx, len(opts) - 1)
     extra_cls = " lr-idiom-pick" if kind == "idiom" else ""
     options = "\n".join(
-        f'<option value="{esc(o["form"])}"{" selected" if i == idx else ""}>'
-        f'{esc(o["form"])} — {esc(o["vi"])}</option>'
+        f'<option value="{esc(o["form"])}" title="{esc(o["vi"])}"'
+        f'{" selected" if i == idx else ""}>{esc(o["form"])}</option>'
         for i, o in enumerate(opts)
     )
     return (
         f'<select class="lr-word-pick{extra_cls}" data-slot="{esc(slot_id)}" '
-        f'data-kind="{esc(kind)}" aria-label="Choose {"idiom or phrase" if kind == "idiom" else "vocabulary"}">'
+        f'data-kind="{esc(kind)}" title="Hover option · nghĩa VI" '
+        f'aria-label="Choose {"idiom or phrase" if kind == "idiom" else "vocabulary"}">'
         f"{options}</select>"
     )
 
@@ -2274,24 +2275,21 @@ def speaking_lessons_html() -> str:
 
 
 def cloze(en: str, vi: str, ipa: str = "") -> str:
-    """Mark a phrase as cloze for Scroll-read structure practice."""
-    tip = vi
-    if ipa:
-        tip = f"{vi} · /{ipa}/"
+    """Cloze span for Scroll-read only — no hover tip (paragraph tip is on the whole line)."""
     return (
-        f'<span class="lr-cloze lr-tip" data-en="{esc(en)}" data-vi="{esc(vi)}" '
-        f'data-ipa="{esc(ipa)}" data-tip="{esc(tip)}" title="{esc(tip)}">{esc(en)}</span>'
+        f'<span class="lr-cloze" data-en="{esc(en)}" data-vi="{esc(vi)}" '
+        f'data-ipa="{esc(ipa)}">{esc(en)}</span>'
     )
 
 
 def lesson_scroll_read_html(uid: str, *, title: str, source_sel: str) -> str:
-    """Per-lesson teleprompter: structure blanks + VI/IPA hints + copy for NaturalReader."""
+    """Per-lesson teleprompter: structure blanks + VI/IPA hints + copy EN for NaturalReader."""
     return f"""
         <section class="ex-scroll lr-scroll-read lr-lesson-scroll" id="scroll-{esc(uid)}" data-scroll-uid="{esc(uid)}" data-scroll-source="{esc(source_sel)}" aria-label="{esc(title)}">
           <div class="ex-scroll-head">
             <div>
               <h3>Scroll read · speaking · {esc(title)}</h3>
-              <p class="ex-scroll-hint">Teleprompter luyện nói. Tắt <strong>Hiện từ EN</strong> để chỉ thấy khung + gợi ý VI/IPA (vd. <em>it's a great way to ______</em>). Bật <strong>Hiện IPA đoạn</strong> để đọc phiên âm cả câu. <strong>Copy</strong> → dán vào NaturalReader.</p>
+              <p class="ex-scroll-hint">Teleprompter luyện nói — chỉ tiếng Anh. Tắt <strong>Hiện từ EN</strong> để thấy khung + gợi ý VI. Bật <strong>Hiện IPA đoạn</strong> để xem phiên âm. <strong>Copy</strong> = Q + A tiếng Anh sạch (NaturalReader).</p>
             </div>
             <button type="button" class="ex-btn primary js-scroll-copy">Copy for NaturalReader</button>
           </div>
@@ -2323,363 +2321,313 @@ def lesson_scroll_read_html(uid: str, *, title: str, source_sel: str) -> str:
         </section>"""
 
 
+def _pair_answer_html(
+    *,
+    kind: str,
+    en_html: str,
+    vi: str,
+    plain: str,
+    ipa: str,
+    q: str,
+    ex_en: str = "",
+) -> str:
+    """One Thích / Không thích line — whole-paragraph VI tooltip (no IPA)."""
+    tag = "Thích" if kind == "yes" else "Không thích"
+    tag_cls = "lr-mm-tag-yes" if kind == "yes" else "lr-mm-tag-no"
+    chain = " lr-practice-chain lr-chain" if ex_en else ""
+    ex_attr = f' data-ex-en="{esc(ex_en)}"' if ex_en else ""
+    return f"""              <div class="lr-scroll-qa{chain}" data-ipa-full="{esc(ipa)}"{ex_attr}>
+                <p class="lr-scroll-q" hidden>{esc(q)}</p>
+                <p class="lr-food-ex-line lr-tip lr-answer-text" data-tip="{esc(vi)}" title="{esc(vi)}" data-plain="{esc(plain)}">
+                  <span class="{tag_cls}">{tag}</span>
+                  <span class="lr-tip-text">{en_html}</span>
+                </p>
+                <p class="lr-practice-en lr-chain-ex-text" hidden></p>
+              </div>"""
+
+
 def food_lesson_examples_html() -> str:
-    """Food Yes/No pairs — full IELTS-length answers; VI via hover; cloze for scroll."""
-    items = [
-        {
-            "q": "Do you like cooking?",
-            "yes_en": (
-                f"Yes, definitely. I'm keen on cooking at home because it's relaxing. "
-                f"It helps me {cloze('unwind and temporarily forget all the pressures from my work', 'thư giãn và tạm quên mọi áp lực công việc', 'ʌnˈwaɪnd ænd ˈtempərerəli fərˈget ɔːl ðə ˈpreʃərz frəm maɪ wɜːk')}. "
-                f"It also {cloze('gives me the chance to try new recipes', 'cho tôi cơ hội thử công thức mới', 'ɡɪvz miː ðə tʃɑːns tuː traɪ njuː ˈresəpiz')}."
-            ),
-            "yes_plain": (
-                "Yes, definitely. I'm keen on cooking at home because it's relaxing. "
-                "It helps me unwind and temporarily forget all the pressures from my work. "
-                "It also gives me the chance to try new recipes."
-            ),
-            "yes_vi": (
-                "Vâng, chắc chắn. Tôi thích nấu ăn ở nhà vì nó thư giãn. "
-                "Nó giúp tôi xả stress và tạm quên mọi áp lực công việc. "
-                "Cũng cho tôi cơ hội thử công thức mới."
-            ),
-            "yes_ipa": (
-                "/jes ˈdefɪnətli · aɪm kiːn ɒn ˈkʊkɪŋ ət həʊm bɪˈkɒz ɪts rɪˈlæksɪŋ · "
-                "ɪt helps miː ʌnˈwaɪnd ænd ˈtempərerəli fərˈget ɔːl ðə ˈpreʃərz frəm maɪ wɜːk · "
-                "ɪt ˈɔːlsəʊ ɡɪvz miː ðə tʃɑːns tuː traɪ njuː ˈresəpiz/"
-            ),
-            "no_en": (
-                f"No, because it makes me exhausted and "
-                f"{cloze('I have to deal with the same tasks every day', 'tôi phải làm những công việc giống nhau mỗi ngày', 'aɪ hæv tuː diːl wɪð ðə seɪm tɑːsks ˈevri deɪ')}. "
-                f"{cloze('It doesn\'t give me the chance to try anything new', 'Nó không cho tôi cơ hội thử điều gì mới', 'ɪt ˈdʌznt ɡɪv miː ðə tʃɑːns tuː traɪ ˈeniθɪŋ njuː')}."
-            ),
-            "no_plain": (
-                "No, because it makes me exhausted and I have to deal with the same tasks every day. "
-                "It doesn't give me the chance to try anything new."
-            ),
-            "no_vi": (
-                "Không, vì nó khiến tôi kiệt sức và tôi phải làm những công việc giống nhau mỗi ngày. "
-                "Nó không cho tôi cơ hội thử điều gì mới."
-            ),
-            "no_ipa": (
-                "/nəʊ bɪˈkɒz ɪt meɪks miː ɪɡˈzɔːstɪd ænd aɪ hæv tuː diːl wɪð ðə seɪm tɑːsks ˈevri deɪ · "
-                "ɪt ˈdʌznt ɡɪv miː ðə tʃɑːns tuː traɪ ˈeniθɪŋ njuː/"
-            ),
-        },
-        {
-            "q": "Do you like fast food?",
-            "yes_en": (
-                f"Yes, occasionally — it's convenient when I'm busy and "
-                f"{cloze('it helps me unwind after a long day', 'nó giúp tôi thư giãn sau một ngày dài', 'ɪt helps miː ʌnˈwaɪnd ˈɑːftə ə lɒŋ deɪ')}. "
-                f"Grabbing a bite with friends is also {cloze('a great way to escape from reality for a while', 'cách tuyệt vời để thoát khỏi thực tại một lúc', 'ə ɡreɪt weɪ tuː ɪˈskeɪp frəm riˈæləti fər ə waɪl')}."
-            ),
-            "yes_plain": (
-                "Yes, occasionally — it's convenient when I'm busy and it helps me unwind after a long day. "
-                "Grabbing a bite with friends is also a great way to escape from reality for a while."
-            ),
-            "yes_vi": (
-                "Có, thỉnh thoảng — tiện khi tôi bận và giúp tôi thư giãn sau một ngày dài. "
-                "Ăn vội với bạn cũng là cách tuyệt vời để thoát khỏi thực tại một lúc."
-            ),
-            "yes_ipa": (
-                "/jes əˈkeɪʒənəli · ɪts kənˈviːniənt wen aɪm ˈbɪzi ænd ɪt helps miː ʌnˈwaɪnd ˈɑːftə ə lɒŋ deɪ · "
-                "ˈɡræbɪŋ ə baɪt wɪð frendz ɪz ˈɔːlsəʊ ə ɡreɪt weɪ tuː ɪˈskeɪp frəm riˈæləti fər ə waɪl/"
-            ),
-            "no_en": (
-                f"No, definitely not because "
-                f"{cloze('it\'s not good for my health', 'nó không tốt cho sức khỏe của tôi', 'ɪts nɒt ɡʊd fɔː maɪ helθ')}. "
-                f"Consuming too much fast food "
-                f"{cloze('can lead to various health problems, such as diabetes, heart attack, high blood pressure or even cancer', 'có thể dẫn đến nhiều vấn đề sức khỏe như tiểu đường, đau tim, huyết áp cao hoặc thậm chí ung thư', 'kæn liːd tuː ˈveəriəs helθ ˈprɒbləmz sʌtʃ æz ˌdaɪəˈbiːtiːz hɑːt əˈtæk haɪ blʌd ˈpreʃə ɔːr ˈiːvən ˈkænsə')}."
-            ),
-            "no_plain": (
-                "No, definitely not because it's not good for my health. "
-                "Consuming too much fast food can lead to various health problems, such as diabetes, heart attack, high blood pressure or even cancer."
-            ),
-            "no_vi": (
-                "Không, chắc chắn không rồi vì nó không tốt cho sức khỏe của tôi. "
-                "Tiêu thụ quá nhiều thức ăn nhanh có thể dẫn đến các vấn đề sức khỏe khác nhau, "
-                "chẳng hạn như bệnh tiểu đường, đau tim, huyết áp cao hoặc thậm chí là ung thư."
-            ),
-            "no_ipa": (
-                "/nəʊ ˈdefɪnətli nɒt bɪˈkɒz ɪts nɒt ɡʊd fɔː maɪ helθ · "
-                "kənˈsjuːmɪŋ tuː mʌtʃ fɑːst fuːd kæn liːd tuː ˈveəriəs helθ ˈprɒbləmz · "
-                "sʌtʃ æz ˌdaɪəˈbiːtiːz · hɑːt əˈtæk · haɪ blʌd ˈpreʃə ɔːr ˈiːvən ˈkænsə/"
-            ),
-        },
-        {
-            "q": "Do you like eating vegetables?",
-            "yes_en": (
-                f"Yes, definitely, because "
-                f"{cloze('it\'s a great way to stay healthy and prevent various health problems', 'đó là cách tuyệt vời để giữ khỏe và phòng nhiều bệnh', 'ɪts ə ɡreɪt weɪ tuː steɪ ˈhelθi ænd prɪˈvent ˈveəriəs helθ ˈprɒbləmz')}. "
-                f"{cloze('It also helps me strengthen my muscles', 'Nó cũng giúp tôi tăng cường cơ bắp', 'ɪt ˈɔːlsəʊ helps miː ˈstreŋθən maɪ ˈmʌslz')}."
-            ),
-            "yes_plain": (
-                "Yes, definitely, because it's a great way to stay healthy and prevent various health problems. "
-                "It also helps me strengthen my muscles."
-            ),
-            "yes_vi": (
-                "Vâng — rau giúp giữ dáng, khỏe mạnh và phòng bệnh. Nó cũng giúp tăng cơ bắp."
-            ),
-            "yes_ipa": (
-                "/jes ˈdefɪnətli bɪˈkɒz ɪts ə ɡreɪt weɪ tuː steɪ ˈhelθi ænd prɪˈvent ˈveəriəs helθ ˈprɒbləmz · "
-                "ɪt ˈɔːlsəʊ helps miː ˈstreŋθən maɪ ˈmʌslz/"
-            ),
-            "no_en": (
-                f"No, not really — plain vegetables "
-                f"{cloze('aren\'t my cup of tea', 'không phải sở thích của tôi', 'ɑːnt maɪ kʌp əv tiː')} "
-                f"and {cloze('they don\'t give me richer flavours', 'chúng không mang lại hương vị phong phú', 'ðeɪ dəʊnt ɡɪv miː ˈrɪtʃə ˈfleɪvəz')}."
-            ),
-            "no_plain": (
-                "No, not really — plain vegetables aren't my cup of tea and they don't give me richer flavours."
-            ),
-            "no_vi": (
-                "Không thực sự — rau nhạt không phải sở thích của tôi và không mang lại hương vị phong phú."
-            ),
-            "no_ipa": (
-                "/nəʊ nɒt ˈrɪəli · pleɪn ˈvedʒtəblz ɑːnt maɪ kʌp əv tiː ænd ðeɪ dəʊnt ɡɪv miː ˈrɪtʃə ˈfleɪvəz/"
-            ),
-        },
-        {
-            "q": "Do you like trying new cuisines?",
-            "yes_en": (
-                f"Yes, absolutely. I'm a big fan of trying new cuisines because it helps me "
-                f"{cloze('widen my horizons and enrich my knowledge', 'mở rộng tầm nhìn và làm giàu kiến thức', 'ˈwaɪdn maɪ həˈraɪznz ænd ɪnˈrɪtʃ maɪ ˈnɒlɪdʒ')}. "
-                f"It also {cloze('gives me the chance to explore different cultures and traditions', 'cho tôi cơ hội khám phá văn hóa và truyền thống khác nhau', 'ɡɪvz miː ðə tʃɑːns tuː ɪkˈsplɔː ˈdɪfrənt ˈkʌltʃəz ænd trəˈdɪʃnz')}."
-            ),
-            "yes_plain": (
-                "Yes, absolutely. I'm a big fan of trying new cuisines because it helps me "
-                "widen my horizons and enrich my knowledge. "
-                "It also gives me the chance to explore different cultures and traditions."
-            ),
-            "yes_vi": (
-                "Có, chắc chắn. Tôi rất thích thử ẩm thực mới vì giúp mở rộng tầm nhìn và làm giàu kiến thức. "
-                "Cũng cho tôi cơ hội khám phá những văn hóa và truyền thống khác nhau."
-            ),
-            "yes_ipa": (
-                "/jes ˌæbsəˈluːtli · aɪm ə bɪɡ fæn əv ˈtraɪɪŋ njuː kwɪˈziːnz bɪˈkɒz ɪt helps miː "
-                "ˈwaɪdn maɪ həˈraɪznz ænd ɪnˈrɪtʃ maɪ ˈnɒlɪdʒ/"
-            ),
-            "no_en": (
-                f"Well, not really — I'm not keen on unfamiliar food because "
-                f"{cloze('it doesn\'t help me relax when I eat out', 'nó không giúp tôi thư giãn khi ăn ngoài', 'ɪt ˈdʌznt help miː rɪˈlæks wen aɪ iːt aʊt')}."
-            ),
-            "no_plain": (
-                "Well, not really — I'm not keen on unfamiliar food because it doesn't help me relax when I eat out."
-            ),
-            "no_vi": (
-                "Không thực sự — tôi không thích món lạ vì khi ăn ngoài nó không giúp tôi thư giãn."
-            ),
-            "no_ipa": (
-                "/wel nɒt ˈrɪəli · aɪm nɒt kiːn ɒn ʌnfəˈmɪliə fuːd bɪˈkɒz ɪt ˈdʌznt help miː rɪˈlæks wen aɪ iːt aʊt/"
-            ),
-        },
-        {
-            "q": "Do you like seafood?",
-            "yes_en": (
-                f"Yes, absolutely. I enjoy eating seafood because "
-                f"{cloze('grabbing a bite with friends is a great way to unwind', 'ăn vội với bạn là cách thư giãn tuyệt vời', 'ˈɡræbɪŋ ə baɪt wɪð frendz ɪz ə ɡreɪt weɪ tuː ʌnˈwaɪnd')}. "
-                f"It also {cloze('gives me the chance to try new dishes', 'cho tôi cơ hội thử món mới', 'ɡɪvz miː ðə tʃɑːns tuː traɪ njuː ˈdɪʃɪz')}."
-            ),
-            "yes_plain": (
-                "Yes, absolutely. I enjoy eating seafood because grabbing a bite with friends is a great way to unwind. "
-                "It also gives me the chance to try new dishes."
-            ),
-            "yes_vi": (
-                "Có, chắc chắn. Tôi thích hải sản vì ăn vội với bạn bè là cách thư giãn tuyệt vời. "
-                "Cũng cho tôi cơ hội thử món mới."
-            ),
-            "yes_ipa": (
-                "/jes ˌæbsəˈluːtli · aɪ ɪnˈdʒɔɪ ˈiːtɪŋ ˈsiːfuːd bɪˈkɒz ˈɡræbɪŋ ə baɪt wɪð frendz ɪz ə ɡreɪt weɪ tuː ʌnˈwaɪnd/"
-            ),
-            "no_en": (
-                f"No, not really — seafood "
-                f"{cloze('isn\'t my cup of tea', 'không phải sở thích của tôi', 'ˈɪznt maɪ kʌp əv tiː')} "
-                f"and I'm worried it {cloze('can lead to allergies', 'có thể dẫn đến dị ứng', 'kæn liːd tuː ˈælədʒiz')}."
-            ),
-            "no_plain": (
-                "No, not really — seafood isn't my cup of tea and I'm worried it can lead to allergies."
-            ),
-            "no_vi": (
-                "Không thực sự — hải sản không phải sở thích của tôi và tôi lo nó có thể gây dị ứng."
-            ),
-            "no_ipa": (
-                "/nəʊ nɒt ˈrɪəli · ˈsiːfuːd ˈɪznt maɪ kʌp əv tiː ænd aɪm ˈwʌrid ɪt kæn liːd tuː ˈælədʒiz/"
-            ),
-        },
-    ]
+    """Unified Food cards: every Q has Thích + Không thích (format hình 1). Dropdowns merged in."""
+    items = []
+
+    # ── cooking (examples + Food & general dropdowns on YES) ──
+    cook_yes_tpl = (
+        "Yes, definitely. I'm keen on cooking {cuisine} at home because it gives me "
+        "the chance to try new recipes and {relax_phrase}. {relax_followup}"
+    )
+    cook_yes_html = cook_yes_tpl.format(
+        cuisine=slot_select("cuisine"),
+        relax_phrase=phrase_pick("relax_phrase"),
+        relax_followup=phrase_pick("relax_followup", 0),
+    )
+    cook_yes_plain = (
+        "Yes, definitely. I'm keen on cooking cuisine at home because it gives me "
+        "the chance to try new recipes and unwind and recharge their batteries. "
+        "Being in the kitchen also helps them temporarily forget all the pressures from their work."
+    )
+    cook_no_html = (
+        "No, because it makes me exhausted and "
+        + cloze("I have to deal with the same tasks every day", "tôi phải làm những công việc giống nhau mỗi ngày")
+        + ". "
+        + cloze("It doesn't give me the chance to try anything new", "Nó không cho tôi cơ hội thử điều gì mới")
+        + "."
+    )
+    items.append({
+        "q": "Do you like cooking?",
+        "yes_html": cook_yes_html,
+        "yes_vi": "Vâng, chắc chắn. Tôi thích nấu ăn ở nhà vì được thử công thức mới và thư giãn; ở bếp cũng giúp tạm quên áp lực công việc.",
+        "yes_plain": cook_yes_plain,
+        "yes_ipa": "/jes ˈdefɪnətli · aɪm kiːn ɒn ˈkʊkɪŋ ət həʊm…/",
+        "yes_ex": cook_yes_tpl,
+        "no_html": cook_no_html,
+        "no_vi": "Không, vì nó khiến tôi kiệt sức và tôi phải làm những công việc giống nhau mỗi ngày. Nó không cho tôi cơ hội thử điều gì mới.",
+        "no_plain": "No, because it makes me exhausted and I have to deal with the same tasks every day. It doesn't give me the chance to try anything new.",
+        "no_ipa": "/nəʊ bɪˈkɒz ɪt meɪks miː ɪɡˈzɔːstɪd…/",
+        "no_ex": "",
+    })
+
+    # ── fast food ──
+    ff_no_tpl = (
+        "No, definitely not because it's not good for my health. Consuming too much "
+        "{slang_food} and greasy {dessert} can lead to various health problems, "
+        "such as diabetes, heart attack, high blood pressure or even cancer."
+    )
+    ff_no_html = ff_no_tpl.format(
+        slang_food=idiom_pick("slang_food"),
+        dessert=slot_select("dessert"),
+    )
+    ff_yes_html = (
+        "Yes, occasionally — it's convenient when I'm busy and "
+        + cloze("it helps me unwind after a long day", "nó giúp tôi thư giãn sau một ngày dài")
+        + ". Grabbing a bite with friends is also "
+        + cloze("a great way to escape from reality for a while", "cách tuyệt vời để thoát khỏi thực tại một lúc")
+        + "."
+    )
+    items.append({
+        "q": "Do you like fast food?",
+        "yes_html": ff_yes_html,
+        "yes_vi": "Có, thỉnh thoảng — tiện khi tôi bận và giúp thư giãn sau ngày dài. Ăn vội với bạn cũng giúp thoát khỏi thực tại một lúc.",
+        "yes_plain": "Yes, occasionally — it's convenient when I'm busy and it helps me unwind after a long day. Grabbing a bite with friends is also a great way to escape from reality for a while.",
+        "yes_ipa": "/jes əˈkeɪʒənəli…/",
+        "yes_ex": "",
+        "no_html": ff_no_html,
+        "no_vi": "Không, chắc chắn không rồi vì nó không tốt cho sức khỏe của tôi. Tiêu thụ quá nhiều thức ăn nhanh có thể dẫn đến các vấn đề sức khỏe khác nhau, chẳng hạn như bệnh tiểu đường, đau tim, huyết áp cao hoặc thậm chí là ung thư.",
+        "no_plain": "No, definitely not because it's not good for my health. Consuming too much pig out and greasy cheesecake can lead to various health problems, such as diabetes, heart attack, high blood pressure or even cancer.",
+        "no_ipa": "/nəʊ ˈdefɪnətli nɒt…/",
+        "no_ex": ff_no_tpl,
+    })
+
+    # ── vegetables ──
+    veg_yes_tpl = (
+        "Yes, definitely, because it's a great way to {health_phrase}. "
+        "{health_followup}"
+    )
+    veg_yes_html = veg_yes_tpl.format(
+        health_phrase=phrase_pick("health_phrase"),
+        health_followup=phrase_pick("health_followup", 0),
+    )
+    veg_no_html = (
+        "No, not really — plain vegetables "
+        + cloze("aren't my cup of tea", "không phải sở thích của tôi")
+        + " and "
+        + cloze("they don't give me richer flavours", "chúng không mang lại hương vị phong phú")
+        + "."
+    )
+    items.append({
+        "q": "Do you like eating vegetables?",
+        "yes_html": veg_yes_html,
+        "yes_vi": "Vâng — rau giúp giữ dáng, khỏe mạnh và phòng bệnh. Nó cũng giúp tăng cơ bắp.",
+        "yes_plain": "Yes, definitely, because it's a great way to stay healthy and prevent various health problems. It also helps them strengthen their muscles.",
+        "yes_ipa": "/jes ˈdefɪnətli…/",
+        "yes_ex": veg_yes_tpl,
+        "no_html": veg_no_html,
+        "no_vi": "Không thực sự — rau nhạt không phải sở thích của tôi và không mang lại hương vị phong phú.",
+        "no_plain": "No, not really — plain vegetables aren't my cup of tea and they don't give me richer flavours.",
+        "no_ipa": "/nəʊ nɒt ˈrɪəli…/",
+        "no_ex": "",
+    })
+
+    # ── new cuisines ──
+    cui_yes_tpl = (
+        "Yes, absolutely. I'm a big fan of {cuisine} from different cultures. "
+        "This is because it helps me {edu_phrase}."
+    )
+    cui_yes_html = cui_yes_tpl.format(
+        cuisine=slot_select("cuisine"),
+        edu_phrase=phrase_pick("edu_phrase"),
+    )
+    cui_no_html = (
+        "Well, not really — I'm not keen on unfamiliar food because "
+        + cloze("it doesn't help me relax when I eat out", "nó không giúp tôi thư giãn khi ăn ngoài")
+        + "."
+    )
+    items.append({
+        "q": "Do you like trying new cuisines?",
+        "yes_html": cui_yes_html,
+        "yes_vi": "Có, chắc chắn. Tôi rất thích ẩm thực đa dạng vì giúp mở rộng kiến thức.",
+        "yes_plain": "Yes, absolutely. I'm a big fan of cuisine from different cultures. This is because it helps me learn how to manage my diet better and make healthier choices.",
+        "yes_ipa": "/jes ˌæbsəˈluːtli…/",
+        "yes_ex": cui_yes_tpl,
+        "no_html": cui_no_html,
+        "no_vi": "Không thực sự — tôi không thích món lạ vì khi ăn ngoài nó không giúp tôi thư giãn.",
+        "no_plain": "Well, not really — I'm not keen on unfamiliar food because it doesn't help me relax when I eat out.",
+        "no_ipa": "/wel nɒt ˈrɪəli…/",
+        "no_ex": "",
+    })
+
+    # ── seafood ──
+    sea_yes_tpl = (
+        "Yes, absolutely. I enjoy eating {seafood} and {meat} because "
+        "{phrase_food} with friends is a great way to unwind."
+    )
+    sea_yes_html = sea_yes_tpl.format(
+        seafood=slot_select("seafood"),
+        meat=slot_select("meat"),
+        phrase_food=phrase_pick("phrase_food"),
+    )
+    sea_no_html = (
+        "No, not really — seafood "
+        + cloze("isn't my cup of tea", "không phải sở thích của tôi")
+        + " and I'm worried it "
+        + cloze("can lead to allergies", "có thể dẫn đến dị ứng")
+        + "."
+    )
+    items.append({
+        "q": "Do you like seafood?",
+        "yes_html": sea_yes_html,
+        "yes_vi": "Có, chắc chắn. Tôi thích hải sản — ăn cùng bạn bè là cách thư giãn tuyệt vời.",
+        "yes_plain": "Yes, absolutely. I enjoy eating seafood and bacon because grab a bite with friends is a great way to unwind.",
+        "yes_ipa": "/jes ˌæbsəˈluːtli…/",
+        "yes_ex": sea_yes_tpl,
+        "no_html": sea_no_html,
+        "no_vi": "Không thực sự — hải sản không phải sở thích của tôi và tôi lo nó có thể gây dị ứng.",
+        "no_plain": "No, not really — seafood isn't my cup of tea and I'm worried it can lead to allergies.",
+        "no_ipa": "/nəʊ nɒt ˈrɪəli…/",
+        "no_ex": "",
+    })
+
+    # ── busy kitchen (from Food & general) ──
+    kit_no_tpl = (
+        "Well, not really because my job is quite boring. It doesn't give me "
+        "the chance to try anything new. I have to deal with the same tasks "
+        "and the same {kitchen_tool} every day."
+    )
+    kit_no_html = kit_no_tpl.format(kitchen_tool=slot_select("kitchen_tool"))
+    kit_yes_html = (
+        "Yes, absolutely. Working in a busy kitchen "
+        + cloze("gives me the chance to challenge myself", "cho tôi cơ hội thử thách bản thân")
+        + " and "
+        + cloze("learn how to work effectively in a team", "học cách làm việc nhóm hiệu quả")
+        + "."
+    )
+    items.append({
+        "q": "Do you like your job in a busy kitchen?",
+        "yes_html": kit_yes_html,
+        "yes_vi": "Có, chắc chắn. Làm bếp bận rộn cho tôi cơ hội thử thách bản thân và học làm việc nhóm hiệu quả.",
+        "yes_plain": "Yes, absolutely. Working in a busy kitchen gives me the chance to challenge myself and learn how to work effectively in a team.",
+        "yes_ipa": "/jes ˌæbsəˈluːtli…/",
+        "yes_ex": "",
+        "no_html": kit_no_html,
+        "no_vi": "Không thực sự thích — công việc nhàm, lặp lại mỗi ngày.",
+        "no_plain": "Well, not really because my job is quite boring. It doesn't give me the chance to try anything new. I have to deal with the same tasks and the same blender every day.",
+        "no_ipa": "/wel nɒt ˈrɪəli…/",
+        "no_ex": kit_no_tpl,
+    })
+
     cards = []
     for it in items:
         cards.append(
             f"""          <article class="lr-food-ex-card">
             <p class="lr-food-ex-q">{esc(it["q"])}</p>
             <div class="lr-food-ex-pair">
-              <div class="lr-scroll-qa" data-tag="Thích" data-ipa-full="{esc(it["yes_ipa"])}">
-                <p class="lr-scroll-q" hidden>{esc(it["q"])} · Thích</p>
-                <p class="lr-food-ex-line lr-tip lr-answer-text" data-tip="{esc(it["yes_vi"])}" title="{esc(it["yes_vi"])}" data-plain="{esc(it["yes_plain"])}">
-                  <span class="lr-mm-tag-yes">Thích</span>
-                  <span class="lr-tip-text">{it["yes_en"]}</span>
-                </p>
-              </div>
-              <div class="lr-scroll-qa" data-tag="Không thích" data-ipa-full="{esc(it["no_ipa"])}">
-                <p class="lr-scroll-q" hidden>{esc(it["q"])} · Không thích</p>
-                <p class="lr-food-ex-line lr-tip lr-answer-text" data-tip="{esc(it["no_vi"])}" title="{esc(it["no_vi"])}" data-plain="{esc(it["no_plain"])}">
-                  <span class="lr-mm-tag-no">Không thích</span>
-                  <span class="lr-tip-text">{it["no_en"]}</span>
-                </p>
-              </div>
+{_pair_answer_html(kind="yes", en_html=it["yes_html"], vi=it["yes_vi"], plain=it["yes_plain"], ipa=it["yes_ipa"], q=it["q"], ex_en=it.get("yes_ex", ""))}
+{_pair_answer_html(kind="no", en_html=it["no_html"], vi=it["no_vi"], plain=it["no_plain"], ipa=it["no_ipa"], q=it["q"], ex_en=it.get("no_ex", ""))}
             </div>
           </article>"""
         )
     return f"""
         <div class="lr-food-examples" id="food-examples">
           <h3 class="lr-core-subtitle">Ví dụ Food · Thích / Không thích</h3>
-          <p class="lr-mm-hint">Mỗi câu hỏi có <strong>2 hướng trả lời</strong> (độ dài IELTS). Hover câu EN → nghĩa VI. Phần gạch chân / cloze dùng trong Scroll read bên dưới.</p>
+          <p class="lr-mm-hint">Mỗi câu hỏi luôn có <strong>2 hướng</strong>. Hover <em>cả đoạn</em> EN → 1 tooltip nghĩa VI (không IPA). Dropdown chỉ hiện tiếng Anh — chọn từ để luyện. Scroll read bên dưới.</p>
 {chr(10).join(cards)}
         </div>"""
 
 
-def _lesson3_practice_html() -> str:
-    chains = [
-        (
-            "yes",
-            "Do you like cooking?",
-            (
-                "Yes, definitely. I'm keen on cooking {cuisine} at home because it gives me "
-                "the chance to try new recipes and {relax_phrase}. {relax_followup}"
-            ),
-            "Vâng, chắc chắn. Tôi thích nấu {cuisine} ở nhà vì được thử công thức mới và thư giãn.",
-            "/jes ˈdefɪnətli · aɪm kiːn ɒn ˈkʊkɪŋ ət həʊm bɪˈkɒz ɪt ɡɪvz miː ðə tʃɑːns tuː traɪ njuː ˈresəpiz/",
-        ),
-        (
-            "no",
-            "Do you like fast food?",
-            (
-                "No, definitely not because it's not good for my health. Consuming too much "
-                "{slang_food} and greasy {dessert} can lead to various health problems, "
-                "such as diabetes, high blood pressure or even cancer."
-            ),
-            "Không, chắc chắn không — không tốt cho sức khỏe. Ăn quá nhiều đồ nhanh có thể gây bệnh.",
-            "/nəʊ ˈdefɪnətli nɒt bɪˈkɒz ɪts nɒt ɡʊd fɔː maɪ helθ · kənˈsjuːmɪŋ tuː mʌtʃ … kæn liːd tuː ˈveəriəs helθ ˈprɒbləmz/",
-        ),
-        (
-            "yes",
-            "Do you like trying new cuisines?",
-            (
-                "Yes, absolutely. I'm a big fan of {cuisine} from different cultures. "
-                "This is because it helps me {edu_phrase}."
-            ),
-            "Có, tôi là fan của {cuisine} đa dạng — giúp mở rộng kiến thức ẩm thực.",
-            "/jes ˌæbsəˈluːtli · aɪm ə bɪɡ fæn əv … frəm ˈdɪfrənt ˈkʌltʃəz/",
-        ),
-        (
-            "yes",
-            "Do you like eating vegetables?",
-            (
-                "Yes, definitely, because it's a great way to {health_phrase}. "
-                "It also helps me strengthen my muscles. "
-                "<span class='lr-practice-tag'>B1/B2</span>"
-            ),
-            "Vâng — rau giúp giữ dáng, khỏe mạnh và phòng bệnh.",
-            "/jes ˈdefɪnətli bɪˈkɒz ɪts ə ɡreɪt weɪ tuː … · ɪt ˈɔːlsəʊ helps miː ˈstreŋθən maɪ ˈmʌslz/",
-        ),
-        (
-            "yes",
-            "Do you like seafood?",
-            (
-                "Yes, absolutely. I enjoy eating {seafood} and {meat} because "
-                "{phrase_food} with friends is a great way to unwind. "
-                "<span class='lr-practice-tag'>V-ing</span>"
-            ),
-            "Tôi thích hải sản — ăn cùng bạn bè là cách thư giãn tuyệt vời.",
-            "/jes ˌæbsəˈluːtli · aɪ ɪnˈdʒɔɪ ˈiːtɪŋ … wɪð frendz ɪz ə ɡreɪt weɪ tuː ʌnˈwaɪnd/",
-        ),
-        (
-            "no",
-            "Do you like your job in a busy kitchen?",
-            (
-                "Well, not really because my job is quite boring. It doesn't give me "
-                "the chance to try anything new. I have to deal with the same tasks "
-                "and the same {kitchen_tool} every day."
-            ),
-            "Không thực sự thích — công việc nhàm, lặp lại mỗi ngày.",
-            "/wel nɒt ˈrɪəli bɪˈkɒz maɪ dʒɒb ɪz kwaɪt ˈbɔːrɪŋ · aɪ hæv tuː diːl wɪð ðə seɪm tɑːsks ˈevri deɪ/",
-        ),
-    ]
-    blocks = []
-    for kind, question, template, vi_hint, ipa in chains:
-        tag = "Thích" if kind == "yes" else "Không thích"
-        tag_cls = "lr-mm-tag-yes" if kind == "yes" else "lr-mm-tag-no"
-        flow = template.format(
-            cuisine=slot_select("cuisine"),
-            dessert=slot_select("dessert"),
-            seafood=slot_select("seafood"),
-            meat=slot_select("meat"),
-            kitchen_tool=slot_select("kitchen_tool"),
-            relax_phrase=phrase_pick("relax_phrase"),
-            relax_followup=phrase_pick("relax_followup"),
-            edu_phrase=phrase_pick("edu_phrase"),
-            health_phrase=phrase_pick("health_phrase"),
-            phrase_food=phrase_pick("phrase_food"),
-            slang_food=idiom_pick("slang_food"),
-        )
-        blocks.append(
-            f"""          <article class="lr-food-ex-card lr-practice-card lr-scroll-qa lr-practice-chain lr-chain lr-practice-chain--{kind}" data-ex-en="{esc(template)}" data-tag="{esc(tag)}" data-ipa-full="{esc(ipa)}">
-            <p class="lr-food-ex-q lr-practice-q">{esc(question)}</p>
-            <p class="lr-food-ex-line lr-practice-flow-wrap">
-              <span class="{tag_cls}">{esc(tag)}</span>
-              <span class="lr-chain-flow lr-practice-flow lr-answer-text">{flow}</span>
-            </p>
-            <p class="lr-practice-vi lr-chain-vi-hint">{esc(vi_hint)}</p>
-            <p class="lr-practice-en lr-chain-ex-text"></p>
-          </article>"""
-        )
-    return "\n".join(blocks)
-
-
 def _lesson2_practice_html(*, open_attr: str = "") -> str:
-    relax_ex = (
+    """Lesson 2 practice — same card format as hình 1; every Q has Thích + Không thích."""
+    home_yes_tpl = (
         "I think because it's a great way to {relax_phrase} — especially when they're tired after work. "
         "{relax_followup}"
     )
-    edu_ex = (
+    home_yes = home_yes_tpl.format(
+        relax_phrase=phrase_pick("relax_phrase"),
+        relax_followup=phrase_pick("relax_followup", 0),
+    )
+    home_no = (
+        "Well, some people don't enjoy home-cooked meals because cooking "
+        + cloze("makes them exhausted", "khiến họ kiệt sức")
+        + " and they "
+        + cloze("have to deal with the same tasks every day", "phải làm những công việc giống nhau mỗi ngày")
+        + "."
+    )
+
+    read_yes_tpl = (
         "Yes, because it helps me {edu_phrase}. "
         "It also gives me the chance to enrich my knowledge."
     )
-    health_ex = (
+    read_yes = read_yes_tpl.format(edu_phrase=phrase_pick("edu_phrase"))
+    read_no = (
+        "No, not really — reading about nutrition "
+        + cloze("isn't my cup of tea", "không phải sở thích của tôi")
+        + " because "
+        + cloze("it doesn't help me relax", "nó không giúp tôi thư giãn")
+        + "."
+    )
+
+    veg_yes_tpl = (
         "Yes, because it's a great way to {health_phrase}. "
         "{health_followup}"
     )
+    veg_yes = veg_yes_tpl.format(
+        health_phrase=phrase_pick("health_phrase"),
+        health_followup=phrase_pick("health_followup", 0),
+    )
+    veg_no = (
+        "No, not really — plain vegetables "
+        + cloze("aren't my cup of tea", "không phải sở thích của tôi")
+        + " and "
+        + cloze("they don't help me enjoy my meals", "chúng không giúp tôi thưởng thức bữa ăn")
+        + "."
+    )
+
     cards = f"""
             <div class="lr-practice-source" id="lesson2-practice">
-              <article class="lr-food-ex-card lr-practice-card lr-scroll-qa lr-practice-chain lr-chain" data-ex-en="{esc(relax_ex)}" data-tag="Sample" data-ipa-full="/aɪ θɪŋk bɪˈkɒz ɪts ə ɡreɪt weɪ tuː … · ɪˈspeʃəli wen ðeə ˈtaɪəd ˈɑːftə wɜːk/">
-                <p class="lr-food-ex-q lr-practice-q">Why do people like home-cooked meals?</p>
-                <p class="lr-food-ex-line lr-practice-flow-wrap">
-                  <span class="lr-mm-tag-yes">Sample</span>
-                  <span class="lr-chain-flow lr-practice-flow lr-answer-text">I think because it's a great way to {phrase_pick("relax_phrase")} — especially when they're tired after work. {phrase_pick("relax_followup", 0)}</span>
-                </p>
-                <p class="lr-practice-en lr-chain-ex-text"></p>
+              <article class="lr-food-ex-card">
+                <p class="lr-food-ex-q">Why do people like home-cooked meals?</p>
+                <div class="lr-food-ex-pair">
+{_pair_answer_html(kind="yes", en_html=home_yes, vi="Tôi nghĩ vì đó là cách tuyệt vời để thư giãn — nhất là khi mệt sau giờ làm. Ở trong bếp cũng giúp tạm quên áp lực công việc.", plain="I think because it's a great way to unwind and recharge their batteries — especially when they're tired after work. Being in the kitchen also helps them temporarily forget all the pressures from their work.", ipa="/aɪ θɪŋk bɪˈkɒz ɪts ə ɡreɪt weɪ tuː…/", q="Why do people like home-cooked meals?", ex_en=home_yes_tpl)}
+{_pair_answer_html(kind="no", en_html=home_no, vi="Một số người không thích nấu ở nhà vì việc nấu khiến họ kiệt sức và phải làm những việc lặp lại mỗi ngày.", plain="Well, some people don't enjoy home-cooked meals because cooking makes them exhausted and they have to deal with the same tasks every day.", ipa="/wel səm ˈpiːpl…/", q="Why do people like home-cooked meals?")}
+                </div>
               </article>
-              <article class="lr-food-ex-card lr-practice-card lr-scroll-qa lr-practice-chain lr-chain" data-ex-en="{esc(edu_ex)}" data-tag="Thích" data-ipa-full="/jes bɪˈkɒz ɪt helps miː … · ɪt ˈɔːlsəʊ ɡɪvz miː ðə tʃɑːns tuː ɪnˈrɪtʃ maɪ ˈnɒlɪdʒ/">
-                <p class="lr-food-ex-q lr-practice-q">Do you like reading about food &amp; nutrition?</p>
-                <p class="lr-food-ex-line lr-practice-flow-wrap">
-                  <span class="lr-mm-tag-yes">Thích</span>
-                  <span class="lr-chain-flow lr-practice-flow lr-answer-text">Yes, because it helps me {phrase_pick("edu_phrase")}. It also gives me the chance to enrich my knowledge.</span>
-                </p>
-                <p class="lr-practice-en lr-chain-ex-text"></p>
+              <article class="lr-food-ex-card">
+                <p class="lr-food-ex-q">Do you like reading about food &amp; nutrition?</p>
+                <div class="lr-food-ex-pair">
+{_pair_answer_html(kind="yes", en_html=read_yes, vi="Có, vì nó giúp tôi học cách quản lý chế độ ăn tốt hơn. Cũng cho tôi cơ hội làm giàu kiến thức.", plain="Yes, because it helps me learn how to manage my diet better and make healthier choices. It also gives me the chance to enrich my knowledge.", ipa="/jes bɪˈkɒz ɪt helps miː…/", q="Do you like reading about food & nutrition?", ex_en=read_yes_tpl)}
+{_pair_answer_html(kind="no", en_html=read_no, vi="Không thực sự — đọc về dinh dưỡng không phải sở thích của tôi vì nó không giúp tôi thư giãn.", plain="No, not really — reading about nutrition isn't my cup of tea because it doesn't help me relax.", ipa="/nəʊ nɒt ˈrɪəli…/", q="Do you like reading about food & nutrition?")}
+                </div>
               </article>
-              <article class="lr-food-ex-card lr-practice-card lr-scroll-qa lr-practice-chain lr-chain" data-ex-en="{esc(health_ex)}" data-tag="Thích" data-ipa-full="/jes bɪˈkɒz ɪts ə ɡreɪt weɪ tuː …/">
-                <p class="lr-food-ex-q lr-practice-q">Do you like eating vegetables?</p>
-                <p class="lr-food-ex-line lr-practice-flow-wrap">
-                  <span class="lr-mm-tag-yes">Thích</span>
-                  <span class="lr-chain-flow lr-practice-flow lr-answer-text">Yes, because it's a great way to {phrase_pick("health_phrase")}. {phrase_pick("health_followup", 0)}</span>
-                </p>
-                <p class="lr-practice-en lr-chain-ex-text"></p>
+              <article class="lr-food-ex-card">
+                <p class="lr-food-ex-q">Do you like eating vegetables?</p>
+                <div class="lr-food-ex-pair">
+{_pair_answer_html(kind="yes", en_html=veg_yes, vi="Có, vì đó là cách tuyệt vời để giữ khỏe và phòng bệnh. Nó cũng giúp tăng cơ bắp.", plain="Yes, because it's a great way to stay healthy and prevent various health problems. It also helps them strengthen their muscles.", ipa="/jes bɪˈkɒz ɪts ə ɡreɪt weɪ tuː…/", q="Do you like eating vegetables?", ex_en=veg_yes_tpl)}
+{_pair_answer_html(kind="no", en_html=veg_no, vi="Không thực sự — rau nhạt không phải sở thích của tôi và không giúp tôi thưởng thức bữa ăn.", plain="No, not really — plain vegetables aren't my cup of tea and they don't help me enjoy my meals.", ipa="/nəʊ nɒt ˈrɪəli…/", q="Do you like eating vegetables?")}
+                </div>
               </article>
             </div>"""
     return f"""
           <details class="lr-formula-details"{open_attr}>
-            <summary>Thực hành dropdown · Giải trí / Giáo dục / Sức khỏe</summary>
-            <p class="lr-mm-hint">Format giống ví dụ Food — giữ nguyên câu dài. Dropdown thay cụm B1/B2. Scroll read bên dưới để luyện nói.</p>
+            <summary>Thực hành · Giải trí / Giáo dục / Sức khỏe</summary>
+            <p class="lr-mm-hint">Cùng format hình 1: mỗi câu hỏi có <strong>Thích</strong> và <strong>Không thích</strong>. Hover cả đoạn → 1 tooltip VI.</p>
 {cards}
           </details>
 {lesson_scroll_read_html("lesson2", title="Lesson 2", source_sel="#lesson2-practice")}"""
@@ -2774,12 +2722,6 @@ def lesson_highlights_html(
 
           <div id="lesson3-scroll-source">
 {examples_block}
-
-          <h4 class="lr-core-subtitle">Thực hành · Food &amp; general (dropdown B1/B2)</h4>
-          <p class="lr-mm-hint">Cùng format card Thích / Không thích. Chọn từ dropdown — câu mẫu cập nhật bên dưới. Nội dung giữ nguyên độ dài IELTS.</p>
-          <div class="lr-practice-chains">
-{_lesson3_practice_html()}
-          </div>
           </div>
 
 {lesson3_scroll}
@@ -4378,7 +4320,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr28">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr29">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -4402,7 +4344,7 @@ def build_page() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr22"></script>
-  <script src="{home}js/linear-review.js?v=lr23"></script>
+  <script src="{home}js/linear-review.js?v=lr24"></script>
 </body>
 </html>"""
 
@@ -4465,7 +4407,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr28">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr29">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -4489,7 +4431,7 @@ def build_page_review2() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr22"></script>
-  <script src="{home}js/linear-review.js?v=lr23"></script>
+  <script src="{home}js/linear-review.js?v=lr24"></script>
 </body>
 </html>"""
 

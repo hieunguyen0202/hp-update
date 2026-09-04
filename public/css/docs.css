@@ -3651,8 +3651,26 @@ body.ex-hide-ipa .ipa {
 }
 
 .lr-cloze {
-  border-bottom: 1px dashed rgba(167, 139, 250, 0.55);
+  border-bottom: 1px dashed rgba(167, 139, 250, 0.45);
+  /* no tip — paragraph-level tooltip only */
+}
+
+.lr-cloze.lr-tip::after,
+.lr-cloze::after {
+  content: none !important;
+  display: none !important;
+}
+
+.lr-food-ex-line.lr-tip {
   cursor: help;
+}
+
+.lr-food-ex-line.lr-tip .lr-tip-text {
+  pointer-events: none; /* hover on whole line, one tooltip */
+}
+
+.lr-food-ex-line.lr-tip .lr-word-pick {
+  pointer-events: auto;
 }
 
 .lr-lesson-scroll {
