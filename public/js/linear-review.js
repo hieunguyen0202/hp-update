@@ -377,6 +377,274 @@
 
   initMockScrollRead();
 
+  /** Per-lesson Scroll read (Review Exercise 2) — source = practice cards / Food examples */
+  const initLessonScrollReads = () => {
+    let slots = {};
+    try {
+      slots = JSON.parse(document.getElementById("lrWordSlots").textContent);
+    } catch {
+      /* no slots */
+    }
+
+    const hintFor = (meta, mode) => {
+      const vi = (meta && meta.vi) || "";
+      const ipa = (meta && meta.ipa) || "";
+      if (mode === "struct") return "…";
+      if (mode === "ipa") return ipa ? `/${ipa}/` : "…";
+      if (mode === "both") {
+        if (vi && ipa) return `${vi} · /${ipa}/`;
+        return vi || (ipa ? `/${ipa}/` : "…");
+      }
+      return vi || (ipa ? `/${ipa}/` : "…");
+    };
+
+    const metaForPick = (slotId, form) => {
+      const opts = slots[slotId] || [];
+      return opts.find((o) => o.form === form) || { form, vi: "", ipa: "" };
+    };
+
+    const attachBlank = (form, meta, mode, reveal) => {
+      const blank = document.createElement("span");
+      blank.className = "scroll-blank";
+      blank.dataset.answer = form;
+      blank.title = "Click to peek answer";
+      const setContent = (revealed) => {
+        if (revealed) {
+          blank.classList.add("is-revealed");
+          blank.innerHTML = `<span class="scroll-blank-answer">${escapeHtml(form)}</span>`;
+        } else {
+          blank.classList.remove("is-revealed");
+          blank.innerHTML = `<span class="scroll-blank-gap">______</span><span class="scroll-blank-hint">${escapeHtml(
+            hintFor(meta, mode)
+          )}</span>`;
+        }
+      };
+      setContent(reveal);
+      blank.addEventListener("click", (e) => {
+        e.preventDefault();
+        setContent(!blank.classList.contains("is-revealed"));
+      });
+      return blank;
+    };
+
+    const answerToHtml = (answerEl, mode, reveal) => {
+      const liveSelects = [...answerEl.querySelectorAll(".lr-word-pick")];
+      const clone = answerEl.cloneNode(true);
+      clone.querySelectorAll(".lr-tense-tag, .ex-a-label, .lr-mm-tag-yes, .lr-mm-tag-no, .lr-practice-tag").forEach((n) => n.remove());
+      [...clone.querySelectorAll(".lr-word-pick")].forEach((sel, i) => {
+        const form = liveSelects[i]?.value ?? sel.value;
+        const slotId = sel.dataset.slot || "";
+        const meta = metaForPick(slotId, form);
+        sel.replaceWith(attachBlank(form, meta, mode, reveal));
+      });
+      clone.querySelectorAll(".lr-cloze").forEach((el) => {
+        const form = el.dataset.en || el.textContent.trim();
+        const meta = { form, vi: el.dataset.vi || "", ipa: el.dataset.ipa || "" };
+        el.replaceWith(attachBlank(form, meta, mode, reveal));
+      });
+      clone.querySelectorAll("strong, em").forEach((n) => {
+        n.replaceWith(document.createTextNode(n.textContent));
+      });
+      return clone.innerHTML.replace(/\s+/g, " ").trim();
+    };
+
+    const plainFromAnswer = (answerEl) => {
+      if (answerEl.dataset.plain) return answerEl.dataset.plain;
+      const liveSelects = [...answerEl.querySelectorAll(".lr-word-pick")];
+      const clone = answerEl.cloneNode(true);
+      clone.querySelectorAll(".lr-mm-tag-yes, .lr-mm-tag-no, .lr-practice-tag").forEach((n) => n.remove());
+      [...clone.querySelectorAll(".lr-word-pick")].forEach((sel, i) => {
+        const span = document.createElement("span");
+        span.textContent = liveSelects[i]?.value ?? sel.value;
+        sel.replaceWith(span);
+      });
+      return clone.textContent.replace(/\s+/g, " ").trim();
+    };
+
+    document.querySelectorAll(".lr-lesson-scroll").forEach((root) => {
+      const source = document.querySelector(root.dataset.scrollSource || "");
+      const track = root.querySelector(".ex-scroll-track");
+      const viewport = root.querySelector(".ex-scroll-viewport");
+      if (!source || !track || !viewport) return;
+
+      const speedRange = root.querySelector(".js-scroll-speed");
+      const speedVal = root.querySelector(".js-scroll-speed-val");
+      const hintMode = root.querySelector(".js-scroll-hint");
+      const revealTog = root.querySelector(".js-scroll-reveal");
+      const showIpaTog = root.querySelector(".js-scroll-show-ipa");
+      const btnPlay = root.querySelector(".js-scroll-play");
+      const btnPause = root.querySelector(".js-scroll-pause");
+      const btnRestart = root.querySelector(".js-scroll-restart");
+      const btnCopy = root.querySelector(".js-scroll-copy");
+
+      let playing = false;
+      let offset = 0;
+      let raf = 0;
+      let lastTs = 0;
+      let pxPerSec = speedRange ? Number(speedRange.value) : 32;
+
+      const buildTrack = () => {
+        const mode = hintMode ? hintMode.value : "vi";
+        const reveal = !!(revealTog && revealTog.checked);
+        const showIpa = !!(showIpaTog && showIpaTog.checked);
+        const blocks = [];
+
+        source.querySelectorAll(".lr-scroll-qa").forEach((qa) => {
+          const qEl =
+            qa.querySelector(".lr-scroll-q") ||
+            qa.querySelector(".lr-practice-q") ||
+            qa.querySelector(".lr-food-ex-q");
+          const ans =
+            qa.querySelector(".lr-answer-text") ||
+            qa.querySelector(".lr-practice-flow");
+          if (!ans) return;
+          let qText = qEl ? qEl.textContent.replace(/\s+/g, " ").trim() : "";
+          if (qEl && qEl.hasAttribute("hidden") && qa.closest(".lr-food-ex-card")) {
+            const cardQ = qa.closest(".lr-food-ex-card")?.querySelector(".lr-food-ex-q");
+            const tag = qa.dataset.tag || "";
+            qText = `${cardQ ? cardQ.textContent.trim() : ""} · ${tag}`.trim();
+          }
+          if (qText) {
+            blocks.push(`<p class="scroll-line scroll-line--q">${escapeHtml(qText)}</p>`);
+          }
+          blocks.push(
+            `<p class="scroll-line scroll-line--a">${answerToHtml(ans, mode, reveal)}</p>`
+          );
+          if (showIpa) {
+            const ipa = qa.dataset.ipaFull || "";
+            if (ipa) {
+              blocks.push(
+                `<p class="scroll-line scroll-line--ipa">${escapeHtml(ipa)}</p>`
+              );
+            }
+          }
+        });
+
+        track.innerHTML = `<div class="scroll-pad scroll-pad--top"></div>${blocks.join(
+          ""
+        )}<div class="scroll-pad scroll-pad--bottom"></div>`;
+        const topPad = track.querySelector(".scroll-pad--top");
+        const bottomPad = track.querySelector(".scroll-pad--bottom");
+        if (topPad) topPad.style.height = `${Math.max(40, viewport.clientHeight * 0.42)}px`;
+        if (bottomPad) bottomPad.style.height = `${Math.max(40, viewport.clientHeight * 0.55)}px`;
+      };
+
+      const applyTransform = () => {
+        track.style.transform = `translate3d(0, ${-offset}px, 0)`;
+      };
+      const maxOffset = () =>
+        Math.max(0, track.scrollHeight - viewport.clientHeight);
+
+      const tick = (ts) => {
+        if (!playing) return;
+        if (!lastTs) lastTs = ts;
+        const dt = (ts - lastTs) / 1000;
+        lastTs = ts;
+        offset += pxPerSec * dt;
+        const max = maxOffset();
+        if (offset >= max) {
+          offset = max;
+          playing = false;
+          lastTs = 0;
+          if (btnPlay) btnPlay.textContent = "▶ Play";
+          applyTransform();
+          return;
+        }
+        applyTransform();
+        raf = requestAnimationFrame(tick);
+      };
+
+      const play = () => {
+        if (playing) return;
+        if (offset >= maxOffset() - 1) offset = 0;
+        playing = true;
+        lastTs = 0;
+        if (btnPlay) btnPlay.textContent = "▶ Playing…";
+        raf = requestAnimationFrame(tick);
+      };
+      const pause = () => {
+        playing = false;
+        lastTs = 0;
+        if (raf) cancelAnimationFrame(raf);
+        if (btnPlay) btnPlay.textContent = "▶ Play";
+      };
+      const restart = () => {
+        pause();
+        offset = 0;
+        applyTransform();
+      };
+      const rebuild = () => {
+        const wasPlaying = playing;
+        pause();
+        buildTrack();
+        offset = Math.min(offset, maxOffset());
+        applyTransform();
+        if (wasPlaying) play();
+      };
+
+      const copyText = () => {
+        const parts = [];
+        source.querySelectorAll(".lr-scroll-qa").forEach((qa) => {
+          const qEl =
+            qa.querySelector(".lr-scroll-q:not([hidden])") ||
+            qa.querySelector(".lr-practice-q") ||
+            qa.closest(".lr-food-ex-card")?.querySelector(".lr-food-ex-q");
+          const ans =
+            qa.querySelector(".lr-answer-text") ||
+            qa.querySelector(".lr-practice-flow");
+          if (!ans) return;
+          let qText = qEl ? qEl.textContent.replace(/\s+/g, " ").trim() : "";
+          if (qa.dataset.tag && qa.closest(".lr-food-ex-card")) {
+            const cardQ = qa.closest(".lr-food-ex-card")?.querySelector(".lr-food-ex-q");
+            qText = `${cardQ ? cardQ.textContent.trim() : ""} · ${qa.dataset.tag}`;
+          }
+          if (qText) parts.push(qText);
+          parts.push(plainFromAnswer(ans));
+          if (showIpaTog && showIpaTog.checked && qa.dataset.ipaFull) {
+            parts.push(qa.dataset.ipaFull);
+          }
+        });
+        return parts.filter(Boolean).join("\n\n");
+      };
+
+      buildTrack();
+      applyTransform();
+
+      btnPlay && btnPlay.addEventListener("click", play);
+      btnPause && btnPause.addEventListener("click", pause);
+      btnRestart && btnRestart.addEventListener("click", restart);
+      if (speedRange && speedVal) {
+        speedRange.addEventListener("input", () => {
+          pxPerSec = Number(speedRange.value);
+          speedVal.textContent = String(pxPerSec);
+        });
+      }
+      hintMode && hintMode.addEventListener("change", rebuild);
+      revealTog && revealTog.addEventListener("change", rebuild);
+      showIpaTog && showIpaTog.addEventListener("change", rebuild);
+      source.querySelectorAll(".lr-word-pick").forEach((sel) => {
+        sel.addEventListener("change", rebuild);
+      });
+      if (btnCopy) {
+        btnCopy.addEventListener("click", async () => {
+          const text = copyText();
+          if (!text) return;
+          try {
+            await navigator.clipboard.writeText(text);
+            btnCopy.textContent = "Copied!";
+            setTimeout(() => {
+              btnCopy.textContent = "Copy for NaturalReader";
+            }, 2000);
+          } catch {
+            window.prompt("Copy for NaturalReader:", text);
+          }
+        });
+      }
+    });
+  };
+
+  initLessonScrollReads();
+
   /** Horizontal mind map: SVG cubic bezier from measured node boxes */
   const initMindmaps = () => {
     document.querySelectorAll(".lr-mmap").forEach((wrap) => {

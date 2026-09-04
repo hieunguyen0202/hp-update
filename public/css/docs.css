@@ -3629,6 +3629,59 @@ body.ex-hide-ipa .ipa {
   flex: 1;
 }
 
+.lr-practice-card {
+  margin-bottom: 12px;
+}
+
+.lr-practice-flow-wrap {
+  align-items: flex-start;
+}
+
+.lr-practice-flow-wrap .lr-answer-text,
+.lr-practice-flow-wrap .lr-practice-flow {
+  flex: 1;
+  line-height: 1.85;
+}
+
+.lr-practice-card .lr-practice-en {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(34, 211, 238, 0.25);
+  color: #67e8f9;
+}
+
+.lr-cloze {
+  border-bottom: 1px dashed rgba(167, 139, 250, 0.55);
+  cursor: help;
+}
+
+.lr-lesson-scroll {
+  margin: 18px 0 8px;
+}
+
+.lr-lesson-scroll .ex-scroll-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.scroll-line--ipa {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.82rem;
+  color: rgba(196, 181, 253, 0.88);
+  margin: 0 0 14px;
+  padding-left: 8px;
+  border-left: 2px solid rgba(167, 139, 250, 0.45);
+}
+
+.lr-practice-source {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 /* Hover tooltips — mind-map leaves + Food example lines */
 .lr-tip {
   position: relative;
