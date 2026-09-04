@@ -4363,9 +4363,6 @@ mark.lr-tn-sample {
 .lr-practice-chain .lr-word-pick[data-kind="phrase"] {
   max-width: 100%;
   font-size: 0.82rem;
-  border-color: rgba(34, 211, 238, 0.35);
-  background: rgba(8, 47, 73, 0.55);
-  color: #a5f3fc;
 }
 
 .lr-lesson-list {
@@ -5713,32 +5710,40 @@ mark.lr-hl,
   display: inline-block;
   max-width: 100%;
   margin: 0 2px;
-  padding: 2px 8px;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.82rem;
-  color: #fef3c7;
-  background: rgba(250, 204, 21, 0.15);
-  border: 1px solid rgba(250, 204, 21, 0.45);
-  border-radius: 6px;
-  vertical-align: middle;
+  padding: 1px 6px 1px 4px;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  background: transparent;
+  border: 1px solid rgba(226, 232, 240, 0.35);
+  border-radius: 4px;
+  vertical-align: baseline;
   cursor: pointer;
 }
 
+.lr-word-pick:hover,
+.lr-word-pick:focus {
+  border-color: rgba(226, 232, 240, 0.55);
+  outline: none;
+  background: rgba(255, 255, 255, 0.04);
+}
+
 .lr-word-pick--changed {
-  border-color: rgba(34, 211, 238, 0.65);
-  background: rgba(34, 211, 238, 0.12);
-  color: var(--accent);
+  border-color: rgba(226, 232, 240, 0.5);
+  background: transparent;
+  color: inherit;
 }
 
 .lr-idiom-pick {
-  color: #e9d5ff !important;
-  background: rgba(167, 139, 250, 0.15) !important;
-  border-color: rgba(167, 139, 250, 0.55) !important;
+  color: inherit !important;
+  background: transparent !important;
+  border-color: rgba(226, 232, 240, 0.35) !important;
 }
 
 .lr-idiom-pick.lr-word-pick--changed {
-  border-color: rgba(196, 181, 253, 0.85) !important;
-  background: rgba(167, 139, 250, 0.22) !important;
+  border-color: rgba(226, 232, 240, 0.5) !important;
+  background: transparent !important;
 }
 
 .lr-idiom-grid {
