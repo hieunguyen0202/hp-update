@@ -350,7 +350,24 @@ WORD_SLOTS: dict[str, list[dict]] = {
 
 # ── Mind map helpers (shared: Section 2 tenses + Lesson 2/3) ───────────────
 
+def tip(en: str, vi: str) -> dict:
+    """Phrase leaf with Vietnamese hover tooltip (no HTML in en)."""
+    return {"en": en, "vi": vi}
+
+
+def tip_html(html_en: str, vi: str) -> dict:
+    """Phrase leaf with raw HTML + Vietnamese hover tooltip."""
+    return {"html": html_en, "vi": vi}
+
+
 def _mmap_leaf_html(leaf) -> str:
+    if isinstance(leaf, dict) and leaf.get("vi"):
+        body = leaf["html"] if leaf.get("html") is not None else esc(leaf.get("en", ""))
+        return (
+            f'                <li class="lr-mmap-leaf lr-tip" data-mmap-node="leaf" '
+            f'data-tip="{esc(leaf["vi"])}" title="{esc(leaf["vi"])}">'
+            f'<span class="lr-tip-text">{body}</span></li>'
+        )
     if isinstance(leaf, tuple):
         label, body = leaf
         return (
@@ -887,6 +904,7 @@ ED_MINDMAP_RIGHT = [
 ]
 
 # Lesson 2 · flow mind map — trái = DISLIKE, phải = LIKE
+# Leaves: tip(en, vi) → hover hiện nghĩa VI (không hiện sẵn để tránh rối)
 LESSON2_MINDMAP_LEFT = [
     {
         "id": "dis-fun",
@@ -899,8 +917,14 @@ LESSON2_MINDMAP_LEFT = [
             {
                 "label": "Nhánh 1 · It's + adj",
                 "leaves": [
-                    "It's + not + interesting / entertaining / exciting / thrilling / relaxing",
-                    "It's + boring / terrible / scary / difficult / stressful / noisy",
+                    tip(
+                        "It's + not + interesting / entertaining / exciting / thrilling / relaxing",
+                        "Không thú vị / giải trí / hấp dẫn / hồi hộp / thư giãn",
+                    ),
+                    tip(
+                        "It's + boring / terrible / scary / difficult / stressful / noisy",
+                        "Nhàm chán / tệ / đáng sợ / khó / căng thẳng / ồn ào",
+                    ),
                 ],
             },
             {
@@ -910,13 +934,22 @@ LESSON2_MINDMAP_LEFT = [
                     "I have to + deal with the same tasks every day"
                 ),
                 "leaves": [
-                    "not my cup of tea",
-                    "can't stand",
-                    "I can't bear",
-                    "I have to do lots of homework",
-                    "I have to memorise long lists of new words",
-                    "I have to deal with difficult customers",
-                    "I have to deal with the same tasks and the same clients every day",
+                    tip("not my cup of tea", "không phải sở thích của tôi"),
+                    tip("can't stand", "không chịu nổi"),
+                    tip("I can't bear", "tôi không thể chịu nổi"),
+                    tip("I have to do lots of homework", "tôi phải làm rất nhiều bài tập"),
+                    tip(
+                        "I have to memorise long lists of new words",
+                        "tôi phải học thuộc danh sách dài từ mới",
+                    ),
+                    tip(
+                        "I have to deal with difficult customers",
+                        "tôi phải đối phó với khách hàng khó tính",
+                    ),
+                    tip(
+                        "I have to deal with the same tasks and the same clients every day",
+                        "tôi phải xử lý cùng công việc và cùng khách hàng mỗi ngày",
+                    ),
                 ],
             },
         ],
@@ -932,7 +965,10 @@ LESSON2_MINDMAP_LEFT = [
             {
                 "label": "Nhánh 1 · It's + not + adj",
                 "leaves": [
-                    "It's + not + educational / useful / practical",
+                    tip(
+                        "It's + not + educational / useful / practical",
+                        "Không mang tính giáo dục / hữu ích / thực tế",
+                    ),
                 ],
             },
             {
@@ -943,12 +979,27 @@ LESSON2_MINDMAP_LEFT = [
                     "It doesn't help me learn skills such as …"
                 ),
                 "leaves": [
-                    "It doesn't help me relax",
-                    "It doesn't give me the chance to challenge myself",
-                    "It doesn't help me learn skills such as problem-solving",
-                    "It doesn't give me the opportunity to widen my horizons",
-                    "It doesn't help me enrich my knowledge",
-                    "It doesn't give me the chance to try anything new",
+                    tip("It doesn't help me relax", "Nó không giúp tôi thư giãn"),
+                    tip(
+                        "It doesn't give me the chance to challenge myself",
+                        "Nó không cho tôi cơ hội thử thách bản thân",
+                    ),
+                    tip(
+                        "It doesn't help me learn skills such as problem-solving",
+                        "Nó không giúp tôi học kỹ năng như giải quyết vấn đề",
+                    ),
+                    tip(
+                        "It doesn't give me the opportunity to widen my horizons",
+                        "Nó không cho tôi cơ hội mở rộng tầm nhìn",
+                    ),
+                    tip(
+                        "It doesn't help me enrich my knowledge",
+                        "Nó không giúp tôi làm giàu vốn kiến thức",
+                    ),
+                    tip(
+                        "It doesn't give me the chance to try anything new",
+                        "Nó không cho tôi cơ hội thử điều gì mới",
+                    ),
                 ],
             },
         ],
@@ -964,21 +1015,27 @@ LESSON2_MINDMAP_LEFT = [
             {
                 "label": "Nhánh 1 · not good / harmful",
                 "leaves": [
-                    "not good <strong>for</strong> your health",
-                    "harmful / detrimental <strong>to</strong> your health",
-                    "It's + unhealthy",
+                    tip_html(
+                        "not good <strong>for</strong> your health",
+                        "không tốt cho sức khỏe của bạn",
+                    ),
+                    tip_html(
+                        "harmful / detrimental <strong>to</strong> your health",
+                        "có hại / bất lợi cho sức khỏe của bạn",
+                    ),
+                    tip("It's + unhealthy", "Nó không lành mạnh"),
                 ],
             },
             {
                 "label": "Nhánh 2 · can lead to …",
                 "patterns": "Consuming too much … can lead to …",
                 "leaves": [
-                    "diabetes",
-                    "high blood pressure",
-                    "stroke",
-                    "heart attack",
-                    "cancer",
-                    "obesity",
+                    tip("diabetes", "bệnh tiểu đường"),
+                    tip("high blood pressure", "huyết áp cao"),
+                    tip("stroke", "đột quỵ"),
+                    tip("heart attack", "đau tim / nhồi máu cơ tim"),
+                    tip("cancer", "ung thư"),
+                    tip("obesity", "béo phì"),
                 ],
             },
         ],
@@ -997,7 +1054,10 @@ LESSON2_MINDMAP_RIGHT = [
             {
                 "label": "Nhánh 1 · It's + adj",
                 "leaves": [
-                    "It's + relaxing / exciting / thrilling / entertaining / interesting …",
+                    tip(
+                        "It's + relaxing / exciting / thrilling / entertaining / interesting …",
+                        "Thư giãn / thú vị / hồi hộp / giải trí / hấp dẫn…",
+                    ),
                 ],
             },
             {
@@ -1008,16 +1068,28 @@ LESSON2_MINDMAP_RIGHT = [
                     "I also get the opportunity to + V"
                 ),
                 "leaves": [
-                    "reduce stress",
-                    "relax / unwind",
-                    "clear my head",
-                    "recharge my batteries",
-                    "express my inner feelings",
-                    "escape from reality",
-                    "escape from the hustle and bustle of the city",
-                    "temporarily forget all the pressures from my work",
-                    "temporarily forget all the pressures or worries from your daily life",
-                    "being in nature",
+                    tip("reduce stress", "giảm căng thẳng"),
+                    tip("relax / unwind", "thư giãn"),
+                    tip("clear my head", "giải tỏa đầu óc"),
+                    tip("recharge my batteries", "nạp lại năng lượng"),
+                    tip(
+                        "express my inner feelings",
+                        "thổ lộ / giải bày cảm xúc bên trong",
+                    ),
+                    tip("escape from reality", "thoát khỏi thực tại"),
+                    tip(
+                        "escape from the hustle and bustle of the city",
+                        "thoát khỏi sự hối hả và nhộn nhịp của thành phố",
+                    ),
+                    tip(
+                        "temporarily forget all the pressures from my work",
+                        "tạm thời quên đi tất cả áp lực từ công việc của tôi",
+                    ),
+                    tip(
+                        "temporarily forget all the pressures or worries from your daily life",
+                        "tạm thời quên đi tất cả áp lực và lo lắng từ cuộc sống hàng ngày",
+                    ),
+                    tip("being in nature", "ở giữa thiên nhiên"),
                 ],
             },
         ],
@@ -1033,8 +1105,14 @@ LESSON2_MINDMAP_RIGHT = [
             {
                 "label": "Nhánh 1 · It's + adj",
                 "leaves": [
-                    "It's + educational / useful / practical",
-                    "learn skills such as … ↔ learn how to + V",
+                    tip(
+                        "It's + educational / useful / practical",
+                        "Mang tính giáo dục / hữu ích / thực tế",
+                    ),
+                    tip(
+                        "learn skills such as … ↔ learn how to + V",
+                        "học kỹ năng như … ↔ học cách + V",
+                    ),
                 ],
             },
             {
@@ -1044,22 +1122,61 @@ LESSON2_MINDMAP_RIGHT = [
                     "I also get the opportunity to + V"
                 ),
                 "leaves": [
-                    "meet different people",
-                    "meet people from all walks of life",
-                    "explore different parts of the world",
-                    "explore different cultures and traditions",
-                    "widen my horizons",
-                    "enrich my knowledge",
-                    "challenge myself / push myself to the limit",
-                    "become more confident and independent",
-                    "become a better version of myself",
-                    "become a more well-rounded person",
-                    "develop my imagination and creativity",
-                    "learn how to deal with difficult situations more effectively",
-                    "learn how to manage my money / budgets better",
-                    "learn how to curb stress more effectively",
-                    "learn how to work as a team / work effectively in a team environment",
-                    "learn how to think more independently",
+                    tip("meet different people", "gặp gỡ nhiều người khác nhau"),
+                    tip(
+                        "meet people from all walks of life",
+                        "gặp gỡ người từ mọi tầng lớp xã hội",
+                    ),
+                    tip(
+                        "explore different parts of the world",
+                        "khám phá những khu vực khác nhau của thế giới",
+                    ),
+                    tip(
+                        "explore different cultures and traditions",
+                        "khám phá những văn hóa và truyền thống khác nhau",
+                    ),
+                    tip("widen my horizons", "mở rộng tầm nhìn"),
+                    tip("enrich my knowledge", "làm giàu vốn kiến thức"),
+                    tip(
+                        "challenge myself / push myself to the limit",
+                        "thử thách bản thân / đẩy bản thân tới giới hạn cao nhất",
+                    ),
+                    tip(
+                        "become more confident and independent",
+                        "trở nên tự tin và độc lập hơn",
+                    ),
+                    tip(
+                        "become a better version of myself",
+                        "trở thành một phiên bản tốt hơn của bản thân",
+                    ),
+                    tip(
+                        "become a more well-rounded person",
+                        "trở thành một con người toàn diện hơn",
+                    ),
+                    tip(
+                        "develop my imagination and creativity",
+                        "phát triển trí tưởng tượng và sáng tạo của tôi",
+                    ),
+                    tip(
+                        "learn how to deal with difficult situations more effectively",
+                        "học cách xử lý tình huống khó hiệu quả hơn",
+                    ),
+                    tip(
+                        "learn how to manage my money / budgets better",
+                        "học cách quản lý tiền bạc / ngân sách tốt hơn",
+                    ),
+                    tip(
+                        "learn how to curb stress more effectively",
+                        "học cách kiểm soát căng thẳng hiệu quả hơn",
+                    ),
+                    tip(
+                        "learn how to work as a team / work effectively in a team environment",
+                        "học cách làm việc nhóm / làm việc hiệu quả trong môi trường nhóm",
+                    ),
+                    tip(
+                        "learn how to think more independently",
+                        "học cách suy nghĩ độc lập hơn",
+                    ),
                 ],
             },
         ],
@@ -1075,8 +1192,11 @@ LESSON2_MINDMAP_RIGHT = [
             {
                 "label": "Nhánh 1 · It's a great way to",
                 "leaves": [
-                    "It's a great way to + keep fit / stay healthy / keep in shape",
-                    "It's + good for your health",
+                    tip(
+                        "It's a great way to + keep fit / stay healthy / keep in shape",
+                        "Đây là cách tuyệt vời để giữ dáng / khỏe mạnh",
+                    ),
+                    tip("It's + good for your health", "Tốt cho sức khỏe của bạn"),
                 ],
             },
             {
@@ -1086,13 +1206,22 @@ LESSON2_MINDMAP_RIGHT = [
                     "Eating … can also prevent …"
                 ),
                 "leaves": [
-                    "keep fit / stay healthy / keep in shape",
-                    "improve my health",
-                    "strengthen my muscles",
-                    "burn excess calories",
-                    "maintain a healthy weight",
-                    "prevent various health problems such as high blood pressure",
-                    "prevent stroke / heart attack / cancer",
+                    tip(
+                        "keep fit / stay healthy / keep in shape",
+                        "giữ dáng / khỏe mạnh",
+                    ),
+                    tip("improve my health", "cải thiện sức khỏe"),
+                    tip("strengthen my muscles", "tăng cường cơ bắp"),
+                    tip("burn excess calories", "đốt calo thừa"),
+                    tip("maintain a healthy weight", "duy trì một cân nặng phù hợp"),
+                    tip(
+                        "prevent various health problems such as high blood pressure",
+                        "tránh các vấn đề về sức khỏe như cao huyết áp",
+                    ),
+                    tip(
+                        "prevent stroke / heart attack / cancer",
+                        "tránh đột quỵ / đau tim / ung thư",
+                    ),
                 ],
             },
         ],
@@ -2233,49 +2362,66 @@ def _lesson3_practice_html() -> str:
 
 
 def food_lesson_examples_html() -> str:
-    """Annotated Food examples (Lesson 2 reasons + Lesson 3 Yes/No) — whiteboard style."""
-    return """
+    """Food Yes/No pairs — clean cards; Vietnamese via hover tooltip."""
+    items = [
+        {
+            "q": "Do you like cooking?",
+            "yes_en": "Yes, because it's a great way to relax and clear my head after work.",
+            "yes_vi": "Có, vì đó là cách tuyệt vời để thư giãn và giải tỏa đầu óc sau giờ làm.",
+            "no_en": "No, because it makes me exhausted and I have to deal with the same tasks every day.",
+            "no_vi": "Không, vì nó khiến tôi kiệt sức và tôi phải làm những công việc giống nhau mỗi ngày.",
+        },
+        {
+            "q": "Do you like fast food?",
+            "yes_en": "Yes, occasionally — it's convenient when I'm busy and it helps me unwind after a long day.",
+            "yes_vi": "Có, thỉnh thoảng — tiện khi tôi bận và giúp tôi thư giãn sau một ngày dài.",
+            "no_en": "No, definitely not because it's not good for my health. Consuming too much can lead to obesity and high blood pressure.",
+            "no_vi": "Không, chắc chắn không vì nó không tốt cho sức khỏe. Ăn quá nhiều có thể dẫn đến béo phì và huyết áp cao.",
+        },
+        {
+            "q": "Do you like eating vegetables?",
+            "yes_en": "Yes, because it's a great way to stay healthy and prevent various health problems.",
+            "yes_vi": "Có, vì đó là cách tuyệt vời để giữ khỏe và phòng ngừa nhiều vấn đề sức khỏe.",
+            "no_en": "No, not really — plain vegetables aren't my cup of tea and they don't give me richer flavours.",
+            "no_vi": "Không thực sự — rau nhạt không phải sở thích của tôi và không mang lại hương vị phong phú.",
+        },
+        {
+            "q": "Do you like trying new cuisines?",
+            "yes_en": "Yes, absolutely. I'm a big fan of trying new cuisines because it helps me widen my horizons and enrich my knowledge.",
+            "yes_vi": "Có, chắc chắn. Tôi rất thích thử ẩm thực mới vì giúp mở rộng tầm nhìn và làm giàu kiến thức.",
+            "no_en": "Well, not really — I'm not keen on unfamiliar food because it doesn't help me relax when I eat out.",
+            "no_vi": "Không thực sự — tôi không thích món lạ vì khi ăn ngoài nó không giúp tôi thư giãn.",
+        },
+        {
+            "q": "Do you like seafood?",
+            "yes_en": "Yes, absolutely. I enjoy eating seafood because grabbing a bite with friends is a great way to unwind.",
+            "yes_vi": "Có, chắc chắn. Tôi thích hải sản vì ăn vội với bạn bè là cách thư giãn tuyệt vời.",
+            "no_en": "No, not really — seafood isn't my cup of tea and I'm worried it can lead to allergies.",
+            "no_vi": "Không thực sự — hải sản không phải sở thích của tôi và tôi lo nó có thể gây dị ứng.",
+        },
+    ]
+    cards = []
+    for it in items:
+        cards.append(
+            f"""          <article class="lr-food-ex-card">
+            <p class="lr-food-ex-q">{esc(it["q"])}</p>
+            <div class="lr-food-ex-pair">
+              <p class="lr-food-ex-line lr-tip" data-tip="{esc(it["yes_vi"])}" title="{esc(it["yes_vi"])}">
+                <span class="lr-mm-tag-yes">Thích</span>
+                <span class="lr-tip-text">{esc(it["yes_en"])}</span>
+              </p>
+              <p class="lr-food-ex-line lr-tip" data-tip="{esc(it["no_vi"])}" title="{esc(it["no_vi"])}">
+                <span class="lr-mm-tag-no">Không thích</span>
+                <span class="lr-tip-text">{esc(it["no_en"])}</span>
+              </p>
+            </div>
+          </article>"""
+        )
+    return f"""
         <div class="lr-food-examples" id="food-examples">
-          <h3 class="lr-core-subtitle">Ví dụ Food · ráp Yes/No + Reasons</h3>
-          <p class="lr-mm-hint">Cùng một câu hỏi — từ câu ngắn → mở rộng (mệnh đề ↔ <code>because of</code> + NP ↔ <code>can lead to</code>).</p>
-
-          <article class="lr-food-ex-card">
-            <p class="lr-food-ex-q">Do you like fast food?</p>
-            <div class="lr-food-ex-build">
-              <p class="lr-food-ex-core"><span class="lr-mm-tag-no">NO</span> No, definitely not <strong>because</strong> <mark class="lr-ex-mark">it's not good for my health</mark>.</p>
-              <p class="lr-food-ex-note">↔ <code>it is</code> · mệnh đề: <em>because + S + V</em></p>
-              <p class="lr-food-ex-alt">Nâng cấp NP: <em>because of its <strong>harmful effects on my health</strong></em></p>
-              <p class="lr-food-ex-expand"><span class="lr-food-ex-bullet">●</span> Consuming too much fast food <strong>can lead to</strong> various health problems, <strong>such as</strong> diabetes, heart attack, high blood pressure or even cancer.</p>
-            </div>
-            <div class="lr-food-ex-full">
-              <p class="lr-food-ex-en">No, definitely not because it's not good for my health. Consuming too much fast food can lead to various health problems, such as diabetes, heart attack, high blood pressure or even cancer.</p>
-              <p class="lr-food-ex-vi lr-practice-vi">Không, chắc chắn không rồi vì nó không tốt cho sức khỏe của tôi. Tiêu thụ quá nhiều thức ăn nhanh có thể dẫn đến các vấn đề sức khỏe khác nhau, chẳng hạn như bệnh tiểu đường, đau tim, huyết áp cao hoặc thậm chí là ung thư.</p>
-            </div>
-          </article>
-
-          <article class="lr-food-ex-card lr-food-ex-card--yes">
-            <p class="lr-food-ex-q">Do you like cooking?</p>
-            <div class="lr-food-ex-build">
-              <p class="lr-food-ex-core"><span class="lr-mm-tag-yes">YES</span> Yes, definitely. I'm keen on cooking at home <strong>because</strong> <mark class="lr-ex-mark">it's relaxing</mark>.</p>
-              <p class="lr-food-ex-expand"><span class="lr-food-ex-bullet">●</span> It <strong>helps me</strong> unwind and temporarily forget all the pressures from my work. It also <strong>gives me the chance to</strong> try new recipes.</p>
-            </div>
-            <div class="lr-food-ex-full">
-              <p class="lr-food-ex-en">Yes, definitely. I'm keen on cooking at home because it's relaxing. It helps me unwind and temporarily forget all the pressures from my work. It also gives me the chance to try new recipes.</p>
-              <p class="lr-food-ex-vi lr-practice-vi">Vâng, chắc chắn. Tôi thích nấu ăn ở nhà vì nó thư giãn. Nó giúp tôi xả stress và tạm quên áp lực công việc. Cũng cho tôi cơ hội thử công thức mới.</p>
-            </div>
-          </article>
-
-          <article class="lr-food-ex-card lr-food-ex-card--yes">
-            <p class="lr-food-ex-q">Do you like eating vegetables?</p>
-            <div class="lr-food-ex-build">
-              <p class="lr-food-ex-core"><span class="lr-mm-tag-yes">YES</span> Yes, because <mark class="lr-ex-mark">it's a great way to stay healthy</mark> and prevent various health problems.</p>
-              <p class="lr-food-ex-expand"><span class="lr-food-ex-bullet">●</span> It also <strong>helps me</strong> strengthen my muscles.</p>
-            </div>
-            <div class="lr-food-ex-full">
-              <p class="lr-food-ex-en">Yes, definitely, because it's a great way to stay healthy and prevent various health problems. It also helps me strengthen my muscles.</p>
-              <p class="lr-food-ex-vi lr-practice-vi">Vâng — rau giúp giữ dáng, khỏe mạnh và phòng bệnh. Nó cũng giúp tăng cơ bắp.</p>
-            </div>
-          </article>
+          <h3 class="lr-core-subtitle">Ví dụ Food · Thích / Không thích</h3>
+          <p class="lr-mm-hint">Mỗi câu hỏi có <strong>2 hướng trả lời</strong>. Hover vào câu tiếng Anh để xem nghĩa tiếng Việt.</p>
+{chr(10).join(cards)}
         </div>"""
 
 
@@ -2316,7 +2462,7 @@ def lesson_highlights_html(
             <p class="lr-formula">Hai trụ: <strong>mang tính giải trí</strong> · <strong>mang tính giáo dục</strong> (+ sức khỏe)</p>
           </header>
 
-          <p class="lr-mm-hint">Luồng ráp câu: <strong>① Mở</strong> (I love this…) → <strong>because</strong> → <strong>Nhánh 1</strong> (It's + adj) hoặc <strong>Nhánh 2</strong> (starter + cụm V). Chọn tối đa 1–2 nhánh.</p>
+          <p class="lr-mm-hint">Luồng ráp câu: <strong>① Mở</strong> (I love this…) → <strong>because</strong> → <strong>Nhánh 1</strong> (It's + adj) hoặc <strong>Nhánh 2</strong> (starter + cụm V). Chọn tối đa 1–2 nhánh. <em>Hover</em> vào cụm tiếng Anh để xem nghĩa VI.</p>
 
 {mind_map_html(
             m2,
@@ -3991,7 +4137,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr26">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr27">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -4076,7 +4222,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr26">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr27">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>

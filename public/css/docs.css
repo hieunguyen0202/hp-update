@@ -3592,82 +3592,92 @@ body.ex-hide-ipa .ipa {
   margin: 14px 0 0;
   padding: 14px 16px;
   border-radius: 12px;
-  border: 1px solid rgba(248, 113, 113, 0.35);
-  background: rgba(127, 29, 29, 0.12);
-}
-
-.lr-food-ex-card--yes {
-  border-color: rgba(52, 211, 153, 0.35);
-  background: rgba(6, 78, 59, 0.14);
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  background: rgba(15, 23, 42, 0.35);
 }
 
 .lr-food-ex-q {
-  margin: 0 0 10px;
+  margin: 0 0 12px;
   font-size: 1.02rem;
   font-weight: 700;
   color: #fb923c;
 }
 
-.lr-food-ex-build {
-  margin-bottom: 12px;
+.lr-food-ex-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.lr-food-ex-core {
-  margin: 0 0 6px;
-  line-height: 1.7;
-  color: rgba(226, 232, 240, 0.95);
-}
-
-.lr-food-ex-note {
-  margin: 0 0 6px;
-  font-size: 0.82rem;
-  color: #fca5a5;
-}
-
-.lr-food-ex-alt {
-  margin: 0 0 8px;
-  font-size: 0.9rem;
-  color: #fda4af;
-}
-
-.lr-food-ex-expand {
+.lr-food-ex-line {
   margin: 0;
-  line-height: 1.7;
-  color: rgba(186, 230, 253, 0.95);
-}
-
-.lr-food-ex-bullet {
-  color: #f87171;
-  margin-right: 4px;
-}
-
-.lr-ex-mark {
-  background: rgba(52, 211, 153, 0.2);
-  color: #a7f3d0;
-  padding: 0.08em 0.28em;
-  border-radius: 4px;
-}
-
-.lr-food-ex-full {
-  padding-top: 12px;
-  border-top: 1px dashed rgba(167, 139, 250, 0.28);
-}
-
-.lr-food-ex-en {
-  margin: 0 0 8px;
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid rgba(52, 211, 153, 0.35);
-  background: rgba(6, 78, 59, 0.2);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
   line-height: 1.65;
   color: rgba(226, 232, 240, 0.95);
+  cursor: help;
 }
 
-.lr-food-ex-vi {
-  margin: 0;
-  font-size: 0.88rem;
-  font-style: italic;
-  color: rgba(226, 232, 240, 0.58);
+.lr-food-ex-line .lr-mm-tag-yes,
+.lr-food-ex-line .lr-mm-tag-no {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.lr-food-ex-line .lr-tip-text {
+  flex: 1;
+}
+
+/* Hover tooltips — mind-map leaves + Food example lines */
+.lr-tip {
+  position: relative;
+  cursor: help;
+}
+
+.lr-mmap-leaf.lr-tip {
+  border-radius: 4px;
+  transition: background 0.15s ease;
+}
+
+.lr-mmap-leaf.lr-tip:hover {
+  background: rgba(167, 139, 250, 0.12);
+}
+
+.lr-tip::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 8px);
+  z-index: 40;
+  max-width: min(320px, 70vw);
+  padding: 8px 11px;
+  border-radius: 8px;
+  border: 1px solid rgba(196, 181, 253, 0.45);
+  background: #1e1b4b;
+  color: #e9d5ff;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.45;
+  white-space: normal;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 0.12s ease, transform 0.12s ease, visibility 0.12s;
+}
+
+.lr-tip:hover::after,
+.lr-tip:focus-within::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.lr-food-ex-line.lr-tip::after {
+  left: 88px;
+  max-width: min(420px, 75vw);
 }
 
 
