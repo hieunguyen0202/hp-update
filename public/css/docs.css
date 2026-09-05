@@ -5217,6 +5217,177 @@ mark.lr-hl,
   white-space: nowrap;
 }
 
+/* Grammar notes · tree (Lesson 7 slide layout) */
+.lr-grammar-notes--tree {
+  padding-bottom: 18px;
+}
+
+.lr-g-tree {
+  font-size: 0.9rem;
+  color: rgba(226, 232, 240, 0.92);
+}
+
+.lr-g-tree-root {
+  display: flex;
+  justify-content: flex-start;
+  margin: 0 0 10px;
+}
+
+.lr-g-tree-root > span {
+  display: inline-block;
+  padding: 0.4em 0.85em;
+  border-radius: 8px;
+  border: 1px solid rgba(250, 204, 21, 0.55);
+  background: rgba(250, 204, 21, 0.12);
+  color: #fde68a;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.lr-g-tree-branches {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 18px;
+  border-left: 2px solid rgba(34, 211, 238, 0.45);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.lr-g-tree-branch {
+  position: relative;
+  margin: 0;
+  padding: 8px 12px 10px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(34, 211, 238, 0.22);
+  background: rgba(15, 23, 42, 0.45);
+}
+
+.lr-g-tree-branch::before {
+  content: "";
+  position: absolute;
+  left: -18px;
+  top: 1.15em;
+  width: 14px;
+  height: 2px;
+  background: rgba(34, 211, 238, 0.45);
+}
+
+.lr-g-tree-label {
+  margin: 0 0 8px;
+  font-weight: 700;
+  color: rgba(226, 232, 240, 0.95);
+  line-height: 1.45;
+}
+
+.lr-g-tree-label mark {
+  background: rgba(34, 211, 238, 0.18);
+  color: #a5f3fc !important;
+  padding: 0.12em 0.4em;
+  border-radius: 5px;
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  font-weight: 700;
+}
+
+.lr-g-tree-openers,
+.lr-g-tree-details {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 12px;
+  border-left: 2px solid rgba(52, 211, 153, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lr-g-tree-openers li,
+.lr-g-tree-details li {
+  margin: 0;
+  padding: 0.15em 0 0.15em 0.15em;
+  line-height: 1.4;
+  color: rgba(226, 232, 240, 0.88);
+  font-size: 0.88rem;
+}
+
+.lr-g-tree-openers mark,
+.lr-g-tree-details--structs mark {
+  display: inline-block;
+  background: rgba(34, 211, 238, 0.14);
+  color: #a5f3fc !important;
+  padding: 0.12em 0.4em;
+  border-radius: 5px;
+  border: 1px solid rgba(34, 211, 238, 0.32);
+  font-weight: 650;
+}
+
+.lr-g-tree-sub {
+  margin: 10px 0 6px;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(167, 243, 208, 0.85);
+  font-weight: 650;
+}
+
+.lr-g-tree-foot {
+  margin: 16px 0 0 18px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px dashed rgba(167, 139, 250, 0.4);
+  background: rgba(76, 29, 149, 0.18);
+}
+
+.lr-g-tree-foot .lr-g-tree-sub {
+  margin-top: 0;
+  color: rgba(196, 181, 253, 0.9);
+}
+
+.lr-g-tree-details--structs {
+  border-left-color: rgba(167, 139, 250, 0.5);
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  padding-left: 10px;
+}
+
+@media (min-width: 900px) {
+  .lr-g-tree-branches {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    border-left: none;
+    padding-left: 0;
+    position: relative;
+    margin-top: 8px;
+  }
+
+  .lr-g-tree-branches::before {
+    content: "";
+    position: absolute;
+    left: 8%;
+    right: 8%;
+    top: -6px;
+    height: 2px;
+    background: rgba(34, 211, 238, 0.35);
+  }
+
+  .lr-g-tree-branch::before {
+    left: 50%;
+    top: -8px;
+    width: 2px;
+    height: 8px;
+    transform: translateX(-50%);
+  }
+
+  .lr-g-tree-root {
+    justify-content: center;
+  }
+
+  .lr-g-tree-foot {
+    margin-left: 0;
+  }
+}
+
 /* Per-example structure chips (under Food cards) */
 .lr-ex-chips {
   display: flex;

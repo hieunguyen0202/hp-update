@@ -4620,6 +4620,57 @@ def lesson_grammar_notes_html(title: str, skeleton_lines: list[str]) -> str:
           </div>"""
 
 
+def lesson_grammar_tree_html(
+    title: str,
+    root: str,
+    branches: list[dict],
+    *,
+    footer: list[str] | None = None,
+) -> str:
+    """Tree-style grammar notes (Lesson 7 slide: Có / Không / Còn tùy).
+
+    each branch: {label, openers: [...], details_label?, details: [...]}
+    """
+    branch_html: list[str] = []
+    for br in branches:
+        openers = "".join(
+            f'<li><mark>{esc(o)}</mark></li>' for o in br.get("openers", []) if o
+        )
+        details = "".join(
+            f"<li>{esc(d)}</li>" for d in br.get("details", []) if d
+        )
+        det_label = br.get("details_label") or "Chi tiết"
+        det_block = ""
+        if details:
+            det_block = f"""
+              <p class="lr-g-tree-sub">{esc(det_label)}</p>
+              <ul class="lr-g-tree-details">{details}</ul>"""
+        branch_html.append(
+            f"""            <li class="lr-g-tree-branch">
+              <div class="lr-g-tree-label">{br.get("label_html") or esc(br.get("label", ""))}</div>
+              <ul class="lr-g-tree-openers">{openers}</ul>{det_block}
+            </li>"""
+        )
+    foot = ""
+    if footer:
+        items = "".join(f"<li><mark>{esc(x)}</mark></li>" for x in footer if x)
+        foot = f"""
+            <div class="lr-g-tree-foot">
+              <p class="lr-g-tree-sub">Cấu trúc hay dùng</p>
+              <ul class="lr-g-tree-details lr-g-tree-details--structs">{items}</ul>
+            </div>"""
+    return f"""
+          <div class="lr-grammar-notes lr-grammar-notes--tree">
+            <h4 class="lr-grammar-notes-title">Grammar notes · {esc(title)}</h4>
+            <div class="lr-g-tree" role="tree" aria-label="Grammar tree {esc(title)}">
+              <div class="lr-g-tree-root"><span>{esc(root)}</span></div>
+              <ul class="lr-g-tree-branches">
+{chr(10).join(branch_html)}
+              </ul>{foot}
+            </div>
+          </div>"""
+
+
 def lesson_highlights_html(
     *,
     map_suffix: str = "",
@@ -4696,16 +4747,60 @@ def lesson_highlights_html(
             f'{_g_alts("while + nhược điểm của Y", "whereas + nhược điểm của Y")}',
         ],
     )
-    g7 = lesson_grammar_notes_html(
+    g7 = lesson_grammar_tree_html(
         "Lesson 7",
+        "Is X popular in your country?",
         [
-            f'{_g_alts("Yes, it\'s very popular", "Yes, they are very popular in Vietnam")}. '
-            f'{_g_alts("the majority of…", "a large percentage of…", "account for + 60–70%")}',
-            f'{_g_alts("No, it\'s not really popular", "No, not really")}. '
-            f'{_g_alts("not many / very few", "a small percentage", "hardly ever / rarely")}',
-            f'{_g_alts("It depends", "It depends on…")}. '
-            f'{_g_alts("age (young ↔ old)", "gender (men ↔ women)", "income (rich ↔ poor)", "city ↔ countryside", "food type")}',
-            f'{_g_alts("account for + %", "can see sb/sth + V-ing", "can\'t stand sth")}',
+            {
+                "label_html": f'{_g_mark("Có")} + lý do / chi tiết',
+                "openers": [
+                    "Yes, it's very popular.",
+                    "Yes, they are very popular in Vietnam.",
+                ],
+                "details_label": "Số lượng lớn",
+                "details": [
+                    "the majority of…",
+                    "most / many / a lot of",
+                    "a large number / proportion / percentage of",
+                    "60–70%",
+                    "account for + %",
+                ],
+            },
+            {
+                "label_html": f'{_g_mark("Không")} + lý do / chi tiết',
+                "openers": [
+                    "No, it's not really popular.",
+                    "No, not really.",
+                ],
+                "details_label": "Số lượng nhỏ / tần suất thấp",
+                "details": [
+                    "not many / very few",
+                    "a small number / proportion / percentage of",
+                    "20–30%",
+                    "nobody / no one",
+                    "hardly ever / rarely",
+                ],
+            },
+            {
+                "label_html": f'{_g_mark("Còn tùy")} + trường hợp',
+                "openers": [
+                    "It depends.",
+                    "It depends on…",
+                ],
+                "details_label": "Cách chia (phụ thuộc câu hỏi)",
+                "details": [
+                    "age: young people ↔ older people",
+                    "gender: men ↔ women",
+                    "income: the rich ↔ the poor",
+                    "place: the city ↔ the country",
+                    "food type: fast food / home-cooked / street food…",
+                ],
+            },
+        ],
+        footer=[
+            "account for + %",
+            "can see sb/sth + V-ing",
+            "can't stand sth",
         ],
     )
 
@@ -6412,7 +6507,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr40">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr41">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -6508,7 +6603,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr40">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr41">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
