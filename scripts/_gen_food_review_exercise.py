@@ -667,6 +667,110 @@ WORD_SLOTS: dict[str, list[dict]] = {
         {"form": "send food recommendations to colleagues", "vi": "gửi gợi ý quán ăn cho đồng nghiệp"},
         {"form": "send a grocery list to my roommate", "vi": "gửi danh sách đi chợ cho bạn cùng phòng"},
     ],
+    # Lesson 7 · Is X popular in your country?
+    "pop_yes_open": [
+        {"form": "Yes, it's very popular", "vi": "Có, rất phổ biến"},
+        {"form": "Yes, they are very popular in Vietnam", "vi": "Có, rất phổ biến ở Việt Nam"},
+        {"form": "Yes, absolutely — it's everywhere", "vi": "Có, tuyệt đối — đâu cũng có"},
+    ],
+    "pop_no_open": [
+        {"form": "No, it's not really popular", "vi": "Không, không thực sự phổ biến"},
+        {"form": "No, not really", "vi": "Không thực sự"},
+        {"form": "Well, not really", "vi": "À, không thực sự"},
+    ],
+    "pop_depends_open": [
+        {"form": "It depends", "vi": "Còn tùy"},
+        {"form": "It depends on the person", "vi": "Còn tùy vào người"},
+        {"form": "I think it really depends", "vi": "Tôi nghĩ còn tùy"},
+        {"form": "Well, I think it depends", "vi": "À, tôi nghĩ còn tùy"},
+    ],
+    "pop_large_qty": [
+        {"form": "the majority of Vietnamese people", "vi": "đa số người Việt"},
+        {"form": "most young people", "vi": "hầu hết giới trẻ"},
+        {"form": "a large number of urban dwellers", "vi": "một số lượng lớn người thành thị"},
+        {"form": "a large proportion of office workers", "vi": "một tỷ lệ lớn nhân viên văn phòng"},
+        {"form": "a large percentage of families", "vi": "một tỷ lệ lớn các gia đình"},
+        {"form": "many people in major cities", "vi": "nhiều người ở thành phố lớn"},
+    ],
+    "pop_small_qty": [
+        {"form": "not many people", "vi": "không nhiều người"},
+        {"form": "very few people", "vi": "rất ít người"},
+        {"form": "a small number of restaurants", "vi": "một số ít nhà hàng"},
+        {"form": "a small proportion of households", "vi": "một tỷ lệ nhỏ hộ gia đình"},
+        {"form": "a small percentage of the population", "vi": "một tỷ lệ nhỏ dân số"},
+    ],
+    "pop_account": [
+        {"form": "account for about 60%–70% of meals people grab on the go", "vi": "chiếm khoảng 60–70% bữa ăn vội"},
+        {"form": "account for around 60%–70% of the drinks ordered in cafés", "vi": "chiếm khoảng 60–70% đồ uống gọi ở quán cà phê"},
+        {"form": "account for roughly 60% of weekend dining choices among young people", "vi": "chiếm khoảng 60% lựa chọn ăn cuối tuần của giới trẻ"},
+        {"form": "account for only about 20%–30% of everyday meals", "vi": "chỉ chiếm khoảng 20–30% bữa ăn hàng ngày"},
+    ],
+    "pop_group_young": [
+        {"form": "young people", "vi": "người trẻ"},
+        {"form": "the younger generation", "vi": "thế hệ trẻ"},
+        {"form": "people aged 20 to 30", "vi": "người từ 20 đến 30 tuổi"},
+    ],
+    "pop_group_old": [
+        {"form": "older people", "vi": "người lớn tuổi"},
+        {"form": "the older generation", "vi": "thế hệ lớn tuổi"},
+        {"form": "elderly people", "vi": "người cao tuổi"},
+        {"form": "people aged 65 or over", "vi": "người từ 65 tuổi trở lên"},
+    ],
+    "pop_group_men": [
+        {"form": "men", "vi": "nam giới"},
+        {"form": "boys", "vi": "con trai / thanh niên nam"},
+        {"form": "males", "vi": "nam"},
+    ],
+    "pop_group_women": [
+        {"form": "women", "vi": "nữ giới"},
+        {"form": "girls", "vi": "con gái / thanh niên nữ"},
+        {"form": "females", "vi": "nữ"},
+    ],
+    "pop_group_rich": [
+        {"form": "rich people", "vi": "người giàu"},
+        {"form": "the rich", "vi": "tầng lớp giàu"},
+        {"form": "people from privileged social backgrounds", "vi": "người có nền tảng xã hội khá giả"},
+    ],
+    "pop_group_poor": [
+        {"form": "poor people", "vi": "người nghèo"},
+        {"form": "the poor", "vi": "tầng lớp nghèo"},
+        {"form": "people from modest family backgrounds", "vi": "người xuất thân khiêm tốn"},
+    ],
+    "pop_group_city": [
+        {"form": "urban dwellers", "vi": "người sống ở thành thị"},
+        {"form": "people living in major cities", "vi": "người sống ở thành phố lớn"},
+        {"form": "people living in urban areas", "vi": "người sống ở khu vực đô thị"},
+    ],
+    "pop_group_country": [
+        {"form": "rural dwellers", "vi": "người sống ở nông thôn"},
+        {"form": "people living in the countryside", "vi": "người sống ở vùng quê"},
+        {"form": "people living in rural areas", "vi": "người sống ở khu vực nông thôn"},
+    ],
+    "pop_food_type": [
+        {"form": "fast food", "vi": "đồ ăn nhanh"},
+        {"form": "home-cooked food", "vi": "đồ nấu nhà"},
+        {"form": "street food", "vi": "đồ ăn đường phố"},
+        {"form": "traditional Vietnamese dishes", "vi": "món Việt truyền thống"},
+        {"form": "organic food", "vi": "thực phẩm hữu cơ"},
+    ],
+    "pop_see_ving": [
+        {"form": "you can see people queuing for bubble tea after work", "vi": "có thể thấy người xếp hàng mua trà sữa sau giờ làm"},
+        {"form": "you can see families sharing hot pot in local restaurants", "vi": "có thể thấy gia đình ăn lẩu ở quán địa phương"},
+        {"form": "you can see office workers grabbing a quick bánh mì at lunchtime", "vi": "có thể thấy nhân viên văn phòng mua vội bánh mì giờ trưa"},
+        {"form": "you can see street vendors selling pho from early morning", "vi": "có thể thấy hàng rong bán phở từ sáng sớm"},
+    ],
+    "pop_cant_stand": [
+        {"form": "can't stand the taste of very sweet desserts", "vi": "không chịu nổi vị ngọt của món tráng miệng quá ngọt"},
+        {"form": "can't stand overly greasy fast food", "vi": "không chịu nổi fast food quá nhiều dầu"},
+        {"form": "can't stand the smell of strong seafood", "vi": "không chịu nổi mùi hải sản mạnh"},
+        {"form": "can't stand extremely spicy dishes", "vi": "không chịu nổi món cực cay"},
+    ],
+    "pop_hardly": [
+        {"form": "you hardly ever find fine-dining restaurants in rural areas", "vi": "hiếm khi tìm thấy nhà hàng fine dining ở nông thôn"},
+        {"form": "people hardly ever eat vegan meals every day", "vi": "hiếm khi người ta ăn thuần chay mỗi ngày"},
+        {"form": "I hardly ever see organic-only supermarkets outside big cities", "vi": "hiếm khi thấy siêu thị chỉ bán organic ngoài thành phố lớn"},
+        {"form": "families hardly ever go to expensive steakhouses on weekdays", "vi": "hiếm khi gia đình đi steakhouse đắt vào ngày thường"},
+    ],
 }
 
 # ── Mind map helpers (shared: Section 2 tenses + Lesson 2/3) ───────────────
@@ -2187,6 +2291,141 @@ LESSON6_MINDMAP_RIGHT = [
     },
 ]
 
+# Lesson 7 · Is X popular in your country? — trái = Có/Không, phải = Còn tùy
+LESSON7_MINDMAP_LEFT = [
+    {
+        "id": "popular-yes-no",
+        "color": "#86efac",
+        "name": "Có / Không",
+        "name_vi": "Yes / No + detail",
+        "flow": True,
+        "opener": "Yes, it's very popular · No, not really",
+        "branches": [
+            {
+                "label": "Nhánh 1 · Có + số lượng lớn",
+                "patterns": "The majority · most · many · a large number / proportion / percentage · 60–70%",
+                "leaves": [
+                    tip("Yes, it's very popular.", "Có, rất phổ biến."),
+                    tip(
+                        "the majority of… / most / many / a lot of",
+                        "đa số / hầu hết / nhiều / rất nhiều",
+                    ),
+                    tip(
+                        "a large number of · a large proportion of · a large percentage of",
+                        "một số lượng lớn · một tỷ lệ lớn · một phần trăm lớn",
+                    ),
+                    tip(
+                        "account for + % (chiếm bao nhiêu %)",
+                        "account for about 60%–70% of …",
+                    ),
+                    tip(
+                        "Reduced relative: movies shown / dishes prepared…",
+                        "Rút gọn mệnh đề quan hệ bị động: dishes prepared with…",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Không + số lượng nhỏ",
+                "patterns": "not many · very few · 20–30% · hardly ever / rarely",
+                "leaves": [
+                    tip("No, it's not really popular. / No, not really.", "Không thực sự phổ biến."),
+                    tip(
+                        "not many · very few · a small number / proportion / percentage",
+                        "không nhiều · rất ít · một số/tỷ lệ nhỏ",
+                    ),
+                    tip(
+                        "nobody / no one · hardly ever / rarely",
+                        "không ai · hiếm khi / ít khi",
+                    ),
+                    tip(
+                        "Food: fine dining / vegan every day — rarely mainstream",
+                        "Fine dining / ăn thuần chay mỗi ngày — chưa phổ biến",
+                    ),
+                ],
+            },
+        ],
+        "link": "→ hoặc chuyển sang nhánh <strong>Còn tùy</strong> nếu không nói tuyệt đối",
+    },
+]
+
+LESSON7_MINDMAP_RIGHT = [
+    {
+        "id": "popular-depends",
+        "color": "#fcd34d",
+        "name": "Còn tùy",
+        "name_vi": "It depends + case",
+        "flow": True,
+        "opener": "It depends. · It depends on…",
+        "branches": [
+            {
+                "label": "Nhánh 1 · Chia theo người (Food)",
+                "patterns": "Cách chia phụ thuộc vào câu hỏi",
+                "leaves": [
+                    tip(
+                        "Age: young people / the younger generation ↔ older people / elderly",
+                        "Tuổi: giới trẻ ↔ người lớn tuổi",
+                    ),
+                    tip(
+                        "Gender: men / boys ↔ women / girls",
+                        "Giới tính: nam ↔ nữ (vd. hearty meat ↔ lighter salads)",
+                    ),
+                    tip(
+                        "Income: the rich / privileged ↔ the poor / modest backgrounds",
+                        "Thu nhập: giàu ↔ nghèo (fine dining ↔ street food)",
+                    ),
+                    tip(
+                        "Place: urban dwellers / major cities ↔ rural dwellers / countryside",
+                        "Nơi sống: thành thị ↔ nông thôn",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Chia theo thể loại / khu vực (Food)",
+                "leaves": [
+                    tip(
+                        "Food types: fast food / home-cooked / street food / organic…",
+                        "Thể loại: fast food · nấu nhà · đường phố · hữu cơ…",
+                    ),
+                    tip(
+                        "Area: the city / major cities ↔ the country / rural areas",
+                        "Khu vực: thành phố ↔ nông thôn",
+                    ),
+                    tip(
+                        "Coastal cities ↔ mountain towns (seafood vs highland food)",
+                        "Ven biển ↔ miền núi (hải sản vs đồ cao nguyên)",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 3 · Cấu trúc slide (Food)",
+                "leaves": [
+                    tip(
+                        "account for + %",
+                        "Chiếm bao nhiêu phần trăm (vd. street food account for 60–70%)",
+                    ),
+                    tip(
+                        "can see sb/sth + V-ing",
+                        "Có thể thấy ai/cái gì đang làm gì",
+                    ),
+                    tip(
+                        "can't stand sth",
+                        "Không chịu nổi / cực kỳ không thích cái gì",
+                    ),
+                    tip(
+                        "hardly ever / rarely + V",
+                        "Hiếm khi / ít khi + V",
+                    ),
+                    tip(
+                        "popular with + group",
+                        "Phổ biến với nhóm nào (popular with young people)",
+                    ),
+                ],
+            },
+        ],
+        "link": "→ chọn <strong>1 trục chia</strong> (tuổi / giới / nơi ở…) + 1 ví dụ Food cụ thể",
+    },
+]
+
 
 def collect_review_words() -> list[dict]:
     topic = next(t for t in TOPICS["topics"] if t["slug"] == "food-drink")
@@ -3032,6 +3271,9 @@ def _pair_answer_html(
         "no": ("Không thích", "lr-mm-tag-no"),
         "sample": ("Mẫu", "lr-mm-tag-yes"),
         "alt": ("Khác", "lr-mm-tag-no"),
+        "depends": ("Còn tùy", "lr-mm-tag-yes"),
+        "pop_yes": ("Có", "lr-mm-tag-yes"),
+        "pop_no": ("Không", "lr-mm-tag-no"),
     }
     tag, tag_cls = tags.get(kind, ("Mẫu", "lr-mm-tag-yes"))
     chain = " lr-practice-chain lr-chain" if ex_en else ""
@@ -3088,6 +3330,14 @@ def _ex_chip_notes_html(chips: list | None) -> str:
         "burn excess calories": "Đốt calo thừa",
         "signature dish": "Món đặc trưng",
         "mouth-watering": "Cực ngon / kích thích vị giác",
+        "account for + %": "Chiếm bao nhiêu phần trăm",
+        "can see sb/sth + V-ing": "Có thể thấy ai/cái gì đang V-ing",
+        "can't stand sth": "Không chịu nổi cái gì",
+        "hardly ever / rarely": "Hiếm khi / ít khi",
+        "popular with + group": "Phổ biến với nhóm nào",
+        "urban / rural dwellers": "Người thành thị / nông thôn",
+        "the younger / older generation": "Thế hệ trẻ / lớn tuổi",
+        "reduced relative (passive)": "Rút gọn mệnh đề quan hệ bị động",
     }
     expanded: list[tuple[str, str]] = []
     for c in chips:
@@ -3666,6 +3916,318 @@ def food_lesson6_examples_html() -> str:
         </div>"""
 
 
+def food_lesson7_examples_html() -> str:
+    """Lesson 7 · Is X popular in your country? — Food Qs with Yes / No / It depends."""
+    items: list[dict] = []
+
+    def add(
+        q: str,
+        *,
+        kind: str,
+        en_html: str,
+        vi: str,
+        plain: str,
+        ipa: str,
+        ex: str,
+        alt_kind: str = "alt",
+        alt_html: str = "",
+        alt_vi: str = "",
+        alt_plain: str = "",
+        alt_ipa: str = "",
+        alt_ex: str = "",
+        notes: list[str] | None = None,
+    ) -> None:
+        items.append(
+            {
+                "q": q,
+                "kind": kind,
+                "html": en_html,
+                "vi": vi,
+                "plain": plain,
+                "ipa": ipa,
+                "ex": ex,
+                "alt_kind": alt_kind,
+                "alt_html": alt_html,
+                "alt_vi": alt_vi,
+                "alt_plain": alt_plain,
+                "alt_ipa": alt_ipa,
+                "alt_ex": alt_ex,
+                "notes": notes or [],
+            }
+        )
+
+    # 1 — street food · YES + account for
+    t1 = (
+        "{pop_yes_open}. {pop_large_qty} enjoy street food almost every week, and "
+        "quick bites from stalls {pop_account}. {pop_see_ving}."
+    )
+    add(
+        "Is street food popular in your country?",
+        kind="pop_yes",
+        en_html=t1.format(
+            pop_yes_open=phrase_pick("pop_yes_open", 0),
+            pop_large_qty=phrase_pick("pop_large_qty", 0),
+            pop_account=phrase_pick("pop_account", 0),
+            pop_see_ving=phrase_pick("pop_see_ving", 3),
+        ),
+        vi="Có, rất phổ biến. Đa số người Việt thích đồ đường phố gần như mỗi tuần, và món ăn vội từ quán chiếm khoảng 60–70% bữa ăn mang đi. Có thể thấy hàng rong bán phở từ sáng sớm.",
+        plain="Yes, it's very popular. The majority of Vietnamese people enjoy street food almost every week, and quick bites from stalls account for about 60%–70% of meals people grab on the go. You can see street vendors selling pho from early morning.",
+        ipa="",
+        ex=t1,
+        notes=["account for + %", "can see sb/sth + V-ing", "reduced relative (passive)"],
+    )
+
+    # 2 — fine dining · NO + hardly ever
+    t2 = (
+        "{pop_no_open}. There are {pop_small_qty} that go to expensive restaurants regularly, "
+        "and {pop_hardly}. Fine dining may account for only about 20%–30% of special occasions."
+    )
+    add(
+        "Is fine dining popular in your country?",
+        kind="pop_no",
+        en_html=t2.format(
+            pop_no_open=phrase_pick("pop_no_open", 1),
+            pop_small_qty=phrase_pick("pop_small_qty", 1),
+            pop_hardly=phrase_pick("pop_hardly", 0),
+        ),
+        vi="Không thực sự. Rất ít người đi nhà hàng đắt thường xuyên, và hiếm khi tìm thấy fine dining ở nông thôn. Fine dining có thể chỉ chiếm khoảng 20–30% dịp đặc biệt.",
+        plain="No, not really. There are very few people that go to expensive restaurants regularly, and you hardly ever find fine-dining restaurants in rural areas. Fine dining may account for only about 20%–30% of special occasions.",
+        ipa="",
+        ex=t2,
+        notes=["hardly ever / rarely", "account for + %"],
+    )
+
+    # 3 — fast food · DEPENDS age
+    t3 = (
+        "{pop_depends_open}. Fast food is popular with {pop_group_young}, but it's not "
+        "really popular with {pop_group_old}. {pop_group_young} often grab burgers after class, "
+        "while {pop_group_old} usually prefer traditional home-cooked Vietnamese meals."
+    )
+    add(
+        "Is fast food popular in your country?",
+        kind="depends",
+        en_html=t3.format(
+            pop_depends_open=phrase_pick("pop_depends_open", 2),
+            pop_group_young=phrase_pick("pop_group_young", 1),
+            pop_group_old=phrase_pick("pop_group_old", 0),
+        ),
+        vi="Tôi nghĩ còn tùy. Fast food phổ biến với thế hệ trẻ, nhưng không thực sự phổ biến với người lớn tuổi. Giới trẻ hay mua burger sau giờ học, trong khi người lớn tuổi thường thích bữa Việt nấu nhà.",
+        plain="I think it really depends. Fast food is popular with the younger generation, but it's not really popular with older people. The younger generation often grab burgers after class, while older people usually prefer traditional home-cooked Vietnamese meals.",
+        ipa="",
+        ex=t3,
+        notes=["popular with + group", "the younger / older generation"],
+    )
+
+    # 4 — coffee culture · DEPENDS city/country
+    t4 = (
+        "{pop_depends_open}. Coffee culture is huge among {pop_group_city}, "
+        "whereas {pop_group_country} might prefer drinking tea at home. "
+        "In places like Ho Chi Minh City, {pop_see_ving}."
+    )
+    add(
+        "Is coffee culture popular in your country?",
+        kind="depends",
+        en_html=t4.format(
+            pop_depends_open=phrase_pick("pop_depends_open", 0),
+            pop_group_city=phrase_pick("pop_group_city", 0),
+            pop_group_country=phrase_pick("pop_group_country", 1),
+            pop_see_ving=phrase_pick("pop_see_ving", 0),
+        ),
+        vi="Còn tùy. Văn hóa cà phê rất lớn với người thành thị, trong khi người quê có thể thích uống trà ở nhà. Ở TP.HCM, có thể thấy người xếp hàng mua trà sữa sau giờ làm.",
+        plain="It depends. Coffee culture is huge among urban dwellers, whereas people living in the countryside might prefer drinking tea at home. In places like Ho Chi Minh City, you can see people queuing for bubble tea after work.",
+        ipa="",
+        ex=t4,
+        notes=["urban / rural dwellers", "can see sb/sth + V-ing"],
+    )
+
+    # 5 — chocolate · DEPENDS + can't stand (slide example adapted)
+    t5 = (
+        "{pop_depends_open}. People who love sweet things usually love chocolate, "
+        "but those who don't like anything sweet — like me, for example — "
+        "{pop_cant_stand}."
+    )
+    add(
+        "Is chocolate popular in your country?",
+        kind="depends",
+        en_html=t5.format(
+            pop_depends_open=phrase_pick("pop_depends_open", 3),
+            pop_cant_stand=phrase_pick("pop_cant_stand", 0),
+        ),
+        vi="À, tôi nghĩ còn tùy. Người thích đồ ngọt thường thích sô-cô-la, nhưng người không thích gì ngọt — như tôi chẳng hạn — không chịu nổi vị của món tráng miệng quá ngọt.",
+        plain="Well, I think it depends. People who love sweet things usually love chocolate, but those who don't like anything sweet — like me, for example — can't stand the taste of very sweet desserts.",
+        ipa="",
+        ex=t5,
+        notes=["can't stand sth"],
+        alt_kind="pop_yes",
+        alt_html=(
+            "{pop_yes_open}. {pop_large_qty} buy chocolate as gifts, and sweet snacks "
+            "{pop_account}.".format(
+                pop_yes_open=phrase_pick("pop_yes_open", 1),
+                pop_large_qty=phrase_pick("pop_large_qty", 4),
+                pop_account=phrase_pick("pop_account", 2),
+            )
+        ),
+        alt_vi="Có, rất phổ biến ở Việt Nam. Một tỷ lệ lớn các gia đình mua sô-cô-la làm quà, và đồ ngọt chiếm khoảng 60% lựa chọn ăn cuối tuần của giới trẻ.",
+        alt_plain="Yes, they are very popular in Vietnam. A large percentage of families buy chocolate as gifts, and sweet snacks account for roughly 60% of weekend dining choices among young people.",
+        alt_ipa="",
+        alt_ex=(
+            "{pop_yes_open}. {pop_large_qty} buy chocolate as gifts, and sweet snacks "
+            "{pop_account}."
+        ),
+    )
+
+    # 6 — traditional Vietnamese food · YES
+    t6 = (
+        "{pop_yes_open}. {pop_large_qty} still cook {pop_food_type} at home, "
+        "and you can see families sharing hot pot in local restaurants at the weekend."
+    )
+    add(
+        "Is traditional Vietnamese food popular in your country?",
+        kind="pop_yes",
+        en_html=t6.format(
+            pop_yes_open=phrase_pick("pop_yes_open", 0),
+            pop_large_qty=phrase_pick("pop_large_qty", 0),
+            pop_food_type=phrase_pick("pop_food_type", 3),
+        ),
+        vi="Có, rất phổ biến. Đa số người Việt vẫn nấu món Việt truyền thống ở nhà, và cuối tuần có thể thấy gia đình ăn lẩu ở quán địa phương.",
+        plain="Yes, it's very popular. The majority of Vietnamese people still cook traditional Vietnamese dishes at home, and you can see families sharing hot pot in local restaurants at the weekend.",
+        ipa="",
+        ex=t6,
+        notes=["can see sb/sth + V-ing", "account for + %"],
+    )
+
+    # 7 — vegan food · NO / small %
+    t7 = (
+        "{pop_no_open}. {pop_small_qty} follow a strict vegan diet, and "
+        "{pop_hardly}. It may account for only about 20%–30% of restaurant menus outside big cities."
+    )
+    add(
+        "Is vegan food popular in your country?",
+        kind="pop_no",
+        en_html=t7.format(
+            pop_no_open=phrase_pick("pop_no_open", 0),
+            pop_small_qty=phrase_pick("pop_small_qty", 4),
+            pop_hardly=phrase_pick("pop_hardly", 1),
+        ),
+        vi="Không, không thực sự phổ biến. Một tỷ lệ nhỏ dân số theo chế độ thuần chay nghiêm, và hiếm khi người ta ăn thuần chay mỗi ngày. Có thể chỉ chiếm khoảng 20–30% thực đơn nhà hàng ngoài thành phố lớn.",
+        plain="No, it's not really popular. A small percentage of the population follow a strict vegan diet, and people hardly ever eat vegan meals every day. It may account for only about 20%–30% of restaurant menus outside big cities.",
+        ipa="",
+        ex=t7,
+        notes=["hardly ever / rarely", "account for + %"],
+    )
+
+    # 8 — eating out · DEPENDS income
+    t8 = (
+        "{pop_depends_open}. Eating out is more popular with {pop_group_rich}, "
+        "while {pop_group_poor} often stick to affordable street food or home-cooked meals. "
+        "{pop_group_rich} may go to restaurants prepared with imported ingredients, "
+        "whereas others grab a simple lunch nearby."
+    )
+    add(
+        "Is eating out popular in your country?",
+        kind="depends",
+        en_html=t8.format(
+            pop_depends_open=phrase_pick("pop_depends_open", 1),
+            pop_group_rich=phrase_pick("pop_group_rich", 1),
+            pop_group_poor=phrase_pick("pop_group_poor", 2),
+        ),
+        vi="Còn tùy vào người. Ăn ngoài phổ biến hơn với tầng lớp giàu, trong khi người xuất thân khiêm tốn thường bám đồ đường phố hoặc nấu nhà. Người giàu có thể tới nhà hàng dùng nguyên liệu nhập, còn người khác thì ăn trưa đơn giản gần chỗ làm.",
+        plain="It depends on the person. Eating out is more popular with the rich, while people from modest family backgrounds often stick to affordable street food or home-cooked meals. The rich may go to restaurants prepared with imported ingredients, whereas others grab a simple lunch nearby.",
+        ipa="",
+        ex=t8,
+        notes=["popular with + group", "reduced relative (passive)"],
+    )
+
+    # 9 — organic food · DEPENDS city + small %
+    t9 = (
+        "{pop_depends_open}. Organic food is growing among {pop_group_city}, "
+        "but {pop_hardly}. Overall, organic products still account for only about 20%–30% "
+        "of weekly grocery shopping for most families."
+    )
+    add(
+        "Are organic foods popular in your country?",
+        kind="depends",
+        en_html=t9.format(
+            pop_depends_open=phrase_pick("pop_depends_open", 2),
+            pop_group_city=phrase_pick("pop_group_city", 1),
+            pop_hardly=phrase_pick("pop_hardly", 2),
+        ),
+        vi="Tôi nghĩ còn tùy. Thực phẩm hữu cơ đang tăng với người sống ở thành phố lớn, nhưng hiếm khi thấy siêu thị chỉ bán organic ngoài đô thị lớn. Nhìn chung organic vẫn chỉ chiếm khoảng 20–30% chi tiêu đi chợ hàng tuần của hầu hết gia đình.",
+        plain="I think it really depends. Organic food is growing among people living in major cities, but I hardly ever see organic-only supermarkets outside big cities. Overall, organic products still account for only about 20%–30% of weekly grocery shopping for most families.",
+        ipa="",
+        ex=t9,
+        notes=["account for + %", "hardly ever / rarely", "urban / rural dwellers"],
+    )
+
+    # 10 — spicy food · DEPENDS gender
+    t10 = (
+        "{pop_depends_open}. Spicy food is popular with {pop_group_men}, but it's not "
+        "really popular with {pop_group_women}. {pop_group_men} are often more interested "
+        "in hearty spicy dishes, while {pop_group_women} might opt for lighter salads "
+        "or milder soups — and {pop_group_old} seem to love gentle home-cooked meals."
+    )
+    add(
+        "Is spicy food popular in your country?",
+        kind="depends",
+        en_html=t10.format(
+            pop_depends_open=phrase_pick("pop_depends_open", 2),
+            pop_group_men=phrase_pick("pop_group_men", 0),
+            pop_group_women=phrase_pick("pop_group_women", 0),
+            pop_group_old=phrase_pick("pop_group_old", 0),
+        ),
+        vi="Tôi nghĩ còn tùy. Đồ cay phổ biến với nam giới, nhưng không thực sự phổ biến với nữ. Nam thường thích món cay đậm đà, trong khi nữ có thể chọn salad nhẹ hoặc canh dịu — và người lớn tuổi dường như thích bữa nấu nhà nhẹ nhàng.",
+        plain="I think it really depends. Spicy food is popular with men, but it's not really popular with women. Men are often more interested in hearty spicy dishes, while women might opt for lighter salads or milder soups — and older people seem to love gentle home-cooked meals.",
+        ipa="",
+        ex=t10,
+        notes=["popular with + group", "the younger / older generation"],
+        alt_kind="depends",
+        alt_html=(
+            "{pop_depends_open}. In central Vietnam, {pop_food_type} with chilli is everywhere, "
+            "whereas in some northern areas people prefer milder flavours.".format(
+                pop_depends_open=phrase_pick("pop_depends_open", 0),
+                pop_food_type=phrase_pick("pop_food_type", 2),
+            )
+        ),
+        alt_vi="Còn tùy. Ở miền Trung, đồ đường phố với ớt đâu cũng có, trong khi một số vùng miền Bắc người ta thích vị dịu hơn.",
+        alt_plain="It depends. In central Vietnam, street food with chilli is everywhere, whereas in some northern areas people prefer milder flavours.",
+        alt_ipa="",
+        alt_ex=(
+            "{pop_depends_open}. In central Vietnam, {pop_food_type} with chilli is everywhere, "
+            "whereas in some northern areas people prefer milder flavours."
+        ),
+    )
+
+    cards = []
+    for it in items:
+        alts = ""
+        if it.get("alt_html"):
+            alts = _pair_answer_html(
+                kind=it.get("alt_kind") or "alt",
+                en_html=it["alt_html"],
+                vi=it["alt_vi"],
+                plain=it["alt_plain"],
+                ipa=it["alt_ipa"],
+                q=it["q"],
+                ex_en=it.get("alt_ex", ""),
+            )
+        cards.append(
+            f"""          <article class="lr-food-ex-card">
+{_ex_card_q_html(it["q"])}
+            <div class="lr-food-ex-pair lr-food-ex-pair--popular">
+{_pair_answer_html(kind=it["kind"], en_html=it["html"], vi=it["vi"], plain=it["plain"], ipa=it["ipa"], q=it["q"], ex_en=it["ex"])}
+{alts}
+            </div>
+{_ex_chip_notes_html(it.get("notes"))}
+          </article>"""
+        )
+    return f"""
+        <div class="lr-food-examples" id="food-examples-l7">
+          <h3 class="lr-core-subtitle">Ví dụ Food · Is X popular in your country?</h3>
+          <p class="lr-mm-hint">~10 câu Part 1 (Food). Nhánh <strong>Có / Không / Còn tùy</strong> — chia theo tuổi, giới, thu nhập, nơi ở. Bật <strong>Hiện IPA</strong> để thêm dòng phiên âm dưới câu trả lời.</p>
+{chr(10).join(cards)}
+        </div>"""
+
+
 def food_lesson_examples_html() -> str:
     """Unified Food cards: every Q has Thích + Không thích; both sides have contextual dropdowns."""
     items = []
@@ -4064,7 +4626,7 @@ def lesson_highlights_html(
     include_food_examples: bool = False,
     open_practice: bool = False,
 ) -> str:
-    """Lesson 2 + 3 + 5 + 6 mind maps and practice (Lesson 4 skipped).
+    """Lesson 2 + 3 + 5 + 6 + 7 mind maps and practice (Lesson 4 skipped).
 
     map_suffix: unique id suffix when the same maps appear on Review Exercise 2.
     include_food_examples: annotated Food cards (Review Exercise 2).
@@ -4074,13 +4636,16 @@ def lesson_highlights_html(
     m3 = f"lesson3Mindmap{map_suffix}"
     m5 = f"lesson5Mindmap{map_suffix}"
     m6 = f"lesson6Mindmap{map_suffix}"
+    m7 = f"lesson7Mindmap{map_suffix}"
     open_attr = " open" if open_practice else ""
     examples_block = food_lesson_examples_html() if include_food_examples else ""
     examples_l5 = food_lesson5_examples_html() if include_food_examples else ""
     examples_l6 = food_lesson6_examples_html() if include_food_examples else ""
+    examples_l7 = food_lesson7_examples_html() if include_food_examples else ""
     lesson3_scroll = ""
     lesson5_scroll = ""
     lesson6_scroll = ""
+    lesson7_scroll = ""
     if include_food_examples:
         lesson3_scroll = lesson_scroll_read_html(
             "lesson3", title="Lesson 3", source_sel="#lesson3-scroll-source"
@@ -4090,6 +4655,9 @@ def lesson_highlights_html(
         )
         lesson6_scroll = lesson_scroll_read_html(
             "lesson6", title="Lesson 6", source_sel="#lesson6-scroll-source"
+        )
+        lesson7_scroll = lesson_scroll_read_html(
+            "lesson7", title="Lesson 7", source_sel="#lesson7-scroll-source"
         )
 
     g2 = lesson_grammar_notes_html(
@@ -4126,6 +4694,18 @@ def lesson_highlights_html(
             f'{_g_alts("I prefer X", "I prefer X to Y", "I prefer X rather than Y")} '
             f'{_g_mark("because")} + ưu điểm của X.',
             f'{_g_alts("while + nhược điểm của Y", "whereas + nhược điểm của Y")}',
+        ],
+    )
+    g7 = lesson_grammar_notes_html(
+        "Lesson 7",
+        [
+            f'{_g_alts("Yes, it\'s very popular", "Yes, they are very popular in Vietnam")}. '
+            f'{_g_alts("the majority of…", "a large percentage of…", "account for + 60–70%")}',
+            f'{_g_alts("No, it\'s not really popular", "No, not really")}. '
+            f'{_g_alts("not many / very few", "a small percentage", "hardly ever / rarely")}',
+            f'{_g_alts("It depends", "It depends on…")}. '
+            f'{_g_alts("age (young ↔ old)", "gender (men ↔ women)", "income (rich ↔ poor)", "city ↔ countryside", "food type")}',
+            f'{_g_alts("account for + %", "can see sb/sth + V-ing", "can\'t stand sth")}',
         ],
     )
 
@@ -4222,6 +4802,30 @@ def lesson_highlights_html(
           </div>
 
 {lesson6_scroll}
+        </article>
+
+        <article class="lr-core-lesson" id="lesson7-formulas">
+          <header class="lr-core-lesson-head">
+            <h3>Lesson 7 · Is X popular in your country?</h3>
+          </header>
+
+{mind_map_html(
+            m7,
+            "Lesson 7 · Is X popular in your country?",
+            "Is X popular?",
+            "Có/Không ↔ Còn tùy",
+            LESSON7_MINDMAP_LEFT,
+            LESSON7_MINDMAP_RIGHT,
+            note="Trái = <strong>Có / Không</strong> + số lượng · Phải = <strong>Còn tùy</strong> (tuổi · giới · thu nhập · nơi ở · loại đồ ăn).",
+            extra_class=" lr-mmap--lesson7",
+            min_width="1280px",
+        )}
+{g7}
+          <div id="lesson7-scroll-source">
+{examples_l7}
+          </div>
+
+{lesson7_scroll}
         </article>
 
       </div>"""
@@ -5713,7 +6317,7 @@ def build_page() -> str:
       <header class="lr-hero">
         <p class="lr-hero-badge">Linear Thinking · Capstone</p>
         <h1>Food &amp; Drink — Review Exercise 1</h1>
-        <p class="lede">Sau khi hoàn thành B2, ôn tập theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-speaking" target="_blank" rel="noopener noreferrer">Linear Thinking</a>: ngữ pháp (6 thì) → mental model → cấu trúc Speaking → từ vựng B1/B2 → mock IELTS Part 1/2/3 với dropdown từ thay thế. Chỉ muốn Lesson 2–6 (skip 4)? Xem <a href="../review-exercise-2/">Review Exercise 2</a>.</p>
+        <p class="lede">Sau khi hoàn thành B2, ôn tập theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-speaking" target="_blank" rel="noopener noreferrer">Linear Thinking</a>: ngữ pháp (6 thì) → mental model → cấu trúc Speaking → từ vựng B1/B2 → mock IELTS Part 1/2/3 với dropdown từ thay thế. Chỉ muốn Lesson 2–7 (skip 4)? Xem <a href="../review-exercise-2/">Review Exercise 2</a>.</p>
         <nav class="lr-toc" aria-label="On this page">
           <a href="#core-steps">Core · 3 bước</a>
           <a href="#natural-vlog">0 · Real talk</a>
@@ -5721,7 +6325,7 @@ def build_page() -> str:
           <a href="#mental-model">2 · Mental model</a>
           <a href="#ed-ending">2b · -ed</a>
           <a href="#structures">3 · Structures</a>
-          <a href="#lessons">4 · Lessons 2 · 3 · 5 · 6</a>
+          <a href="#lessons">4 · Lessons 2 · 3 · 5 · 6 · 7</a>
           <a href="#food-lang">5 · Idioms &amp; phrases</a>
           <a href="#phrase-drills">6 · Phrase drills</a>
           <a href="#food-phrase-map">6 · Mind map</a>
@@ -5761,8 +6365,8 @@ def build_page() -> str:
       </section>
 
       <section class="lr-section" id="lessons">
-        <h2>4 · Core formulas — Lesson 2, 3, 5 &amp; 6</h2>
-        <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — L2 Reasons → L3 Do you like X? → L5 What kind? → L6 Prefer X or Y · <em>skip Lesson 4</em>. Chọn <strong>1–2 nhánh</strong>.</p>
+        <h2>4 · Core formulas — Lesson 2, 3, 5, 6 &amp; 7</h2>
+        <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — L2 Reasons → L3 Do you like X? → L5 What kind? → L6 Prefer → L7 Is X popular · <em>skip Lesson 4</em>. Chọn <strong>1–2 nhánh</strong>.</p>
 {lesson_highlights_html()}
       </section>
 
@@ -5808,7 +6412,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr39">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr40">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -5861,9 +6465,9 @@ def build_page_review2() -> str:
       </div>
 
       <header class="lr-hero">
-        <p class="lr-hero-badge">Linear Thinking · Lesson 2, 3, 5 &amp; 6</p>
+        <p class="lr-hero-badge">Linear Thinking · Lesson 2, 3, 5, 6 &amp; 7</p>
         <h1>Food &amp; Drink — Review Exercise 2</h1>
-        <p class="lede">Lesson 2 + 3 + 5 + 6 (Prefer X or Y) · skip Lesson 4. Sơ đồ tư duy → ví dụ Food → Scroll read. Full capstone: <a href="../review-exercise/">Review Exercise 1</a>.</p>
+        <p class="lede">Lesson 2 + 3 + 5 + 6 + 7 (Is X popular?) · skip Lesson 4. Sơ đồ tư duy → ví dụ Food → Scroll read. Full capstone: <a href="../review-exercise/">Review Exercise 1</a>.</p>
         <nav class="lr-toc" aria-label="On this page">
           <a href="#lesson2-formulas">Lesson 2 · Reasons</a>
           <a href="#scroll-lesson2">Scroll · L2</a>
@@ -5876,6 +6480,9 @@ def build_page_review2() -> str:
           <a href="#lesson6-formulas">Lesson 6 · Prefer X or Y?</a>
           <a href="#food-examples-l6">Ví dụ L6</a>
           <a href="#scroll-lesson6">Scroll · L6</a>
+          <a href="#lesson7-formulas">Lesson 7 · Is X popular?</a>
+          <a href="#food-examples-l7">Ví dụ L7</a>
+          <a href="#scroll-lesson7">Scroll · L7</a>
         </nav>
         <div class="ex-toolbar lr-toolbar lr-toolbar--hero">
           <label class="ex-toggle"><input type="checkbox" id="togVi" /> Vietnamese</label>
@@ -5883,7 +6490,7 @@ def build_page_review2() -> str:
       </header>
 
       <section class="lr-section" id="lessons">
-        <h2>Core formulas — Lesson 2, 3, 5 &amp; 6</h2>
+        <h2>Core formulas — Lesson 2, 3, 5, 6 &amp; 7</h2>
         <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — chọn <strong>1–2 nhánh</strong>, không nhồi hết. Dropdown bên dưới để thay từ B1/B2.</p>
 {lesson_highlights_html(map_suffix="R2", include_food_examples=True, open_practice=True)}
       </section>
@@ -5897,11 +6504,11 @@ def build_page_review2() -> str:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Review Exercise 2 · Food &amp; Drink — The Quiet Corner</title>
-  <meta name="description" content="Lesson 2, 3, 5 &amp; 6: Reasons, Do you like X?, What kind?, Prefer X or Y — Food mind maps and practice.">
+  <meta name="description" content="Lesson 2, 3, 5, 6 &amp; 7: Reasons, Do you like X?, What kind?, Prefer X or Y, Is X popular — Food mind maps and practice.">
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr39">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr40">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -5953,7 +6560,7 @@ def patch_topic_index() -> None:
           <span class="vocab-level__badge vocab-level__badge--review">Review</span>
           <h2>Linear Thinking · Capstone exercise</h2>
         </div>
-        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3, 5 &amp; 6 (mind map + ví dụ Food + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
+        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3, 5, 6 &amp; 7 (mind map + ví dụ Food + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
         <div class="vocab-lesson-grid">
           <a class="vocab-lesson-card vocab-lesson-card--review" href="review-exercise/">
             <img src="{review_icon}" alt="" width="72" height="72" loading="lazy">
