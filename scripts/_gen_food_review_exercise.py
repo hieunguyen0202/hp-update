@@ -2447,7 +2447,7 @@ def slot_select(slot_id: str, default_idx: int = 0, *, kind: str = "vocab") -> s
     idx = min(default_idx, len(opts) - 1)
     extra_cls = " lr-idiom-pick" if kind == "idiom" else ""
     options = "\n".join(
-        f'<option value="{esc(o["form"])}" title="{esc(o["vi"])}"'
+        f'<option value="{esc(o["form"])}" title="{esc(o["vi"])}" data-vi="{esc(o["vi"])}"'
         f'{" selected" if i == idx else ""}>{esc(o["form"])}</option>'
         for i, o in enumerate(opts)
     )
@@ -2465,6 +2465,25 @@ def idiom_pick(slot_id: str, default_idx: int = 0) -> str:
 
 def phrase_pick(slot_id: str, default_idx: int = 0) -> str:
     return slot_select(slot_id, default_idx, kind="phrase")
+
+
+def slot_vi(slot_id: str, default_idx: int = 0) -> str:
+    """Vietnamese gloss for the default option in a word slot."""
+    opts = WORD_SLOTS[slot_id]
+    idx = min(default_idx, len(opts) - 1)
+    return opts[idx]["vi"]
+
+
+def fill_vi_tpl(tpl: str, **slots: tuple[str, int] | str) -> str:
+    """Fill {slot} in a VI template. values are slot_vi(...) or raw strings.
+
+    Pass either slot_vi result strings via kwargs matching placeholder names,
+    e.g. fill_vi_tpl(tpl, pop_no_open=slot_vi('pop_no_open', 1)).
+    """
+    out = tpl
+    for key, val in slots.items():
+        out = out.replace("{" + key + "}", str(val))
+    return re.sub(r"\s{2,}", " ", out).strip()
 
 
 # 12 thì văn nói thực tế — Hana's Lexis (timeline quá khứ → hiện tại → tương lai)
@@ -3264,6 +3283,7 @@ def _pair_answer_html(
     ipa: str,
     q: str,
     ex_en: str = "",
+    ex_vi: str = "",
 ) -> str:
     """One answer line — Thích / Không thích / Mẫu (Lesson 5). Whole-paragraph VI tooltip."""
     tags = {
@@ -3278,6 +3298,8 @@ def _pair_answer_html(
     tag, tag_cls = tags.get(kind, ("Mẫu", "lr-mm-tag-yes"))
     chain = " lr-practice-chain lr-chain" if ex_en else ""
     ex_attr = f' data-ex-en="{esc(ex_en)}"' if ex_en else ""
+    if ex_vi:
+        ex_attr += f' data-ex-vi="{esc(ex_vi)}"'
     full_ipa = _resolve_ipa(ipa, plain)
     ipa_attr = esc(full_ipa)
     ipa_line = (
@@ -3285,9 +3307,10 @@ def _pair_answer_html(
         if full_ipa
         else ""
     )
+    vi_tpl_attr = f' data-vi-tpl="{esc(ex_vi)}"' if ex_vi else ""
     return f"""              <div class="lr-scroll-qa{chain}" data-ipa-full="{ipa_attr}"{ex_attr}>
                 <p class="lr-scroll-q" hidden>{esc(q)}</p>
-                <p class="lr-food-ex-line lr-tip lr-answer-text" data-tip="{esc(vi)}" title="{esc(vi)}" data-plain="{esc(plain)}">
+                <p class="lr-food-ex-line lr-tip lr-answer-text" data-tip="{esc(vi)}" title="{esc(vi)}" data-plain="{esc(plain)}"{vi_tpl_attr}>
                   <span class="{tag_cls}">{tag}</span>
                   <span class="lr-tip-text">{en_html}</span>
                 </p>{ipa_line}
@@ -3929,12 +3952,14 @@ def food_lesson7_examples_html() -> str:
         plain: str,
         ipa: str,
         ex: str,
+        ex_vi: str = "",
         alt_kind: str = "alt",
         alt_html: str = "",
         alt_vi: str = "",
         alt_plain: str = "",
         alt_ipa: str = "",
         alt_ex: str = "",
+        alt_ex_vi: str = "",
         notes: list[str] | None = None,
     ) -> None:
         items.append(
@@ -3946,12 +3971,14 @@ def food_lesson7_examples_html() -> str:
                 "plain": plain,
                 "ipa": ipa,
                 "ex": ex,
+                "ex_vi": ex_vi,
                 "alt_kind": alt_kind,
                 "alt_html": alt_html,
                 "alt_vi": alt_vi,
                 "alt_plain": alt_plain,
                 "alt_ipa": alt_ipa,
                 "alt_ex": alt_ex,
+                "alt_ex_vi": alt_ex_vi,
                 "notes": notes or [],
             }
         )
@@ -3960,6 +3987,10 @@ def food_lesson7_examples_html() -> str:
     t1 = (
         "{pop_yes_open}. {pop_large_qty} enjoy street food almost every week, and "
         "quick bites from stalls {pop_account}. {pop_see_ving}."
+    )
+    v1 = (
+        "{pop_yes_open}. {pop_large_qty} thích đồ đường phố gần như mỗi tuần, và "
+        "món ăn vội từ quán {pop_account}. {pop_see_ving}."
     )
     add(
         "Is street food popular in your country?",
@@ -3970,10 +4001,17 @@ def food_lesson7_examples_html() -> str:
             pop_account=phrase_pick("pop_account", 0),
             pop_see_ving=phrase_pick("pop_see_ving", 3),
         ),
-        vi="Có, rất phổ biến. Đa số người Việt thích đồ đường phố gần như mỗi tuần, và món ăn vội từ quán chiếm khoảng 60–70% bữa ăn mang đi. Có thể thấy hàng rong bán phở từ sáng sớm.",
+        vi=fill_vi_tpl(
+            v1,
+            pop_yes_open=slot_vi("pop_yes_open", 0),
+            pop_large_qty=slot_vi("pop_large_qty", 0),
+            pop_account=slot_vi("pop_account", 0),
+            pop_see_ving=slot_vi("pop_see_ving", 3),
+        ),
         plain="Yes, it's very popular. The majority of Vietnamese people enjoy street food almost every week, and quick bites from stalls account for about 60%–70% of meals people grab on the go. You can see street vendors selling pho from early morning.",
         ipa="",
         ex=t1,
+        ex_vi=v1,
         notes=["account for + %", "can see sb/sth + V-ing", "reduced relative (passive)"],
     )
 
@@ -3981,6 +4019,10 @@ def food_lesson7_examples_html() -> str:
     t2 = (
         "{pop_no_open}. There are {pop_small_qty} that go to expensive restaurants regularly, "
         "and {pop_hardly}. Fine dining may account for only about 20%–30% of special occasions."
+    )
+    v2 = (
+        "{pop_no_open}. {pop_small_qty} đi nhà hàng đắt thường xuyên, "
+        "và {pop_hardly}. Fine dining có thể chỉ chiếm khoảng 20–30% dịp đặc biệt."
     )
     add(
         "Is fine dining popular in your country?",
@@ -3990,10 +4032,16 @@ def food_lesson7_examples_html() -> str:
             pop_small_qty=phrase_pick("pop_small_qty", 1),
             pop_hardly=phrase_pick("pop_hardly", 0),
         ),
-        vi="Không thực sự. Rất ít người đi nhà hàng đắt thường xuyên, và hiếm khi tìm thấy fine dining ở nông thôn. Fine dining có thể chỉ chiếm khoảng 20–30% dịp đặc biệt.",
+        vi=fill_vi_tpl(
+            v2,
+            pop_no_open=slot_vi("pop_no_open", 1),
+            pop_small_qty=slot_vi("pop_small_qty", 1),
+            pop_hardly=slot_vi("pop_hardly", 0),
+        ),
         plain="No, not really. There are very few people that go to expensive restaurants regularly, and you hardly ever find fine-dining restaurants in rural areas. Fine dining may account for only about 20%–30% of special occasions.",
         ipa="",
         ex=t2,
+        ex_vi=v2,
         notes=["hardly ever / rarely", "account for + %"],
     )
 
@@ -4003,6 +4051,11 @@ def food_lesson7_examples_html() -> str:
         "really popular with {pop_group_old}. {pop_group_young} often grab burgers after class, "
         "while {pop_group_old} usually prefer traditional home-cooked Vietnamese meals."
     )
+    v3 = (
+        "{pop_depends_open}. Fast food phổ biến với {pop_group_young}, nhưng không thực sự "
+        "phổ biến với {pop_group_old}. {pop_group_young} hay mua burger sau giờ học, "
+        "trong khi {pop_group_old} thường thích bữa Việt nấu nhà."
+    )
     add(
         "Is fast food popular in your country?",
         kind="depends",
@@ -4011,10 +4064,16 @@ def food_lesson7_examples_html() -> str:
             pop_group_young=phrase_pick("pop_group_young", 1),
             pop_group_old=phrase_pick("pop_group_old", 0),
         ),
-        vi="Tôi nghĩ còn tùy. Fast food phổ biến với thế hệ trẻ, nhưng không thực sự phổ biến với người lớn tuổi. Giới trẻ hay mua burger sau giờ học, trong khi người lớn tuổi thường thích bữa Việt nấu nhà.",
+        vi=fill_vi_tpl(
+            v3,
+            pop_depends_open=slot_vi("pop_depends_open", 2),
+            pop_group_young=slot_vi("pop_group_young", 1),
+            pop_group_old=slot_vi("pop_group_old", 0),
+        ),
         plain="I think it really depends. Fast food is popular with the younger generation, but it's not really popular with older people. The younger generation often grab burgers after class, while older people usually prefer traditional home-cooked Vietnamese meals.",
         ipa="",
         ex=t3,
+        ex_vi=v3,
         notes=["popular with + group", "the younger / older generation"],
     )
 
@@ -4023,6 +4082,11 @@ def food_lesson7_examples_html() -> str:
         "{pop_depends_open}. Coffee culture is huge among {pop_group_city}, "
         "whereas {pop_group_country} might prefer drinking tea at home. "
         "In places like Ho Chi Minh City, {pop_see_ving}."
+    )
+    v4 = (
+        "{pop_depends_open}. Văn hóa cà phê rất lớn với {pop_group_city}, "
+        "trong khi {pop_group_country} có thể thích uống trà ở nhà. "
+        "Ở TP.HCM, {pop_see_ving}."
     )
     add(
         "Is coffee culture popular in your country?",
@@ -4033,18 +4097,38 @@ def food_lesson7_examples_html() -> str:
             pop_group_country=phrase_pick("pop_group_country", 1),
             pop_see_ving=phrase_pick("pop_see_ving", 0),
         ),
-        vi="Còn tùy. Văn hóa cà phê rất lớn với người thành thị, trong khi người quê có thể thích uống trà ở nhà. Ở TP.HCM, có thể thấy người xếp hàng mua trà sữa sau giờ làm.",
+        vi=fill_vi_tpl(
+            v4,
+            pop_depends_open=slot_vi("pop_depends_open", 0),
+            pop_group_city=slot_vi("pop_group_city", 0),
+            pop_group_country=slot_vi("pop_group_country", 1),
+            pop_see_ving=slot_vi("pop_see_ving", 0),
+        ),
         plain="It depends. Coffee culture is huge among urban dwellers, whereas people living in the countryside might prefer drinking tea at home. In places like Ho Chi Minh City, you can see people queuing for bubble tea after work.",
         ipa="",
         ex=t4,
+        ex_vi=v4,
         notes=["urban / rural dwellers", "can see sb/sth + V-ing"],
     )
 
-    # 5 — chocolate · DEPENDS + can't stand (slide example adapted)
+    # 5 — chocolate · DEPENDS + can't stand
     t5 = (
         "{pop_depends_open}. People who love sweet things usually love chocolate, "
         "but those who don't like anything sweet — like me, for example — "
         "{pop_cant_stand}."
+    )
+    v5 = (
+        "{pop_depends_open}. Người thích đồ ngọt thường thích sô-cô-la, "
+        "nhưng người không thích gì ngọt — như tôi chẳng hạn — "
+        "{pop_cant_stand}."
+    )
+    alt5 = (
+        "{pop_yes_open}. {pop_large_qty} buy chocolate as gifts, and sweet snacks "
+        "{pop_account}."
+    )
+    valt5 = (
+        "{pop_yes_open}. {pop_large_qty} mua sô-cô-la làm quà, và đồ ngọt "
+        "{pop_account}."
     )
     add(
         "Is chocolate popular in your country?",
@@ -4053,33 +4137,42 @@ def food_lesson7_examples_html() -> str:
             pop_depends_open=phrase_pick("pop_depends_open", 3),
             pop_cant_stand=phrase_pick("pop_cant_stand", 0),
         ),
-        vi="À, tôi nghĩ còn tùy. Người thích đồ ngọt thường thích sô-cô-la, nhưng người không thích gì ngọt — như tôi chẳng hạn — không chịu nổi vị của món tráng miệng quá ngọt.",
+        vi=fill_vi_tpl(
+            v5,
+            pop_depends_open=slot_vi("pop_depends_open", 3),
+            pop_cant_stand=slot_vi("pop_cant_stand", 0),
+        ),
         plain="Well, I think it depends. People who love sweet things usually love chocolate, but those who don't like anything sweet — like me, for example — can't stand the taste of very sweet desserts.",
         ipa="",
         ex=t5,
+        ex_vi=v5,
         notes=["can't stand sth"],
         alt_kind="pop_yes",
-        alt_html=(
-            "{pop_yes_open}. {pop_large_qty} buy chocolate as gifts, and sweet snacks "
-            "{pop_account}.".format(
-                pop_yes_open=phrase_pick("pop_yes_open", 1),
-                pop_large_qty=phrase_pick("pop_large_qty", 4),
-                pop_account=phrase_pick("pop_account", 2),
-            )
+        alt_html=alt5.format(
+            pop_yes_open=phrase_pick("pop_yes_open", 1),
+            pop_large_qty=phrase_pick("pop_large_qty", 4),
+            pop_account=phrase_pick("pop_account", 2),
         ),
-        alt_vi="Có, rất phổ biến ở Việt Nam. Một tỷ lệ lớn các gia đình mua sô-cô-la làm quà, và đồ ngọt chiếm khoảng 60% lựa chọn ăn cuối tuần của giới trẻ.",
+        alt_vi=fill_vi_tpl(
+            valt5,
+            pop_yes_open=slot_vi("pop_yes_open", 1),
+            pop_large_qty=slot_vi("pop_large_qty", 4),
+            pop_account=slot_vi("pop_account", 2),
+        ),
         alt_plain="Yes, they are very popular in Vietnam. A large percentage of families buy chocolate as gifts, and sweet snacks account for roughly 60% of weekend dining choices among young people.",
         alt_ipa="",
-        alt_ex=(
-            "{pop_yes_open}. {pop_large_qty} buy chocolate as gifts, and sweet snacks "
-            "{pop_account}."
-        ),
+        alt_ex=alt5,
+        alt_ex_vi=valt5,
     )
 
     # 6 — traditional Vietnamese food · YES
     t6 = (
         "{pop_yes_open}. {pop_large_qty} still cook {pop_food_type} at home, "
         "and you can see families sharing hot pot in local restaurants at the weekend."
+    )
+    v6 = (
+        "{pop_yes_open}. {pop_large_qty} vẫn nấu {pop_food_type} ở nhà, "
+        "và cuối tuần có thể thấy gia đình ăn lẩu ở quán địa phương."
     )
     add(
         "Is traditional Vietnamese food popular in your country?",
@@ -4089,10 +4182,16 @@ def food_lesson7_examples_html() -> str:
             pop_large_qty=phrase_pick("pop_large_qty", 0),
             pop_food_type=phrase_pick("pop_food_type", 3),
         ),
-        vi="Có, rất phổ biến. Đa số người Việt vẫn nấu món Việt truyền thống ở nhà, và cuối tuần có thể thấy gia đình ăn lẩu ở quán địa phương.",
+        vi=fill_vi_tpl(
+            v6,
+            pop_yes_open=slot_vi("pop_yes_open", 0),
+            pop_large_qty=slot_vi("pop_large_qty", 0),
+            pop_food_type=slot_vi("pop_food_type", 3),
+        ),
         plain="Yes, it's very popular. The majority of Vietnamese people still cook traditional Vietnamese dishes at home, and you can see families sharing hot pot in local restaurants at the weekend.",
         ipa="",
         ex=t6,
+        ex_vi=v6,
         notes=["can see sb/sth + V-ing", "account for + %"],
     )
 
@@ -4100,6 +4199,10 @@ def food_lesson7_examples_html() -> str:
     t7 = (
         "{pop_no_open}. {pop_small_qty} follow a strict vegan diet, and "
         "{pop_hardly}. It may account for only about 20%–30% of restaurant menus outside big cities."
+    )
+    v7 = (
+        "{pop_no_open}. {pop_small_qty} theo chế độ thuần chay nghiêm, và "
+        "{pop_hardly}. Có thể chỉ chiếm khoảng 20–30% thực đơn nhà hàng ngoài thành phố lớn."
     )
     add(
         "Is vegan food popular in your country?",
@@ -4109,10 +4212,16 @@ def food_lesson7_examples_html() -> str:
             pop_small_qty=phrase_pick("pop_small_qty", 4),
             pop_hardly=phrase_pick("pop_hardly", 1),
         ),
-        vi="Không, không thực sự phổ biến. Một tỷ lệ nhỏ dân số theo chế độ thuần chay nghiêm, và hiếm khi người ta ăn thuần chay mỗi ngày. Có thể chỉ chiếm khoảng 20–30% thực đơn nhà hàng ngoài thành phố lớn.",
+        vi=fill_vi_tpl(
+            v7,
+            pop_no_open=slot_vi("pop_no_open", 0),
+            pop_small_qty=slot_vi("pop_small_qty", 4),
+            pop_hardly=slot_vi("pop_hardly", 1),
+        ),
         plain="No, it's not really popular. A small percentage of the population follow a strict vegan diet, and people hardly ever eat vegan meals every day. It may account for only about 20%–30% of restaurant menus outside big cities.",
         ipa="",
         ex=t7,
+        ex_vi=v7,
         notes=["hardly ever / rarely", "account for + %"],
     )
 
@@ -4123,6 +4232,12 @@ def food_lesson7_examples_html() -> str:
         "{pop_group_rich} may go to restaurants prepared with imported ingredients, "
         "whereas others grab a simple lunch nearby."
     )
+    v8 = (
+        "{pop_depends_open}. Ăn ngoài phổ biến hơn với {pop_group_rich}, "
+        "trong khi {pop_group_poor} thường bám đồ đường phố hoặc nấu nhà. "
+        "{pop_group_rich} có thể tới nhà hàng dùng nguyên liệu nhập, "
+        "còn người khác thì ăn trưa đơn giản gần chỗ làm."
+    )
     add(
         "Is eating out popular in your country?",
         kind="depends",
@@ -4131,10 +4246,16 @@ def food_lesson7_examples_html() -> str:
             pop_group_rich=phrase_pick("pop_group_rich", 1),
             pop_group_poor=phrase_pick("pop_group_poor", 2),
         ),
-        vi="Còn tùy vào người. Ăn ngoài phổ biến hơn với tầng lớp giàu, trong khi người xuất thân khiêm tốn thường bám đồ đường phố hoặc nấu nhà. Người giàu có thể tới nhà hàng dùng nguyên liệu nhập, còn người khác thì ăn trưa đơn giản gần chỗ làm.",
+        vi=fill_vi_tpl(
+            v8,
+            pop_depends_open=slot_vi("pop_depends_open", 1),
+            pop_group_rich=slot_vi("pop_group_rich", 1),
+            pop_group_poor=slot_vi("pop_group_poor", 2),
+        ),
         plain="It depends on the person. Eating out is more popular with the rich, while people from modest family backgrounds often stick to affordable street food or home-cooked meals. The rich may go to restaurants prepared with imported ingredients, whereas others grab a simple lunch nearby.",
         ipa="",
         ex=t8,
+        ex_vi=v8,
         notes=["popular with + group", "reduced relative (passive)"],
     )
 
@@ -4144,6 +4265,11 @@ def food_lesson7_examples_html() -> str:
         "but {pop_hardly}. Overall, organic products still account for only about 20%–30% "
         "of weekly grocery shopping for most families."
     )
+    v9 = (
+        "{pop_depends_open}. Thực phẩm hữu cơ đang tăng với {pop_group_city}, "
+        "nhưng {pop_hardly}. Nhìn chung organic vẫn chỉ chiếm khoảng 20–30% "
+        "chi tiêu đi chợ hàng tuần của hầu hết gia đình."
+    )
     add(
         "Are organic foods popular in your country?",
         kind="depends",
@@ -4152,10 +4278,16 @@ def food_lesson7_examples_html() -> str:
             pop_group_city=phrase_pick("pop_group_city", 1),
             pop_hardly=phrase_pick("pop_hardly", 2),
         ),
-        vi="Tôi nghĩ còn tùy. Thực phẩm hữu cơ đang tăng với người sống ở thành phố lớn, nhưng hiếm khi thấy siêu thị chỉ bán organic ngoài đô thị lớn. Nhìn chung organic vẫn chỉ chiếm khoảng 20–30% chi tiêu đi chợ hàng tuần của hầu hết gia đình.",
+        vi=fill_vi_tpl(
+            v9,
+            pop_depends_open=slot_vi("pop_depends_open", 2),
+            pop_group_city=slot_vi("pop_group_city", 1),
+            pop_hardly=slot_vi("pop_hardly", 2),
+        ),
         plain="I think it really depends. Organic food is growing among people living in major cities, but I hardly ever see organic-only supermarkets outside big cities. Overall, organic products still account for only about 20%–30% of weekly grocery shopping for most families.",
         ipa="",
         ex=t9,
+        ex_vi=v9,
         notes=["account for + %", "hardly ever / rarely", "urban / rural dwellers"],
     )
 
@@ -4166,6 +4298,20 @@ def food_lesson7_examples_html() -> str:
         "in hearty spicy dishes, while {pop_group_women} might opt for lighter salads "
         "or milder soups — and {pop_group_old} seem to love gentle home-cooked meals."
     )
+    v10 = (
+        "{pop_depends_open}. Đồ cay phổ biến với {pop_group_men}, nhưng không thực sự "
+        "phổ biến với {pop_group_women}. {pop_group_men} thường thích món cay đậm đà, "
+        "trong khi {pop_group_women} có thể chọn salad nhẹ hoặc canh dịu — "
+        "và {pop_group_old} dường như thích bữa nấu nhà nhẹ nhàng."
+    )
+    alt10 = (
+        "{pop_depends_open}. In central Vietnam, {pop_food_type} with chilli is everywhere, "
+        "whereas in some northern areas people prefer milder flavours."
+    )
+    valt10 = (
+        "{pop_depends_open}. Ở miền Trung, {pop_food_type} với ớt đâu cũng có, "
+        "trong khi một số vùng miền Bắc người ta thích vị dịu hơn."
+    )
     add(
         "Is spicy food popular in your country?",
         kind="depends",
@@ -4175,26 +4321,32 @@ def food_lesson7_examples_html() -> str:
             pop_group_women=phrase_pick("pop_group_women", 0),
             pop_group_old=phrase_pick("pop_group_old", 0),
         ),
-        vi="Tôi nghĩ còn tùy. Đồ cay phổ biến với nam giới, nhưng không thực sự phổ biến với nữ. Nam thường thích món cay đậm đà, trong khi nữ có thể chọn salad nhẹ hoặc canh dịu — và người lớn tuổi dường như thích bữa nấu nhà nhẹ nhàng.",
+        vi=fill_vi_tpl(
+            v10,
+            pop_depends_open=slot_vi("pop_depends_open", 2),
+            pop_group_men=slot_vi("pop_group_men", 0),
+            pop_group_women=slot_vi("pop_group_women", 0),
+            pop_group_old=slot_vi("pop_group_old", 0),
+        ),
         plain="I think it really depends. Spicy food is popular with men, but it's not really popular with women. Men are often more interested in hearty spicy dishes, while women might opt for lighter salads or milder soups — and older people seem to love gentle home-cooked meals.",
         ipa="",
         ex=t10,
+        ex_vi=v10,
         notes=["popular with + group", "the younger / older generation"],
         alt_kind="depends",
-        alt_html=(
-            "{pop_depends_open}. In central Vietnam, {pop_food_type} with chilli is everywhere, "
-            "whereas in some northern areas people prefer milder flavours.".format(
-                pop_depends_open=phrase_pick("pop_depends_open", 0),
-                pop_food_type=phrase_pick("pop_food_type", 2),
-            )
+        alt_html=alt10.format(
+            pop_depends_open=phrase_pick("pop_depends_open", 0),
+            pop_food_type=phrase_pick("pop_food_type", 2),
         ),
-        alt_vi="Còn tùy. Ở miền Trung, đồ đường phố với ớt đâu cũng có, trong khi một số vùng miền Bắc người ta thích vị dịu hơn.",
+        alt_vi=fill_vi_tpl(
+            valt10,
+            pop_depends_open=slot_vi("pop_depends_open", 0),
+            pop_food_type=slot_vi("pop_food_type", 2),
+        ),
         alt_plain="It depends. In central Vietnam, street food with chilli is everywhere, whereas in some northern areas people prefer milder flavours.",
         alt_ipa="",
-        alt_ex=(
-            "{pop_depends_open}. In central Vietnam, {pop_food_type} with chilli is everywhere, "
-            "whereas in some northern areas people prefer milder flavours."
-        ),
+        alt_ex=alt10,
+        alt_ex_vi=valt10,
     )
 
     cards = []
@@ -4209,12 +4361,13 @@ def food_lesson7_examples_html() -> str:
                 ipa=it["alt_ipa"],
                 q=it["q"],
                 ex_en=it.get("alt_ex", ""),
+                ex_vi=it.get("alt_ex_vi", ""),
             )
         cards.append(
             f"""          <article class="lr-food-ex-card">
 {_ex_card_q_html(it["q"])}
             <div class="lr-food-ex-pair lr-food-ex-pair--popular">
-{_pair_answer_html(kind=it["kind"], en_html=it["html"], vi=it["vi"], plain=it["plain"], ipa=it["ipa"], q=it["q"], ex_en=it["ex"])}
+{_pair_answer_html(kind=it["kind"], en_html=it["html"], vi=it["vi"], plain=it["plain"], ipa=it["ipa"], q=it["q"], ex_en=it["ex"], ex_vi=it.get("ex_vi", ""))}
 {alts}
             </div>
 {_ex_chip_notes_html(it.get("notes"))}
@@ -4223,7 +4376,7 @@ def food_lesson7_examples_html() -> str:
     return f"""
         <div class="lr-food-examples" id="food-examples-l7">
           <h3 class="lr-core-subtitle">Ví dụ Food · Is X popular in your country?</h3>
-          <p class="lr-mm-hint">~10 câu Part 1 (Food). Nhánh <strong>Có / Không / Còn tùy</strong> — chia theo tuổi, giới, thu nhập, nơi ở. Bật <strong>Hiện IPA</strong> để thêm dòng phiên âm dưới câu trả lời.</p>
+          <p class="lr-mm-hint">~10 câu Part 1 (Food). Nhánh <strong>Có / Không / Còn tùy</strong> — chia theo tuổi, giới, thu nhập, nơi ở. Bật <strong>Hiện IPA</strong> để thêm dòng phiên âm dưới câu trả lời. Đổi dropdown → tooltip VI đổi theo.</p>
 {chr(10).join(cards)}
         </div>"""
 
@@ -6619,7 +6772,7 @@ def build_page() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr22"></script>
-  <script src="{home}js/linear-review.js?v=lr26"></script>
+  <script src="{home}js/linear-review.js?v=lr27"></script>
 </body>
 </html>"""
 
@@ -6715,7 +6868,7 @@ def build_page_review2() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr22"></script>
-  <script src="{home}js/linear-review.js?v=lr26"></script>
+  <script src="{home}js/linear-review.js?v=lr27"></script>
 </body>
 </html>"""
 

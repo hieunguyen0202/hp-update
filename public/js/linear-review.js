@@ -44,10 +44,71 @@
       sel.classList.add("lr-word-pick--changed");
       const chain = sel.closest(".lr-chain");
       if (chain) updateChainExample(chain);
+      const answer = sel.closest(".lr-answer-text");
+      if (answer) updateFoodAnswerTip(answer);
     });
   });
 
+  const optionVi = (sel) => {
+    const opt = sel.selectedOptions && sel.selectedOptions[0];
+    if (!opt) return "";
+    return (opt.getAttribute("data-vi") || opt.getAttribute("title") || "").trim();
+  };
+
+  const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+  /** Rebuild whole-line VI tooltip from template or by swapping option meanings */
+  const updateFoodAnswerTip = (answer) => {
+    if (!answer) return;
+    const selects = [...answer.querySelectorAll(".lr-word-pick")];
+    const tpl = (answer.dataset.viTpl || "").trim();
+    let tip = "";
+    if (tpl) {
+      tip = tpl;
+      selects.forEach((sel) => {
+        const slot = sel.dataset.slot;
+        if (!slot) return;
+        const vi = optionVi(sel) || sel.value.trim();
+        tip = tip.split(`{${slot}}`).join(vi);
+      });
+      tip = tip.replace(/\s{2,}/g, " ").replace(/\s+([.,!?])/g, "$1").trim();
+    } else {
+      tip = answer.getAttribute("data-tip") || answer.getAttribute("title") || "";
+      selects.forEach((sel) => {
+        const prev = (sel.dataset.activeVi || "").trim();
+        const next = optionVi(sel);
+        if (prev && next && prev !== next && tip) {
+          const re = new RegExp(escapeRegExp(prev), "i");
+          if (re.test(tip)) tip = tip.replace(re, next);
+        }
+        if (next) sel.dataset.activeVi = next;
+      });
+    }
+    if (tip) {
+      answer.setAttribute("data-tip", tip);
+      answer.setAttribute("title", tip);
+    }
+    // Keep plain EN in sync with live dropdowns (scroll / copy helpers)
+    const livePlain = plainTextFromEl(answer);
+    if (livePlain) answer.dataset.plain = livePlain;
+    selects.forEach((sel) => {
+      const vi = optionVi(sel);
+      if (vi) sel.dataset.activeVi = vi;
+    });
+  };
+
+  const initFoodAnswerTips = () => {
+    document.querySelectorAll(".lr-answer-text").forEach((answer) => {
+      answer.querySelectorAll(".lr-word-pick").forEach((sel) => {
+        const vi = optionVi(sel);
+        if (vi) sel.dataset.activeVi = vi;
+      });
+      if (answer.dataset.viTpl) updateFoodAnswerTip(answer);
+    });
+  };
+
   initChainExamples();
+  initFoodAnswerTips();
 
   /** Plain text from answer block — reads live dropdown values at copy time */
   const plainTextFromEl = (root) => {
