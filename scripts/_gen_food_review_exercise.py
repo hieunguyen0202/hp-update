@@ -37,6 +37,58 @@ collect_words = _gen.collect_words
 TOPICS = _gen.TOPICS
 BRAND = "✦ The Quiet Corner ✦"
 
+
+def _ipa_from_en(text: str) -> str:
+    """Full RP-ish IPA for a whole answer (eng_to_ipa). Empty if package missing."""
+    text = re.sub(r"\s+", " ", (text or "").strip())
+    if not text:
+        return ""
+    try:
+        import eng_to_ipa as e2i  # type: ignore
+    except ImportError:
+        return ""
+    # Normalise spellings / compounds eng_to_ipa often misses
+    fixes = (
+        ("savoury", "savory"),
+        ("Savoury", "Savory"),
+        ("favourite", "favorite"),
+        ("Favourite", "Favorite"),
+        ("flavour", "flavor"),
+        ("flavours", "flavors"),
+        ("takeaway", "take away"),
+        ("Takeaway", "Take away"),
+    )
+    for a, b in fixes:
+        text = text.replace(a, b)
+    text = text.replace("-", " ")
+    raw = e2i.convert(text).replace("*", "").strip()
+    if not raw:
+        return ""
+    if not raw.startswith("/"):
+        raw = f"/{raw}"
+    if not raw.endswith("/"):
+        raw = f"{raw}/"
+    return raw
+
+
+def _resolve_ipa(ipa: str, plain: str) -> str:
+    """Prefer auto full IPA from plain EN; keep hand IPA only if already complete."""
+    auto = _ipa_from_en(plain)
+    if auto:
+        return auto
+    ipa = (ipa or "").strip()
+    if ipa and "…" not in ipa and "..." not in ipa:
+        return ipa
+    return ipa  # may still be truncated if eng_to_ipa unavailable
+
+
+def _ex_card_q_html(q: str) -> str:
+    """Question + per-card IPA toggle (IPA line sits under each answer)."""
+    return f"""            <div class="lr-food-ex-head">
+              <p class="lr-food-ex-q">{esc(q)}</p>
+              <label class="ex-toggle lr-ex-ipa-tog"><input type="checkbox" class="js-ex-show-ipa"> Hiện IPA</label>
+            </div>"""
+
 GRAMMAR_REFS = [
     (
         "Present Simple & Present Continuous",
@@ -2984,12 +3036,19 @@ def _pair_answer_html(
     tag, tag_cls = tags.get(kind, ("Mẫu", "lr-mm-tag-yes"))
     chain = " lr-practice-chain lr-chain" if ex_en else ""
     ex_attr = f' data-ex-en="{esc(ex_en)}"' if ex_en else ""
-    return f"""              <div class="lr-scroll-qa{chain}" data-ipa-full="{esc(ipa)}"{ex_attr}>
+    full_ipa = _resolve_ipa(ipa, plain)
+    ipa_attr = esc(full_ipa)
+    ipa_line = (
+        f'\n                <p class="lr-ex-ipa" lang="en-fonipa">{ipa_attr}</p>'
+        if full_ipa
+        else ""
+    )
+    return f"""              <div class="lr-scroll-qa{chain}" data-ipa-full="{ipa_attr}"{ex_attr}>
                 <p class="lr-scroll-q" hidden>{esc(q)}</p>
                 <p class="lr-food-ex-line lr-tip lr-answer-text" data-tip="{esc(vi)}" title="{esc(vi)}" data-plain="{esc(plain)}">
                   <span class="{tag_cls}">{tag}</span>
                   <span class="lr-tip-text">{en_html}</span>
-                </p>
+                </p>{ipa_line}
                 <p class="lr-practice-en lr-chain-ex-text" hidden></p>
               </div>"""
 
@@ -3314,7 +3373,7 @@ def food_lesson5_examples_html() -> str:
             )
         cards.append(
             f"""          <article class="lr-food-ex-card">
-            <p class="lr-food-ex-q">{esc(it["q"])}</p>
+{_ex_card_q_html(it["q"])}
             <div class="lr-food-ex-pair lr-food-ex-pair--kind">
 {_pair_answer_html(kind="sample", en_html=it["html"], vi=it["vi"], plain=it["plain"], ipa=it["ipa"], q=it["q"], ex_en=it["ex"])}
 {alts}
@@ -3325,7 +3384,7 @@ def food_lesson5_examples_html() -> str:
     return f"""
         <div class="lr-food-examples" id="food-examples-l5">
           <h3 class="lr-core-subtitle">Ví dụ Food · What kind of X?</h3>
-          <p class="lr-mm-hint">10 câu Part 1 (Food). Hover EN → tooltip VI. Chip dưới mỗi card = cấu trúc / từ mới trong câu đó.</p>
+          <p class="lr-mm-hint">10 câu Part 1 (Food). Hover EN → tooltip VI. Bật <strong>Hiện IPA</strong> để thêm dòng phiên âm dưới mỗi câu trả lời (không thay text). Chip = cấu trúc / từ mới.</p>
 {chr(10).join(cards)}
         </div>"""
 
@@ -3591,7 +3650,7 @@ def food_lesson6_examples_html() -> str:
             )
         cards.append(
             f"""          <article class="lr-food-ex-card">
-            <p class="lr-food-ex-q">{esc(it["q"])}</p>
+{_ex_card_q_html(it["q"])}
             <div class="lr-food-ex-pair lr-food-ex-pair--prefer">
 {_pair_answer_html(kind="sample", en_html=it["html"], vi=it["vi"], plain=it["plain"], ipa=it["ipa"], q=it["q"], ex_en=it["ex"])}
 {alts}
@@ -3602,7 +3661,7 @@ def food_lesson6_examples_html() -> str:
     return f"""
         <div class="lr-food-examples" id="food-examples-l6">
           <h3 class="lr-core-subtitle">Ví dụ Food · Do you prefer X or Y?</h3>
-          <p class="lr-mm-hint">10 câu Part 1 (Food). Chip dưới mỗi card = cấu trúc slide dùng trong câu đó.</p>
+          <p class="lr-mm-hint">10 câu Part 1 (Food). Bật <strong>Hiện IPA</strong> để thêm dòng phiên âm dưới mỗi câu trả lời (không thay text). Chip = cấu trúc slide.</p>
 {chr(10).join(cards)}
         </div>"""
 
@@ -3872,7 +3931,7 @@ def food_lesson_examples_html() -> str:
     for it in items:
         cards.append(
             f"""          <article class="lr-food-ex-card">
-            <p class="lr-food-ex-q">{esc(it["q"])}</p>
+{_ex_card_q_html(it["q"])}
             <div class="lr-food-ex-pair">
 {_pair_answer_html(kind="yes", en_html=it["yes_html"], vi=it["yes_vi"], plain=it["yes_plain"], ipa=it["yes_ipa"], q=it["q"], ex_en=it.get("yes_ex", ""))}
 {_pair_answer_html(kind="no", en_html=it["no_html"], vi=it["no_vi"], plain=it["no_plain"], ipa=it["no_ipa"], q=it["q"], ex_en=it.get("no_ex", ""))}
@@ -3883,7 +3942,7 @@ def food_lesson_examples_html() -> str:
     return f"""
         <div class="lr-food-examples" id="food-examples">
           <h3 class="lr-core-subtitle">Ví dụ Food · Thích / Không thích</h3>
-          <p class="lr-mm-hint">Mỗi câu hỏi có <strong>Thích / Không thích</strong> + dropdown. Chip dưới card = cấu trúc đặc biệt trong câu (vd. <code>hardly ever</code>).</p>
+          <p class="lr-mm-hint">Mỗi câu hỏi có <strong>Thích / Không thích</strong> + dropdown. Bật <strong>Hiện IPA</strong> để thêm dòng phiên âm dưới mỗi câu trả lời. Chip = cấu trúc đặc biệt (vd. <code>hardly ever</code>).</p>
 {chr(10).join(cards)}
         </div>"""
 
@@ -3946,21 +4005,21 @@ def _lesson2_practice_html(*, open_attr: str = "") -> str:
     cards = f"""
             <div class="lr-practice-source" id="lesson2-practice">
               <article class="lr-food-ex-card">
-                <p class="lr-food-ex-q">Why do people like home-cooked meals?</p>
+{_ex_card_q_html("Why do people like home-cooked meals?")}
                 <div class="lr-food-ex-pair">
 {_pair_answer_html(kind="yes", en_html=home_yes, vi="Tôi nghĩ vì đó là cách tuyệt vời để thư giãn — nhất là khi mệt sau giờ làm. Ở trong bếp cũng giúp tạm quên áp lực công việc.", plain="I think because it's a great way to unwind and recharge their batteries — especially when they're tired after work. Being in the kitchen also helps them temporarily forget all the pressures from their work.", ipa="/aɪ θɪŋk bɪˈkɒz ɪts ə ɡreɪt weɪ tuː…/", q="Why do people like home-cooked meals?", ex_en=home_yes_tpl)}
 {_pair_answer_html(kind="no", en_html=home_no, vi="Một số người không thích nấu ở nhà vì việc nấu khiến họ kiệt sức và phải làm những việc lặp lại mỗi ngày.", plain="Well, some people don't enjoy home-cooked meals because cooking makes them exhausted and they have to deal with the same tasks every day.", ipa="/wel səm ˈpiːpl…/", q="Why do people like home-cooked meals?", ex_en=home_no_tpl)}
                 </div>
               </article>
               <article class="lr-food-ex-card">
-                <p class="lr-food-ex-q">Do you like reading about food &amp; nutrition?</p>
+{_ex_card_q_html("Do you like reading about food & nutrition?")}
                 <div class="lr-food-ex-pair">
 {_pair_answer_html(kind="yes", en_html=read_yes, vi="Có, vì nó giúp tôi học cách quản lý chế độ ăn tốt hơn. Cũng cho tôi cơ hội làm giàu kiến thức.", plain="Yes, because it helps me learn how to manage my diet better and make healthier choices. It also gives me the chance to enrich my knowledge.", ipa="/jes bɪˈkɒz ɪt helps miː…/", q="Do you like reading about food & nutrition?", ex_en=read_yes_tpl)}
 {_pair_answer_html(kind="no", en_html=read_no, vi="Không thực sự — đọc về dinh dưỡng không phải sở thích của tôi vì nó không giúp tôi thư giãn.", plain="No, not really — reading about nutrition isn't my cup of tea. It doesn't help me relax.", ipa="/nəʊ nɒt ˈrɪəli…/", q="Do you like reading about food & nutrition?", ex_en=read_no_tpl)}
                 </div>
               </article>
               <article class="lr-food-ex-card">
-                <p class="lr-food-ex-q">Do you like eating vegetables?</p>
+{_ex_card_q_html("Do you like eating vegetables?")}
                 <div class="lr-food-ex-pair">
 {_pair_answer_html(kind="yes", en_html=veg_yes, vi="Có, vì đó là cách tuyệt vời để giữ khỏe và phòng bệnh. Nó cũng giúp tăng cơ bắp.", plain="Yes, because it's a great way to stay healthy and prevent various health problems. It also helps them strengthen their muscles.", ipa="/jes bɪˈkɒz ɪts ə ɡreɪt weɪ tuː…/", q="Do you like eating vegetables?", ex_en=veg_yes_tpl)}
 {_pair_answer_html(kind="no", en_html=veg_no, vi="Không thực sự — rau nhạt không phải sở thích của tôi và không giúp tôi thưởng thức bữa ăn.", plain="No, not really — plain vegetables aren't my cup of tea and they don't help me enjoy my meals.", ipa="/nəʊ nɒt ˈrɪəli…/", q="Do you like eating vegetables?", ex_en=veg_no_tpl)}
@@ -3970,7 +4029,7 @@ def _lesson2_practice_html(*, open_attr: str = "") -> str:
     return f"""
           <details class="lr-formula-details"{open_attr}>
             <summary>Thực hành · Giải trí / Giáo dục / Sức khỏe</summary>
-            <p class="lr-mm-hint">Cùng format hình 1: <strong>Thích</strong> và <strong>Không thích</strong> đều có dropdown (đổi cụm lý do Lesson 2). Hover cả đoạn → 1 tooltip VI.</p>
+            <p class="lr-mm-hint">Cùng format hình 1: <strong>Thích</strong> và <strong>Không thích</strong> đều có dropdown (đổi cụm lý do Lesson 2). Hover cả đoạn → 1 tooltip VI. Bật <strong>Hiện IPA</strong> trên mỗi card để xem phiên âm dưới câu trả lời.</p>
 {cards}
           </details>
 {lesson_scroll_read_html("lesson2", title="Lesson 2", source_sel="#lesson2-practice")}"""
@@ -5749,7 +5808,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr38">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr39">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -5773,7 +5832,7 @@ def build_page() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr22"></script>
-  <script src="{home}js/linear-review.js?v=lr25"></script>
+  <script src="{home}js/linear-review.js?v=lr26"></script>
 </body>
 </html>"""
 
@@ -5842,7 +5901,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr38">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr39">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -5866,7 +5925,7 @@ def build_page_review2() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr22"></script>
-  <script src="{home}js/linear-review.js?v=lr25"></script>
+  <script src="{home}js/linear-review.js?v=lr26"></script>
 </body>
 </html>"""
 
@@ -5933,6 +5992,13 @@ def patch_topic_index() -> None:
 
 
 def main() -> None:
+    if not _ipa_from_en("hello"):
+        print(
+            "WARN: eng_to_ipa missing — answer IPA may stay truncated.\n"
+            "  python3 -m venv scripts/.venv-ipa && "
+            "scripts/.venv-ipa/bin/pip install -r scripts/requirements-ipa.txt\n"
+            "  scripts/.venv-ipa/bin/python scripts/_gen_food_review_exercise.py"
+        )
     OUT.mkdir(parents=True, exist_ok=True)
     OUT2.mkdir(parents=True, exist_ok=True)
     (OUT / "index.html").write_text(build_page(), encoding="utf-8")

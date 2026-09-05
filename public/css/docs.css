@@ -2707,9 +2707,13 @@ a.kk-card--biz:hover {
 }
 
 .scroll-line--q {
-  color: #fbbf24;
+  color: #facc15 !important;
   font-size: 0.98em;
-  font-weight: 650;
+  font-weight: 700;
+}
+
+.ex-scroll-track .scroll-line--q {
+  color: #facc15 !important;
 }
 
 .scroll-line--a {
@@ -3607,10 +3611,43 @@ body.ex-hide-ipa .ipa {
 }
 
 .lr-food-ex-q {
-  margin: 0 0 12px;
+  margin: 0;
   font-size: 1.02rem;
   font-weight: 700;
-  color: #fb923c;
+  color: #facc15;
+  flex: 1;
+  min-width: 0;
+}
+
+.lr-food-ex-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px 14px;
+  margin: 0 0 12px;
+}
+
+.lr-ex-ipa-tog {
+  flex-shrink: 0;
+  font-size: 0.78rem;
+  color: rgba(165, 243, 252, 0.9);
+}
+
+.lr-ex-ipa {
+  display: none;
+  margin: 2px 0 8px 0;
+  padding: 6px 10px 6px 12px;
+  border-left: 2px solid rgba(52, 211, 153, 0.55);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: rgba(167, 243, 208, 0.92);
+  white-space: normal;
+}
+
+.lr-food-ex-card:has(.js-ex-show-ipa:checked) .lr-ex-ipa {
+  display: block;
 }
 
 .lr-food-ex-pair {
