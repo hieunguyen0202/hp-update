@@ -5520,6 +5520,62 @@ mark.lr-hl,
   .lr-freq-grid { grid-template-columns: 1fr; }
 }
 
+/* Lesson 15 · lexical boost panels */
+.lr-lex-boost-wrap {
+  margin: 1rem 0 1.25rem;
+}
+
+.lr-lex-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 0.75rem;
+}
+
+.lr-lex-col {
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 10px;
+  background: rgba(30, 41, 59, 0.45);
+  padding: 10px 12px;
+}
+
+.lr-lex-col-title {
+  margin: 0 0 8px;
+  font-size: 0.82rem;
+  font-weight: 650;
+  color: #fde68a;
+  letter-spacing: 0.01em;
+}
+
+.lr-lex-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lr-lex-list li { margin: 0; }
+
+.lr-lex-list mark {
+  display: inline;
+  background: transparent;
+  color: #e2e8f0;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  cursor: help;
+  border-bottom: 1px dotted rgba(253, 230, 138, 0.45);
+}
+
+@media (max-width: 900px) {
+  .lr-lex-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 560px) {
+  .lr-lex-grid { grid-template-columns: 1fr; }
+}
+
 /* Per-example structure chips (under Food cards) */
 .lr-ex-chips {
   display: flex;

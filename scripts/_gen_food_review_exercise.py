@@ -1520,6 +1520,146 @@ WORD_SLOTS: dict[str, list[dict]] = {
         },
     ],
 
+    # Lesson 15 · How has X changed?
+    "change_alot": [
+        {"form": "it has changed a lot", "vi": "nó đã thay đổi rất nhiều"},
+        {"form": "it has changed a great deal", "vi": "nó đã thay đổi rất lớn"},
+        {"form": "it has changed quite a bit", "vi": "nó đã thay đổi khá nhiều"},
+        {"form": "it has changed significantly", "vi": "nó đã thay đổi đáng kể"},
+        {"form": "eating habits have changed a great deal", "vi": "thói quen ăn uống đã thay đổi rất lớn"},
+        {"form": "the way people cook has changed quite a lot", "vi": "cách mọi người nấu ăn đã đổi khá nhiều"},
+    ],
+    "change_little": [
+        {"form": "it hasn't changed much", "vi": "nó không thay đổi nhiều"},
+        {"form": "it has changed very slightly", "vi": "nó chỉ thay đổi rất nhẹ"},
+        {"form": "The only change is that", "vi": "Thay đổi duy nhất là"},
+        {"form": "traditional dishes haven't changed much", "vi": "món truyền thống không đổi nhiều"},
+    ],
+    "change_span": [
+        {"form": "in recent years", "vi": "trong những năm gần đây"},
+        {"form": "in recent times", "vi": "gần đây"},
+        {"form": "over the past few years", "vi": "trong vài năm qua"},
+        {"form": "over the past few decades", "vi": "trong vài thập kỷ qua"},
+        {"form": "since I was a child", "vi": "kể từ khi tôi còn nhỏ"},
+        {"form": "over the past decade", "vi": "trong thập kỷ qua"},
+    ],
+    "change_past": [
+        {"form": "In the past", "vi": "Ngày xưa / Trước đây"},
+        {"form": "Several years ago", "vi": "Vài năm trước"},
+        {"form": "A decade ago", "vi": "Một thập kỷ trước"},
+        {"form": "A few decades ago", "vi": "Vài thập kỷ trước"},
+        {"form": "Not so long ago", "vi": "Không lâu trước đây"},
+    ],
+    "change_now": [
+        {"form": "But recently", "vi": "Nhưng gần đây"},
+        {"form": "But now", "vi": "Nhưng bây giờ"},
+        {"form": "These days", "vi": "Ngày nay"},
+        {"form": "Nowadays", "vi": "Ngày nay"},
+        {"form": "In recent years", "vi": "Trong những năm gần đây"},
+    ],
+    "change_past_food": [
+        {
+            "form": "people mostly ate home-cooked meals and fresh ingredients from morning markets",
+            "vi": "mọi người chủ yếu ăn đồ nấu nhà và nguyên liệu tươi từ chợ sáng",
+        },
+        {
+            "form": "there were not many fast-food chains, and family-run street food stalls were everywhere",
+            "vi": "không có nhiều chuỗi fast food, và quán đường phố gia đình ở khắp nơi",
+        },
+        {
+            "form": "restaurants didn't take card payments, so people had to pay by cash",
+            "vi": "nhà hàng không nhận thẻ nên mọi người phải trả tiền mặt",
+        },
+        {
+            "form": "junk food was not as popular as it is now, and a balanced diet was easier to keep",
+            "vi": "junk food không phổ biến như bây giờ, và chế độ cân bằng dễ giữ hơn",
+        },
+        {
+            "form": "people cooked from scratch almost every day and rarely ordered greasy take-away",
+            "vi": "mọi người tự nấu gần như mỗi ngày và hiếm khi gọi đồ mang về nhiều dầu",
+        },
+        {
+            "form": "students and office workers usually had a hearty breakfast at home",
+            "vi": "học sinh và nhân viên văn phòng thường ăn sáng no đủ ở nhà",
+        },
+    ],
+    "change_now_food": [
+        {
+            "form": "an increasing number of people have started ordering food delivery and ready meals",
+            "vi": "ngày càng nhiều người bắt đầu đặt giao đồ ăn và đồ sẵn",
+        },
+        {
+            "form": "fast-food chains have dominated many city centres, and street food has become more commercial",
+            "vi": "chuỗi fast food đã chiếm nhiều trung tâm thành phố, và đồ đường phố mang tính thương mại hơn",
+        },
+        {
+            "form": "many restaurants have started taking card payments, and dining out has become more convenient",
+            "vi": "nhiều nhà hàng đã bắt đầu nhận thẻ, và ăn ngoài tiện hơn",
+        },
+        {
+            "form": "more people have become health-conscious and look for organically grown produce",
+            "vi": "nhiều người có ý thức sức khỏe hơn và tìm nông sản hữu cơ",
+        },
+        {
+            "form": "food delivery apps have become much more popular, and cooking from scratch feels too time-consuming for busy people",
+            "vi": "app giao đồ ăn phổ biến hơn nhiều, và tự nấu thấy quá mất thời gian với người bận",
+        },
+        {
+            "form": "an increasing number of young people skip a hearty breakfast and just grab a quick bite",
+            "vi": "ngày càng nhiều bạn trẻ bỏ bữa sáng no đủ và chỉ ăn vội",
+        },
+    ],
+    "change_lex": [
+        {
+            "form": "a shift towards",
+            "vi": "sự chuyển dịch hướng tới",
+        },
+        {
+            "form": "culinary traditions",
+            "vi": "truyền thống ẩm thực",
+        },
+        {
+            "form": "dietary habits",
+            "vi": "thói quen ăn uống / chế độ ăn",
+        },
+        {
+            "form": "processed foods",
+            "vi": "thực phẩm chế biến sẵn",
+        },
+        {
+            "form": "organically grown produce",
+            "vi": "nông sản trồng hữu cơ",
+        },
+        {
+            "form": "nutritional value",
+            "vi": "giá trị dinh dưỡng",
+        },
+        {
+            "form": "health-conscious consumers",
+            "vi": "người tiêu dùng có ý thức về sức khỏe",
+        },
+        {
+            "form": "the globalization of cuisine",
+            "vi": "toàn cầu hóa ẩm thực",
+        },
+        {
+            "form": "an increasing number of",
+            "vi": "một số lượng ngày càng tăng / ngày càng nhiều",
+        },
+        {
+            "form": "have been replaced by",
+            "vi": "đã bị thay thế bởi",
+        },
+        {
+            "form": "have become more popular",
+            "vi": "đã trở nên phổ biến hơn",
+        },
+        {
+            "form": "family-run restaurants",
+            "vi": "nhà hàng do gia đình vận hành",
+        },
+    ],
+
 }
 
 # ── Mind map helpers (shared: Section 2 tenses + Lesson 2/3) ───────────────
@@ -4056,6 +4196,93 @@ LESSON14_MINDMAP_RIGHT = [
 ]
 
 
+# Lesson 15 · How has X changed? — trái = nhiều, phải = ít + time/grammar
+LESSON15_MINDMAP_LEFT = [
+    {
+        "id": "change-alot",
+        "color": "#86efac",
+        "name": "Thay đổi nhiều",
+        "name_vi": "a lot / a great deal / significantly",
+        "flow": True,
+        "opener": "It has changed a great deal in recent years…",
+        "branches": [
+            {
+                "label": "Nhánh 1 · Mở mức độ",
+                "leaves": [
+                    tip("It has changed a lot / a great deal", "đã thay đổi rất nhiều / rất lớn"),
+                    tip("It has changed quite a bit / significantly", "khá nhiều / đáng kể"),
+                    tip(
+                        "in recent years · over the past few decades · since I was a child",
+                        "khung thời gian Present Perfect",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Past → Recently (Food)",
+                "leaves": [
+                    tip(
+                        "Past Simple: In the past / A decade ago…",
+                        "home-cooked · morning markets · cook from scratch",
+                    ),
+                    tip(
+                        "Present Perfect: But recently… have become / have started",
+                        "fast-food chains · food delivery · ready meals",
+                    ),
+                    tip(
+                        "have/has been + V3 (bị động)",
+                        "have been replaced / have been constructed (slide)",
+                    ),
+                ],
+            },
+        ],
+        "link": "→ mức độ + past (QKĐ) + recently (HTHT) + 1 lexical nâng điểm",
+    },
+]
+
+LESSON15_MINDMAP_RIGHT = [
+    {
+        "id": "change-little",
+        "color": "#fca5a5",
+        "name": "Thay đổi ít",
+        "name_vi": "hasn't changed much · the only change",
+        "flow": True,
+        "opener": "It hasn't changed much. The only change is that…",
+        "branches": [
+            {
+                "label": "Nhánh 1 · Mở",
+                "leaves": [
+                    tip("It hasn't changed much", "không thay đổi nhiều"),
+                    tip("It has changed very slightly", "chỉ thay đổi rất nhẹ"),
+                    tip("The only change is that…", "Thay đổi duy nhất là…"),
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Lexical nâng điểm (Food)",
+                "leaves": [
+                    tip(
+                        "culinary traditions · dietary habits",
+                        "truyền thống ẩm thực · thói quen ăn uống",
+                    ),
+                    tip(
+                        "a shift towards… · health-conscious",
+                        "chuyển dịch sang… · có ý thức sức khỏe",
+                    ),
+                    tip(
+                        "an increasing number of · have become more popular",
+                        "ngày càng nhiều · trở nên phổ biến hơn",
+                    ),
+                    tip(
+                        "processed foods · organically grown produce · nutritional value",
+                        "đồ chế biến sẵn · nông sản hữu cơ · giá trị dinh dưỡng",
+                    ),
+                ],
+            },
+        ],
+        "link": "→ ít đổi + 1 điểm only change + lexical cụm",
+    },
+]
+
+
 def collect_review_words() -> list[dict]:
     topic = next(t for t in TOPICS["topics"] if t["slug"] == "food-drink")
     by_level: dict[str, list[dict]] = {}
@@ -4934,6 +5161,8 @@ def _pair_answer_html(
         "freq": ("Tần suất", "lr-mm-tag-yes"),
         "rare": ("Hiếm", "lr-mm-tag-no"),
         "contrast": ("Đối chiếu", "lr-mm-tag-yes"),
+        "alot": ("Đổi nhiều", "lr-mm-tag-yes"),
+        "little": ("Đổi ít", "lr-mm-tag-no"),
     }
     tag, tag_cls = tags.get(kind, ("Mẫu", "lr-mm-tag-yes"))
     chain = " lr-practice-chain lr-chain" if ex_en else ""
@@ -5103,8 +5332,31 @@ def _ex_chip_notes_html(chips: list | None) -> str:
         "none of + group": "Không một ai/cái nào trong nhóm",
         "too + adj + to V": "Quá … nên không …",
         "I also + freq": "Tôi cũng + mức độ (đối chiếu)",
-        "interesting to V … than to V": "Thú vị hơn khi V … so với V …",
+                "interesting to V … than to V": "Thú vị hơn khi V … so với V …",
+        # Lesson 15
+        "It has changed a lot / a great deal": "Đã thay đổi rất nhiều / rất lớn",
+        "It hasn't changed much": "Không thay đổi nhiều",
+        "The only change is that…": "Thay đổi duy nhất là…",
+        "in recent years / over the past few decades": "Trong những năm / thập kỷ gần đây",
+        "In the past / A decade ago": "Trước đây / Một thập kỷ trước",
+        "But recently / These days / Nowadays": "Nhưng gần đây / Ngày nay",
+        "have/has + V3 · have been + V3": "Hiện tại hoàn thành (chủ động / bị động)",
+        "an increasing number of": "Ngày càng nhiều / một số lượng ngày càng tăng",
+        "a shift towards…": "Sự chuyển dịch hướng tới…",
+        "culinary traditions": "Truyền thống ẩm thực",
+        "dietary habits": "Thói quen ăn uống",
+        "health-conscious": "Có ý thức về sức khỏe",
+        "processed foods": "Thực phẩm chế biến sẵn",
+        "organically grown produce": "Nông sản trồng hữu cơ",
+        "nutritional value": "Giá trị dinh dưỡng",
+        "the globalization of cuisine": "Toàn cầu hóa ẩm thực",
+        "as + adj + as": "So sánh bằng — as popular as / as healthy as",
+        "since I was a child": "Kể từ khi tôi còn nhỏ",
+        "have become more popular": "Đã trở nên phổ biến hơn",
+        "family-run restaurants / street food stalls": "Nhà hàng gia đình / quán đường phố",
+        "home-cooked": "Đồ nấu nhà / nấu tại nhà",
     }
+
 
 
 
@@ -9251,6 +9503,204 @@ def food_lesson14_examples_html() -> str:
         </div>"""
 
 
+
+def food_lesson15_examples_html() -> str:
+    """Lesson 15 · How has X changed? — Cambridge-style Food Qs + lexical boost."""
+    items: list[dict] = []
+
+    def add(q, *, kind, en_html, vi, plain, ipa, ex, ex_vi="", source="", alt_kind="alt",
+            alt_html="", alt_vi="", alt_plain="", alt_ipa="", alt_ex="", alt_ex_vi="", notes=None):
+        items.append({
+            "q": q, "kind": kind, "html": en_html, "vi": vi, "plain": plain, "ipa": ipa,
+            "ex": ex, "ex_vi": ex_vi, "source": source, "alt_kind": alt_kind,
+            "alt_html": alt_html, "alt_vi": alt_vi, "alt_plain": alt_plain, "alt_ipa": alt_ipa,
+            "alt_ex": alt_ex, "alt_ex_vi": alt_ex_vi, "notes": notes or [],
+        })
+
+    t1 = ("Well, {change_alot} {change_span}. {change_past}, {change_past_food}. "
+          "{change_now}, {change_now_food}.")
+    v1 = t1
+    add("How have eating habits changed in your country?", kind="alot",
+        en_html=t1.format(change_alot=phrase_pick("change_alot", 4), change_span=phrase_pick("change_span", 3),
+            change_past=phrase_pick("change_past", 0), change_past_food=phrase_pick("change_past_food", 0),
+            change_now=phrase_pick("change_now", 0), change_now_food=phrase_pick("change_now_food", 0)),
+        vi=fill_vi_tpl(v1, change_alot=slot_vi("change_alot", 4), change_span=slot_vi("change_span", 3),
+            change_past=slot_vi("change_past", 0), change_past_food=slot_vi("change_past_food", 0),
+            change_now=slot_vi("change_now", 0), change_now_food=slot_vi("change_now_food", 0)),
+        plain="Well, eating habits have changed a great deal over the past few decades. In the past, people mostly ate home-cooked meals and fresh ingredients from morning markets. But recently, an increasing number of people have started ordering food delivery and ready meals.",
+        ipa="", ex=t1, ex_vi=v1, source="Cambridge-style · Eating habits changed (Part 3)",
+        notes=["It has changed a lot / a great deal", "in recent years / over the past few decades",
+               "In the past / A decade ago", "But recently / These days / Nowadays",
+               "an increasing number of", "dietary habits", "home-cooked"])
+
+    t2 = ("I think {change_alot} {change_span}. {change_past}, {change_past_food}. "
+          "{change_now}, {change_now_food}.")
+    add("How has the way people cook changed in recent years?", kind="alot",
+        en_html=t2.format(change_alot=phrase_pick("change_alot", 5), change_span=phrase_pick("change_span", 0),
+            change_past=phrase_pick("change_past", 2), change_past_food=phrase_pick("change_past_food", 4),
+            change_now=phrase_pick("change_now", 4), change_now_food=phrase_pick("change_now_food", 4)),
+        vi=fill_vi_tpl(t2, change_alot=slot_vi("change_alot", 5), change_span=slot_vi("change_span", 0),
+            change_past=slot_vi("change_past", 2), change_past_food=slot_vi("change_past_food", 4),
+            change_now=slot_vi("change_now", 4), change_now_food=slot_vi("change_now_food", 4)),
+        plain="I think the way people cook has changed quite a lot in recent years. A decade ago, people cooked from scratch almost every day and rarely ordered greasy take-away. In recent years, food delivery apps have become much more popular, and cooking from scratch feels too time-consuming for busy people.",
+        ipa="", ex=t2, ex_vi=t2, source="Cambridge-style · Cooking changed / technology (Part 3)",
+        notes=["It has changed a lot / a great deal", "have/has + V3 · have been + V3", "from scratch", "a shift towards…"])
+
+    add("How have restaurants changed in your town in the last five years?", kind="little",
+        en_html=(f'{phrase_pick("change_little", 0)}. Most {phrase_pick("change_lex", 11)} are still quite local. '
+                 f'{phrase_pick("change_little", 2)} {phrase_pick("change_past_food", 2)}. '
+                 f'{phrase_pick("change_now", 0)}, {phrase_pick("change_now_food", 2)}.'),
+        vi=(f'{slot_vi("change_little", 0)}. Hầu hết {slot_vi("change_lex", 11)} vẫn khá địa phương. '
+            f'{slot_vi("change_little", 2)} {slot_vi("change_past_food", 2)}. '
+            f'{slot_vi("change_now", 0)}, {slot_vi("change_now_food", 2)}.'),
+        plain="It hasn't changed much. Most family-run restaurants are still quite local. The only change is that restaurants didn't take card payments, so people had to pay by cash. But recently, many restaurants have started taking card payments, and dining out has become more convenient.",
+        ipa="",
+        ex=("{change_little}. Most {change_lex} are still quite local. "
+            "{change_little} {change_past_food}. {change_now}, {change_now_food}."),
+        ex_vi=("{change_little}. Hầu hết {change_lex} vẫn khá địa phương. "
+               "{change_little} {change_past_food}. {change_now}, {change_now_food}."),
+        source="Cambridge-style · Restaurants changed (Part 1–3) · slide card-payments",
+        notes=["It hasn't changed much", "The only change is that…", "pay by cash",
+               "family-run restaurants / street food stalls", "have/has + V3 · have been + V3"])
+
+    t4 = ("Well, {change_alot} {change_span}. {change_past}, {change_past_food}. "
+          "{change_now}, {change_now_food}. I think this is because of {change_lex}.")
+    add("How has street food changed in your country over the years?", kind="alot",
+        en_html=t4.format(change_alot=phrase_pick("change_alot", 0), change_span=phrase_pick("change_span", 2),
+            change_past=phrase_pick("change_past", 0), change_past_food=phrase_pick("change_past_food", 1),
+            change_now=phrase_pick("change_now", 4), change_now_food=phrase_pick("change_now_food", 1),
+            change_lex=phrase_pick("change_lex", 7)),
+        vi=fill_vi_tpl(t4, change_alot=slot_vi("change_alot", 0), change_span=slot_vi("change_span", 2),
+            change_past=slot_vi("change_past", 0), change_past_food=slot_vi("change_past_food", 1),
+            change_now=slot_vi("change_now", 4), change_now_food=slot_vi("change_now_food", 1),
+            change_lex=slot_vi("change_lex", 7)),
+        plain="Well, it has changed a lot over the past few years. In the past, there were not many fast-food chains, and family-run street food stalls were everywhere. In recent years, fast-food chains have dominated many city centres, and street food has become more commercial. I think this is because of the globalization of cuisine.",
+        ipa="", ex=t4, ex_vi=t4, source="Cambridge-style · Street food / local food culture (Part 3)",
+        notes=["It has changed a lot / a great deal", "the globalization of cuisine", "culinary traditions", "have become more popular"])
+
+    t5 = ("My taste in food has changed quite a bit {change_span}. {change_past}, I preferred junk food and "
+          "comfort food. {change_now}, I try to stick to a balanced diet and look for {change_lex}.")
+    v5 = ("Khẩu vị của tôi đã thay đổi khá nhiều {change_span}. {change_past}, tôi thích junk food và đồ an ủi. "
+          "{change_now}, tôi cố giữ chế độ cân bằng và tìm {change_lex}.")
+    add("Has your taste in food changed since you were young?", kind="alot",
+        en_html=t5.format(change_span=phrase_pick("change_span", 4), change_past=phrase_pick("change_past", 0),
+            change_now=phrase_pick("change_now", 2), change_lex=phrase_pick("change_lex", 4)),
+        vi=fill_vi_tpl(v5, change_span=slot_vi("change_span", 4), change_past=slot_vi("change_past", 0),
+            change_now=slot_vi("change_now", 2), change_lex=slot_vi("change_lex", 4)),
+        plain="My taste in food has changed quite a bit since I was a child. In the past, I preferred junk food and comfort food. These days, I try to stick to a balanced diet and look for organically grown produce.",
+        ipa="", ex=t5, ex_vi=v5, source="Cambridge · Has your taste in food changed? (Part 1)",
+        notes=["It has changed a lot / a great deal", "since I was a child", "organically grown produce", "balanced diet", "comfort food"])
+
+    t6 = ("People's attitudes to healthy food have changed significantly {change_span}. {change_past}, "
+          "{change_past_food}. {change_now}, {change_now_food}.")
+    v6 = ("Thái độ với đồ lành mạnh đã thay đổi đáng kể {change_span}. {change_past}, "
+          "{change_past_food}. {change_now}, {change_now_food}.")
+    add("How have people's attitudes to healthy food changed?", kind="alot",
+        en_html=t6.format(change_span=phrase_pick("change_span", 5), change_past=phrase_pick("change_past", 1),
+            change_past_food=phrase_pick("change_past_food", 3), change_now=phrase_pick("change_now", 0),
+            change_now_food=phrase_pick("change_now_food", 3)),
+        vi=fill_vi_tpl(v6, change_span=slot_vi("change_span", 5), change_past=slot_vi("change_past", 1),
+            change_past_food=slot_vi("change_past_food", 3), change_now=slot_vi("change_now", 0),
+            change_now_food=slot_vi("change_now_food", 3)),
+        plain="People's attitudes to healthy food have changed significantly over the past decade. Several years ago, junk food was not as popular as it is now, and a balanced diet was easier to keep. But recently, more people have become health-conscious and look for organically grown produce.",
+        ipa="", ex=t6, ex_vi=v6, source="Cambridge-style · Healthy food / diet attitudes (Part 3)",
+        notes=["It has changed a lot / a great deal", "health-conscious", "as + adj + as", "nutritional value", "organically grown produce"])
+
+    add("How have traditional dishes changed in your country?", kind="little",
+        en_html=(f'Well, {phrase_pick("change_little", 3)} {phrase_pick("change_span", 0)}. '
+                 f'Most {phrase_pick("change_lex", 1)} are still strong. '
+                 f'{phrase_pick("change_little", 2)} some recipes have been modernised, but the '
+                 f'nutritional value is still important.'),
+        vi=(f'Ừ, {slot_vi("change_little", 3)} {slot_vi("change_span", 0)}. '
+            f'Hầu hết {slot_vi("change_lex", 1)} vẫn còn vững. '
+            f'{slot_vi("change_little", 2)} một số công thức đã được hiện đại hóa, nhưng '
+            f'giá trị dinh dưỡng vẫn quan trọng.'),
+        plain="Well, traditional dishes haven't changed much in recent years. Most culinary traditions are still strong. The only change is that some recipes have been modernised, but the nutritional value is still important.",
+        ipa="",
+        ex=("Well, {change_little} {change_span}. Most {change_lex} are still strong. "
+            "{change_little} some recipes have been modernised, but the nutritional value is still important."),
+        ex_vi=("Ừ, {change_little} {change_span}. Hầu hết {change_lex} vẫn còn vững. "
+               "{change_little} một số công thức đã được hiện đại hóa, nhưng giá trị dinh dưỡng vẫn quan trọng."),
+        source="Cambridge-style · Traditional food / culinary culture (Part 3)",
+        notes=["It hasn't changed much", "The only change is that…", "culinary traditions", "nutritional value", "have/has + V3 · have been + V3"])
+
+    t8 = ("Family meals have changed quite a bit {change_span}. {change_past}, {change_past_food}. "
+          "{change_now}, {change_now_food}.")
+    v8 = ("Bữa ăn gia đình đã thay đổi khá nhiều {change_span}. {change_past}, {change_past_food}. "
+          "{change_now}, {change_now_food}.")
+    add("How have family meals changed compared to the past?", kind="alot",
+        en_html=t8.format(change_span=phrase_pick("change_span", 3), change_past=phrase_pick("change_past", 0),
+            change_past_food=phrase_pick("change_past_food", 5), change_now=phrase_pick("change_now", 1),
+            change_now_food=phrase_pick("change_now_food", 5)),
+        vi=fill_vi_tpl(v8, change_span=slot_vi("change_span", 3), change_past=slot_vi("change_past", 0),
+            change_past_food=slot_vi("change_past_food", 5), change_now=slot_vi("change_now", 1),
+            change_now_food=slot_vi("change_now_food", 5)),
+        plain="Family meals have changed quite a bit over the past few decades. In the past, students and office workers usually had a hearty breakfast at home. But now, an increasing number of young people skip a hearty breakfast and just grab a quick bite.",
+        ipa="", ex=t8, ex_vi=v8, source="Cambridge-style · Family meals / breakfast (Part 1–3)",
+        notes=["It has changed a lot / a great deal", "an increasing number of", "hearty breakfast", "grab a quick bite"])
+
+    add("How has your diet changed over the years?", kind="alot",
+        en_html=(f'My diet has changed significantly {phrase_pick("change_span", 2)}. '
+                 f'{phrase_pick("change_past", 4)}, I ate more processed foods. '
+                 f'{phrase_pick("change_now", 2)}, there has been {phrase_pick("change_lex", 0)} '
+                 f'healthier home-cooked meals rather than junk food.'),
+        vi=(f'Chế độ ăn của tôi đã thay đổi đáng kể {slot_vi("change_span", 2)}. '
+            f'{slot_vi("change_past", 4)}, tôi ăn nhiều thực phẩm chế biến sẵn hơn. '
+            f'{slot_vi("change_now", 2)}, đã có {slot_vi("change_lex", 0)} '
+            f'những bữa nấu nhà lành mạnh hơn thay vì junk food.'),
+        plain="My diet has changed significantly over the past few years. Not so long ago, I ate more processed foods. These days, there has been a shift towards healthier home-cooked meals rather than junk food.",
+        ipa="",
+        ex=("My diet has changed significantly {change_span}. {change_past}, I ate more processed foods. "
+            "{change_now}, there has been {change_lex} healthier home-cooked meals rather than junk food."),
+        ex_vi=("Chế độ ăn của tôi đã thay đổi đáng kể {change_span}. {change_past}, tôi ăn nhiều thực phẩm chế biến sẵn hơn. "
+               "{change_now}, đã có {change_lex} những bữa nấu nhà lành mạnh hơn thay vì junk food."),
+        source="Cambridge-style · How has your diet changed? (Part 1)",
+        notes=["It has changed a lot / a great deal", "a shift towards…", "processed foods", "home-cooked"])
+
+    t10 = ("Technology and food have changed significantly {change_span}. {change_past}, people relied on cookbooks "
+           "and family recipes. {change_now}, {change_now_food}.")
+    v10 = ("Công nghệ và đồ ăn đã thay đổi đáng kể {change_span}. {change_past}, mọi người dựa vào sách nấu "
+           "và công thức gia đình. {change_now}, {change_now_food}.")
+    add("How has technology changed the way people cook and eat?", kind="alot",
+        en_html=t10.format(change_span=phrase_pick("change_span", 0), change_past=phrase_pick("change_past", 2),
+            change_now=phrase_pick("change_now", 0), change_now_food=phrase_pick("change_now_food", 4)),
+        vi=fill_vi_tpl(v10, change_span=slot_vi("change_span", 0), change_past=slot_vi("change_past", 2),
+            change_now=slot_vi("change_now", 0), change_now_food=slot_vi("change_now_food", 4)),
+        plain="Technology and food have changed significantly in recent years. A decade ago, people relied on cookbooks and family recipes. But recently, food delivery apps have become much more popular, and cooking from scratch feels too time-consuming for busy people.",
+        ipa="", ex=t10, ex_vi=v10, source="Cambridge-style · Technology changed cooking/eating (Part 3)",
+        notes=["It has changed a lot / a great deal", "have/has + V3 · have been + V3", "a shift towards…", "from scratch"],
+        alt_kind="little",
+        alt_html=(f'{phrase_pick("change_little", 0)}. {phrase_pick("change_little", 2)} more people '
+                  f'watch cooking videos, but most still prefer home-cooked meals.'),
+        alt_vi=(f'{slot_vi("change_little", 0)}. {slot_vi("change_little", 2)} nhiều người xem video '
+                f'nấu ăn hơn, nhưng hầu hết vẫn thích đồ nấu nhà.'),
+        alt_plain="It hasn't changed much. The only change is that more people watch cooking videos, but most still prefer home-cooked meals.",
+        alt_ex="{change_little}. {change_little} more people watch cooking videos, but most still prefer home-cooked meals.",
+        alt_ex_vi="{change_little}. {change_little} nhiều người xem video nấu ăn hơn, nhưng hầu hết vẫn thích đồ nấu nhà.")
+
+    cards = []
+    for it in items:
+        alts = ""
+        if it.get("alt_html"):
+            alts = _pair_answer_html(kind=it.get("alt_kind") or "alt", en_html=it["alt_html"], vi=it["alt_vi"],
+                plain=it["alt_plain"], ipa=it["alt_ipa"], q=it["q"], ex_en=it.get("alt_ex", ""), ex_vi=it.get("alt_ex_vi", ""))
+        src = f'\n            <p class="lr-food-ex-source">{esc(it["source"])}</p>' if it.get("source") else ""
+        cards.append(f"""          <article class="lr-food-ex-card">
+{_ex_card_q_html(it["q"])}{src}
+            <div class="lr-food-ex-pair lr-food-ex-pair--change">
+{_pair_answer_html(kind=it["kind"], en_html=it["html"], vi=it["vi"], plain=it["plain"], ipa=it["ipa"], q=it["q"], ex_en=it["ex"], ex_vi=it.get("ex_vi", ""))}
+{alts}
+            </div>
+{_ex_chip_notes_html(it.get("notes"))}
+          </article>""")
+    return f"""
+        <div class="lr-food-examples" id="food-examples-l15">
+          <h3 class="lr-core-subtitle">Ví dụ Food · How has X changed?</h3>
+          <p class="lr-mm-hint">~10 câu <strong>lọc Cambridge Food</strong> (eating habits · cooking · restaurants · street food · taste · healthy attitudes · traditional dishes · family meals · diet · technology). Nhánh <strong>đổi nhiều</strong> / <strong>đổi ít</strong> + Past Simple ↔ Present Perfect. Dùng <strong>lexical cụm nâng điểm</strong> ở panel phía trên.</p>
+{chr(10).join(cards)}
+        </div>"""
+
+
 def food_lesson_examples_html() -> str:
     """Unified Food cards: every Q has Thích + Không thích; both sides have contextual dropdowns."""
     items = []
@@ -9643,6 +10093,65 @@ def lesson_grammar_notes_html(title: str, skeleton_lines: list[str]) -> str:
           </div>"""
 
 
+
+def lesson15_lexical_boost_html() -> str:
+    """High-band Food lexical chunks for How has X changed?"""
+    groups = [
+        (
+            "Change & trend",
+            [
+                ("a shift towards…", "sự chuyển dịch hướng tới…"),
+                ("an increasing number of…", "ngày càng nhiều…"),
+                ("have become more popular", "đã trở nên phổ biến hơn"),
+                ("have been replaced by…", "đã bị thay thế bởi…"),
+                ("have dominated…", "đã chiếm ưu thế / thống trị…"),
+            ],
+        ),
+        (
+            "Food & diet (band boost)",
+            [
+                ("culinary traditions / culinary heritage", "truyền thống / di sản ẩm thực"),
+                ("dietary habits / eating habits", "thói quen ăn uống"),
+                ("processed foods / ready meals", "đồ chế biến sẵn / đồ sẵn"),
+                ("organically grown produce", "nông sản hữu cơ"),
+                ("nutritional value", "giá trị dinh dưỡng"),
+                ("health-conscious consumers", "người tiêu dùng có ý thức sức khỏe"),
+                ("the globalization of cuisine", "toàn cầu hóa ẩm thực"),
+                ("family-run restaurants / street food stalls", "nhà hàng gia đình / quán đường phố"),
+            ],
+        ),
+        (
+            "Reuse from earlier lessons",
+            [
+                ("home-cooked meals · cook from scratch", "đồ nấu nhà · tự nấu từ nguyên liệu tươi"),
+                ("balanced diet · junk food · greasy take-away", "chế độ cân bằng · junk food · đồ mang về nhiều dầu"),
+                ("grab a quick bite · hearty breakfast · comfort food", "ăn vội · bữa sáng no đủ · đồ an ủi"),
+                ("mouth-watering local dishes", "món địa phương cực ngon"),
+            ],
+        ),
+    ]
+    blocks = []
+    for title, items in groups:
+        lis = "".join(
+            f'<li><mark class="lr-tip" data-tip="{esc(vi)}" title="{esc(vi)}">{esc(en)}</mark></li>'
+            for en, vi in items
+        )
+        blocks.append(
+            f"""              <div class="lr-lex-col">
+                <h5 class="lr-lex-col-title">{esc(title)}</h5>
+                <ul class="lr-lex-list">{lis}</ul>
+              </div>"""
+        )
+    return f"""
+          <div class="lr-grammar-notes lr-lex-boost-wrap" id="lesson15-lexical-boost">
+            <h4 class="lr-grammar-notes-title">Lexical cụm nâng điểm · Food (How has X changed?)</h4>
+            <p class="lr-freq-hint">Chọn <strong>1–2 cụm</strong> band cao + cấu trúc slide (a lot / little + Past Simple ↔ Present Perfect). Đừng nhồi hết.</p>
+            <div class="lr-lex-grid">
+{chr(10).join(blocks)}
+            </div>
+          </div>"""
+
+
 def lesson14_freq_table_html() -> str:
     """5-level frequency table from slide · How often do you do X?"""
     levels = [
@@ -9788,7 +10297,7 @@ def lesson_highlights_html(
     include_food_examples: bool = False,
     open_practice: bool = False,
 ) -> str:
-    """Lesson 2 + 3 + 5–14 mind maps and practice (Lesson 4 skipped).
+    """Lesson 2 + 3 + 5–15 mind maps and practice (Lesson 4 skipped).
 
     map_suffix: unique id suffix when the same maps appear on Review Exercise 2.
     include_food_examples: annotated Food cards (Review Exercise 2).
@@ -9806,6 +10315,7 @@ def lesson_highlights_html(
     m12 = f"lesson12Mindmap{map_suffix}"
     m13 = f"lesson13Mindmap{map_suffix}"
     m14 = f"lesson14Mindmap{map_suffix}"
+    m15 = f"lesson15Mindmap{map_suffix}"
     open_attr = " open" if open_practice else ""
     examples_block = food_lesson_examples_html() if include_food_examples else ""
     examples_l5 = food_lesson5_examples_html() if include_food_examples else ""
@@ -9818,6 +10328,7 @@ def lesson_highlights_html(
     examples_l12 = food_lesson12_examples_html() if include_food_examples else ""
     examples_l13 = food_lesson13_examples_html() if include_food_examples else ""
     examples_l14 = food_lesson14_examples_html() if include_food_examples else ""
+    examples_l15 = food_lesson15_examples_html() if include_food_examples else ""
     lesson3_scroll = ""
     lesson5_scroll = ""
     lesson6_scroll = ""
@@ -9829,6 +10340,7 @@ def lesson_highlights_html(
     lesson12_scroll = ""
     lesson13_scroll = ""
     lesson14_scroll = ""
+    lesson15_scroll = ""
     if include_food_examples:
         lesson3_scroll = lesson_scroll_read_html(
             "lesson3", title="Lesson 3", source_sel="#lesson3-scroll-source"
@@ -9862,6 +10374,9 @@ def lesson_highlights_html(
         )
         lesson14_scroll = lesson_scroll_read_html(
             "lesson14", title="Lesson 14", source_sel="#lesson14-scroll-source"
+        )
+        lesson15_scroll = lesson_scroll_read_html(
+            "lesson15", title="Lesson 15", source_sel="#lesson15-scroll-source"
         )
 
     g2 = lesson_grammar_notes_html(
@@ -10365,6 +10880,47 @@ def lesson_highlights_html(
             ],
         )
     )
+    g15 = (
+        lesson15_lexical_boost_html()
+        + lesson_grammar_tree_html(
+            "Lesson 15",
+            "How has X changed?",
+            [
+                {
+                    "label_html": f'{_g_mark("Đổi nhiều")} + sự thay đổi',
+                    "openers": [
+                        "It has changed a lot / a great deal / significantly",
+                        "in recent years · over the past few decades · since I was a child",
+                    ],
+                    "details_label": "Past → Recently",
+                    "details": [
+                        "Past Simple: In the past / A decade ago…",
+                        "Present Perfect: But recently… have become / have started",
+                        "Passive: have/has been + V3",
+                    ],
+                },
+                {
+                    "label_html": f'{_g_mark("Đổi ít")} + sự thay đổi',
+                    "openers": [
+                        "It hasn't changed much / very slightly",
+                        "The only change is that…",
+                    ],
+                    "details_label": "Lexical nâng điểm",
+                    "details": [
+                        "a shift towards… · an increasing number of…",
+                        "culinary traditions · dietary habits · health-conscious",
+                        "processed foods · organically grown produce · nutritional value",
+                        "as + adj + as (not as popular as…)",
+                    ],
+                },
+            ],
+            footer=[
+                "changed a great deal · hasn't changed much",
+                "home-cooked → food delivery / ready meals",
+                "globalization of cuisine · family-run restaurants",
+            ],
+        )
+    )
 
     return f"""
       <div class="lr-core-lessons">
@@ -10651,6 +11207,30 @@ def lesson_highlights_html(
           </div>
 
 {lesson14_scroll}
+        </article>
+
+        <article class="lr-core-lesson" id="lesson15-formulas">
+          <header class="lr-core-lesson-head">
+            <h3>Lesson 15 · How has X changed?</h3>
+          </header>
+
+{mind_map_html(
+            m15,
+            "Lesson 15 · How has X changed?",
+            "How has X changed?",
+            "Đổi nhiều ↔ Đổi ít",
+            LESSON15_MINDMAP_LEFT,
+            LESSON15_MINDMAP_RIGHT,
+            note="Trái = <strong>đổi nhiều</strong> · Phải = <strong>đổi ít</strong> + lexical nâng điểm. Past Simple ↔ Present Perfect. Câu hỏi lọc Cambridge Food.",
+            extra_class=" lr-mmap--lesson15",
+            min_width="1320px",
+        )}
+{g15}
+          <div id="lesson15-scroll-source">
+{examples_l15}
+          </div>
+
+{lesson15_scroll}
         </article>
 
       </div>"""
@@ -12150,7 +12730,7 @@ def build_page() -> str:
           <a href="#mental-model">2 · Mental model</a>
           <a href="#ed-ending">2b · -ed</a>
           <a href="#structures">3 · Structures</a>
-          <a href="#lessons">4 · Lessons 2 · 3 · 5–14</a>
+          <a href="#lessons">4 · Lessons 2 · 3 · 5–15</a>
           <a href="#food-lang">5 · Idioms &amp; phrases</a>
           <a href="#phrase-drills">6 · Phrase drills</a>
           <a href="#food-phrase-map">6 · Mind map</a>
@@ -12190,7 +12770,7 @@ def build_page() -> str:
       </section>
 
       <section class="lr-section" id="lessons">
-        <h2>4 · Core formulas — Lesson 2, 3, 5–14</h2>
+        <h2>4 · Core formulas — Lesson 2, 3, 5–15</h2>
         <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — L2 → … → L10 Childhood → L11 Suitable · <em>skip Lesson 4</em>. Chọn <strong>1–2 nhánh</strong>.</p>
 {lesson_highlights_html()}
       </section>
@@ -12237,7 +12817,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr46">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr47">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -12290,9 +12870,9 @@ def build_page_review2() -> str:
       </div>
 
       <header class="lr-hero">
-        <p class="lr-hero-badge">Linear Thinking · Lesson 2, 3, 5–14</p>
+        <p class="lr-hero-badge">Linear Thinking · Lesson 2, 3, 5–15</p>
         <h1>Food &amp; Drink — Review Exercise 2</h1>
-        <p class="lede">Lesson 2 + 3 + 5–14 (How often?) · skip Lesson 4. Sơ đồ tư duy → ví dụ Food → Scroll read. Full capstone: <a href="../review-exercise/">Review Exercise 1</a>.</p>
+        <p class="lede">Lesson 2 + 3 + 5–15 (How has X changed?) · skip Lesson 4. Sơ đồ tư duy → ví dụ Food → Scroll read. Full capstone: <a href="../review-exercise/">Review Exercise 1</a>.</p>
         <nav class="lr-toc" aria-label="On this page">
           <a href="#lesson2-formulas">Lesson 2 · Reasons</a>
           <a href="#scroll-lesson2">Scroll · L2</a>
@@ -12321,11 +12901,13 @@ def build_page_review2() -> str:
           <a href="#lesson12-formulas">Lesson 12 · Easy/Difficult?</a>
           <a href="#lesson13-formulas">Lesson 13 · Dislike about X?</a>
           <a href="#lesson14-formulas">Lesson 14 · How often?</a>
+          <a href="#lesson15-formulas">Lesson 15 · How changed?</a>
           <a href="#food-examples-l11">Ví dụ L11</a>
           <a href="#scroll-lesson11">Scroll · L11</a>
           <a href="#scroll-lesson12">Scroll · L12</a>
           <a href="#scroll-lesson13">Scroll · L13</a>
           <a href="#scroll-lesson14">Scroll · L14</a>
+          <a href="#scroll-lesson15">Scroll · L15</a>
         </nav>
         <div class="ex-toolbar lr-toolbar lr-toolbar--hero">
           <label class="ex-toggle"><input type="checkbox" id="togVi" /> Vietnamese</label>
@@ -12333,7 +12915,7 @@ def build_page_review2() -> str:
       </header>
 
       <section class="lr-section" id="lessons">
-        <h2>Core formulas — Lesson 2, 3, 5–14</h2>
+        <h2>Core formulas — Lesson 2, 3, 5–15</h2>
         <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — chọn <strong>1–2 nhánh</strong>, không nhồi hết. Dropdown bên dưới để thay từ B1/B2.</p>
 {lesson_highlights_html(map_suffix="R2", include_food_examples=True, open_practice=True)}
       </section>
@@ -12347,11 +12929,11 @@ def build_page_review2() -> str:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Review Exercise 2 · Food &amp; Drink — The Quiet Corner</title>
-  <meta name="description" content="Lesson 2, 3, 5–14: Reasons through How often — Food mind maps and practice.">
+  <meta name="description" content="Lesson 2, 3, 5–15: Reasons through How has X changed — Food mind maps and practice.">
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr46">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr47">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -12403,7 +12985,7 @@ def patch_topic_index() -> None:
           <span class="vocab-level__badge vocab-level__badge--review">Review</span>
           <h2>Linear Thinking · Capstone exercise</h2>
         </div>
-        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3, 5–14 (mind map + ví dụ Food + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
+        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3, 5–15 (mind map + ví dụ Food + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
         <div class="vocab-lesson-grid">
           <a class="vocab-lesson-card vocab-lesson-card--review" href="review-exercise/">
             <img src="{review_icon}" alt="" width="72" height="72" loading="lazy">
