@@ -9643,6 +9643,94 @@ def lesson_grammar_notes_html(title: str, skeleton_lines: list[str]) -> str:
           </div>"""
 
 
+def lesson14_freq_table_html() -> str:
+    """5-level frequency table from slide · How often do you do X?"""
+    levels = [
+        (
+            "Rất thường xuyên",
+            "Very often",
+            [
+                "Always",
+                "All the time",
+                "Every day / almost every day / every morning / all day",
+                "Five days a week / 28 days a month",
+                "very often / very frequently",
+                "a lot",
+            ],
+        ),
+        (
+            "Thường xuyên / khá thường xuyên",
+            "Often / Quite often",
+            [
+                "Usually / often / regularly / frequently",
+                "Quite often / quite regularly / quite frequently",
+                "2 or 3 times a week",
+            ],
+        ),
+        (
+            "Thỉnh thoảng",
+            "Sometimes",
+            [
+                "Sometimes / occasionally",
+                "Once or twice a week",
+                "Not often",
+                "Don't usually",
+                "Every 2 months",
+                "Every now and then",
+                "Once in a while",
+            ],
+        ),
+        (
+            "Hiếm khi / hầu như không",
+            "Rarely / Hardly ever",
+            [
+                "Rarely, seldom",
+                "Hardly ever",
+                "Almost never",
+                "Once in a blue moon",
+            ],
+        ),
+        (
+            "Không bao giờ",
+            "Never",
+            [
+                "never",
+            ],
+        ),
+    ]
+    cols = []
+    for i, (vi, en, phrases) in enumerate(levels, start=1):
+        lis = "".join(f"<li><mark>{esc(p)}</mark></li>" for p in phrases)
+        cols.append(
+            f"""              <div class="lr-freq-col" data-freq-level="{i}">
+                <h5 class="lr-freq-col-title"><span class="lr-freq-num">{i}</span> {esc(vi)}</h5>
+                <p class="lr-freq-col-en">{esc(en)}</p>
+                <ul class="lr-freq-list">{lis}</ul>
+              </div>"""
+        )
+    scale = (
+        '<span><strong>100%</strong> always</span>'
+        '<span>usually / normally</span>'
+        '<span>often</span>'
+        '<span>sometimes</span>'
+        '<span>occasionally</span>'
+        '<span>hardly ever</span>'
+        '<span><strong>0%</strong> never</span>'
+    )
+    return f"""
+          <div class="lr-grammar-notes lr-freq-table-wrap" id="lesson14-freq-table">
+            <h4 class="lr-grammar-notes-title">Từ vựng chỉ mức độ thường xuyên · 5 bậc</h4>
+            <p class="lr-freq-hint">Chọn <strong>1 bậc</strong> rồi nói tần suất + lý do. Có thể đối chiếu 2 bậc (vd. <em>often</em> ↔ <em>hardly ever</em>).</p>
+            <div class="lr-freq-grid" role="table" aria-label="Frequency scale 5 levels">
+{chr(10).join(cols)}
+            </div>
+            <div class="lr-freq-scale" aria-label="British Council frequency scale">
+              <p class="lr-freq-scale-label">Thang % · British Council (LearnEnglish Teens)</p>
+              <div class="lr-freq-scale-bar">{scale}</div>
+            </div>
+          </div>"""
+
+
 def lesson_grammar_tree_html(
     title: str,
     root: str,
@@ -10234,44 +10322,48 @@ def lesson_highlights_html(
             "grab a quick bite · from scratch · light meal",
         ],
     )
-    g14 = lesson_grammar_tree_html(
-        "Lesson 14",
-        "How often do you do X?",
-        [
-            {
-                "label_html": f'{_g_mark("Tần suất")} (chọn bậc)',
-                "openers": [
-                    "almost every day / five days a week / a lot",
-                    "usually / often / quite often / once a week",
-                    "sometimes / every now and then",
-                    "hardly ever / once in a blue moon / never",
-                ],
-                "details_label": "Thang nhanh",
-                "details": [
-                    "100% always → 0% never (British Council scale)",
-                    "Có thể dùng 2 mức để đối chiếu (often ↔ hardly ever)",
-                ],
-            },
-            {
-                "label_html": f'{_g_mark("Lý do")} / chi tiết',
-                "openers": [
-                    "at the weekend when…",
-                    "because + home-cooked / balanced diet…",
-                    "I also + freq2…",
-                ],
-                "details_label": "Grammar slide → Food",
-                "details": [
-                    "none of + group (spoken: plural V)",
-                    "too + adj + to V",
-                    "interesting to V … than to V",
-                ],
-            },
-        ],
-        footer=[
-            "once a week · usually · hardly ever",
-            "none of us have to work → dinner out",
-            "too tired to cook from scratch",
-        ],
+    g14 = (
+        lesson14_freq_table_html()
+        + lesson_grammar_tree_html(
+            "Lesson 14",
+            "How often do you do X?",
+            [
+                {
+                    "label_html": f'{_g_mark("Tần suất")} · chọn 1 trong 5 bậc',
+                    "openers": [
+                        "① always · every day · five days a week · a lot",
+                        "② usually · often · quite often · 2 or 3 times a week",
+                        "③ sometimes · once or twice a week · every now and then",
+                        "④ hardly ever · once in a blue moon",
+                        "⑤ never",
+                    ],
+                    "details_label": "Cách dùng",
+                    "details": [
+                        "Xem bảng 5 bậc phía trên — đủ cụm slide",
+                        "Có thể dùng 2 mức để đối chiếu (often ↔ hardly ever)",
+                    ],
+                },
+                {
+                    "label_html": f'{_g_mark("Lý do")} / chi tiết',
+                    "openers": [
+                        "at the weekend when…",
+                        "because + home-cooked / balanced diet…",
+                        "I also + freq2…",
+                    ],
+                    "details_label": "Grammar slide → Food",
+                    "details": [
+                        "none of + group (spoken: plural V)",
+                        "too + adj + to V",
+                        "interesting to V … than to V",
+                    ],
+                },
+            ],
+            footer=[
+                "once a week · usually · hardly ever",
+                "none of us have to work → dinner out",
+                "too tired to cook from scratch",
+            ],
+        )
     )
 
     return f"""
@@ -12145,7 +12237,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr45">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr46">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -12259,7 +12351,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr45">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr46">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>

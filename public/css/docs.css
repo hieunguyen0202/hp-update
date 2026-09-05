@@ -5396,6 +5396,130 @@ mark.lr-hl,
   }
 }
 
+/* Lesson 14 · 5-level frequency table (slide) */
+.lr-freq-table-wrap {
+  margin: 0 0 18px;
+}
+
+.lr-freq-hint {
+  margin: 0 0 12px;
+  font-size: 0.9rem;
+  color: rgba(203, 213, 225, 0.92);
+}
+
+.lr-freq-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0 0 14px;
+}
+
+.lr-freq-col {
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.45);
+  padding: 10px 11px 12px;
+  min-width: 0;
+}
+
+.lr-freq-col[data-freq-level="1"] { border-color: rgba(52, 211, 153, 0.45); }
+.lr-freq-col[data-freq-level="2"] { border-color: rgba(125, 211, 252, 0.4); }
+.lr-freq-col[data-freq-level="3"] { border-color: rgba(250, 204, 21, 0.4); }
+.lr-freq-col[data-freq-level="4"] { border-color: rgba(251, 146, 60, 0.45); }
+.lr-freq-col[data-freq-level="5"] { border-color: rgba(248, 113, 113, 0.45); }
+
+.lr-freq-col-title {
+  margin: 0 0 4px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  line-height: 1.35;
+}
+
+.lr-freq-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-right: 2px;
+  border-radius: 999px;
+  background: rgba(34, 211, 238, 0.18);
+  color: #67e8f9;
+  font-size: 0.75rem;
+}
+
+.lr-freq-col-en {
+  margin: 0 0 8px;
+  font-size: 0.72rem;
+  color: rgba(148, 163, 184, 0.95);
+  font-style: italic;
+}
+
+.lr-freq-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.lr-freq-list li { margin: 0; }
+
+.lr-freq-list mark {
+  display: inline-block;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: rgba(34, 211, 238, 0.12);
+  color: #a5f3fc;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.lr-freq-scale {
+  border: 1px dashed rgba(148, 163, 184, 0.35);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: rgba(15, 23, 42, 0.35);
+}
+
+.lr-freq-scale-label {
+  margin: 0 0 8px;
+  font-size: 0.78rem;
+  color: rgba(203, 213, 225, 0.9);
+}
+
+.lr-freq-scale-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  align-items: center;
+}
+
+.lr-freq-scale-bar > span {
+  font-size: 0.75rem;
+  color: #cbd5e1;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(51, 65, 85, 0.65);
+}
+
+.lr-freq-scale-bar > span strong { color: #fde68a; }
+
+@media (max-width: 1100px) {
+  .lr-freq-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 700px) {
+  .lr-freq-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  .lr-freq-grid { grid-template-columns: 1fr; }
+}
+
 /* Per-example structure chips (under Food cards) */
 .lr-ex-chips {
   display: flex;
