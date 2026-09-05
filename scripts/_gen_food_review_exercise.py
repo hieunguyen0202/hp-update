@@ -548,6 +548,73 @@ WORD_SLOTS: dict[str, list[dict]] = {
         {"form": "It helps me keep fit and burn a few extra calories.", "vi": "Giúp tôi giữ dáng và đốt thêm calo."},
         {"form": "I try using seasonal ingredients whenever I can.", "vi": "Tôi cố thử dùng nguyên liệu theo mùa khi có thể."},
     ],
+    # Lesson 6 · Do you prefer X or Y?
+    "prefer_pair_home": [
+        {"form": "eating at home to eating out", "vi": "ăn ở nhà hơn ăn ngoài (X to Y)"},
+        {"form": "eating at home rather than eating out", "vi": "ăn ở nhà hơn là ăn ngoài"},
+        {"form": "cooking at home to ordering takeaway", "vi": "nấu ở nhà hơn gọi mang về"},
+    ],
+    "prefer_pair_sweet": [
+        {"form": "savoury dishes to sweet desserts", "vi": "món mặn hơn món ngọt"},
+        {"form": "sweet snacks rather than savoury ones", "vi": "đồ ngọt hơn đồ mặn"},
+        {"form": "fruit-based desserts to heavy cakes", "vi": "tráng miệng trái cây hơn bánh nặng"},
+    ],
+    "prefer_pair_social": [
+        {"form": "eating with my family to eating alone", "vi": "ăn với gia đình hơn ăn một mình"},
+        {"form": "sharing a meal with friends rather than dining on my own", "vi": "chia sẻ bữa với bạn hơn ăn một mình"},
+        {"form": "cooking with someone to cooking by myself", "vi": "nấu cùng ai đó hơn nấu một mình"},
+    ],
+    "prefer_pair_health": [
+        {"form": "wholesome home-cooked meals to fast food", "vi": "bữa nấu nhà lành mạnh hơn fast food"},
+        {"form": "fresh ingredients rather than processed snacks", "vi": "nguyên liệu tươi hơn đồ chế biến sẵn"},
+        {"form": "a balanced diet to greasy takeaway", "vi": "chế độ ăn cân bằng hơn đồ mang về nhiều dầu"},
+    ],
+    "prefer_pair_drink": [
+        {"form": "herbal tea to coffee", "vi": "trà thảo mộc hơn cà phê"},
+        {"form": "fresh juice rather than soft drinks", "vi": "nước ép hơn nước ngọt"},
+        {"form": "drinking water to sugary drinks", "vi": "uống nước hơn đồ ngọt"},
+    ],
+    "prefer_pair_taste": [
+        {"form": "mild dishes to spicy food", "vi": "món dịu hơn món cay"},
+        {"form": "spicy food rather than bland meals", "vi": "món cay hơn món nhạt"},
+        {"form": "grilled dishes to deep-fried food", "vi": "món nướng hơn đồ chiên ngập dầu"},
+    ],
+    "prefer_it_takes": [
+        {"form": "it takes me about an hour to cook a proper meal from scratch", "vi": "mất khoảng một giờ để nấu bữa tử tế từ đầu"},
+        {"form": "it can take several hours to prepare a traditional feast", "vi": "có thể mất vài giờ để chuẩn bị tiệc truyền thống"},
+        {"form": "it only takes a few minutes to grab a bite from a street stall", "vi": "chỉ mất vài phút để ăn vội ở quán đường phố"},
+        {"form": "it only takes several seconds to order takeaway on an app", "vi": "chỉ mất vài giây để gọi mang về trên app"},
+    ],
+    "prefer_feeling": [
+        {"form": "sitting around the table with my family and tasting freshly cooked dishes", "vi": "ngồi quanh bàn với gia đình, thưởng thức món mới nấu"},
+        {"form": "cooking slowly and smelling the spices in the kitchen", "vi": "nấu chậm và ngửi mùi gia vị trong bếp"},
+        {"form": "sharing a hot pot and chatting over food", "vi": "ăn lẩu chung và tám chuyện bên bàn ăn"},
+        {"form": "sipping tea after a light homemade meal", "vi": "nhấp trà sau bữa ăn nhà nhẹ"},
+    ],
+    "prefer_have_someone": [
+        {"form": "have someone to share the meal with", "vi": "có ai đó để chia sẻ bữa ăn"},
+        {"form": "have someone to try new dishes with", "vi": "có ai đó để thử món mới cùng"},
+        {"form": "have someone to help me in the kitchen", "vi": "có ai đó giúp tôi trong bếp"},
+        {"form": "have someone to send food recommendations to", "vi": "có ai đó để gửi gợi ý món ăn"},
+    ],
+    "prefer_function": [
+        {"form": "my body functions more effectively throughout the day", "vi": "cơ thể tôi hoạt động hiệu quả hơn cả ngày"},
+        {"form": "my brain functions better when I eat a balanced breakfast", "vi": "não hoạt động tốt hơn khi tôi ăn sáng cân bằng"},
+        {"form": "my body cannot function normally if nutrients are in short supply", "vi": "cơ thể không hoạt động bình thường nếu thiếu dinh dưỡng"},
+        {"form": "I function better at work after a wholesome lunch", "vi": "tôi làm việc hiệu quả hơn sau bữa trưa lành mạnh"},
+    ],
+    "prefer_contrast": [
+        {"form": "while eating out is often more time-consuming and expensive", "vi": "trong khi ăn ngoài thường tốn thời gian và đắt hơn"},
+        {"form": "whereas fast food can pose a threat to my health", "vi": "trong khi fast food có thể đe dọa sức khỏe"},
+        {"form": "while cooking alone feels quieter and a bit lonely", "vi": "trong khi nấu một mình yên hơn và hơi cô đơn"},
+        {"form": "whereas sugary drinks take a heavy toll on my health over time", "vi": "trong khi đồ ngọt dần gây hại nặng cho sức khỏe"},
+    ],
+    "prefer_send": [
+        {"form": "send photos of my homemade dishes to my friends", "vi": "gửi ảnh món tự nấu cho bạn bè"},
+        {"form": "send a recipe to my sister", "vi": "gửi công thức cho chị/em gái"},
+        {"form": "send food recommendations to colleagues", "vi": "gửi gợi ý quán ăn cho đồng nghiệp"},
+        {"form": "send a grocery list to my roommate", "vi": "gửi danh sách đi chợ cho bạn cùng phòng"},
+    ],
 }
 
 # ── Mind map helpers (shared: Section 2 tenses + Lesson 2/3) ───────────────
@@ -1933,6 +2000,141 @@ LESSON5_MINDMAP_RIGHT = [
     },
 ]
 
+# Lesson 6 · Do you prefer X or Y? — trái = Chọn X/Y, phải = Lý do
+LESSON6_MINDMAP_LEFT = [
+    {
+        "id": "prefer-xy-flow",
+        "color": "#c4b5fd",
+        "name": "Chọn X / Y",
+        "name_vi": "Prefer",
+        "flow": True,
+        "opener": "Well, … · Honestly, …",
+        "branches": [
+            {
+                "label": "Nhánh 1 · I prefer X",
+                "patterns": "X thường là <strong>V-ing</strong> / NP",
+                "leaves": [
+                    tip("I prefer + V-ing / NP", "Tôi thích hơn + V-ing / danh từ"),
+                    tip(
+                        "Food: I prefer eating at home",
+                        "Food: Tôi thích ăn ở nhà hơn",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 2 · I prefer X to Y",
+                "patterns": "<code>prefer + V-ing + to + V-ing</code> (cùng form)",
+                "leaves": [
+                    tip(
+                        "I prefer eating at home to eating out",
+                        "Tôi thích ăn ở nhà hơn ăn ngoài",
+                    ),
+                    tip(
+                        "I prefer cooking myself to ordering takeaway",
+                        "Tôi thích tự nấu hơn gọi mang về",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 3 · I prefer X rather than Y",
+                "patterns": (
+                    "<code>prefer to V rather than V</code> · "
+                    "hoặc NP / V-ing + rather than …"
+                ),
+                "leaves": [
+                    tip(
+                        "I prefer to cook at home rather than eat out",
+                        "Tôi thích nấu ở nhà hơn là ăn ngoài",
+                    ),
+                    tip(
+                        "I prefer wholesome meals rather than fast food",
+                        "Tôi thích bữa lành mạnh hơn fast food",
+                    ),
+                ],
+            },
+        ],
+        "link": "→ <strong>because</strong> + Lý do (ưu điểm X · while · nhược điểm Y)",
+    },
+]
+
+LESSON6_MINDMAP_RIGHT = [
+    {
+        "id": "prefer-reason-flow",
+        "color": "#fcd34d",
+        "name": "Lý do",
+        "name_vi": "Reason",
+        "flow": True,
+        "opener": "because · This is because · while / whereas",
+        "branches": [
+            {
+                "label": "Nhánh 1 · Ưu điểm X / Nhược điểm Y",
+                "leaves": [
+                    tip(
+                        "Ưu điểm của X → healthier / more interesting / safer",
+                        "Nêu điểm mạnh của lựa chọn X",
+                    ),
+                    tip(
+                        "Nhược điểm của Y → time-consuming / pose a threat to health",
+                        "Nêu điểm yếu của Y",
+                    ),
+                    tip(
+                        "X …, while / whereas Y …",
+                        "Đối chiếu trực tiếp X và Y",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Cấu trúc slide (Food)",
+                "patterns": "Áp dụng đúng ngữ cảnh Food — không copy ví dụ letters/cinema",
+                "leaves": [
+                    tip(
+                        "It takes + time (+ for sb) + to V",
+                        "Tốn bao nhiêu thời gian (cho ai) để làm gì",
+                    ),
+                    tip(
+                        "love the feeling of + V-ing",
+                        "Thích cảm giác làm gì",
+                    ),
+                    tip(
+                        "have someone to + V",
+                        "Có ai đó để làm gì",
+                    ),
+                    tip(
+                        "send sth to sb",
+                        "Gửi cái gì cho ai (ảnh món / recipe…)",
+                    ),
+                    tip(
+                        "function (v) — body / brain / nutrients",
+                        "Hoạt động (cơ thể / não / khi đủ dinh dưỡng)",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 3 · Lexical Food (trong contrast)",
+                "leaves": [
+                    tip(
+                        "more time-consuming · grab a bite",
+                        "tốn thời gian hơn · ăn vội một miếng",
+                    ),
+                    tip(
+                        "pose a threat to health · take a heavy toll on health",
+                        "đe dọa sức khỏe · gây hậu quả nặng cho SK",
+                    ),
+                    tip(
+                        "have a sweet tooth · strengthen my muscles",
+                        "thích đồ ngọt · tăng cường cơ bắp",
+                    ),
+                    tip(
+                        "hits the spot · from scratch · balanced diet",
+                        "đúng gu · nấu từ đầu · chế độ ăn cân bằng",
+                    ),
+                ],
+            },
+        ],
+        "link": "→ thêm 1 ví dụ cụ thể (Ví dụ) để chốt đoạn",
+    },
+]
+
 
 def collect_review_words() -> list[dict]:
     topic = next(t for t in TOPICS["topics"] if t["slug"] == "food-drink")
@@ -3053,6 +3255,266 @@ def food_lesson5_examples_html() -> str:
         </div>"""
 
 
+def food_lesson6_examples_html() -> str:
+    """Lesson 6 · Do you prefer X or Y? — 10 Food Qs with prefer + contrast structures."""
+    items: list[dict] = []
+
+    def add(
+        q: str,
+        en_html: str,
+        vi: str,
+        plain: str,
+        ipa: str,
+        ex: str,
+        *,
+        alt_html: str = "",
+        alt_vi: str = "",
+        alt_plain: str = "",
+        alt_ipa: str = "",
+        alt_ex: str = "",
+    ) -> None:
+        items.append(
+            {
+                "q": q,
+                "html": en_html,
+                "vi": vi,
+                "plain": plain,
+                "ipa": ipa,
+                "ex": ex,
+                "alt_html": alt_html,
+                "alt_vi": alt_vi,
+                "alt_plain": alt_plain,
+                "alt_ipa": alt_ipa,
+                "alt_ex": alt_ex,
+            }
+        )
+
+    # 1 — home vs out (It takes + while)
+    t1 = (
+        "I prefer {prefer_pair_home} because it's much healthier and more relaxing, "
+        "{prefer_contrast}. Preparing dinner myself, {prefer_it_takes}, whereas "
+        "ordering takeaway only takes a few minutes — but I still choose home food."
+    )
+    add(
+        "Do you prefer eating at home or eating out?",
+        t1.format(
+            prefer_pair_home=phrase_pick("prefer_pair_home", 0),
+            prefer_contrast=phrase_pick("prefer_contrast", 0),
+            prefer_it_takes=phrase_pick("prefer_it_takes", 0),
+        ),
+        "Tôi thích ăn ở nhà hơn ăn ngoài vì lành mạnh và thư giãn hơn, trong khi ăn ngoài thường tốn thời gian và đắt. Tự nấu tối mất khoảng một giờ, còn gọi mang về chỉ vài phút — nhưng tôi vẫn chọn đồ nhà.",
+        "I prefer eating at home to eating out because it's much healthier and more relaxing, while eating out is often more time-consuming and expensive. Preparing dinner myself, it takes me about an hour to cook a proper meal from scratch, whereas ordering takeaway only takes a few minutes — but I still choose home food.",
+        "/aɪ prɪˈfɜː ˈiːtɪŋ ət həʊm tuː ˈiːtɪŋ aʊt…/",
+        t1,
+    )
+
+    # 2 — cook vs takeaway (love the feeling)
+    t2 = (
+        "I prefer {prefer_pair_home} because I love the feeling of {prefer_feeling}. "
+        "Takeaway is convenient, {prefer_contrast}."
+    )
+    add(
+        "Do you prefer cooking yourself or ordering takeaway?",
+        t2.format(
+            prefer_pair_home=phrase_pick("prefer_pair_home", 2),
+            prefer_feeling=phrase_pick("prefer_feeling", 1),
+            prefer_contrast=phrase_pick("prefer_contrast", 1),
+        ),
+        "Tôi thích tự nấu hơn gọi mang về vì tôi thích cảm giác nấu chậm và ngửi mùi gia vị. Mang về thì tiện, trong khi fast food có thể đe dọa sức khỏe.",
+        "I prefer cooking at home to ordering takeaway because I love the feeling of cooking slowly and smelling the spices in the kitchen. Takeaway is convenient, whereas fast food can pose a threat to my health.",
+        "/aɪ prɪˈfɜː ˈkʊkɪŋ ət həʊm…/",
+        t2,
+    )
+
+    # 3 — sweet vs savoury (sweet tooth + function)
+    t3 = (
+        "To be honest, I have a bit of a sweet tooth, but I still prefer "
+        "{prefer_pair_sweet} most days. This is because after a savoury meal "
+        "{prefer_function}."
+    )
+    add(
+        "Do you prefer sweet food or savoury food?",
+        t3.format(
+            prefer_pair_sweet=phrase_pick("prefer_pair_sweet", 0),
+            prefer_function=phrase_pick("prefer_function", 0),
+        ),
+        "Thành thật thì tôi hơi thích đồ ngọt, nhưng hầu hết ngày tôi vẫn thích món mặn hơn món ngọt. Vì sau bữa mặn cơ thể tôi hoạt động hiệu quả hơn cả ngày.",
+        "To be honest, I have a bit of a sweet tooth, but I still prefer savoury dishes to sweet desserts most days. This is because after a savoury meal my body functions more effectively throughout the day.",
+        "/tuː bi ˈɒnɪst… swiːt tuːθ…/",
+        t3,
+    )
+
+    # 4 — family vs alone (have someone to)
+    t4 = (
+        "I prefer {prefer_pair_social} because it's more interesting if you "
+        "{prefer_have_someone} during the meal, and it's much safer when you "
+        "{prefer_have_someone} with portion sizes and new recipes."
+    )
+    # Fix: two have_someone picks - use different indices
+    t4 = (
+        "I prefer {prefer_pair_social} because it's more interesting if you "
+        "{prefer_have_someone}. I also love the feeling of {prefer_feeling}."
+    )
+    add(
+        "Do you prefer eating with your family or eating alone?",
+        t4.format(
+            prefer_pair_social=phrase_pick("prefer_pair_social", 0),
+            prefer_have_someone=phrase_pick("prefer_have_someone", 0),
+            prefer_feeling=phrase_pick("prefer_feeling", 0),
+        ),
+        "Tôi thích ăn với gia đình hơn ăn một mình vì thú vị hơn khi có ai đó chia sẻ bữa. Tôi cũng thích cảm giác ngồi quanh bàn với gia đình thưởng thức món mới nấu.",
+        "I prefer eating with my family to eating alone because it's more interesting if you have someone to share the meal with. I also love the feeling of sitting around the table with my family and tasting freshly cooked dishes.",
+        "/aɪ prɪˈfɜː ˈiːtɪŋ wɪð maɪ ˈfæməli…/",
+        t4,
+    )
+
+    # 5 — tea vs coffee (feeling + function)
+    t5 = (
+        "I prefer {prefer_pair_drink} because I love the feeling of {prefer_feeling}. "
+        "With a light drink, {prefer_function}, while strong coffee sometimes makes me restless."
+    )
+    add(
+        "Do you prefer drinking tea or coffee?",
+        t5.format(
+            prefer_pair_drink=phrase_pick("prefer_pair_drink", 0),
+            prefer_feeling=phrase_pick("prefer_feeling", 3),
+            prefer_function=phrase_pick("prefer_function", 0),
+        ),
+        "Tôi thích trà thảo mộc hơn cà phê vì thích cảm giác nhấp trà sau bữa nhẹ. Với đồ uống nhẹ, cơ thể hoạt động hiệu quả hơn cả ngày, trong khi cà phê đậm đôi khi làm tôi bồn chồn.",
+        "I prefer herbal tea to coffee because I love the feeling of sipping tea after a light homemade meal. With a light drink, my body functions more effectively throughout the day, while strong coffee sometimes makes me restless.",
+        "/aɪ prɪˈfɜː ˈhɜːbl tiː…/",
+        t5,
+    )
+
+    # 6 — healthy vs fast food (function + threat)
+    t6 = (
+        "I prefer {prefer_pair_health} because {prefer_function}, {prefer_contrast}. "
+        "Fast food may help me grab a bite quickly, but it can also shorten my life expectancy "
+        "if I rely on it every day."
+    )
+    add(
+        "Do you prefer healthy food or fast food?",
+        t6.format(
+            prefer_pair_health=phrase_pick("prefer_pair_health", 0),
+            prefer_function=phrase_pick("prefer_function", 3),
+            prefer_contrast=phrase_pick("prefer_contrast", 1),
+        ),
+        "Tôi thích bữa nấu nhà lành mạnh hơn fast food vì tôi làm việc hiệu quả hơn sau bữa trưa lành mạnh, trong khi fast food đe dọa sức khỏe. Fast food giúp ăn vội nhưng có thể giảm tuổi thọ nếu dựa vào mỗi ngày.",
+        "I prefer wholesome home-cooked meals to fast food because I function better at work after a wholesome lunch, whereas fast food can pose a threat to my health. Fast food may help me grab a bite quickly, but it can also shorten my life expectancy if I rely on it every day.",
+        "/aɪ prɪˈfɜː ˈhəʊlsəm…/",
+        t6,
+    )
+
+    # 7 — spicy vs mild
+    t7 = (
+        "I prefer {prefer_pair_taste} because spicy food wakes up my taste buds, "
+        "while mild dishes sometimes feel bland. Still, I try not to overdo chilli "
+        "because too much spice can take a heavy toll on my stomach."
+    )
+    add(
+        "Do you prefer spicy food or mild food?",
+        t7.format(prefer_pair_taste=phrase_pick("prefer_pair_taste", 1)),
+        "Tôi thích món cay hơn món nhạt vì món cay đánh thức vị giác, trong khi món dịu đôi khi nhạt. Vẫn cố không lạm dụng ớt vì quá cay có thể hại dạ dày.",
+        "I prefer spicy food rather than bland meals because spicy food wakes up my taste buds, while mild dishes sometimes feel bland. Still, I try not to overdo chilli because too much spice can take a heavy toll on my stomach.",
+        "/aɪ prɪˈfɜː ˈspaɪsi fuːd…/",
+        t7,
+    )
+
+    # 8 — restaurant vs street food (it takes)
+    t8 = (
+        "I prefer grabbing street food to sitting in a formal restaurant because "
+        "{prefer_it_takes}, while a full restaurant meal is more time-consuming. "
+        "I love the feeling of {prefer_feeling}."
+    )
+    add(
+        "Do you prefer eating in a restaurant or grabbing street food?",
+        t8.format(
+            prefer_it_takes=phrase_pick("prefer_it_takes", 2),
+            prefer_feeling=phrase_pick("prefer_feeling", 2),
+        ),
+        "Tôi thích ăn vặt đường phố hơn ngồi nhà hàng trang trọng vì chỉ mất vài phút để ăn vội ở quán vỉa hè, trong khi bữa nhà hàng tốn thời gian hơn. Tôi thích cảm giác ăn lẩu chung và tám chuyện.",
+        "I prefer grabbing street food to sitting in a formal restaurant because it only takes a few minutes to grab a bite from a street stall, while a full restaurant meal is more time-consuming. I love the feeling of sharing a hot pot and chatting over food.",
+        "/aɪ prɪˈfɜː ˈɡræbɪŋ striːt fuːd…/",
+        t8,
+    )
+
+    # 9 — meal prep vs fresh daily (It takes + while)
+    t9 = (
+        "I prefer preparing meals in advance to cooking everything fresh every evening "
+        "because {prefer_it_takes} on Sunday, while weekday cooking can be exhausting. "
+        "Then I only need a few minutes to reheat and eat."
+    )
+    add(
+        "Do you prefer preparing meals in advance or cooking fresh every day?",
+        t9.format(prefer_it_takes=phrase_pick("prefer_it_takes", 1)),
+        "Tôi thích chuẩn bị sẵn hơn nấu mới mỗi tối vì cuối tuần có thể mất vài giờ chuẩn bị tiệc/phần ăn, trong khi nấu ngày thường dễ mệt. Sau đó chỉ cần vài phút hâm nóng và ăn.",
+        "I prefer preparing meals in advance to cooking everything fresh every evening because it can take several hours to prepare a traditional feast on Sunday, while weekday cooking can be exhausting. Then I only need a few minutes to reheat and eat.",
+        "/aɪ prɪˈfɜː prɪˈpeərɪŋ miːlz…/",
+        t9,
+    )
+
+    # 10 — send photos (send sth to sb)
+    t10 = (
+        "I prefer sharing food moments online to keeping them private because I can "
+        "{prefer_send}. It's more fun when you {prefer_have_someone}, and they often "
+        "send a recipe back to me as well."
+    )
+    add(
+        "Do you prefer sharing food photos online or keeping them private?",
+        t10.format(
+            prefer_send=phrase_pick("prefer_send", 0),
+            prefer_have_someone=phrase_pick("prefer_have_someone", 3),
+        ),
+        "Tôi thích chia sẻ khoảnh khắc đồ ăn online hơn giữ riêng vì tôi có thể gửi ảnh món tự nấu cho bạn. Vui hơn khi có ai đó để gửi gợi ý món, và họ thường gửi lại công thức cho tôi.",
+        "I prefer sharing food moments online to keeping them private because I can send photos of my homemade dishes to my friends. It's more fun when you have someone to send food recommendations to, and they often send a recipe back to me as well.",
+        "/aɪ prɪˈfɜː ˈʃeərɪŋ fuːd ˈməʊmənts…/",
+        t10,
+        alt_html=(
+            "I prefer cooking with friends to cooking on my own because I "
+            "{prefer_have_someone}, and we can {prefer_send} afterwards.".format(
+                prefer_have_someone=phrase_pick("prefer_have_someone", 2),
+                prefer_send=phrase_pick("prefer_send", 1),
+            )
+        ),
+        alt_vi="Tôi thích nấu với bạn hơn nấu một mình vì có người giúp trong bếp, và sau đó có thể gửi công thức cho chị/em.",
+        alt_plain="I prefer cooking with friends to cooking on my own because I have someone to help me in the kitchen, and we can send a recipe to my sister afterwards.",
+        alt_ipa="/aɪ prɪˈfɜː ˈkʊkɪŋ wɪð frendz…/",
+        alt_ex=(
+            "I prefer cooking with friends to cooking on my own because I "
+            "{prefer_have_someone}, and we can {prefer_send} afterwards."
+        ),
+    )
+
+    cards = []
+    for it in items:
+        alts = ""
+        if it.get("alt_html"):
+            alts = _pair_answer_html(
+                kind="alt",
+                en_html=it["alt_html"],
+                vi=it["alt_vi"],
+                plain=it["alt_plain"],
+                ipa=it["alt_ipa"],
+                q=it["q"],
+                ex_en=it.get("alt_ex", ""),
+            )
+        cards.append(
+            f"""          <article class="lr-food-ex-card">
+            <p class="lr-food-ex-q">{esc(it["q"])}</p>
+            <div class="lr-food-ex-pair lr-food-ex-pair--prefer">
+{_pair_answer_html(kind="sample", en_html=it["html"], vi=it["vi"], plain=it["plain"], ipa=it["ipa"], q=it["q"], ex_en=it["ex"])}
+{alts}
+            </div>
+          </article>"""
+        )
+    return f"""
+        <div class="lr-food-examples" id="food-examples-l6">
+          <h3 class="lr-core-subtitle">Ví dụ Food · Do you prefer X or Y?</h3>
+          <p class="lr-mm-hint">10 câu Part 1 (Food). Công thức: <strong>prefer X to Y / rather than</strong> → ưu điểm X · <code>while/whereas</code> · cấu trúc slide (<code>It takes</code> · <code>love the feeling of</code> · <code>have someone to</code> · <code>send sth to sb</code> · <code>function</code>). Scroll read Lesson 6.</p>
+{chr(10).join(cards)}
+        </div>"""
+
+
 def food_lesson_examples_html() -> str:
     """Unified Food cards: every Q has Thích + Không thích; both sides have contextual dropdowns."""
     items = []
@@ -3419,7 +3881,7 @@ def lesson_highlights_html(
     include_food_examples: bool = False,
     open_practice: bool = False,
 ) -> str:
-    """Lesson 2 + 3 + 5 mind maps and practice (Lesson 4 skipped).
+    """Lesson 2 + 3 + 5 + 6 mind maps and practice (Lesson 4 skipped).
 
     map_suffix: unique id suffix when the same maps appear on Review Exercise 2.
     include_food_examples: annotated Food cards (Review Exercise 2).
@@ -3428,17 +3890,23 @@ def lesson_highlights_html(
     m2 = f"lesson2Mindmap{map_suffix}"
     m3 = f"lesson3Mindmap{map_suffix}"
     m5 = f"lesson5Mindmap{map_suffix}"
+    m6 = f"lesson6Mindmap{map_suffix}"
     open_attr = " open" if open_practice else ""
     examples_block = food_lesson_examples_html() if include_food_examples else ""
     examples_l5 = food_lesson5_examples_html() if include_food_examples else ""
+    examples_l6 = food_lesson6_examples_html() if include_food_examples else ""
     lesson3_scroll = ""
     lesson5_scroll = ""
+    lesson6_scroll = ""
     if include_food_examples:
         lesson3_scroll = lesson_scroll_read_html(
             "lesson3", title="Lesson 3", source_sel="#lesson3-scroll-source"
         )
         lesson5_scroll = lesson_scroll_read_html(
             "lesson5", title="Lesson 5", source_sel="#lesson5-scroll-source"
+        )
+        lesson6_scroll = lesson_scroll_read_html(
+            "lesson6", title="Lesson 6", source_sel="#lesson6-scroll-source"
         )
     return f"""
       <div class="lr-core-lessons">
@@ -3559,6 +4027,47 @@ def lesson_highlights_html(
               <li><strong>try + V-ing:</strong> <em>I try using seasonal ingredients.</em></li>
               <li><strong>food vs foods:</strong> <em>a lot of food</em> (chung) · <em>certain foods</em> (các loại).</li>
               <li><strong>go for / opt for:</strong> chọn một loại khi soft choose.</li>
+            </ul>
+          </details>
+        </article>
+
+        <article class="lr-core-lesson" id="lesson6-formulas">
+          <header class="lr-core-lesson-head">
+            <h3>Lesson 6 · Do you prefer X or Y?</h3>
+            <p class="lr-formula"><strong>Công thức:</strong> Chọn X/Y + Lý do (ưu điểm · while · ví dụ)</p>
+          </header>
+
+          <p class="lr-mm-hint">Luồng: <strong>prefer X (to Y / rather than Y)</strong> → ưu điểm X · <code>while / whereas</code> Y → cấu trúc slide Food (<code>It takes</code> · <code>love the feeling of</code> · <code>have someone to</code> · <code>send sth to sb</code> · <code>function</code>). Hover VI.</p>
+
+{mind_map_html(
+            m6,
+            "Lesson 6 · Do you prefer X or Y?",
+            "Do you prefer X or Y?",
+            "Chọn ↔ Lý do",
+            LESSON6_MINDMAP_LEFT,
+            LESSON6_MINDMAP_RIGHT,
+            note="Trái = <strong>prefer X / X to Y / rather than</strong> · Phải = ưu điểm X · while Y · cấu trúc slide (Food). V-ing to V-ing.",
+            extra_class=" lr-mmap--lesson6",
+            min_width="1200px",
+        )}
+
+          <p class="lr-formula-note"><strong>Lưu ý:</strong> <em>prefer V-ing to V-ing</em> · <em>prefer to V rather than V</em>. Contrast: <em>while / whereas</em>. Thời gian: <em>It takes + time + to V</em>. Cơ thể: <em>function</em>.</p>
+
+          <div id="lesson6-scroll-source">
+{examples_l6}
+          </div>
+
+{lesson6_scroll}
+
+          <details class="lr-formula-details">
+            <summary>Grammar notes (Lesson 6)</summary>
+            <ul class="lr-mini-model">
+              <li><strong>It takes + time (+ for sb) + to V:</strong> <em>It takes me about an hour to cook a proper meal from scratch.</em></li>
+              <li><strong>love the feeling of + V-ing:</strong> <em>I love the feeling of sitting around the table with my family.</em></li>
+              <li><strong>have someone to + V:</strong> <em>have someone to share the meal with / help me in the kitchen.</em></li>
+              <li><strong>send sth to sb:</strong> <em>send photos of my homemade dishes to my friends.</em></li>
+              <li><strong>function (v):</strong> <em>my body functions more effectively</em> · <em>When nutrients are in short supply the body cannot function normally.</em></li>
+              <li><strong>while / whereas:</strong> đối chiếu X và Y trong cùng câu lý do.</li>
             </ul>
           </details>
         </article>
@@ -5052,7 +5561,7 @@ def build_page() -> str:
       <header class="lr-hero">
         <p class="lr-hero-badge">Linear Thinking · Capstone</p>
         <h1>Food &amp; Drink — Review Exercise 1</h1>
-        <p class="lede">Sau khi hoàn thành B2, ôn tập theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-speaking" target="_blank" rel="noopener noreferrer">Linear Thinking</a>: ngữ pháp (6 thì) → mental model → cấu trúc Speaking → từ vựng B1/B2 → mock IELTS Part 1/2/3 với dropdown từ thay thế. Chỉ muốn Lesson 2, 3 &amp; 5? Xem <a href="../review-exercise-2/">Review Exercise 2</a>.</p>
+        <p class="lede">Sau khi hoàn thành B2, ôn tập theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-speaking" target="_blank" rel="noopener noreferrer">Linear Thinking</a>: ngữ pháp (6 thì) → mental model → cấu trúc Speaking → từ vựng B1/B2 → mock IELTS Part 1/2/3 với dropdown từ thay thế. Chỉ muốn Lesson 2–6 (skip 4)? Xem <a href="../review-exercise-2/">Review Exercise 2</a>.</p>
         <nav class="lr-toc" aria-label="On this page">
           <a href="#core-steps">Core · 3 bước</a>
           <a href="#natural-vlog">0 · Real talk</a>
@@ -5060,7 +5569,7 @@ def build_page() -> str:
           <a href="#mental-model">2 · Mental model</a>
           <a href="#ed-ending">2b · -ed</a>
           <a href="#structures">3 · Structures</a>
-          <a href="#lessons">4 · Lessons 2 · 3 · 5</a>
+          <a href="#lessons">4 · Lessons 2 · 3 · 5 · 6</a>
           <a href="#food-lang">5 · Idioms &amp; phrases</a>
           <a href="#phrase-drills">6 · Phrase drills</a>
           <a href="#food-phrase-map">6 · Mind map</a>
@@ -5100,8 +5609,8 @@ def build_page() -> str:
       </section>
 
       <section class="lr-section" id="lessons">
-        <h2>4 · Core formulas — Lesson 2, 3 &amp; 5</h2>
-        <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — <strong>Lesson 2</strong> (lý do) → <strong>Lesson 3</strong> (Do you like X?) → <strong>Lesson 5</strong> (What kind of X?) · <em>skip Lesson 4</em>. Chọn <strong>1–2 nhánh</strong>.</p>
+        <h2>4 · Core formulas — Lesson 2, 3, 5 &amp; 6</h2>
+        <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — L2 Reasons → L3 Do you like X? → L5 What kind? → L6 Prefer X or Y · <em>skip Lesson 4</em>. Chọn <strong>1–2 nhánh</strong>.</p>
 {lesson_highlights_html()}
       </section>
 
@@ -5147,7 +5656,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr34">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr35">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -5200,9 +5709,9 @@ def build_page_review2() -> str:
       </div>
 
       <header class="lr-hero">
-        <p class="lr-hero-badge">Linear Thinking · Lesson 2, 3 &amp; 5</p>
+        <p class="lr-hero-badge">Linear Thinking · Lesson 2, 3, 5 &amp; 6</p>
         <h1>Food &amp; Drink — Review Exercise 2</h1>
-        <p class="lede">Lesson 2 (Reasons) + Lesson 3 (Do you like X?) + Lesson 5 (What kind of X?) · skip Lesson 4. Sơ đồ tư duy → ví dụ Food → Scroll read. Full capstone: <a href="../review-exercise/">Review Exercise 1</a>.</p>
+        <p class="lede">Lesson 2 + 3 + 5 + 6 (Prefer X or Y) · skip Lesson 4. Sơ đồ tư duy → ví dụ Food → Scroll read. Full capstone: <a href="../review-exercise/">Review Exercise 1</a>.</p>
         <nav class="lr-toc" aria-label="On this page">
           <a href="#lesson2-formulas">Lesson 2 · Reasons</a>
           <a href="#scroll-lesson2">Scroll · L2</a>
@@ -5212,6 +5721,9 @@ def build_page_review2() -> str:
           <a href="#lesson5-formulas">Lesson 5 · What kind?</a>
           <a href="#food-examples-l5">Ví dụ L5</a>
           <a href="#scroll-lesson5">Scroll · L5</a>
+          <a href="#lesson6-formulas">Lesson 6 · Prefer X or Y?</a>
+          <a href="#food-examples-l6">Ví dụ L6</a>
+          <a href="#scroll-lesson6">Scroll · L6</a>
         </nav>
         <div class="ex-toolbar lr-toolbar lr-toolbar--hero">
           <label class="ex-toggle"><input type="checkbox" id="togVi" /> Vietnamese</label>
@@ -5219,7 +5731,7 @@ def build_page_review2() -> str:
       </header>
 
       <section class="lr-section" id="lessons">
-        <h2>Core formulas — Lesson 2, 3 &amp; 5</h2>
+        <h2>Core formulas — Lesson 2, 3, 5 &amp; 6</h2>
         <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — chọn <strong>1–2 nhánh</strong>, không nhồi hết. Dropdown bên dưới để thay từ B1/B2.</p>
 {lesson_highlights_html(map_suffix="R2", include_food_examples=True, open_practice=True)}
       </section>
@@ -5233,11 +5745,11 @@ def build_page_review2() -> str:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Review Exercise 2 · Food &amp; Drink — The Quiet Corner</title>
-  <meta name="description" content="Lesson 2, 3 &amp; 5: Reasons, Do you like X?, What kind of X? — Food mind maps, examples, and dropdown practice.">
+  <meta name="description" content="Lesson 2, 3, 5 &amp; 6: Reasons, Do you like X?, What kind?, Prefer X or Y — Food mind maps and practice.">
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr34">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr35">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -5289,7 +5801,7 @@ def patch_topic_index() -> None:
           <span class="vocab-level__badge vocab-level__badge--review">Review</span>
           <h2>Linear Thinking · Capstone exercise</h2>
         </div>
-        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3 &amp; 5 (mind map + ví dụ Food + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
+        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3, 5 &amp; 6 (mind map + ví dụ Food + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
         <div class="vocab-lesson-grid">
           <a class="vocab-lesson-card vocab-lesson-card--review" href="review-exercise/">
             <img src="{review_icon}" alt="" width="72" height="72" loading="lazy">
