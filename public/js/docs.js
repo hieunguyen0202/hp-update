@@ -321,6 +321,8 @@
     navEl.innerHTML = [
       link("overview", "All lessons"),
       link("lesson-14", "14 · 开学这一天"),
+      link("lesson-15", "15 · 朋友的婚礼"),
+      link("lesson-16", "16 · 我的一天"),
     ].join("");
   } else if (navEl) {
     navEl.innerHTML = [

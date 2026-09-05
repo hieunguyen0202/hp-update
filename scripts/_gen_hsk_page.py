@@ -1,10 +1,32 @@
-<!DOCTYPE html>
+#!/usr/bin/env python3
+"""Write HSK lesson HTML shells (content comes from hsk-lesson-N-data.js)."""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def page(
+    *,
+    lesson: int,
+    title: str,
+    badge: str,
+    words: int,
+    hanzi: int,
+    prev: tuple[int, str] | None,
+    nxt: tuple[int, str] | None,
+) -> str:
+    prev_html = f'<a href="../lesson-{prev[0]}/">← {prev[0]} · {prev[1]}</a>' if prev else '<a href="../">← HSK Corner</a>'
+    next_html = f'<a href="../lesson-{nxt[0]}/">{nxt[0]} · {nxt[1]} →</a>' if nxt else '<a href="../../../#blogs">Blogs →</a>'
+    return f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HSK 14 · 开学这一天 — HSK Corner — Hieu Nguyen</title>
-  <meta name="description" content="HSK Lesson 14 — flashcards, vlog script (~1111 字), English + Pinyin toggle, and Scroll read speaking with cloze new words.">
+  <title>HSK {lesson} · {title} — HSK Corner — Hieu Nguyen</title>
+  <meta name="description" content="HSK Lesson {lesson} — flashcards, vlog script (~{hanzi} 字), English + Pinyin toggle, and Scroll read speaking with cloze new words.">
   <link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -30,7 +52,7 @@
     <a class="docs-top-link" href="../../../#blogs">blogs</a>
   </header>
   <div class="docs-shell">
-    <aside class="docs-sidebar" id="docsSidebar" data-nav="hsk" data-docs-root="../" data-active="lesson-14">
+    <aside class="docs-sidebar" id="docsSidebar" data-nav="hsk" data-docs-root="../" data-active="lesson-{lesson}">
       <div class="docs-nav-label">HSK Corner</div>
       <ul class="docs-nav" id="docsNav"></ul>
     </aside>
@@ -42,22 +64,22 @@
         <span>›</span>
         <a href="../">HSK Corner</a>
         <span>›</span>
-        <span>Lesson 14</span>
+        <span>Lesson {lesson}</span>
       </div>
 
       <div class="vocab-topic-hero">
-        <div class="vocab-topic-card__img" style="display:grid;place-items:center;width:112px;height:112px;border-radius:18px;border:1px solid rgba(34,211,238,.35);font-family:'Noto Sans SC',sans-serif;font-size:1.8rem;color:#22d3ee;">开学</div>
+        <div class="vocab-topic-card__img" style="display:grid;place-items:center;width:112px;height:112px;border-radius:18px;border:1px solid rgba(34,211,238,.35);font-family:'Noto Sans SC',sans-serif;font-size:1.8rem;color:#22d3ee;">{badge}</div>
         <div>
-          <h1>Lesson 14 · 开学这一天</h1>
+          <h1>Lesson {lesson} · {title}</h1>
           <p class="lede">
-            Ôn 31 từ mới bằng <strong>flashcards</strong>, rồi đọc vlog mức
-            <strong>HSK 1 → bài 14</strong>. Bật English + Pinyin trên script.
+            Ôn {words} từ mới bằng <strong>flashcards</strong>, rồi đọc vlog mức
+            <strong>HSK 1 → bài {lesson}</strong>. Bật English + Pinyin trên script.
             Scroll read ẩn từ mới — bạn điền lại khi luyện nói.
           </p>
           <div class="docs-meta">
-            <span><strong>New words:</strong> 31</span>
-            <span><strong>Script:</strong> ~1111 字</span>
-            <span><strong>Level:</strong> HSK 1 → 14</span>
+            <span><strong>New words:</strong> {words}</span>
+            <span><strong>Script:</strong> ~{hanzi} 字</span>
+            <span><strong>Level:</strong> HSK 1 → {lesson}</span>
           </div>
         </div>
       </div>
@@ -72,7 +94,7 @@
       <section class="ex-flash" id="exFlash" aria-label="HSK flashcards">
         <div class="ex-flash-head">
           <div>
-            <h2>Flashcards · 31 từ mới</h2>
+            <h2>Flashcards · {words} từ mới</h2>
             <p class="ex-flash-hint">
               Mặt trước: 汉字 + pinyin. Lật thẻ: nghĩa VI / EN + ví dụ từ bài.
               Phân loại <strong>Đã biết</strong> · <strong>Phải học</strong> · <strong>Bỏ qua</strong>.
@@ -97,9 +119,9 @@
       <section class="hsk-script" id="hskScript" aria-label="Vlog script">
         <div class="ex-flash-head">
           <div>
-            <h2>Vlog script · 开学这一天</h2>
+            <h2>Vlog script · {title}</h2>
             <p class="ex-flash-hint">
-              Đoạn văn kiểu vlog, mức HSK 1 đến bài 14. Từ mới được
+              Đoạn văn kiểu vlog, mức HSK 1 đến bài {lesson}. Từ mới được
               <mark class="hsk-new">highlight</mark>. Bật Pinyin và English khi cần.
             </p>
           </div>
@@ -157,18 +179,33 @@
       </section>
 
       <section class="ex-vocab" id="hskVocab">
-        <h2>Word checklist · 31</h2>
+        <h2>Word checklist · {words}</h2>
         <ul class="ex-vocab-list" id="hskVocabList"></ul>
       </section>
 
       <div class="docs-pager">
-        <a href="../">← HSK Corner</a>
-        <a href="../lesson-15/">15 · 朋友的婚礼 →</a>
+        {prev_html}
+        {next_html}
       </div>
     </article>
   </div>
   <script src="../../../js/docs.js"></script>
-  <script src="../../../js/hsk-lesson-14-data.js"></script>
+  <script src="../../../js/hsk-lesson-{lesson}-data.js"></script>
   <script src="../../../js/hsk.js?v=hsk2"></script>
 </body>
 </html>
+"""
+
+
+def write_lesson(**kwargs) -> None:
+    lesson = kwargs["lesson"]
+    dest = ROOT / "public" / "blog" / "hsk" / f"lesson-{lesson}" / "index.html"
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text(page(**kwargs), encoding="utf-8")
+    print(f"wrote {dest}")
+
+
+if __name__ == "__main__":
+    write_lesson(lesson=14, title="开学这一天", badge="开学", words=31, hanzi=1111, prev=None, nxt=(15, "朋友的婚礼"))
+    write_lesson(lesson=15, title="朋友的婚礼", badge="婚礼", words=25, hanzi=975, prev=(14, "开学这一天"), nxt=(16, "我的一天"))
+    write_lesson(lesson=16, title="我的一天", badge="一天", words=43, hanzi=1032, prev=(15, "朋友的婚礼"), nxt=None)

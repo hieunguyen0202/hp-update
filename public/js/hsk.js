@@ -1,6 +1,12 @@
 (() => {
-  const data = window.HSK_LESSON_14;
+  const data =
+    window.HSK_LESSON ||
+    window.HSK_LESSON_16 ||
+    window.HSK_LESSON_15 ||
+    window.HSK_LESSON_14;
   if (!data) return;
+  const lessonNo = data.lesson || 14;
+  const slug = `hsk-lesson-${lessonNo}`;
 
   const vocab = Array.isArray(data.vocab) ? data.vocab : [];
   const byId = new Map(vocab.map((w) => [w.id, w]));
@@ -95,10 +101,10 @@
     const peekWord = () => (idx + 1 < deck.length ? deck[idx + 1] : null);
 
     const downloadClassified = () => {
-      const title = data.title || "HSK Lesson 14";
+      const title = data.title || `HSK Lesson ${lessonNo}`;
       const pending = deck.slice(idx);
       const lines = [
-        `# HSK Lesson 14 · ${title}`,
+        `# HSK Lesson ${lessonNo} · ${title}`,
         `# Exported: ${new Date().toISOString().slice(0, 10)}`,
         "",
         `## Phải học — ${classified.gold.length}`,
@@ -116,10 +122,10 @@
       const blob = new Blob([lines.join("\n")], { type: "text/plain;charset=utf-8" });
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
-      a.download = "hsk-lesson-14-pareto.txt";
+      a.download = `${slug}-pareto.txt`;
       a.click();
       URL.revokeObjectURL(a.href);
-      showMsg("Đã tải hsk-lesson-14-pareto.txt", true);
+      showMsg(`Đã tải ${slug}-pareto.txt`, true);
     };
 
     const renderCard = () => {
