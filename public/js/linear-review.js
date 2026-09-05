@@ -57,6 +57,23 @@
 
   const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
+  /** Plain text from answer block — reads live dropdown values at copy time */
+  const plainTextFromEl = (root) => {
+    if (!root) return "";
+    const liveSelects = [...root.querySelectorAll(".lr-word-pick")];
+    const clone = root.cloneNode(true);
+    clone.querySelectorAll(".lr-tense-tag").forEach((n) => n.remove());
+    [...clone.querySelectorAll(".lr-word-pick")].forEach((sel, i) => {
+      const span = document.createElement("span");
+      span.textContent = liveSelects[i]?.value ?? sel.value;
+      sel.replaceWith(span);
+    });
+    clone.querySelectorAll("strong, em").forEach((n) => {
+      n.replaceWith(document.createTextNode(n.textContent));
+    });
+    return clone.textContent.replace(/\s+/g, " ").trim();
+  };
+
   /** Rebuild whole-line VI tooltip from template or by swapping option meanings */
   const updateFoodAnswerTip = (answer) => {
     if (!answer) return;
@@ -109,23 +126,6 @@
 
   initChainExamples();
   initFoodAnswerTips();
-
-  /** Plain text from answer block — reads live dropdown values at copy time */
-  const plainTextFromEl = (root) => {
-    if (!root) return "";
-    const liveSelects = [...root.querySelectorAll(".lr-word-pick")];
-    const clone = root.cloneNode(true);
-    clone.querySelectorAll(".lr-tense-tag").forEach((n) => n.remove());
-    [...clone.querySelectorAll(".lr-word-pick")].forEach((sel, i) => {
-      const span = document.createElement("span");
-      span.textContent = liveSelects[i]?.value ?? sel.value;
-      sel.replaceWith(span);
-    });
-    clone.querySelectorAll("strong, em").forEach((n) => {
-      n.replaceWith(document.createTextNode(n.textContent));
-    });
-    return clone.textContent.replace(/\s+/g, " ").trim();
-  };
 
   const plainQuestion = (qa) => {
     const q = qa.querySelector(".ex-q");
