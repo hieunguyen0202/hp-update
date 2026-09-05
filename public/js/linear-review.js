@@ -7,6 +7,14 @@
     });
   }
 
+  /** Replace only the first `{slot}` so repeated slots map 1:1 to dropdown order */
+  const replaceFirstPlaceholder = (text, slot, value) => {
+    const token = `{${slot}}`;
+    const i = text.indexOf(token);
+    if (i < 0) return text;
+    return text.slice(0, i) + value + text.slice(i + token.length);
+  };
+
   /** Fill {slot} placeholders in a chain example from dropdowns in the same chain */
   const fillChainTemplate = (template, chain) => {
     if (!template) return "";
@@ -19,7 +27,7 @@
         word && word !== "—"
           ? `<mark class="vocab">${word}</mark>`
           : "";
-      out = out.split(`{${slot}}`).join(mark);
+      out = replaceFirstPlaceholder(out, slot, mark);
     });
     return out.replace(/\s{2,}/g, " ").replace(/\s+([.,!?])/g, "$1").trim();
   };
@@ -86,7 +94,7 @@
         const slot = sel.dataset.slot;
         if (!slot) return;
         const vi = optionVi(sel) || sel.value.trim();
-        tip = tip.split(`{${slot}}`).join(vi);
+        tip = replaceFirstPlaceholder(tip, slot, vi);
       });
       tip = tip.replace(/\s{2,}/g, " ").replace(/\s+([.,!?])/g, "$1").trim();
     } else {

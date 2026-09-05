@@ -1311,7 +1311,7 @@ WORD_SLOTS: dict[str, list[dict]] = {
         },
         {
             "form": "There are a few things that I don't really love about cooking from scratch every day",
-            "vi": "Có vài điều tôi không thật sự thích về nấu từ đầu mỗi ngày",
+            "vi": "Có vài điều tôi không thật sự thích về việc tự nấu từ nguyên liệu tươi mỗi ngày",
         },
     ],
     "dislike_seq": [
@@ -1330,7 +1330,7 @@ WORD_SLOTS: dict[str, list[dict]] = {
         },
         {
             "form": "it takes too long to cook from scratch after a long day at work",
-            "vi": "nấu từ đầu mất quá nhiều thời gian sau một ngày dài làm việc",
+            "vi": "tự nấu từ nguyên liệu tươi mất quá nhiều thời gian sau một ngày dài làm việc",
         },
         {
             "form": "they don't take cards, so I have to pay by cash",
@@ -1345,8 +1345,8 @@ WORD_SLOTS: dict[str, list[dict]] = {
             "vi": "nó nhiều dầu và có thể ảnh hưởng nặng đến sức khỏe nếu tôi ăn quá đà",
         },
         {
-            "form": "ready meals taste bland compared with a home-cooked meal",
-            "vi": "đồ sẵn nhạt so với bữa nấu nhà",
+            "form": "it is often high in salt and fat compared with a home-cooked meal",
+            "vi": "nó thường nhiều muối và chất béo hơn so với bữa nấu nhà",
         },
         {
             "form": "some street food stalls are too crowded and it's hard to grab a quick bite",
@@ -1355,6 +1355,18 @@ WORD_SLOTS: dict[str, list[dict]] = {
         {
             "form": "people talk loudly and I can't really enjoy the meal",
             "vi": "mọi người nói lớn và tôi không thưởng thức được bữa ăn",
+        },
+        {
+            "form": "washing up after a slap-up meal is tiring",
+            "vi": "rửa chén sau một bữa đã đời rất mệt",
+        },
+        {
+            "form": "everyone wants different dishes so cooking takes longer",
+            "vi": "mọi người muốn món khác nhau nên nấu lâu hơn",
+        },
+        {
+            "form": "it can lead to a high salt intake if I eat it too often",
+            "vi": "nó có thể khiến tôi ăn mặn nếu ăn quá thường xuyên",
         },
     ],
     "dislike_close": [
@@ -8222,38 +8234,30 @@ def food_lesson13_examples_html() -> str:
 
     # 3 — fast food · list
     t3 = (
-        "{dislike_list_open}. {seq1}, {d1}. {seq2}, {d2}. {seq3}, {d3}."
+        "{dislike_list_open}. {dislike_seq}, {dislike_detail}. "
+        "{dislike_seq}, {dislike_detail}. {dislike_seq}, {dislike_detail}."
     )
-    v3 = (
-        "{dislike_list_open}. {seq1}, {d1}. {seq2}, {d2}. {seq3}, {d3}."
-    )
+    v3 = t3  # same placeholders; VI comes from option data-vi
     add(
         "What do you dislike about fast food?",
         kind="list",
-        en_html=t3.format(
-            dislike_list_open=phrase_pick("dislike_list_open", 0),
-            seq1=phrase_pick("dislike_seq", 2),
-            d1=phrase_pick("dislike_detail", 4),
-            seq2=phrase_pick("dislike_seq", 5),
-            d2=phrase_pick("dislike_detail", 5),
-            seq3=phrase_pick("dislike_seq", 6),
-            d3="it can lead to a high salt intake if I eat it too often",
+        en_html=(
+            f'{phrase_pick("dislike_list_open", 0)}. {phrase_pick("dislike_seq", 2)}, '
+            f'{phrase_pick("dislike_detail", 4)}. {phrase_pick("dislike_seq", 5)}, '
+            f'{phrase_pick("dislike_detail", 5)}. {phrase_pick("dislike_seq", 6)}, '
+            f'{phrase_pick("dislike_detail", 10)}.'
         ),
-        vi=fill_vi_tpl(
-            v3,
-            dislike_list_open=slot_vi("dislike_list_open", 0),
-            seq1=slot_vi("dislike_seq", 2),
-            d1=slot_vi("dislike_detail", 4),
-            seq2=slot_vi("dislike_seq", 5),
-            d2=slot_vi("dislike_detail", 5),
-            seq3=slot_vi("dislike_seq", 6),
-            d3="nó có thể dẫn đến ăn mặn nếu tôi ăn quá thường xuyên",
+        vi=(
+            f'{slot_vi("dislike_list_open", 0)}. {slot_vi("dislike_seq", 2)}, '
+            f'{slot_vi("dislike_detail", 4)}. {slot_vi("dislike_seq", 5)}, '
+            f'{slot_vi("dislike_detail", 5)}. {slot_vi("dislike_seq", 6)}, '
+            f'{slot_vi("dislike_detail", 10)}.'
         ),
         plain=(
             "Well, there are a few things that I don't really love about fast food. The first thing is, "
             "it's oily and can take a heavy toll on my health if I overdo it. The second thing is, "
-            "ready meals taste bland compared with a home-cooked meal. Finally, it can lead to a high "
-            "salt intake if I eat it too often."
+            "it is often high in salt and fat compared with a home-cooked meal. Finally, it can lead to "
+            "a high salt intake if I eat it too often."
         ),
         ipa="",
         ex=t3,
@@ -8340,28 +8344,22 @@ def food_lesson13_examples_html() -> str:
 
     # 6 — eating out · list
     t6 = (
-        "{dislike_list_open}. {seq1}, {d1}. {seq2}, {d2}."
+        "{dislike_list_open}. {dislike_seq}, {dislike_detail}. "
+        "{dislike_seq}, {dislike_detail}."
     )
-    v6 = (
-        "{dislike_list_open}. {seq1}, {d1}. {seq2}, {d2}."
-    )
+    v6 = t6
     add(
         "What do you dislike about eating out?",
         kind="list",
-        en_html=t6.format(
-            dislike_list_open=phrase_pick("dislike_list_open", 1),
-            seq1=phrase_pick("dislike_seq", 0),
-            d1=phrase_pick("dislike_detail", 6),
-            seq2=phrase_pick("dislike_seq", 5),
-            d2=phrase_pick("dislike_detail", 7),
+        en_html=(
+            f'{phrase_pick("dislike_list_open", 1)}. {phrase_pick("dislike_seq", 0)}, '
+            f'{phrase_pick("dislike_detail", 6)}. {phrase_pick("dislike_seq", 5)}, '
+            f'{phrase_pick("dislike_detail", 7)}.'
         ),
-        vi=fill_vi_tpl(
-            v6,
-            dislike_list_open=slot_vi("dislike_list_open", 1),
-            seq1=slot_vi("dislike_seq", 0),
-            d1=slot_vi("dislike_detail", 6),
-            seq2=slot_vi("dislike_seq", 5),
-            d2=slot_vi("dislike_detail", 7),
+        vi=(
+            f'{slot_vi("dislike_list_open", 1)}. {slot_vi("dislike_seq", 0)}, '
+            f'{slot_vi("dislike_detail", 6)}. {slot_vi("dislike_seq", 5)}, '
+            f'{slot_vi("dislike_detail", 7)}.'
         ),
         plain=(
             "There are a few things that I don't really love about eating out. First, some street "
@@ -8429,13 +8427,13 @@ def food_lesson13_examples_html() -> str:
         kind="soft",
         en_html=t8.format(
             dislike_only=phrase_pick("dislike_only", 3),
-            dislike_detail="everyone wants different dishes so cooking takes longer",
+            dislike_detail=phrase_pick("dislike_detail", 9),
             dislike_close=phrase_pick("dislike_close", 2),
         ),
         vi=fill_vi_tpl(
             v8,
             dislike_only=slot_vi("dislike_only", 3),
-            dislike_detail="mọi người muốn món khác nhau nên nấu lâu hơn",
+            dislike_detail=slot_vi("dislike_detail", 9),
             dislike_close=slot_vi("dislike_close", 2),
         ),
         plain=(
@@ -8455,30 +8453,27 @@ def food_lesson13_examples_html() -> str:
 
     # 9 — cooking from scratch every day · list
     t9 = (
-        "{dislike_list_open}. {seq1}, {d1}. {seq2}, {d2}. {seq3}, I sometimes just grab a quick bite instead."
+        "{dislike_list_open}. {dislike_seq}, {dislike_detail}. "
+        "{dislike_seq}, {dislike_detail}. {dislike_seq}, I sometimes just grab a quick bite instead."
     )
     v9 = (
-        "{dislike_list_open}. {seq1}, {d1}. {seq2}, {d2}. {seq3}, đôi khi tôi chỉ ăn vội thôi."
+        "{dislike_list_open}. {dislike_seq}, {dislike_detail}. "
+        "{dislike_seq}, {dislike_detail}. {dislike_seq}, đôi khi tôi chỉ ăn vội thôi."
     )
     add(
         "What don't you like about cooking every day?",
         kind="list",
-        en_html=t9.format(
-            dislike_list_open=phrase_pick("dislike_list_open", 3),
-            seq1=phrase_pick("dislike_seq", 2),
-            d1=phrase_pick("dislike_detail", 1),
-            seq2=phrase_pick("dislike_seq", 5),
-            d2="washing up after a slap-up meal is tiring",
-            seq3=phrase_pick("dislike_seq", 6),
+        en_html=(
+            f'{phrase_pick("dislike_list_open", 3)}. {phrase_pick("dislike_seq", 2)}, '
+            f'{phrase_pick("dislike_detail", 1)}. {phrase_pick("dislike_seq", 5)}, '
+            f'{phrase_pick("dislike_detail", 8)}. {phrase_pick("dislike_seq", 6)}, '
+            f'I sometimes just grab a quick bite instead.'
         ),
-        vi=fill_vi_tpl(
-            v9,
-            dislike_list_open=slot_vi("dislike_list_open", 3),
-            seq1=slot_vi("dislike_seq", 2),
-            d1=slot_vi("dislike_detail", 1),
-            seq2=slot_vi("dislike_seq", 5),
-            d2="rửa chén sau bữa đã đời rất mệt",
-            seq3=slot_vi("dislike_seq", 6),
+        vi=(
+            f'{slot_vi("dislike_list_open", 3)}. {slot_vi("dislike_seq", 2)}, '
+            f'{slot_vi("dislike_detail", 1)}. {slot_vi("dislike_seq", 5)}, '
+            f'{slot_vi("dislike_detail", 8)}. {slot_vi("dislike_seq", 6)}, '
+            f'đôi khi tôi chỉ ăn vội thôi.'
         ),
         plain=(
             "There are a few things that I don't really love about cooking from scratch every day. "
@@ -11431,7 +11426,7 @@ def build_page() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr22"></script>
-  <script src="{home}js/linear-review.js?v=lr28"></script>
+  <script src="{home}js/linear-review.js?v=lr29"></script>
 </body>
 </html>"""
 
@@ -11543,7 +11538,7 @@ def build_page_review2() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr22"></script>
-  <script src="{home}js/linear-review.js?v=lr28"></script>
+  <script src="{home}js/linear-review.js?v=lr29"></script>
 </body>
 </html>"""
 
