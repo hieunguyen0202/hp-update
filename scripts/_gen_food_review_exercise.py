@@ -1028,6 +1028,93 @@ WORD_SLOTS: dict[str, list[dict]] = {
             "vi": "tôi thường buồn ngủ sau bữa nặng và thích bữa nhẹ hơn",
         },
     ],
+    # Lesson 11 · Is X suitable for…?
+    "suit_yes": [
+        {"form": "Yes, I think so", "vi": "Vâng, tôi nghĩ vậy"},
+        {"form": "Yes, it's very suitable", "vi": "Vâng, nó rất phù hợp"},
+        {"form": "Yes, it would be a great idea", "vi": "Vâng, đó sẽ là ý tưởng tuyệt vời"},
+    ],
+    "suit_no": [
+        {"form": "No, I don't think so", "vi": "Không, tôi không nghĩ vậy"},
+        {"form": "No, not really", "vi": "Không thật sự"},
+        {"form": "No, it's not really suitable", "vi": "Không, nó không thật sự phù hợp"},
+        {"form": "No, I don't think it's a good idea", "vi": "Không, tôi không nghĩ đó là ý hay"},
+    ],
+    "suit_depends": [
+        {"form": "It depends", "vi": "Còn tùy"},
+        {"form": "It depends on", "vi": "Còn tùy vào"},
+        {"form": "Well, I think it depends on", "vi": "Ừ, tôi nghĩ còn tùy vào"},
+    ],
+    "suit_linker": [
+        {"form": "Plus", "vi": "Thêm vào đó"},
+        {"form": "Moreover", "vi": "Hơn nữa"},
+        {"form": "In addition", "vi": "Ngoài ra"},
+        {"form": "that's the reason why", "vi": "đó là lý do tại sao"},
+    ],
+    "suit_reason_yes": [
+        {
+            "form": "home-cooked meals are easy to prepare and better for a balanced diet",
+            "vi": "đồ nấu nhà dễ làm và tốt hơn cho chế độ ăn cân bằng",
+        },
+        {
+            "form": "street food stalls need money for fresh ingredients and daily operation",
+            "vi": "quán đường phố cần tiền cho nguyên liệu tươi và vận hành hằng ngày",
+        },
+        {
+            "form": "many people want to buy local snacks to give to their loved ones as a gift",
+            "vi": "nhiều người muốn mua đồ ăn vặt địa phương để tặng người thân làm quà",
+        },
+        {
+            "form": "anyone from kids to the elderly can enjoy a light meal or grab a quick bite",
+            "vi": "ai từ trẻ em đến người già cũng có thể thưởng thức bữa nhẹ hoặc ăn vội",
+        },
+        {
+            "form": "it's also a great way to try mouth-watering local dishes and relax",
+            "vi": "đó cũng là cách tuyệt vời để thử món địa phương cực ngon và thư giãn",
+        },
+    ],
+    "suit_reason_no": [
+        {
+            "form": "junk food is not really suitable for a balanced diet",
+            "vi": "junk food không thật sự phù hợp với chế độ ăn cân bằng",
+        },
+        {
+            "form": "there are not many nutritious options in fast food; that's the reason why many parents look for home-cooked meals",
+            "vi": "đồ nhanh không có nhiều lựa chọn bổ dưỡng; đó là lý do nhiều phụ huynh tìm đồ nấu nhà",
+        },
+        {
+            "form": "very spicy street food is only suitable for those who are strong enough to handle the heat",
+            "vi": "đồ đường phố cay chỉ phù hợp với người đủ chịu được độ cay",
+        },
+        {
+            "form": "young children often move to healthier snacks in search of a better diet",
+            "vi": "trẻ nhỏ thường chuyển sang đồ ăn nhẹ lành mạnh hơn để tìm chế độ ăn tốt hơn",
+        },
+        {
+            "form": "extreme junk-food habits are not for everyone",
+            "vi": "thói quen junk food thái quá không dành cho mọi người",
+        },
+    ],
+    "suit_case_good": [
+        {
+            "form": "If they use cooking mainly to prepare a hearty breakfast or a balanced diet, then I would say yes",
+            "vi": "Nếu họ nấu chủ yếu để làm bữa sáng no đủ hoặc chế độ cân bằng, thì tôi nói có",
+        },
+        {
+            "form": "If children eat street food mainly for a light meal with family, then it can be fine",
+            "vi": "Nếu trẻ ăn đồ đường phố chủ yếu như bữa nhẹ với gia đình, thì có thể ổn",
+        },
+    ],
+    "suit_case_bad": [
+        {
+            "form": "But if they use cooking mainly for ready meals and junk food every day, then it's not really suitable",
+            "vi": "Nhưng nếu họ nấu chủ yếu bằng đồ sẵn và junk food mỗi ngày, thì không thật sự phù hợp",
+        },
+        {
+            "form": "But if they eat fast food mainly for recreational snacking all day, then it is not really suitable for them",
+            "vi": "Nhưng nếu họ ăn đồ nhanh chủ yếu để ăn vặt cả ngày, thì không thật sự phù hợp",
+        },
+    ],
 }
 
 # ── Mind map helpers (shared: Section 2 tenses + Lesson 2/3) ───────────────
@@ -3084,6 +3171,152 @@ LESSON10_MINDMAP_RIGHT = [
 ]
 
 
+# Lesson 11 · Is X suitable for…? — trái = Có, phải = Không + Còn tùy
+LESSON11_MINDMAP_LEFT = [
+    {
+        "id": "suit-yes",
+        "color": "#fca5a5",
+        "name": "Có + lý do",
+        "name_vi": "Yes / suitable / great idea",
+        "flow": True,
+        "opener": "Yes, I think so. · Yes, it would be a great idea…",
+        "branches": [
+            {
+                "label": "Nhánh 1 · Mở (chọn 1)",
+                "leaves": [
+                    tip("Yes, I think so.", "Vâng, tôi nghĩ vậy"),
+                    tip("Yes, it's very suitable…", "Vâng, rất phù hợp…"),
+                    tip("Yes, it would be a great idea…", "Vâng, ý tưởng tuyệt vời…"),
+                    tip("appropriate ≈ suitable", "appropriate = phù hợp / thích hợp"),
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Kéo dài (slide → Food)",
+                "leaves": [
+                    tip(
+                        "need + money / time for …",
+                        "cần tiền/thời gian cho … — fresh ingredients / operation",
+                    ),
+                    tip(
+                        "Plus / Moreover / In addition",
+                        "nối lý do 2 (ghi tay trên slide)",
+                    ),
+                    tip(
+                        "give sb sth as a gift",
+                        "tặng local snacks / food làm quà (loved ones)",
+                    ),
+                    tip(
+                        "Anyone from A to B can… · It's also a great way to…",
+                        "kids → elderly · relax / try local dishes",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 3 · Lexical Food (tái dùng)",
+                "leaves": [
+                    tip(
+                        "home-cooked · balanced diet · hearty breakfast",
+                        "đồ nấu nhà · chế độ cân bằng · bữa sáng no đủ",
+                    ),
+                    tip(
+                        "street food · local dish · mouth-watering",
+                        "đồ đường phố · món địa phương · cực ngon",
+                    ),
+                    tip(
+                        "light meal · grab a quick bite · comfort food",
+                        "bữa nhẹ · ăn vội · đồ an ủi",
+                    ),
+                ],
+            },
+        ],
+        "link": "→ <strong>Yes</strong> + because + (Plus) + 1 collocation Food cũ",
+    },
+]
+
+LESSON11_MINDMAP_RIGHT = [
+    {
+        "id": "suit-no",
+        "color": "#fcd34d",
+        "name": "Không + lý do",
+        "name_vi": "No / not suitable / not a good idea",
+        "flow": True,
+        "opener": "No, I don't think so. · No, it's not really suitable…",
+        "branches": [
+            {
+                "label": "Nhánh 1 · Mở (chọn 1)",
+                "leaves": [
+                    tip("No, I don't think so.", "Không, tôi không nghĩ vậy"),
+                    tip("No, not really.", "Không thật sự"),
+                    tip("No, it's not really suitable…", "Không thật sự phù hợp…"),
+                    tip("No, I don't think it's a good idea…", "Không phải ý hay…"),
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Cấu trúc slide",
+                "leaves": [
+                    tip(
+                        "… ; that's the reason why …",
+                        "nối nguyên nhân → kết quả",
+                    ),
+                    tip(
+                        "in search of …",
+                        "tìm kiếm … — a better diet / healthier meals",
+                    ),
+                    tip(
+                        "adj + enough + to V",
+                        "đủ … để … — strong enough to handle spicy food",
+                    ),
+                    tip(
+                        "not for everyone · only suitable for those who…",
+                        "không dành cho mọi người",
+                    ),
+                ],
+            },
+        ],
+        "link": "→ <strong>No</strong> + because + that's the reason why / adj enough",
+    },
+    {
+        "id": "suit-depends",
+        "color": "#86efac",
+        "name": "Còn tùy",
+        "name_vi": "It depends + case (good ↔ bad)",
+        "flow": True,
+        "opener": "It depends. · It depends on…",
+        "branches": [
+            {
+                "label": "Nhánh 1 · Mở",
+                "leaves": [
+                    tip("It depends.", "Còn tùy"),
+                    tip("It depends on…", "Còn tùy vào… (mục đích / đối tượng)"),
+                    tip(
+                        "Well, I think it depends on what they use X for",
+                        "còn tùy họ dùng X để làm gì",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 2 · If … then … / But if …",
+                "leaves": [
+                    tip(
+                        "If …, then I would say yes",
+                        "trường hợp tốt (học / balanced diet)",
+                    ),
+                    tip(
+                        "But if … mainly for …, then not really suitable",
+                        "trường hợp xấu (junk food / recreational snacking)",
+                    ),
+                    tip(
+                        "mainly for + N / V-ing",
+                        "chủ yếu cho / để …",
+                    ),
+                ],
+            },
+        ],
+        "link": "→ <strong>It depends</strong> + 1 case tốt + 1 case xấu (If / But if)",
+    },
+]
+
+
 def collect_review_words() -> list[dict]:
     topic = next(t for t in TOPICS["topics"] if t["slug"] == "food-drink")
     by_level: dict[str, list[dict]] = {}
@@ -4072,6 +4305,21 @@ def _ex_chip_notes_html(chips: list | None) -> str:
         "a + compound adj + N": "a 10-minute walk · a two-course meal (N số ít)",
         "not really interested in": "Không thật sự thích / quan tâm đến",
         "My mom told me that…": "Mẹ bảo rằng… (kể lại)",
+        # Lesson 11
+        "Yes, I think so": "Vâng, tôi nghĩ vậy",
+        "Yes, it would be a great idea": "Vâng, đó sẽ là ý tưởng tuyệt vời",
+        "No, I don't think so": "Không, tôi không nghĩ vậy",
+        "It depends on…": "Còn tùy vào…",
+        "Plus / Moreover / In addition": "Thêm vào đó / Hơn nữa / Ngoài ra",
+        "that's the reason why": "Đó là lý do tại sao",
+        "in search of …": "Tìm kiếm cái gì",
+        "give sb sth as a gift": "Tặng cái gì cho ai làm quà",
+        "Anyone from A to B": "Ai từ A đến B đều có thể…",
+        "It's also a great way to…": "Đó cũng là cách tuyệt vời để…",
+        "If … then … / But if …": "Nếu … thì … / Nhưng nếu … thì …",
+        "mainly for": "Chủ yếu cho / để …",
+        "adj + enough + to V": "Đủ … để làm gì",
+        "appropriate ≈ suitable": "appropriate = phù hợp / thích hợp",
     }
 
     def resolve_vi(en: str) -> str:
@@ -6430,6 +6678,387 @@ def food_lesson10_examples_html() -> str:
 
 
 
+def food_lesson11_examples_html() -> str:
+    """Lesson 11 · Is X suitable for…? — Food Qs (Yes / No / It depends)."""
+    items: list[dict] = []
+
+    def add(
+        q: str,
+        *,
+        kind: str,
+        en_html: str,
+        vi: str,
+        plain: str,
+        ipa: str,
+        ex: str,
+        ex_vi: str = "",
+        alt_kind: str = "alt",
+        alt_html: str = "",
+        alt_vi: str = "",
+        alt_plain: str = "",
+        alt_ipa: str = "",
+        alt_ex: str = "",
+        alt_ex_vi: str = "",
+        notes: list[str] | None = None,
+    ) -> None:
+        items.append(
+            {
+                "q": q,
+                "kind": kind,
+                "html": en_html,
+                "vi": vi,
+                "plain": plain,
+                "ipa": ipa,
+                "ex": ex,
+                "ex_vi": ex_vi,
+                "alt_kind": alt_kind,
+                "alt_html": alt_html,
+                "alt_vi": alt_vi,
+                "alt_plain": alt_plain,
+                "alt_ipa": alt_ipa,
+                "alt_ex": alt_ex,
+                "alt_ex_vi": alt_ex_vi,
+                "notes": notes or [],
+            }
+        )
+
+    # 1 — sell local snacks / food gifts · YES (mirror museum + Plus + gift)
+    t1 = (
+        "{suit_yes} because {suit_reason_yes}. "
+        "{suit_linker}, {suit_reason_yes_b}."
+    )
+    v1 = (
+        "{suit_yes} vì {suit_reason_yes}. "
+        "{suit_linker}, {suit_reason_yes_b}."
+    )
+    add(
+        "Do you think it's appropriate for food markets to sell local snacks to visitors?",
+        kind="yes",
+        en_html=t1.format(
+            suit_yes=phrase_pick("suit_yes", 2),
+            suit_reason_yes=phrase_pick("suit_reason_yes", 1),
+            suit_linker=phrase_pick("suit_linker", 0),
+            suit_reason_yes_b=phrase_pick("suit_reason_yes", 2),
+        ),
+        vi=fill_vi_tpl(
+            v1,
+            suit_yes=slot_vi("suit_yes", 2),
+            suit_reason_yes=slot_vi("suit_reason_yes", 1),
+            suit_linker=slot_vi("suit_linker", 0),
+            suit_reason_yes_b=slot_vi("suit_reason_yes", 2),
+        ),
+        plain="Yes, it would be a great idea because street food stalls need money for fresh ingredients and daily operation. Plus, many people want to buy local snacks to give to their loved ones as a gift.",
+        ipa="",
+        ex=t1,
+        ex_vi=v1,
+        notes=["Yes, it would be a great idea", "Plus / Moreover / In addition", "give sb sth as a gift", "appropriate ≈ suitable"],
+    )
+
+    # 2 — fast food for children · NO (that's the reason why / in search of)
+    t2 = (
+        "{suit_no}, because {suit_reason_no}."
+    )
+    v2 = (
+        "{suit_no}, vì {suit_reason_no}."
+    )
+    add(
+        "Is fast food suitable for young children?",
+        kind="no",
+        en_html=t2.format(
+            suit_no=phrase_pick("suit_no", 0),
+            suit_reason_no=phrase_pick("suit_reason_no", 1),
+        ),
+        vi=fill_vi_tpl(
+            v2,
+            suit_no=slot_vi("suit_no", 0),
+            suit_reason_no=slot_vi("suit_reason_no", 1),
+        ),
+        plain="No, I don't think so, because there are not many nutritious options in fast food; that's the reason why many parents look for home-cooked meals.",
+        ipa="",
+        ex=t2,
+        ex_vi=v2,
+        notes=["No, I don't think so", "that's the reason why", "home-cooked"],
+    )
+
+    # 3 — junk food for balanced diet · NO
+    t3 = (
+        "{suit_no} because {suit_reason_no}. "
+        "Many people switch to a hearty breakfast in search of a better diet."
+    )
+    v3 = (
+        "{suit_no} vì {suit_reason_no}. "
+        "Nhiều người chuyển sang bữa sáng no đủ để tìm chế độ ăn tốt hơn."
+    )
+    add(
+        "Is junk food suitable for a balanced diet?",
+        kind="no",
+        en_html=t3.format(
+            suit_no=phrase_pick("suit_no", 2),
+            suit_reason_no=phrase_pick("suit_reason_no", 0),
+        ),
+        vi=fill_vi_tpl(
+            v3,
+            suit_no=slot_vi("suit_no", 2),
+            suit_reason_no=slot_vi("suit_reason_no", 0),
+        ),
+        plain="No, it's not really suitable because junk food is not really suitable for a balanced diet. Many people switch to a hearty breakfast in search of a better diet.",
+        ipa="",
+        ex=t3,
+        ex_vi=v3,
+        notes=["No, it's not really suitable…", "in search of …", "balanced diet"],
+    )
+
+    # 4 — street food for all ages · YES (from A to B + great way)
+    t4 = (
+        "{suit_yes} because they are easy to enjoy for short food trips. "
+        "{suit_reason_yes_b}. {suit_reason_yes_c}."
+    )
+    v4 = (
+        "{suit_yes} vì chúng dễ thưởng thức cho chuyến đi ăn ngắn. "
+        "{suit_reason_yes_b}. {suit_reason_yes_c}."
+    )
+    add(
+        "Do you think street food is suitable for people of all ages?",
+        kind="yes",
+        en_html=t4.format(
+            suit_yes=phrase_pick("suit_yes", 0),
+            suit_reason_yes_b=phrase_pick("suit_reason_yes", 3),
+            suit_reason_yes_c=phrase_pick("suit_reason_yes", 4),
+        ),
+        vi=fill_vi_tpl(
+            v4,
+            suit_yes=slot_vi("suit_yes", 0),
+            suit_reason_yes_b=slot_vi("suit_reason_yes", 3),
+            suit_reason_yes_c=slot_vi("suit_reason_yes", 4),
+        ),
+        plain="Yes, I think so because they are easy to enjoy for short food trips. Anyone from kids to the elderly can enjoy a light meal or grab a quick bite. It's also a great way to try mouth-watering local dishes and relax.",
+        ipa="",
+        ex=t4,
+        ex_vi=v4,
+        notes=["Yes, I think so", "Anyone from A to B", "It's also a great way to…"],
+    )
+
+    # 5 — spicy street food for everyone · NO (adj enough)
+    t5 = (
+        "{suit_no}. For example, {suit_reason_no}."
+    )
+    v5 = (
+        "{suit_no}. Ví dụ, {suit_reason_no}."
+    )
+    add(
+        "Is very spicy street food suitable for people of all ages?",
+        kind="no",
+        en_html=t5.format(
+            suit_no=phrase_pick("suit_no", 0),
+            suit_reason_no=phrase_pick("suit_reason_no", 2),
+        ),
+        vi=fill_vi_tpl(
+            v5,
+            suit_no=slot_vi("suit_no", 0),
+            suit_reason_no=slot_vi("suit_reason_no", 2),
+        ),
+        plain="No, I don't think so. For example, very spicy street food is only suitable for those who are strong enough to handle the heat.",
+        ipa="",
+        ex=t5,
+        ex_vi=v5,
+        notes=["No, I don't think so", "adj + enough + to V", "not for everyone"],
+    )
+
+    # 6 — cooking apps / ready meals for busy people · DEPENDS (if / but if)
+    t6 = (
+        "{suit_depends} how busy people cook at home. "
+        "{suit_case_good}. {suit_case_bad}."
+    )
+    v6 = (
+        "{suit_depends} cách người bận rộn nấu ở nhà. "
+        "{suit_case_good}. {suit_case_bad}."
+    )
+    add(
+        "Is cooking from scratch suitable for busy people?",
+        kind="depends",
+        en_html=t6.format(
+            suit_depends=phrase_pick("suit_depends", 2),
+            suit_case_good=phrase_pick("suit_case_good", 0),
+            suit_case_bad=phrase_pick("suit_case_bad", 0),
+        ),
+        vi=fill_vi_tpl(
+            v6,
+            suit_depends=slot_vi("suit_depends", 2),
+            suit_case_good=slot_vi("suit_case_good", 0),
+            suit_case_bad=slot_vi("suit_case_bad", 0),
+        ),
+        plain="Well, I think it depends on how busy people cook at home. If they use cooking mainly to prepare a hearty breakfast or a balanced diet, then I would say yes. But if they use cooking mainly for ready meals and junk food every day, then it's not really suitable.",
+        ipa="",
+        ex=t6,
+        ex_vi=v6,
+        notes=["It depends on…", "If … then … / But if …", "mainly for", "cook from scratch"],
+    )
+
+    # 7 — fast food for children · DEPENDS alt style (mirror computers)
+    t7 = (
+        "{suit_depends} what children eat fast food for. "
+        "{suit_case_good}. {suit_case_bad}."
+    )
+    v7 = (
+        "{suit_depends} trẻ ăn đồ nhanh để làm gì. "
+        "{suit_case_good}. {suit_case_bad}."
+    )
+    add(
+        "Are ready meals suitable for young children?",
+        kind="depends",
+        en_html=t7.format(
+            suit_depends=phrase_pick("suit_depends", 2),
+            suit_case_good=phrase_pick("suit_case_good", 1),
+            suit_case_bad=phrase_pick("suit_case_bad", 1),
+        ),
+        vi=fill_vi_tpl(
+            v7,
+            suit_depends=slot_vi("suit_depends", 2),
+            suit_case_good=slot_vi("suit_case_good", 1),
+            suit_case_bad=slot_vi("suit_case_bad", 1),
+        ),
+        plain="Well, I think it depends on what children eat fast food for. If children eat street food mainly for a light meal with family, then it can be fine. But if they eat fast food mainly for recreational snacking all day, then it is not really suitable for them.",
+        ipa="",
+        ex=t7,
+        ex_vi=v7,
+        notes=["It depends on…", "If … then … / But if …", "mainly for", "light meal"],
+    )
+
+    # 8 — comfort food after long day · YES
+    t8 = (
+        "{suit_yes} because comfort food can calm the hunger pangs after work. "
+        "{suit_linker}, {suit_reason_yes}."
+    )
+    v8 = (
+        "{suit_yes} vì đồ an ủi có thể xoa dịu cơn đói sau giờ làm. "
+        "{suit_linker}, {suit_reason_yes}."
+    )
+    add(
+        "Is comfort food suitable after a long day at work?",
+        kind="yes",
+        en_html=t8.format(
+            suit_yes=phrase_pick("suit_yes", 1),
+            suit_linker=phrase_pick("suit_linker", 1),
+            suit_reason_yes=phrase_pick("suit_reason_yes", 4),
+        ),
+        vi=fill_vi_tpl(
+            v8,
+            suit_yes=slot_vi("suit_yes", 1),
+            suit_linker=slot_vi("suit_linker", 1),
+            suit_reason_yes=slot_vi("suit_reason_yes", 4),
+        ),
+        plain="Yes, it's very suitable because comfort food can calm the hunger pangs after work. Moreover, it's also a great way to try mouth-watering local dishes and relax.",
+        ipa="",
+        ex=t8,
+        ex_vi=v8,
+        notes=["Yes, it's very suitable…", "Plus / Moreover / In addition", "comfort food"],
+    )
+
+    # 9 — dine out every day · NO
+    t9 = (
+        "{suit_no} because dining out every day can spoil your appetite for home-cooked food; "
+        "{suit_linker} many families cook from scratch in search of a better diet."
+    )
+    v9 = (
+        "{suit_no} vì đi ăn ngoài mỗi ngày có thể làm mất ngon với đồ nấu nhà; "
+        "{suit_linker} nhiều gia đình nấu từ đầu để tìm chế độ ăn tốt hơn."
+    )
+    add(
+        "Is dining out every day suitable for families?",
+        kind="no",
+        en_html=t9.format(
+            suit_no=phrase_pick("suit_no", 3),
+            suit_linker=phrase_pick("suit_linker", 3),
+        ),
+        vi=fill_vi_tpl(
+            v9,
+            suit_no=slot_vi("suit_no", 3),
+            suit_linker=slot_vi("suit_linker", 3),
+        ),
+        plain="No, I don't think it's a good idea because dining out every day can spoil your appetite for home-cooked food; that's the reason why many families cook from scratch in search of a better diet.",
+        ipa="",
+        ex=t9,
+        ex_vi=v9,
+        notes=["No, I don't think it's a good idea…", "that's the reason why", "in search of …", "spoil your appetite"],
+    )
+
+    # 10 — outdoor food markets for all ages · YES with alt NO
+    t10 = (
+        "{suit_yes} because {suit_reason_yes}. {suit_reason_yes_b}."
+    )
+    v10 = (
+        "{suit_yes} vì {suit_reason_yes}. {suit_reason_yes_b}."
+    )
+    add(
+        "Are outdoor food markets suitable for people of all ages?",
+        kind="yes",
+        en_html=t10.format(
+            suit_yes=phrase_pick("suit_yes", 0),
+            suit_reason_yes=phrase_pick("suit_reason_yes", 3),
+            suit_reason_yes_b=phrase_pick("suit_reason_yes", 4),
+        ),
+        vi=fill_vi_tpl(
+            v10,
+            suit_yes=slot_vi("suit_yes", 0),
+            suit_reason_yes=slot_vi("suit_reason_yes", 3),
+            suit_reason_yes_b=slot_vi("suit_reason_yes", 4),
+        ),
+        plain="Yes, I think so because anyone from kids to the elderly can enjoy a light meal or grab a quick bite. It's also a great way to try mouth-watering local dishes and relax.",
+        ipa="",
+        ex=t10,
+        ex_vi=v10,
+        notes=["Yes, I think so", "Anyone from A to B", "It's also a great way to…"],
+        alt_kind="no",
+        alt_html=(
+            "{suit_no}. {suit_reason_no}."
+        ).format(
+            suit_no=phrase_pick("suit_no", 0),
+            suit_reason_no=phrase_pick("suit_reason_no", 4),
+        ),
+        alt_vi=fill_vi_tpl(
+            "{suit_no}. {suit_reason_no}.",
+            suit_no=slot_vi("suit_no", 0),
+            suit_reason_no=slot_vi("suit_reason_no", 4),
+        ),
+        alt_plain="No, I don't think so. Extreme junk-food habits are not for everyone.",
+        alt_ipa="",
+        alt_ex="{suit_no}. {suit_reason_no}.",
+        alt_ex_vi="{suit_no}. {suit_reason_no}.",
+    )
+
+    cards = []
+    for it in items:
+        alts = ""
+        if it.get("alt_html"):
+            alts = _pair_answer_html(
+                kind=it.get("alt_kind") or "alt",
+                en_html=it["alt_html"],
+                vi=it["alt_vi"],
+                plain=it["alt_plain"],
+                ipa=it["alt_ipa"],
+                q=it["q"],
+                ex_en=it.get("alt_ex", ""),
+                ex_vi=it.get("alt_ex_vi", ""),
+            )
+        cards.append(
+            f"""          <article class="lr-food-ex-card">
+{_ex_card_q_html(it["q"])}
+            <div class="lr-food-ex-pair lr-food-ex-pair--suitable">
+{_pair_answer_html(kind=it["kind"], en_html=it["html"], vi=it["vi"], plain=it["plain"], ipa=it["ipa"], q=it["q"], ex_en=it["ex"], ex_vi=it.get("ex_vi", ""))}
+{alts}
+            </div>
+{_ex_chip_notes_html(it.get("notes"))}
+          </article>"""
+        )
+    return f"""
+        <div class="lr-food-examples" id="food-examples-l11">
+          <h3 class="lr-core-subtitle">Ví dụ Food · Is X suitable for…?</h3>
+          <p class="lr-mm-hint">~10 câu Part 1/2 kiểu <strong>suitable / appropriate</strong>. Nhánh <strong>Có</strong> / <strong>Không</strong> / <strong>Còn tùy</strong> + cấu trúc slide (<strong>Plus</strong> · <strong>that's the reason why</strong> · <strong>in search of</strong> · <strong>If / But if</strong> · <strong>adj + enough + to V</strong> · <strong>from A to B</strong>). Lexical Food tái dùng — không thêm cụm mới.</p>
+{chr(10).join(cards)}
+        </div>"""
+
+
+
 def food_lesson_examples_html() -> str:
     """Unified Food cards: every Q has Thích + Không thích; both sides have contextual dropdowns."""
     items = []
@@ -6879,7 +7508,7 @@ def lesson_highlights_html(
     include_food_examples: bool = False,
     open_practice: bool = False,
 ) -> str:
-    """Lesson 2 + 3 + 5–10 mind maps and practice (Lesson 4 skipped).
+    """Lesson 2 + 3 + 5–11 mind maps and practice (Lesson 4 skipped).
 
     map_suffix: unique id suffix when the same maps appear on Review Exercise 2.
     include_food_examples: annotated Food cards (Review Exercise 2).
@@ -6893,6 +7522,7 @@ def lesson_highlights_html(
     m8 = f"lesson8Mindmap{map_suffix}"
     m9 = f"lesson9Mindmap{map_suffix}"
     m10 = f"lesson10Mindmap{map_suffix}"
+    m11 = f"lesson11Mindmap{map_suffix}"
     open_attr = " open" if open_practice else ""
     examples_block = food_lesson_examples_html() if include_food_examples else ""
     examples_l5 = food_lesson5_examples_html() if include_food_examples else ""
@@ -6901,6 +7531,7 @@ def lesson_highlights_html(
     examples_l8 = food_lesson8_examples_html() if include_food_examples else ""
     examples_l9 = food_lesson9_examples_html() if include_food_examples else ""
     examples_l10 = food_lesson10_examples_html() if include_food_examples else ""
+    examples_l11 = food_lesson11_examples_html() if include_food_examples else ""
     lesson3_scroll = ""
     lesson5_scroll = ""
     lesson6_scroll = ""
@@ -6908,6 +7539,7 @@ def lesson_highlights_html(
     lesson8_scroll = ""
     lesson9_scroll = ""
     lesson10_scroll = ""
+    lesson11_scroll = ""
     if include_food_examples:
         lesson3_scroll = lesson_scroll_read_html(
             "lesson3", title="Lesson 3", source_sel="#lesson3-scroll-source"
@@ -6929,6 +7561,9 @@ def lesson_highlights_html(
         )
         lesson10_scroll = lesson_scroll_read_html(
             "lesson10", title="Lesson 10", source_sel="#lesson10-scroll-source"
+        )
+        lesson11_scroll = lesson_scroll_read_html(
+            "lesson11", title="Lesson 11", source_sel="#lesson11-scroll-source"
         )
 
     g2 = lesson_grammar_notes_html(
@@ -7234,6 +7869,61 @@ def lesson_highlights_html(
             "cook from scratch · grab a quick bite · local dish",
         ],
     )
+    g11 = lesson_grammar_tree_html(
+        "Lesson 11",
+        "Is X suitable for…?",
+        [
+            {
+                "label_html": f'{_g_mark("Có")} + lý do / chi tiết',
+                "openers": [
+                    "Yes, I think so.",
+                    "Yes, it's very suitable…",
+                    "Yes, it would be a great idea…",
+                ],
+                "details_label": "Kéo dài",
+                "details": [
+                    "Plus / Moreover / In addition",
+                    "need + money/time for …",
+                    "give sb sth as a gift",
+                    "Anyone from A to B · It's also a great way to…",
+                ],
+            },
+            {
+                "label_html": f'{_g_mark("Không")} + lý do / chi tiết',
+                "openers": [
+                    "No, I don't think so.",
+                    "No, not really.",
+                    "No, it's not really suitable…",
+                    "No, I don't think it's a good idea…",
+                ],
+                "details_label": "Cấu trúc slide",
+                "details": [
+                    "… ; that's the reason why …",
+                    "in search of …",
+                    "adj + enough + to V",
+                    "not for everyone / only suitable for those who…",
+                ],
+            },
+            {
+                "label_html": f'{_g_mark("Còn tùy")} + trường hợp',
+                "openers": [
+                    "It depends.",
+                    "It depends on…",
+                ],
+                "details_label": "Good case ↔ bad case",
+                "details": [
+                    "If …, then I would say yes",
+                    "But if … mainly for …, then not really suitable",
+                    "mainly for + N / V-ing",
+                ],
+            },
+        ],
+        footer=[
+            "appropriate ≈ suitable",
+            "balanced diet · junk food · home-cooked",
+            "street food · comfort food · cook from scratch",
+        ],
+    )
 
     return f"""
       <div class="lr-core-lessons">
@@ -7424,6 +8114,30 @@ def lesson_highlights_html(
           </div>
 
 {lesson10_scroll}
+        </article>
+
+        <article class="lr-core-lesson" id="lesson11-formulas">
+          <header class="lr-core-lesson-head">
+            <h3>Lesson 11 · Is X suitable for…?</h3>
+          </header>
+
+{mind_map_html(
+            m11,
+            "Lesson 11 · Is X suitable for…?",
+            "Is X suitable for…?",
+            "Có / Không ↔ Còn tùy",
+            LESSON11_MINDMAP_LEFT,
+            LESSON11_MINDMAP_RIGHT,
+            note="Trái = <strong>Có</strong> · Phải = <strong>Không</strong> + <strong>Còn tùy</strong> (If / But if). suitable ≈ appropriate.",
+            extra_class=" lr-mmap--lesson11",
+            min_width="1320px",
+        )}
+{g11}
+          <div id="lesson11-scroll-source">
+{examples_l11}
+          </div>
+
+{lesson11_scroll}
         </article>
 
       </div>"""
@@ -8915,7 +9629,7 @@ def build_page() -> str:
       <header class="lr-hero">
         <p class="lr-hero-badge">Linear Thinking · Capstone</p>
         <h1>Food &amp; Drink — Review Exercise 1</h1>
-        <p class="lede">Sau khi hoàn thành B2, ôn tập theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-speaking" target="_blank" rel="noopener noreferrer">Linear Thinking</a>: ngữ pháp (6 thì) → mental model → cấu trúc Speaking → từ vựng B1/B2 → mock IELTS Part 1/2/3 với dropdown từ thay thế. Chỉ muốn Lesson 2–10 (skip 4)? Xem <a href="../review-exercise-2/">Review Exercise 2</a>.</p>
+        <p class="lede">Sau khi hoàn thành B2, ôn tập theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-speaking" target="_blank" rel="noopener noreferrer">Linear Thinking</a>: ngữ pháp (6 thì) → mental model → cấu trúc Speaking → từ vựng B1/B2 → mock IELTS Part 1/2/3 với dropdown từ thay thế. Chỉ muốn Lesson 2–11 (skip 4)? Xem <a href="../review-exercise-2/">Review Exercise 2</a>.</p>
         <nav class="lr-toc" aria-label="On this page">
           <a href="#core-steps">Core · 3 bước</a>
           <a href="#natural-vlog">0 · Real talk</a>
@@ -8923,7 +9637,7 @@ def build_page() -> str:
           <a href="#mental-model">2 · Mental model</a>
           <a href="#ed-ending">2b · -ed</a>
           <a href="#structures">3 · Structures</a>
-          <a href="#lessons">4 · Lessons 2 · 3 · 5–10</a>
+          <a href="#lessons">4 · Lessons 2 · 3 · 5–11</a>
           <a href="#food-lang">5 · Idioms &amp; phrases</a>
           <a href="#phrase-drills">6 · Phrase drills</a>
           <a href="#food-phrase-map">6 · Mind map</a>
@@ -8963,8 +9677,8 @@ def build_page() -> str:
       </section>
 
       <section class="lr-section" id="lessons">
-        <h2>4 · Core formulas — Lesson 2, 3, 5–10</h2>
-        <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — L2 → L3 → L5 → L6 Prefer → L7 Popular → L8 Best time → L9 First/last → L10 Childhood · <em>skip Lesson 4</em>. Chọn <strong>1–2 nhánh</strong>.</p>
+        <h2>4 · Core formulas — Lesson 2, 3, 5–11</h2>
+        <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — L2 → … → L10 Childhood → L11 Suitable · <em>skip Lesson 4</em>. Chọn <strong>1–2 nhánh</strong>.</p>
 {lesson_highlights_html()}
       </section>
 
@@ -9063,9 +9777,9 @@ def build_page_review2() -> str:
       </div>
 
       <header class="lr-hero">
-        <p class="lr-hero-badge">Linear Thinking · Lesson 2, 3, 5–10</p>
+        <p class="lr-hero-badge">Linear Thinking · Lesson 2, 3, 5–11</p>
         <h1>Food &amp; Drink — Review Exercise 2</h1>
-        <p class="lede">Lesson 2 + 3 + 5–10 (Childhood food?) · skip Lesson 4. Sơ đồ tư duy → ví dụ Food → Scroll read. Full capstone: <a href="../review-exercise/">Review Exercise 1</a>.</p>
+        <p class="lede">Lesson 2 + 3 + 5–11 (Suitable for…?) · skip Lesson 4. Sơ đồ tư duy → ví dụ Food → Scroll read. Full capstone: <a href="../review-exercise/">Review Exercise 1</a>.</p>
         <nav class="lr-toc" aria-label="On this page">
           <a href="#lesson2-formulas">Lesson 2 · Reasons</a>
           <a href="#scroll-lesson2">Scroll · L2</a>
@@ -9090,6 +9804,9 @@ def build_page_review2() -> str:
           <a href="#lesson10-formulas">Lesson 10 · Childhood?</a>
           <a href="#food-examples-l10">Ví dụ L10</a>
           <a href="#scroll-lesson10">Scroll · L10</a>
+          <a href="#lesson11-formulas">Lesson 11 · Suitable?</a>
+          <a href="#food-examples-l11">Ví dụ L11</a>
+          <a href="#scroll-lesson11">Scroll · L11</a>
         </nav>
         <div class="ex-toolbar lr-toolbar lr-toolbar--hero">
           <label class="ex-toggle"><input type="checkbox" id="togVi" /> Vietnamese</label>
@@ -9097,7 +9814,7 @@ def build_page_review2() -> str:
       </header>
 
       <section class="lr-section" id="lessons">
-        <h2>Core formulas — Lesson 2, 3, 5–10</h2>
+        <h2>Core formulas — Lesson 2, 3, 5–11</h2>
         <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — chọn <strong>1–2 nhánh</strong>, không nhồi hết. Dropdown bên dưới để thay từ B1/B2.</p>
 {lesson_highlights_html(map_suffix="R2", include_food_examples=True, open_practice=True)}
       </section>
@@ -9111,7 +9828,7 @@ def build_page_review2() -> str:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Review Exercise 2 · Food &amp; Drink — The Quiet Corner</title>
-  <meta name="description" content="Lesson 2, 3, 5–10: Reasons, Do you like X?, What kind?, Prefer, Is X popular, Best time, First/last time, Childhood — Food mind maps and practice.">
+  <meta name="description" content="Lesson 2, 3, 5–11: Reasons through Suitable for… — Food mind maps — Food mind maps and practice.">
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -9167,7 +9884,7 @@ def patch_topic_index() -> None:
           <span class="vocab-level__badge vocab-level__badge--review">Review</span>
           <h2>Linear Thinking · Capstone exercise</h2>
         </div>
-        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3, 5–10 (mind map + ví dụ Food + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
+        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3, 5–11 (mind map + ví dụ Food + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
         <div class="vocab-lesson-grid">
           <a class="vocab-lesson-card vocab-lesson-card--review" href="review-exercise/">
             <img src="{review_icon}" alt="" width="72" height="72" loading="lazy">
