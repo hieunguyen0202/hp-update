@@ -9691,31 +9691,44 @@ def lesson16_part2_frame_html() -> str:
         for n, title, tpl, hint in parts
     )
     cues = [
-        ("Dish / food", [
-            "Describe some food or drink that you learned to prepare (Cam 18)",
-            "Describe a traditional food / traditional meal in your country",
-            "Describe your favourite food / dish",
-            "Describe an unusual food you ate",
-            "Describe a dish you know how to cook",
-            "Describe an occasion when you tried a new food for the first time",
-        ]),
-        ("Restaurant / café", [
-            "Describe a restaurant that you enjoyed going to (Cam 8)",
-            "Describe a café / place where you often eat",
-            "Describe a place where you go to relax (food/drink angle)",
-        ]),
-        ("Meal / occasion", [
-            "Describe a special meal you have had (Cam 11)",
-            "Describe a meal / dinner you enjoyed",
-            "Describe a great dinner with friends or family",
-            "Describe an unusual meal you had",
-            "Describe a meal you recently enjoyed outside",
-            "Describe a time you invited family/friends for dinner",
-        ]),
+        (
+            "Dish / food",
+            [
+                ("Describe some food or drink that you learned to prepare (Cam 18)", "L20 Situation"),
+                ("Describe a traditional food / traditional meal in your country", "Object · +L19 nếu gắn lễ"),
+                ("Describe your favourite food / dish", "Object · chưa có khung"),
+                ("Describe an unusual food you ate", "L20 / Object"),
+                ("Describe a dish you know how to cook", "Object · +L20 nếu kể lần học"),
+                ("Describe an occasion when you tried a new food for the first time", "L20 Situation"),
+            ],
+        ),
+        (
+            "Restaurant / café",
+            [
+                ("Describe a restaurant that you enjoyed going to (Cam 8)", "L17 Building"),
+                ("Describe a café / place where you often eat", "L17 Building"),
+                ("Describe a place where you go to relax (food/drink angle)", "L17 Building"),
+            ],
+        ),
+        (
+            "Meal / occasion",
+            [
+                ("Describe a special meal you have had (Cam 11)", "L19 Event"),
+                ("Describe a meal / dinner you enjoyed", "L19 Event"),
+                ("Describe a great dinner with friends or family", "L19 Event"),
+                ("Describe an unusual meal you had", "L19 Event · +L20 story"),
+                ("Describe a meal you recently enjoyed outside", "L19 Event"),
+                ("Describe a time you invited family/friends for dinner", "L19 Event"),
+            ],
+        ),
     ]
     cue_cols = []
     for title, items in cues:
-        lis = "".join(f"<li>{esc(q)}</li>" for q in items)
+        lis = "".join(
+            f'<li><span class="lr-p2-cue-q">{esc(q)}</span> '
+            f'<span class="lr-p2-cue-tag" data-tag="{esc(tag.split()[0].lower())}">{esc(tag)}</span></li>'
+            for q, tag in items
+        )
         cue_cols.append(
             f"""              <div class="lr-lex-col">
                 <h5 class="lr-lex-col-title">{esc(title)}</h5>
@@ -9730,7 +9743,7 @@ def lesson16_part2_frame_html() -> str:
 {part_cards}
             </div>
             <h4 class="lr-grammar-notes-title" style="margin-top:1rem">Cue card Food · lọc exam / Cambridge-style</h4>
-            <p class="lr-freq-hint">Ưu tiên ôn đề gắn Cam: <strong>Cam 8</strong> restaurant · <strong>Cam 11</strong> special meal · <strong>Cam 18</strong> food/drink you learned to prepare. Cam 19: Food chủ yếu ở Part 1.</p>
+            <p class="lr-freq-hint">Ưu tiên Cam: <strong>8</strong> restaurant · <strong>11</strong> special meal · <strong>18</strong> learned to prepare. Tag khung: <strong>L17 Building</strong> · <strong>L19 Event</strong> · <strong>L20 Situation</strong> · <strong>Object</strong> (món thuần — chưa có lesson riêng). <em>L18 Place (city)</em> không map trực tiếp cue Food.</p>
             <div class="lr-lex-grid">
 {chr(10).join(cue_cols)}
             </div>
@@ -13325,7 +13338,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr49">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr50">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -13444,7 +13457,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr49">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr50">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>

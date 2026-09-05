@@ -5672,7 +5672,31 @@ mark.lr-hl,
   padding-left: 1.1rem;
 }
 
-.lr-p2-cue-list li { margin: 0 0 4px; }
+.lr-p2-cue-list li {
+  margin: 0 0 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.lr-p2-cue-q { color: #e2e8f0; line-height: 1.35; }
+
+.lr-p2-cue-tag {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: #0f172a;
+  background: #94a3b8;
+}
+
+.lr-p2-cue-tag[data-tag="l17"] { background: #86efac; }
+.lr-p2-cue-tag[data-tag="l19"] { background: #fde68a; }
+.lr-p2-cue-tag[data-tag="l20"] { background: #7dd3fc; }
+.lr-p2-cue-tag[data-tag="object"] { background: #fdba74; }
 
 .lr-cue-box {
   border: 1px solid rgba(251, 146, 60, 0.45);
