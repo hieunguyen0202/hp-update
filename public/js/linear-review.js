@@ -506,16 +506,18 @@
           if (qText) {
             blocks.push(`<p class="scroll-line scroll-line--q">${escapeHtml(qText)}</p>`);
           }
-          blocks.push(
-            `<p class="scroll-line scroll-line--a">${answerToHtml(ans, mode, reveal)}</p>`
-          );
           if (showIpa) {
-            const ipa = qa.dataset.ipaFull || "";
-            if (ipa) {
-              blocks.push(
-                `<p class="scroll-line scroll-line--ipa">${escapeHtml(ipa)}</p>`
-              );
-            }
+            const ipa = (qa.dataset.ipaFull || "").trim();
+            // Replace whole answer with IPA — question stays English (yellow)
+            blocks.push(
+              `<p class="scroll-line scroll-line--a scroll-line--a-ipa">${escapeHtml(
+                ipa || plainFromAnswer(ans)
+              )}</p>`
+            );
+          } else {
+            blocks.push(
+              `<p class="scroll-line scroll-line--a">${answerToHtml(ans, mode, reveal)}</p>`
+            );
           }
         });
 

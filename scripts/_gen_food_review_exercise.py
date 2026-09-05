@@ -2932,7 +2932,7 @@ def lesson_scroll_read_html(uid: str, *, title: str, source_sel: str) -> str:
           <div class="ex-scroll-head">
             <div>
               <h3>Scroll read · speaking · {esc(title)}</h3>
-              <p class="ex-scroll-hint">Teleprompter luyện nói — chỉ tiếng Anh. Tắt <strong>Hiện từ EN</strong> để thấy khung + gợi ý VI. Bật <strong>Hiện IPA đoạn</strong> để xem phiên âm. <strong>Copy</strong> = Q + A tiếng Anh sạch (NaturalReader).</p>
+              <p class="ex-scroll-hint">Teleprompter luyện nói — chỉ tiếng Anh. Tắt <strong>Hiện từ EN</strong> để thấy khung + gợi ý VI. Bật <strong>Hiện IPA đoạn</strong> để cả đoạn <em>answer</em> chuyển sang IPA (câu hỏi vẫn giữ tiếng Anh, màu vàng). <strong>Copy</strong> = Q + A tiếng Anh sạch (NaturalReader).</p>
             </div>
             <button type="button" class="ex-btn primary js-scroll-copy">Copy for NaturalReader</button>
           </div>
@@ -2994,11 +2994,62 @@ def _pair_answer_html(
               </div>"""
 
 
-def _ex_chip_notes_html(chips: list[str] | None) -> str:
-    """Structure / vocab chips under an example card that uses them."""
+def _ex_chip_notes_html(chips: list | None) -> str:
+    """Structure / vocab chips under an example card — hover for VI tooltip."""
     if not chips:
         return ""
-    items = "".join(f"<li><mark>{esc(c)}</mark></li>" for c in chips if c)
+    # en → vi (for hover); also split "A · B" into two chips
+    chip_vi = {
+        "It takes + time (+ for sb) + to V": "Tốn bao nhiêu thời gian (cho ai) để làm gì",
+        "while / whereas": "trong khi / trong khi đó (đối chiếu)",
+        "love the feeling of + V-ing": "Thích cảm giác làm gì",
+        "pose a threat to (my) health": "Gây đe dọa đến sức khỏe",
+        "have a sweet tooth": "Thích đồ ngọt (có ‘răng ngọt’)",
+        "function (v) — body / brain / nutrients": "Hoạt động (cơ thể / não / khi đủ dinh dưỡng)",
+        "have someone to + V": "Có ai đó để làm gì",
+        "send sth to sb": "Gửi cái gì cho ai",
+        "grab a bite": "Ăn vội một miếng",
+        "shorten one's / my life expectancy": "Làm giảm tuổi thọ",
+        "try not to + V": "Cố gắng không làm gì",
+        "try to + V": "Cố gắng làm gì",
+        "try + V-ing": "Thử làm theo cách nào đó",
+        "take a heavy toll on (my) health": "Gây hậu quả nặng nề cho sức khỏe",
+        "I hardly ever + V": "Hiếm khi / hầu như không bao giờ + V",
+        "prefer … rather than …": "Thích … hơn là …",
+        "prefer to V rather than V": "prefer to V rather than V (nguyên mẫu)",
+        "can lead to …": "Có thể dẫn đến …",
+        "because / because of": "because + mệnh đề · because of + danh từ",
+        "culinary tradition": "Truyền thống ẩm thực",
+        "wholesome": "Lành mạnh, bổ dưỡng",
+        "freshly prepared": "Mới chế biến",
+        "from scratch": "Làm từ đầu / từ nguyên liệu thô",
+        "light on the stomach": "Dễ tiêu / không nặng bụng",
+        "stick to a balanced diet": "Giữ chế độ ăn cân bằng",
+        "hits the spot": "Đúng gu / thỏa mãn đúng lúc",
+        "burn excess calories": "Đốt calo thừa",
+        "signature dish": "Món đặc trưng",
+        "mouth-watering": "Cực ngon / kích thích vị giác",
+    }
+    expanded: list[tuple[str, str]] = []
+    for c in chips:
+        if not c:
+            continue
+        if isinstance(c, dict):
+            expanded.append((c.get("en", ""), c.get("vi", "")))
+            continue
+        for part in str(c).split(" · "):
+            en = part.strip()
+            if not en:
+                continue
+            expanded.append((en, chip_vi.get(en, "")))
+    items = "".join(
+        f'<li class="lr-tip" data-tip="{esc(vi)}" title="{esc(vi)}">'
+        f"<mark>{esc(en)}</mark></li>"
+        if vi
+        else f"<li><mark>{esc(en)}</mark></li>"
+        for en, vi in expanded
+        if en
+    )
     return f"""
             <ul class="lr-ex-chips" aria-label="Cấu trúc trong ví dụ">
 {items}
@@ -3985,26 +4036,21 @@ def lesson_highlights_html(
     g2 = lesson_grammar_notes_html(
         "Lesson 2",
         [
-            f'{_g_mark("I love / enjoy")} + V-ing '
-            f'{_g_mark("because")} it\'s + adj. '
-            f'{_g_mark("It helps me")} + V. '
-            f'{_g_mark("It\'s a great way to")} + V.',
-            f'{_g_mark("It gives me the chance to")} + V. '
-            f'{_g_mark("I also get the opportunity to")} + V.',
-            f'NO: {_g_mark("I don\'t like")} + V-ing {_g_mark("because")} + S + V / '
-            f'{_g_mark("because of")} + NP. {_g_mark("can lead to")} …',
+            f'{_g_mark("I love / enjoy")} + V-ing {_g_mark("because")} it\'s + adj.',
+            f'{_g_alts("It helps me + V", "It\'s a great way to + V", "It gives me the chance to + V", "I also get the opportunity to + V")}',
+            f'NO: {_g_mark("I don\'t like")} + V-ing '
+            f'{_g_alts("because + S + V", "because of + NP")}. '
+            f'{_g_mark("can lead to")} …',
         ],
     )
     g3 = lesson_grammar_notes_html(
         "Lesson 3",
         [
             f'{_g_alts("Yes, definitely", "Yes, absolutely")}. '
-            f'{_g_mark("I like / love / enjoy")} + V-ing · '
-            f'{_g_mark("I\'m keen on")} … · {_g_mark("I\'m a big fan of")} …',
-            f'{_g_mark("because")} / {_g_mark("This is because")} + S + V · '
-            f'{_g_mark("because of")} + NP.',
+            f'{_g_alts("I like / love / enjoy + V-ing", "I\'m keen on …", "I\'m a big fan of …")}',
+            f'{_g_alts("This is because + S + V", "because of + NP")}',
             f'{_g_alts("No, definitely not", "No, not really")}. '
-            f'{_g_mark("I don\'t enjoy")} + V-ing · {_g_mark("I\'m not keen on")} …',
+            f'{_g_alts("I don\'t enjoy + V-ing", "I\'m not keen on …")}',
         ],
     )
     g5 = lesson_grammar_notes_html(
@@ -4012,7 +4058,7 @@ def lesson_highlights_html(
         [
             f'Well, I love all kinds of + sth, but if I had to choose one, it '
             f'{_g_alts("would have to be", "would go for", "I would opt for")} …',
-            f'{_g_mark("This is because")} + S + V · {_g_mark("because of")} + NP.',
+            f'{_g_alts("This is because + S + V", "because of + NP")}',
         ],
     )
     g6 = lesson_grammar_notes_html(
@@ -4020,7 +4066,7 @@ def lesson_highlights_html(
         [
             f'{_g_alts("I prefer X", "I prefer X to Y", "I prefer X rather than Y")} '
             f'{_g_mark("because")} + ưu điểm của X.',
-            f'{_g_mark("while")} / {_g_mark("whereas")} + nhược điểm của Y.',
+            f'{_g_alts("while + nhược điểm của Y", "whereas + nhược điểm của Y")}',
         ],
     )
 
@@ -5703,7 +5749,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr37">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr38">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -5727,7 +5773,7 @@ def build_page() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr22"></script>
-  <script src="{home}js/linear-review.js?v=lr24"></script>
+  <script src="{home}js/linear-review.js?v=lr25"></script>
 </body>
 </html>"""
 
@@ -5796,7 +5842,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr37">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr38">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -5820,7 +5866,7 @@ def build_page_review2() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr22"></script>
-  <script src="{home}js/linear-review.js?v=lr24"></script>
+  <script src="{home}js/linear-review.js?v=lr25"></script>
 </body>
 </html>"""
 
