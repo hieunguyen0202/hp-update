@@ -1548,7 +1548,8 @@ a.kk-card--biz:hover {
   margin-bottom: 36px;
 }
 
-.vocab-topic-hero img {
+.vocab-topic-hero img,
+.vocab-topic-hero .vocab-topic-card__img {
   width: 112px;
   height: 112px;
   object-fit: cover;
@@ -2625,6 +2626,14 @@ a.kk-card--biz:hover {
   border: 1px solid var(--border);
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.02);
+}
+
+.ex-scroll-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .ex-scroll-head h2 {
@@ -7708,4 +7717,137 @@ mark.lr-filler {
 
 .lr-vlog-vi-body p:last-child {
   margin-bottom: 0;
+}
+
+/* ── HSK Corner ─────────────────────────────────────────────────────── */
+body.hsk-page {
+  --hsk-hanzi: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+
+.hsk-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 28px;
+}
+
+.hsk-jump a {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  padding: 6px 12px;
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  border-radius: 999px;
+  color: var(--accent);
+}
+
+.hsk-script-toolbar,
+.hsk-script-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  margin: 0 0 16px;
+}
+
+.hsk-para {
+  margin: 0 0 22px;
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.docs-main .hsk-zh {
+  margin: 0;
+  font-family: var(--hsk-hanzi);
+  font-size: 1.22rem;
+  line-height: 1.95;
+  color: var(--white);
+}
+
+.docs-main mark.hsk-new,
+.hsk-page mark.hsk-new {
+  color: var(--accent);
+  background: rgba(34, 211, 238, 0.1);
+  border-bottom: 2px dashed rgba(34, 211, 238, 0.7);
+  font-weight: 700;
+  padding: 0 1px;
+}
+
+.docs-main .hsk-py,
+.docs-main .hsk-en {
+  display: none;
+  margin: 10px 0 0;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.docs-main .hsk-py {
+  font-family: var(--mono);
+  color: #facc15;
+}
+
+.docs-main .hsk-en {
+  font-family: var(--sans);
+  color: rgba(186, 230, 253, 0.88);
+}
+
+body.hsk-show-py .hsk-py {
+  display: block;
+}
+
+body.hsk-show-en .hsk-en {
+  display: block;
+}
+
+.hsk-flash-hanzi {
+  font-family: "Noto Sans SC", "PingFang SC", sans-serif !important;
+}
+
+.hsk-flash-py,
+.hsk-flash-py-back,
+.hsk-flash-ex-py,
+.hsk-flash-ex-en {
+  font-family: var(--mono);
+  font-size: 0.92rem;
+  color: #0369a1;
+}
+
+.hsk-flash-py-back {
+  margin: 0;
+  color: #0e7490;
+}
+
+.docs-main .hsk-flash-ex-zh {
+  font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+  font-size: 1.05rem;
+  color: #0f172a;
+}
+
+.hsk-flash-ex-en {
+  margin: 4px 0 0;
+  color: #475569;
+}
+
+.hsk-check-en {
+  color: var(--muted);
+  font-size: 0.88em;
+}
+
+.ex-scroll-track .hsk-scroll-zh {
+  font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+  font-size: 1.28rem;
+}
+
+.ex-scroll-track .hsk-scroll-py {
+  font-family: var(--mono);
+  font-size: 0.92rem;
+  color: #facc15;
+  margin-top: -0.55em;
+}
+
+@media (max-width: 720px) {
+  .docs-main .hsk-zh {
+    font-size: 1.08rem;
+  }
 }

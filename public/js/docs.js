@@ -311,6 +311,17 @@
     navEl.innerHTML = cert === "cka" ? ckaNav() : cert === "ckad" ? ckadNav() : cksNav();
   } else if (navEl && sidebar?.dataset.nav === "english") {
     // Topic sidebar is rendered in HTML by _gen_english_vocab.py
+  } else if (navEl && sidebar?.dataset.nav === "hsk") {
+    const r = root;
+    const link = (id, label) => {
+      const href = id === "overview" ? r : `${r}${id}/`;
+      const cls = id === active || (id === "overview" && active === "overview") ? "active" : "";
+      return `<li><a class="${cls}" href="${href}">${label}</a></li>`;
+    };
+    navEl.innerHTML = [
+      link("overview", "All lessons"),
+      link("lesson-14", "14 · 开学这一天"),
+    ].join("");
   } else if (navEl) {
     navEl.innerHTML = [
       item("overview", "Overview"),
