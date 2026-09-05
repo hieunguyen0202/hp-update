@@ -2994,6 +2994,17 @@ def _pair_answer_html(
               </div>"""
 
 
+def _ex_chip_notes_html(chips: list[str] | None) -> str:
+    """Structure / vocab chips under an example card that uses them."""
+    if not chips:
+        return ""
+    items = "".join(f"<li><mark>{esc(c)}</mark></li>" for c in chips if c)
+    return f"""
+            <ul class="lr-ex-chips" aria-label="Cấu trúc trong ví dụ">
+{items}
+            </ul>"""
+
+
 def food_lesson5_examples_html() -> str:
     """Lesson 5 · What kind of X? — 10 Food Qs with soft-choose + reason (IELTS length)."""
     items: list[dict] = []
@@ -3011,6 +3022,7 @@ def food_lesson5_examples_html() -> str:
         alt_plain: str = "",
         alt_ipa: str = "",
         alt_ex: str = "",
+        notes: list[str] | None = None,
     ) -> None:
         items.append(
             {
@@ -3025,6 +3037,7 @@ def food_lesson5_examples_html() -> str:
                 "alt_plain": alt_plain,
                 "alt_ipa": alt_ipa,
                 "alt_ex": alt_ex,
+                "notes": notes or [],
             }
         )
 
@@ -3057,6 +3070,7 @@ def food_lesson5_examples_html() -> str:
         alt_plain="I like street food most because it is mouth-watering and packed with flavour. I also get the chance to grab a bite without feeling heavy afterwards.",
         alt_ipa="/aɪ laɪk striːt fuːd məʊst…/",
         alt_ex="I like {kind_choice_food} most because it is {kind_lex_adj}. {kind_followup}",
+        notes=["try not to + V", "grab a bite"],
     )
 
     # 2 cuisine
@@ -3075,6 +3089,7 @@ def food_lesson5_examples_html() -> str:
         "Well, I love all kinds of cuisine, but if I had to choose one, I would go for Vietnamese cuisine. This is because the dishes are wholesome and freshly prepared. Exploring this culinary tradition also helps me enrich my knowledge about food culture.",
         "/wel aɪ lʌv ɔːl kaɪndz əv kwɪˈziːn…/",
         t2,
+        notes=["culinary tradition", "wholesome · freshly prepared"],
     )
 
     # 3 restaurants
@@ -3094,6 +3109,7 @@ def food_lesson5_examples_html() -> str:
         "I love all kinds of restaurants, but if I had to choose one, it would have to be casual local eateries. This is because the food there is made from scratch with fresh ingredients. I try not to eat out too often.",
         "/aɪ lʌv ɔːl kaɪndz əv ˈrestrɒnts…/",
         t3,
+        notes=["from scratch", "try not to + V"],
     )
 
     # 4 drinks
@@ -3112,6 +3128,7 @@ def food_lesson5_examples_html() -> str:
         "Well, I love all kinds of drinks, but if I had to choose one, I would opt for fresh fruit juice. This is because it's light on the stomach but still filling. I try to cut down on sugary soft drinks as well.",
         "/wel aɪ lʌv ɔːl kaɪndz əv drɪŋks…/",
         t4,
+        notes=["try to + V", "light on the stomach"],
     )
 
     # 5 fruit
@@ -3130,6 +3147,7 @@ def food_lesson5_examples_html() -> str:
         "I like tropical fruit like mango and papaya most because they are wholesome and freshly prepared. Eating fruit regularly is a great way to stick to a balanced diet.",
         "/aɪ laɪk ˈtrɒpɪkl fruːt…/",
         t5,
+        notes=["stick to a balanced diet"],
     )
 
     # 6 snacks
@@ -3149,6 +3167,7 @@ def food_lesson5_examples_html() -> str:
         "Well, I love all kinds of snacks, but if I had to choose one, I would go for nuts and seeds. This is because they are full of nutrients without taking a heavy toll on my health. I try to cut down on processed snacks.",
         "/wel aɪ lʌv ɔːl kaɪndz əv snæks…/",
         t6,
+        notes=["take a heavy toll on (my) health", "try to + V"],
     )
 
     # 7 desserts / sweet tooth
@@ -3167,6 +3186,7 @@ def food_lesson5_examples_html() -> str:
         "To be honest, I have a bit of a sweet tooth, so if I had to choose one, it would have to be fruit-based desserts. This is because they are comforting without being too greasy. Still, I try not to overdo it.",
         "/tuː bi ˈɒnɪst aɪ hæv ə bɪt əv ə swiːt tuːθ…/",
         t7,
+        notes=["have a sweet tooth", "try not to + V"],
     )
 
     # 8 cooking methods / dishes
@@ -3186,6 +3206,7 @@ def food_lesson5_examples_html() -> str:
         "I love all kinds of cooking styles, but if I had to choose one, I would opt for grilled dishes. This is because they are the kind of food that really hits the spot after a long day. It helps me keep fit and burn a few extra calories.",
         "/aɪ lʌv ɔːl kaɪndz əv ˈkʊkɪŋ staɪlz…/",
         t8,
+        notes=["hits the spot", "burn excess calories"],
     )
 
     # 9 street food
@@ -3204,6 +3225,7 @@ def food_lesson5_examples_html() -> str:
         "Well, I love all kinds of street food, but if I had to choose one, I would go for pho and spring rolls. This is because they are mouth-watering and packed with flavour. Trying local signature dishes is also a great way to experience culinary tradition.",
         "/wel aɪ lʌv ɔːl kaɪndz əv striːt fuːd…/",
         t9,
+        notes=["signature dish", "culinary tradition", "mouth-watering"],
     )
 
     # 10 meals of the day
@@ -3223,6 +3245,7 @@ def food_lesson5_examples_html() -> str:
         "I love all kinds of meals, but if I had to choose one, it would have to be an early dinner at home. This is because it's made from scratch with fresh ingredients. I try using seasonal ingredients whenever I can.",
         "/aɪ lʌv ɔːl kaɪndz əv miːlz…/",
         t10,
+        notes=["try + V-ing", "from scratch"],
     )
 
     cards = []
@@ -3245,12 +3268,13 @@ def food_lesson5_examples_html() -> str:
 {_pair_answer_html(kind="sample", en_html=it["html"], vi=it["vi"], plain=it["plain"], ipa=it["ipa"], q=it["q"], ex_en=it["ex"])}
 {alts}
             </div>
+{_ex_chip_notes_html(it.get("notes"))}
           </article>"""
         )
     return f"""
         <div class="lr-food-examples" id="food-examples-l5">
           <h3 class="lr-core-subtitle">Ví dụ Food · What kind of X?</h3>
-          <p class="lr-mm-hint">10 câu Part 1 kiểu Cambridge (Food only). Công thức: <strong>Loại gì?</strong> → <strong>because / This is because</strong> → 1–2 cụm lexical Food. Hover EN → tooltip VI. Có trong Scroll read Lesson 5.</p>
+          <p class="lr-mm-hint">10 câu Part 1 (Food). Hover EN → tooltip VI. Chip dưới mỗi card = cấu trúc / từ mới trong câu đó.</p>
 {chr(10).join(cards)}
         </div>"""
 
@@ -3272,6 +3296,7 @@ def food_lesson6_examples_html() -> str:
         alt_plain: str = "",
         alt_ipa: str = "",
         alt_ex: str = "",
+        notes: list[str] | None = None,
     ) -> None:
         items.append(
             {
@@ -3286,6 +3311,7 @@ def food_lesson6_examples_html() -> str:
                 "alt_plain": alt_plain,
                 "alt_ipa": alt_ipa,
                 "alt_ex": alt_ex,
+                "notes": notes or [],
             }
         )
 
@@ -3306,6 +3332,7 @@ def food_lesson6_examples_html() -> str:
         "I prefer eating at home to eating out because it's much healthier and more relaxing, while eating out is often more time-consuming and expensive. Preparing dinner myself, it takes me about an hour to cook a proper meal from scratch, whereas ordering takeaway only takes a few minutes — but I still choose home food.",
         "/aɪ prɪˈfɜː ˈiːtɪŋ ət həʊm tuː ˈiːtɪŋ aʊt…/",
         t1,
+        notes=["It takes + time (+ for sb) + to V", "while / whereas"],
     )
 
     # 2 — cook vs takeaway (love the feeling)
@@ -3324,6 +3351,7 @@ def food_lesson6_examples_html() -> str:
         "I prefer cooking at home to ordering takeaway because I love the feeling of cooking slowly and smelling the spices in the kitchen. Takeaway is convenient, whereas fast food can pose a threat to my health.",
         "/aɪ prɪˈfɜː ˈkʊkɪŋ ət həʊm…/",
         t2,
+        notes=["love the feeling of + V-ing", "pose a threat to (my) health"],
     )
 
     # 3 — sweet vs savoury (sweet tooth + function)
@@ -3342,6 +3370,7 @@ def food_lesson6_examples_html() -> str:
         "To be honest, I have a bit of a sweet tooth, but I still prefer savoury dishes to sweet desserts most days. This is because after a savoury meal my body functions more effectively throughout the day.",
         "/tuː bi ˈɒnɪst… swiːt tuːθ…/",
         t3,
+        notes=["have a sweet tooth", "function (v) — body / brain / nutrients"],
     )
 
     # 4 — family vs alone (have someone to)
@@ -3366,6 +3395,7 @@ def food_lesson6_examples_html() -> str:
         "I prefer eating with my family to eating alone because it's more interesting if you have someone to share the meal with. I also love the feeling of sitting around the table with my family and tasting freshly cooked dishes.",
         "/aɪ prɪˈfɜː ˈiːtɪŋ wɪð maɪ ˈfæməli…/",
         t4,
+        notes=["have someone to + V", "love the feeling of + V-ing"],
     )
 
     # 5 — tea vs coffee (feeling + function)
@@ -3384,6 +3414,7 @@ def food_lesson6_examples_html() -> str:
         "I prefer herbal tea to coffee because I love the feeling of sipping tea after a light homemade meal. With a light drink, my body functions more effectively throughout the day, while strong coffee sometimes makes me restless.",
         "/aɪ prɪˈfɜː ˈhɜːbl tiː…/",
         t5,
+        notes=["love the feeling of + V-ing", "function (v) — body / brain / nutrients"],
     )
 
     # 6 — healthy vs fast food (function + threat)
@@ -3403,6 +3434,11 @@ def food_lesson6_examples_html() -> str:
         "I prefer wholesome home-cooked meals to fast food because I function better at work after a wholesome lunch, whereas fast food can pose a threat to my health. Fast food may help me grab a bite quickly, but it can also shorten my life expectancy if I rely on it every day.",
         "/aɪ prɪˈfɜː ˈhəʊlsəm…/",
         t6,
+        notes=[
+            "function (v) — body / brain / nutrients",
+            "grab a bite",
+            "shorten one's / my life expectancy",
+        ],
     )
 
     # 7 — spicy vs mild
@@ -3418,6 +3454,7 @@ def food_lesson6_examples_html() -> str:
         "I prefer spicy food rather than bland meals because spicy food wakes up my taste buds, while mild dishes sometimes feel bland. Still, I try not to overdo chilli because too much spice can take a heavy toll on my stomach.",
         "/aɪ prɪˈfɜː ˈspaɪsi fuːd…/",
         t7,
+        notes=["try not to + V", "take a heavy toll on (my) health"],
     )
 
     # 8 — restaurant vs street food (it takes)
@@ -3436,6 +3473,7 @@ def food_lesson6_examples_html() -> str:
         "I prefer grabbing street food to sitting in a formal restaurant because it only takes a few minutes to grab a bite from a street stall, while a full restaurant meal is more time-consuming. I love the feeling of sharing a hot pot and chatting over food.",
         "/aɪ prɪˈfɜː ˈɡræbɪŋ striːt fuːd…/",
         t8,
+        notes=["It takes + time (+ for sb) + to V", "love the feeling of + V-ing"],
     )
 
     # 9 — meal prep vs fresh daily (It takes + while)
@@ -3451,6 +3489,7 @@ def food_lesson6_examples_html() -> str:
         "I prefer preparing meals in advance to cooking everything fresh every evening because it can take several hours to prepare a traditional feast on Sunday, while weekday cooking can be exhausting. Then I only need a few minutes to reheat and eat.",
         "/aɪ prɪˈfɜː prɪˈpeərɪŋ miːlz…/",
         t9,
+        notes=["It takes + time (+ for sb) + to V", "while / whereas"],
     )
 
     # 10 — send photos (send sth to sb)
@@ -3483,6 +3522,7 @@ def food_lesson6_examples_html() -> str:
             "I prefer cooking with friends to cooking on my own because I "
             "{prefer_have_someone}, and we can {prefer_send} afterwards."
         ),
+        notes=["send sth to sb", "have someone to + V"],
     )
 
     cards = []
@@ -3505,12 +3545,13 @@ def food_lesson6_examples_html() -> str:
 {_pair_answer_html(kind="sample", en_html=it["html"], vi=it["vi"], plain=it["plain"], ipa=it["ipa"], q=it["q"], ex_en=it["ex"])}
 {alts}
             </div>
+{_ex_chip_notes_html(it.get("notes"))}
           </article>"""
         )
     return f"""
         <div class="lr-food-examples" id="food-examples-l6">
           <h3 class="lr-core-subtitle">Ví dụ Food · Do you prefer X or Y?</h3>
-          <p class="lr-mm-hint">10 câu Part 1 (Food). Công thức: <strong>prefer X to Y / rather than</strong> → ưu điểm X · <code>while/whereas</code> · cấu trúc slide (<code>It takes</code> · <code>love the feeling of</code> · <code>have someone to</code> · <code>send sth to sb</code> · <code>function</code>). Scroll read Lesson 6.</p>
+          <p class="lr-mm-hint">10 câu Part 1 (Food). Chip dưới mỗi card = cấu trúc slide dùng trong câu đó.</p>
 {chr(10).join(cards)}
         </div>"""
 
@@ -3548,6 +3589,7 @@ def food_lesson_examples_html() -> str:
         "no_plain": "No, I don't enjoy cooking. I hardly ever cook because it makes me exhausted after a long day at work.",
         "no_ipa": "/nəʊ aɪ dəʊnt ɪnˈdʒɔɪ ˈkʊkɪŋ · aɪ ˈhɑːdli ˈevə kʊk…/",
         "no_ex": cook_no_tpl,
+        "notes": ["I hardly ever + V", "prefer … rather than …"],
     })
 
     # ── fast food ──
@@ -3578,6 +3620,7 @@ def food_lesson_examples_html() -> str:
         "no_plain": "No, definitely not because it's not good for my health. Consuming too much fast food and greasy cheesecake can lead to various health problems, such as diabetes, heart attack, high blood pressure or even cancer.",
         "no_ipa": "/nəʊ ˈdefɪnətli nɒt…/",
         "no_ex": ff_no_tpl,
+        "notes": ["can lead to …", "because / because of"],
     })
 
     # ── vegetables ──
@@ -3737,6 +3780,11 @@ def food_lesson_examples_html() -> str:
         "no_plain": "No, I'm not keen on spicy dishes. I hardly ever eat spicy dishes because they pose a threat to my health. I prefer to have mild dishes rather than spicy food.",
         "no_ipa": "/nəʊ aɪm nɒt kiːn ɒn ˈspaɪsi ˈdɪʃɪz…/",
         "no_ex": spicy_no_tpl,
+        "notes": [
+            "I hardly ever + V",
+            "pose a threat to (my) health",
+            "prefer to V rather than V",
+        ],
     })
 
     # ── eating out (Favourite · prefer … rather than …) ──
@@ -3766,6 +3814,7 @@ def food_lesson_examples_html() -> str:
         "no_plain": "No, not really. I hardly ever eat out because it's expensive and not always good for my health. I prefer to cook at home rather than eat out.",
         "no_ipa": "/nəʊ nɒt ˈrɪəli · aɪ ˈhɑːdli ˈevə iːt aʊt…/",
         "no_ex": eat_out_no_tpl,
+        "notes": ["I hardly ever + V", "prefer … rather than …"],
     })
 
     cards = []
@@ -3777,12 +3826,13 @@ def food_lesson_examples_html() -> str:
 {_pair_answer_html(kind="yes", en_html=it["yes_html"], vi=it["yes_vi"], plain=it["yes_plain"], ipa=it["yes_ipa"], q=it["q"], ex_en=it.get("yes_ex", ""))}
 {_pair_answer_html(kind="no", en_html=it["no_html"], vi=it["no_vi"], plain=it["no_plain"], ipa=it["no_ipa"], q=it["q"], ex_en=it.get("no_ex", ""))}
             </div>
+{_ex_chip_notes_html(it.get("notes"))}
           </article>"""
         )
     return f"""
         <div class="lr-food-examples" id="food-examples">
           <h3 class="lr-core-subtitle">Ví dụ Food · Thích / Không thích</h3>
-          <p class="lr-mm-hint">Mỗi câu hỏi luôn có <strong>2 hướng</strong> + dropdown ngữ cảnh. Có nhóm <strong>Favourite</strong>: <code>hardly ever</code> · <code>prefer … rather than …</code> (cooking at home · spicy · eating out). Hover cả đoạn EN → 1 tooltip VI. Có trong Scroll read Lesson 3.</p>
+          <p class="lr-mm-hint">Mỗi câu hỏi có <strong>Thích / Không thích</strong> + dropdown. Chip dưới card = cấu trúc đặc biệt trong câu (vd. <code>hardly ever</code>).</p>
 {chr(10).join(cards)}
         </div>"""
 
@@ -3887,7 +3937,7 @@ def _g_alts(*options: str) -> str:
 
 
 def lesson_grammar_notes_html(title: str, skeleton_lines: list[str]) -> str:
-    """Grammar notes after mind map — full-answer skeleton, no toggle."""
+    """Grammar notes after mind map — general patterns only."""
     body = "\n".join(f'            <p class="lr-g-skel-line">{line}</p>' for line in skeleton_lines)
     return f"""
           <div class="lr-grammar-notes">
@@ -3950,16 +4000,11 @@ def lesson_highlights_html(
         [
             f'{_g_alts("Yes, definitely", "Yes, absolutely")}. '
             f'{_g_mark("I like / love / enjoy")} + V-ing · '
-            f'{_g_mark("I\'m keen on / interested in")} … · '
-            f'{_g_mark("I\'m a big fan of")} …',
+            f'{_g_mark("I\'m keen on")} … · {_g_mark("I\'m a big fan of")} …',
             f'{_g_mark("because")} / {_g_mark("This is because")} + S + V · '
-            f'{_g_mark("because of")} + NP. '
-            f'{_g_mark("It helps me")} + V / {_g_mark("It gives me the chance to")} + V.',
+            f'{_g_mark("because of")} + NP.',
             f'{_g_alts("No, definitely not", "No, not really")}. '
-            f'{_g_mark("I don\'t enjoy")} + V-ing · {_g_mark("I\'m not keen on")} … · '
-            f'{_g_mark("I hardly ever")} + V {_g_mark("because")} …',
-            f'{_g_mark("I prefer to V rather than V")} · '
-            f'{_g_mark("I prefer V-ing to V-ing")}.',
+            f'{_g_mark("I don\'t enjoy")} + V-ing · {_g_mark("I\'m not keen on")} …',
         ],
     )
     g5 = lesson_grammar_notes_html(
@@ -3968,8 +4013,6 @@ def lesson_highlights_html(
             f'Well, I love all kinds of + sth, but if I had to choose one, it '
             f'{_g_alts("would have to be", "would go for", "I would opt for")} …',
             f'{_g_mark("This is because")} + S + V · {_g_mark("because of")} + NP.',
-            f'Câu phụ: {_g_mark("I try not to")} + V · {_g_mark("I try to")} + V · '
-            f'{_g_mark("I try")} + V-ing …',
         ],
     )
     g6 = lesson_grammar_notes_html(
@@ -3978,10 +4021,6 @@ def lesson_highlights_html(
             f'{_g_alts("I prefer X", "I prefer X to Y", "I prefer X rather than Y")} '
             f'{_g_mark("because")} + ưu điểm của X.',
             f'{_g_mark("while")} / {_g_mark("whereas")} + nhược điểm của Y.',
-            f'{_g_mark("It takes")} + time (+ for sb) + to V. '
-            f'{_g_mark("I love the feeling of")} + V-ing.',
-            f'{_g_mark("have someone to")} + V · {_g_mark("send sth to sb")} · '
-            f'{_g_mark("function")} (v) — body / brain / nutrients.',
         ],
     )
 
@@ -5664,7 +5703,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr36">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr37">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -5757,7 +5796,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr36">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr37">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>

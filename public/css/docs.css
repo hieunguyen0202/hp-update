@@ -5172,6 +5172,33 @@ mark.lr-hl,
   white-space: nowrap;
 }
 
+/* Per-example structure chips (under Food cards) */
+.lr-ex-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+}
+
+.lr-ex-chips li {
+  margin: 0;
+  padding: 0;
+}
+
+.lr-ex-chips mark {
+  display: inline-block;
+  background: rgba(34, 211, 238, 0.14);
+  color: #a5f3fc !important;
+  padding: 0.2em 0.5em;
+  border-radius: 5px;
+  border: 1px solid rgba(34, 211, 238, 0.32);
+  font-weight: 650;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
 .lr-formula-note mark {
   background: rgba(34, 211, 238, 0.18);
   color: #a5f3fc !important;
