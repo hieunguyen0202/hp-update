@@ -1115,6 +1115,144 @@ WORD_SLOTS: dict[str, list[dict]] = {
             "vi": "Nhưng nếu họ ăn đồ nhanh chủ yếu để ăn vặt cả ngày, thì không thật sự phù hợp",
         },
     ],
+    # Lesson 12 · Is it easy/difficult to do X?
+    "easy_open": [
+        {"form": "Yes, it's very easy to", "vi": "Vâng, rất dễ để"},
+        {"form": "It's quite easy to", "vi": "Khá dễ để"},
+        {"form": "It's really simple to", "vi": "Thật sự đơn giản để"},
+        {"form": "It's not really difficult to", "vi": "Không thật sự khó để"},
+        {"form": "It's not really hard to", "vi": "Không thật sự khó để"},
+    ],
+    "hard_open": [
+        {"form": "No, it's very difficult", "vi": "Không, rất khó"},
+        {"form": "It's quite difficult to", "vi": "Khá khó để"},
+        {"form": "It's really hard to", "vi": "Thật sự khó để"},
+        {"form": "It's quite challenging to", "vi": "Khá thách thức để"},
+        {"form": "It's not really easy to", "vi": "Không thật sự dễ để"},
+        {"form": "It's not really simple to", "vi": "Không thật sự đơn giản để"},
+    ],
+    "hardest_part": [
+        {
+            "form": "I think the hardest part is to keep a balanced diet when junk food is everywhere",
+            "vi": "Tôi nghĩ phần khó nhất là giữ chế độ ăn cân bằng khi junk food ở khắp nơi",
+        },
+        {
+            "form": "I think the hardest part is to cook from scratch after a long day at work",
+            "vi": "Tôi nghĩ phần khó nhất là nấu từ đầu sau một ngày dài làm việc",
+        },
+        {
+            "form": "I think the hardest part is to control the heat when cooking spicy local dishes",
+            "vi": "Tôi nghĩ phần khó nhất là kiểm soát độ cay khi nấu món địa phương cay",
+        },
+        {
+            "form": "I think the hardest part is to find fresh ingredients late at night",
+            "vi": "Tôi nghĩ phần khó nhất là tìm nguyên liệu tươi muộn về đêm",
+        },
+    ],
+    "then_open": [
+        {
+            "form": "I think it's always quite difficult at the beginning when you try something new",
+            "vi": "Tôi nghĩ lúc đầu luôn khá khó khi bạn thử cái gì mới",
+        },
+        {
+            "form": "Learning to cook is not an exception",
+            "vi": "Học nấu ăn cũng không phải ngoại lệ",
+        },
+        {
+            "form": "Sticking to a balanced diet is not an exception",
+            "vi": "Giữ chế độ ăn cân bằng cũng không phải ngoại lệ",
+        },
+        {
+            "form": "Cooking traditional dishes is not an exception",
+            "vi": "Nấu món truyền thống cũng không phải ngoại lệ",
+        },
+    ],
+    "then_progress": [
+        {
+            "form": "At first, you might burn the food or add too much salt, but after a while, things begin to get a bit easier",
+            "vi": "Lúc đầu bạn có thể cháy đồ hoặc thêm quá nhiều muối, nhưng sau một thời gian mọi thứ dễ hơn một chút",
+        },
+        {
+            "form": "At first, cooking from scratch can feel slow, but after a while, things begin to get a bit easier",
+            "vi": "Lúc đầu nấu từ đầu có thể thấy chậm, nhưng sau một thời gian mọi thứ dễ hơn một chút",
+        },
+        {
+            "form": "At first, a balanced diet feels strict, but after a while, things begin to get a bit easier",
+            "vi": "Lúc đầu chế độ cân bằng thấy gắt, nhưng sau một thời gian mọi thứ dễ hơn một chút",
+        },
+    ],
+    "easy_reason": [
+        {
+            "form": "you can grab a quick bite or find mouth-watering local dishes almost everywhere",
+            "vi": "bạn có thể ăn vội hoặc tìm món địa phương cực ngon gần như ở mọi nơi",
+        },
+        {
+            "form": "there are morning markets nearby, so fresh ingredients are easy to find",
+            "vi": "có chợ sáng gần đó nên nguyên liệu tươi dễ tìm",
+        },
+        {
+            "form": "a light meal or home-cooked food is simple to prepare if you keep recipes short",
+            "vi": "bữa nhẹ hoặc đồ nấu nhà dễ làm nếu giữ công thức ngắn",
+        },
+        {
+            "form": "street food stalls and cafes make it simple to dine out without much planning",
+            "vi": "quán đường phố và quán cà phê giúp ăn ngoài đơn giản mà không cần lên kế hoạch nhiều",
+        },
+    ],
+    "hard_reason": [
+        {
+            "form": "especially for busy people who often choose ready meals or greasy take-away",
+            "vi": "đặc biệt với người bận thường chọn đồ sẵn hoặc đồ mang về nhiều dầu",
+        },
+        {
+            "form": "because junk food is cheap and convenient, while a balanced diet needs more time",
+            "vi": "vì junk food rẻ và tiện, trong khi chế độ cân bằng cần nhiều thời gian hơn",
+        },
+        {
+            "form": "because traditional dishes need patience and fresh ingredients",
+            "vi": "vì món truyền thống cần kiên nhẫn và nguyên liệu tươi",
+        },
+        {
+            "form": "especially for beginners who have never cooked from scratch",
+            "vi": "đặc biệt với người mới chưa từng nấu từ đầu",
+        },
+    ],
+    "take_time": [
+        {
+            "form": "which took me nearly two weeks to learn",
+            "vi": "việc mà tôi mất gần hai tuần để học",
+        },
+        {
+            "form": "It took me about an hour to prepare a hearty breakfast from scratch",
+            "vi": "Tôi mất khoảng một giờ để chuẩn bị bữa sáng no đủ từ đầu",
+        },
+        {
+            "form": "It takes time for busy people to stick to a balanced diet",
+            "vi": "Người bận cần thời gian để giữ chế độ ăn cân bằng",
+        },
+        {
+            "form": "It took us three hours to cook a slap-up meal for the family",
+            "vi": "Chúng tôi mất ba giờ để nấu một bữa đã đời cho gia đình",
+        },
+    ],
+    "take_as_example": [
+        {
+            "form": "Take cooking pho at home, as an example",
+            "vi": "Lấy việc nấu phở ở nhà làm ví dụ",
+        },
+        {
+            "form": "Take cooking from scratch, as an example",
+            "vi": "Lấy việc nấu từ đầu làm ví dụ",
+        },
+        {
+            "form": "Take sticking to a balanced diet, as an example",
+            "vi": "Lấy việc giữ chế độ ăn cân bằng làm ví dụ",
+        },
+        {
+            "form": "Take learning to cook spicy local dishes, as an example",
+            "vi": "Lấy việc học nấu món địa phương cay làm ví dụ",
+        },
+    ],
 }
 
 # ── Mind map helpers (shared: Section 2 tenses + Lesson 2/3) ───────────────
@@ -3317,6 +3455,138 @@ LESSON11_MINDMAP_RIGHT = [
 ]
 
 
+# Lesson 12 · Is it easy/difficult to do X? — trái = Dễ, phải = Khó + Ban đầu khó
+LESSON12_MINDMAP_LEFT = [
+    {
+        "id": "easy-yes",
+        "color": "#86efac",
+        "name": "Dễ + lý do",
+        "name_vi": "easy / simple · not really difficult",
+        "flow": True,
+        "opener": "It's very/quite/really easy/simple to… · It's not really difficult…",
+        "branches": [
+            {
+                "label": "Nhánh 1 · Mở (chọn 1)",
+                "leaves": [
+                    tip(
+                        "It's very / quite / really easy / simple to…",
+                        "Rất / khá / thật sự dễ / đơn giản để…",
+                    ),
+                    tip(
+                        "It's not really difficult / hard / challenging to…",
+                        "Không thật sự khó / thách thức để…",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Kéo dài (slide → Food)",
+                "leaves": [
+                    tip(
+                        "You can + V / There are… nearby",
+                        "grab a quick bite · morning markets · street food stalls",
+                    ),
+                    tip(
+                        "However, …",
+                        "đối chiếu nhẹ — traffic of choices / rush hour hunger",
+                    ),
+                    tip(
+                        "fresh ingredients · light meal · home-cooked",
+                        "lexical Food tái dùng",
+                    ),
+                ],
+            },
+        ],
+        "link": "→ <strong>Dễ</strong> + lý do + 1 collocation Food (+ However nếu cần)",
+    },
+]
+
+LESSON12_MINDMAP_RIGHT = [
+    {
+        "id": "easy-hard",
+        "color": "#fca5a5",
+        "name": "Khó + lý do",
+        "name_vi": "difficult / hard / challenging · hardest part",
+        "flow": True,
+        "opener": "It's quite/very/really difficult… · the hardest part is…",
+        "branches": [
+            {
+                "label": "Nhánh 1 · Mở (chọn 1)",
+                "leaves": [
+                    tip(
+                        "It's quite / very / really difficult / hard / challenging…",
+                        "Khá / rất / thật sự khó / thách thức…",
+                    ),
+                    tip(
+                        "It's not really easy / simple to…",
+                        "Không thật sự dễ / đơn giản để…",
+                    ),
+                    tip(
+                        "I think the hardest part is…",
+                        "Phần khó nhất là… (ghi tay trên slide)",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Thời gian (slide)",
+                "leaves": [
+                    tip(
+                        "take + sb + time + to V",
+                        "It took me nearly two weeks to learn…",
+                    ),
+                    tip(
+                        "take + time + for sb/sth + to V",
+                        "It takes time for busy people to…",
+                    ),
+                    tip(
+                        "especially for…",
+                        "đặc biệt với beginners / busy people",
+                    ),
+                ],
+            },
+        ],
+        "link": "→ <strong>Khó</strong> + especially / hardest part + take + time",
+    },
+    {
+        "id": "easy-then",
+        "color": "#fcd34d",
+        "name": "Ban đầu khó → dễ hơn",
+        "name_vi": "at first · after a while · not an exception",
+        "flow": True,
+        "opener": "At first… but after a while, things begin to get a bit easier.",
+        "branches": [
+            {
+                "label": "Nhánh 1 · Khung slide",
+                "leaves": [
+                    tip(
+                        "It's always quite difficult at the beginning when you try something new",
+                        "Lúc đầu luôn khá khó khi thử cái mới",
+                    ),
+                    tip(
+                        "… is not an exception",
+                        "… cũng không phải ngoại lệ",
+                    ),
+                    tip(
+                        "Take … as an example",
+                        "Lấy … làm ví dụ (Take cooking pho…)",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Tiến trình",
+                "leaves": [
+                    tip("At first, …", "Lúc đầu, …"),
+                    tip(
+                        "But after a while, things begin to get a bit easier",
+                        "Nhưng sau một thời gian mọi thứ dễ hơn một chút",
+                    ),
+                ],
+            },
+        ],
+        "link": "→ khung mở + not an exception + Take… + At first / after a while",
+    },
+]
+
+
 def collect_review_words() -> list[dict]:
     topic = next(t for t in TOPICS["topics"] if t["slug"] == "food-drink")
     by_level: dict[str, list[dict]] = {}
@@ -4186,6 +4456,9 @@ def _pair_answer_html(
         "pop_no": ("Không", "lr-mm-tag-no"),
         "clear": ("Nhớ rõ", "lr-mm-tag-yes"),
         "guess": ("Đoán", "lr-mm-tag-no"),
+        "easy": ("Dễ", "lr-mm-tag-yes"),
+        "hard": ("Khó", "lr-mm-tag-no"),
+        "then": ("Ban đầu khó → dễ", "lr-mm-tag-yes"),
     }
     tag, tag_cls = tags.get(kind, ("Mẫu", "lr-mm-tag-yes"))
     chain = " lr-practice-chain lr-chain" if ex_en else ""
@@ -4320,6 +4593,20 @@ def _ex_chip_notes_html(chips: list | None) -> str:
         "mainly for": "Chủ yếu cho / để …",
         "adj + enough + to V": "Đủ … để làm gì",
         "appropriate ≈ suitable": "appropriate = phù hợp / thích hợp",
+        # Lesson 12
+        "It's very/quite/really easy/simple to…": "Rất / khá / thật sự dễ / đơn giản để…",
+        "It's not really difficult/hard/challenging to…": "Không thật sự khó / thách thức để…",
+        "It's quite/very/really difficult/hard/challenging…": "Khá / rất / thật sự khó / thách thức…",
+        "It's not really easy/simple to…": "Không thật sự dễ / đơn giản để…",
+        "I think the hardest part is…": "Tôi nghĩ phần khó nhất là…",
+        "take + sb + time + to V": "Mất (ai đó) bao lâu để làm gì — It took me… to…",
+        "take + time + for sb/sth + to V": "Mất bao lâu (cho ai/cái gì) để…",
+        "Take … as an example": "Lấy … làm ví dụ",
+        "… is not an exception": "… cũng không phải ngoại lệ",
+        "At first… / after a while…": "Lúc đầu… / sau một thời gian…",
+        "But after a while, things begin to get a bit easier": "Sau một thời gian mọi thứ dễ hơn một chút",
+        "However, …": "Tuy nhiên, … (đối chiếu nhẹ)",
+        "especially for…": "Đặc biệt với…",
     }
 
     def resolve_vi(en: str) -> str:
@@ -7059,6 +7346,500 @@ def food_lesson11_examples_html() -> str:
 
 
 
+
+def food_lesson12_examples_html() -> str:
+    """Lesson 12 · Is it easy/difficult to do X? — Cambridge-style Food Qs."""
+    items: list[dict] = []
+
+    def add(
+        q: str,
+        *,
+        kind: str,
+        en_html: str,
+        vi: str,
+        plain: str,
+        ipa: str,
+        ex: str,
+        ex_vi: str = "",
+        source: str = "",
+        alt_kind: str = "alt",
+        alt_html: str = "",
+        alt_vi: str = "",
+        alt_plain: str = "",
+        alt_ipa: str = "",
+        alt_ex: str = "",
+        alt_ex_vi: str = "",
+        notes: list[str] | None = None,
+    ) -> None:
+        items.append(
+            {
+                "q": q,
+                "kind": kind,
+                "html": en_html,
+                "vi": vi,
+                "plain": plain,
+                "ipa": ipa,
+                "ex": ex,
+                "ex_vi": ex_vi,
+                "source": source,
+                "alt_kind": alt_kind,
+                "alt_html": alt_html,
+                "alt_vi": alt_vi,
+                "alt_plain": alt_plain,
+                "alt_ipa": alt_ipa,
+                "alt_ex": alt_ex,
+                "alt_ex_vi": alt_ex_vi,
+                "notes": notes or [],
+            }
+        )
+
+    # 1 — restaurants nearby · EASY (Cambridge: Restaurants / find places to eat)
+    t1 = (
+        "{easy_open} find good restaurants where I live. "
+        "{easy_reason}. However, some places get crowded during rush hour."
+    )
+    v1 = (
+        "{easy_open} tìm nhà hàng ngon nơi tôi sống. "
+        "{easy_reason}. Tuy nhiên, một số chỗ đông vào giờ cao điểm."
+    )
+    add(
+        "Is it easy to find good restaurants where you live?",
+        kind="easy",
+        en_html=t1.format(
+            easy_open=phrase_pick("easy_open", 0),
+            easy_reason=phrase_pick("easy_reason", 0),
+        ),
+        vi=fill_vi_tpl(
+            v1,
+            easy_open=slot_vi("easy_open", 0),
+            easy_reason=slot_vi("easy_reason", 0),
+        ),
+        plain=(
+            "Yes, it's very easy to find good restaurants where I live. "
+            "You can grab a quick bite or find mouth-watering local dishes almost everywhere. "
+            "However, some places get crowded during rush hour."
+        ),
+        ipa="",
+        ex=t1,
+        ex_vi=v1,
+        source="Cambridge-style · Restaurants / eating out (Part 1)",
+        notes=[
+            "It's very/quite/really easy/simple to…",
+            "However, …",
+            "grab a quick bite",
+            "mouth-watering",
+        ],
+    )
+
+    # 2 — fresh ingredients · EASY
+    t2 = (
+        "{easy_open} buy fresh ingredients near my home because {easy_reason}."
+    )
+    v2 = (
+        "{easy_open} mua nguyên liệu tươi gần nhà vì {easy_reason}."
+    )
+    add(
+        "Is it easy to buy fresh food where you live?",
+        kind="easy",
+        en_html=t2.format(
+            easy_open=phrase_pick("easy_open", 3),
+            easy_reason=phrase_pick("easy_reason", 1),
+        ),
+        vi=fill_vi_tpl(
+            v2,
+            easy_open=slot_vi("easy_open", 3),
+            easy_reason=slot_vi("easy_reason", 1),
+        ),
+        plain=(
+            "It's not really difficult to buy fresh ingredients near my home because "
+            "there are morning markets nearby, so fresh ingredients are easy to find."
+        ),
+        ipa="",
+        ex=t2,
+        ex_vi=v2,
+        source="Cambridge-style · Food shopping / fresh food (Part 1)",
+        notes=[
+            "It's not really difficult/hard/challenging to…",
+            "fresh ingredients",
+        ],
+    )
+
+    # 3 — cook at home after work · HARD
+    t3 = (
+        "{hard_open} cook a home-cooked meal after work, {hard_reason}. "
+        "{hardest_part}, {take_time}."
+    )
+    v3 = (
+        "{hard_open} nấu bữa nấu nhà sau giờ làm, {hard_reason}. "
+        "{hardest_part}, {take_time}."
+    )
+    add(
+        "Is it easy to cook at home after a long day at work?",
+        kind="hard",
+        en_html=t3.format(
+            hard_open=phrase_pick("hard_open", 4),
+            hard_reason=phrase_pick("hard_reason", 0),
+            hardest_part=phrase_pick("hardest_part", 1),
+            take_time=phrase_pick("take_time", 0),
+        ),
+        vi=fill_vi_tpl(
+            v3,
+            hard_open=slot_vi("hard_open", 4),
+            hard_reason=slot_vi("hard_reason", 0),
+            hardest_part=slot_vi("hardest_part", 1),
+            take_time=slot_vi("take_time", 0),
+        ),
+        plain=(
+            "It's not really easy to cook a home-cooked meal after work, especially for busy people "
+            "who often choose ready meals or greasy take-away. I think the hardest part is to cook "
+            "from scratch after a long day at work, which took me nearly two weeks to learn."
+        ),
+        ipa="",
+        ex=t3,
+        ex_vi=v3,
+        source="Cambridge-style · Cooking (Part 1) → easy/difficult frame",
+        notes=[
+            "It's not really easy/simple to…",
+            "I think the hardest part is…",
+            "take + sb + time + to V",
+            "especially for…",
+            "from scratch",
+        ],
+    )
+
+    # 4 — traditional dishes · HARD
+    t4 = (
+        "{hard_open} cook traditional dishes from my country {hard_reason}. "
+        "{hardest_part}."
+    )
+    v4 = (
+        "{hard_open} nấu món truyền thống của nước tôi {hard_reason}. "
+        "{hardest_part}."
+    )
+    add(
+        "Is it difficult to cook traditional dishes from your country?",
+        kind="hard",
+        en_html=t4.format(
+            hard_open=phrase_pick("hard_open", 1),
+            hard_reason=phrase_pick("hard_reason", 2),
+            hardest_part=phrase_pick("hardest_part", 2),
+        ),
+        vi=fill_vi_tpl(
+            v4,
+            hard_open=slot_vi("hard_open", 1),
+            hard_reason=slot_vi("hard_reason", 2),
+            hardest_part=slot_vi("hardest_part", 2),
+        ),
+        plain=(
+            "It's quite difficult to cook traditional dishes from my country because traditional "
+            "dishes need patience and fresh ingredients. I think the hardest part is to control "
+            "the heat when cooking spicy local dishes."
+        ),
+        ipa="",
+        ex=t4,
+        ex_vi=v4,
+        source="Cambridge-style · Traditional / national food (Part 1–3)",
+        notes=[
+            "It's quite/very/really difficult/hard/challenging…",
+            "I think the hardest part is…",
+            "local dish",
+        ],
+    )
+
+    # 5 — eat healthily · HARD (Part 3)
+    t5 = (
+        "{hard_open} eat healthily these days {hard_reason}. {hardest_part}."
+    )
+    v5 = (
+        "{hard_open} ăn lành mạnh ngày nay {hard_reason}. {hardest_part}."
+    )
+    add(
+        "Is it easy to eat healthily these days?",
+        kind="hard",
+        en_html=t5.format(
+            hard_open=phrase_pick("hard_open", 5),
+            hard_reason=phrase_pick("hard_reason", 1),
+            hardest_part=phrase_pick("hardest_part", 0),
+        ),
+        vi=fill_vi_tpl(
+            v5,
+            hard_open=slot_vi("hard_open", 5),
+            hard_reason=slot_vi("hard_reason", 1),
+            hardest_part=slot_vi("hardest_part", 0),
+        ),
+        plain=(
+            "It's not really simple to eat healthily these days because junk food is cheap and "
+            "convenient, while a balanced diet needs more time. I think the hardest part is to "
+            "keep a balanced diet when junk food is everywhere."
+        ),
+        ipa="",
+        ex=t5,
+        ex_vi=v5,
+        source="Cambridge-style · Healthy diet / eating habits (Part 3)",
+        notes=[
+            "It's not really easy/simple to…",
+            "I think the hardest part is…",
+            "balanced diet",
+            "junk food",
+        ],
+    )
+
+    # 6 — learn to cook · THEN
+    t6 = (
+        "{then_open}. {then_open_b}. {take_as_example}. {then_progress}."
+    )
+    v6 = (
+        "{then_open}. {then_open_b}. {take_as_example}. {then_progress}."
+    )
+    add(
+        "Is it difficult to learn how to cook?",
+        kind="then",
+        en_html=t6.format(
+            then_open=phrase_pick("then_open", 0),
+            then_open_b=phrase_pick("then_open", 1),
+            take_as_example=phrase_pick("take_as_example", 1),
+            then_progress=phrase_pick("then_progress", 0),
+        ),
+        vi=fill_vi_tpl(
+            v6,
+            then_open=slot_vi("then_open", 0),
+            then_open_b=slot_vi("then_open", 1),
+            take_as_example=slot_vi("take_as_example", 1),
+            then_progress=slot_vi("then_progress", 0),
+        ),
+        plain=(
+            "I think it's always quite difficult at the beginning when you try something new. "
+            "Learning to cook is not an exception. Take cooking from scratch, as an example. "
+            "At first, you might burn the food or add too much salt, but after a while, things "
+            "begin to get a bit easier."
+        ),
+        ipa="",
+        ex=t6,
+        ex_vi=v6,
+        source="Cambridge-style · Cooking skills (Part 1) → progress frame",
+        notes=[
+            "… is not an exception",
+            "Take … as an example",
+            "At first… / after a while…",
+            "from scratch",
+        ],
+    )
+
+    # 7 — balanced diet · THEN
+    t7 = (
+        "{then_open}. {then_open_b}. {take_as_example}. {then_progress}."
+    )
+    v7 = (
+        "{then_open}. {then_open_b}. {take_as_example}. {then_progress}."
+    )
+    add(
+        "Is it hard to stick to a balanced diet?",
+        kind="then",
+        en_html=t7.format(
+            then_open=phrase_pick("then_open", 0),
+            then_open_b=phrase_pick("then_open", 2),
+            take_as_example=phrase_pick("take_as_example", 2),
+            then_progress=phrase_pick("then_progress", 2),
+        ),
+        vi=fill_vi_tpl(
+            v7,
+            then_open=slot_vi("then_open", 0),
+            then_open_b=slot_vi("then_open", 2),
+            take_as_example=slot_vi("take_as_example", 2),
+            then_progress=slot_vi("then_progress", 2),
+        ),
+        plain=(
+            "I think it's always quite difficult at the beginning when you try something new. "
+            "Sticking to a balanced diet is not an exception. Take sticking to a balanced diet, "
+            "as an example. At first, a balanced diet feels strict, but after a while, things "
+            "begin to get a bit easier."
+        ),
+        ipa="",
+        ex=t7,
+        ex_vi=v7,
+        source="Cambridge-style · Diet / healthy habits (Part 3)",
+        notes=[
+            "… is not an exception",
+            "Take … as an example",
+            "At first… / after a while…",
+            "stick to a balanced diet",
+        ],
+    )
+
+    # 8 — cook for many people · HARD
+    t8 = (
+        "{hard_open} cook for a large family, {hard_reason}. {take_time}."
+    )
+    v8 = (
+        "{hard_open} nấu cho cả nhà đông người, {hard_reason}. {take_time}."
+    )
+    add(
+        "Is it difficult to cook for a large number of people?",
+        kind="hard",
+        en_html=t8.format(
+            hard_open=phrase_pick("hard_open", 2),
+            hard_reason=phrase_pick("hard_reason", 3),
+            take_time=phrase_pick("take_time", 3),
+        ),
+        vi=fill_vi_tpl(
+            v8,
+            hard_open=slot_vi("hard_open", 2),
+            hard_reason=slot_vi("hard_reason", 3),
+            take_time=slot_vi("take_time", 3),
+        ),
+        plain=(
+            "It's really hard to cook for a large family, especially for beginners who have "
+            "never cooked from scratch. It took us three hours to cook a slap-up meal for the family."
+        ),
+        ipa="",
+        ex=t8,
+        ex_vi=v8,
+        source="Cambridge-style · Meals / cooking for others (Part 1–2)",
+        notes=[
+            "It's quite/very/really difficult/hard/challenging…",
+            "take + sb + time + to V",
+            "especially for…",
+            "comfort food / slap-up meal",
+        ],
+    )
+
+    # 9 — young people learn to cook · THEN
+    t9 = (
+        "{then_open}. {then_open_b}. {take_as_example}. {then_progress}."
+    )
+    v9 = (
+        "{then_open}. {then_open_b}. {take_as_example}. {then_progress}."
+    )
+    add(
+        "Is it difficult for young people to learn to cook?",
+        kind="then",
+        en_html=t9.format(
+            then_open=phrase_pick("then_open", 0),
+            then_open_b=phrase_pick("then_open", 1),
+            take_as_example=phrase_pick("take_as_example", 3),
+            then_progress=phrase_pick("then_progress", 1),
+        ),
+        vi=fill_vi_tpl(
+            v9,
+            then_open=slot_vi("then_open", 0),
+            then_open_b=slot_vi("then_open", 1),
+            take_as_example=slot_vi("take_as_example", 3),
+            then_progress=slot_vi("then_progress", 1),
+        ),
+        plain=(
+            "I think it's always quite difficult at the beginning when you try something new. "
+            "Learning to cook is not an exception. Take learning to cook spicy local dishes, "
+            "as an example. At first, cooking from scratch can feel slow, but after a while, "
+            "things begin to get a bit easier."
+        ),
+        ipa="",
+        ex=t9,
+        ex_vi=v9,
+        source="Cambridge-style · Young people + cooking (Part 3)",
+        notes=[
+            "… is not an exception",
+            "Take … as an example",
+            "At first… / after a while…",
+        ],
+    )
+
+    # 10 — healthy breakfast · EASY + alt HARD
+    t10 = (
+        "{easy_open} prepare a healthy breakfast because {easy_reason}. {take_time}."
+    )
+    v10 = (
+        "{easy_open} chuẩn bị bữa sáng lành mạnh vì {easy_reason}. {take_time}."
+    )
+    add(
+        "Is it easy to prepare a healthy breakfast?",
+        kind="easy",
+        en_html=t10.format(
+            easy_open=phrase_pick("easy_open", 1),
+            easy_reason=phrase_pick("easy_reason", 2),
+            take_time=phrase_pick("take_time", 1),
+        ),
+        vi=fill_vi_tpl(
+            v10,
+            easy_open=slot_vi("easy_open", 1),
+            easy_reason=slot_vi("easy_reason", 2),
+            take_time=slot_vi("take_time", 1),
+        ),
+        plain=(
+            "It's quite easy to prepare a healthy breakfast because a light meal or home-cooked "
+            "food is simple to prepare if you keep recipes short. It took me about an hour to "
+            "prepare a hearty breakfast from scratch."
+        ),
+        ipa="",
+        ex=t10,
+        ex_vi=v10,
+        source="Cambridge-style · Breakfast / meals (Part 1)",
+        notes=[
+            "It's very/quite/really easy/simple to…",
+            "take + sb + time + to V",
+            "hearty breakfast",
+            "from scratch",
+        ],
+        alt_kind="hard",
+        alt_html=(
+            "{hard_open} prepare a hearty breakfast every morning {hard_reason}. {hardest_part}."
+        ).format(
+            hard_open=phrase_pick("hard_open", 1),
+            hard_reason=phrase_pick("hard_reason", 0),
+            hardest_part=phrase_pick("hardest_part", 3),
+        ),
+        alt_vi=fill_vi_tpl(
+            "{hard_open} chuẩn bị bữa sáng no đủ mỗi sáng {hard_reason}. {hardest_part}.",
+            hard_open=slot_vi("hard_open", 1),
+            hard_reason=slot_vi("hard_reason", 0),
+            hardest_part=slot_vi("hardest_part", 3),
+        ),
+        alt_plain=(
+            "It's quite difficult to prepare a hearty breakfast every morning especially for busy "
+            "people who often choose ready meals or greasy take-away. I think the hardest part is "
+            "to find fresh ingredients late at night."
+        ),
+        alt_ipa="",
+        alt_ex="{hard_open} prepare a hearty breakfast every morning {hard_reason}. {hardest_part}.",
+        alt_ex_vi="{hard_open} chuẩn bị bữa sáng no đủ mỗi sáng {hard_reason}. {hardest_part}.",
+    )
+
+    cards = []
+    for it in items:
+        alts = ""
+        if it.get("alt_html"):
+            alts = _pair_answer_html(
+                kind=it.get("alt_kind") or "alt",
+                en_html=it["alt_html"],
+                vi=it["alt_vi"],
+                plain=it["alt_plain"],
+                ipa=it["alt_ipa"],
+                q=it["q"],
+                ex_en=it.get("alt_ex", ""),
+                ex_vi=it.get("alt_ex_vi", ""),
+            )
+        src = (
+            f'\n            <p class="lr-food-ex-source">{esc(it["source"])}</p>'
+            if it.get("source")
+            else ""
+        )
+        cards.append(
+            f"""          <article class="lr-food-ex-card">
+{_ex_card_q_html(it["q"])}{src}
+            <div class="lr-food-ex-pair lr-food-ex-pair--easyhard">
+{_pair_answer_html(kind=it["kind"], en_html=it["html"], vi=it["vi"], plain=it["plain"], ipa=it["ipa"], q=it["q"], ex_en=it["ex"], ex_vi=it.get("ex_vi", ""))}
+{alts}
+            </div>
+{_ex_chip_notes_html(it.get("notes"))}
+          </article>"""
+        )
+    return f"""
+        <div class="lr-food-examples" id="food-examples-l12">
+          <h3 class="lr-core-subtitle">Ví dụ Food · Is it easy/difficult to do X?</h3>
+          <p class="lr-mm-hint">~10 câu <strong>lọc theo pattern Cambridge</strong> (Food · Cooking · Restaurants · Diet Part 1/3) rồi khung lại thành <strong>easy / difficult</strong>. Nhánh <strong>Dễ</strong> / <strong>Khó</strong> / <strong>Ban đầu khó → dễ</strong> + slide (<strong>hardest part</strong> · <strong>take + time</strong> · <strong>Take … as an example</strong> · <strong>At first / after a while</strong>). Lexical Food tái dùng.</p>
+{chr(10).join(cards)}
+        </div>"""
+
+
 def food_lesson_examples_html() -> str:
     """Unified Food cards: every Q has Thích + Không thích; both sides have contextual dropdowns."""
     items = []
@@ -7508,7 +8289,7 @@ def lesson_highlights_html(
     include_food_examples: bool = False,
     open_practice: bool = False,
 ) -> str:
-    """Lesson 2 + 3 + 5–11 mind maps and practice (Lesson 4 skipped).
+    """Lesson 2 + 3 + 5–12 mind maps and practice (Lesson 4 skipped).
 
     map_suffix: unique id suffix when the same maps appear on Review Exercise 2.
     include_food_examples: annotated Food cards (Review Exercise 2).
@@ -7523,6 +8304,7 @@ def lesson_highlights_html(
     m9 = f"lesson9Mindmap{map_suffix}"
     m10 = f"lesson10Mindmap{map_suffix}"
     m11 = f"lesson11Mindmap{map_suffix}"
+    m12 = f"lesson12Mindmap{map_suffix}"
     open_attr = " open" if open_practice else ""
     examples_block = food_lesson_examples_html() if include_food_examples else ""
     examples_l5 = food_lesson5_examples_html() if include_food_examples else ""
@@ -7532,6 +8314,7 @@ def lesson_highlights_html(
     examples_l9 = food_lesson9_examples_html() if include_food_examples else ""
     examples_l10 = food_lesson10_examples_html() if include_food_examples else ""
     examples_l11 = food_lesson11_examples_html() if include_food_examples else ""
+    examples_l12 = food_lesson12_examples_html() if include_food_examples else ""
     lesson3_scroll = ""
     lesson5_scroll = ""
     lesson6_scroll = ""
@@ -7540,6 +8323,7 @@ def lesson_highlights_html(
     lesson9_scroll = ""
     lesson10_scroll = ""
     lesson11_scroll = ""
+    lesson12_scroll = ""
     if include_food_examples:
         lesson3_scroll = lesson_scroll_read_html(
             "lesson3", title="Lesson 3", source_sel="#lesson3-scroll-source"
@@ -7564,6 +8348,9 @@ def lesson_highlights_html(
         )
         lesson11_scroll = lesson_scroll_read_html(
             "lesson11", title="Lesson 11", source_sel="#lesson11-scroll-source"
+        )
+        lesson12_scroll = lesson_scroll_read_html(
+            "lesson12", title="Lesson 12", source_sel="#lesson12-scroll-source"
         )
 
     g2 = lesson_grammar_notes_html(
@@ -7924,6 +8711,57 @@ def lesson_highlights_html(
             "street food · comfort food · cook from scratch",
         ],
     )
+    g12 = lesson_grammar_tree_html(
+        "Lesson 12",
+        "Is it easy/difficult to do X?",
+        [
+            {
+                "label_html": f'{_g_mark("Dễ")} + lý do / chi tiết',
+                "openers": [
+                    "It's very/quite/really easy/simple to…",
+                    "It's not really difficult/hard/challenging to…",
+                ],
+                "details_label": "Kéo dài",
+                "details": [
+                    "You can + V / There are… nearby",
+                    "However, … (đối chiếu nhẹ)",
+                    "grab a quick bite · fresh ingredients · home-cooked",
+                ],
+            },
+            {
+                "label_html": f'{_g_mark("Khó")} + lý do / chi tiết',
+                "openers": [
+                    "It's quite/very/really difficult/hard/challenging…",
+                    "It's not really easy/simple to…",
+                    "I think the hardest part is…",
+                ],
+                "details_label": "Thời gian + nhấn mạnh",
+                "details": [
+                    "take + sb + time + to V",
+                    "take + time + for sb/sth + to V",
+                    "especially for…",
+                ],
+            },
+            {
+                "label_html": f'{_g_mark("Ban đầu khó")} → dễ hơn',
+                "openers": [
+                    "It's always quite difficult at the beginning…",
+                    "… is not an exception",
+                    "Take … as an example",
+                ],
+                "details_label": "Tiến trình",
+                "details": [
+                    "At first, …",
+                    "But after a while, things begin to get a bit easier",
+                ],
+            },
+        ],
+        footer=[
+            "easy ≈ simple · difficult ≈ hard / challenging",
+            "balanced diet · junk food · from scratch",
+            "hearty breakfast · slap-up meal · local dish",
+        ],
+    )
 
     return f"""
       <div class="lr-core-lessons">
@@ -8138,6 +8976,30 @@ def lesson_highlights_html(
           </div>
 
 {lesson11_scroll}
+        </article>
+
+        <article class="lr-core-lesson" id="lesson12-formulas">
+          <header class="lr-core-lesson-head">
+            <h3>Lesson 12 · Is it easy/difficult to do X?</h3>
+          </header>
+
+{mind_map_html(
+            m12,
+            "Lesson 12 · Is it easy/difficult to do X?",
+            "Easy / Difficult?",
+            "Dễ / Khó ↔ Ban đầu khó",
+            LESSON12_MINDMAP_LEFT,
+            LESSON12_MINDMAP_RIGHT,
+            note="Trái = <strong>Dễ</strong> · Phải = <strong>Khó</strong> + <strong>Ban đầu khó → dễ hơn</strong>. Câu hỏi lọc pattern Cambridge Food.",
+            extra_class=" lr-mmap--lesson12",
+            min_width="1320px",
+        )}
+{g12}
+          <div id="lesson12-scroll-source">
+{examples_l12}
+          </div>
+
+{lesson12_scroll}
         </article>
 
       </div>"""
@@ -9637,7 +10499,7 @@ def build_page() -> str:
           <a href="#mental-model">2 · Mental model</a>
           <a href="#ed-ending">2b · -ed</a>
           <a href="#structures">3 · Structures</a>
-          <a href="#lessons">4 · Lessons 2 · 3 · 5–11</a>
+          <a href="#lessons">4 · Lessons 2 · 3 · 5–12</a>
           <a href="#food-lang">5 · Idioms &amp; phrases</a>
           <a href="#phrase-drills">6 · Phrase drills</a>
           <a href="#food-phrase-map">6 · Mind map</a>
@@ -9677,7 +10539,7 @@ def build_page() -> str:
       </section>
 
       <section class="lr-section" id="lessons">
-        <h2>4 · Core formulas — Lesson 2, 3, 5–11</h2>
+        <h2>4 · Core formulas — Lesson 2, 3, 5–12</h2>
         <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — L2 → … → L10 Childhood → L11 Suitable · <em>skip Lesson 4</em>. Chọn <strong>1–2 nhánh</strong>.</p>
 {lesson_highlights_html()}
       </section>
@@ -9724,7 +10586,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr44">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr45">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -9777,9 +10639,9 @@ def build_page_review2() -> str:
       </div>
 
       <header class="lr-hero">
-        <p class="lr-hero-badge">Linear Thinking · Lesson 2, 3, 5–11</p>
+        <p class="lr-hero-badge">Linear Thinking · Lesson 2, 3, 5–12</p>
         <h1>Food &amp; Drink — Review Exercise 2</h1>
-        <p class="lede">Lesson 2 + 3 + 5–11 (Suitable for…?) · skip Lesson 4. Sơ đồ tư duy → ví dụ Food → Scroll read. Full capstone: <a href="../review-exercise/">Review Exercise 1</a>.</p>
+        <p class="lede">Lesson 2 + 3 + 5–12 (Easy/Difficult?) · skip Lesson 4. Sơ đồ tư duy → ví dụ Food → Scroll read. Full capstone: <a href="../review-exercise/">Review Exercise 1</a>.</p>
         <nav class="lr-toc" aria-label="On this page">
           <a href="#lesson2-formulas">Lesson 2 · Reasons</a>
           <a href="#scroll-lesson2">Scroll · L2</a>
@@ -9805,8 +10667,10 @@ def build_page_review2() -> str:
           <a href="#food-examples-l10">Ví dụ L10</a>
           <a href="#scroll-lesson10">Scroll · L10</a>
           <a href="#lesson11-formulas">Lesson 11 · Suitable?</a>
+          <a href="#lesson12-formulas">Lesson 12 · Easy/Difficult?</a>
           <a href="#food-examples-l11">Ví dụ L11</a>
           <a href="#scroll-lesson11">Scroll · L11</a>
+          <a href="#scroll-lesson12">Scroll · L12</a>
         </nav>
         <div class="ex-toolbar lr-toolbar lr-toolbar--hero">
           <label class="ex-toggle"><input type="checkbox" id="togVi" /> Vietnamese</label>
@@ -9814,7 +10678,7 @@ def build_page_review2() -> str:
       </header>
 
       <section class="lr-section" id="lessons">
-        <h2>Core formulas — Lesson 2, 3, 5–11</h2>
+        <h2>Core formulas — Lesson 2, 3, 5–12</h2>
         <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — chọn <strong>1–2 nhánh</strong>, không nhồi hết. Dropdown bên dưới để thay từ B1/B2.</p>
 {lesson_highlights_html(map_suffix="R2", include_food_examples=True, open_practice=True)}
       </section>
@@ -9828,11 +10692,11 @@ def build_page_review2() -> str:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Review Exercise 2 · Food &amp; Drink — The Quiet Corner</title>
-  <meta name="description" content="Lesson 2, 3, 5–11: Reasons through Suitable for… — Food mind maps — Food mind maps and practice.">
+  <meta name="description" content="Lesson 2, 3, 5–12: Reasons through Easy/Difficult — Food mind maps and practice.">
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr44">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr45">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -9884,7 +10748,7 @@ def patch_topic_index() -> None:
           <span class="vocab-level__badge vocab-level__badge--review">Review</span>
           <h2>Linear Thinking · Capstone exercise</h2>
         </div>
-        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3, 5–11 (mind map + ví dụ Food + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
+        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3, 5–12 (mind map + ví dụ Food + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
         <div class="vocab-lesson-grid">
           <a class="vocab-lesson-card vocab-lesson-card--review" href="review-exercise/">
             <img src="{review_icon}" alt="" width="72" height="72" loading="lazy">

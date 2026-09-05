@@ -3620,6 +3620,13 @@ body.ex-hide-ipa .ipa {
   min-width: 0;
 }
 
+.lr-food-ex-source {
+  margin: 4px 0 10px;
+  font-size: 0.78rem;
+  color: rgba(148, 163, 184, 0.92);
+  font-style: italic;
+}
+
 .lr-food-ex-head {
   display: flex;
   flex-wrap: wrap;
