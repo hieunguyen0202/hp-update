@@ -3740,6 +3740,19 @@ body.ex-hide-ipa .ipa {
   gap: 12px;
 }
 
+.ex-scroll-nr-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.ex-scroll-nr-link {
+  text-decoration: none;
+  white-space: nowrap;
+}
+
 .scroll-line--ipa {
   font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 0.82rem;

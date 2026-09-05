@@ -5237,7 +5237,10 @@ def lesson_scroll_read_html(uid: str, *, title: str, source_sel: str) -> str:
               <h3>Scroll read · speaking · {esc(title)}</h3>
               <p class="ex-scroll-hint">Teleprompter luyện nói — chỉ tiếng Anh. Tắt <strong>Hiện từ EN</strong> để thấy khung + gợi ý VI. Bật <strong>Hiện IPA đoạn</strong> để cả đoạn <em>answer</em> chuyển sang IPA (câu hỏi vẫn giữ tiếng Anh, màu vàng). <strong>Copy</strong> = Q + A tiếng Anh sạch (NaturalReader).</p>
             </div>
-            <button type="button" class="ex-btn primary js-scroll-copy">Copy for NaturalReader</button>
+            <div class="ex-scroll-nr-actions">
+              <a class="ex-btn ex-scroll-nr-link" href="https://www.naturalreaders.com/online/" target="_blank" rel="noopener noreferrer">NaturalReaders ↗</a>
+              <button type="button" class="ex-btn primary js-scroll-copy">Copy for NaturalReader</button>
+            </div>
           </div>
           <div class="ex-scroll-toolbar">
             <button type="button" class="ex-btn primary js-scroll-play">▶ Play</button>
@@ -13317,7 +13320,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr48">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr49">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -13436,7 +13439,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr48">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr49">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
