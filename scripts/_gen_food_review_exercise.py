@@ -771,6 +771,75 @@ WORD_SLOTS: dict[str, list[dict]] = {
         {"form": "I hardly ever see organic-only supermarkets outside big cities", "vi": "hiếm khi thấy siêu thị chỉ bán organic ngoài thành phố lớn"},
         {"form": "families hardly ever go to expensive steakhouses on weekdays", "vi": "hiếm khi gia đình đi steakhouse đắt vào ngày thường"},
     ],
+    # Lesson 8 · What is the best time to do X?
+    "best_time_phrase": [
+        {"form": "is the best time to", "vi": "là thời điểm tốt nhất để"},
+        {"form": "is the greatest time to", "vi": "là thời điểm tuyệt vời nhất để"},
+        {"form": "is the perfect time to", "vi": "là thời điểm hoàn hảo để"},
+        {"form": "is the ideal time to", "vi": "là thời điểm lý tưởng để"},
+        {"form": "is my favourite time to", "vi": "là thời điểm yêu thích của tôi để"},
+    ],
+    "best_time_when": [
+        {"form": "early morning", "vi": "sáng sớm"},
+        {"form": "mid-morning", "vi": "giữa buổi sáng"},
+        {"form": "lunchtime", "vi": "giờ trưa"},
+        {"form": "late afternoon", "vi": "chiều muộn"},
+        {"form": "evening", "vi": "buổi tối"},
+        {"form": "the weekend", "vi": "cuối tuần"},
+        {"form": "summer months", "vi": "những tháng hè"},
+        {"form": "the dry season", "vi": "mùa khô"},
+    ],
+    "best_time_activity": [
+        {"form": "have a hearty breakfast", "vi": "ăn bữa sáng no đủ"},
+        {"form": "eat the main meal of the day", "vi": "ăn bữa chính trong ngày"},
+        {"form": "grab a quick bite", "vi": "ăn vội một miếng"},
+        {"form": "try local street food", "vi": "thử đồ ăn đường phố địa phương"},
+        {"form": "cook a home-cooked meal from scratch", "vi": "nấu bữa nhà từ đầu"},
+        {"form": "dine out with friends", "vi": "đi ăn ngoài với bạn"},
+        {"form": "have a light meal", "vi": "ăn một bữa nhẹ"},
+        {"form": "savour a candle-lit dinner", "vi": "thưởng thức bữa tối dưới ánh nến"},
+    ],
+    "best_time_reason": [
+        {"form": "my brain functions most effectively", "vi": "não tôi hoạt động hiệu quả nhất"},
+        {"form": "I find myself most energetic", "vi": "tôi thấy bản thân tràn đầy năng lượng nhất"},
+        {"form": "I find myself more focused", "vi": "tôi thấy bản thân tập trung hơn"},
+        {"form": "the weather is hot and sunny, making it safer to eat outdoors", "vi": "thời tiết nóng nắng, khiến việc ăn ngoài trời an toàn hơn"},
+        {"form": "fresh ingredients are easier to find in local markets", "vi": "nguyên liệu tươi dễ tìm hơn ở chợ địa phương"},
+        {"form": "I don't have to worry about work or anything like that", "vi": "tôi không phải lo việc làm hay gì tương tự"},
+    ],
+    "best_time_depends": [
+        {"form": "It depends", "vi": "Còn tùy"},
+        {"form": "It depends on people's preferences", "vi": "Còn tùy vào sở thích của mọi người"},
+        {"form": "It depends on people's schedules", "vi": "Còn tùy vào lịch trình của mọi người"},
+        {"form": "I think it really depends on the type of meal", "vi": "Tôi nghĩ còn tùy vào loại bữa ăn"},
+        {"form": "It depends on whether you're free or busy", "vi": "Còn tùy bạn đang rảnh hay bận"},
+    ],
+    "best_time_contrast": [
+        {"form": "However, some people think evening is the greatest time", "vi": "Tuy nhiên, một số người nghĩ buổi tối là thời điểm tuyệt nhất"},
+        {"form": "However, others prefer late afternoon", "vi": "Tuy nhiên, người khác thích chiều muộn"},
+        {"form": "On weekdays, though, lunchtime is more practical", "vi": "Nhưng ngày thường thì giờ trưa thực tế hơn"},
+        {"form": "During the rainy season, outdoor food stalls can be inconvenient", "vi": "Mùa mưa thì quán ngoài trời có thể bất tiện"},
+    ],
+    "best_time_last": [
+        {"form": "which lasts from about 6 to 8 am", "vi": "kéo dài khoảng từ 6 đến 8 giờ sáng"},
+        {"form": "which lasts from April to July", "vi": "kéo dài từ tháng 4 đến tháng 7"},
+        {"form": "which lasts about two hours after work", "vi": "kéo dài khoảng hai giờ sau giờ làm"},
+        {"form": "which usually lasts until late evening", "vi": "thường kéo dài đến tối muộn"},
+    ],
+    "best_time_lex": [
+        {"form": "a nutritious breakfast to start the day", "vi": "bữa sáng bổ dưỡng để bắt đầu ngày"},
+        {"form": "comfort food after a long day at work", "vi": "đồ ăn an ủi sau một ngày dài làm việc"},
+        {"form": "a balanced diet rather than junk food", "vi": "chế độ ăn cân bằng hơn junk food"},
+        {"form": "mouth-watering street food in the evening", "vi": "đồ đường phố cực ngon vào buổi tối"},
+        {"form": "a slap-up meal at the weekend", "vi": "một bữa ‘đã đời’ vào cuối tuần"},
+        {"form": "fresh seasonal ingredients from the morning market", "vi": "nguyên liệu theo mùa tươi từ chợ sáng"},
+    ],
+    "best_time_make_it": [
+        {"form": "making it easier to stick to a balanced diet", "vi": "khiến việc giữ chế độ ăn cân bằng dễ hơn"},
+        {"form": "making it safer to try outdoor street food", "vi": "khiến việc thử đồ đường phố ngoài trời an toàn hơn"},
+        {"form": "making it more enjoyable to dine out with family", "vi": "khiến việc đi ăn ngoài với gia đình vui hơn"},
+        {"form": "making it harder to spoil your appetite before dinner", "vi": "khiến việc ‘phá’ cảm giác ngon miệng trước bữa tối khó hơn"},
+    ],
 }
 
 # ── Mind map helpers (shared: Section 2 tenses + Lesson 2/3) ───────────────
@@ -2426,6 +2495,150 @@ LESSON7_MINDMAP_RIGHT = [
     },
 ]
 
+# Lesson 8 · What is the best time to do X? — trái = Thời điểm tốt nhất, phải = Còn tùy
+LESSON8_MINDMAP_LEFT = [
+    {
+        "id": "best-time-direct",
+        "color": "#fca5a5",
+        "name": "Thời điểm tốt nhất",
+        "name_vi": "Best time + reason",
+        "flow": True,
+        "opener": "… is the best / ideal / perfect time to …",
+        "branches": [
+            {
+                "label": "Nhánh 1 · Khung câu (chọn 1)",
+                "leaves": [
+                    tip("… is the best time for/to …", "… là thời điểm tốt nhất để …"),
+                    tip("… is the greatest / perfect / ideal time to …", "greatest / perfect / ideal"),
+                    tip("… is my favourite time to …", "… là thời điểm yêu thích để …"),
+                    tip("We should/can do X + thời điểm", "Nên/có thể làm X vào lúc …"),
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Lý do / chi tiết (Food)",
+                "leaves": [
+                    tip(
+                        "This is because + S + V",
+                        "Vì + mệnh đề (thời tiết / năng lượng / nguyên liệu…)",
+                    ),
+                    tip(
+                        "last (v) + thời gian",
+                        "kéo dài bao lâu — which lasts from April to July",
+                    ),
+                    tip(
+                        "make it + adj (+ for sb) + to V",
+                        "khiến việc … trở nên adj — making it safer to eat outdoors",
+                    ),
+                    tip(
+                        "So sánh thời điểm khác để kéo dài câu",
+                        "vd. During the rainy season… / On weekdays…",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 3 · Lexical Food (collocation IELTS)",
+                "leaves": [
+                    tip(
+                        "hearty breakfast, nutritious breakfast, light meal",
+                        "bữa sáng no đủ, bổ dưỡng, bữa nhẹ",
+                    ),
+                    tip(
+                        "main meal of the day, spoil your appetite",
+                        "bữa chính, làm mất cảm giác ngon miệng",
+                    ),
+                    tip(
+                        "grab a quick bite, dine out, cook from scratch",
+                        "ăn vội, ăn ngoài, nấu từ đầu",
+                    ),
+                    tip(
+                        "comfort food, mouth-watering, slap-up meal",
+                        "đồ an ủi, cực ngon, bữa đã đời",
+                    ),
+                    tip(
+                        "fresh / seasonal ingredients, balanced diet, junk food",
+                        "nguyên liệu tươi/theo mùa, chế độ cân bằng, junk food",
+                    ),
+                ],
+            },
+        ],
+        "link": "→ nêu <strong>1 thời điểm</strong> + <strong>1 lý do Food</strong> + (tuỳ) so sánh thời điểm khác",
+    },
+]
+
+LESSON8_MINDMAP_RIGHT = [
+    {
+        "id": "best-time-depends",
+        "color": "#86efac",
+        "name": "Còn tùy",
+        "name_vi": "It depends + case",
+        "flow": True,
+        "opener": "It depends. · It depends on…",
+        "branches": [
+            {
+                "label": "Nhánh 1 · Cách chia (phụ thuộc câu hỏi)",
+                "patterns": "Cách chia phụ thuộc vào câu hỏi",
+                "leaves": [
+                    tip(
+                        "Sở thích: For me … However, some people…",
+                        "Tôi … / Một số người …",
+                    ),
+                    tip(
+                        "Lịch trình: busy weekdays ↔ free weekends",
+                        "Ngày thường bận ↔ cuối tuần rảnh",
+                    ),
+                    tip(
+                        "Loại bữa: breakfast / lunch / dinner / street food",
+                        "Chia theo loại bữa / hoạt động ẩm thực",
+                    ),
+                    tip(
+                        "Mùa / thời tiết: dry season ↔ rainy season",
+                        "Mùa khô ↔ mùa mưa (ăn ngoài trời)",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Cấu trúc slide (Food)",
+                "leaves": [
+                    tip(
+                        "find + myself / themselves + adj",
+                        "thấy bản thân như thế nào — I find myself most energetic",
+                    ),
+                    tip(
+                        "function (v) — brain / body",
+                        "não / cơ thể hoạt động (most effectively)",
+                    ),
+                    tip(
+                        "during this time ≈ from 8 to 11 am (paraphrase)",
+                        "diễn đạt lại khung giờ",
+                    ),
+                    tip(
+                        "the dramatic increase in + N / the number of + Ns",
+                        "sự tăng mạnh · số lượng (vd. tourists → outdoor stalls)",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 3 · Lexical Food (thêm)",
+                "leaves": [
+                    tip(
+                        "starving hungry, calm the hunger pangs",
+                        "đói meo, xoa dịu cơn đói",
+                    ),
+                    tip(
+                        "candle-lit dinner, ready meal, plant-based diet",
+                        "bữa tối dưới nến, đồ sẵn, chế độ thực vật",
+                    ),
+                    tip(
+                        "local dish, piping hot, flavourful",
+                        "món địa phương, nóng hổi, đậm vị",
+                    ),
+                ],
+            },
+        ],
+        "link": "→ chọn <strong>1 trục chia</strong> (tôi/người khác · lịch · loại bữa) + 1 collocation Food",
+    },
+]
+
 
 def collect_review_words() -> list[dict]:
     topic = next(t for t in TOPICS["topics"] if t["slug"] == "food-drink")
@@ -3361,6 +3574,15 @@ def _ex_chip_notes_html(chips: list | None) -> str:
         "urban / rural dwellers": "Người thành thị / nông thôn",
         "the younger / older generation": "Thế hệ trẻ / lớn tuổi",
         "reduced relative (passive)": "Rút gọn mệnh đề quan hệ bị động",
+        "… is the best / ideal time to …": "… là thời điểm tốt nhất / lý tưởng để …",
+        "last (v) + thời gian": "Kéo dài bao lâu",
+        "find + myself + adj": "Thấy bản thân như thế nào",
+        "make it + adj + to V": "Khiến việc … trở nên adj",
+        "It depends on …": "Còn tùy vào …",
+        "hearty / nutritious breakfast": "Bữa sáng no đủ / bổ dưỡng",
+        "grab a quick bite": "Ăn vội một miếng",
+        "spoil your appetite": "Làm mất cảm giác ngon miệng",
+        "comfort food / slap-up meal": "Đồ an ủi / bữa đã đời",
     }
     expanded: list[tuple[str, str]] = []
     for c in chips:
@@ -4381,6 +4603,446 @@ def food_lesson7_examples_html() -> str:
         </div>"""
 
 
+def food_lesson8_examples_html() -> str:
+    """Lesson 8 · What is the best time to do X? — Food Qs with best time / it depends."""
+    items: list[dict] = []
+
+    def add(
+        q: str,
+        *,
+        kind: str,
+        en_html: str,
+        vi: str,
+        plain: str,
+        ipa: str,
+        ex: str,
+        ex_vi: str = "",
+        alt_kind: str = "alt",
+        alt_html: str = "",
+        alt_vi: str = "",
+        alt_plain: str = "",
+        alt_ipa: str = "",
+        alt_ex: str = "",
+        alt_ex_vi: str = "",
+        notes: list[str] | None = None,
+    ) -> None:
+        items.append(
+            {
+                "q": q,
+                "kind": kind,
+                "html": en_html,
+                "vi": vi,
+                "plain": plain,
+                "ipa": ipa,
+                "ex": ex,
+                "ex_vi": ex_vi,
+                "alt_kind": alt_kind,
+                "alt_html": alt_html,
+                "alt_vi": alt_vi,
+                "alt_plain": alt_plain,
+                "alt_ipa": alt_ipa,
+                "alt_ex": alt_ex,
+                "alt_ex_vi": alt_ex_vi,
+                "notes": notes or [],
+            }
+        )
+
+    # 1 — breakfast · direct
+    t1 = (
+        "I think {best_time_when}, {best_time_last}, {best_time_phrase} "
+        "{best_time_activity}. This is because {best_time_reason}, and it helps me keep "
+        "{best_time_lex}."
+    )
+    v1 = (
+        "Tôi nghĩ {best_time_when}, {best_time_last}, {best_time_phrase} "
+        "{best_time_activity}. Vì {best_time_reason}, và giúp tôi giữ "
+        "{best_time_lex}."
+    )
+    add(
+        "What is the best time of day to have breakfast?",
+        kind="sample",
+        en_html=t1.format(
+            best_time_when=phrase_pick("best_time_when", 0),
+            best_time_last=phrase_pick("best_time_last", 0),
+            best_time_phrase=phrase_pick("best_time_phrase", 3),
+            best_time_activity=phrase_pick("best_time_activity", 0),
+            best_time_reason=phrase_pick("best_time_reason", 0),
+            best_time_lex=phrase_pick("best_time_lex", 0),
+        ),
+        vi=fill_vi_tpl(
+            v1,
+            best_time_when=slot_vi("best_time_when", 0),
+            best_time_last=slot_vi("best_time_last", 0),
+            best_time_phrase=slot_vi("best_time_phrase", 3),
+            best_time_activity=slot_vi("best_time_activity", 0),
+            best_time_reason=slot_vi("best_time_reason", 0),
+            best_time_lex=slot_vi("best_time_lex", 0),
+        ),
+        plain="I think early morning, which lasts from about 6 to 8 am, is the ideal time to have a hearty breakfast. This is because my brain functions most effectively, and it helps me keep a nutritious breakfast to start the day.",
+        ipa="",
+        ex=t1,
+        ex_vi=v1,
+        notes=["… is the best / ideal time to …", "last (v) + thời gian", "hearty / nutritious breakfast"],
+    )
+
+    # 2 — main meal · depends
+    t2 = (
+        "{best_time_depends}. For me, for example, {best_time_when} {best_time_phrase} "
+        "{best_time_activity} because {best_time_reason}. {best_time_contrast} "
+        "to {best_time_activity}."
+    )
+    v2 = (
+        "{best_time_depends}. Với tôi, ví dụ, {best_time_when} {best_time_phrase} "
+        "{best_time_activity} vì {best_time_reason}. {best_time_contrast} "
+        "để {best_time_activity}."
+    )
+    add(
+        "What is the best time of day to eat the main meal?",
+        kind="depends",
+        en_html=t2.format(
+            best_time_depends=phrase_pick("best_time_depends", 1),
+            best_time_when=phrase_pick("best_time_when", 4),
+            best_time_phrase=phrase_pick("best_time_phrase", 3),
+            best_time_activity=phrase_pick("best_time_activity", 1),
+            best_time_reason=phrase_pick("best_time_reason", 1),
+            best_time_contrast=phrase_pick("best_time_contrast", 0),
+        ),
+        vi=fill_vi_tpl(
+            v2,
+            best_time_depends=slot_vi("best_time_depends", 1),
+            best_time_when=slot_vi("best_time_when", 4),
+            best_time_phrase=slot_vi("best_time_phrase", 3),
+            best_time_activity=slot_vi("best_time_activity", 1),
+            best_time_reason=slot_vi("best_time_reason", 1),
+            best_time_contrast=slot_vi("best_time_contrast", 0),
+        ),
+        plain="It depends on people's preferences. For me, for example, evening is the ideal time to eat the main meal of the day because I find myself most energetic. However, some people think evening is the greatest time to eat the main meal of the day.",
+        ipa="",
+        ex=t2,
+        ex_vi=v2,
+        notes=["It depends on …", "find + myself + adj", "… is the best / ideal time to …"],
+    )
+
+    # 3 — street food · direct + make it
+    t3 = (
+        "I think {best_time_when} {best_time_phrase} {best_time_activity}. "
+        "This is because the weather is usually pleasant then, {best_time_make_it}, "
+        "and you can enjoy {best_time_lex}."
+    )
+    v3 = (
+        "Tôi nghĩ {best_time_when} {best_time_phrase} {best_time_activity}. "
+        "Vì thời tiết lúc đó thường dễ chịu, {best_time_make_it}, "
+        "và bạn có thể thưởng thức {best_time_lex}."
+    )
+    add(
+        "What is the best time to try street food?",
+        kind="sample",
+        en_html=t3.format(
+            best_time_when=phrase_pick("best_time_when", 4),
+            best_time_phrase=phrase_pick("best_time_phrase", 2),
+            best_time_activity=phrase_pick("best_time_activity", 3),
+            best_time_make_it=phrase_pick("best_time_make_it", 1),
+            best_time_lex=phrase_pick("best_time_lex", 3),
+        ),
+        vi=fill_vi_tpl(
+            v3,
+            best_time_when=slot_vi("best_time_when", 4),
+            best_time_phrase=slot_vi("best_time_phrase", 2),
+            best_time_activity=slot_vi("best_time_activity", 3),
+            best_time_make_it=slot_vi("best_time_make_it", 1),
+            best_time_lex=slot_vi("best_time_lex", 3),
+        ),
+        plain="I think evening is the perfect time to try local street food. This is because the weather is usually pleasant then, making it safer to try outdoor street food, and you can enjoy mouth-watering street food in the evening.",
+        ipa="",
+        ex=t3,
+        ex_vi=v3,
+        notes=["make it + adj + to V", "grab a quick bite"],
+    )
+
+    # 4 — cook from scratch · weekend
+    t4 = (
+        "I think {best_time_when} {best_time_phrase} {best_time_activity}. "
+        "This is because {best_time_reason}, so I can use {best_time_lex}."
+    )
+    v4 = (
+        "Tôi nghĩ {best_time_when} {best_time_phrase} {best_time_activity}. "
+        "Vì {best_time_reason}, nên tôi có thể dùng {best_time_lex}."
+    )
+    add(
+        "What is the best time to cook a meal from scratch?",
+        kind="sample",
+        en_html=t4.format(
+            best_time_when=phrase_pick("best_time_when", 5),
+            best_time_phrase=phrase_pick("best_time_phrase", 0),
+            best_time_activity=phrase_pick("best_time_activity", 4),
+            best_time_reason=phrase_pick("best_time_reason", 5),
+            best_time_lex=phrase_pick("best_time_lex", 5),
+        ),
+        vi=fill_vi_tpl(
+            v4,
+            best_time_when=slot_vi("best_time_when", 5),
+            best_time_phrase=slot_vi("best_time_phrase", 0),
+            best_time_activity=slot_vi("best_time_activity", 4),
+            best_time_reason=slot_vi("best_time_reason", 5),
+            best_time_lex=slot_vi("best_time_lex", 5),
+        ),
+        plain="I think the weekend is the best time to cook a home-cooked meal from scratch. This is because I don't have to worry about work or anything like that, so I can use fresh seasonal ingredients from the morning market.",
+        ipa="",
+        ex=t4,
+        ex_vi=v4,
+        notes=["… is the best / ideal time to …", "comfort food / slap-up meal"],
+    )
+
+    # 5 — dine out · depends schedules
+    t5 = (
+        "{best_time_depends}. For me, {best_time_when} {best_time_phrase} "
+        "{best_time_activity} because {best_time_reason}. {best_time_contrast}."
+    )
+    v5 = (
+        "{best_time_depends}. Với tôi, {best_time_when} {best_time_phrase} "
+        "{best_time_activity} vì {best_time_reason}. {best_time_contrast}."
+    )
+    add(
+        "What is the best time to dine out with friends?",
+        kind="depends",
+        en_html=t5.format(
+            best_time_depends=phrase_pick("best_time_depends", 2),
+            best_time_when=phrase_pick("best_time_when", 5),
+            best_time_phrase=phrase_pick("best_time_phrase", 1),
+            best_time_activity=phrase_pick("best_time_activity", 5),
+            best_time_reason=phrase_pick("best_time_reason", 2),
+            best_time_contrast=phrase_pick("best_time_contrast", 2),
+        ),
+        vi=fill_vi_tpl(
+            v5,
+            best_time_depends=slot_vi("best_time_depends", 2),
+            best_time_when=slot_vi("best_time_when", 5),
+            best_time_phrase=slot_vi("best_time_phrase", 1),
+            best_time_activity=slot_vi("best_time_activity", 5),
+            best_time_reason=slot_vi("best_time_reason", 2),
+            best_time_contrast=slot_vi("best_time_contrast", 2),
+        ),
+        plain="It depends on people's schedules. For me, the weekend is the greatest time to dine out with friends because I find myself more focused. On weekdays, though, lunchtime is more practical.",
+        ipa="",
+        ex=t5,
+        ex_vi=v5,
+        notes=["It depends on …", "find + myself + adj"],
+    )
+
+    # 6 — outdoor / market food · summer + last + make it
+    t6 = (
+        "I think {best_time_when}, {best_time_last}, {best_time_phrase} "
+        "visit outdoor food markets. This is because the weather is hot and sunny, "
+        "{best_time_make_it}."
+    )
+    v6 = (
+        "Tôi nghĩ {best_time_when}, {best_time_last}, {best_time_phrase} "
+        "đi chợ đồ ăn ngoài trời. Vì thời tiết nóng nắng, "
+        "{best_time_make_it}."
+    )
+    add(
+        "What time of year is best for outdoor food markets in your country?",
+        kind="sample",
+        en_html=t6.format(
+            best_time_when=phrase_pick("best_time_when", 6),
+            best_time_last=phrase_pick("best_time_last", 1),
+            best_time_phrase=phrase_pick("best_time_phrase", 1),
+            best_time_make_it=phrase_pick("best_time_make_it", 1),
+        ),
+        vi=fill_vi_tpl(
+            v6,
+            best_time_when=slot_vi("best_time_when", 6),
+            best_time_last=slot_vi("best_time_last", 1),
+            best_time_phrase=slot_vi("best_time_phrase", 1),
+            best_time_make_it=slot_vi("best_time_make_it", 1),
+        ),
+        plain="I think summer months, which lasts from April to July, is the greatest time to visit outdoor food markets. This is because the weather is hot and sunny, making it safer to try outdoor street food.",
+        ipa="",
+        ex=t6,
+        ex_vi=v6,
+        notes=["last (v) + thời gian", "make it + adj + to V"],
+        alt_kind="depends",
+        alt_html=(
+            "{best_time_depends}. {best_time_contrast}."
+        ).format(
+            best_time_depends=phrase_pick("best_time_depends", 0),
+            best_time_contrast=phrase_pick("best_time_contrast", 3),
+        ),
+        alt_vi=fill_vi_tpl(
+            "{best_time_depends}. {best_time_contrast}.",
+            best_time_depends=slot_vi("best_time_depends", 0),
+            best_time_contrast=slot_vi("best_time_contrast", 3),
+        ),
+        alt_plain="It depends. During the rainy season, outdoor food stalls can be inconvenient.",
+        alt_ipa="",
+        alt_ex="{best_time_depends}. {best_time_contrast}.",
+        alt_ex_vi="{best_time_depends}. {best_time_contrast}.",
+    )
+
+    # 7 — light meal / snack · mid-morning
+    t7 = (
+        "I think {best_time_when} {best_time_phrase} {best_time_activity} "
+        "if you feel starving hungry, without trying to spoil your appetite before lunch. "
+        "A quick snack can calm the hunger pangs."
+    )
+    v7 = (
+        "Tôi nghĩ {best_time_when} {best_time_phrase} {best_time_activity} "
+        "nếu bạn đang đói meo, mà không làm mất ngon miệng trước bữa trưa. "
+        "Một món ăn vặt nhanh có thể xoa dịu cơn đói."
+    )
+    add(
+        "What is the best time for a light snack?",
+        kind="sample",
+        en_html=t7.format(
+            best_time_when=phrase_pick("best_time_when", 1),
+            best_time_phrase=phrase_pick("best_time_phrase", 0),
+            best_time_activity=phrase_pick("best_time_activity", 6),
+        ),
+        vi=fill_vi_tpl(
+            v7,
+            best_time_when=slot_vi("best_time_when", 1),
+            best_time_phrase=slot_vi("best_time_phrase", 0),
+            best_time_activity=slot_vi("best_time_activity", 6),
+        ),
+        plain="I think mid-morning is the best time to have a light meal if you feel starving hungry, without trying to spoil your appetite before lunch. A quick snack can calm the hunger pangs.",
+        ipa="",
+        ex=t7,
+        ex_vi=v7,
+        notes=["spoil your appetite", "grab a quick bite"],
+    )
+
+    # 8 — comfort food after work
+    t8 = (
+        "For me, {best_time_when} {best_time_phrase} enjoy {best_time_lex} "
+        "because {best_time_reason}."
+    )
+    v8 = (
+        "Với tôi, {best_time_when} {best_time_phrase} thưởng thức {best_time_lex} "
+        "vì {best_time_reason}."
+    )
+    add(
+        "What is the best time to eat comfort food?",
+        kind="sample",
+        en_html=t8.format(
+            best_time_when=phrase_pick("best_time_when", 4),
+            best_time_phrase=phrase_pick("best_time_phrase", 4),
+            best_time_lex=phrase_pick("best_time_lex", 1),
+            best_time_reason=phrase_pick("best_time_reason", 1),
+        ),
+        vi=fill_vi_tpl(
+            v8,
+            best_time_when=slot_vi("best_time_when", 4),
+            best_time_phrase=slot_vi("best_time_phrase", 4),
+            best_time_lex=slot_vi("best_time_lex", 1),
+            best_time_reason=slot_vi("best_time_reason", 1),
+        ),
+        plain="For me, evening is my favourite time to enjoy comfort food after a long day at work because I find myself most energetic.",
+        ipa="",
+        ex=t8,
+        ex_vi=v8,
+        notes=["comfort food / slap-up meal", "find + myself + adj"],
+    )
+
+    # 9 — fruit / balanced diet · morning
+    t9 = (
+        "I think {best_time_when} {best_time_phrase} eat fruit as part of "
+        "{best_time_lex}, {best_time_make_it}."
+    )
+    v9 = (
+        "Tôi nghĩ {best_time_when} {best_time_phrase} ăn trái cây như một phần của "
+        "{best_time_lex}, {best_time_make_it}."
+    )
+    add(
+        "What is the best time of day to eat fruit?",
+        kind="sample",
+        en_html=t9.format(
+            best_time_when=phrase_pick("best_time_when", 0),
+            best_time_phrase=phrase_pick("best_time_phrase", 3),
+            best_time_lex=phrase_pick("best_time_lex", 2),
+            best_time_make_it=phrase_pick("best_time_make_it", 0),
+        ),
+        vi=fill_vi_tpl(
+            v9,
+            best_time_when=slot_vi("best_time_when", 0),
+            best_time_phrase=slot_vi("best_time_phrase", 3),
+            best_time_lex=slot_vi("best_time_lex", 2),
+            best_time_make_it=slot_vi("best_time_make_it", 0),
+        ),
+        plain="I think early morning is the ideal time to eat fruit as part of a balanced diet rather than junk food, making it easier to stick to a balanced diet.",
+        ipa="",
+        ex=t9,
+        ex_vi=v9,
+        notes=["make it + adj + to V", "hearty / nutritious breakfast"],
+    )
+
+    # 10 — slap-up / candle-lit · depends
+    t10 = (
+        "{best_time_depends}. For a {best_time_lex}, I feel that {best_time_when} "
+        "{best_time_phrase} {best_time_activity}. {best_time_contrast}."
+    )
+    v10 = (
+        "{best_time_depends}. Với {best_time_lex}, tôi cảm thấy {best_time_when} "
+        "{best_time_phrase} {best_time_activity}. {best_time_contrast}."
+    )
+    add(
+        "What is the best time for a special dinner?",
+        kind="depends",
+        en_html=t10.format(
+            best_time_depends=phrase_pick("best_time_depends", 3),
+            best_time_lex=phrase_pick("best_time_lex", 4),
+            best_time_when=phrase_pick("best_time_when", 5),
+            best_time_phrase=phrase_pick("best_time_phrase", 2),
+            best_time_activity=phrase_pick("best_time_activity", 7),
+            best_time_contrast=phrase_pick("best_time_contrast", 2),
+        ),
+        vi=fill_vi_tpl(
+            v10,
+            best_time_depends=slot_vi("best_time_depends", 3),
+            best_time_lex=slot_vi("best_time_lex", 4),
+            best_time_when=slot_vi("best_time_when", 5),
+            best_time_phrase=slot_vi("best_time_phrase", 2),
+            best_time_activity=slot_vi("best_time_activity", 7),
+            best_time_contrast=slot_vi("best_time_contrast", 2),
+        ),
+        plain="I think it really depends on the type of meal. For a slap-up meal at the weekend, I feel that the weekend is the perfect time to savour a candle-lit dinner. On weekdays, though, lunchtime is more practical.",
+        ipa="",
+        ex=t10,
+        ex_vi=v10,
+        notes=["It depends on …", "comfort food / slap-up meal", "… is the best / ideal time to …"],
+    )
+
+    cards = []
+    for it in items:
+        alts = ""
+        if it.get("alt_html"):
+            alts = _pair_answer_html(
+                kind=it.get("alt_kind") or "alt",
+                en_html=it["alt_html"],
+                vi=it["alt_vi"],
+                plain=it["alt_plain"],
+                ipa=it["alt_ipa"],
+                q=it["q"],
+                ex_en=it.get("alt_ex", ""),
+                ex_vi=it.get("alt_ex_vi", ""),
+            )
+        cards.append(
+            f"""          <article class="lr-food-ex-card">
+{_ex_card_q_html(it["q"])}
+            <div class="lr-food-ex-pair lr-food-ex-pair--best-time">
+{_pair_answer_html(kind=it["kind"], en_html=it["html"], vi=it["vi"], plain=it["plain"], ipa=it["ipa"], q=it["q"], ex_en=it["ex"], ex_vi=it.get("ex_vi", ""))}
+{alts}
+            </div>
+{_ex_chip_notes_html(it.get("notes"))}
+          </article>"""
+        )
+    return f"""
+        <div class="lr-food-examples" id="food-examples-l8">
+          <h3 class="lr-core-subtitle">Ví dụ Food · What is the best time to do X?</h3>
+          <p class="lr-mm-hint">~10 câu Part 1 (Food). Nhánh <strong>Thời điểm tốt nhất</strong> / <strong>Còn tùy</strong> + collocation IELTS. Bật <strong>Hiện IPA</strong>; đổi dropdown → tooltip VI đổi theo.</p>
+{chr(10).join(cards)}
+        </div>"""
+
+
 def food_lesson_examples_html() -> str:
     """Unified Food cards: every Q has Thích + Không thích; both sides have contextual dropdowns."""
     items = []
@@ -4830,7 +5492,7 @@ def lesson_highlights_html(
     include_food_examples: bool = False,
     open_practice: bool = False,
 ) -> str:
-    """Lesson 2 + 3 + 5 + 6 + 7 mind maps and practice (Lesson 4 skipped).
+    """Lesson 2 + 3 + 5 + 6 + 7 + 8 mind maps and practice (Lesson 4 skipped).
 
     map_suffix: unique id suffix when the same maps appear on Review Exercise 2.
     include_food_examples: annotated Food cards (Review Exercise 2).
@@ -4841,15 +5503,18 @@ def lesson_highlights_html(
     m5 = f"lesson5Mindmap{map_suffix}"
     m6 = f"lesson6Mindmap{map_suffix}"
     m7 = f"lesson7Mindmap{map_suffix}"
+    m8 = f"lesson8Mindmap{map_suffix}"
     open_attr = " open" if open_practice else ""
     examples_block = food_lesson_examples_html() if include_food_examples else ""
     examples_l5 = food_lesson5_examples_html() if include_food_examples else ""
     examples_l6 = food_lesson6_examples_html() if include_food_examples else ""
     examples_l7 = food_lesson7_examples_html() if include_food_examples else ""
+    examples_l8 = food_lesson8_examples_html() if include_food_examples else ""
     lesson3_scroll = ""
     lesson5_scroll = ""
     lesson6_scroll = ""
     lesson7_scroll = ""
+    lesson8_scroll = ""
     if include_food_examples:
         lesson3_scroll = lesson_scroll_read_html(
             "lesson3", title="Lesson 3", source_sel="#lesson3-scroll-source"
@@ -4862,6 +5527,9 @@ def lesson_highlights_html(
         )
         lesson7_scroll = lesson_scroll_read_html(
             "lesson7", title="Lesson 7", source_sel="#lesson7-scroll-source"
+        )
+        lesson8_scroll = lesson_scroll_read_html(
+            "lesson8", title="Lesson 8", source_sel="#lesson8-scroll-source"
         )
 
     g2 = lesson_grammar_notes_html(
@@ -5044,6 +5712,47 @@ def lesson_highlights_html(
             "can't stand sth",
         ],
     )
+    g8 = lesson_grammar_tree_html(
+        "Lesson 8",
+        "What is the best time to do X?",
+        [
+            {
+                "label_html": f'{_g_mark("Thời điểm tốt nhất")} + lý do / chi tiết',
+                "openers": [
+                    "… is the best time for/to …",
+                    "… is the greatest / perfect / ideal time to …",
+                    "… is my favourite time to …",
+                    "We should/can do X + thời điểm",
+                ],
+                "details_label": "Kéo dài câu",
+                "details": [
+                    "This is because + S + V",
+                    "last (v) + thời gian (which lasts from…)",
+                    "make it + adj (+ for sb) + to V",
+                    "So sánh thời điểm khác (During the rainy season…)",
+                ],
+            },
+            {
+                "label_html": f'{_g_mark("Còn tùy")} + trường hợp',
+                "openers": [
+                    "It depends.",
+                    "It depends on…",
+                ],
+                "details_label": "Cách chia (phụ thuộc câu hỏi)",
+                "details": [
+                    "For me … However, some people…",
+                    "schedules / preferences",
+                    "type of meal (breakfast / dinner / street food)",
+                    "season / weather",
+                ],
+            },
+        ],
+        footer=[
+            "find + myself + adj",
+            "function (v) — brain / body",
+            "hearty breakfast / comfort food / grab a bite",
+        ],
+    )
 
     return f"""
       <div class="lr-core-lessons">
@@ -5162,6 +5871,30 @@ def lesson_highlights_html(
           </div>
 
 {lesson7_scroll}
+        </article>
+
+        <article class="lr-core-lesson" id="lesson8-formulas">
+          <header class="lr-core-lesson-head">
+            <h3>Lesson 8 · What is the best time to do X?</h3>
+          </header>
+
+{mind_map_html(
+            m8,
+            "Lesson 8 · What is the best time to do X?",
+            "Best time to do X?",
+            "Thời điểm ↔ Còn tùy",
+            LESSON8_MINDMAP_LEFT,
+            LESSON8_MINDMAP_RIGHT,
+            note="Trái = <strong>Thời điểm tốt nhất</strong> + lý do · Phải = <strong>Còn tùy</strong> + Lexical Food.",
+            extra_class=" lr-mmap--lesson8",
+            min_width="1280px",
+        )}
+{g8}
+          <div id="lesson8-scroll-source">
+{examples_l8}
+          </div>
+
+{lesson8_scroll}
         </article>
 
       </div>"""
@@ -6653,7 +7386,7 @@ def build_page() -> str:
       <header class="lr-hero">
         <p class="lr-hero-badge">Linear Thinking · Capstone</p>
         <h1>Food &amp; Drink — Review Exercise 1</h1>
-        <p class="lede">Sau khi hoàn thành B2, ôn tập theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-speaking" target="_blank" rel="noopener noreferrer">Linear Thinking</a>: ngữ pháp (6 thì) → mental model → cấu trúc Speaking → từ vựng B1/B2 → mock IELTS Part 1/2/3 với dropdown từ thay thế. Chỉ muốn Lesson 2–7 (skip 4)? Xem <a href="../review-exercise-2/">Review Exercise 2</a>.</p>
+        <p class="lede">Sau khi hoàn thành B2, ôn tập theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-speaking" target="_blank" rel="noopener noreferrer">Linear Thinking</a>: ngữ pháp (6 thì) → mental model → cấu trúc Speaking → từ vựng B1/B2 → mock IELTS Part 1/2/3 với dropdown từ thay thế. Chỉ muốn Lesson 2–8 (skip 4)? Xem <a href="../review-exercise-2/">Review Exercise 2</a>.</p>
         <nav class="lr-toc" aria-label="On this page">
           <a href="#core-steps">Core · 3 bước</a>
           <a href="#natural-vlog">0 · Real talk</a>
@@ -6661,7 +7394,7 @@ def build_page() -> str:
           <a href="#mental-model">2 · Mental model</a>
           <a href="#ed-ending">2b · -ed</a>
           <a href="#structures">3 · Structures</a>
-          <a href="#lessons">4 · Lessons 2 · 3 · 5 · 6 · 7</a>
+          <a href="#lessons">4 · Lessons 2 · 3 · 5–8</a>
           <a href="#food-lang">5 · Idioms &amp; phrases</a>
           <a href="#phrase-drills">6 · Phrase drills</a>
           <a href="#food-phrase-map">6 · Mind map</a>
@@ -6701,8 +7434,8 @@ def build_page() -> str:
       </section>
 
       <section class="lr-section" id="lessons">
-        <h2>4 · Core formulas — Lesson 2, 3, 5, 6 &amp; 7</h2>
-        <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — L2 Reasons → L3 Do you like X? → L5 What kind? → L6 Prefer → L7 Is X popular · <em>skip Lesson 4</em>. Chọn <strong>1–2 nhánh</strong>.</p>
+        <h2>4 · Core formulas — Lesson 2, 3, 5–8</h2>
+        <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — L2 → L3 → L5 → L6 Prefer → L7 Popular → L8 Best time · <em>skip Lesson 4</em>. Chọn <strong>1–2 nhánh</strong>.</p>
 {lesson_highlights_html()}
       </section>
 
@@ -6748,7 +7481,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr42">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr43">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -6801,9 +7534,9 @@ def build_page_review2() -> str:
       </div>
 
       <header class="lr-hero">
-        <p class="lr-hero-badge">Linear Thinking · Lesson 2, 3, 5, 6 &amp; 7</p>
+        <p class="lr-hero-badge">Linear Thinking · Lesson 2, 3, 5–8</p>
         <h1>Food &amp; Drink — Review Exercise 2</h1>
-        <p class="lede">Lesson 2 + 3 + 5 + 6 + 7 (Is X popular?) · skip Lesson 4. Sơ đồ tư duy → ví dụ Food → Scroll read. Full capstone: <a href="../review-exercise/">Review Exercise 1</a>.</p>
+        <p class="lede">Lesson 2 + 3 + 5–8 (Best time to do X?) · skip Lesson 4. Sơ đồ tư duy → ví dụ Food → Scroll read. Full capstone: <a href="../review-exercise/">Review Exercise 1</a>.</p>
         <nav class="lr-toc" aria-label="On this page">
           <a href="#lesson2-formulas">Lesson 2 · Reasons</a>
           <a href="#scroll-lesson2">Scroll · L2</a>
@@ -6819,6 +7552,9 @@ def build_page_review2() -> str:
           <a href="#lesson7-formulas">Lesson 7 · Is X popular?</a>
           <a href="#food-examples-l7">Ví dụ L7</a>
           <a href="#scroll-lesson7">Scroll · L7</a>
+          <a href="#lesson8-formulas">Lesson 8 · Best time?</a>
+          <a href="#food-examples-l8">Ví dụ L8</a>
+          <a href="#scroll-lesson8">Scroll · L8</a>
         </nav>
         <div class="ex-toolbar lr-toolbar lr-toolbar--hero">
           <label class="ex-toggle"><input type="checkbox" id="togVi" /> Vietnamese</label>
@@ -6826,7 +7562,7 @@ def build_page_review2() -> str:
       </header>
 
       <section class="lr-section" id="lessons">
-        <h2>Core formulas — Lesson 2, 3, 5, 6 &amp; 7</h2>
+        <h2>Core formulas — Lesson 2, 3, 5–8</h2>
         <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — chọn <strong>1–2 nhánh</strong>, không nhồi hết. Dropdown bên dưới để thay từ B1/B2.</p>
 {lesson_highlights_html(map_suffix="R2", include_food_examples=True, open_practice=True)}
       </section>
@@ -6840,11 +7576,11 @@ def build_page_review2() -> str:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Review Exercise 2 · Food &amp; Drink — The Quiet Corner</title>
-  <meta name="description" content="Lesson 2, 3, 5, 6 &amp; 7: Reasons, Do you like X?, What kind?, Prefer X or Y, Is X popular — Food mind maps and practice.">
+  <meta name="description" content="Lesson 2, 3, 5–8: Reasons, Do you like X?, What kind?, Prefer, Is X popular, Best time — Food mind maps and practice.">
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr42">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr43">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -6896,7 +7632,7 @@ def patch_topic_index() -> None:
           <span class="vocab-level__badge vocab-level__badge--review">Review</span>
           <h2>Linear Thinking · Capstone exercise</h2>
         </div>
-        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3, 5, 6 &amp; 7 (mind map + ví dụ Food + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
+        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3, 5–8 (mind map + ví dụ Food + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
         <div class="vocab-lesson-grid">
           <a class="vocab-lesson-card vocab-lesson-card--review" href="review-exercise/">
             <img src="{review_icon}" alt="" width="72" height="72" loading="lazy">
