@@ -4721,30 +4721,118 @@ def lesson_highlights_html(
             f'{_g_mark("can lead to")} …',
         ],
     )
-    g3 = lesson_grammar_notes_html(
+    g3 = lesson_grammar_tree_html(
         "Lesson 3",
+        "Do you like X?",
         [
-            f'{_g_alts("Yes, definitely", "Yes, absolutely")}. '
-            f'{_g_alts("I like / love / enjoy + V-ing", "I\'m keen on …", "I\'m a big fan of …")}',
-            f'{_g_alts("This is because + S + V", "because of + NP")}',
-            f'{_g_alts("No, definitely not", "No, not really")}. '
-            f'{_g_alts("I don\'t enjoy + V-ing", "I\'m not keen on …")}',
+            {
+                "label_html": f'{_g_mark("Yes")} + lý do',
+                "openers": [
+                    "Yes, definitely / absolutely",
+                    "I like / love / enjoy + V-ing",
+                    "I'm keen on …",
+                    "I'm a big fan of …",
+                ],
+                "details_label": "Lý do",
+                "details": [
+                    "This is because + S + V",
+                    "because of + NP",
+                    "→ tip: FAVOURITE (prefer … rather than …)",
+                ],
+            },
+            {
+                "label_html": f'{_g_mark("No")} + lý do',
+                "openers": [
+                    "No, definitely / absolutely not",
+                    "No, not really",
+                    "I don't enjoy + V-ing",
+                    "I'm not keen on …",
+                    "I'm not a big fan of …",
+                ],
+                "details_label": "Lý do",
+                "details": [
+                    "This is because + S + V",
+                    "because of + NP",
+                    "→ tip: HARDLY EVER (I hardly ever + V)",
+                ],
+            },
+        ],
+        footer=[
+            "Mang tính giải trí (relax / unwind)",
+            "Mang tính giáo dục (enrich knowledge)",
         ],
     )
-    g5 = lesson_grammar_notes_html(
+    g5 = lesson_grammar_tree_html(
         "Lesson 5",
+        "What kind of X do you like most?",
         [
-            f'Well, I love all kinds of + sth, but if I had to choose one, it '
-            f'{_g_alts("would have to be", "would go for", "I would opt for")} …',
-            f'{_g_alts("This is because + S + V", "because of + NP")}',
+            {
+                "label_html": f'{_g_mark("Loại gì?")}',
+                "openers": [
+                    "I like … most.",
+                    "I love all kinds of …, but if I had to choose one, it would have to be…",
+                    "… I would go for…",
+                    "… I would opt for…",
+                ],
+                "details_label": "Soft choose (chọn 1)",
+                "details": [
+                    "would have to be",
+                    "would go for",
+                    "I would opt for",
+                ],
+            },
+            {
+                "label_html": f'{_g_mark("Lý do")}',
+                "openers": [
+                    "This is because + S + V",
+                    "because of + NP",
+                ],
+                "details_label": "Thêm nếu cần dài",
+                "details": [
+                    "Bảng lý do thích / không thích (Lesson 2)",
+                    "Lexical Food: wholesome, from scratch, hits the spot…",
+                ],
+            },
         ],
     )
-    g6 = lesson_grammar_notes_html(
+    g6 = lesson_grammar_tree_html(
         "Lesson 6",
+        "Do you prefer X or Y?",
         [
-            f'{_g_alts("I prefer X", "I prefer X to Y", "I prefer X rather than Y")} '
-            f'{_g_mark("because")} + ưu điểm của X.',
-            f'{_g_alts("while + nhược điểm của Y", "whereas + nhược điểm của Y")}',
+            {
+                "label_html": f'{_g_mark("Chọn")} một X hay Y',
+                "openers": [
+                    "I prefer X",
+                    "I prefer X to Y",
+                    "I prefer X rather than Y",
+                ],
+                "details_label": "Form",
+                "details": [
+                    "prefer + V-ing / NP",
+                    "prefer + V-ing + to + V-ing",
+                    "prefer to V rather than V",
+                ],
+            },
+            {
+                "label_html": f'{_g_mark("Lý do")}',
+                "openers": [
+                    "because + ưu điểm của X",
+                    "while + nhược điểm của Y",
+                    "whereas + nhược điểm của Y",
+                ],
+                "details_label": "Cách triển khai",
+                "details": [
+                    "X …, while / whereas Y …",
+                    "Thêm 1 ví dụ cụ thể (Ví dụ) để chốt đoạn",
+                ],
+            },
+        ],
+        footer=[
+            "It takes + time (+ for sb) + to V",
+            "love the feeling of + V-ing",
+            "have someone to + V",
+            "send sth to sb",
+            "function (v)",
         ],
     )
     g7 = lesson_grammar_tree_html(
@@ -6507,7 +6595,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr41">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr42">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -6603,7 +6691,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr41">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr42">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>

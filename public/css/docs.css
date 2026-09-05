@@ -5353,7 +5353,7 @@ mark.lr-hl,
 @media (min-width: 900px) {
   .lr-g-tree-branches {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 12px;
     border-left: none;
     padding-left: 0;
