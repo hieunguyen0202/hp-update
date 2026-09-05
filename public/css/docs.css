@@ -5576,6 +5576,136 @@ mark.lr-hl,
   .lr-lex-grid { grid-template-columns: 1fr; }
 }
 
+/* Lesson 16 · Part 2 Food — 5-part frame */
+.lr-p2-frame-wrap { margin: 1rem 0 1.25rem; }
+
+.lr-p2-parts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 0.75rem;
+}
+
+.lr-p2-part {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 10px;
+  align-items: start;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 10px;
+  background: rgba(30, 41, 59, 0.45);
+  padding: 10px 12px;
+}
+
+.lr-p2-part[data-p2-step="3"] {
+  border-color: rgba(250, 204, 21, 0.55);
+  background: rgba(66, 52, 20, 0.35);
+  min-height: 4.5rem;
+}
+
+.lr-p2-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #0f172a;
+  background: #86efac;
+}
+
+.lr-p2-part[data-p2-step="3"] .lr-p2-num { background: #fde68a; }
+
+.lr-p2-part-title {
+  margin: 0 0 4px;
+  font-size: 0.88rem;
+  color: #f8fafc;
+}
+
+.lr-p2-tpl {
+  margin: 0 0 4px;
+  font-size: 0.8rem;
+  color: #cbd5e1;
+}
+
+.lr-p2-tpl code {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.76rem;
+  color: #fde68a;
+  background: transparent;
+}
+
+.lr-p2-hint {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  line-height: 1.4;
+}
+
+.lr-p2-cue-list {
+  font-size: 0.78rem;
+  color: #e2e8f0;
+  padding-left: 1.1rem;
+}
+
+.lr-p2-cue-list li { margin: 0 0 4px; }
+
+.lr-cue-box {
+  border: 1px solid rgba(251, 146, 60, 0.45);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 0.75rem;
+  background: rgba(67, 40, 12, 0.35);
+}
+
+.lr-cue-title {
+  margin: 0 0 6px;
+  font-weight: 700;
+  color: #fdba74;
+  font-size: 0.95rem;
+}
+
+.lr-cue-should {
+  margin: 0 0 4px;
+  font-size: 0.8rem;
+  color: #cbd5e1;
+}
+
+.lr-cue-bullets {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.8rem;
+  color: #e2e8f0;
+}
+
+.lr-p2-answer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0.5rem 0 0.75rem;
+}
+
+.lr-p2-sec {
+  border-left: 3px solid rgba(134, 239, 172, 0.7);
+  padding: 6px 0 6px 10px;
+}
+
+.lr-p2-sec:nth-child(3) { border-left-color: rgba(253, 230, 138, 0.85); }
+
+.lr-p2-sec-label {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #86efac;
+  margin-bottom: 4px;
+}
+
+.lr-p2-sec:nth-child(3) .lr-p2-sec-label { color: #fde68a; }
+
 /* Per-example structure chips (under Food cards) */
 .lr-ex-chips {
   display: flex;

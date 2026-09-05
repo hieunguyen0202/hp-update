@@ -1660,6 +1660,62 @@ WORD_SLOTS: dict[str, list[dict]] = {
         },
     ],
 
+    # Lesson 16 · Speaking Part 2 (Food) — 5-part frame
+    "p2_open": [
+        {"form": "I'm going to talk about", "vi": "Tôi sẽ nói về"},
+        {"form": "I'd like to talk about", "vi": "Tôi muốn nói về"},
+        {"form": "Today I'm going to describe", "vi": "Hôm nay tôi sẽ miêu tả"},
+    ],
+    "p2_close": [
+        {
+            "form": "So, if I had to talk about",
+            "vi": "Vậy nếu tôi phải nói về",
+        },
+        {
+            "form": "So overall, if I had to choose",
+            "vi": "Tóm lại, nếu tôi phải chọn",
+        },
+    ],
+    "p2_close_tail": [
+        {"form": "it would have to be", "vi": "thì đó sẽ phải là"},
+        {"form": "I'd definitely choose", "vi": "tôi chắc chắn sẽ chọn"},
+    ],
+    "p2_basic_name": [
+        {"form": "It has a very nice name", "vi": "Nó có tên rất hay"},
+        {"form": "It's called", "vi": "Nó được gọi là"},
+        {"form": "People usually call it", "vi": "Mọi người thường gọi nó là"},
+    ],
+    "p2_basic_where": [
+        {"form": "It's located on", "vi": "Nó nằm trên"},
+        {"form": "You can find it in", "vi": "Bạn có thể tìm thấy nó ở"},
+        {"form": "It's right in the heart of", "vi": "Nó nằm ngay trung tâm"},
+    ],
+    "p2_basic_size": [
+        {"form": "It's quite small", "vi": "Nó khá nhỏ"},
+        {"form": "It's quite spacious", "vi": "Nó khá rộng"},
+        {"form": "It's a cosy little place", "vi": "Đó là chỗ nhỏ ấm cúng"},
+    ],
+    "p2_core_trans": [
+        {"form": "Speaking of the food", "vi": "Nói về món ăn"},
+        {"form": "In terms of the menu", "vi": "Về thực đơn"},
+        {"form": "When it comes to the taste", "vi": "Khi nói đến hương vị"},
+        {"form": "The thing that I love most about it is", "vi": "Điều tôi thích nhất về nó là"},
+    ],
+    "p2_feel": [
+        {
+            "form": "This is the first place I think of whenever I want to",
+            "vi": "Đây là chỗ đầu tiên tôi nghĩ tới mỗi khi muốn",
+        },
+        {
+            "form": "I would recommend this to anyone who loves",
+            "vi": "Tôi sẽ giới thiệu cho bất kỳ ai thích",
+        },
+        {
+            "form": "What makes it meaningful to me is that",
+            "vi": "Điều khiến nó có ý nghĩa với tôi là",
+        },
+    ],
+
 }
 
 # ── Mind map helpers (shared: Section 2 tenses + Lesson 2/3) ───────────────
@@ -4283,6 +4339,87 @@ LESSON15_MINDMAP_RIGHT = [
 ]
 
 
+# Lesson 16 · Part 2 Food — 5 phần cố định (slide Nguyễn Huyền)
+LESSON16_MINDMAP_LEFT = [
+    {
+        "id": "p2-frame",
+        "color": "#86efac",
+        "name": "Khung 5 phần",
+        "name_vi": "mở đầu → cơ bản → cốt lõi → cảm nhận → kết",
+        "flow": True,
+        "opener": "I'm going to talk about… → So, if I had to talk about…, it would have to be…",
+        "branches": [
+            {
+                "label": "1 · Mở đầu",
+                "leaves": [
+                    tip("I'm going to talk about + X", "mở bài cố định"),
+                    tip("which + paraphrase cue card", "đổi từ khóa trên đề → lexical range"),
+                ],
+            },
+            {
+                "label": "2 · Thông tin cơ bản",
+                "leaves": [
+                    tip("Name · Where/When · Size/context", "tên · chỗ/lúc · quy mô"),
+                    tip("1 câu đánh giá: Although…, which makes it…", "1 câu dài kết thúc phần cơ bản"),
+                ],
+            },
+            {
+                "label": "5 · Kết",
+                "leaves": [
+                    tip("So, if I had to talk about [topic], it would have to be [X].", "nhắc lại đề + tên cụ thể"),
+                ],
+            },
+        ],
+        "link": "→ khung xương cố định · cốt lõi chiếm ~60% thời gian",
+    },
+]
+
+LESSON16_MINDMAP_RIGHT = [
+    {
+        "id": "p2-core-feel",
+        "color": "#fde68a",
+        "name": "Cốt lõi + Cảm nhận (Food)",
+        "name_vi": "phần dài nhất · biến theo loại cue card",
+        "flow": True,
+        "opener": "Design/Product · Activity+Meaning · Memory",
+        "branches": [
+            {
+                "label": "3 · Cốt lõi (chiếm phần lớn)",
+                "leaves": [
+                    tip(
+                        "Quán/nhà hàng: không gian + menu/giá/nhân viên",
+                        "decorated with · a wide range of · staff welcome… with a smile",
+                    ),
+                    tip(
+                        "Món ăn: nguyên liệu/cách nấu + vị/aroma",
+                        "is made of · simmered · mouth-watering · from scratch",
+                    ),
+                    tip(
+                        "Bữa ăn/event: hoạt động + ý nghĩa + kỷ niệm",
+                        "list · contrast · I remember when…",
+                    ),
+                ],
+            },
+            {
+                "label": "4 · Cảm nhận",
+                "leaves": [
+                    tip("Lần gần nhất / vì sao ý nghĩa", "personal story ngắn"),
+                    tip("I would recommend… to anyone who…", "recommendation"),
+                ],
+            },
+            {
+                "label": "Cue card Food (lọc exam)",
+                "leaves": [
+                    tip("Dish · Restaurant · Meal · Cook/invite", "4 nhóm đề Food Part 2"),
+                ],
+            },
+        ],
+        "link": "→ chọn 1 loại cue · nhồi cốt lõi · cảm nhận ngắn · kết công thức",
+    },
+]
+
+
+
 def collect_review_words() -> list[dict]:
     topic = next(t for t in TOPICS["topics"] if t["slug"] == "food-drink")
     by_level: dict[str, list[dict]] = {}
@@ -5355,6 +5492,26 @@ def _ex_chip_notes_html(chips: list | None) -> str:
         "have become more popular": "Đã trở nên phổ biến hơn",
         "family-run restaurants / street food stalls": "Nhà hàng gia đình / quán đường phố",
         "home-cooked": "Đồ nấu nhà / nấu tại nhà",
+
+        # Lesson 16 · Part 2
+        "I'm going to talk about…": "Tôi sẽ nói về… (mở đầu Part 2)",
+        "which + paraphrase cue card": "which + diễn đạt lại từ khóa trên đề",
+        "I'm going to talk about… which is one of the most…": "Mở đầu + mệnh đề quan hệ nâng band",
+        "Although…, which makes it…": "Although…, which makes it… (1 câu đánh giá dài)",
+        "a wide range of…": "Một loạt / nhiều loại…",
+        "The thing that I love most about…": "Điều tôi thích nhất về…",
+        "So, if I had to talk about…, it would have to be…": "Công thức kết Part 2",
+        "Activity + meaning (because they believe…)": "Hoạt động + ý nghĩa/lý do để kéo dài",
+        "from children to the elderly": "Từ trẻ nhỏ đến người già",
+        "mouth-watering aroma": "Hương thơm kích thích vị giác",
+        "loads of activities / listing": "Liệt kê nhiều hoạt động",
+        "While some people…, I personally…": "Đối chiếu người khác ↔ tôi",
+        "Activity + meaning": "Hoạt động + ý nghĩa",
+        "I remember when… / memory detail": "Thêm kỷ niệm để kéo dài cốt lõi",
+        "I remember when…": "Tôi nhớ khi…",
+        "forget all the pressures…": "Tạm quên mọi áp lực…",
+        "In terms of… / Speaking of…": "Về… / Nói về… (chuyển ý cốt lõi)",
+
     }
 
 
@@ -9504,6 +9661,279 @@ def food_lesson14_examples_html() -> str:
 
 
 
+
+def lesson16_part2_frame_html() -> str:
+    """5-part Part 2 frame + Food cue-card bank (Nguyễn Huyền)."""
+    parts = [
+        ("1", "Mở đầu", "I'm going to talk about [X] which [paraphrase cue card].",
+         "Paraphrase từ khóa trên đề (often go → usually go if I need… / important → one of the most…)."),
+        ("2", "Thông tin cơ bản", "Name + Where/When + Size/context + 1 câu đánh giá",
+         "Although it's…, which makes it a perfect place/dish for those who…"),
+        ("3", "Cốt lõi ★", "Chiếm phần lớn thời gian (~1–1.5 phút)",
+         "Quán: design + menu/service · Món: ingredients/taste · Event: activity + meaning + memory"),
+        ("4", "Cảm nhận", "Kỷ niệm gần đây · ý nghĩa · recommend",
+         "This is the first… I think of… / I would recommend… to anyone who…"),
+        ("5", "Kết", "So, if I had to talk about [topic], it would have to be [X].",
+         "Nhắc lại đề (paraphrase) + tên cụ thể đã chọn."),
+    ]
+    part_cards = "".join(
+        f"""              <div class="lr-p2-part" data-p2-step="{n}">
+                <span class="lr-p2-num">{n}</span>
+                <div class="lr-p2-part-body">
+                  <h5 class="lr-p2-part-title">{esc(title)}</h5>
+                  <p class="lr-p2-tpl"><code>{esc(tpl)}</code></p>
+                  <p class="lr-p2-hint">{esc(hint)}</p>
+                </div>
+              </div>"""
+        for n, title, tpl, hint in parts
+    )
+    cues = [
+        ("Dish / food", [
+            "Describe a traditional food in your country",
+            "Describe your favourite food / dish",
+            "Describe an unusual food you ate",
+            "Describe a dish you know how to cook",
+        ]),
+        ("Restaurant / café", [
+            "Describe a restaurant you enjoy going to",
+            "Describe a café / place where you often eat",
+            "Describe a place where you go to relax (food/drink angle)",
+        ]),
+        ("Meal / occasion", [
+            "Describe a meal you enjoyed",
+            "Describe an unusual meal you had",
+            "Describe a meal you recently enjoyed outside",
+            "Describe a time you invited family/friends for dinner",
+        ]),
+    ]
+    cue_cols = []
+    for title, items in cues:
+        lis = "".join(f"<li>{esc(q)}</li>" for q in items)
+        cue_cols.append(
+            f"""              <div class="lr-lex-col">
+                <h5 class="lr-lex-col-title">{esc(title)}</h5>
+                <ul class="lr-lex-list lr-p2-cue-list">{lis}</ul>
+              </div>"""
+        )
+    return f"""
+          <div class="lr-grammar-notes lr-p2-frame-wrap" id="lesson16-part2-frame">
+            <h4 class="lr-grammar-notes-title">Part 2 · Khung 5 phần (cố định mọi đề)</h4>
+            <p class="lr-freq-hint">Điểm chung slide: <strong>mở đầu &amp; kết = công thức cố định</strong> · <strong>cốt lõi = dài nhất</strong> · thông tin cơ bản &amp; cảm nhận ngắn. Food chỉ đổi nội dung nhánh 2–4.</p>
+            <div class="lr-p2-parts">
+{part_cards}
+            </div>
+            <h4 class="lr-grammar-notes-title" style="margin-top:1rem">Cue card Food · lọc exam / Cambridge-style</h4>
+            <div class="lr-lex-grid">
+{chr(10).join(cue_cols)}
+            </div>
+          </div>"""
+
+
+def _strip_picks_to_plain(en_html: str) -> str:
+    """Turn phrase_pick <select> HTML into the selected option text for data-plain."""
+    import html as _html
+    import re as _re
+
+    def _sel_plain(m: _re.Match) -> str:
+        block = m.group(0)
+        sel = _re.search(r"<option[^>]*\bselected\b[^>]*>(.*?)</option>", block, _re.I | _re.S)
+        if not sel:
+            sel = _re.search(r"<option[^>]*>(.*?)</option>", block, _re.I | _re.S)
+        return sel.group(1) if sel else ""
+
+    text = _re.sub(r"<select\b[^>]*>.*?</select>", _sel_plain, en_html, flags=_re.I | _re.S)
+    text = _re.sub(r"<[^>]+>", "", text)
+    return _html.unescape(text).replace("\xa0", " ").strip()
+
+
+def _p2_sec(label: str, en: str, vi: str, plain: str | None = None) -> str:
+    plain_text = plain if plain is not None else _strip_picks_to_plain(en)
+    return f"""            <div class="lr-p2-sec">
+              <span class="lr-p2-sec-label">{esc(label)}</span>
+              <p class="lr-food-ex-line lr-tip lr-answer-text" data-tip="{esc(vi)}" title="{esc(vi)}" data-plain="{esc(plain_text)}">{en}</p>
+            </div>"""
+
+
+def food_lesson16_examples_html() -> str:
+    """Lesson 16 · Part 2 Food — full 5-part model talks."""
+    cards_data = []
+
+    # 1) Restaurant
+    cards_data.append({
+        "cue": "Describe a restaurant you enjoy going to",
+        "bullets": ["where it is", "what kind of food it serves", "why you go there", "and explain why you enjoy it"],
+        "source": "Cambridge-style · Restaurant (Part 2) · map slide Teaspoon → Food",
+        "choice": "Nhà hàng phở gia đình · Quận 1",
+        "secs": [
+            ("Mở đầu",
+             f'{phrase_pick("p2_open", 0)} a family-run restaurant which I usually go to if I want authentic local food.',
+             "Tôi sẽ nói về một nhà hàng gia đình mà tôi thường đến khi muốn đồ ăn địa phương đích thực."),
+            ("Thông tin cơ bản",
+             f'{phrase_pick("p2_basic_name", 0)} — Phở Thìn. {phrase_pick("p2_basic_where", 0)} a busy street near Ben Thanh Market. '
+             f'{phrase_pick("p2_basic_size", 0)}, I think it can hold a maximum of 30 people. '
+             f'Although it\'s right in the city centre, it\'s on a quiet corner of the street, which makes it a perfect place for those who need a quick but comforting bowl of noodles after work.',
+             "Nó có tên rất hay — Phở Thìn. Nằm trên phố đông gần chợ Bến Thành. Khá nhỏ, tối đa khoảng 30 người. Dù ở trung tâm nhưng góc phố yên, rất hợp người cần tô phở ấm bụng sau giờ làm."),
+            ("Cốt lõi",
+             f'I really love the open kitchen, which is surrounded by steam and the smell of beef broth simmered for hours. '
+             f'{phrase_pick("p2_core_trans", 0)}, it serves a wide range of noodles and sides, including rare beef, brisket and tendon, but I usually order phở tái because I love the taste and the clear broth; oh it\'s so good. '
+             f'{phrase_pick("p2_core_trans", 3)} its staff. They are so fast and friendly. They always welcome their customers with a smile, and they show them to the best seat to enjoy their meal.',
+             "Tôi thích bếp mở, bao quanh bởi hơi nước và mùi nước dùng bò ninh hàng giờ. Nói về món, quán có nhiều loại phở và topping; tôi thường gọi tái vì nước trong và vị ngon. Điều tôi thích nhất là nhân viên — nhanh, thân thiện, luôn mỉm cười và dẫn chỗ ngồi đẹp."),
+            ("Cảm nhận",
+             f'{phrase_pick("p2_feel", 0)} grab a hearty bowl of phở. {phrase_pick("p2_feel", 1)} local food and who wants to escape from the hustle and bustle of the city for a while.',
+             "Đây là chỗ đầu tiên tôi nghĩ tới mỗi khi muốn một tô phở no đủ. Tôi sẽ giới thiệu cho ai thích đồ địa phương và muốn tạm thoát khỏi sự hối hả của thành phố."),
+            ("Kết",
+             f'{phrase_pick("p2_close", 0)} a restaurant I enjoy going to, {phrase_pick("p2_close_tail", 0)} Phở Thìn.',
+             "Vậy nếu tôi phải nói về một nhà hàng tôi thích đến, thì đó sẽ phải là Phở Thìn."),
+        ],
+        "notes": [
+            "I'm going to talk about…",
+            "which + paraphrase cue card",
+            "Although…, which makes it…",
+            "a wide range of…",
+            "The thing that I love most about…",
+            "So, if I had to talk about…, it would have to be…",
+        ],
+    })
+
+    # 2) Traditional dish
+    cards_data.append({
+        "cue": "Describe a traditional food in your country",
+        "bullets": ["what it is", "how it is made / eaten", "when people eat it", "and explain why it is special"],
+        "source": "Cambridge-style · Traditional food (Part 2) · map slide Tet → dish",
+        "choice": "Phở bò · biểu tượng ẩm thực Việt",
+        "secs": [
+            ("Mở đầu",
+             f'{phrase_pick("p2_open", 0)} phở which is one of the most iconic traditional dishes in Vietnam.',
+             "Tôi sẽ nói về phở — một trong những món truyền thống mang tính biểu tượng nhất ở Việt Nam."),
+            ("Thông tin cơ bản",
+             f'{phrase_pick("p2_basic_name", 2)} phở bò. People often eat it for breakfast, but these days it is also popular for lunch or a late dinner. '
+             f'It looks simple — rice noodles, sliced beef and herbs in a clear broth — but the flavour is deep. '
+             f'Although it is sold on almost every street corner, a well-made bowl is a perfect comfort food for those who miss home-cooked meals.',
+             "Mọi người thường gọi là phở bò. Hay ăn sáng, nay cũng phổ biến buổi trưa/tối. Trông đơn giản nhưng vị sâu. Dù bán khắp phố, một tô ngon vẫn là comfort food cho ai nhớ đồ nấu nhà."),
+            ("Cốt lõi",
+             f'The broth is simmered for hours with beef bones, onion and spices, which creates a mouth-watering aroma that I can\'t really describe in words. '
+             f'The noodles are freshly prepared, and the dish is garnished with Thai basil, lime and chilli. '
+             f'Two weeks before Tet, many families still cook bigger meals from scratch because they believe sharing food helps bring relatives closer. '
+             f'I really love the atmosphere when everyone, from children to the elderly, sits around a steaming bowl.',
+             "Nước dùng ninh xương bò, hành và gia vị hàng giờ — hương thơm khó tả. Bánh phở mới, trang trí với húng quế, chanh, ớt. Trước Tết nhiều nhà vẫn tự nấu vì tin rằng chia sẻ bữa ăn gắn kết họ hàng. Tôi thích không khí mọi người ngồi quanh tô nóng."),
+            ("Cảm nhận",
+             f'Last month, I went out with some of my friends, and we had phở after a long study session. '
+             f'{phrase_pick("p2_feel", 2)} it reminds me of Sunday mornings with my parents.',
+             "Tháng trước tôi đi với bạn, ăn phở sau buổi học dài. Điều khiến nó ý nghĩa là nó gợi nhớ sáng Chủ nhật với bố mẹ."),
+            ("Kết",
+             f'{phrase_pick("p2_close", 0)} a traditional food in my country, {phrase_pick("p2_close_tail", 0)} phở.',
+             "Vậy nếu tôi phải nói về món truyền thống ở nước tôi, thì đó sẽ phải là phở."),
+        ],
+        "notes": [
+            "I'm going to talk about… which is one of the most…",
+            "Activity + meaning (because they believe…)",
+            "from children to the elderly",
+            "mouth-watering aroma",
+            "So, if I had to talk about…, it would have to be…",
+        ],
+    })
+
+    # 3) Unusual / memorable meal
+    cards_data.append({
+        "cue": "Describe an unusual meal you had",
+        "bullets": ["when and where you had it", "who you were with", "what you ate", "and explain why it was unusual"],
+        "source": "IDP / exam-style · Unusual meal (Part 2)",
+        "choice": "Bữa kaiseki / hotpot Nhật · lần đầu thử món lạ",
+        "secs": [
+            ("Mở đầu",
+             f'{phrase_pick("p2_open", 1)} an unusual meal which I had with my family a few years ago.',
+             "Tôi muốn nói về một bữa ăn khác thường mà tôi có với gia đình vài năm trước."),
+            ("Thông tin cơ bản",
+             f'It took place at a small Japanese restaurant near my university. '
+             f'{phrase_pick("p2_basic_size", 2)}, and it can hold maybe 25 people. '
+             f'Although I was tired after exams, the calm atmosphere made it a perfect place for those who needed to unwind.',
+             "Ở nhà hàng Nhật nhỏ gần trường. Chỗ ấm cúng, khoảng 25 người. Dù mệt sau thi, không khí yên giúp thư giãn."),
+            ("Cốt lõi",
+             f'{phrase_pick("p2_core_trans", 1)}, it served a wide range of dishes, including sashimi, tofu and a hotpot. '
+             f'I usually avoid raw fish, but that night I tried it because my dad encouraged me. '
+             f'The thing that made the meal unusual was a tray of ingredients I had never seen before — the texture was soft and the flavour was delicate. '
+             f'I remember fumbling with chopsticks and laughing with my parents the whole time.',
+             "Về thực đơn, có nhiều món gồm sashimi, đậu phụ và lẩu. Tôi thường tránh cá sống nhưng tối đó thử vì bố khích lệ. Điểm khác thường là nguyên liệu chưa từng thấy — mềm và vị thanh. Tôi nhớ loay hoay đũa và cười với bố mẹ cả buổi."),
+            ("Cảm nhận",
+             f'We had a great time together, and the meal helped me temporarily forget all the pressures of my exams. '
+             f'{phrase_pick("p2_feel", 1)} trying new cuisine.',
+             "Chúng tôi vui vẻ, bữa ăn giúp tạm quên áp lực thi. Tôi sẽ giới thiệu cho ai thích thử ẩm thực mới."),
+            ("Kết",
+             f'{phrase_pick("p2_close", 0)} an unusual meal I have had, {phrase_pick("p2_close_tail", 0)} that Japanese hotpot night with my family.',
+             "Vậy nếu tôi phải nói về một bữa ăn khác thường, thì đó sẽ phải là đêm lẩu Nhật với gia đình."),
+        ],
+        "notes": [
+            "I'm going to talk about… which I had…",
+            "In terms of… / Speaking of…",
+            "I remember when… / memory detail",
+            "forget all the pressures…",
+            "So, if I had to talk about…, it would have to be…",
+        ],
+    })
+
+    # 4) Invite friends for dinner
+    cards_data.append({
+        "cue": "Describe a time you invited family or friends to have dinner",
+        "bullets": ["who you invited", "where you had the dinner", "what you ate", "and explain how you felt"],
+        "source": "Cambridge-style · Invite dinner (Part 2) · event + memory",
+        "choice": "Đãi bạn ở nhà · món nấu từ đầu",
+        "secs": [
+            ("Mở đầu",
+             f'{phrase_pick("p2_open", 0)} a dinner which I cooked for my closest friends after landing my first internship.',
+             "Tôi sẽ nói về bữa tối tôi nấu cho bạn thân sau khi nhận internship đầu tiên."),
+            ("Thông tin cơ bản",
+             f'It took place at my apartment on a Saturday evening about six months ago. '
+             f'There were four of us. The place is quite small, but with candles and soft music it felt cosy. '
+             f'Although I am not a professional chef, cooking from scratch made it a perfect way for those who wanted a warmer celebration than eating out.',
+             "Tại căn hộ tôi, tối Thứ Bảy khoảng 6 tháng trước. Bốn người. Chỗ nhỏ nhưng nến và nhạc làm ấm. Dù không phải đầu bếp, tự nấu hợp hơn ăn ngoài cho buổi kỷ niệm ấm."),
+            ("Cốt lõi",
+             f'During that evening, loads of little activities took place — we chopped vegetables together, shared stories, and took lots of pictures. '
+             f'I made a simple chicken curry with rice because I love the smell of spices when they hit the pan. '
+             f'While some people prefer ordering greasy take-away, I personally wanted home-cooked food so everyone could slow down. '
+             f'I remember when we finally sat down, the mouth-watering aroma filled the room and nobody checked their phones for a while.',
+             "Buổi đó có nhiều việc nhỏ — thái rau cùng nhau, kể chuyện, chụp ảnh. Tôi làm cà ri gà với cơm vì thích mùi gia vị khi vào chảo. Trong khi ai đó thích đồ mang về nhiều dầu, tôi muốn đồ nấu nhà để mọi người chậm lại. Tôi nhớ lúc ngồi xuống, hương thơm đầy phòng và chẳng ai xem điện thoại."),
+            ("Cảm nhận",
+             f'We had a great time together. {phrase_pick("p2_feel", 2)} I could finally give back to friends who supported me during stressful months.',
+             "Chúng tôi vui vẻ. Điều ý nghĩa là tôi có thể đáp lại bạn bè đã ủng hộ những tháng stress."),
+            ("Kết",
+             f'{phrase_pick("p2_close", 0)} a time I invited friends for dinner, {phrase_pick("p2_close_tail", 0)} that home-cooked curry night.',
+             "Vậy nếu tôi phải nói về lần mời bạn ăn tối, thì đó sẽ phải là đêm cà ri nấu nhà ấy."),
+        ],
+        "notes": [
+            "loads of activities / listing",
+            "While some people…, I personally…",
+            "Activity + meaning",
+            "I remember when…",
+            "So, if I had to talk about…, it would have to be…",
+        ],
+    })
+
+    cards_html = []
+    for it in cards_data:
+        bullets = "".join(f"<li>{esc(b)}</li>" for b in it["bullets"])
+        secs = "\n".join(_p2_sec(lab, en, vi) for lab, en, vi in it["secs"])
+        cards_html.append(f"""          <article class="lr-food-ex-card lr-p2-card">
+            <div class="lr-cue-box">
+              <p class="lr-cue-title">{esc(it["cue"])}</p>
+              <p class="lr-cue-should">You should say:</p>
+              <ul class="lr-cue-bullets">{bullets}</ul>
+            </div>
+            <p class="lr-food-ex-source">{esc(it["source"])} · chọn: <strong>{esc(it["choice"])}</strong></p>
+            <div class="lr-p2-answer">
+{secs}
+            </div>
+{_ex_chip_notes_html(it.get("notes"))}
+          </article>""")
+
+    return f"""
+        <div class="lr-food-examples" id="food-examples-l16">
+          <h3 class="lr-core-subtitle">Ví dụ Part 2 · Food (bài nói đủ 5 phần)</h3>
+          <p class="lr-mm-hint">Mỗi card = <strong>1 cue card</strong> + bài nói đầy đủ theo khung Nguyễn Huyền. Dropdown chỉ ở <strong>cụm khung</strong> (mở / chuyển / cảm nhận / kết). Cốt lõi giữ nguyên để luyện nhịp 2 phút.</p>
+{chr(10).join(cards_html)}
+        </div>"""
+
+
+
 def food_lesson15_examples_html() -> str:
     """Lesson 15 · How has X changed? — Cambridge-style Food Qs + lexical boost."""
     items: list[dict] = []
@@ -10297,7 +10727,7 @@ def lesson_highlights_html(
     include_food_examples: bool = False,
     open_practice: bool = False,
 ) -> str:
-    """Lesson 2 + 3 + 5–15 mind maps and practice (Lesson 4 skipped).
+    """Lesson 2 + 3 + 5–16 mind maps and practice (Lesson 4 skipped).
 
     map_suffix: unique id suffix when the same maps appear on Review Exercise 2.
     include_food_examples: annotated Food cards (Review Exercise 2).
@@ -10316,6 +10746,7 @@ def lesson_highlights_html(
     m13 = f"lesson13Mindmap{map_suffix}"
     m14 = f"lesson14Mindmap{map_suffix}"
     m15 = f"lesson15Mindmap{map_suffix}"
+    m16 = f"lesson16Mindmap{map_suffix}"
     open_attr = " open" if open_practice else ""
     examples_block = food_lesson_examples_html() if include_food_examples else ""
     examples_l5 = food_lesson5_examples_html() if include_food_examples else ""
@@ -10329,6 +10760,7 @@ def lesson_highlights_html(
     examples_l13 = food_lesson13_examples_html() if include_food_examples else ""
     examples_l14 = food_lesson14_examples_html() if include_food_examples else ""
     examples_l15 = food_lesson15_examples_html() if include_food_examples else ""
+    examples_l16 = food_lesson16_examples_html() if include_food_examples else ""
     lesson3_scroll = ""
     lesson5_scroll = ""
     lesson6_scroll = ""
@@ -10341,6 +10773,7 @@ def lesson_highlights_html(
     lesson13_scroll = ""
     lesson14_scroll = ""
     lesson15_scroll = ""
+    lesson16_scroll = ""
     if include_food_examples:
         lesson3_scroll = lesson_scroll_read_html(
             "lesson3", title="Lesson 3", source_sel="#lesson3-scroll-source"
@@ -10377,6 +10810,9 @@ def lesson_highlights_html(
         )
         lesson15_scroll = lesson_scroll_read_html(
             "lesson15", title="Lesson 15", source_sel="#lesson15-scroll-source"
+        )
+        lesson16_scroll = lesson_scroll_read_html(
+            "lesson16", title="Lesson 16 · Part 2", source_sel="#lesson16-scroll-source"
         )
 
     g2 = lesson_grammar_notes_html(
@@ -10921,8 +11357,48 @@ def lesson_highlights_html(
             ],
         )
     )
+    g16 = (
+        lesson16_part2_frame_html()
+        + lesson_grammar_tree_html(
+            "Lesson 16 · Part 2",
+            "Describe a Food topic (cue card)",
+            [
+                {
+                    "label_html": f'{_g_mark("Mở + Kết")} cố định',
+                    "openers": [
+                        "I'm going to talk about [X] which [paraphrase]",
+                        "So, if I had to talk about [topic], it would have to be [X]",
+                    ],
+                    "details_label": "Thông tin cơ bản",
+                    "details": [
+                        "Name · Where/When · Size",
+                        "1 câu: Although…, which makes it…",
+                    ],
+                },
+                {
+                    "label_html": f'{_g_mark("Cốt lõi")} ★ dài nhất',
+                    "openers": [
+                        "Quán: design + a wide range of… + staff",
+                        "Món: simmered / garnished / mouth-watering",
+                        "Event: list · contrast · I remember when…",
+                    ],
+                    "details_label": "Cảm nhận",
+                    "details": [
+                        "Last time… / What makes it meaningful…",
+                        "I would recommend… to anyone who…",
+                    ],
+                },
+            ],
+            footer=[
+                "Cue card bullets = checklist, không phải outline nói",
+                "Cốt lõi ~60% · mở/cơ bản/cảm nhận/kết ngắn",
+                "Reuse Food lexical từ L3–L15",
+            ],
+        )
+    )
 
     return f"""
+
       <div class="lr-core-lessons">
 
         <article class="lr-core-lesson" id="lesson2-formulas">
@@ -11231,6 +11707,30 @@ def lesson_highlights_html(
           </div>
 
 {lesson15_scroll}
+        </article>
+
+        <article class="lr-core-lesson" id="lesson16-formulas">
+          <header class="lr-core-lesson-head">
+            <h3>Lesson 16 · Part 2 Food (5 phần)</h3>
+          </header>
+
+{mind_map_html(
+            m16,
+            "Lesson 16 · Part 2 Food",
+            "Describe a Food cue card",
+            "5 phần cố định",
+            LESSON16_MINDMAP_LEFT,
+            LESSON16_MINDMAP_RIGHT,
+            note="Trái = <strong>mở · cơ bản · kết</strong> (công thức cố định) · Phải = <strong>cốt lõi + cảm nhận</strong> theo loại đề Food. Cue card exam bên dưới.",
+            extra_class=" lr-mmap--lesson16",
+            min_width="1360px",
+        )}
+{g16}
+          <div id="lesson16-scroll-source">
+{examples_l16}
+          </div>
+
+{lesson16_scroll}
         </article>
 
       </div>"""
@@ -12730,7 +13230,7 @@ def build_page() -> str:
           <a href="#mental-model">2 · Mental model</a>
           <a href="#ed-ending">2b · -ed</a>
           <a href="#structures">3 · Structures</a>
-          <a href="#lessons">4 · Lessons 2 · 3 · 5–15</a>
+          <a href="#lessons">4 · Lessons 2 · 3 · 5–16</a>
           <a href="#food-lang">5 · Idioms &amp; phrases</a>
           <a href="#phrase-drills">6 · Phrase drills</a>
           <a href="#food-phrase-map">6 · Mind map</a>
@@ -12770,7 +13270,7 @@ def build_page() -> str:
       </section>
 
       <section class="lr-section" id="lessons">
-        <h2>4 · Core formulas — Lesson 2, 3, 5–15</h2>
+        <h2>4 · Core formulas — Lesson 2, 3, 5–16</h2>
         <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — L2 → … → L10 Childhood → L11 Suitable · <em>skip Lesson 4</em>. Chọn <strong>1–2 nhánh</strong>.</p>
 {lesson_highlights_html()}
       </section>
@@ -12817,7 +13317,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr47">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr48">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -12870,9 +13370,9 @@ def build_page_review2() -> str:
       </div>
 
       <header class="lr-hero">
-        <p class="lr-hero-badge">Linear Thinking · Lesson 2, 3, 5–15</p>
+        <p class="lr-hero-badge">Linear Thinking · Lesson 2, 3, 5–16</p>
         <h1>Food &amp; Drink — Review Exercise 2</h1>
-        <p class="lede">Lesson 2 + 3 + 5–15 (How has X changed?) · skip Lesson 4. Sơ đồ tư duy → ví dụ Food → Scroll read. Full capstone: <a href="../review-exercise/">Review Exercise 1</a>.</p>
+        <p class="lede">Lesson 2 + 3 + 5–16 (Part 2 Food) · skip Lesson 4. Sơ đồ tư duy → ví dụ Food → Scroll read. Full capstone: <a href="../review-exercise/">Review Exercise 1</a>.</p>
         <nav class="lr-toc" aria-label="On this page">
           <a href="#lesson2-formulas">Lesson 2 · Reasons</a>
           <a href="#scroll-lesson2">Scroll · L2</a>
@@ -12902,12 +13402,15 @@ def build_page_review2() -> str:
           <a href="#lesson13-formulas">Lesson 13 · Dislike about X?</a>
           <a href="#lesson14-formulas">Lesson 14 · How often?</a>
           <a href="#lesson15-formulas">Lesson 15 · How changed?</a>
+          <a href="#lesson16-formulas">Lesson 16 · Part 2</a>
           <a href="#food-examples-l11">Ví dụ L11</a>
           <a href="#scroll-lesson11">Scroll · L11</a>
           <a href="#scroll-lesson12">Scroll · L12</a>
           <a href="#scroll-lesson13">Scroll · L13</a>
           <a href="#scroll-lesson14">Scroll · L14</a>
           <a href="#scroll-lesson15">Scroll · L15</a>
+          <a href="#scroll-lesson16">Scroll · L16</a>
+          <a href="#food-examples-l16">Ví dụ Part 2</a>
         </nav>
         <div class="ex-toolbar lr-toolbar lr-toolbar--hero">
           <label class="ex-toggle"><input type="checkbox" id="togVi" /> Vietnamese</label>
@@ -12915,7 +13418,7 @@ def build_page_review2() -> str:
       </header>
 
       <section class="lr-section" id="lessons">
-        <h2>Core formulas — Lesson 2, 3, 5–15</h2>
+        <h2>Core formulas — Lesson 2, 3, 5–16</h2>
         <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — chọn <strong>1–2 nhánh</strong>, không nhồi hết. Dropdown bên dưới để thay từ B1/B2.</p>
 {lesson_highlights_html(map_suffix="R2", include_food_examples=True, open_practice=True)}
       </section>
@@ -12929,11 +13432,11 @@ def build_page_review2() -> str:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Review Exercise 2 · Food &amp; Drink — The Quiet Corner</title>
-  <meta name="description" content="Lesson 2, 3, 5–15: Reasons through How has X changed — Food mind maps and practice.">
+  <meta name="description" content="Lesson 2, 3, 5–16: Reasons through Part 2 Food — mind maps and full cue-card talks.">
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr47">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr48">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -12985,7 +13488,7 @@ def patch_topic_index() -> None:
           <span class="vocab-level__badge vocab-level__badge--review">Review</span>
           <h2>Linear Thinking · Capstone exercise</h2>
         </div>
-        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3, 5–15 (mind map + ví dụ Food + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
+        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3, 5–16 (mind map + ví dụ Food + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
         <div class="vocab-lesson-grid">
           <a class="vocab-lesson-card vocab-lesson-card--review" href="review-exercise/">
             <img src="{review_icon}" alt="" width="72" height="72" loading="lazy">
