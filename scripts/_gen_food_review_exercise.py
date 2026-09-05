@@ -9692,18 +9692,22 @@ def lesson16_part2_frame_html() -> str:
     )
     cues = [
         ("Dish / food", [
-            "Describe a traditional food in your country",
+            "Describe some food or drink that you learned to prepare (Cam 18)",
+            "Describe a traditional food / traditional meal in your country",
             "Describe your favourite food / dish",
             "Describe an unusual food you ate",
             "Describe a dish you know how to cook",
+            "Describe an occasion when you tried a new food for the first time",
         ]),
         ("Restaurant / café", [
-            "Describe a restaurant you enjoy going to",
+            "Describe a restaurant that you enjoyed going to (Cam 8)",
             "Describe a café / place where you often eat",
             "Describe a place where you go to relax (food/drink angle)",
         ]),
         ("Meal / occasion", [
-            "Describe a meal you enjoyed",
+            "Describe a special meal you have had (Cam 11)",
+            "Describe a meal / dinner you enjoyed",
+            "Describe a great dinner with friends or family",
             "Describe an unusual meal you had",
             "Describe a meal you recently enjoyed outside",
             "Describe a time you invited family/friends for dinner",
@@ -9726,6 +9730,7 @@ def lesson16_part2_frame_html() -> str:
 {part_cards}
             </div>
             <h4 class="lr-grammar-notes-title" style="margin-top:1rem">Cue card Food · lọc exam / Cambridge-style</h4>
+            <p class="lr-freq-hint">Ưu tiên ôn đề gắn Cam: <strong>Cam 8</strong> restaurant · <strong>Cam 11</strong> special meal · <strong>Cam 18</strong> food/drink you learned to prepare. Cam 19: Food chủ yếu ở Part 1.</p>
             <div class="lr-lex-grid">
 {chr(10).join(cue_cols)}
             </div>

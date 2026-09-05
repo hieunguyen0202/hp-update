@@ -7805,17 +7805,22 @@ body.hsk-show-en .hsk-en {
 }
 
 .hsk-flash-py,
+.docs-main .hsk-flash-py,
 .hsk-flash-py-back,
+.docs-main .hsk-flash-py-back,
 .hsk-flash-ex-py,
-.hsk-flash-ex-en {
+.docs-main .hsk-flash-ex-py,
+.hsk-flash-ex-en,
+.docs-main .hsk-flash-ex-en {
   font-family: var(--mono);
   font-size: 0.92rem;
-  color: #0369a1;
+  color: #111111;
 }
 
-.hsk-flash-py-back {
+.hsk-flash-py-back,
+.docs-main .hsk-flash-py-back {
   margin: 0;
-  color: #0e7490;
+  color: #111111;
 }
 
 .docs-main .hsk-flash-ex-zh {
@@ -7824,9 +7829,10 @@ body.hsk-show-en .hsk-en {
   color: #0f172a;
 }
 
-.hsk-flash-ex-en {
+.hsk-flash-ex-en,
+.docs-main .hsk-flash-ex-en {
   margin: 4px 0 0;
-  color: #475569;
+  color: #111111;
 }
 
 .hsk-check-en {
