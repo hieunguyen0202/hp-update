@@ -411,6 +411,26 @@ WORD_SLOTS: dict[str, list[dict]] = {
         {"form": "can cause food poisoning if it isn't fresh", "vi": "có thể ngộ độc nếu không tươi"},
         {"form": "might not be safe for people with shellfish allergies", "vi": "có thể không an toàn nếu dị ứng shellfish"},
     ],
+    # Lesson 3 · Favourite tactic
+    "hardly_ever_action": [
+        {"form": "cook", "vi": "nấu ăn"},
+        {"form": "cook at home", "vi": "nấu ở nhà"},
+        {"form": "eat spicy dishes", "vi": "ăn món cay"},
+        {"form": "eat this kind of food", "vi": "ăn loại đồ ăn này"},
+        {"form": "eat out", "vi": "ăn ngoài"},
+        {"form": "order take-away", "vi": "gọi đồ mang về"},
+    ],
+    "prefer_rather_than": [
+        {"form": "to cook at home rather than eat out", "vi": "nấu ở nhà hơn là ăn ngoài"},
+        {"form": "to eat home-cooked meals rather than grab take-away", "vi": "ăn đồ nấu nhà hơn gọi mang về"},
+        {"form": "to have mild dishes rather than spicy food", "vi": "ăn món dịu hơn món cay"},
+        {"form": "home-cooked food rather than eating out", "vi": "đồ nấu nhà hơn ăn ngoài"},
+    ],
+    "stomach_problem": [
+        {"form": "various stomach problems", "vi": "nhiều vấn đề về dạ dày"},
+        {"form": "heartburn and indigestion", "vi": "ợ nóng và khó tiêu"},
+        {"form": "stomach pain after meals", "vi": "đau bụng sau bữa ăn"},
+    ],
 }
 
 # ── Mind map helpers (shared: Section 2 tenses + Lesson 2/3) ───────────────
@@ -1478,20 +1498,47 @@ LESSON3_MINDMAP_LEFT = [
             {
                 "label": "Nhánh 1 · Verb",
                 "leaves": [
-                    "I <strong>don't</strong> like / love / enjoy + V-ing",
-                    "Food: I don't like fast food / eating too much {dessert}",
+                    tip(
+                        "I don't like / love / enjoy + V-ing",
+                        "Tôi không thích / yêu / tận hưởng + V-ing",
+                    ),
+                    tip(
+                        "Food: I don't like fast food / eating too much dessert",
+                        "Food: Tôi không thích đồ ăn nhanh / ăn quá nhiều món ngọt",
+                    ),
                 ],
             },
             {
                 "label": "Nhánh 2 · Adj / NP",
                 "leaves": [
-                    "I'm <strong>not</strong> keen on …",
-                    "I'm not interested in …",
-                    "I'm <strong>not</strong> a big fan of …",
+                    tip("I'm not keen on …", "Tôi không hứng thú với …"),
+                    tip("I'm not interested in …", "Tôi không quan tâm đến …"),
+                    tip("I'm not a big fan of …", "Tôi không phải fan của …"),
+                ],
+            },
+            {
+                "label": "Nhánh 3 · hardly ever (chiến thuật Favourite)",
+                "patterns": (
+                    "<code>I hardly ever</code> + V nguyên mẫu · "
+                    "mềm hóa NO: gần như không bao giờ làm việc đó"
+                ),
+                "leaves": [
+                    tip(
+                        "I hardly ever + V",
+                        "Tôi hiếm khi / hầu như không bao giờ + V",
+                    ),
+                    tip(
+                        "I hardly ever cook / eat spicy dishes / eat out",
+                        "Hiếm khi nấu / ăn món cay / ăn ngoài",
+                    ),
+                    tip(
+                        "No, not really. I hardly ever … because …",
+                        "Không thật sự. Tôi hiếm khi … vì …",
+                    ),
                 ],
             },
         ],
-        "link": "→ <strong>because</strong> + Lesson 2 <em>Không thích</em> (trái)",
+        "link": "→ <strong>because</strong> + Lesson 2 <em>Không thích</em> (trái) · có thể + <em>prefer … rather than</em>",
     },
 ]
 
@@ -1507,16 +1554,40 @@ LESSON3_MINDMAP_RIGHT = [
             {
                 "label": "Nhánh 1 · Verb",
                 "leaves": [
-                    "I like / love / enjoy + V-ing",
-                    "Food: I enjoy <strong>cooking</strong> / trying new {cuisine}",
+                    tip("I like / love / enjoy + V-ing", "Tôi thích / yêu / tận hưởng + V-ing"),
+                    tip(
+                        "Food: I enjoy cooking / trying new cuisine",
+                        "Food: Tôi thích nấu ăn / thử ẩm thực mới",
+                    ),
                 ],
             },
             {
                 "label": "Nhánh 2 · Adj / NP",
                 "leaves": [
-                    "I'm keen on … · I'm interested in …",
-                    "I'm a big fan of …",
-                    "This is because + S + V",
+                    tip("I'm keen on … · I'm interested in …", "Tôi thích / quan tâm đến …"),
+                    tip("I'm a big fan of …", "Tôi là fan của …"),
+                    tip("This is because + S + V", "Đây là vì + S + V"),
+                ],
+            },
+            {
+                "label": "Nhánh 3 · prefer … rather than …",
+                "patterns": (
+                    "<code>prefer to V + rather than + V</code> (nguyên mẫu) · "
+                    "<code>prefer + V-ing + to + V-ing</code>"
+                ),
+                "leaves": [
+                    tip(
+                        "I prefer to cook at home rather than eat out",
+                        "Tôi thích nấu ở nhà hơn là ăn ngoài (to V · rather than · V)",
+                    ),
+                    tip(
+                        "I prefer reading to watching TV",
+                        "Tôi thích đọc hơn xem TV (V-ing · to · V-ing)",
+                    ),
+                    tip(
+                        "I prefer home-cooked food rather than eating out",
+                        "Tôi thích đồ nấu nhà hơn ăn ngoài (NP · rather than · V-ing)",
+                    ),
                 ],
             },
         ],
@@ -1533,9 +1604,12 @@ LESSON3_MINDMAP_RIGHT = [
             {
                 "label": "Nhánh 1 · Mệnh đề",
                 "leaves": [
-                    "because + S + V",
-                    "This is because + S + V",
-                    "<em>because it is not good for my health</em> (mệnh đề)",
+                    tip("because + S + V", "because + mệnh đề"),
+                    tip("This is because + S + V", "This is because + mệnh đề"),
+                    tip(
+                        "because it is not good for my health",
+                        "vì nó không tốt cho sức khỏe (mệnh đề)",
+                    ),
                 ],
             },
             {
@@ -1546,11 +1620,17 @@ LESSON3_MINDMAP_RIGHT = [
                     "It's a great way to + V · can lead to …"
                 ),
                 "leaves": [
-                    "because of its harmful effects on my health",
-                    "It gives me the chance to + V",
-                    "I also get the opportunity to + V",
-                    "It also helps me + V",
-                    "can lead to various health problems",
+                    tip(
+                        "because of its harmful effects on my health",
+                        "vì tác hại của nó với sức khỏe",
+                    ),
+                    tip("It gives me the chance to + V", "Cho tôi cơ hội + V"),
+                    tip("I also get the opportunity to + V", "Tôi cũng có cơ hội + V"),
+                    tip("It also helps me + V", "Nó cũng giúp tôi + V"),
+                    tip(
+                        "can lead to various health problems",
+                        "có thể dẫn đến nhiều vấn đề sức khỏe",
+                    ),
                 ],
             },
         ],
@@ -2415,33 +2495,34 @@ def food_lesson_examples_html() -> str:
     """Unified Food cards: every Q has Thích + Không thích; both sides have contextual dropdowns."""
     items = []
 
-    # ── cooking ──
+    # ── cooking at home (Favourite: prefer on YES · hardly ever on NO) ──
     cook_yes_tpl = (
         "Yes, definitely. I'm keen on cooking {cuisine} at home because it gives me "
-        "the chance to try new recipes and {relax_phrase}. {relax_followup}"
+        "the chance to try new recipes and {relax_phrase}. "
+        "I prefer {prefer_rather_than}."
     )
     cook_no_tpl = (
-        "No, because it {dislike_feel} and I {dislike_duty}. {dislike_no_benefit}."
+        "No, I don't enjoy cooking. I hardly ever {hardly_ever_action} because it {dislike_feel} "
+        "after a long day at work."
     )
     items.append({
-        "q": "Do you like cooking?",
+        "q": "Do you like cooking at home?",
         "yes_html": cook_yes_tpl.format(
             cuisine=slot_select("cuisine"),
-            relax_phrase=phrase_pick("relax_phrase"),
-            relax_followup=phrase_pick("relax_followup", 0),
+            relax_phrase=phrase_pick("relax_phrase", 1),
+            prefer_rather_than=phrase_pick("prefer_rather_than", 3),
         ),
-        "yes_vi": "Vâng, chắc chắn. Tôi thích nấu ăn ở nhà vì được thử công thức mới và thư giãn; ở bếp cũng giúp tạm quên áp lực công việc.",
-        "yes_plain": "Yes, definitely. I'm keen on cooking cuisine at home because it gives me the chance to try new recipes and unwind and recharge their batteries. Being in the kitchen also helps them temporarily forget all the pressures from their work.",
+        "yes_vi": "Vâng, chắc chắn. Tôi thích nấu ăn ở nhà vì được thử công thức mới và thư giãn. Tôi thích đồ nấu nhà hơn ăn ngoài.",
+        "yes_plain": "Yes, definitely. I'm keen on cooking cuisine at home because it gives me the chance to try new recipes and relax and clear their head. I prefer home-cooked food rather than eating out.",
         "yes_ipa": "/jes ˈdefɪnətli · aɪm kiːn ɒn ˈkʊkɪŋ ət həʊm…/",
         "yes_ex": cook_yes_tpl,
         "no_html": cook_no_tpl.format(
+            hardly_ever_action=phrase_pick("hardly_ever_action", 0),
             dislike_feel=phrase_pick("dislike_feel", 0),
-            dislike_duty=phrase_pick("dislike_duty", 0),
-            dislike_no_benefit=phrase_pick("dislike_no_benefit", 0),
         ),
-        "no_vi": "Không, vì nó khiến tôi kiệt sức và tôi phải làm những công việc giống nhau mỗi ngày. Nó không cho tôi cơ hội thử điều gì mới.",
-        "no_plain": "No, because it makes me exhausted and I have to deal with the same tasks every day. It doesn't give me the chance to try anything new.",
-        "no_ipa": "/nəʊ bɪˈkɒz ɪt meɪks miː ɪɡˈzɔːstɪd…/",
+        "no_vi": "Không, tôi không thích nấu ăn. Tôi hiếm khi nấu ăn vì nó làm tôi kiệt sức sau một ngày dài làm việc.",
+        "no_plain": "No, I don't enjoy cooking. I hardly ever cook because it makes me exhausted after a long day at work.",
+        "no_ipa": "/nəʊ aɪ dəʊnt ɪnˈdʒɔɪ ˈkʊkɪŋ · aɪ ˈhɑːdli ˈevə kʊk…/",
         "no_ex": cook_no_tpl,
     })
 
@@ -2604,6 +2685,65 @@ def food_lesson_examples_html() -> str:
         "no_ex": kit_no_tpl,
     })
 
+    # ── spicy food (Favourite · hardly ever + prefer) ──
+    spicy_yes_tpl = (
+        "Yes, absolutely. I'm a big fan of spicy dishes because {convenience_benefit}. "
+        "Trying new spices also {job_benefit}."
+    )
+    spicy_no_tpl = (
+        "No, I'm not keen on spicy dishes. I hardly ever {hardly_ever_action} because they "
+        "can lead to {stomach_problem}. I prefer {prefer_rather_than}."
+    )
+    items.append({
+        "q": "Do you like spicy food?",
+        "yes_html": spicy_yes_tpl.format(
+            convenience_benefit=phrase_pick("convenience_benefit", 0),
+            job_benefit=phrase_pick("job_benefit", 0),
+        ),
+        "yes_vi": "Có, chắc chắn. Tôi rất thích món cay vì giúp thư giãn sau ngày dài. Thử gia vị mới cũng cho cơ hội thử thách bản thân.",
+        "yes_plain": "Yes, absolutely. I'm a big fan of spicy dishes because it helps me unwind after a long day. Trying new spices also gives me the chance to challenge myself.",
+        "yes_ipa": "/jes ˌæbsəˈluːtli…/",
+        "yes_ex": spicy_yes_tpl,
+        "no_html": spicy_no_tpl.format(
+            hardly_ever_action=phrase_pick("hardly_ever_action", 2),
+            stomach_problem=phrase_pick("stomach_problem", 0),
+            prefer_rather_than=phrase_pick("prefer_rather_than", 2),
+        ),
+        "no_vi": "Không, tôi không thích các món cay. Tôi hiếm khi ăn chúng vì chúng dẫn đến một số vấn đề về dạ dày. Tôi thích món dịu hơn món cay.",
+        "no_plain": "No, I'm not keen on spicy dishes. I hardly ever eat spicy dishes because they can lead to various stomach problems. I prefer to have mild dishes rather than spicy food.",
+        "no_ipa": "/nəʊ aɪm nɒt kiːn ɒn ˈspaɪsi ˈdɪʃɪz…/",
+        "no_ex": spicy_no_tpl,
+    })
+
+    # ── eating out (Favourite · prefer … rather than …) ──
+    eat_out_yes_tpl = (
+        "Yes, occasionally. Dining out with friends is {social_benefit}. "
+        "Still, most days I prefer {prefer_rather_than} because it's healthier."
+    )
+    eat_out_no_tpl = (
+        "No, not really. I hardly ever {hardly_ever_action} because it's expensive "
+        "and not always good for my health. I prefer {prefer_rather_than}."
+    )
+    items.append({
+        "q": "Do you like eating out?",
+        "yes_html": eat_out_yes_tpl.format(
+            social_benefit=phrase_pick("social_benefit", 1),
+            prefer_rather_than=phrase_pick("prefer_rather_than", 3),
+        ),
+        "yes_vi": "Có, thỉnh thoảng. Ăn ngoài với bạn là cách thư giãn tuyệt. Nhưng hầu hết ngày tôi vẫn thích đồ nấu nhà hơn ăn ngoài vì lành mạnh hơn.",
+        "yes_plain": "Yes, occasionally. Dining out with friends is a great way to unwind with friends. Still, most days I prefer home-cooked food rather than eating out because it's healthier.",
+        "yes_ipa": "/jes əˈkeɪʒənəli…/",
+        "yes_ex": eat_out_yes_tpl,
+        "no_html": eat_out_no_tpl.format(
+            hardly_ever_action=phrase_pick("hardly_ever_action", 4),
+            prefer_rather_than=phrase_pick("prefer_rather_than", 0),
+        ),
+        "no_vi": "Không thực sự. Tôi hiếm khi ăn ngoài vì đắt và không phải lúc nào cũng tốt cho sức khỏe. Tôi thích nấu ở nhà hơn là ăn ngoài.",
+        "no_plain": "No, not really. I hardly ever eat out because it's expensive and not always good for my health. I prefer to cook at home rather than eat out.",
+        "no_ipa": "/nəʊ nɒt ˈrɪəli · aɪ ˈhɑːdli ˈevə iːt aʊt…/",
+        "no_ex": eat_out_no_tpl,
+    })
+
     cards = []
     for it in items:
         cards.append(
@@ -2618,7 +2758,7 @@ def food_lesson_examples_html() -> str:
     return f"""
         <div class="lr-food-examples" id="food-examples">
           <h3 class="lr-core-subtitle">Ví dụ Food · Thích / Không thích</h3>
-          <p class="lr-mm-hint">Mỗi câu hỏi luôn có <strong>2 hướng</strong>, và <strong>cả hai</strong> đều có dropdown (đổi cụm lý do / từ vựng theo ngữ cảnh Lesson 2–3). Hover cả đoạn EN → 1 tooltip VI. Scroll read bên dưới.</p>
+          <p class="lr-mm-hint">Mỗi câu hỏi luôn có <strong>2 hướng</strong> + dropdown ngữ cảnh. Có nhóm <strong>Favourite</strong>: <code>hardly ever</code> · <code>prefer … rather than …</code> (cooking at home · spicy · eating out). Hover cả đoạn EN → 1 tooltip VI. Có trong Scroll read Lesson 3.</p>
 {chr(10).join(cards)}
         </div>"""
 
@@ -2791,12 +2931,12 @@ def lesson_highlights_html(
             "No ↔ Yes + Reasons",
             LESSON3_MINDMAP_LEFT,
             LESSON3_MINDMAP_RIGHT,
-            note="Trái = <strong>NO</strong> · Phải = <strong>YES</strong> + Reasons. Cùng luồng ① Mở → because → ghép Lesson 2.",
+            note="Trái = <strong>NO</strong> (+ <em>hardly ever</em>) · Phải = <strong>YES</strong> (+ <em>prefer … rather than</em>) + Reasons. Luồng ① Mở → because → Lesson 2.",
             extra_class=" lr-mmap--lesson3",
-            min_width="1100px",
+            min_width="1200px",
         )}
 
-          <p class="lr-formula-note"><strong>Lưu ý:</strong> <em>because it is not good for my health</em> (mệnh đề) ↔ <em>because of its harmful effects on my health</em> (cụm danh từ)</p>
+          <p class="lr-formula-note"><strong>Lưu ý:</strong> <em>because it is not good for my health</em> (mệnh đề) ↔ <em>because of its harmful effects on my health</em> (cụm danh từ). Soft NO: <em>I hardly ever …</em> · Prefer: <em>prefer to V rather than V</em> / <em>prefer V-ing to V-ing</em>.</p>
 
           <div id="lesson3-scroll-source">
 {examples_block}
@@ -2810,6 +2950,8 @@ def lesson_highlights_html(
               <li><strong>V-ing làm chủ ngữ:</strong> <em>Listening to music</em> helps me relax. · <em>Watching movies</em> is a great way to unwind.</li>
               <li><strong>-ing vs -ed:</strong> boring (tính chất) vs bored (cảm xúc) — <em>This movie is boring</em> · <em>It makes me bored</em></li>
               <li><strong>every day</strong> (adv) vs <strong>everyday</strong> (adj)</li>
+              <li><strong>hardly ever:</strong> <em>I hardly ever cook / eat spicy dishes</em> — mềm hóa NO (gần như không bao giờ).</li>
+              <li><strong>prefer:</strong> <em>I prefer to cook at home rather than eat out</em> (to V · rather than · V) · <em>I prefer reading to watching TV</em> (V-ing · to · V-ing).</li>
             </ul>
           </details>
         </article>
@@ -4398,7 +4540,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr31">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr32">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -4485,7 +4627,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr31">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr32">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
