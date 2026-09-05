@@ -13341,7 +13341,7 @@ def build_page() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr22"></script>
-  <script src="{home}js/linear-review.js?v=lr29"></script>
+  <script src="{home}js/linear-review.js?v=lr30"></script>
 </body>
 </html>"""
 
@@ -13460,7 +13460,7 @@ def build_page_review2() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr22"></script>
-  <script src="{home}js/linear-review.js?v=lr29"></script>
+  <script src="{home}js/linear-review.js?v=lr30"></script>
 </body>
 </html>"""
 

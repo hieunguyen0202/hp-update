@@ -558,7 +558,41 @@
         const showIpa = !!(showIpaTog && showIpaTog.checked);
         const blocks = [];
 
+        const pushAnswer = (ans, qaEl) => {
+          if (!ans) return;
+          if (showIpa) {
+            const ipa = ((qaEl && qaEl.dataset.ipaFull) || "").trim();
+            blocks.push(
+              `<p class="scroll-line scroll-line--a scroll-line--a-ipa">${escapeHtml(
+                ipa || plainFromAnswer(ans)
+              )}</p>`
+            );
+          } else {
+            blocks.push(
+              `<p class="scroll-line scroll-line--a">${answerToHtml(ans, mode, reveal)}</p>`
+            );
+          }
+        };
+
+        // Lesson 16 · Part 2: cue card + 5 labeled sections (no .lr-scroll-qa)
+        source.querySelectorAll(".lr-p2-card").forEach((card) => {
+          const cue =
+            card.querySelector(".lr-cue-title") ||
+            card.querySelector(".lr-food-ex-q");
+          const qText = cue ? cue.textContent.replace(/\s+/g, " ").trim() : "";
+          if (qText) {
+            blocks.push(
+              `<p class="scroll-line scroll-line--q">${escapeHtml(qText)}</p>`
+            );
+          }
+          card.querySelectorAll(".lr-p2-sec .lr-answer-text").forEach((ans) => {
+            pushAnswer(ans, null);
+          });
+        });
+
         source.querySelectorAll(".lr-scroll-qa").forEach((qa) => {
+          // Skip if already covered via Part 2 card walk
+          if (qa.closest(".lr-p2-card")) return;
           const cardQ = qa.closest(".lr-food-ex-card")?.querySelector(".lr-food-ex-q");
           const qEl =
             qa.querySelector(".lr-scroll-q") ||
@@ -575,19 +609,7 @@
           if (qText) {
             blocks.push(`<p class="scroll-line scroll-line--q">${escapeHtml(qText)}</p>`);
           }
-          if (showIpa) {
-            const ipa = (qa.dataset.ipaFull || "").trim();
-            // Replace whole answer with IPA — question stays English (yellow)
-            blocks.push(
-              `<p class="scroll-line scroll-line--a scroll-line--a-ipa">${escapeHtml(
-                ipa || plainFromAnswer(ans)
-              )}</p>`
-            );
-          } else {
-            blocks.push(
-              `<p class="scroll-line scroll-line--a">${answerToHtml(ans, mode, reveal)}</p>`
-            );
-          }
+          pushAnswer(ans, qa);
         });
 
         track.innerHTML = `<div class="scroll-pad scroll-pad--top"></div>${blocks.join(
@@ -654,7 +676,18 @@
 
       const copyText = () => {
         const parts = [];
+        source.querySelectorAll(".lr-p2-card").forEach((card) => {
+          const cue =
+            card.querySelector(".lr-cue-title") ||
+            card.querySelector(".lr-food-ex-q");
+          const qText = cue ? cue.textContent.replace(/\s+/g, " ").trim() : "";
+          if (qText) parts.push(qText);
+          card.querySelectorAll(".lr-p2-sec .lr-answer-text").forEach((ans) => {
+            parts.push(plainFromAnswer(ans));
+          });
+        });
         source.querySelectorAll(".lr-scroll-qa").forEach((qa) => {
+          if (qa.closest(".lr-p2-card")) return;
           const cardQ = qa.closest(".lr-food-ex-card")?.querySelector(".lr-food-ex-q");
           const ans =
             qa.querySelector(".lr-answer-text") ||
