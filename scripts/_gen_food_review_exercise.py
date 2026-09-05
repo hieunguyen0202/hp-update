@@ -1253,6 +1253,129 @@ WORD_SLOTS: dict[str, list[dict]] = {
             "vi": "Lấy việc học nấu món địa phương cay làm ví dụ",
         },
     ],
+
+    # Lesson 13 · What do you dislike about X?
+    "dislike_direct": [
+        {"form": "Well, I don't really like", "vi": "Ừ, tôi không thật sự thích"},
+        {"form": "I don't really love", "vi": "Tôi không thật sự yêu thích"},
+        {"form": "I don't really like", "vi": "Tôi không thật sự thích"},
+    ],
+    "dislike_soft_open": [
+        {
+            "form": "Well, generally speaking, I love eating in restaurants, but sometimes",
+            "vi": "Nói chung tôi thích ăn nhà hàng, nhưng đôi khi",
+        },
+        {
+            "form": "Generally speaking, I love cooking at home, but sometimes",
+            "vi": "Nói chung tôi thích nấu ở nhà, nhưng đôi khi",
+        },
+        {
+            "form": "I love street food, but sometimes",
+            "vi": "Tôi thích đồ đường phố, nhưng đôi khi",
+        },
+        {
+            "form": "I love trying new food, but sometimes",
+            "vi": "Tôi thích thử món mới, nhưng đôi khi",
+        },
+    ],
+    "dislike_only": [
+        {
+            "form": "Well, generally speaking, I love eating in restaurants, but the only thing I don't really like about some restaurants is",
+            "vi": "Nói chung tôi thích ăn nhà hàng, nhưng điều duy nhất tôi không thích ở một số quán là",
+        },
+        {
+            "form": "Generally speaking, I love cooking, but the only thing I don't really like about cooking is",
+            "vi": "Nói chung tôi thích nấu ăn, nhưng điều duy nhất tôi không thích về nấu ăn là",
+        },
+        {
+            "form": "Well, generally speaking, I love fast food occasionally, but the only thing I don't really like about it is",
+            "vi": "Nói chung tôi thỉnh thoảng thích fast food, nhưng điều duy nhất tôi không thích là",
+        },
+        {
+            "form": "Generally speaking, I love family meals, but the only thing I don't really like about them is",
+            "vi": "Nói chung tôi thích bữa ăn gia đình, nhưng điều duy nhất tôi không thích là",
+        },
+    ],
+    "dislike_list_open": [
+        {
+            "form": "Well, there are a few things that I don't really love about fast food",
+            "vi": "Ừ, có vài điều tôi không thật sự thích về fast food",
+        },
+        {
+            "form": "There are a few things that I don't really love about eating out",
+            "vi": "Có vài điều tôi không thật sự thích về ăn ngoài",
+        },
+        {
+            "form": "Well, there are a few things that I don't really love about junk food",
+            "vi": "Ừ, có vài điều tôi không thật sự thích về junk food",
+        },
+        {
+            "form": "There are a few things that I don't really love about cooking from scratch every day",
+            "vi": "Có vài điều tôi không thật sự thích về nấu từ đầu mỗi ngày",
+        },
+    ],
+    "dislike_seq": [
+        {"form": "First", "vi": "Đầu tiên"},
+        {"form": "Firstly", "vi": "Trước hết"},
+        {"form": "The first thing is", "vi": "Điều đầu tiên là"},
+        {"form": "Second", "vi": "Thứ hai"},
+        {"form": "Secondly", "vi": "Thứ hai"},
+        {"form": "The second thing is", "vi": "Điều thứ hai là"},
+        {"form": "Finally", "vi": "Cuối cùng"},
+    ],
+    "dislike_detail": [
+        {
+            "form": "going to restaurants that only serve greasy take-away and overly spicy dishes",
+            "vi": "đến quán chỉ phục vụ đồ mang về nhiều dầu và món quá cay",
+        },
+        {
+            "form": "it takes too long to cook from scratch after a long day at work",
+            "vi": "nấu từ đầu mất quá nhiều thời gian sau một ngày dài làm việc",
+        },
+        {
+            "form": "they don't take cards, so I have to pay by cash",
+            "vi": "họ không nhận thẻ nên tôi phải trả tiền mặt",
+        },
+        {
+            "form": "it's really hard for me to stick to a balanced diet when junk food is everywhere",
+            "vi": "rất khó để tôi giữ chế độ ăn cân bằng khi junk food ở khắp nơi",
+        },
+        {
+            "form": "it's oily and can take a heavy toll on my health if I overdo it",
+            "vi": "nó nhiều dầu và có thể ảnh hưởng nặng đến sức khỏe nếu tôi ăn quá đà",
+        },
+        {
+            "form": "ready meals taste bland compared with a home-cooked meal",
+            "vi": "đồ sẵn nhạt so với bữa nấu nhà",
+        },
+        {
+            "form": "some street food stalls are too crowded and it's hard to grab a quick bite",
+            "vi": "một số quán đường phố quá đông và khó ăn vội",
+        },
+        {
+            "form": "people talk loudly and I can't really enjoy the meal",
+            "vi": "mọi người nói lớn và tôi không thưởng thức được bữa ăn",
+        },
+    ],
+    "dislike_close": [
+        {
+            "form": "but apart from that, I'm fine",
+            "vi": "nhưng ngoài điều đó ra thì tôi ổn",
+        },
+        {
+            "form": "and it's really hard for me to calculate my spending at the end of the month",
+            "vi": "thật sự khó để tôi tính chi tiêu cuối tháng",
+        },
+        {
+            "form": "which makes me really exhausted after dinner prep",
+            "vi": "khiến tôi thật sự kiệt sức sau khi chuẩn bị bữa tối",
+        },
+        {
+            "form": "so I try not to dine out every night",
+            "vi": "nên tôi cố không ăn ngoài mỗi tối",
+        },
+    ],
+
 }
 
 # ── Mind map helpers (shared: Section 2 tenses + Lesson 2/3) ───────────────
@@ -3587,6 +3710,123 @@ LESSON12_MINDMAP_RIGHT = [
 ]
 
 
+
+# Lesson 13 · What do you dislike about X? — trái = Nói thẳng, phải = Nói vòng
+LESSON13_MINDMAP_LEFT = [
+    {
+        "id": "dislike-direct",
+        "color": "#fca5a5",
+        "name": "Nói thẳng + lý do",
+        "name_vi": "I don't really like / love…",
+        "flow": True,
+        "opener": "I don't really like/love… + detail",
+        "branches": [
+            {
+                "label": "Nhánh 1 · Mở",
+                "leaves": [
+                    tip("I don't really like / love…", "Không thật sự thích / yêu…"),
+                    tip("Well, I don't really like…", "Ừ, tôi không thật sự thích…"),
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Food detail (tái dùng)",
+                "leaves": [
+                    tip(
+                        "greasy take-away · overly spicy · too crowded",
+                        "đồ mang về nhiều dầu · quá cay · quá đông",
+                    ),
+                    tip(
+                        "can't really enjoy the meal",
+                        "không thật sự thưởng thức được bữa ăn",
+                    ),
+                ],
+            },
+        ],
+        "link": "→ <strong>Nói thẳng</strong> dislike + 1–2 chi tiết Food",
+    },
+]
+
+LESSON13_MINDMAP_RIGHT = [
+    {
+        "id": "dislike-soft",
+        "color": "#86efac",
+        "name": "Nói vòng · soften",
+        "name_vi": "generally speaking · the only thing · apart from that",
+        "flow": True,
+        "opener": "Generally speaking, I love X, but…",
+        "branches": [
+            {
+                "label": "Nhánh 1 · Mở (chọn 1)",
+                "leaves": [
+                    tip(
+                        "Well, generally speaking, I love X, but sometimes…",
+                        "Nói chung tôi thích X, nhưng đôi khi…",
+                    ),
+                    tip(
+                        "… but the only thing I don't really like about X is…",
+                        "… nhưng điều duy nhất tôi không thích về X là…",
+                    ),
+                    tip(
+                        "but apart from that, I'm fine",
+                        "nhưng ngoài điều đó ra thì tôi ổn",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Grammar slide",
+                "leaves": [
+                    tip(
+                        "it's hard / difficult / easy (for sb) to V",
+                        "khó / dễ (cho ai) để làm gì — calculate spending / stick to a diet",
+                    ),
+                    tip(
+                        "pay by cash · calculate my spending",
+                        "trả tiền mặt · tính chi tiêu (nhà hàng)",
+                    ),
+                ],
+            },
+        ],
+        "link": "→ love X trước → 1 điểm dislike → consequence / apart from that",
+    },
+    {
+        "id": "dislike-list",
+        "color": "#fcd34d",
+        "name": "Nói vòng · liệt kê",
+        "name_vi": "a few things · First / Second / Finally",
+        "flow": True,
+        "opener": "There are a few things that I don't really love about X.",
+        "branches": [
+            {
+                "label": "Nhánh 1 · Mở + sequence",
+                "leaves": [
+                    tip(
+                        "Well, there are a few things that I don't really love about X",
+                        "Có vài điều tôi không thật sự thích về X",
+                    ),
+                    tip("First / Firstly / The first thing is…", "Đầu tiên / Điều đầu tiên là…"),
+                    tip("Second / Secondly / The second thing is…", "Thứ hai / Điều thứ hai là…"),
+                    tip("Finally, …", "Cuối cùng, …"),
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Lexical Food",
+                "leaves": [
+                    tip(
+                        "junk food · balanced diet · home-cooked",
+                        "junk food · chế độ cân bằng · đồ nấu nhà",
+                    ),
+                    tip(
+                        "take a heavy toll on my health · overdo it",
+                        "ảnh hưởng nặng đến sức khỏe · ăn quá đà",
+                    ),
+                ],
+            },
+        ],
+        "link": "→ liệt kê 2–3 điểm + First / Second / Finally",
+    },
+]
+
+
 def collect_review_words() -> list[dict]:
     topic = next(t for t in TOPICS["topics"] if t["slug"] == "food-drink")
     by_level: dict[str, list[dict]] = {}
@@ -4459,6 +4699,9 @@ def _pair_answer_html(
         "easy": ("Dễ", "lr-mm-tag-yes"),
         "hard": ("Khó", "lr-mm-tag-no"),
         "then": ("Ban đầu khó → dễ", "lr-mm-tag-yes"),
+        "direct": ("Nói thẳng", "lr-mm-tag-no"),
+        "soft": ("Nói vòng", "lr-mm-tag-yes"),
+        "list": ("Liệt kê", "lr-mm-tag-yes"),
     }
     tag, tag_cls = tags.get(kind, ("Mẫu", "lr-mm-tag-yes"))
     chain = " lr-practice-chain lr-chain" if ex_en else ""
@@ -4606,8 +4849,21 @@ def _ex_chip_notes_html(chips: list | None) -> str:
         "At first… / after a while…": "Lúc đầu… / sau một thời gian…",
         "But after a while, things begin to get a bit easier": "Sau một thời gian mọi thứ dễ hơn một chút",
         "However, …": "Tuy nhiên, … (đối chiếu nhẹ)",
-        "especially for…": "Đặc biệt với…",
+                "especially for…": "Đặc biệt với…",
+        # Lesson 13
+        "I don't really like/love…": "Không thật sự thích / yêu…",
+        "generally speaking": "Nói chung",
+        "the only thing I don't really like about X is…": "Điều duy nhất tôi không thật sự thích về X là…",
+        "there are a few things that I don't really love about X": "Có vài điều tôi không thật sự thích về X",
+        "First / Firstly / The first thing is…": "Đầu tiên / Điều đầu tiên là…",
+        "Second / The second thing is…": "Thứ hai / Điều thứ hai là…",
+        "Finally, …": "Cuối cùng, …",
+        "but apart from that, I'm fine": "Nhưng ngoài điều đó ra thì tôi ổn",
+        "it's hard/difficult/easy (for sb) to V": "Khó / dễ (cho ai) để làm gì",
+        "pay by cash": "Trả bằng tiền mặt",
+        "calculate my spending": "Tính toán chi tiêu của tôi",
     }
+
 
     def resolve_vi(en: str) -> str:
         if en in chip_vi:
@@ -7840,6 +8096,492 @@ def food_lesson12_examples_html() -> str:
         </div>"""
 
 
+
+def food_lesson13_examples_html() -> str:
+    """Lesson 13 · What do you dislike about X? — Cambridge-style Food Qs."""
+    items: list[dict] = []
+
+    def add(
+        q: str,
+        *,
+        kind: str,
+        en_html: str,
+        vi: str,
+        plain: str,
+        ipa: str,
+        ex: str,
+        ex_vi: str = "",
+        source: str = "",
+        alt_kind: str = "alt",
+        alt_html: str = "",
+        alt_vi: str = "",
+        alt_plain: str = "",
+        alt_ipa: str = "",
+        alt_ex: str = "",
+        alt_ex_vi: str = "",
+        notes: list[str] | None = None,
+    ) -> None:
+        items.append(
+            {
+                "q": q,
+                "kind": kind,
+                "html": en_html,
+                "vi": vi,
+                "plain": plain,
+                "ipa": ipa,
+                "ex": ex,
+                "ex_vi": ex_vi,
+                "source": source,
+                "alt_kind": alt_kind,
+                "alt_html": alt_html,
+                "alt_vi": alt_vi,
+                "alt_plain": alt_plain,
+                "alt_ipa": alt_ipa,
+                "alt_ex": alt_ex,
+                "alt_ex_vi": alt_ex_vi,
+                "notes": notes or [],
+            }
+        )
+
+    # 1 — restaurants · soft only-thing (slide restaurant cards example → Food)
+    t1 = (
+        "{dislike_only} that {dislike_detail}. "
+        "It means that {dislike_close}."
+    )
+    v1 = (
+        "{dislike_only} {dislike_detail}. "
+        "Nghĩa là {dislike_close}."
+    )
+    add(
+        "What do you dislike about eating in restaurants?",
+        kind="soft",
+        en_html=t1.format(
+            dislike_only=phrase_pick("dislike_only", 0),
+            dislike_detail=phrase_pick("dislike_detail", 2),
+            dislike_close=phrase_pick("dislike_close", 1),
+        ),
+        vi=fill_vi_tpl(
+            v1,
+            dislike_only=slot_vi("dislike_only", 0),
+            dislike_detail=slot_vi("dislike_detail", 2),
+            dislike_close=slot_vi("dislike_close", 1),
+        ),
+        plain=(
+            "Well, generally speaking, I love eating in restaurants, but the only thing I don't "
+            "really like about some restaurants is that they don't take cards, so I have to pay by cash. "
+            "It means that it's really hard for me to calculate my spending at the end of the month."
+        ),
+        ipa="",
+        ex=t1,
+        ex_vi=v1,
+        source="Cambridge-style · Restaurants / eating out (Part 1) — slide pattern",
+        notes=[
+            "generally speaking",
+            "the only thing I don't really like about X is…",
+            "pay by cash",
+            "calculate my spending",
+            "it's hard/difficult/easy (for sb) to V",
+        ],
+    )
+
+    # 2 — cooking · soft + apart from that (job slide → Food)
+    t2 = (
+        "{dislike_soft_open} {dislike_detail}, {dislike_close}."
+    )
+    v2 = (
+        "{dislike_soft_open} {dislike_detail}, {dislike_close}."
+    )
+    add(
+        "What don't you like about cooking?",
+        kind="soft",
+        en_html=t2.format(
+            dislike_soft_open=phrase_pick("dislike_soft_open", 1),
+            dislike_detail=phrase_pick("dislike_detail", 1),
+            dislike_close=phrase_pick("dislike_close", 0),
+        ),
+        vi=fill_vi_tpl(
+            v2,
+            dislike_soft_open=slot_vi("dislike_soft_open", 1),
+            dislike_detail=slot_vi("dislike_detail", 1),
+            dislike_close=slot_vi("dislike_close", 0),
+        ),
+        plain=(
+            "Generally speaking, I love cooking at home, but sometimes it takes too long to cook "
+            "from scratch after a long day at work, but apart from that, I'm fine."
+        ),
+        ipa="",
+        ex=t2,
+        ex_vi=v2,
+        source="Cambridge-style · Cooking (Part 1) → dislike frame",
+        notes=[
+            "generally speaking",
+            "but apart from that, I'm fine",
+            "from scratch",
+        ],
+    )
+
+    # 3 — fast food · list
+    t3 = (
+        "{dislike_list_open}. {seq1}, {d1}. {seq2}, {d2}. {seq3}, {d3}."
+    )
+    v3 = (
+        "{dislike_list_open}. {seq1}, {d1}. {seq2}, {d2}. {seq3}, {d3}."
+    )
+    add(
+        "What do you dislike about fast food?",
+        kind="list",
+        en_html=t3.format(
+            dislike_list_open=phrase_pick("dislike_list_open", 0),
+            seq1=phrase_pick("dislike_seq", 2),
+            d1=phrase_pick("dislike_detail", 4),
+            seq2=phrase_pick("dislike_seq", 5),
+            d2=phrase_pick("dislike_detail", 5),
+            seq3=phrase_pick("dislike_seq", 6),
+            d3="it can lead to a high salt intake if I eat it too often",
+        ),
+        vi=fill_vi_tpl(
+            v3,
+            dislike_list_open=slot_vi("dislike_list_open", 0),
+            seq1=slot_vi("dislike_seq", 2),
+            d1=slot_vi("dislike_detail", 4),
+            seq2=slot_vi("dislike_seq", 5),
+            d2=slot_vi("dislike_detail", 5),
+            seq3=slot_vi("dislike_seq", 6),
+            d3="nó có thể dẫn đến ăn mặn nếu tôi ăn quá thường xuyên",
+        ),
+        plain=(
+            "Well, there are a few things that I don't really love about fast food. The first thing is, "
+            "it's oily and can take a heavy toll on my health if I overdo it. The second thing is, "
+            "ready meals taste bland compared with a home-cooked meal. Finally, it can lead to a high "
+            "salt intake if I eat it too often."
+        ),
+        ipa="",
+        ex=t3,
+        ex_vi=v3,
+        source="Cambridge-style · Food you don't like / fast food (Part 1)",
+        notes=[
+            "there are a few things that I don't really love about X",
+            "First / Firstly / The first thing is…",
+            "Second / The second thing is…",
+            "Finally, …",
+            "take a heavy toll on (my) health",
+            "can lead to …",
+        ],
+    )
+
+    # 4 — junk food · direct
+    t4 = (
+        "{dislike_direct} {dislike_detail}, {dislike_close}."
+    )
+    v4 = (
+        "{dislike_direct} {dislike_detail}, {dislike_close}."
+    )
+    add(
+        "Is there any food you don't like?",
+        kind="direct",
+        en_html=t4.format(
+            dislike_direct=phrase_pick("dislike_direct", 0),
+            dislike_detail=phrase_pick("dislike_detail", 0),
+            dislike_close=phrase_pick("dislike_close", 3),
+        ),
+        vi=fill_vi_tpl(
+            v4,
+            dislike_direct=slot_vi("dislike_direct", 0),
+            dislike_detail=slot_vi("dislike_detail", 0),
+            dislike_close=slot_vi("dislike_close", 3),
+        ),
+        plain=(
+            "Well, I don't really like going to restaurants that only serve greasy take-away and "
+            "overly spicy dishes, so I try not to dine out every night."
+        ),
+        ipa="",
+        ex=t4,
+        ex_vi=v4,
+        source="Cambridge · Is there any food you don't like? (Part 1)",
+        notes=[
+            "I don't really like/love…",
+            "greasy take-away",
+        ],
+    )
+
+    # 5 — fruit you don't like (Cambridge 20 fruit topic style)
+    t5 = (
+        "{dislike_direct} some sour fruit. {dislike_soft_open} the taste puts me off, "
+        "{dislike_close}."
+    )
+    v5 = (
+        "{dislike_direct} một số trái chua. {dislike_soft_open} vị làm tôi ngại, "
+        "{dislike_close}."
+    )
+    add(
+        "Are there any kinds of fruit that you don't like eating?",
+        kind="direct",
+        en_html=(
+            f'{phrase_pick("dislike_direct", 2)} some sour fruit. '
+            f'The taste puts me off a bit, {phrase_pick("dislike_close", 0)}.'
+        ),
+        vi=(
+            f'{slot_vi("dislike_direct", 2)} một số trái chua. '
+            f'Vị làm tôi hơi ngại, {slot_vi("dislike_close", 0)}.'
+        ),
+        plain=(
+            "I don't really like some sour fruit. The taste puts me off a bit, but apart from that, "
+            "I'm fine."
+        ),
+        ipa="",
+        ex="{dislike_direct} some sour fruit. The taste puts me off a bit, {dislike_close}.",
+        ex_vi="{dislike_direct} một số trái chua. Vị làm tôi hơi ngại, {dislike_close}.",
+        source="Cambridge-style · Fruit you don't like (Part 1)",
+        notes=[
+            "I don't really like/love…",
+            "but apart from that, I'm fine",
+        ],
+    )
+
+    # 6 — eating out · list
+    t6 = (
+        "{dislike_list_open}. {seq1}, {d1}. {seq2}, {d2}."
+    )
+    v6 = (
+        "{dislike_list_open}. {seq1}, {d1}. {seq2}, {d2}."
+    )
+    add(
+        "What do you dislike about eating out?",
+        kind="list",
+        en_html=t6.format(
+            dislike_list_open=phrase_pick("dislike_list_open", 1),
+            seq1=phrase_pick("dislike_seq", 0),
+            d1=phrase_pick("dislike_detail", 6),
+            seq2=phrase_pick("dislike_seq", 5),
+            d2=phrase_pick("dislike_detail", 7),
+        ),
+        vi=fill_vi_tpl(
+            v6,
+            dislike_list_open=slot_vi("dislike_list_open", 1),
+            seq1=slot_vi("dislike_seq", 0),
+            d1=slot_vi("dislike_detail", 6),
+            seq2=slot_vi("dislike_seq", 5),
+            d2=slot_vi("dislike_detail", 7),
+        ),
+        plain=(
+            "There are a few things that I don't really love about eating out. First, some street "
+            "food stalls are too crowded and it's hard to grab a quick bite. The second thing is, "
+            "people talk loudly and I can't really enjoy the meal."
+        ),
+        ipa="",
+        ex=t6,
+        ex_vi=v6,
+        source="Cambridge-style · Prefer home or restaurants → dislike eating out",
+        notes=[
+            "there are a few things that I don't really love about X",
+            "First / Firstly / The first thing is…",
+            "Second / The second thing is…",
+            "grab a bite",
+            "it's hard/difficult/easy (for sb) to V",
+        ],
+    )
+
+    # 7 — junk food / balanced diet · soft only
+    t7 = (
+        "{dislike_only} that {dislike_detail}."
+    )
+    v7 = (
+        "{dislike_only} {dislike_detail}."
+    )
+    add(
+        "What don't you like about junk food?",
+        kind="soft",
+        en_html=t7.format(
+            dislike_only=phrase_pick("dislike_only", 2),
+            dislike_detail=phrase_pick("dislike_detail", 3),
+        ),
+        vi=fill_vi_tpl(
+            v7,
+            dislike_only=slot_vi("dislike_only", 2),
+            dislike_detail=slot_vi("dislike_detail", 3),
+        ),
+        plain=(
+            "Well, generally speaking, I love fast food occasionally, but the only thing I don't "
+            "really like about it is that it's really hard for me to stick to a balanced diet when "
+            "junk food is everywhere."
+        ),
+        ipa="",
+        ex=t7,
+        ex_vi=v7,
+        source="Cambridge-style · Healthy eating / food you avoid (Part 1–3)",
+        notes=[
+            "the only thing I don't really like about X is…",
+            "it's hard/difficult/easy (for sb) to V",
+            "stick to a balanced diet",
+            "junk food",
+        ],
+    )
+
+    # 8 — family meals · soft
+    t8 = (
+        "{dislike_only} that {dislike_detail}, {dislike_close}."
+    )
+    v8 = (
+        "{dislike_only} {dislike_detail}, {dislike_close}."
+    )
+    add(
+        "What do you dislike about eating with your family?",
+        kind="soft",
+        en_html=t8.format(
+            dislike_only=phrase_pick("dislike_only", 3),
+            dislike_detail="everyone wants different dishes so cooking takes longer",
+            dislike_close=phrase_pick("dislike_close", 2),
+        ),
+        vi=fill_vi_tpl(
+            v8,
+            dislike_only=slot_vi("dislike_only", 3),
+            dislike_detail="mọi người muốn món khác nhau nên nấu lâu hơn",
+            dislike_close=slot_vi("dislike_close", 2),
+        ),
+        plain=(
+            "Generally speaking, I love family meals, but the only thing I don't really like about "
+            "them is that everyone wants different dishes so cooking takes longer, which makes me "
+            "really exhausted after dinner prep."
+        ),
+        ipa="",
+        ex=t8,
+        ex_vi=v8,
+        source="Cambridge-style · Family meals / eat with family (Part 1)",
+        notes=[
+            "the only thing I don't really like about X is…",
+            "but apart from that, I'm fine",
+        ],
+    )
+
+    # 9 — cooking from scratch every day · list
+    t9 = (
+        "{dislike_list_open}. {seq1}, {d1}. {seq2}, {d2}. {seq3}, I sometimes just grab a quick bite instead."
+    )
+    v9 = (
+        "{dislike_list_open}. {seq1}, {d1}. {seq2}, {d2}. {seq3}, đôi khi tôi chỉ ăn vội thôi."
+    )
+    add(
+        "What don't you like about cooking every day?",
+        kind="list",
+        en_html=t9.format(
+            dislike_list_open=phrase_pick("dislike_list_open", 3),
+            seq1=phrase_pick("dislike_seq", 2),
+            d1=phrase_pick("dislike_detail", 1),
+            seq2=phrase_pick("dislike_seq", 5),
+            d2="washing up after a slap-up meal is tiring",
+            seq3=phrase_pick("dislike_seq", 6),
+        ),
+        vi=fill_vi_tpl(
+            v9,
+            dislike_list_open=slot_vi("dislike_list_open", 3),
+            seq1=slot_vi("dislike_seq", 2),
+            d1=slot_vi("dislike_detail", 1),
+            seq2=slot_vi("dislike_seq", 5),
+            d2="rửa chén sau bữa đã đời rất mệt",
+            seq3=slot_vi("dislike_seq", 6),
+        ),
+        plain=(
+            "There are a few things that I don't really love about cooking from scratch every day. "
+            "The first thing is, it takes too long to cook from scratch after a long day at work. "
+            "The second thing is, washing up after a slap-up meal is tiring. Finally, I sometimes "
+            "just grab a quick bite instead."
+        ),
+        ipa="",
+        ex=t9,
+        ex_vi=v9,
+        source="Cambridge-style · Do you like cooking? → dislike daily cooking",
+        notes=[
+            "there are a few things that I don't really love about X",
+            "First / Firstly / The first thing is…",
+            "Finally, …",
+            "from scratch",
+            "grab a quick bite",
+        ],
+    )
+
+    # 10 — spicy food · direct with alt soft
+    t10 = (
+        "{dislike_direct} food that is overly spicy because it is hard for me to enjoy a light meal afterwards."
+    )
+    v10 = (
+        "{dislike_direct} đồ quá cay vì tôi khó thưởng thức bữa nhẹ sau đó."
+    )
+    add(
+        "What kind of food do you dislike?",
+        kind="direct",
+        en_html=t10.format(dislike_direct=phrase_pick("dislike_direct", 1)),
+        vi=fill_vi_tpl(v10, dislike_direct=slot_vi("dislike_direct", 1)),
+        plain=(
+            "I don't really love food that is overly spicy because it is hard for me to enjoy a "
+            "light meal afterwards."
+        ),
+        ipa="",
+        ex=t10,
+        ex_vi=v10,
+        source="Cambridge-style · Food preferences / dislike (Part 1)",
+        notes=[
+            "I don't really like/love…",
+            "it's hard/difficult/easy (for sb) to V",
+            "light meal",
+        ],
+        alt_kind="soft",
+        alt_html=(
+            "{dislike_soft_open} spicy local dishes are too hot for me, {dislike_close}."
+        ).format(
+            dislike_soft_open=phrase_pick("dislike_soft_open", 2),
+            dislike_close=phrase_pick("dislike_close", 0),
+        ),
+        alt_vi=fill_vi_tpl(
+            "{dislike_soft_open} món địa phương cay quá nóng với tôi, {dislike_close}.",
+            dislike_soft_open=slot_vi("dislike_soft_open", 2),
+            dislike_close=slot_vi("dislike_close", 0),
+        ),
+        alt_plain=(
+            "I love street food, but sometimes spicy local dishes are too hot for me, but apart "
+            "from that, I'm fine."
+        ),
+        alt_ipa="",
+        alt_ex="{dislike_soft_open} spicy local dishes are too hot for me, {dislike_close}.",
+        alt_ex_vi="{dislike_soft_open} món địa phương cay quá nóng với tôi, {dislike_close}.",
+    )
+
+    cards = []
+    for it in items:
+        alts = ""
+        if it.get("alt_html"):
+            alts = _pair_answer_html(
+                kind=it.get("alt_kind") or "alt",
+                en_html=it["alt_html"],
+                vi=it["alt_vi"],
+                plain=it["alt_plain"],
+                ipa=it["alt_ipa"],
+                q=it["q"],
+                ex_en=it.get("alt_ex", ""),
+                ex_vi=it.get("alt_ex_vi", ""),
+            )
+        src = (
+            f'\n            <p class="lr-food-ex-source">{esc(it["source"])}</p>'
+            if it.get("source")
+            else ""
+        )
+        cards.append(
+            f"""          <article class="lr-food-ex-card">
+{_ex_card_q_html(it["q"])}{src}
+            <div class="lr-food-ex-pair lr-food-ex-pair--dislike">
+{_pair_answer_html(kind=it["kind"], en_html=it["html"], vi=it["vi"], plain=it["plain"], ipa=it["ipa"], q=it["q"], ex_en=it["ex"], ex_vi=it.get("ex_vi", ""))}
+{alts}
+            </div>
+{_ex_chip_notes_html(it.get("notes"))}
+          </article>"""
+        )
+    return f"""
+        <div class="lr-food-examples" id="food-examples-l13">
+          <h3 class="lr-core-subtitle">Ví dụ Food · What do you dislike about X?</h3>
+          <p class="lr-mm-hint">~10 câu <strong>lọc pattern Cambridge Food</strong> (don't like / dislike / restaurants / cooking / fruit / family meals) rồi khung <strong>Nói thẳng</strong> / <strong>Nói vòng</strong>. Slide: <strong>generally speaking</strong> · <strong>the only thing…</strong> · <strong>a few things + First/Second/Finally</strong> · <strong>apart from that</strong> · <strong>it's hard for sb to V</strong>. Lexical Food tái dùng.</p>
+{chr(10).join(cards)}
+        </div>"""
+
+
 def food_lesson_examples_html() -> str:
     """Unified Food cards: every Q has Thích + Không thích; both sides have contextual dropdowns."""
     items = []
@@ -8289,7 +9031,7 @@ def lesson_highlights_html(
     include_food_examples: bool = False,
     open_practice: bool = False,
 ) -> str:
-    """Lesson 2 + 3 + 5–12 mind maps and practice (Lesson 4 skipped).
+    """Lesson 2 + 3 + 5–13 mind maps and practice (Lesson 4 skipped).
 
     map_suffix: unique id suffix when the same maps appear on Review Exercise 2.
     include_food_examples: annotated Food cards (Review Exercise 2).
@@ -8305,6 +9047,7 @@ def lesson_highlights_html(
     m10 = f"lesson10Mindmap{map_suffix}"
     m11 = f"lesson11Mindmap{map_suffix}"
     m12 = f"lesson12Mindmap{map_suffix}"
+    m13 = f"lesson13Mindmap{map_suffix}"
     open_attr = " open" if open_practice else ""
     examples_block = food_lesson_examples_html() if include_food_examples else ""
     examples_l5 = food_lesson5_examples_html() if include_food_examples else ""
@@ -8315,6 +9058,7 @@ def lesson_highlights_html(
     examples_l10 = food_lesson10_examples_html() if include_food_examples else ""
     examples_l11 = food_lesson11_examples_html() if include_food_examples else ""
     examples_l12 = food_lesson12_examples_html() if include_food_examples else ""
+    examples_l13 = food_lesson13_examples_html() if include_food_examples else ""
     lesson3_scroll = ""
     lesson5_scroll = ""
     lesson6_scroll = ""
@@ -8324,6 +9068,7 @@ def lesson_highlights_html(
     lesson10_scroll = ""
     lesson11_scroll = ""
     lesson12_scroll = ""
+    lesson13_scroll = ""
     if include_food_examples:
         lesson3_scroll = lesson_scroll_read_html(
             "lesson3", title="Lesson 3", source_sel="#lesson3-scroll-source"
@@ -8351,6 +9096,9 @@ def lesson_highlights_html(
         )
         lesson12_scroll = lesson_scroll_read_html(
             "lesson12", title="Lesson 12", source_sel="#lesson12-scroll-source"
+        )
+        lesson13_scroll = lesson_scroll_read_html(
+            "lesson13", title="Lesson 13", source_sel="#lesson13-scroll-source"
         )
 
     g2 = lesson_grammar_notes_html(
@@ -8762,6 +9510,55 @@ def lesson_highlights_html(
             "hearty breakfast · slap-up meal · local dish",
         ],
     )
+    g13 = lesson_grammar_tree_html(
+        "Lesson 13",
+        "What do you dislike about X?",
+        [
+            {
+                "label_html": f'{_g_mark("Nói thẳng")} + lý do / chi tiết',
+                "openers": [
+                    "I don't really like / love…",
+                    "Well, I don't really like…",
+                ],
+                "details_label": "Kéo dài Food",
+                "details": [
+                    "greasy take-away · overly spicy · too crowded",
+                    "can't really enjoy the meal",
+                ],
+            },
+            {
+                "label_html": f'{_g_mark("Nói vòng")} · soften',
+                "openers": [
+                    "Generally speaking, I love X, but sometimes…",
+                    "… the only thing I don't really like about X is…",
+                    "but apart from that, I'm fine",
+                ],
+                "details_label": "Grammar slide",
+                "details": [
+                    "it's hard / difficult / easy (for sb) to V",
+                    "pay by cash · calculate my spending",
+                ],
+            },
+            {
+                "label_html": f'{_g_mark("Nói vòng")} · liệt kê',
+                "openers": [
+                    "There are a few things that I don't really love about X",
+                    "First / Firstly / The first thing is…",
+                    "Second / The second thing is… · Finally…",
+                ],
+                "details_label": "Lexical tái dùng",
+                "details": [
+                    "junk food · balanced diet · home-cooked",
+                    "take a heavy toll on my health · overdo it",
+                ],
+            },
+        ],
+        footer=[
+            "generally speaking · the only thing…",
+            "apart from that · First / Second / Finally",
+            "grab a quick bite · from scratch · light meal",
+        ],
+    )
 
     return f"""
       <div class="lr-core-lessons">
@@ -9000,6 +9797,30 @@ def lesson_highlights_html(
           </div>
 
 {lesson12_scroll}
+        </article>
+
+        <article class="lr-core-lesson" id="lesson13-formulas">
+          <header class="lr-core-lesson-head">
+            <h3>Lesson 13 · What do you dislike about X?</h3>
+          </header>
+
+{mind_map_html(
+            m13,
+            "Lesson 13 · What do you dislike about X?",
+            "Dislike about X?",
+            "Nói thẳng ↔ Nói vòng",
+            LESSON13_MINDMAP_LEFT,
+            LESSON13_MINDMAP_RIGHT,
+            note="Trái = <strong>Nói thẳng</strong> · Phải = <strong>Nói vòng</strong> (soften / liệt kê). Câu hỏi lọc pattern Cambridge Food.",
+            extra_class=" lr-mmap--lesson13",
+            min_width="1320px",
+        )}
+{g13}
+          <div id="lesson13-scroll-source">
+{examples_l13}
+          </div>
+
+{lesson13_scroll}
         </article>
 
       </div>"""
@@ -10499,7 +11320,7 @@ def build_page() -> str:
           <a href="#mental-model">2 · Mental model</a>
           <a href="#ed-ending">2b · -ed</a>
           <a href="#structures">3 · Structures</a>
-          <a href="#lessons">4 · Lessons 2 · 3 · 5–12</a>
+          <a href="#lessons">4 · Lessons 2 · 3 · 5–13</a>
           <a href="#food-lang">5 · Idioms &amp; phrases</a>
           <a href="#phrase-drills">6 · Phrase drills</a>
           <a href="#food-phrase-map">6 · Mind map</a>
@@ -10539,7 +11360,7 @@ def build_page() -> str:
       </section>
 
       <section class="lr-section" id="lessons">
-        <h2>4 · Core formulas — Lesson 2, 3, 5–12</h2>
+        <h2>4 · Core formulas — Lesson 2, 3, 5–13</h2>
         <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — L2 → … → L10 Childhood → L11 Suitable · <em>skip Lesson 4</em>. Chọn <strong>1–2 nhánh</strong>.</p>
 {lesson_highlights_html()}
       </section>
@@ -10639,9 +11460,9 @@ def build_page_review2() -> str:
       </div>
 
       <header class="lr-hero">
-        <p class="lr-hero-badge">Linear Thinking · Lesson 2, 3, 5–12</p>
+        <p class="lr-hero-badge">Linear Thinking · Lesson 2, 3, 5–13</p>
         <h1>Food &amp; Drink — Review Exercise 2</h1>
-        <p class="lede">Lesson 2 + 3 + 5–12 (Easy/Difficult?) · skip Lesson 4. Sơ đồ tư duy → ví dụ Food → Scroll read. Full capstone: <a href="../review-exercise/">Review Exercise 1</a>.</p>
+        <p class="lede">Lesson 2 + 3 + 5–13 (Dislike about X?) · skip Lesson 4. Sơ đồ tư duy → ví dụ Food → Scroll read. Full capstone: <a href="../review-exercise/">Review Exercise 1</a>.</p>
         <nav class="lr-toc" aria-label="On this page">
           <a href="#lesson2-formulas">Lesson 2 · Reasons</a>
           <a href="#scroll-lesson2">Scroll · L2</a>
@@ -10668,9 +11489,11 @@ def build_page_review2() -> str:
           <a href="#scroll-lesson10">Scroll · L10</a>
           <a href="#lesson11-formulas">Lesson 11 · Suitable?</a>
           <a href="#lesson12-formulas">Lesson 12 · Easy/Difficult?</a>
+          <a href="#lesson13-formulas">Lesson 13 · Dislike about X?</a>
           <a href="#food-examples-l11">Ví dụ L11</a>
           <a href="#scroll-lesson11">Scroll · L11</a>
           <a href="#scroll-lesson12">Scroll · L12</a>
+          <a href="#scroll-lesson13">Scroll · L13</a>
         </nav>
         <div class="ex-toolbar lr-toolbar lr-toolbar--hero">
           <label class="ex-toggle"><input type="checkbox" id="togVi" /> Vietnamese</label>
@@ -10678,7 +11501,7 @@ def build_page_review2() -> str:
       </header>
 
       <section class="lr-section" id="lessons">
-        <h2>Core formulas — Lesson 2, 3, 5–12</h2>
+        <h2>Core formulas — Lesson 2, 3, 5–13</h2>
         <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — chọn <strong>1–2 nhánh</strong>, không nhồi hết. Dropdown bên dưới để thay từ B1/B2.</p>
 {lesson_highlights_html(map_suffix="R2", include_food_examples=True, open_practice=True)}
       </section>
@@ -10692,7 +11515,7 @@ def build_page_review2() -> str:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Review Exercise 2 · Food &amp; Drink — The Quiet Corner</title>
-  <meta name="description" content="Lesson 2, 3, 5–12: Reasons through Easy/Difficult — Food mind maps and practice.">
+  <meta name="description" content="Lesson 2, 3, 5–13: Reasons through Dislike about X — Food mind maps and practice.">
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -10748,7 +11571,7 @@ def patch_topic_index() -> None:
           <span class="vocab-level__badge vocab-level__badge--review">Review</span>
           <h2>Linear Thinking · Capstone exercise</h2>
         </div>
-        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3, 5–12 (mind map + ví dụ Food + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
+        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3, 5–13 (mind map + ví dụ Food + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
         <div class="vocab-lesson-grid">
           <a class="vocab-lesson-card vocab-lesson-card--review" href="review-exercise/">
             <img src="{review_icon}" alt="" width="72" height="72" loading="lazy">
