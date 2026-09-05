@@ -1388,6 +1388,138 @@ WORD_SLOTS: dict[str, list[dict]] = {
         },
     ],
 
+    # Lesson 14 · How often do you do X?
+    "freq": [
+        {"form": "almost every day", "vi": "hầu như mỗi ngày"},
+        {"form": "every day", "vi": "mỗi ngày"},
+        {"form": "five days a week", "vi": "năm ngày một tuần"},
+        {"form": "very often", "vi": "rất thường xuyên"},
+        {"form": "a lot", "vi": "rất nhiều / thường xuyên"},
+        {"form": "usually", "vi": "thường"},
+        {"form": "often", "vi": "thường xuyên"},
+        {"form": "quite often", "vi": "khá thường xuyên"},
+        {"form": "2 or 3 times a week", "vi": "hai hoặc ba lần một tuần"},
+        {"form": "once a week", "vi": "mỗi tuần một lần"},
+        {"form": "once or twice a week", "vi": "một hoặc hai lần một tuần"},
+        {"form": "sometimes", "vi": "thỉnh thoảng"},
+        {"form": "occasionally", "vi": "thỉnh thoảng"},
+        {"form": "every now and then", "vi": "thỉnh thoảng / lâu lâu"},
+        {"form": "once in a while", "vi": "thỉnh thoảng"},
+        {"form": "every two or three months", "vi": "cứ mỗi hai hoặc ba tháng"},
+        {"form": "hardly ever", "vi": "hầu như không bao giờ"},
+        {"form": "rarely", "vi": "hiếm khi"},
+        {"form": "almost never", "vi": "gần như không bao giờ"},
+        {"form": "once in a blue moon", "vi": "rất hiếm (năm thì mười họa)"},
+        {"form": "never", "vi": "không bao giờ"},
+    ],
+    "freq2": [
+        {"form": "very often", "vi": "rất thường xuyên"},
+        {"form": "quite often", "vi": "khá thường xuyên"},
+        {"form": "once or twice a week", "vi": "một hoặc hai lần một tuần"},
+        {"form": "every two days", "vi": "cứ hai ngày một lần"},
+        {"form": "hardly ever", "vi": "hầu như không bao giờ"},
+        {"form": "once in a blue moon", "vi": "rất hiếm"},
+        {"form": "almost every day", "vi": "hầu như mỗi ngày"},
+    ],
+    "freq_open": [
+        {
+            "form": "I cook home-cooked meals",
+            "vi": "Tôi nấu đồ nấu nhà",
+        },
+        {
+            "form": "I eat out with friends",
+            "vi": "Tôi ăn ngoài với bạn",
+        },
+        {
+            "form": "I eat with my family",
+            "vi": "Tôi ăn cùng gia đình",
+        },
+        {
+            "form": "I grab a quick bite",
+            "vi": "Tôi ăn vội",
+        },
+        {
+            "form": "I try new local dishes",
+            "vi": "Tôi thử món địa phương mới",
+        },
+        {
+            "form": "I stick to a balanced diet",
+            "vi": "Tôi giữ chế độ ăn cân bằng",
+        },
+        {
+            "form": "I drink coffee",
+            "vi": "Tôi uống cà phê",
+        },
+        {
+            "form": "I buy fresh ingredients at the morning market",
+            "vi": "Tôi mua nguyên liệu tươi ở chợ sáng",
+        },
+        {
+            "form": "I eat junk food",
+            "vi": "Tôi ăn junk food",
+        },
+        {
+            "form": "I have a hearty breakfast",
+            "vi": "Tôi ăn bữa sáng no đủ",
+        },
+    ],
+    "freq_detail": [
+        {
+            "form": "at the weekend when none of us have to work, and we usually go out for dinner",
+            "vi": "vào cuối tuần khi không ai phải đi làm, và chúng tôi thường ra ngoài ăn tối",
+        },
+        {
+            "form": "because home-cooked food is cheaper and better for a balanced diet",
+            "vi": "vì đồ nấu nhà rẻ hơn và tốt hơn cho chế độ ăn cân bằng",
+        },
+        {
+            "form": "because after a long day at work I'm often too tired to cook from scratch",
+            "vi": "vì sau ngày dài làm việc tôi thường quá mệt để tự nấu từ nguyên liệu tươi",
+        },
+        {
+            "form": "I'd say it's interesting to try mouth-watering local dishes rather than the same ready meals",
+            "vi": "tôi thấy thú vị khi thử món địa phương cực ngon hơn là đồ sẵn mãi",
+        },
+        {
+            "form": "especially when I want comfort food after work",
+            "vi": "đặc biệt khi tôi muốn đồ an ủi sau giờ làm",
+        },
+        {
+            "form": "because junk food can take a heavy toll on my health if I overdo it",
+            "vi": "vì junk food có thể ảnh hưởng nặng đến sức khỏe nếu ăn quá đà",
+        },
+        {
+            "form": "so I can keep fresh ingredients for light meals during the week",
+            "vi": "để tôi có nguyên liệu tươi cho bữa nhẹ trong tuần",
+        },
+        {
+            "form": "but some dishes are too spicy for me to finish",
+            "vi": "nhưng một số món quá cay nên tôi không ăn hết được",
+        },
+    ],
+    "freq_also": [
+        {
+            "form": "I also dine out with friends",
+            "vi": "Tôi cũng ăn ngoài với bạn",
+        },
+        {
+            "form": "I also cook from scratch",
+            "vi": "Tôi cũng tự nấu từ nguyên liệu tươi",
+        },
+        {
+            "form": "I also grab a coffee",
+            "vi": "Tôi cũng tranh thủ uống cà phê",
+        },
+        {
+            "form": "I also eat street food",
+            "vi": "Tôi cũng ăn đồ đường phố",
+        },
+        {
+            "form": "I hardly ever read food blogs",
+            "vi": "Tôi hầu như không đọc blog ẩm thực",
+        },
+    ],
+
 }
 
 # ── Mind map helpers (shared: Section 2 tenses + Lesson 2/3) ───────────────
@@ -3839,6 +3971,91 @@ LESSON13_MINDMAP_RIGHT = [
 ]
 
 
+# Lesson 14 · How often do you do X? — trái = Frequency, phải = Detail + grammar
+LESSON14_MINDMAP_LEFT = [
+    {
+        "id": "freq-level",
+        "color": "#86efac",
+        "name": "Mức độ thường xuyên",
+        "name_vi": "always → never (5 bậc)",
+        "flow": True,
+        "opener": "once a week · usually · hardly ever · once in a blue moon…",
+        "branches": [
+            {
+                "label": "Rất thường xuyên",
+                "leaves": [
+                    tip("always · all the time · every day / almost every day", "luôn · mọi lúc · mỗi ngày"),
+                    tip("five days a week · very often · a lot", "5 ngày/tuần · rất thường · nhiều"),
+                ],
+            },
+            {
+                "label": "Thường / khá thường",
+                "leaves": [
+                    tip("usually · often · regularly · frequently", "thường · thường xuyên"),
+                    tip("quite often · 2 or 3 times a week · once a week", "khá thường · 2–3 lần/tuần"),
+                ],
+            },
+            {
+                "label": "Thỉnh thoảng → không bao giờ",
+                "leaves": [
+                    tip("sometimes · occasionally · every now and then", "thỉnh thoảng"),
+                    tip("hardly ever · once in a blue moon · never", "hiếm · năm thì mười họa · không bao giờ"),
+                ],
+            },
+        ],
+        "link": "→ chọn <strong>1–2</strong> cụm tần suất (có thể đối chiếu)",
+    },
+]
+
+LESSON14_MINDMAP_RIGHT = [
+    {
+        "id": "freq-detail",
+        "color": "#fcd34d",
+        "name": "Lý do / chi tiết",
+        "name_vi": "when · why · with whom · example",
+        "flow": True,
+        "opener": "at the weekend · because · I also…",
+        "branches": [
+            {
+                "label": "Nhánh 1 · Kéo dài",
+                "leaves": [
+                    tip(
+                        "at the weekend when none of us have to work",
+                        "cuối tuần khi không ai phải đi làm → ăn tối ngoài",
+                    ),
+                    tip(
+                        "I also + freq2 (đối chiếu)",
+                        "I also dine out quite often / I hardly ever…",
+                    ),
+                    tip(
+                        "home-cooked · balanced diet · grab a quick bite",
+                        "lexical Food tái dùng",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Grammar slide → Food",
+                "leaves": [
+                    tip(
+                        "none of + group (+ plural V spoken)",
+                        "none of us have to cook / work",
+                    ),
+                    tip(
+                        "too + adj + to V",
+                        "too tired to cook from scratch · too spicy to finish",
+                    ),
+                    tip(
+                        "interesting to V … than to V",
+                        "interesting to try local dishes than to eat ready meals",
+                    ),
+                ],
+            },
+        ],
+        "link": "→ tần suất + when/why + (I also…) + 1 grammar nếu khớp",
+    },
+]
+
+
 def collect_review_words() -> list[dict]:
     topic = next(t for t in TOPICS["topics"] if t["slug"] == "food-drink")
     by_level: dict[str, list[dict]] = {}
@@ -4714,6 +4931,9 @@ def _pair_answer_html(
         "direct": ("Nói thẳng", "lr-mm-tag-no"),
         "soft": ("Nói vòng", "lr-mm-tag-yes"),
         "list": ("Liệt kê", "lr-mm-tag-yes"),
+        "freq": ("Tần suất", "lr-mm-tag-yes"),
+        "rare": ("Hiếm", "lr-mm-tag-no"),
+        "contrast": ("Đối chiếu", "lr-mm-tag-yes"),
     }
     tag, tag_cls = tags.get(kind, ("Mẫu", "lr-mm-tag-yes"))
     chain = " lr-practice-chain lr-chain" if ex_en else ""
@@ -4873,8 +5093,19 @@ def _ex_chip_notes_html(chips: list | None) -> str:
         "but apart from that, I'm fine": "Nhưng ngoài điều đó ra thì tôi ổn",
         "it's hard/difficult/easy (for sb) to V": "Khó / dễ (cho ai) để làm gì",
         "pay by cash": "Trả bằng tiền mặt",
-        "calculate my spending": "Tính toán chi tiêu của tôi",
+                "calculate my spending": "Tính toán chi tiêu của tôi",
+        # Lesson 14
+        "almost every day / every day": "Hầu như mỗi ngày / mỗi ngày",
+        "usually / often / quite often": "Thường / thường xuyên / khá thường xuyên",
+        "once a week · 2 or 3 times a week": "Mỗi tuần một lần · 2–3 lần/tuần",
+        "sometimes / occasionally / every now and then": "Thỉnh thoảng",
+        "hardly ever / once in a blue moon": "Hầu như không / rất hiếm",
+        "none of + group": "Không một ai/cái nào trong nhóm",
+        "too + adj + to V": "Quá … nên không …",
+        "I also + freq": "Tôi cũng + mức độ (đối chiếu)",
+        "interesting to V … than to V": "Thú vị hơn khi V … so với V …",
     }
+
 
 
     def resolve_vi(en: str) -> str:
@@ -8577,6 +8808,449 @@ def food_lesson13_examples_html() -> str:
         </div>"""
 
 
+
+def food_lesson14_examples_html() -> str:
+    """Lesson 14 · How often do you do X? — Cambridge-style Food Qs."""
+    items: list[dict] = []
+
+    def add(
+        q: str,
+        *,
+        kind: str,
+        en_html: str,
+        vi: str,
+        plain: str,
+        ipa: str,
+        ex: str,
+        ex_vi: str = "",
+        source: str = "",
+        alt_kind: str = "alt",
+        alt_html: str = "",
+        alt_vi: str = "",
+        alt_plain: str = "",
+        alt_ipa: str = "",
+        alt_ex: str = "",
+        alt_ex_vi: str = "",
+        notes: list[str] | None = None,
+    ) -> None:
+        items.append(
+            {
+                "q": q,
+                "kind": kind,
+                "html": en_html,
+                "vi": vi,
+                "plain": plain,
+                "ipa": ipa,
+                "ex": ex,
+                "ex_vi": ex_vi,
+                "source": source,
+                "alt_kind": alt_kind,
+                "alt_html": alt_html,
+                "alt_vi": alt_vi,
+                "alt_plain": alt_plain,
+                "alt_ipa": alt_ipa,
+                "alt_ex": alt_ex,
+                "alt_ex_vi": alt_ex_vi,
+                "notes": notes or [],
+            }
+        )
+
+    # 1 — eat with family · Cambridge phổ biến
+    t1 = "{freq_open} {freq}, {freq_detail}."
+    v1 = "{freq_open} {freq}, {freq_detail}."
+    add(
+        "How often do you eat with your family?",
+        kind="freq",
+        en_html=t1.format(
+            freq_open=phrase_pick("freq_open", 2),
+            freq=phrase_pick("freq", 9),
+            freq_detail=phrase_pick("freq_detail", 0),
+        ),
+        vi=fill_vi_tpl(
+            v1,
+            freq_open=slot_vi("freq_open", 2),
+            freq=slot_vi("freq", 9),
+            freq_detail=slot_vi("freq_detail", 0),
+        ),
+        plain=(
+            "I eat with my family once a week, at the weekend when none of us have to work, "
+            "and we usually go out for dinner."
+        ),
+        ipa="",
+        ex=t1,
+        ex_vi=v1,
+        source="Cambridge · How often do you eat with your family? (Part 1)",
+        notes=[
+            "once a week · 2 or 3 times a week",
+            "none of + group",
+            "usually / often / quite often",
+        ],
+    )
+
+    # 2 — eat out / restaurants
+    t2 = "{freq_open} {freq} {freq_detail}. {freq_also} {freq2}."
+    v2 = "{freq_open} {freq} {freq_detail}. {freq_also} {freq2}."
+    add(
+        "How often do you eat out at restaurants?",
+        kind="contrast",
+        en_html=t2.format(
+            freq_open=phrase_pick("freq_open", 1),
+            freq=phrase_pick("freq", 10),
+            freq_detail=phrase_pick("freq_detail", 2),
+            freq_also=phrase_pick("freq_also", 2),
+            freq2=phrase_pick("freq2", 1),
+        ),
+        vi=fill_vi_tpl(
+            v2,
+            freq_open=slot_vi("freq_open", 1),
+            freq=slot_vi("freq", 10),
+            freq_detail=slot_vi("freq_detail", 2),
+            freq_also=slot_vi("freq_also", 2),
+            freq2=slot_vi("freq2", 1),
+        ),
+        plain=(
+            "I eat out with friends once or twice a week because after a long day at work I'm often "
+            "too tired to cook from scratch. I also grab a coffee quite often."
+        ),
+        ipa="",
+        ex=t2,
+        ex_vi=v2,
+        source="Cambridge-style · Restaurants / How often do you eat out? (Part 1)",
+        notes=[
+            "once a week · 2 or 3 times a week",
+            "too + adj + to V",
+            "I also + freq",
+            "from scratch",
+        ],
+    )
+
+    # 3 — cook at home · high frequency
+    t3 = "{freq_open} {freq} {freq_detail}."
+    v3 = "{freq_open} {freq} {freq_detail}."
+    add(
+        "How often do you cook at home?",
+        kind="freq",
+        en_html=t3.format(
+            freq_open=phrase_pick("freq_open", 0),
+            freq=phrase_pick("freq", 2),
+            freq_detail=phrase_pick("freq_detail", 1),
+        ),
+        vi=fill_vi_tpl(
+            v3,
+            freq_open=slot_vi("freq_open", 0),
+            freq=slot_vi("freq", 2),
+            freq_detail=slot_vi("freq_detail", 1),
+        ),
+        plain=(
+            "I cook home-cooked meals five days a week because home-cooked food is cheaper and "
+            "better for a balanced diet."
+        ),
+        ipa="",
+        ex=t3,
+        ex_vi=v3,
+        source="Cambridge-style · Cooking / Do you cook? → how often (Part 1)",
+        notes=[
+            "almost every day / every day",
+            "usually / often / quite often",
+            "balanced diet",
+            "home-cooked",
+        ],
+    )
+
+    # 4 — junk food · rare
+    t4 = "{freq_open} {freq} {freq_detail}."
+    v4 = "{freq_open} {freq} {freq_detail}."
+    add(
+        "How often do you eat junk food?",
+        kind="rare",
+        en_html=t4.format(
+            freq_open=phrase_pick("freq_open", 8),
+            freq=phrase_pick("freq", 19),
+            freq_detail=phrase_pick("freq_detail", 5),
+        ),
+        vi=fill_vi_tpl(
+            v4,
+            freq_open=slot_vi("freq_open", 8),
+            freq=slot_vi("freq", 19),
+            freq_detail=slot_vi("freq_detail", 5),
+        ),
+        plain=(
+            "I eat junk food once in a blue moon because junk food can take a heavy toll on my "
+            "health if I overdo it."
+        ),
+        ipa="",
+        ex=t4,
+        ex_vi=v4,
+        source="Cambridge-style · Food you avoid / healthy eating (Part 1)",
+        notes=[
+            "hardly ever / once in a blue moon",
+            "take a heavy toll on (my) health",
+            "junk food",
+        ],
+    )
+
+    # 5 — try new food · contrast often / hardly ever blogs
+    t5 = (
+        "Well, I love trying new food, so I {freq} try mouth-watering local dishes. "
+        "{freq_also} because it's more interesting to watch cooking shows than to read articles."
+    )
+    v5 = (
+        "Ừ, tôi thích thử món mới, nên tôi {freq} thử món địa phương cực ngon. "
+        "{freq_also} vì xem show nấu ăn thú vị hơn đọc bài viết."
+    )
+    add(
+        "How often do you try new food?",
+        kind="contrast",
+        en_html=t5.format(
+            freq=phrase_pick("freq", 6),
+            freq_also=phrase_pick("freq_also", 4),
+        ),
+        vi=fill_vi_tpl(
+            v5,
+            freq=slot_vi("freq", 6),
+            freq_also=slot_vi("freq_also", 4),
+        ),
+        plain=(
+            "Well, I love trying new food, so I often try new local dishes. I hardly ever read food "
+            "blogs because it's more interesting to watch cooking shows than to read articles."
+        ),
+        ipa="",
+        ex=t5,
+        ex_vi=v5,
+        source="Cambridge-style · Trying new food (Part 1) · contrast often / hardly ever",
+        notes=[
+            "usually / often / quite often",
+            "hardly ever / once in a blue moon",
+            "interesting to V … than to V",
+            "local dish",
+        ],
+    )
+
+    # Fix awkward plain for #5 - freq_also already includes hardly ever
+    # Will fix after insert
+
+    # 6 — coffee / cafés
+    t6 = "{freq_open} {freq}, {freq_detail}."
+    v6 = "{freq_open} {freq}, {freq_detail}."
+    add(
+        "How often do you drink coffee?",
+        kind="freq",
+        en_html=t6.format(
+            freq_open=phrase_pick("freq_open", 6),
+            freq=phrase_pick("freq", 0),
+            freq_detail=phrase_pick("freq_detail", 4),
+        ),
+        vi=fill_vi_tpl(
+            v6,
+            freq_open=slot_vi("freq_open", 6),
+            freq=slot_vi("freq", 0),
+            freq_detail=slot_vi("freq_detail", 4),
+        ),
+        plain=(
+            "I drink coffee almost every day, especially when I want comfort food after work."
+        ),
+        ipa="",
+        ex=t6,
+        ex_vi=v6,
+        source="Cambridge-style · Cafés / drinks (Part 1)",
+        notes=[
+            "almost every day / every day",
+            "comfort food",
+        ],
+    )
+
+    # 7 — balanced / healthy diet
+    t7 = "I {freq} stick to a balanced diet {freq_detail}."
+    v7 = "Tôi {freq} giữ chế độ ăn cân bằng {freq_detail}."
+    add(
+        "How often do you eat healthy food?",
+        kind="freq",
+        en_html=t7.format(
+            freq=phrase_pick("freq", 5),
+            freq_detail=phrase_pick("freq_detail", 1),
+        ),
+        vi=fill_vi_tpl(
+            v7,
+            freq=slot_vi("freq", 5),
+            freq_detail=slot_vi("freq_detail", 1),
+        ),
+        plain=(
+            "I usually stick to a balanced diet because home-cooked food is cheaper and better "
+            "for a balanced diet."
+        ),
+        ipa="",
+        ex=t7,
+        ex_vi=v7,
+        source="Cambridge-style · Healthy food / diet (Part 1)",
+        notes=[
+            "usually / often / quite often",
+            "stick to a balanced diet",
+            "home-cooked",
+        ],
+    )
+
+    # 8 — buy fresh food / market
+    t8 = "{freq_open} {freq} {freq_detail}."
+    v8 = "{freq_open} {freq} {freq_detail}."
+    add(
+        "How often do you buy fresh food?",
+        kind="freq",
+        en_html=t8.format(
+            freq_open=phrase_pick("freq_open", 7),
+            freq=phrase_pick("freq", 8),
+            freq_detail=phrase_pick("freq_detail", 6),
+        ),
+        vi=fill_vi_tpl(
+            v8,
+            freq_open=slot_vi("freq_open", 7),
+            freq=slot_vi("freq", 8),
+            freq_detail=slot_vi("freq_detail", 6),
+        ),
+        plain=(
+            "I buy fresh ingredients at the morning market 2 or 3 times a week so I can keep fresh "
+            "ingredients for light meals during the week."
+        ),
+        ipa="",
+        ex=t8,
+        ex_vi=v8,
+        source="Cambridge-style · Food shopping / fresh food (Part 1)",
+        notes=[
+            "once a week · 2 or 3 times a week",
+            "fresh ingredients",
+            "light meal",
+        ],
+    )
+
+    # 9 — breakfast / grab a bite · sometimes + too adj
+    t9 = (
+        "I {freq} have a hearty breakfast, but on busy mornings I'm often too busy to prepare one, "
+        "so I just grab a quick bite."
+    )
+    v9 = (
+        "Tôi {freq} ăn bữa sáng no đủ, nhưng sáng bận tôi thường quá bận để chuẩn bị, "
+        "nên tôi chỉ ăn vội."
+    )
+    add(
+        "How often do you eat breakfast?",
+        kind="freq",
+        en_html=t9.format(
+            freq=phrase_pick("freq", 5),
+        ),
+        vi=fill_vi_tpl(
+            v9,
+            freq=slot_vi("freq", 5),
+        ),
+        plain=(
+            "I usually have a hearty breakfast, but on busy mornings I'm often too busy to prepare one, "
+            "so I just grab a quick bite."
+        ),
+        ipa="",
+        ex=t9,
+        ex_vi=v9,
+        source="Cambridge-style · Meals / breakfast (Part 1)",
+        notes=[
+            "sometimes / occasionally / every now and then",
+            "too + adj + to V",
+            "hearty breakfast",
+            "grab a quick bite",
+        ],
+    )
+
+    # 10 — dine out with friends · slide friends dinner pattern
+    t10 = (
+        "We just meet {freq} {freq_detail}. {freq_also} {freq2} when we want mouth-watering local dishes."
+    )
+    v10 = (
+        "Chúng tôi chỉ gặp nhau {freq} {freq_detail}. {freq_also} {freq2} khi muốn món địa phương cực ngon."
+    )
+    add(
+        "How often do you go out for dinner with friends?",
+        kind="contrast",
+        en_html=t10.format(
+            freq=phrase_pick("freq", 9),
+            freq_detail=phrase_pick("freq_detail", 0),
+            freq_also=phrase_pick("freq_also", 3),
+            freq2=phrase_pick("freq2", 2),
+        ),
+        vi=fill_vi_tpl(
+            v10,
+            freq=slot_vi("freq", 9),
+            freq_detail=slot_vi("freq_detail", 0),
+            freq_also=slot_vi("freq_also", 3),
+            freq2=slot_vi("freq2", 2),
+        ),
+        plain=(
+            "We just meet once a week at the weekend when none of us have to work, and we usually "
+            "go out for dinner. I also eat street food once or twice a week when we want "
+            "mouth-watering local dishes."
+        ),
+        ipa="",
+        ex=t10,
+        ex_vi=v10,
+        source="Cambridge-style · Friends + dinner / eating out (Part 1) — slide pattern",
+        notes=[
+            "once a week · 2 or 3 times a week",
+            "none of + group",
+            "I also + freq",
+            "mouth-watering",
+        ],
+        alt_kind="rare",
+        alt_html=(
+            f'{phrase_pick("freq_open", 1)} {phrase_pick("freq", 16)} '
+            f'{phrase_pick("freq_detail", 5)}.'
+        ),
+        alt_vi=fill_vi_tpl(
+            "{freq_open} {freq} {freq_detail}.",
+            freq_open=slot_vi("freq_open", 1),
+            freq=slot_vi("freq", 16),
+            freq_detail=slot_vi("freq_detail", 5),
+        ),
+        alt_plain=(
+            "I eat out with friends hardly ever because junk food can take a heavy toll on my "
+            "health if I overdo it."
+        ),
+        alt_ipa="",
+        alt_ex="{freq_open} {freq} {freq_detail}.",
+        alt_ex_vi="{freq_open} {freq} {freq_detail}.",
+    )
+
+    cards = []
+    for it in items:
+        alts = ""
+        if it.get("alt_html"):
+            alts = _pair_answer_html(
+                kind=it.get("alt_kind") or "alt",
+                en_html=it["alt_html"],
+                vi=it["alt_vi"],
+                plain=it["alt_plain"],
+                ipa=it["alt_ipa"],
+                q=it["q"],
+                ex_en=it.get("alt_ex", ""),
+                ex_vi=it.get("alt_ex_vi", ""),
+            )
+        src = (
+            f'\n            <p class="lr-food-ex-source">{esc(it["source"])}</p>'
+            if it.get("source")
+            else ""
+        )
+        cards.append(
+            f"""          <article class="lr-food-ex-card">
+{_ex_card_q_html(it["q"])}{src}
+            <div class="lr-food-ex-pair lr-food-ex-pair--freq">
+{_pair_answer_html(kind=it["kind"], en_html=it["html"], vi=it["vi"], plain=it["plain"], ipa=it["ipa"], q=it["q"], ex_en=it["ex"], ex_vi=it.get("ex_vi", ""))}
+{alts}
+            </div>
+{_ex_chip_notes_html(it.get("notes"))}
+          </article>"""
+        )
+    return f"""
+        <div class="lr-food-examples" id="food-examples-l14">
+          <h3 class="lr-core-subtitle">Ví dụ Food · How often do you do X?</h3>
+          <p class="lr-mm-hint">~10 câu <strong>lọc pattern Cambridge Food</strong> (eat with family · eat out · cook · junk food · try new food · coffee · healthy · fresh food · breakfast · dinner with friends). Công thức: <strong>tần suất</strong> + <strong>lý do/chi tiết</strong> (+ đối chiếu <strong>I also</strong>). Grammar slide: <strong>none of</strong> · <strong>too + adj + to V</strong>. Lexical Food tái dùng.</p>
+{chr(10).join(cards)}
+        </div>"""
+
+
 def food_lesson_examples_html() -> str:
     """Unified Food cards: every Q has Thích + Không thích; both sides have contextual dropdowns."""
     items = []
@@ -9026,7 +9700,7 @@ def lesson_highlights_html(
     include_food_examples: bool = False,
     open_practice: bool = False,
 ) -> str:
-    """Lesson 2 + 3 + 5–13 mind maps and practice (Lesson 4 skipped).
+    """Lesson 2 + 3 + 5–14 mind maps and practice (Lesson 4 skipped).
 
     map_suffix: unique id suffix when the same maps appear on Review Exercise 2.
     include_food_examples: annotated Food cards (Review Exercise 2).
@@ -9043,6 +9717,7 @@ def lesson_highlights_html(
     m11 = f"lesson11Mindmap{map_suffix}"
     m12 = f"lesson12Mindmap{map_suffix}"
     m13 = f"lesson13Mindmap{map_suffix}"
+    m14 = f"lesson14Mindmap{map_suffix}"
     open_attr = " open" if open_practice else ""
     examples_block = food_lesson_examples_html() if include_food_examples else ""
     examples_l5 = food_lesson5_examples_html() if include_food_examples else ""
@@ -9054,6 +9729,7 @@ def lesson_highlights_html(
     examples_l11 = food_lesson11_examples_html() if include_food_examples else ""
     examples_l12 = food_lesson12_examples_html() if include_food_examples else ""
     examples_l13 = food_lesson13_examples_html() if include_food_examples else ""
+    examples_l14 = food_lesson14_examples_html() if include_food_examples else ""
     lesson3_scroll = ""
     lesson5_scroll = ""
     lesson6_scroll = ""
@@ -9064,6 +9740,7 @@ def lesson_highlights_html(
     lesson11_scroll = ""
     lesson12_scroll = ""
     lesson13_scroll = ""
+    lesson14_scroll = ""
     if include_food_examples:
         lesson3_scroll = lesson_scroll_read_html(
             "lesson3", title="Lesson 3", source_sel="#lesson3-scroll-source"
@@ -9094,6 +9771,9 @@ def lesson_highlights_html(
         )
         lesson13_scroll = lesson_scroll_read_html(
             "lesson13", title="Lesson 13", source_sel="#lesson13-scroll-source"
+        )
+        lesson14_scroll = lesson_scroll_read_html(
+            "lesson14", title="Lesson 14", source_sel="#lesson14-scroll-source"
         )
 
     g2 = lesson_grammar_notes_html(
@@ -9554,6 +10234,45 @@ def lesson_highlights_html(
             "grab a quick bite · from scratch · light meal",
         ],
     )
+    g14 = lesson_grammar_tree_html(
+        "Lesson 14",
+        "How often do you do X?",
+        [
+            {
+                "label_html": f'{_g_mark("Tần suất")} (chọn bậc)',
+                "openers": [
+                    "almost every day / five days a week / a lot",
+                    "usually / often / quite often / once a week",
+                    "sometimes / every now and then",
+                    "hardly ever / once in a blue moon / never",
+                ],
+                "details_label": "Thang nhanh",
+                "details": [
+                    "100% always → 0% never (British Council scale)",
+                    "Có thể dùng 2 mức để đối chiếu (often ↔ hardly ever)",
+                ],
+            },
+            {
+                "label_html": f'{_g_mark("Lý do")} / chi tiết',
+                "openers": [
+                    "at the weekend when…",
+                    "because + home-cooked / balanced diet…",
+                    "I also + freq2…",
+                ],
+                "details_label": "Grammar slide → Food",
+                "details": [
+                    "none of + group (spoken: plural V)",
+                    "too + adj + to V",
+                    "interesting to V … than to V",
+                ],
+            },
+        ],
+        footer=[
+            "once a week · usually · hardly ever",
+            "none of us have to work → dinner out",
+            "too tired to cook from scratch",
+        ],
+    )
 
     return f"""
       <div class="lr-core-lessons">
@@ -9816,6 +10535,30 @@ def lesson_highlights_html(
           </div>
 
 {lesson13_scroll}
+        </article>
+
+        <article class="lr-core-lesson" id="lesson14-formulas">
+          <header class="lr-core-lesson-head">
+            <h3>Lesson 14 · How often do you do X?</h3>
+          </header>
+
+{mind_map_html(
+            m14,
+            "Lesson 14 · How often do you do X?",
+            "How often?",
+            "Tần suất ↔ Lý do",
+            LESSON14_MINDMAP_LEFT,
+            LESSON14_MINDMAP_RIGHT,
+            note="Trái = <strong>mức độ thường xuyên</strong> (5 bậc) · Phải = <strong>lý do/chi tiết</strong> + <strong>none of</strong> / <strong>too…to</strong>. Câu hỏi lọc Cambridge Food.",
+            extra_class=" lr-mmap--lesson14",
+            min_width="1320px",
+        )}
+{g14}
+          <div id="lesson14-scroll-source">
+{examples_l14}
+          </div>
+
+{lesson14_scroll}
         </article>
 
       </div>"""
@@ -11315,7 +12058,7 @@ def build_page() -> str:
           <a href="#mental-model">2 · Mental model</a>
           <a href="#ed-ending">2b · -ed</a>
           <a href="#structures">3 · Structures</a>
-          <a href="#lessons">4 · Lessons 2 · 3 · 5–13</a>
+          <a href="#lessons">4 · Lessons 2 · 3 · 5–14</a>
           <a href="#food-lang">5 · Idioms &amp; phrases</a>
           <a href="#phrase-drills">6 · Phrase drills</a>
           <a href="#food-phrase-map">6 · Mind map</a>
@@ -11355,7 +12098,7 @@ def build_page() -> str:
       </section>
 
       <section class="lr-section" id="lessons">
-        <h2>4 · Core formulas — Lesson 2, 3, 5–13</h2>
+        <h2>4 · Core formulas — Lesson 2, 3, 5–14</h2>
         <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — L2 → … → L10 Childhood → L11 Suitable · <em>skip Lesson 4</em>. Chọn <strong>1–2 nhánh</strong>.</p>
 {lesson_highlights_html()}
       </section>
@@ -11455,9 +12198,9 @@ def build_page_review2() -> str:
       </div>
 
       <header class="lr-hero">
-        <p class="lr-hero-badge">Linear Thinking · Lesson 2, 3, 5–13</p>
+        <p class="lr-hero-badge">Linear Thinking · Lesson 2, 3, 5–14</p>
         <h1>Food &amp; Drink — Review Exercise 2</h1>
-        <p class="lede">Lesson 2 + 3 + 5–13 (Dislike about X?) · skip Lesson 4. Sơ đồ tư duy → ví dụ Food → Scroll read. Full capstone: <a href="../review-exercise/">Review Exercise 1</a>.</p>
+        <p class="lede">Lesson 2 + 3 + 5–14 (How often?) · skip Lesson 4. Sơ đồ tư duy → ví dụ Food → Scroll read. Full capstone: <a href="../review-exercise/">Review Exercise 1</a>.</p>
         <nav class="lr-toc" aria-label="On this page">
           <a href="#lesson2-formulas">Lesson 2 · Reasons</a>
           <a href="#scroll-lesson2">Scroll · L2</a>
@@ -11485,10 +12228,12 @@ def build_page_review2() -> str:
           <a href="#lesson11-formulas">Lesson 11 · Suitable?</a>
           <a href="#lesson12-formulas">Lesson 12 · Easy/Difficult?</a>
           <a href="#lesson13-formulas">Lesson 13 · Dislike about X?</a>
+          <a href="#lesson14-formulas">Lesson 14 · How often?</a>
           <a href="#food-examples-l11">Ví dụ L11</a>
           <a href="#scroll-lesson11">Scroll · L11</a>
           <a href="#scroll-lesson12">Scroll · L12</a>
           <a href="#scroll-lesson13">Scroll · L13</a>
+          <a href="#scroll-lesson14">Scroll · L14</a>
         </nav>
         <div class="ex-toolbar lr-toolbar lr-toolbar--hero">
           <label class="ex-toggle"><input type="checkbox" id="togVi" /> Vietnamese</label>
@@ -11496,7 +12241,7 @@ def build_page_review2() -> str:
       </header>
 
       <section class="lr-section" id="lessons">
-        <h2>Core formulas — Lesson 2, 3, 5–13</h2>
+        <h2>Core formulas — Lesson 2, 3, 5–14</h2>
         <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — chọn <strong>1–2 nhánh</strong>, không nhồi hết. Dropdown bên dưới để thay từ B1/B2.</p>
 {lesson_highlights_html(map_suffix="R2", include_food_examples=True, open_practice=True)}
       </section>
@@ -11510,7 +12255,7 @@ def build_page_review2() -> str:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Review Exercise 2 · Food &amp; Drink — The Quiet Corner</title>
-  <meta name="description" content="Lesson 2, 3, 5–13: Reasons through Dislike about X — Food mind maps and practice.">
+  <meta name="description" content="Lesson 2, 3, 5–14: Reasons through How often — Food mind maps and practice.">
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -11566,7 +12311,7 @@ def patch_topic_index() -> None:
           <span class="vocab-level__badge vocab-level__badge--review">Review</span>
           <h2>Linear Thinking · Capstone exercise</h2>
         </div>
-        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3, 5–13 (mind map + ví dụ Food + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
+        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3, 5–14 (mind map + ví dụ Food + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
         <div class="vocab-lesson-grid">
           <a class="vocab-lesson-card vocab-lesson-card--review" href="review-exercise/">
             <img src="{review_icon}" alt="" width="72" height="72" loading="lazy">
