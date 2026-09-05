@@ -892,6 +892,77 @@ WORD_SLOTS: dict[str, list[dict]] = {
         {"form": "making it more enjoyable to dine out with family", "vi": "khiến việc đi ăn ngoài với gia đình vui hơn"},
         {"form": "making it harder to spoil your appetite before dinner", "vi": "khiến việc ‘phá’ cảm giác ngon miệng trước bữa tối khó hơn"},
     ],
+    # Lesson 9 · When was the first/last time you did X?
+    "first_last_lead": [
+        {"form": "Well, as far as I can remember", "vi": "Ừ, theo như tôi còn nhớ"},
+        {"form": "As far as I can remember", "vi": "Theo như tôi còn nhớ"},
+        {"form": "Just two months ago", "vi": "Chỉ mới cách đây hai tháng"},
+        {"form": "Last month", "vi": "Tháng trước"},
+        {"form": "This morning", "vi": "Sáng nay"},
+        {"form": "About ten years ago", "vi": "Khoảng mười năm trước"},
+    ],
+    "first_last_guess": [
+        {"form": "I'm not really sure but I guess", "vi": "Tôi không chắc lắm nhưng tôi đoán"},
+        {"form": "I can't remember exactly, but I guess", "vi": "Tôi không nhớ chính xác, nhưng tôi đoán"},
+    ],
+    "first_last_frame": [
+        {"form": "the first time I tried street food was", "vi": "lần đầu tôi thử đồ đường phố là"},
+        {"form": "the last time I dined out was", "vi": "lần gần nhất tôi đi ăn ngoài là"},
+        {"form": "the first time I cooked from scratch was", "vi": "lần đầu tôi nấu từ đầu là"},
+        {"form": "the last time I had a hearty breakfast was", "vi": "lần gần nhất tôi ăn bữa sáng no đủ là"},
+        {"form": "the first time I tried a local dish was", "vi": "lần đầu tôi thử món địa phương là"},
+    ],
+    "first_last_when": [
+        {"form": "when I was in high school", "vi": "khi tôi học cấp ba"},
+        {"form": "when I was in my first year of university", "vi": "khi tôi học năm nhất đại học"},
+        {"form": "when I was in Grade 9", "vi": "khi tôi học lớp 9"},
+        {"form": "when I moved to the city", "vi": "khi tôi chuyển lên thành phố"},
+        {"form": "just a month ago", "vi": "chỉ mới một tháng trước"},
+        {"form": "about two months ago", "vi": "khoảng hai tháng trước"},
+    ],
+    "first_last_since": [
+        {"form": "it's been ten years since I first tried street food", "vi": "đã mười năm kể từ lần đầu tôi thử đồ đường phố"},
+        {"form": "it's been a few months since I last dined out", "vi": "đã vài tháng kể từ lần gần nhất tôi đi ăn ngoài"},
+        {"form": "it's been years since I last cooked a slap-up meal", "vi": "đã nhiều năm kể từ lần gần nhất tôi nấu một bữa đã đời"},
+    ],
+    "first_last_detail": [
+        {
+            "form": "My mom bought me a mouth-watering birthday cake and I was very excited",
+            "vi": "mẹ mua cho tôi một cái bánh sinh nhật cực ngon và tôi rất hào hứng",
+        },
+        {
+            "form": "We spent three hours there trying mouth-watering local dishes",
+            "vi": "chúng tôi dành ba giờ ở đó thử các món địa phương cực ngon",
+        },
+        {
+            "form": "Some of my friends came over to have a slap-up meal together",
+            "vi": "một số bạn đến nhà để cùng ăn một bữa đã đời",
+        },
+        {
+            "form": "I spent the whole evening cooking a home-cooked meal from scratch",
+            "vi": "tôi dành cả buổi tối nấu bữa nhà từ đầu",
+        },
+        {
+            "form": "I grabbed a quick bite and was just in time for my morning meeting",
+            "vi": "tôi ăn vội một miếng và vừa kịp buổi họp sáng",
+        },
+        {
+            "form": "I skipped my breakfast, grabbed a taxi, and fortunately I was just on time",
+            "vi": "tôi bỏ bữa sáng, đón taxi, và may mắn tôi đến đúng giờ",
+        },
+        {
+            "form": "We really enjoyed the comfort food and had a great time together",
+            "vi": "chúng tôi rất thích đồ ăn an ủi và có khoảng thời gian tuyệt vời cùng nhau",
+        },
+    ],
+    "first_last_activity": [
+        {"form": "tried street food", "vi": "thử đồ đường phố"},
+        {"form": "dined out with friends", "vi": "đi ăn ngoài với bạn"},
+        {"form": "cooked a meal from scratch", "vi": "nấu một bữa từ đầu"},
+        {"form": "had a hearty breakfast", "vi": "ăn một bữa sáng no đủ"},
+        {"form": "tried a foreign dish", "vi": "thử một món nước ngoài"},
+        {"form": "ate comfort food at home", "vi": "ăn đồ an ủi ở nhà"},
+    ],
 }
 
 # ── Mind map helpers (shared: Section 2 tenses + Lesson 2/3) ───────────────
@@ -2696,6 +2767,142 @@ LESSON8_MINDMAP_RIGHT = [
 ]
 
 
+# Lesson 9 · When was the first/last time you did X? — trái = Nhớ rõ, phải = Đoán
+LESSON9_MINDMAP_LEFT = [
+    {
+        "id": "first-last-clear",
+        "color": "#fca5a5",
+        "name": "Nói rõ thời gian",
+        "name_vi": "As far as I can remember + time",
+        "flow": True,
+        "opener": "As far as I can remember, …",
+        "branches": [
+            {
+                "label": "Nhánh 1 · Khung câu (chọn 1)",
+                "leaves": [
+                    tip(
+                        "the first/last time I did X was … + thời gian",
+                        "Lần đầu/gần nhất tôi làm X là …",
+                    ),
+                    tip(
+                        "I first/last did X when …",
+                        "Tôi lần đầu/gần nhất làm X khi …",
+                    ),
+                    tip(
+                        "it's been … since I first/last did X",
+                        "Đã … kể từ lần đầu/gần nhất tôi làm X",
+                    ),
+                    tip(
+                        "Just a month ago. / About 10 years ago. / Last month, …",
+                        "Mốc thời gian ngắn gọn",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Kéo dài câu (slide → Food)",
+                "leaves": [
+                    tip(
+                        "buy + sb + sth",
+                        "Mua cho ai cái gì — My mom bought me a mouth-watering cake…",
+                    ),
+                    tip(
+                        "spend + time + V-ing / on + N",
+                        "Dành bao lâu làm gì — spent three hours trying local dishes",
+                    ),
+                    tip(
+                        "come over to + V",
+                        "Đến nhà để làm gì — came over to have a slap-up meal",
+                    ),
+                    tip(
+                        "just on time ↔ just in time",
+                        "đúng giờ ↔ vừa kịp trước khi muộn (skip breakfast…)",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 3 · Lexical Food (tái dùng L3–L8)",
+                "leaves": [
+                    tip(
+                        "street food · mouth-watering · local dish",
+                        "đồ đường phố · cực ngon · món địa phương",
+                    ),
+                    tip(
+                        "cook from scratch · dine out · slap-up meal",
+                        "nấu từ đầu · ăn ngoài · bữa đã đời",
+                    ),
+                    tip(
+                        "hearty breakfast · comfort food · grab a quick bite",
+                        "bữa sáng no đủ · đồ an ủi · ăn vội",
+                    ),
+                ],
+            },
+        ],
+        "link": "→ nêu <strong>1 mốc thời gian</strong> + <strong>1–2 chi tiết Food</strong> (who / what / how you felt)",
+    },
+]
+
+LESSON9_MINDMAP_RIGHT = [
+    {
+        "id": "first-last-guess",
+        "color": "#86efac",
+        "name": "Không nhớ rõ, đoán",
+        "name_vi": "I guess + approximate time",
+        "flow": True,
+        "opener": "I can't remember exactly, but I guess…",
+        "branches": [
+            {
+                "label": "Nhánh 1 · Cụm mở (chọn 1)",
+                "leaves": [
+                    tip(
+                        "I'm not really sure but I guess…",
+                        "Không chắc lắm nhưng đoán là…",
+                    ),
+                    tip(
+                        "I can't remember exactly, but I guess…",
+                        "Không nhớ chính xác, nhưng đoán là…",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Khung sau guess",
+                "leaves": [
+                    tip(
+                        "the first/last time … was when …",
+                        "sau guess → gắn mốc gần đúng",
+                    ),
+                    tip(
+                        "I first/last … when I was in …",
+                        "gắn với giai đoạn đời (high school / uni)",
+                    ),
+                    tip(
+                        "About … ago / in my second year of…",
+                        "ước lượng thời gian",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 3 · Chi tiết + cảm xúc (Food)",
+                "leaves": [
+                    tip(
+                        "skipped my breakfast · grab a quick bite",
+                        "bỏ bữa sáng · ăn vội (tái dùng L8)",
+                    ),
+                    tip(
+                        "What a shame! / I was very excited",
+                        "cảm xúc kết bài như slide",
+                    ),
+                    tip(
+                        "We had a great time together",
+                        "kết bài ấm · dùng sau dine out / come over",
+                    ),
+                ],
+            },
+        ],
+        "link": "→ <strong>1 cụm đoán</strong> + mốc gần đúng + 1 chi tiết Food (không bịa ngày chính xác)",
+    },
+]
+
+
 def collect_review_words() -> list[dict]:
     topic = next(t for t in TOPICS["topics"] if t["slug"] == "food-drink")
     by_level: dict[str, list[dict]] = {}
@@ -3563,6 +3770,8 @@ def _pair_answer_html(
         "depends": ("Còn tùy", "lr-mm-tag-yes"),
         "pop_yes": ("Có", "lr-mm-tag-yes"),
         "pop_no": ("Không", "lr-mm-tag-no"),
+        "clear": ("Nhớ rõ", "lr-mm-tag-yes"),
+        "guess": ("Đoán", "lr-mm-tag-no"),
     }
     tag, tag_cls = tags.get(kind, ("Mẫu", "lr-mm-tag-yes"))
     chain = " lr-practice-chain lr-chain" if ex_en else ""
@@ -3658,6 +3867,19 @@ def _ex_chip_notes_html(chips: list | None) -> str:
         "so sánh rainy season": "Đối chiếu thời điểm kém hơn — During the rainy season…",
         "so sánh thời điểm khác (rainy season)": "Kéo dài câu bằng cách so sánh thời điểm khác",
         "don't have to worry about work…": "Không phải lo việc làm hay gì tương tự",
+        # Lesson 9
+        "As far as I can remember": "Theo như tôi còn nhớ",
+        "it's been … since …": "Đã … kể từ lần đầu/gần nhất …",
+        "I first/last … when …": "Tôi lần đầu/gần nhất … khi …",
+        "I can't remember exactly, but I guess": "Không nhớ chính xác, nhưng đoán là…",
+        "I'm not really sure but I guess": "Không chắc lắm nhưng đoán là…",
+        "buy + sb + sth": "Mua cho ai cái gì",
+        "spend + time + V-ing": "Dành bao lâu làm gì",
+        "come over to + V": "Đến nhà để làm gì",
+        "just on time": "Vừa đúng giờ (không sớm, không muộn)",
+        "just in time": "Vừa kịp lúc (trước khi quá trễ)",
+        "Just a month ago. / About 10 years ago. / Last month, …": "Mốc thời gian ngắn gọn (Just … ago / Last month)",
+        "skipped my breakfast": "Bỏ bữa sáng",
     }
 
     def resolve_vi(en: str) -> str:
@@ -5158,6 +5380,437 @@ def food_lesson8_examples_html() -> str:
 
 
 
+def food_lesson9_examples_html() -> str:
+    """Lesson 9 · When was the first/last time you did X? — Food Qs (clear time / guess)."""
+    items: list[dict] = []
+
+    def add(
+        q: str,
+        *,
+        kind: str,
+        en_html: str,
+        vi: str,
+        plain: str,
+        ipa: str,
+        ex: str,
+        ex_vi: str = "",
+        alt_kind: str = "alt",
+        alt_html: str = "",
+        alt_vi: str = "",
+        alt_plain: str = "",
+        alt_ipa: str = "",
+        alt_ex: str = "",
+        alt_ex_vi: str = "",
+        notes: list[str] | None = None,
+    ) -> None:
+        items.append(
+            {
+                "q": q,
+                "kind": kind,
+                "html": en_html,
+                "vi": vi,
+                "plain": plain,
+                "ipa": ipa,
+                "ex": ex,
+                "ex_vi": ex_vi,
+                "alt_kind": alt_kind,
+                "alt_html": alt_html,
+                "alt_vi": alt_vi,
+                "alt_plain": alt_plain,
+                "alt_ipa": alt_ipa,
+                "alt_ex": alt_ex,
+                "alt_ex_vi": alt_ex_vi,
+                "notes": notes or [],
+            }
+        )
+
+    # 1 — first street food · clear (mirror computer: as far as + when + buy sb sth)
+    t1 = (
+        "{first_last_lead}, I first {first_last_activity} {first_last_when}. "
+        "{first_last_detail}."
+    )
+    v1 = (
+        "{first_last_lead}, tôi lần đầu {first_last_activity} {first_last_when}. "
+        "{first_last_detail}."
+    )
+    add(
+        "When was the first time you tried street food?",
+        kind="clear",
+        en_html=t1.format(
+            first_last_lead=phrase_pick("first_last_lead", 0),
+            first_last_activity=phrase_pick("first_last_activity", 0),
+            first_last_when=phrase_pick("first_last_when", 2),
+            first_last_detail=phrase_pick("first_last_detail", 0),
+        ),
+        vi=fill_vi_tpl(
+            v1,
+            first_last_lead=slot_vi("first_last_lead", 0),
+            first_last_activity=slot_vi("first_last_activity", 0),
+            first_last_when=slot_vi("first_last_when", 2),
+            first_last_detail=slot_vi("first_last_detail", 0),
+        ),
+        plain="Well, as far as I can remember, I first tried street food when I was in Grade 9. My mom bought me a mouth-watering birthday cake and I was very excited.",
+        ipa="",
+        ex=t1,
+        ex_vi=v1,
+        notes=["As far as I can remember", "I first/last … when …", "buy + sb + sth"],
+        alt_kind="clear",
+        alt_html=(
+            "{first_last_lead}, {first_last_frame} {first_last_when}."
+        ).format(
+            first_last_lead=phrase_pick("first_last_lead", 1),
+            first_last_frame=phrase_pick("first_last_frame", 0),
+            first_last_when=phrase_pick("first_last_when", 4),
+        ),
+        alt_vi=fill_vi_tpl(
+            "{first_last_lead}, {first_last_frame} {first_last_when}.",
+            first_last_lead=slot_vi("first_last_lead", 1),
+            first_last_frame=slot_vi("first_last_frame", 0),
+            first_last_when=slot_vi("first_last_when", 4),
+        ),
+        alt_plain="As far as I can remember, the first time I tried street food was just a month ago.",
+        alt_ipa="",
+        alt_ex="{first_last_lead}, {first_last_frame} {first_last_when}.",
+        alt_ex_vi="{first_last_lead}, {first_last_frame} {first_last_when}.",
+    )
+
+    # 2 — last dine out · clear (mirror holiday: just … ago + spend + V-ing)
+    t2 = (
+        "{first_last_lead}, I {first_last_activity}. {first_last_detail}. "
+        "It was lovely, and we had a great time together."
+    )
+    v2 = (
+        "{first_last_lead}, tôi {first_last_activity}. {first_last_detail}. "
+        "Thật tuyệt, và chúng tôi có khoảng thời gian vui vẻ cùng nhau."
+    )
+    add(
+        "When was the last time you dined out?",
+        kind="clear",
+        en_html=t2.format(
+            first_last_lead=phrase_pick("first_last_lead", 2),
+            first_last_activity=phrase_pick("first_last_activity", 1),
+            first_last_detail=phrase_pick("first_last_detail", 1),
+        ),
+        vi=fill_vi_tpl(
+            v2,
+            first_last_lead=slot_vi("first_last_lead", 2),
+            first_last_activity=slot_vi("first_last_activity", 1),
+            first_last_detail=slot_vi("first_last_detail", 1),
+        ),
+        plain="Just two months ago, I dined out with friends. We spent three hours there trying mouth-watering local dishes. It was lovely, and we had a great time together.",
+        ipa="",
+        ex=t2,
+        ex_vi=v2,
+        notes=["Just a month ago. / About 10 years ago. / Last month, …", "spend + time + V-ing", "mouth-watering"],
+    )
+
+    # 3 — friends over for a meal · clear (mirror visitors: come over to + V)
+    t3 = (
+        "{first_last_lead}, {first_last_detail}. {first_last_detail2}."
+    )
+    # Use two detail slots carefully — second hardcode via another pick
+    t3 = (
+        "{first_last_lead}, {first_last_detail}. "
+        "We shared comfort food and really enjoyed the evening."
+    )
+    v3 = (
+        "{first_last_lead}, {first_last_detail}. "
+        "Chúng tôi chia sẻ đồ ăn an ủi và rất thích buổi tối đó."
+    )
+    add(
+        "When did you last have friends over for a meal?",
+        kind="clear",
+        en_html=t3.format(
+            first_last_lead=phrase_pick("first_last_lead", 3),
+            first_last_detail=phrase_pick("first_last_detail", 2),
+        ),
+        vi=fill_vi_tpl(
+            v3,
+            first_last_lead=slot_vi("first_last_lead", 3),
+            first_last_detail=slot_vi("first_last_detail", 2),
+        ),
+        plain="Last month, some of my friends came over to have a slap-up meal together. We shared comfort food and really enjoyed the evening.",
+        ipa="",
+        ex=t3,
+        ex_vi=v3,
+        notes=["come over to + V", "comfort food", "As far as I can remember"],
+    )
+
+    # 4 — cook from scratch · it's been … since (mirror computer variants)
+    t4 = (
+        "{first_last_lead}, {first_last_since}. "
+        "{first_last_detail}."
+    )
+    v4 = (
+        "{first_last_lead}, {first_last_since}. "
+        "{first_last_detail}."
+    )
+    add(
+        "When was the first time you cooked a meal from scratch?",
+        kind="clear",
+        en_html=t4.format(
+            first_last_lead=phrase_pick("first_last_lead", 1),
+            first_last_since=phrase_pick("first_last_since", 2),
+            first_last_detail=phrase_pick("first_last_detail", 3),
+        ),
+        vi=fill_vi_tpl(
+            v4,
+            first_last_lead=slot_vi("first_last_lead", 1),
+            first_last_since=slot_vi("first_last_since", 2),
+            first_last_detail=slot_vi("first_last_detail", 3),
+        ),
+        plain="As far as I can remember, it's been years since I last cooked a slap-up meal. I spent the whole evening cooking a home-cooked meal from scratch.",
+        ipa="",
+        ex=t4,
+        ex_vi=v4,
+        notes=["it's been … since …", "spend + time + V-ing", "from scratch"],
+    )
+
+    # 5 — first foreign dish · guess (mirror foreign language)
+    t5 = (
+        "{first_last_guess} the first time I {first_last_activity} was "
+        "{first_last_when}. I remember I was a bit nervous, but the local dish "
+        "was mouth-watering. What a shame I didn't take a photo!"
+    )
+    v5 = (
+        "{first_last_guess} lần đầu tôi {first_last_activity} là "
+        "{first_last_when}. Tôi nhớ mình hơi hồi hộp, nhưng món địa phương "
+        "cực ngon. Tiếc quá là tôi không chụp ảnh!"
+    )
+    add(
+        "When was the first time you tried a foreign dish?",
+        kind="guess",
+        en_html=t5.format(
+            first_last_guess=phrase_pick("first_last_guess", 1),
+            first_last_activity=phrase_pick("first_last_activity", 4),
+            first_last_when=phrase_pick("first_last_when", 1),
+        ),
+        vi=fill_vi_tpl(
+            v5,
+            first_last_guess=slot_vi("first_last_guess", 1),
+            first_last_activity=slot_vi("first_last_activity", 4),
+            first_last_when=slot_vi("first_last_when", 1),
+        ),
+        plain="I can't remember exactly, but I guess the first time I tried a foreign dish was when I was in my first year of university. I remember I was a bit nervous, but the local dish was mouth-watering. What a shame I didn't take a photo!",
+        ipa="",
+        ex=t5,
+        ex_vi=v5,
+        notes=["I can't remember exactly, but I guess", "mouth-watering", "I first/last … when …"],
+    )
+
+    # 6 — ate in a hurry · clear (mirror hurry: skip breakfast + just on time)
+    t6 = (
+        "{first_last_lead}; I got up a bit late, and I was afraid I would be late for work. "
+        "So, {first_last_detail}."
+    )
+    v6 = (
+        "{first_last_lead}; tôi dậy hơi trễ và sợ sẽ muộn việc. "
+        "Vì vậy, {first_last_detail}."
+    )
+    add(
+        "When was the last time you ate in a hurry?",
+        kind="clear",
+        en_html=t6.format(
+            first_last_lead=phrase_pick("first_last_lead", 4),
+            first_last_detail=phrase_pick("first_last_detail", 5),
+        ),
+        vi=fill_vi_tpl(
+            v6,
+            first_last_lead=slot_vi("first_last_lead", 4),
+            first_last_detail=slot_vi("first_last_detail", 5),
+        ),
+        plain="This morning; I got up a bit late, and I was afraid I would be late for work. So, I skipped my breakfast, grabbed a taxi, and fortunately I was just on time.",
+        ipa="",
+        ex=t6,
+        ex_vi=v6,
+        notes=["skipped my breakfast", "just on time", "just in time"],
+        alt_kind="clear",
+        alt_html=(
+            "{first_last_lead}; I was running late, so {first_last_detail}."
+        ).format(
+            first_last_lead=phrase_pick("first_last_lead", 4),
+            first_last_detail=phrase_pick("first_last_detail", 4),
+        ),
+        alt_vi=fill_vi_tpl(
+            "{first_last_lead}; tôi đang trễ, nên {first_last_detail}.",
+            first_last_lead=slot_vi("first_last_lead", 4),
+            first_last_detail=slot_vi("first_last_detail", 4),
+        ),
+        alt_plain="This morning; I was running late, so I grabbed a quick bite and was just in time for my morning meeting.",
+        alt_ipa="",
+        alt_ex="{first_last_lead}; I was running late, so {first_last_detail}.",
+        alt_ex_vi="{first_last_lead}; tôi đang trễ, nên {first_last_detail}.",
+    )
+
+    # 7 — last hearty breakfast · guess
+    t7 = (
+        "{first_last_guess} {first_last_frame} {first_last_when}. "
+        "Usually I just grab a quick bite, so a hearty breakfast feels special."
+    )
+    v7 = (
+        "{first_last_guess} {first_last_frame} {first_last_when}. "
+        "Thường tôi chỉ ăn vội, nên bữa sáng no đủ cảm giác đặc biệt."
+    )
+    add(
+        "When was the last time you had a hearty breakfast?",
+        kind="guess",
+        en_html=t7.format(
+            first_last_guess=phrase_pick("first_last_guess", 0),
+            first_last_frame=phrase_pick("first_last_frame", 3),
+            first_last_when=phrase_pick("first_last_when", 5),
+        ),
+        vi=fill_vi_tpl(
+            v7,
+            first_last_guess=slot_vi("first_last_guess", 0),
+            first_last_frame=slot_vi("first_last_frame", 3),
+            first_last_when=slot_vi("first_last_when", 5),
+        ),
+        plain="I'm not really sure but I guess the last time I had a hearty breakfast was about two months ago. Usually I just grab a quick bite, so a hearty breakfast feels special.",
+        ipa="",
+        ex=t7,
+        ex_vi=v7,
+        notes=["I'm not really sure but I guess", "hearty breakfast", "grab a quick bite"],
+    )
+
+    # 8 — last comfort food · clear + since alt
+    t8 = (
+        "{first_last_lead}, I last {first_last_activity} {first_last_when}. "
+        "{first_last_detail}."
+    )
+    v8 = (
+        "{first_last_lead}, tôi lần gần nhất {first_last_activity} {first_last_when}. "
+        "{first_last_detail}."
+    )
+    add(
+        "When was the last time you ate comfort food?",
+        kind="clear",
+        en_html=t8.format(
+            first_last_lead=phrase_pick("first_last_lead", 1),
+            first_last_activity=phrase_pick("first_last_activity", 5),
+            first_last_when=phrase_pick("first_last_when", 4),
+            first_last_detail=phrase_pick("first_last_detail", 6),
+        ),
+        vi=fill_vi_tpl(
+            v8,
+            first_last_lead=slot_vi("first_last_lead", 1),
+            first_last_activity=slot_vi("first_last_activity", 5),
+            first_last_when=slot_vi("first_last_when", 4),
+            first_last_detail=slot_vi("first_last_detail", 6),
+        ),
+        plain="As far as I can remember, I last ate comfort food at home just a month ago. We really enjoyed the comfort food and had a great time together.",
+        ipa="",
+        ex=t8,
+        ex_vi=v8,
+        notes=["As far as I can remember", "comfort food", "I first/last … when …"],
+        alt_kind="clear",
+        alt_html="{first_last_since}.".format(
+            first_last_since=phrase_pick("first_last_since", 1),
+        ),
+        alt_vi=fill_vi_tpl(
+            "{first_last_since}.",
+            first_last_since=slot_vi("first_last_since", 1),
+        ),
+        alt_plain="It's been a few months since I last dined out.",
+        alt_ipa="",
+        alt_ex="{first_last_since}.",
+        alt_ex_vi="{first_last_since}.",
+    )
+
+    # 9 — slap-up meal · clear + spend
+    t9 = (
+        "{first_last_lead}, I last cooked a slap-up meal {first_last_when}. "
+        "{first_last_detail}."
+    )
+    v9 = (
+        "{first_last_lead}, tôi lần gần nhất nấu một bữa đã đời {first_last_when}. "
+        "{first_last_detail}."
+    )
+    add(
+        "When was the last time you cooked a slap-up meal?",
+        kind="clear",
+        en_html=t9.format(
+            first_last_lead=phrase_pick("first_last_lead", 1),
+            first_last_when=phrase_pick("first_last_when", 4),
+            first_last_detail=phrase_pick("first_last_detail", 3),
+        ),
+        vi=fill_vi_tpl(
+            v9,
+            first_last_lead=slot_vi("first_last_lead", 1),
+            first_last_when=slot_vi("first_last_when", 4),
+            first_last_detail=slot_vi("first_last_detail", 3),
+        ),
+        plain="As far as I can remember, I last cooked a slap-up meal just a month ago. I spent the whole evening cooking a home-cooked meal from scratch.",
+        ipa="",
+        ex=t9,
+        ex_vi=v9,
+        notes=["spend + time + V-ing", "from scratch", "As far as I can remember"],
+    )
+
+    # 10 — last local dish / market · guess
+    t10 = (
+        "{first_last_guess} {first_last_frame} {first_last_when}. "
+        "{first_last_detail}."
+    )
+    v10 = (
+        "{first_last_guess} {first_last_frame} {first_last_when}. "
+        "{first_last_detail}."
+    )
+    add(
+        "When was the first time you tried a local dish at an outdoor stall?",
+        kind="guess",
+        en_html=t10.format(
+            first_last_guess=phrase_pick("first_last_guess", 1),
+            first_last_frame=phrase_pick("first_last_frame", 4),
+            first_last_when=phrase_pick("first_last_when", 3),
+            first_last_detail=phrase_pick("first_last_detail", 1),
+        ),
+        vi=fill_vi_tpl(
+            v10,
+            first_last_guess=slot_vi("first_last_guess", 1),
+            first_last_frame=slot_vi("first_last_frame", 4),
+            first_last_when=slot_vi("first_last_when", 3),
+            first_last_detail=slot_vi("first_last_detail", 1),
+        ),
+        plain="I can't remember exactly, but I guess the first time I tried a local dish was when I moved to the city. We spent three hours there trying mouth-watering local dishes.",
+        ipa="",
+        ex=t10,
+        ex_vi=v10,
+        notes=["I can't remember exactly, but I guess", "spend + time + V-ing", "mouth-watering"],
+    )
+
+    cards = []
+    for it in items:
+        alts = ""
+        if it.get("alt_html"):
+            alts = _pair_answer_html(
+                kind=it.get("alt_kind") or "alt",
+                en_html=it["alt_html"],
+                vi=it["alt_vi"],
+                plain=it["alt_plain"],
+                ipa=it["alt_ipa"],
+                q=it["q"],
+                ex_en=it.get("alt_ex", ""),
+                ex_vi=it.get("alt_ex_vi", ""),
+            )
+        cards.append(
+            f"""          <article class="lr-food-ex-card">
+{_ex_card_q_html(it["q"])}
+            <div class="lr-food-ex-pair lr-food-ex-pair--first-last">
+{_pair_answer_html(kind=it["kind"], en_html=it["html"], vi=it["vi"], plain=it["plain"], ipa=it["ipa"], q=it["q"], ex_en=it["ex"], ex_vi=it.get("ex_vi", ""))}
+{alts}
+            </div>
+{_ex_chip_notes_html(it.get("notes"))}
+          </article>"""
+        )
+    return f"""
+        <div class="lr-food-examples" id="food-examples-l9">
+          <h3 class="lr-core-subtitle">Ví dụ Food · When was the first/last time you did X?</h3>
+          <p class="lr-mm-hint">~10 câu Part 1 (Food). Nhánh <strong>Nói rõ thời gian</strong> / <strong>Đoán</strong> + cấu trúc slide (<strong>As far as I can remember</strong> · <strong>it's been … since</strong> · <strong>spend + time + V-ing</strong> · <strong>come over to</strong> · <strong>just on/in time</strong>). Lexical Food tái dùng L3–L8 — không thêm cụm mới.</p>
+{chr(10).join(cards)}
+        </div>"""
+
+
+
 def food_lesson_examples_html() -> str:
     """Unified Food cards: every Q has Thích + Không thích; both sides have contextual dropdowns."""
     items = []
@@ -5607,7 +6260,7 @@ def lesson_highlights_html(
     include_food_examples: bool = False,
     open_practice: bool = False,
 ) -> str:
-    """Lesson 2 + 3 + 5 + 6 + 7 + 8 mind maps and practice (Lesson 4 skipped).
+    """Lesson 2 + 3 + 5 + 6 + 7 + 8 + 9 mind maps and practice (Lesson 4 skipped).
 
     map_suffix: unique id suffix when the same maps appear on Review Exercise 2.
     include_food_examples: annotated Food cards (Review Exercise 2).
@@ -5619,17 +6272,20 @@ def lesson_highlights_html(
     m6 = f"lesson6Mindmap{map_suffix}"
     m7 = f"lesson7Mindmap{map_suffix}"
     m8 = f"lesson8Mindmap{map_suffix}"
+    m9 = f"lesson9Mindmap{map_suffix}"
     open_attr = " open" if open_practice else ""
     examples_block = food_lesson_examples_html() if include_food_examples else ""
     examples_l5 = food_lesson5_examples_html() if include_food_examples else ""
     examples_l6 = food_lesson6_examples_html() if include_food_examples else ""
     examples_l7 = food_lesson7_examples_html() if include_food_examples else ""
     examples_l8 = food_lesson8_examples_html() if include_food_examples else ""
+    examples_l9 = food_lesson9_examples_html() if include_food_examples else ""
     lesson3_scroll = ""
     lesson5_scroll = ""
     lesson6_scroll = ""
     lesson7_scroll = ""
     lesson8_scroll = ""
+    lesson9_scroll = ""
     if include_food_examples:
         lesson3_scroll = lesson_scroll_read_html(
             "lesson3", title="Lesson 3", source_sel="#lesson3-scroll-source"
@@ -5645,6 +6301,9 @@ def lesson_highlights_html(
         )
         lesson8_scroll = lesson_scroll_read_html(
             "lesson8", title="Lesson 8", source_sel="#lesson8-scroll-source"
+        )
+        lesson9_scroll = lesson_scroll_read_html(
+            "lesson9", title="Lesson 9", source_sel="#lesson9-scroll-source"
         )
 
     g2 = lesson_grammar_notes_html(
@@ -5870,6 +6529,47 @@ def lesson_highlights_html(
             "hearty breakfast / comfort food / grab a bite",
         ],
     )
+    g9 = lesson_grammar_tree_html(
+        "Lesson 9",
+        "When was the first/last time you did X?",
+        [
+            {
+                "label_html": f'{_g_mark("Nói rõ thời gian")} / thời điểm',
+                "openers": [
+                    "As far as I can remember,",
+                    "the first/last time I did X was …",
+                    "I first/last did X when …",
+                    "it's been … since I first/last did X",
+                    "Just a month ago. / Last month, …",
+                ],
+                "details_label": "Kéo dài câu (slide → Food)",
+                "details": [
+                    "buy + sb + sth",
+                    "spend + time + V-ing / on + N",
+                    "come over to + V",
+                    "just on time ↔ just in time",
+                ],
+            },
+            {
+                "label_html": f'{_g_mark("Không nhớ rõ")}, nhưng đoán',
+                "openers": [
+                    "I'm not really sure but I guess…",
+                    "I can't remember exactly, but I guess…",
+                ],
+                "details_label": "Sau guess",
+                "details": [
+                    "the first/last time … was when …",
+                    "About … ago / when I was in …",
+                    "thêm 1–2 chi tiết Food + cảm xúc",
+                ],
+            },
+        ],
+        footer=[
+            "skipped my breakfast · grab a quick bite",
+            "mouth-watering · comfort food · slap-up meal",
+            "cook from scratch · dine out · local dish",
+        ],
+    )
 
     return f"""
       <div class="lr-core-lessons">
@@ -6012,6 +6712,30 @@ def lesson_highlights_html(
           </div>
 
 {lesson8_scroll}
+        </article>
+
+        <article class="lr-core-lesson" id="lesson9-formulas">
+          <header class="lr-core-lesson-head">
+            <h3>Lesson 9 · When was the first/last time you did X?</h3>
+          </header>
+
+{mind_map_html(
+            m9,
+            "Lesson 9 · When was the first/last time you did X?",
+            "First / last time?",
+            "Nhớ rõ ↔ Đoán",
+            LESSON9_MINDMAP_LEFT,
+            LESSON9_MINDMAP_RIGHT,
+            note="Trái = <strong>Nói rõ thời gian</strong> · Phải = <strong>Không nhớ rõ, đoán</strong> + chi tiết Food (lexical tái dùng L3–L8).",
+            extra_class=" lr-mmap--lesson9",
+            min_width="1280px",
+        )}
+{g9}
+          <div id="lesson9-scroll-source">
+{examples_l9}
+          </div>
+
+{lesson9_scroll}
         </article>
 
       </div>"""
@@ -7503,7 +8227,7 @@ def build_page() -> str:
       <header class="lr-hero">
         <p class="lr-hero-badge">Linear Thinking · Capstone</p>
         <h1>Food &amp; Drink — Review Exercise 1</h1>
-        <p class="lede">Sau khi hoàn thành B2, ôn tập theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-speaking" target="_blank" rel="noopener noreferrer">Linear Thinking</a>: ngữ pháp (6 thì) → mental model → cấu trúc Speaking → từ vựng B1/B2 → mock IELTS Part 1/2/3 với dropdown từ thay thế. Chỉ muốn Lesson 2–8 (skip 4)? Xem <a href="../review-exercise-2/">Review Exercise 2</a>.</p>
+        <p class="lede">Sau khi hoàn thành B2, ôn tập theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-speaking" target="_blank" rel="noopener noreferrer">Linear Thinking</a>: ngữ pháp (6 thì) → mental model → cấu trúc Speaking → từ vựng B1/B2 → mock IELTS Part 1/2/3 với dropdown từ thay thế. Chỉ muốn Lesson 2–9 (skip 4)? Xem <a href="../review-exercise-2/">Review Exercise 2</a>.</p>
         <nav class="lr-toc" aria-label="On this page">
           <a href="#core-steps">Core · 3 bước</a>
           <a href="#natural-vlog">0 · Real talk</a>
@@ -7511,7 +8235,7 @@ def build_page() -> str:
           <a href="#mental-model">2 · Mental model</a>
           <a href="#ed-ending">2b · -ed</a>
           <a href="#structures">3 · Structures</a>
-          <a href="#lessons">4 · Lessons 2 · 3 · 5–8</a>
+          <a href="#lessons">4 · Lessons 2 · 3 · 5–9</a>
           <a href="#food-lang">5 · Idioms &amp; phrases</a>
           <a href="#phrase-drills">6 · Phrase drills</a>
           <a href="#food-phrase-map">6 · Mind map</a>
@@ -7551,8 +8275,8 @@ def build_page() -> str:
       </section>
 
       <section class="lr-section" id="lessons">
-        <h2>4 · Core formulas — Lesson 2, 3, 5–8</h2>
-        <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — L2 → L3 → L5 → L6 Prefer → L7 Popular → L8 Best time · <em>skip Lesson 4</em>. Chọn <strong>1–2 nhánh</strong>.</p>
+        <h2>4 · Core formulas — Lesson 2, 3, 5–9</h2>
+        <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — L2 → L3 → L5 → L6 Prefer → L7 Popular → L8 Best time → L9 First/last time · <em>skip Lesson 4</em>. Chọn <strong>1–2 nhánh</strong>.</p>
 {lesson_highlights_html()}
       </section>
 
@@ -7651,9 +8375,9 @@ def build_page_review2() -> str:
       </div>
 
       <header class="lr-hero">
-        <p class="lr-hero-badge">Linear Thinking · Lesson 2, 3, 5–8</p>
+        <p class="lr-hero-badge">Linear Thinking · Lesson 2, 3, 5–9</p>
         <h1>Food &amp; Drink — Review Exercise 2</h1>
-        <p class="lede">Lesson 2 + 3 + 5–8 (Best time to do X?) · skip Lesson 4. Sơ đồ tư duy → ví dụ Food → Scroll read. Full capstone: <a href="../review-exercise/">Review Exercise 1</a>.</p>
+        <p class="lede">Lesson 2 + 3 + 5–9 (First/last time?) · skip Lesson 4. Sơ đồ tư duy → ví dụ Food → Scroll read. Full capstone: <a href="../review-exercise/">Review Exercise 1</a>.</p>
         <nav class="lr-toc" aria-label="On this page">
           <a href="#lesson2-formulas">Lesson 2 · Reasons</a>
           <a href="#scroll-lesson2">Scroll · L2</a>
@@ -7672,6 +8396,9 @@ def build_page_review2() -> str:
           <a href="#lesson8-formulas">Lesson 8 · Best time?</a>
           <a href="#food-examples-l8">Ví dụ L8</a>
           <a href="#scroll-lesson8">Scroll · L8</a>
+          <a href="#lesson9-formulas">Lesson 9 · First/last time?</a>
+          <a href="#food-examples-l9">Ví dụ L9</a>
+          <a href="#scroll-lesson9">Scroll · L9</a>
         </nav>
         <div class="ex-toolbar lr-toolbar lr-toolbar--hero">
           <label class="ex-toggle"><input type="checkbox" id="togVi" /> Vietnamese</label>
@@ -7679,7 +8406,7 @@ def build_page_review2() -> str:
       </header>
 
       <section class="lr-section" id="lessons">
-        <h2>Core formulas — Lesson 2, 3, 5–8</h2>
+        <h2>Core formulas — Lesson 2, 3, 5–9</h2>
         <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — chọn <strong>1–2 nhánh</strong>, không nhồi hết. Dropdown bên dưới để thay từ B1/B2.</p>
 {lesson_highlights_html(map_suffix="R2", include_food_examples=True, open_practice=True)}
       </section>
@@ -7693,7 +8420,7 @@ def build_page_review2() -> str:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Review Exercise 2 · Food &amp; Drink — The Quiet Corner</title>
-  <meta name="description" content="Lesson 2, 3, 5–8: Reasons, Do you like X?, What kind?, Prefer, Is X popular, Best time — Food mind maps and practice.">
+  <meta name="description" content="Lesson 2, 3, 5–9: Reasons, Do you like X?, What kind?, Prefer, Is X popular, Best time, First/last time — Food mind maps and practice.">
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -7749,7 +8476,7 @@ def patch_topic_index() -> None:
           <span class="vocab-level__badge vocab-level__badge--review">Review</span>
           <h2>Linear Thinking · Capstone exercise</h2>
         </div>
-        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3, 5–8 (mind map + ví dụ Food + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
+        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3, 5–9 (mind map + ví dụ Food + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
         <div class="vocab-lesson-grid">
           <a class="vocab-lesson-card vocab-lesson-card--review" href="review-exercise/">
             <img src="{review_icon}" alt="" width="72" height="72" loading="lazy">
