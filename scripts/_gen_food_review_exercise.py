@@ -963,6 +963,71 @@ WORD_SLOTS: dict[str, list[dict]] = {
         {"form": "tried a foreign dish", "vi": "thử một món nước ngoài"},
         {"form": "ate comfort food at home", "vi": "ăn đồ an ủi ở nhà"},
     ],
+    # Lesson 10 · Did you do X when you were a child?
+    "child_yes": [
+        {"form": "Yes, I did", "vi": "Vâng, tôi có"},
+        {"form": "Yes, definitely", "vi": "Vâng, chắc chắn"},
+        {"form": "Yes, when I was a kid", "vi": "Vâng, khi tôi còn nhỏ"},
+    ],
+    "child_no": [
+        {"form": "No, I didn't", "vi": "Không"},
+        {"form": "No, not really", "vi": "Không thật sự"},
+        {"form": "No, not often", "vi": "Không thường xuyên"},
+    ],
+    "child_when": [
+        {"form": "when I was a kid", "vi": "khi tôi còn nhỏ"},
+        {"form": "when I was very little", "vi": "khi tôi còn rất nhỏ"},
+        {"form": "when I was about five or six years old", "vi": "khi tôi khoảng năm hoặc sáu tuổi"},
+        {"form": "when I was in primary school", "vi": "khi tôi học tiểu học"},
+        {
+            "form": "I can't remember exactly how old I was, but I was probably about seven or eight",
+            "vi": "tôi không nhớ chính xác bao nhiêu tuổi, nhưng có lẽ khoảng bảy hoặc tám",
+        },
+    ],
+    "child_reason_yes": [
+        {
+            "form": "My mom told me that I ate a lot of mouth-watering home-cooked food",
+            "vi": "mẹ bảo tôi đã ăn rất nhiều đồ nấu nhà cực ngon",
+        },
+        {
+            "form": "I helped my mom with cooking, like washing vegetables or doing dishes",
+            "vi": "tôi giúp mẹ nấu ăn, như rửa rau hoặc rửa chén",
+        },
+        {
+            "form": "My mom always encouraged me to try local dishes and cook from scratch",
+            "vi": "mẹ luôn khuyến khích tôi thử món địa phương và nấu từ đầu",
+        },
+        {
+            "form": "we lived near a morning market, just a 10-minute walk, so fresh ingredients were easy to find",
+            "vi": "nhà gần chợ sáng, chỉ cách 10 phút đi bộ, nên nguyên liệu tươi dễ tìm",
+        },
+        {
+            "form": "I had a sweet tooth and loved comfort food after school",
+            "vi": "tôi thích đồ ngọt và thích đồ an ủi sau giờ học",
+        },
+    ],
+    "child_reason_no": [
+        {
+            "form": "I was not really interested in vegetables because I found them quite boring",
+            "vi": "tôi không thật sự thích rau vì thấy chúng khá chán",
+        },
+        {
+            "form": "I spent most of my time playing, so I usually just grabbed a quick bite",
+            "vi": "tôi dành phần lớn thời gian để chơi, nên thường chỉ ăn vội",
+        },
+        {
+            "form": "I did eat some fruit sometimes but not too often",
+            "vi": "thỉnh thoảng tôi có ăn trái cây nhưng không quá thường xuyên",
+        },
+        {
+            "form": "I found junk food more exciting than a balanced diet back then",
+            "vi": "lúc đó tôi thấy junk food hấp dẫn hơn chế độ ăn cân bằng",
+        },
+        {
+            "form": "I usually felt sleepy after a heavy meal and preferred a light meal",
+            "vi": "tôi thường buồn ngủ sau bữa nặng và thích bữa nhẹ hơn",
+        },
+    ],
 }
 
 # ── Mind map helpers (shared: Section 2 tenses + Lesson 2/3) ───────────────
@@ -2903,6 +2968,122 @@ LESSON9_MINDMAP_RIGHT = [
 ]
 
 
+# Lesson 10 · Did you do X when you were a child? — trái = Có, phải = Không
+LESSON10_MINDMAP_LEFT = [
+    {
+        "id": "child-yes",
+        "color": "#fca5a5",
+        "name": "Có + lý do",
+        "name_vi": "Yes, I did + detail",
+        "flow": True,
+        "opener": "Yes, I did. / Yes, … when I was a child …",
+        "branches": [
+            {
+                "label": "Nhánh 1 · Mở (chọn 1)",
+                "leaves": [
+                    tip("Yes, I did.", "Vâng, tôi có"),
+                    tip("Yes, … when I was a child …", "Vâng, … khi tôi còn nhỏ …"),
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Cụm thời gian childhood",
+                "leaves": [
+                    tip("When I was a kid / very small / little", "Khi còn nhỏ / rất nhỏ"),
+                    tip("When I was … (years old)", "Khi tôi … tuổi"),
+                    tip("When I was in primary school", "Khi học tiểu học"),
+                    tip(
+                        "I can't remember exactly how old I was, but I was probably about …",
+                        "Không nhớ chính xác tuổi, nhưng chắc khoảng …",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 3 · Kéo dài (slide → Food)",
+                "leaves": [
+                    tip(
+                        "My mom told me that …",
+                        "Mẹ bảo rằng … (kể lại thói quen ăn uống)",
+                    ),
+                    tip(
+                        "help sb with sth · help sb (to) V",
+                        "giúp mẹ nấu / rửa rau / rửa chén",
+                    ),
+                    tip(
+                        "encourage sb to + V",
+                        "khuyến khích thử local dishes / cook from scratch",
+                    ),
+                    tip(
+                        "a + compound adj + N",
+                        "a 10-minute walk · a two-course meal",
+                    ),
+                ],
+            },
+        ],
+        "link": "→ <strong>Yes</strong> + 1 cụm thời gian + 1–2 chi tiết Food (lexical cũ)",
+    },
+]
+
+LESSON10_MINDMAP_RIGHT = [
+    {
+        "id": "child-no",
+        "color": "#86efac",
+        "name": "Không + lý do",
+        "name_vi": "No, not really + detail",
+        "flow": True,
+        "opener": "No, I didn't. / No, not really.",
+        "branches": [
+            {
+                "label": "Nhánh 1 · Mở (chọn 1)",
+                "leaves": [
+                    tip("No, I didn't.", "Không"),
+                    tip("No, not really.", "Không thật sự"),
+                    tip("No, … when I was a child …", "Không, … khi còn nhỏ …"),
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Lý do / chi tiết",
+                "leaves": [
+                    tip(
+                        "not really interested in + N",
+                        "không thật sự thích … (rau / nấu ăn)",
+                    ),
+                    tip(
+                        "find + sth + adj",
+                        "thấy cái gì như thế nào — found it quite boring",
+                    ),
+                    tip(
+                        "did + V (nhấn mạnh)",
+                        "I did eat some fruit sometimes but not too often",
+                    ),
+                    tip(
+                        "spent most of my time + V-ing",
+                        "dành phần lớn thời gian … → chỉ grab a quick bite",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 3 · Lexical Food (tái dùng)",
+                "leaves": [
+                    tip(
+                        "junk food · balanced diet · light meal",
+                        "junk food · chế độ cân bằng · bữa nhẹ",
+                    ),
+                    tip(
+                        "sweet tooth · comfort food · hearty breakfast",
+                        "thích ngọt · đồ an ủi · bữa sáng no đủ",
+                    ),
+                    tip(
+                        "home-cooked · cook from scratch · local dish",
+                        "đồ nấu nhà · nấu từ đầu · món địa phương",
+                    ),
+                ],
+            },
+        ],
+        "link": "→ <strong>No</strong> + childhood time + find/did-emphasize + 1 collocation cũ",
+    },
+]
+
+
 def collect_review_words() -> list[dict]:
     topic = next(t for t in TOPICS["topics"] if t["slug"] == "food-drink")
     by_level: dict[str, list[dict]] = {}
@@ -3880,6 +4061,17 @@ def _ex_chip_notes_html(chips: list | None) -> str:
         "just in time": "Vừa kịp lúc (trước khi quá trễ)",
         "Just a month ago. / About 10 years ago. / Last month, …": "Mốc thời gian ngắn gọn (Just … ago / Last month)",
         "skipped my breakfast": "Bỏ bữa sáng",
+        # Lesson 10
+        "Yes, I did": "Vâng, tôi có (Past Simple)",
+        "No, not really": "Không thật sự",
+        "When I was a kid": "Khi tôi còn nhỏ",
+        "find + sth + adj": "Cảm thấy cái gì như thế nào",
+        "did + V (emphasis)": "Nhấn mạnh hành động quá khứ — I did eat…",
+        "help sb with sth": "Giúp ai với việc gì",
+        "encourage sb to + V": "Khuyến khích ai làm gì",
+        "a + compound adj + N": "a 10-minute walk · a two-course meal (N số ít)",
+        "not really interested in": "Không thật sự thích / quan tâm đến",
+        "My mom told me that…": "Mẹ bảo rằng… (kể lại)",
     }
 
     def resolve_vi(en: str) -> str:
@@ -5811,6 +6003,433 @@ def food_lesson9_examples_html() -> str:
 
 
 
+def food_lesson10_examples_html() -> str:
+    """Lesson 10 · Did you do X when you were a child? — Food Qs (Cambridge-style)."""
+    items: list[dict] = []
+
+    def add(
+        q: str,
+        *,
+        kind: str,
+        en_html: str,
+        vi: str,
+        plain: str,
+        ipa: str,
+        ex: str,
+        ex_vi: str = "",
+        alt_kind: str = "alt",
+        alt_html: str = "",
+        alt_vi: str = "",
+        alt_plain: str = "",
+        alt_ipa: str = "",
+        alt_ex: str = "",
+        alt_ex_vi: str = "",
+        notes: list[str] | None = None,
+        source: str = "",
+    ) -> None:
+        notes = list(notes or [])
+        if source:
+            notes = notes + [source]
+        items.append(
+            {
+                "q": q,
+                "kind": kind,
+                "html": en_html,
+                "vi": vi,
+                "plain": plain,
+                "ipa": ipa,
+                "ex": ex,
+                "ex_vi": ex_vi,
+                "alt_kind": alt_kind,
+                "alt_html": alt_html,
+                "alt_vi": alt_vi,
+                "alt_plain": alt_plain,
+                "alt_ipa": alt_ipa,
+                "alt_ex": alt_ex,
+                "alt_ex_vi": alt_ex_vi,
+                "notes": notes,
+            }
+        )
+
+    # 1 — sweets / chocolate · YES (Cambridge: Did you like chocolate / sweets as a child?)
+    t1 = (
+        "{child_yes}. {child_when}, {child_reason_yes}. "
+        "We still joke about my sweet tooth at family dinners."
+    )
+    v1 = (
+        "{child_yes}. {child_when}, {child_reason_yes}. "
+        "Nhà tôi vẫn hay đùa về gu thích ngọt của tôi trong bữa tối gia đình."
+    )
+    add(
+        "Did you like sweets when you were a child?",
+        kind="yes",
+        en_html=t1.format(
+            child_yes=phrase_pick("child_yes", 0),
+            child_when=phrase_pick("child_when", 0),
+            child_reason_yes=phrase_pick("child_reason_yes", 4),
+        ),
+        vi=fill_vi_tpl(
+            v1,
+            child_yes=slot_vi("child_yes", 0),
+            child_when=slot_vi("child_when", 0),
+            child_reason_yes=slot_vi("child_reason_yes", 4),
+        ),
+        plain="Yes, I did. When I was a kid, I had a sweet tooth and loved comfort food after school. We still joke about my sweet tooth at family dinners.",
+        ipa="",
+        ex=t1,
+        ex_vi=v1,
+        notes=["Yes, I did", "When I was a kid", "have a sweet tooth"],
+        source="Cambridge-style · Chocolate / sweets (childhood)",
+    )
+
+    # 2 — vegetables · NO (find + adj) — common childhood food dislike
+    add(
+        "Did you enjoy eating vegetables when you were a child?",
+        kind="no",
+        en_html=(
+            "{child_no}. {child_when}, {child_reason_no}. {child_reason_no_b}."
+        ).format(
+            child_no=phrase_pick("child_no", 1),
+            child_when=phrase_pick("child_when", 0),
+            child_reason_no=phrase_pick("child_reason_no", 0),
+            child_reason_no_b=phrase_pick("child_reason_no", 2),
+        ),
+        vi=fill_vi_tpl(
+            "{child_no}. {child_when}, {child_reason_no}. {child_reason_no_b}.",
+            child_no=slot_vi("child_no", 1),
+            child_when=slot_vi("child_when", 0),
+            child_reason_no=slot_vi("child_reason_no", 0),
+            child_reason_no_b=slot_vi("child_reason_no", 2),
+        ),
+        plain="No, not really. When I was a kid, I was not really interested in vegetables because I found them quite boring. I did eat some fruit sometimes but not too often.",
+        ipa="",
+        ex="{child_no}. {child_when}, {child_reason_no}. {child_reason_no_b}.",
+        ex_vi="{child_no}. {child_when}, {child_reason_no}. {child_reason_no_b}.",
+        notes=["No, not really", "find + sth + adj", "did + V (emphasis)"],
+        source="Cambridge-style · childhood food taste / vegetables",
+    )
+
+    # 3 — help cook · YES (Cambridge: Did you learn to cook / help in the kitchen?)
+    t3 = (
+        "{child_yes}. Sometimes {child_reason_yes}. "
+        "{child_reason_yes_b} because she wanted me to become more independent."
+    )
+    v3 = (
+        "{child_yes}. Thỉnh thoảng {child_reason_yes}. "
+        "{child_reason_yes_b} vì mẹ muốn tôi độc lập hơn."
+    )
+    add(
+        "Did you help with cooking when you were a child?",
+        kind="yes",
+        en_html=t3.format(
+            child_yes=phrase_pick("child_yes", 0),
+            child_reason_yes=phrase_pick("child_reason_yes", 1),
+            child_reason_yes_b=phrase_pick("child_reason_yes", 2),
+        ),
+        vi=fill_vi_tpl(
+            v3,
+            child_yes=slot_vi("child_yes", 0),
+            child_reason_yes=slot_vi("child_reason_yes", 1),
+            child_reason_yes_b=slot_vi("child_reason_yes", 2),
+        ),
+        plain="Yes, I did. Sometimes I helped my mom with cooking, like washing vegetables or doing dishes. My mom always encouraged me to try local dishes and cook from scratch because she wanted me to become more independent.",
+        ipa="",
+        ex=t3,
+        ex_vi=v3,
+        notes=["Yes, I did", "help sb with sth", "encourage sb to + V"],
+        source="Cambridge-style · Cooking / learn from family",
+    )
+
+    # 4 — same food as now · NO change implied (Did you like the same food…?)
+    t4 = (
+        "{child_no}. {child_when}, {child_reason_no}. "
+        "Now I prefer a balanced diet rather than junk food."
+    )
+    v4 = (
+        "{child_no}. {child_when}, {child_reason_no}. "
+        "Giờ tôi thích chế độ ăn cân bằng hơn junk food."
+    )
+    add(
+        "Did you like the same food when you were a child?",
+        kind="no",
+        en_html=t4.format(
+            child_no=phrase_pick("child_no", 0),
+            child_when=phrase_pick("child_when", 3),
+            child_reason_no=phrase_pick("child_reason_no", 3),
+        ),
+        vi=fill_vi_tpl(
+            v4,
+            child_no=slot_vi("child_no", 0),
+            child_when=slot_vi("child_when", 3),
+            child_reason_no=slot_vi("child_reason_no", 3),
+        ),
+        plain="No, I didn't. When I was in primary school, I found junk food more exciting than a balanced diet back then. Now I prefer a balanced diet rather than junk food.",
+        ipa="",
+        ex=t4,
+        ex_vi=v4,
+        notes=["No, I didn't", "When I was in primary school", "balanced diet"],
+        source="Cambridge · Did you like the same food when you were a child?",
+        alt_kind="yes",
+        alt_html=(
+            "{child_yes}. {child_when}, {child_reason_yes}."
+        ).format(
+            child_yes=phrase_pick("child_yes", 2),
+            child_when=phrase_pick("child_when", 0),
+            child_reason_yes=phrase_pick("child_reason_yes", 0),
+        ),
+        alt_vi=fill_vi_tpl(
+            "{child_yes}. {child_when}, {child_reason_yes}.",
+            child_yes=slot_vi("child_yes", 2),
+            child_when=slot_vi("child_when", 0),
+            child_reason_yes=slot_vi("child_reason_yes", 0),
+        ),
+        alt_plain="Yes, when I was a kid, My mom told me that I ate a lot of mouth-watering home-cooked food.",
+        alt_ipa="",
+        alt_ex="{child_yes}. {child_when}, {child_reason_yes}.",
+        alt_ex_vi="{child_yes}. {child_when}, {child_reason_yes}.",
+    )
+    # fix alt_plain capitalization
+    items[-1]["alt_plain"] = (
+        "Yes, when I was a kid, my mom told me that I ate a lot of mouth-watering home-cooked food."
+    )
+
+    # 5 — family meals · YES + compound adj (mirror grandparents 15-minute walk)
+    t5 = (
+        "{child_yes}. {child_when}, we ate together almost every day because "
+        "{child_reason_yes}."
+    )
+    v5 = (
+        "{child_yes}. {child_when}, chúng tôi gần như ăn cùng nhau mỗi ngày vì "
+        "{child_reason_yes}."
+    )
+    add(
+        "Did you often eat meals with your family when you were a child?",
+        kind="yes",
+        en_html=t5.format(
+            child_yes=phrase_pick("child_yes", 0),
+            child_when=phrase_pick("child_when", 0),
+            child_reason_yes=phrase_pick("child_reason_yes", 3),
+        ),
+        vi=fill_vi_tpl(
+            v5,
+            child_yes=slot_vi("child_yes", 0),
+            child_when=slot_vi("child_when", 0),
+            child_reason_yes=slot_vi("child_reason_yes", 3),
+        ),
+        plain="Yes, I did. When I was a kid, we ate together almost every day because we lived near a morning market, just a 10-minute walk, so fresh ingredients were easy to find.",
+        ipa="",
+        ex=t5,
+        ex_vi=v5,
+        notes=["Yes, I did", "a + compound adj + N", "When I was a kid"],
+        source="Cambridge-style · eating with family / childhood meals",
+    )
+
+    # 6 — breakfast · YES + can't remember age (as own clause)
+    t6 = (
+        "{child_yes}. {child_when}. I usually had a hearty breakfast. "
+        "{child_reason_yes}."
+    )
+    v6 = (
+        "{child_yes}. {child_when}. Tôi thường ăn bữa sáng no đủ. "
+        "{child_reason_yes}."
+    )
+    add(
+        "Did you usually eat breakfast when you were a child?",
+        kind="yes",
+        en_html=t6.format(
+            child_yes=phrase_pick("child_yes", 0),
+            child_when=phrase_pick("child_when", 4),
+            child_reason_yes=phrase_pick("child_reason_yes", 0),
+        ),
+        vi=fill_vi_tpl(
+            v6,
+            child_yes=slot_vi("child_yes", 0),
+            child_when=slot_vi("child_when", 4),
+            child_reason_yes=slot_vi("child_reason_yes", 0),
+        ),
+        plain="Yes, I did. I can't remember exactly how old I was, but I was probably about seven or eight. I usually had a hearty breakfast. My mom told me that I ate a lot of mouth-watering home-cooked food.",
+        ipa="",
+        ex=t6,
+        ex_vi=v6,
+        notes=["Yes, I did", "My mom told me that…", "hearty / nutritious breakfast"],
+        source="Cambridge-style · breakfast / food as a child",
+    )
+
+    # 7 — junk food / snacks often · YES then soft contrast with did
+    t7 = (
+        "{child_yes}. {child_when}, {child_reason_no}. "
+        "Looking back, it wasn't great for a balanced diet."
+    )
+    v7 = (
+        "{child_yes}. {child_when}, {child_reason_no}. "
+        "Nhìn lại thì điều đó không tốt cho chế độ ăn cân bằng."
+    )
+    add(
+        "Did you often eat junk food when you were a child?",
+        kind="yes",
+        en_html=t7.format(
+            child_yes=phrase_pick("child_yes", 1),
+            child_when=phrase_pick("child_when", 3),
+            child_reason_no=phrase_pick("child_reason_no", 3),
+        ),
+        vi=fill_vi_tpl(
+            v7,
+            child_yes=slot_vi("child_yes", 1),
+            child_when=slot_vi("child_when", 3),
+            child_reason_no=slot_vi("child_reason_no", 3),
+        ),
+        plain="Yes, definitely. When I was in primary school, I found junk food more exciting than a balanced diet back then. Looking back, it wasn't great for a balanced diet.",
+        ipa="",
+        ex=t7,
+        ex_vi=v7,
+        notes=["Yes, I did", "find + sth + adj", "junk food"],
+        source="Cambridge-style · snacks / junk food as a child",
+        alt_kind="no",
+        alt_html=(
+            "{child_no}. {child_when}, {child_reason_no}."
+        ).format(
+            child_no=phrase_pick("child_no", 2),
+            child_when=phrase_pick("child_when", 1),
+            child_reason_no=phrase_pick("child_reason_no", 1),
+        ),
+        alt_vi=fill_vi_tpl(
+            "{child_no}. {child_when}, {child_reason_no}.",
+            child_no=slot_vi("child_no", 2),
+            child_when=slot_vi("child_when", 1),
+            child_reason_no=slot_vi("child_reason_no", 1),
+        ),
+        alt_plain="No, not often. When I was very little, I spent most of my time playing, so I usually just grabbed a quick bite.",
+        alt_ipa="",
+        alt_ex="{child_no}. {child_when}, {child_reason_no}.",
+        alt_ex_vi="{child_no}. {child_when}, {child_reason_no}.",
+    )
+
+    # 8 — try new / foreign food · NO
+    t8 = (
+        "{child_no}. {child_when}, {child_reason_no}. "
+        "I preferred comfort food and familiar home-cooked meals."
+    )
+    v8 = (
+        "{child_no}. {child_when}, {child_reason_no}. "
+        "Tôi thích đồ an ủi và đồ nấu nhà quen thuộc hơn."
+    )
+    add(
+        "Did you like trying new food when you were a child?",
+        kind="no",
+        en_html=t8.format(
+            child_no=phrase_pick("child_no", 1),
+            child_when=phrase_pick("child_when", 2),
+            child_reason_no=phrase_pick("child_reason_no", 0),
+        ),
+        vi=fill_vi_tpl(
+            v8,
+            child_no=slot_vi("child_no", 1),
+            child_when=slot_vi("child_when", 2),
+            child_reason_no=slot_vi("child_reason_no", 0),
+        ),
+        plain="No, not really. When I was about five or six years old, I was not really interested in vegetables because I found them quite boring. I preferred comfort food and familiar home-cooked meals.",
+        ipa="",
+        ex=t8,
+        ex_vi=v8,
+        notes=["No, not really", "find + sth + adj", "comfort food"],
+        source="Cambridge-style · trying new food / childhood taste",
+    )
+
+    # 9 — dine out as a child · NO / rare
+    t9 = (
+        "{child_no}. {child_when}, we rarely dined out. "
+        "{child_reason_yes}."
+    )
+    v9 = (
+        "{child_no}. {child_when}, nhà tôi hiếm khi đi ăn ngoài. "
+        "{child_reason_yes}."
+    )
+    add(
+        "Did you often dine out when you were a child?",
+        kind="no",
+        en_html=t9.format(
+            child_no=phrase_pick("child_no", 0),
+            child_when=phrase_pick("child_when", 3),
+            child_reason_yes=phrase_pick("child_reason_yes", 0),
+        ),
+        vi=fill_vi_tpl(
+            v9,
+            child_no=slot_vi("child_no", 0),
+            child_when=slot_vi("child_when", 3),
+            child_reason_yes=slot_vi("child_reason_yes", 0),
+        ),
+        plain="No, I didn't. When I was in primary school, we rarely dined out. My mom told me that I ate a lot of mouth-watering home-cooked food.",
+        ipa="",
+        ex=t9,
+        ex_vi=v9,
+        notes=["No, I didn't", "My mom told me that…", "mouth-watering"],
+        source="Cambridge-style · eating out / home-cooked as a child",
+    )
+
+    # 10 — favourite food then · YES + age
+    t10 = (
+        "{child_yes}. {child_when}, my favourite was comfort food. "
+        "{child_reason_yes}."
+    )
+    v10 = (
+        "{child_yes}. {child_when}, món yêu thích của tôi là đồ an ủi. "
+        "{child_reason_yes}."
+    )
+    add(
+        "Did you have a favourite food when you were a child?",
+        kind="yes",
+        en_html=t10.format(
+            child_yes=phrase_pick("child_yes", 0),
+            child_when=phrase_pick("child_when", 2),
+            child_reason_yes=phrase_pick("child_reason_yes", 4),
+        ),
+        vi=fill_vi_tpl(
+            v10,
+            child_yes=slot_vi("child_yes", 0),
+            child_when=slot_vi("child_when", 2),
+            child_reason_yes=slot_vi("child_reason_yes", 4),
+        ),
+        plain="Yes, I did. When I was about five or six years old, my favourite was comfort food. I had a sweet tooth and loved comfort food after school.",
+        ipa="",
+        ex=t10,
+        ex_vi=v10,
+        notes=["Yes, I did", "When I was … (years old)", "comfort food"],
+        source="Cambridge · What kind of food did you like when you were young?",
+    )
+
+    cards = []
+    for it in items:
+        alts = ""
+        if it.get("alt_html"):
+            alts = _pair_answer_html(
+                kind=it.get("alt_kind") or "alt",
+                en_html=it["alt_html"],
+                vi=it["alt_vi"],
+                plain=it["alt_plain"],
+                ipa=it["alt_ipa"],
+                q=it["q"],
+                ex_en=it.get("alt_ex", ""),
+                ex_vi=it.get("alt_ex_vi", ""),
+            )
+        cards.append(
+            f"""          <article class="lr-food-ex-card">
+{_ex_card_q_html(it["q"])}
+            <div class="lr-food-ex-pair lr-food-ex-pair--childhood">
+{_pair_answer_html(kind=it["kind"], en_html=it["html"], vi=it["vi"], plain=it["plain"], ipa=it["ipa"], q=it["q"], ex_en=it["ex"], ex_vi=it.get("ex_vi", ""))}
+{alts}
+            </div>
+{_ex_chip_notes_html(it.get("notes"))}
+          </article>"""
+        )
+    return f"""
+        <div class="lr-food-examples" id="food-examples-l10">
+          <h3 class="lr-core-subtitle">Ví dụ Food · Did you do X when you were a child?</h3>
+          <p class="lr-mm-hint">~10 câu Part 1 theo pattern Cambridge (sweets · vegetables · cooking · same food · family meals · breakfast · junk food · try new food · dine out · favourite food). Nhánh <strong>Có</strong> / <strong>Không</strong> + cụm childhood + cấu trúc slide (<strong>find + adj</strong> · <strong>did + V</strong> · <strong>help / encourage</strong> · <strong>compound adj</strong>). Lexical tái dùng — không thêm cụm mới.</p>
+{chr(10).join(cards)}
+        </div>"""
+
+
+
 def food_lesson_examples_html() -> str:
     """Unified Food cards: every Q has Thích + Không thích; both sides have contextual dropdowns."""
     items = []
@@ -6260,7 +6879,7 @@ def lesson_highlights_html(
     include_food_examples: bool = False,
     open_practice: bool = False,
 ) -> str:
-    """Lesson 2 + 3 + 5 + 6 + 7 + 8 + 9 mind maps and practice (Lesson 4 skipped).
+    """Lesson 2 + 3 + 5–10 mind maps and practice (Lesson 4 skipped).
 
     map_suffix: unique id suffix when the same maps appear on Review Exercise 2.
     include_food_examples: annotated Food cards (Review Exercise 2).
@@ -6273,6 +6892,7 @@ def lesson_highlights_html(
     m7 = f"lesson7Mindmap{map_suffix}"
     m8 = f"lesson8Mindmap{map_suffix}"
     m9 = f"lesson9Mindmap{map_suffix}"
+    m10 = f"lesson10Mindmap{map_suffix}"
     open_attr = " open" if open_practice else ""
     examples_block = food_lesson_examples_html() if include_food_examples else ""
     examples_l5 = food_lesson5_examples_html() if include_food_examples else ""
@@ -6280,12 +6900,14 @@ def lesson_highlights_html(
     examples_l7 = food_lesson7_examples_html() if include_food_examples else ""
     examples_l8 = food_lesson8_examples_html() if include_food_examples else ""
     examples_l9 = food_lesson9_examples_html() if include_food_examples else ""
+    examples_l10 = food_lesson10_examples_html() if include_food_examples else ""
     lesson3_scroll = ""
     lesson5_scroll = ""
     lesson6_scroll = ""
     lesson7_scroll = ""
     lesson8_scroll = ""
     lesson9_scroll = ""
+    lesson10_scroll = ""
     if include_food_examples:
         lesson3_scroll = lesson_scroll_read_html(
             "lesson3", title="Lesson 3", source_sel="#lesson3-scroll-source"
@@ -6304,6 +6926,9 @@ def lesson_highlights_html(
         )
         lesson9_scroll = lesson_scroll_read_html(
             "lesson9", title="Lesson 9", source_sel="#lesson9-scroll-source"
+        )
+        lesson10_scroll = lesson_scroll_read_html(
+            "lesson10", title="Lesson 10", source_sel="#lesson10-scroll-source"
         )
 
     g2 = lesson_grammar_notes_html(
@@ -6570,6 +7195,45 @@ def lesson_highlights_html(
             "cook from scratch · dine out · local dish",
         ],
     )
+    g10 = lesson_grammar_tree_html(
+        "Lesson 10",
+        "Did you do X when you were a child?",
+        [
+            {
+                "label_html": f'{_g_mark("Có")} + lý do / chi tiết',
+                "openers": [
+                    "Yes, I did.",
+                    "Yes, … when I was a child …",
+                ],
+                "details_label": "Childhood time + kéo dài",
+                "details": [
+                    "When I was a kid / little / … years old / primary school",
+                    "I can't remember exactly how old I was, but…",
+                    "help sb with sth · encourage sb to + V",
+                    "a + compound adj + N (a 10-minute walk)",
+                ],
+            },
+            {
+                "label_html": f'{_g_mark("Không")} + lý do / chi tiết',
+                "openers": [
+                    "No, I didn't.",
+                    "No, not really.",
+                ],
+                "details_label": "Lý do",
+                "details": [
+                    "not really interested in + N",
+                    "find + sth + adj",
+                    "did + V (nhấn mạnh)",
+                    "spent most of my time + V-ing",
+                ],
+            },
+        ],
+        footer=[
+            "sweet tooth · comfort food · junk food",
+            "hearty breakfast · balanced diet · home-cooked",
+            "cook from scratch · grab a quick bite · local dish",
+        ],
+    )
 
     return f"""
       <div class="lr-core-lessons">
@@ -6736,6 +7400,30 @@ def lesson_highlights_html(
           </div>
 
 {lesson9_scroll}
+        </article>
+
+        <article class="lr-core-lesson" id="lesson10-formulas">
+          <header class="lr-core-lesson-head">
+            <h3>Lesson 10 · Did you do X when you were a child?</h3>
+          </header>
+
+{mind_map_html(
+            m10,
+            "Lesson 10 · Did you do X when you were a child?",
+            "When you were a child?",
+            "Có ↔ Không",
+            LESSON10_MINDMAP_LEFT,
+            LESSON10_MINDMAP_RIGHT,
+            note="Trái = <strong>Có</strong> + childhood time · Phải = <strong>Không</strong> + find / did-emphasize. Câu hỏi theo pattern Cambridge Food.",
+            extra_class=" lr-mmap--lesson10",
+            min_width="1280px",
+        )}
+{g10}
+          <div id="lesson10-scroll-source">
+{examples_l10}
+          </div>
+
+{lesson10_scroll}
         </article>
 
       </div>"""
@@ -8227,7 +8915,7 @@ def build_page() -> str:
       <header class="lr-hero">
         <p class="lr-hero-badge">Linear Thinking · Capstone</p>
         <h1>Food &amp; Drink — Review Exercise 1</h1>
-        <p class="lede">Sau khi hoàn thành B2, ôn tập theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-speaking" target="_blank" rel="noopener noreferrer">Linear Thinking</a>: ngữ pháp (6 thì) → mental model → cấu trúc Speaking → từ vựng B1/B2 → mock IELTS Part 1/2/3 với dropdown từ thay thế. Chỉ muốn Lesson 2–9 (skip 4)? Xem <a href="../review-exercise-2/">Review Exercise 2</a>.</p>
+        <p class="lede">Sau khi hoàn thành B2, ôn tập theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-speaking" target="_blank" rel="noopener noreferrer">Linear Thinking</a>: ngữ pháp (6 thì) → mental model → cấu trúc Speaking → từ vựng B1/B2 → mock IELTS Part 1/2/3 với dropdown từ thay thế. Chỉ muốn Lesson 2–10 (skip 4)? Xem <a href="../review-exercise-2/">Review Exercise 2</a>.</p>
         <nav class="lr-toc" aria-label="On this page">
           <a href="#core-steps">Core · 3 bước</a>
           <a href="#natural-vlog">0 · Real talk</a>
@@ -8235,7 +8923,7 @@ def build_page() -> str:
           <a href="#mental-model">2 · Mental model</a>
           <a href="#ed-ending">2b · -ed</a>
           <a href="#structures">3 · Structures</a>
-          <a href="#lessons">4 · Lessons 2 · 3 · 5–9</a>
+          <a href="#lessons">4 · Lessons 2 · 3 · 5–10</a>
           <a href="#food-lang">5 · Idioms &amp; phrases</a>
           <a href="#phrase-drills">6 · Phrase drills</a>
           <a href="#food-phrase-map">6 · Mind map</a>
@@ -8275,8 +8963,8 @@ def build_page() -> str:
       </section>
 
       <section class="lr-section" id="lessons">
-        <h2>4 · Core formulas — Lesson 2, 3, 5–9</h2>
-        <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — L2 → L3 → L5 → L6 Prefer → L7 Popular → L8 Best time → L9 First/last time · <em>skip Lesson 4</em>. Chọn <strong>1–2 nhánh</strong>.</p>
+        <h2>4 · Core formulas — Lesson 2, 3, 5–10</h2>
+        <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — L2 → L3 → L5 → L6 Prefer → L7 Popular → L8 Best time → L9 First/last → L10 Childhood · <em>skip Lesson 4</em>. Chọn <strong>1–2 nhánh</strong>.</p>
 {lesson_highlights_html()}
       </section>
 
@@ -8375,9 +9063,9 @@ def build_page_review2() -> str:
       </div>
 
       <header class="lr-hero">
-        <p class="lr-hero-badge">Linear Thinking · Lesson 2, 3, 5–9</p>
+        <p class="lr-hero-badge">Linear Thinking · Lesson 2, 3, 5–10</p>
         <h1>Food &amp; Drink — Review Exercise 2</h1>
-        <p class="lede">Lesson 2 + 3 + 5–9 (First/last time?) · skip Lesson 4. Sơ đồ tư duy → ví dụ Food → Scroll read. Full capstone: <a href="../review-exercise/">Review Exercise 1</a>.</p>
+        <p class="lede">Lesson 2 + 3 + 5–10 (Childhood food?) · skip Lesson 4. Sơ đồ tư duy → ví dụ Food → Scroll read. Full capstone: <a href="../review-exercise/">Review Exercise 1</a>.</p>
         <nav class="lr-toc" aria-label="On this page">
           <a href="#lesson2-formulas">Lesson 2 · Reasons</a>
           <a href="#scroll-lesson2">Scroll · L2</a>
@@ -8399,6 +9087,9 @@ def build_page_review2() -> str:
           <a href="#lesson9-formulas">Lesson 9 · First/last time?</a>
           <a href="#food-examples-l9">Ví dụ L9</a>
           <a href="#scroll-lesson9">Scroll · L9</a>
+          <a href="#lesson10-formulas">Lesson 10 · Childhood?</a>
+          <a href="#food-examples-l10">Ví dụ L10</a>
+          <a href="#scroll-lesson10">Scroll · L10</a>
         </nav>
         <div class="ex-toolbar lr-toolbar lr-toolbar--hero">
           <label class="ex-toggle"><input type="checkbox" id="togVi" /> Vietnamese</label>
@@ -8406,7 +9097,7 @@ def build_page_review2() -> str:
       </header>
 
       <section class="lr-section" id="lessons">
-        <h2>Core formulas — Lesson 2, 3, 5–9</h2>
+        <h2>Core formulas — Lesson 2, 3, 5–10</h2>
         <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — chọn <strong>1–2 nhánh</strong>, không nhồi hết. Dropdown bên dưới để thay từ B1/B2.</p>
 {lesson_highlights_html(map_suffix="R2", include_food_examples=True, open_practice=True)}
       </section>
@@ -8420,7 +9111,7 @@ def build_page_review2() -> str:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Review Exercise 2 · Food &amp; Drink — The Quiet Corner</title>
-  <meta name="description" content="Lesson 2, 3, 5–9: Reasons, Do you like X?, What kind?, Prefer, Is X popular, Best time, First/last time — Food mind maps and practice.">
+  <meta name="description" content="Lesson 2, 3, 5–10: Reasons, Do you like X?, What kind?, Prefer, Is X popular, Best time, First/last time, Childhood — Food mind maps and practice.">
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -8476,7 +9167,7 @@ def patch_topic_index() -> None:
           <span class="vocab-level__badge vocab-level__badge--review">Review</span>
           <h2>Linear Thinking · Capstone exercise</h2>
         </div>
-        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3, 5–9 (mind map + ví dụ Food + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
+        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3, 5–10 (mind map + ví dụ Food + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
         <div class="vocab-lesson-grid">
           <a class="vocab-lesson-card vocab-lesson-card--review" href="review-exercise/">
             <img src="{review_icon}" alt="" width="72" height="72" loading="lazy">
