@@ -456,6 +456,98 @@ WORD_SLOTS: dict[str, list[dict]] = {
         {"form": "heartburn and indigestion", "vi": "ợ nóng và khó tiêu"},
         {"form": "stomach pain after meals", "vi": "đau bụng sau bữa ăn"},
     ],
+    # Lesson 5 · What kind of X do you like most?
+    "kind_choice_food": [
+        {"form": "home-cooked food", "vi": "đồ ăn nấu ở nhà"},
+        {"form": "street food", "vi": "đồ ăn đường phố"},
+        {"form": "seafood", "vi": "hải sản"},
+        {"form": "plant-based meals", "vi": "bữa ăn thực vật"},
+        {"form": "comfort food", "vi": "đồ ăn an ủi"},
+    ],
+    "kind_choice_cuisine": [
+        {"form": "Vietnamese cuisine", "vi": "ẩm thực Việt"},
+        {"form": "Japanese cuisine", "vi": "ẩm thực Nhật"},
+        {"form": "Italian cuisine", "vi": "ẩm thực Ý"},
+        {"form": "Korean cuisine", "vi": "ẩm thực Hàn"},
+        {"form": "Mediterranean cuisine", "vi": "ẩm thực Địa Trung Hải"},
+    ],
+    "kind_choice_restaurant": [
+        {"form": "casual local eateries", "vi": "quán bình dân gần nhà"},
+        {"form": "family-run restaurants", "vi": "nhà hàng gia đình"},
+        {"form": "buffet restaurants", "vi": "nhà hàng buffet"},
+        {"form": "fine-dining places", "vi": "nhà hàng cao cấp"},
+        {"form": "open-air food courts", "vi": "khu ẩm thực ngoài trời"},
+    ],
+    "kind_choice_drink": [
+        {"form": "fresh fruit juice", "vi": "nước ép trái cây tươi"},
+        {"form": "herbal tea", "vi": "trà thảo mộc"},
+        {"form": "iced coffee", "vi": "cà phê đá"},
+        {"form": "smoothie bowls", "vi": "sinh tố dạng bát"},
+        {"form": "sparkling water", "vi": "nước có ga"},
+    ],
+    "kind_choice_fruit": [
+        {"form": "tropical fruit like mango and papaya", "vi": "trái nhiệt đới như xoài và đu đủ"},
+        {"form": "citrus fruit such as oranges and tangerines", "vi": "cam quýt như cam và quýt"},
+        {"form": "berries", "vi": "quả mọng"},
+        {"form": "bananas", "vi": "chuối"},
+        {"form": "watermelon in summer", "vi": "dưa hấu mùa hè"},
+    ],
+    "kind_choice_snack": [
+        {"form": "nuts and seeds", "vi": "hạt và hạt giống"},
+        {"form": "fresh fruit", "vi": "trái cây tươi"},
+        {"form": "yoghurt with granola", "vi": "sữa chua với granola"},
+        {"form": "rice crackers", "vi": "bánh gạo"},
+        {"form": "dark chocolate in small amounts", "vi": "sô-cô-la đen lượng nhỏ"},
+    ],
+    "kind_choice_dessert": [
+        {"form": "fruit-based desserts", "vi": "tráng miệng từ trái cây"},
+        {"form": "cheesecake", "vi": "bánh phô mai"},
+        {"form": "homemade pudding", "vi": "pudding tự làm"},
+        {"form": "ice cream", "vi": "kem"},
+        {"form": "mochi", "vi": "bánh mochi"},
+    ],
+    "kind_choice_method": [
+        {"form": "grilled dishes", "vi": "món nướng"},
+        {"form": "steamed dishes", "vi": "món hấp"},
+        {"form": "stir-fried dishes", "vi": "món xào"},
+        {"form": "slow-cooked stews", "vi": "món hầm chậm"},
+        {"form": "fresh salads", "vi": "salad tươi"},
+    ],
+    "kind_choice_street": [
+        {"form": "pho and spring rolls", "vi": "phở và gỏi cuốn"},
+        {"form": "grilled skewers", "vi": "xiên nướng"},
+        {"form": "banh mi", "vi": "bánh mì"},
+        {"form": "sticky rice", "vi": "xôi"},
+        {"form": "fresh summer rolls", "vi": "gỏi cuốn tươi"},
+    ],
+    "kind_choice_meal": [
+        {"form": "a light breakfast", "vi": "bữa sáng nhẹ"},
+        {"form": "a proper sit-down lunch", "vi": "bữa trưa ngồi ăn tử tế"},
+        {"form": "an early dinner at home", "vi": "bữa tối sớm ở nhà"},
+        {"form": "brunch at the weekend", "vi": "brunch cuối tuần"},
+        {"form": "a late supper after work", "vi": "bữa khuya sau giờ làm"},
+    ],
+    "kind_lex_adj": [
+        {"form": "mouth-watering and packed with flavour", "vi": "cực ngon và đầy hương vị"},
+        {"form": "wholesome and freshly prepared", "vi": "lành mạnh và mới chế biến"},
+        {"form": "light on the stomach but still filling", "vi": "dễ tiêu mà vẫn no"},
+        {"form": "comforting without being too greasy", "vi": "an ủi mà không quá nhiều dầu"},
+        {"form": "trendy yet still affordable", "vi": "hợp mốt mà vẫn vừa túi tiền"},
+    ],
+    "kind_lex_reason": [
+        {"form": "much healthier than restaurant food", "vi": "lành mạnh hơn nhiều so với đồ nhà hàng"},
+        {"form": "made from scratch with fresh ingredients", "vi": "làm từ đầu với nguyên liệu tươi"},
+        {"form": "a great way to stick to a balanced diet", "vi": "cách tuyệt để giữ chế độ ăn cân bằng"},
+        {"form": "full of nutrients without taking a heavy toll on my health", "vi": "đầy dinh dưỡng mà không hại sức khỏe"},
+        {"form": "the kind of food that really hits the spot after a long day", "vi": "đúng gu sau một ngày dài"},
+    ],
+    "kind_followup": [
+        {"form": "I try not to eat out too often.", "vi": "Tôi cố gắng không ăn ngoài quá thường xuyên."},
+        {"form": "I try to cut down on processed snacks.", "vi": "Tôi cố gắng giảm đồ ăn vặt chế biến sẵn."},
+        {"form": "I also get the chance to grab a bite without feeling heavy afterwards.", "vi": "Tôi cũng được ăn vội mà không bị nặng bụng."},
+        {"form": "It helps me keep fit and burn a few extra calories.", "vi": "Giúp tôi giữ dáng và đốt thêm calo."},
+        {"form": "I try using seasonal ingredients whenever I can.", "vi": "Tôi cố thử dùng nguyên liệu theo mùa khi có thể."},
+    ],
 }
 
 # ── Mind map helpers (shared: Section 2 tenses + Lesson 2/3) ───────────────
@@ -1699,6 +1791,148 @@ LESSON3_MINDMAP_RIGHT = [
     },
 ]
 
+# Lesson 5 · What kind of X do you like most? — trái = Loại gì?, phải = Lý do
+LESSON5_MINDMAP_LEFT = [
+    {
+        "id": "kind-flow",
+        "color": "#93c5fd",
+        "name": "Loại gì?",
+        "name_vi": "What kind?",
+        "flow": True,
+        "opener": "Well, … · Honestly, …",
+        "branches": [
+            {
+                "label": "Nhánh 1 · Direct",
+                "leaves": [
+                    tip("I like … most.", "Tôi thích … nhất."),
+                    tip(
+                        "Food: I like home-cooked food most.",
+                        "Food: Tôi thích đồ nấu nhà nhất.",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Soft choose (hay dùng nhất)",
+                "patterns": (
+                    "<code>I love all kinds of …, but if I had to choose one, "
+                    "it would have to be…</code>"
+                ),
+                "leaves": [
+                    tip(
+                        "I love all kinds of food, but if I had to choose one, it would have to be…",
+                        "Tôi thích mọi loại đồ ăn, nhưng nếu phải chọn một thì sẽ là…",
+                    ),
+                    tip(
+                        "… I would go for …",
+                        "… tôi sẽ chọn … (go for)",
+                    ),
+                    tip(
+                        "… I would opt for …",
+                        "… tôi sẽ chọn … (opt for — formal hơn)",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 3 · Food kinds (gợi ý chọn)",
+                "leaves": [
+                    tip(
+                        "home-cooked food · street food · seafood",
+                        "đồ nấu nhà · đồ đường phố · hải sản",
+                    ),
+                    tip(
+                        "Vietnamese / Japanese / Italian cuisine",
+                        "ẩm thực Việt / Nhật / Ý",
+                    ),
+                    tip(
+                        "grilled · steamed · fruit-based desserts",
+                        "nướng · hấp · tráng miệng từ trái cây",
+                    ),
+                ],
+            },
+        ],
+        "link": "→ <strong>because / This is because</strong> + Lý do (phải)",
+    },
+]
+
+LESSON5_MINDMAP_RIGHT = [
+    {
+        "id": "kind-reason-flow",
+        "color": "#fcd34d",
+        "name": "Lý do",
+        "name_vi": "Reason",
+        "flow": True,
+        "opener": "because · This is because · because of",
+        "branches": [
+            {
+                "label": "Nhánh 1 · Mệnh đề / NP",
+                "leaves": [
+                    tip("because / This is because + S + V", "because + mệnh đề"),
+                    tip("because of + noun / NP", "because of + danh từ / cụm DT"),
+                    tip(
+                        "This is because home-cooked food is much healthier than restaurant food",
+                        "Vì đồ nấu nhà lành mạnh hơn nhiều so với đồ nhà hàng",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 2 · Mở rộng (try / compare)",
+                "patterns": (
+                    "<code>try not to + V</code> · <code>try to + V</code> · "
+                    "<code>try + V-ing</code> · so sánh <em>healthier than</em>"
+                ),
+                "leaves": [
+                    tip(
+                        "I try not to eat out too often",
+                        "Tôi cố gắng không ăn ngoài quá thường xuyên",
+                    ),
+                    tip(
+                        "I try to stick to a balanced diet",
+                        "Tôi cố gắng giữ chế độ ăn cân bằng",
+                    ),
+                    tip(
+                        "You should try using seasonal ingredients",
+                        "Bạn nên thử dùng nguyên liệu theo mùa (try + V-ing)",
+                    ),
+                ],
+            },
+            {
+                "label": "Nhánh 3 · Lexical Food (collocation hay)",
+                "patterns": (
+                    "Giống nhánh clothes: <em>out of fashion / trendy</em> — "
+                    "ở đây dùng cụm Food band 7+"
+                ),
+                "leaves": [
+                    tip(
+                        "mouth-watering · packed with flavour",
+                        "cực ngon · đầy hương vị",
+                    ),
+                    tip(
+                        "wholesome · freshly prepared · from scratch",
+                        "lành mạnh · mới chế biến · làm từ đầu",
+                    ),
+                    tip(
+                        "hits the spot · light on the stomach",
+                        "đúng gu / thỏa mãn · dễ tiêu",
+                    ),
+                    tip(
+                        "stick to a balanced diet · cut down on processed food",
+                        "giữ chế độ ăn cân bằng · giảm đồ chế biến sẵn",
+                    ),
+                    tip(
+                        "comfort food · guilty pleasure · signature dish",
+                        "đồ ăn an ủi · thú thích ‘tội lỗi’ · món đặc trưng",
+                    ),
+                    tip(
+                        "farm-to-table · culinary tradition",
+                        "từ nông trại tới bàn ăn · truyền thống ẩm thực",
+                    ),
+                ],
+            },
+        ],
+        "link": "→ ghép Lesson 2 reasons nếu cần dài thêm 1 câu",
+    },
+]
+
 
 def collect_review_words() -> list[dict]:
     topic = next(t for t in TOPICS["topics"] if t["slug"] == "food-drink")
@@ -2538,9 +2772,14 @@ def _pair_answer_html(
     q: str,
     ex_en: str = "",
 ) -> str:
-    """One Thích / Không thích line — whole-paragraph VI tooltip (no IPA)."""
-    tag = "Thích" if kind == "yes" else "Không thích"
-    tag_cls = "lr-mm-tag-yes" if kind == "yes" else "lr-mm-tag-no"
+    """One answer line — Thích / Không thích / Mẫu (Lesson 5). Whole-paragraph VI tooltip."""
+    tags = {
+        "yes": ("Thích", "lr-mm-tag-yes"),
+        "no": ("Không thích", "lr-mm-tag-no"),
+        "sample": ("Mẫu", "lr-mm-tag-yes"),
+        "alt": ("Khác", "lr-mm-tag-no"),
+    }
+    tag, tag_cls = tags.get(kind, ("Mẫu", "lr-mm-tag-yes"))
     chain = " lr-practice-chain lr-chain" if ex_en else ""
     ex_attr = f' data-ex-en="{esc(ex_en)}"' if ex_en else ""
     return f"""              <div class="lr-scroll-qa{chain}" data-ipa-full="{esc(ipa)}"{ex_attr}>
@@ -2551,6 +2790,267 @@ def _pair_answer_html(
                 </p>
                 <p class="lr-practice-en lr-chain-ex-text" hidden></p>
               </div>"""
+
+
+def food_lesson5_examples_html() -> str:
+    """Lesson 5 · What kind of X? — 10 Food Qs with soft-choose + reason (IELTS length)."""
+    items: list[dict] = []
+
+    def add(
+        q: str,
+        en_html: str,
+        vi: str,
+        plain: str,
+        ipa: str,
+        ex: str,
+        *,
+        alt_html: str = "",
+        alt_vi: str = "",
+        alt_plain: str = "",
+        alt_ipa: str = "",
+        alt_ex: str = "",
+    ) -> None:
+        items.append(
+            {
+                "q": q,
+                "html": en_html,
+                "vi": vi,
+                "plain": plain,
+                "ipa": ipa,
+                "ex": ex,
+                "alt_html": alt_html,
+                "alt_vi": alt_vi,
+                "alt_plain": alt_plain,
+                "alt_ipa": alt_ipa,
+                "alt_ex": alt_ex,
+            }
+        )
+
+    # 1 — slide example
+    t1 = (
+        "Well, I love all kinds of food, but if I had to choose one, I would opt for "
+        "{kind_choice_food}. This is because I think it's {kind_lex_reason}. "
+        "{kind_followup}"
+    )
+    add(
+        "What kind of food do you like to eat most?",
+        t1.format(
+            kind_choice_food=phrase_pick("kind_choice_food", 0),
+            kind_lex_reason=phrase_pick("kind_lex_reason", 0),
+            kind_followup=phrase_pick("kind_followup", 0),
+        ),
+        "Chà, tôi thích mọi loại đồ ăn, nhưng nếu phải chọn một thì tôi sẽ chọn đồ nấu nhà. Vì tôi nghĩ nó lành mạnh hơn đồ nhà hàng. Tôi cố không ăn ngoài quá thường xuyên.",
+        "Well, I love all kinds of food, but if I had to choose one, I would opt for home-cooked food. This is because I think it's much healthier than restaurant food. I try not to eat out too often.",
+        "/wel aɪ lʌv ɔːl kaɪndz əv fuːd…/",
+        t1,
+        alt_html=(
+            "I like {kind_choice_food} most because it is {kind_lex_adj}. "
+            "{kind_followup}".format(
+                kind_choice_food=phrase_pick("kind_choice_food", 1),
+                kind_lex_adj=phrase_pick("kind_lex_adj", 0),
+                kind_followup=phrase_pick("kind_followup", 2),
+            )
+        ),
+        alt_vi="Tôi thích đồ đường phố nhất vì cực ngon và đầy hương vị. Tôi cũng được ăn vội mà không nặng bụng.",
+        alt_plain="I like street food most because it is mouth-watering and packed with flavour. I also get the chance to grab a bite without feeling heavy afterwards.",
+        alt_ipa="/aɪ laɪk striːt fuːd məʊst…/",
+        alt_ex="I like {kind_choice_food} most because it is {kind_lex_adj}. {kind_followup}",
+    )
+
+    # 2 cuisine
+    t2 = (
+        "Well, I love all kinds of cuisine, but if I had to choose one, I would go for "
+        "{kind_choice_cuisine}. This is because the dishes are {kind_lex_adj}. "
+        "Exploring this culinary tradition also helps me enrich my knowledge about food culture."
+    )
+    add(
+        "What kind of cuisine do you like most?",
+        t2.format(
+            kind_choice_cuisine=phrase_pick("kind_choice_cuisine", 0),
+            kind_lex_adj=phrase_pick("kind_lex_adj", 1),
+        ),
+        "Tôi thích mọi kiểu ẩm thực, nhưng nếu phải chọn thì sẽ là ẩm thực Việt vì món lành mạnh, mới chế biến. Khám phá truyền thống ẩm thực cũng giúp làm giàu kiến thức.",
+        "Well, I love all kinds of cuisine, but if I had to choose one, I would go for Vietnamese cuisine. This is because the dishes are wholesome and freshly prepared. Exploring this culinary tradition also helps me enrich my knowledge about food culture.",
+        "/wel aɪ lʌv ɔːl kaɪndz əv kwɪˈziːn…/",
+        t2,
+    )
+
+    # 3 restaurants
+    t3 = (
+        "I love all kinds of restaurants, but if I had to choose one, it would have to be "
+        "{kind_choice_restaurant}. This is because the food there is {kind_lex_reason}. "
+        "{kind_followup}"
+    )
+    add(
+        "What kinds of restaurants do you like most?",
+        t3.format(
+            kind_choice_restaurant=phrase_pick("kind_choice_restaurant", 0),
+            kind_lex_reason=phrase_pick("kind_lex_reason", 1),
+            kind_followup=phrase_pick("kind_followup", 0),
+        ),
+        "Tôi thích nhiều loại nhà hàng, nhưng nếu phải chọn thì sẽ là quán bình dân gần nhà vì đồ ăn làm từ đầu với nguyên liệu tươi. Tôi cố không ăn ngoài quá thường xuyên.",
+        "I love all kinds of restaurants, but if I had to choose one, it would have to be casual local eateries. This is because the food there is made from scratch with fresh ingredients. I try not to eat out too often.",
+        "/aɪ lʌv ɔːl kaɪndz əv ˈrestrɒnts…/",
+        t3,
+    )
+
+    # 4 drinks
+    t4 = (
+        "Well, I love all kinds of drinks, but if I had to choose one, I would opt for "
+        "{kind_choice_drink}. This is because it's {kind_lex_adj}. "
+        "I try to cut down on sugary soft drinks as well."
+    )
+    add(
+        "What kind of drinks do you like most?",
+        t4.format(
+            kind_choice_drink=phrase_pick("kind_choice_drink", 0),
+            kind_lex_adj=phrase_pick("kind_lex_adj", 2),
+        ),
+        "Tôi thích nhiều loại đồ uống, nhưng nếu phải chọn thì nước ép trái cây tươi vì dễ tiêu mà vẫn no. Tôi cũng cố giảm nước ngọt có đường.",
+        "Well, I love all kinds of drinks, but if I had to choose one, I would opt for fresh fruit juice. This is because it's light on the stomach but still filling. I try to cut down on sugary soft drinks as well.",
+        "/wel aɪ lʌv ɔːl kaɪndz əv drɪŋks…/",
+        t4,
+    )
+
+    # 5 fruit
+    t5 = (
+        "I like {kind_choice_fruit} most because they are {kind_lex_adj}. "
+        "Eating fruit regularly is {kind_lex_reason}."
+    )
+    add(
+        "What kind of fruit do you like most?",
+        t5.format(
+            kind_choice_fruit=phrase_pick("kind_choice_fruit", 0),
+            kind_lex_adj=phrase_pick("kind_lex_adj", 1),
+            kind_lex_reason=phrase_pick("kind_lex_reason", 2),
+        ),
+        "Tôi thích trái nhiệt đới như xoài và đu đủ nhất vì lành mạnh, mới. Ăn trái cây đều đặn là cách tuyệt để giữ chế độ ăn cân bằng.",
+        "I like tropical fruit like mango and papaya most because they are wholesome and freshly prepared. Eating fruit regularly is a great way to stick to a balanced diet.",
+        "/aɪ laɪk ˈtrɒpɪkl fruːt…/",
+        t5,
+    )
+
+    # 6 snacks
+    t6 = (
+        "Well, I love all kinds of snacks, but if I had to choose one, I would go for "
+        "{kind_choice_snack}. This is because they are {kind_lex_reason}. "
+        "{kind_followup}"
+    )
+    add(
+        "What kinds of snacks do you like most?",
+        t6.format(
+            kind_choice_snack=phrase_pick("kind_choice_snack", 0),
+            kind_lex_reason=phrase_pick("kind_lex_reason", 3),
+            kind_followup=phrase_pick("kind_followup", 1),
+        ),
+        "Tôi thích nhiều loại snack, nhưng nếu phải chọn thì hạt vì đầy dinh dưỡng mà không hại sức khỏe. Tôi cố giảm đồ ăn vặt chế biến sẵn.",
+        "Well, I love all kinds of snacks, but if I had to choose one, I would go for nuts and seeds. This is because they are full of nutrients without taking a heavy toll on my health. I try to cut down on processed snacks.",
+        "/wel aɪ lʌv ɔːl kaɪndz əv snæks…/",
+        t6,
+    )
+
+    # 7 desserts / sweet tooth
+    t7 = (
+        "To be honest, I have a bit of a sweet tooth, so if I had to choose one, "
+        "it would have to be {kind_choice_dessert}. This is because they are "
+        "{kind_lex_adj}. Still, I try not to overdo it."
+    )
+    add(
+        "What kind of desserts do you like most?",
+        t7.format(
+            kind_choice_dessert=phrase_pick("kind_choice_dessert", 0),
+            kind_lex_adj=phrase_pick("kind_lex_adj", 3),
+        ),
+        "Thành thật thì tôi hơi thích đồ ngọt, nên nếu phải chọn thì sẽ là tráng miệng từ trái cây vì an ủi mà không quá nhiều dầu. Vẫn cố không ăn quá đà.",
+        "To be honest, I have a bit of a sweet tooth, so if I had to choose one, it would have to be fruit-based desserts. This is because they are comforting without being too greasy. Still, I try not to overdo it.",
+        "/tuː bi ˈɒnɪst aɪ hæv ə bɪt əv ə swiːt tuːθ…/",
+        t7,
+    )
+
+    # 8 cooking methods / dishes
+    t8 = (
+        "I love all kinds of cooking styles, but if I had to choose one, I would opt for "
+        "{kind_choice_method}. This is because they are {kind_lex_reason}. "
+        "{kind_followup}"
+    )
+    add(
+        "What kind of dishes do you like most?",
+        t8.format(
+            kind_choice_method=phrase_pick("kind_choice_method", 0),
+            kind_lex_reason=phrase_pick("kind_lex_reason", 4),
+            kind_followup=phrase_pick("kind_followup", 3),
+        ),
+        "Tôi thích nhiều kiểu chế biến, nhưng nếu phải chọn thì món nướng vì đúng gu sau ngày dài. Giúp giữ dáng và đốt thêm calo.",
+        "I love all kinds of cooking styles, but if I had to choose one, I would opt for grilled dishes. This is because they are the kind of food that really hits the spot after a long day. It helps me keep fit and burn a few extra calories.",
+        "/aɪ lʌv ɔːl kaɪndz əv ˈkʊkɪŋ staɪlz…/",
+        t8,
+    )
+
+    # 9 street food
+    t9 = (
+        "Well, I love all kinds of street food, but if I had to choose one, I would go for "
+        "{kind_choice_street}. This is because they are {kind_lex_adj}. "
+        "Trying local signature dishes is also a great way to experience culinary tradition."
+    )
+    add(
+        "What kinds of street food do you like most?",
+        t9.format(
+            kind_choice_street=phrase_pick("kind_choice_street", 0),
+            kind_lex_adj=phrase_pick("kind_lex_adj", 0),
+        ),
+        "Tôi thích nhiều món đường phố, nhưng nếu phải chọn thì phở và gỏi cuốn vì cực ngon, đầy hương vị. Thử món đặc trưng địa phương cũng là cách trải nghiệm truyền thống ẩm thực.",
+        "Well, I love all kinds of street food, but if I had to choose one, I would go for pho and spring rolls. This is because they are mouth-watering and packed with flavour. Trying local signature dishes is also a great way to experience culinary tradition.",
+        "/wel aɪ lʌv ɔːl kaɪndz əv striːt fuːd…/",
+        t9,
+    )
+
+    # 10 meals of the day
+    t10 = (
+        "I love all kinds of meals, but if I had to choose one, it would have to be "
+        "{kind_choice_meal}. This is because it's {kind_lex_reason}. "
+        "{kind_followup}"
+    )
+    add(
+        "What kind of meals do you like most?",
+        t10.format(
+            kind_choice_meal=phrase_pick("kind_choice_meal", 2),
+            kind_lex_reason=phrase_pick("kind_lex_reason", 1),
+            kind_followup=phrase_pick("kind_followup", 4),
+        ),
+        "Tôi thích mọi bữa ăn, nhưng nếu phải chọn thì bữa tối sớm ở nhà vì làm từ đầu với nguyên liệu tươi. Tôi cố dùng nguyên liệu theo mùa khi có thể.",
+        "I love all kinds of meals, but if I had to choose one, it would have to be an early dinner at home. This is because it's made from scratch with fresh ingredients. I try using seasonal ingredients whenever I can.",
+        "/aɪ lʌv ɔːl kaɪndz əv miːlz…/",
+        t10,
+    )
+
+    cards = []
+    for it in items:
+        alts = ""
+        if it.get("alt_html"):
+            alts = _pair_answer_html(
+                kind="alt",
+                en_html=it["alt_html"],
+                vi=it["alt_vi"],
+                plain=it["alt_plain"],
+                ipa=it["alt_ipa"],
+                q=it["q"],
+                ex_en=it.get("alt_ex", ""),
+            )
+        cards.append(
+            f"""          <article class="lr-food-ex-card">
+            <p class="lr-food-ex-q">{esc(it["q"])}</p>
+            <div class="lr-food-ex-pair lr-food-ex-pair--kind">
+{_pair_answer_html(kind="sample", en_html=it["html"], vi=it["vi"], plain=it["plain"], ipa=it["ipa"], q=it["q"], ex_en=it["ex"])}
+{alts}
+            </div>
+          </article>"""
+        )
+    return f"""
+        <div class="lr-food-examples" id="food-examples-l5">
+          <h3 class="lr-core-subtitle">Ví dụ Food · What kind of X?</h3>
+          <p class="lr-mm-hint">10 câu Part 1 kiểu Cambridge (Food only). Công thức: <strong>Loại gì?</strong> → <strong>because / This is because</strong> → 1–2 cụm lexical Food. Hover EN → tooltip VI. Có trong Scroll read Lesson 5.</p>
+{chr(10).join(cards)}
+        </div>"""
 
 
 def food_lesson_examples_html() -> str:
@@ -2919,21 +3419,26 @@ def lesson_highlights_html(
     include_food_examples: bool = False,
     open_practice: bool = False,
 ) -> str:
-    """Lesson 2 + 3 mind maps and dropdown practice.
+    """Lesson 2 + 3 + 5 mind maps and practice (Lesson 4 skipped).
 
     map_suffix: unique id suffix when the same maps appear on Review Exercise 2.
-    include_food_examples: annotated Food Yes/No cards (Review Exercise 2).
+    include_food_examples: annotated Food cards (Review Exercise 2).
     open_practice: expand Lesson 2 dropdown practice by default.
     """
     m2 = f"lesson2Mindmap{map_suffix}"
     m3 = f"lesson3Mindmap{map_suffix}"
+    m5 = f"lesson5Mindmap{map_suffix}"
     open_attr = " open" if open_practice else ""
     examples_block = food_lesson_examples_html() if include_food_examples else ""
-    # Lesson 3 scroll source includes examples + dropdown practice
+    examples_l5 = food_lesson5_examples_html() if include_food_examples else ""
     lesson3_scroll = ""
+    lesson5_scroll = ""
     if include_food_examples:
         lesson3_scroll = lesson_scroll_read_html(
             "lesson3", title="Lesson 3", source_sel="#lesson3-scroll-source"
+        )
+        lesson5_scroll = lesson_scroll_read_html(
+            "lesson5", title="Lesson 5", source_sel="#lesson5-scroll-source"
         )
     return f"""
       <div class="lr-core-lessons">
@@ -3014,6 +3519,46 @@ def lesson_highlights_html(
               <li><strong>every day</strong> (adv) vs <strong>everyday</strong> (adj)</li>
               <li><strong>hardly ever:</strong> <em>I hardly ever cook / eat spicy dishes</em> — mềm hóa NO (gần như không bao giờ).</li>
               <li><strong>prefer:</strong> <em>I prefer to cook at home rather than eat out</em> (to V · rather than · V) · <em>I prefer reading to watching TV</em> (V-ing · to · V-ing).</li>
+            </ul>
+          </details>
+        </article>
+
+        <article class="lr-core-lesson" id="lesson5-formulas">
+          <header class="lr-core-lesson-head">
+            <h3>Lesson 5 · What kind of X do you like most?</h3>
+            <p class="lr-formula"><strong>Công thức:</strong> Loại gì? + Lý do · <em>(tạm skip Lesson 4)</em></p>
+          </header>
+
+          <p class="lr-mm-hint">Luồng: <strong>① chọn loại</strong> (I like … most / soft choose) → <strong>because / This is because</strong> → 1–2 cụm <strong>Lexical Food</strong>. Chỉ câu hỏi Food. Hover cụm để xem VI.</p>
+
+{mind_map_html(
+            m5,
+            "Lesson 5 · What kind of X do you like most?",
+            "What kind of X?",
+            "Loại gì? ↔ Lý do",
+            LESSON5_MINDMAP_LEFT,
+            LESSON5_MINDMAP_RIGHT,
+            note="Trái = <strong>Loại gì?</strong> · Phải = <strong>Lý do</strong> + Lexical Food (mouth-watering, hits the spot…). Không nhồi ý job/team.",
+            extra_class=" lr-mmap--lesson5",
+            min_width="1200px",
+        )}
+
+          <p class="lr-formula-note"><strong>Lưu ý:</strong> <em>food</em> (uncountable) vs <em>foods</em> (loại thức ăn). <em>try not to + V</em> · <em>try to + V</em> · <em>try + V-ing</em>. Soft choose: <em>if I had to choose one, I would go for / opt for…</em></p>
+
+          <div id="lesson5-scroll-source">
+{examples_l5}
+          </div>
+
+{lesson5_scroll}
+
+          <details class="lr-formula-details">
+            <summary>Grammar notes (Lesson 5)</summary>
+            <ul class="lr-mini-model">
+              <li><strong>try not to + V:</strong> <em>I try not to eat out too often.</em></li>
+              <li><strong>try to + V:</strong> <em>I try to stick to a balanced diet.</em></li>
+              <li><strong>try + V-ing:</strong> <em>I try using seasonal ingredients.</em></li>
+              <li><strong>food vs foods:</strong> <em>a lot of food</em> (chung) · <em>certain foods</em> (các loại).</li>
+              <li><strong>go for / opt for:</strong> chọn một loại khi soft choose.</li>
             </ul>
           </details>
         </article>
@@ -4507,7 +5052,7 @@ def build_page() -> str:
       <header class="lr-hero">
         <p class="lr-hero-badge">Linear Thinking · Capstone</p>
         <h1>Food &amp; Drink — Review Exercise 1</h1>
-        <p class="lede">Sau khi hoàn thành B2, ôn tập theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-speaking" target="_blank" rel="noopener noreferrer">Linear Thinking</a>: ngữ pháp (6 thì) → mental model → cấu trúc Speaking → từ vựng B1/B2 → mock IELTS Part 1/2/3 với dropdown từ thay thế. Chỉ muốn Lesson 2 &amp; 3? Xem <a href="../review-exercise-2/">Review Exercise 2</a>.</p>
+        <p class="lede">Sau khi hoàn thành B2, ôn tập theo <a href="https://www.dolenglish.vn/blog/linearthinking-trong-speaking" target="_blank" rel="noopener noreferrer">Linear Thinking</a>: ngữ pháp (6 thì) → mental model → cấu trúc Speaking → từ vựng B1/B2 → mock IELTS Part 1/2/3 với dropdown từ thay thế. Chỉ muốn Lesson 2, 3 &amp; 5? Xem <a href="../review-exercise-2/">Review Exercise 2</a>.</p>
         <nav class="lr-toc" aria-label="On this page">
           <a href="#core-steps">Core · 3 bước</a>
           <a href="#natural-vlog">0 · Real talk</a>
@@ -4515,7 +5060,7 @@ def build_page() -> str:
           <a href="#mental-model">2 · Mental model</a>
           <a href="#ed-ending">2b · -ed</a>
           <a href="#structures">3 · Structures</a>
-          <a href="#lessons">4 · Lesson highlights</a>
+          <a href="#lessons">4 · Lessons 2 · 3 · 5</a>
           <a href="#food-lang">5 · Idioms &amp; phrases</a>
           <a href="#phrase-drills">6 · Phrase drills</a>
           <a href="#food-phrase-map">6 · Mind map</a>
@@ -4555,14 +5100,14 @@ def build_page() -> str:
       </section>
 
       <section class="lr-section" id="lessons">
-        <h2>4 · Core formulas — Lesson 2 &amp; 3</h2>
-        <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — <strong>Lesson 2</strong> (lý do thích / không thích) trước, <strong>Lesson 3</strong> (Yes/No + Reasons) sau. Chọn <strong>1–2 nhánh</strong>, không nhồi hết.</p>
+        <h2>4 · Core formulas — Lesson 2, 3 &amp; 5</h2>
+        <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — <strong>Lesson 2</strong> (lý do) → <strong>Lesson 3</strong> (Do you like X?) → <strong>Lesson 5</strong> (What kind of X?) · <em>skip Lesson 4</em>. Chọn <strong>1–2 nhánh</strong>.</p>
 {lesson_highlights_html()}
       </section>
 
       <section class="lr-section" id="food-lang">
         <h2>5 · Food lang · idioms &amp; phrases</h2>
-        <p class="lr-section-hint">IELTS đánh giá <strong>Lexical Resource</strong> — không chỉ từ đúng nghĩa mà còn idiom, phrase, collocation tự nhiên. Phần <strong>Phrases</strong> có ví dụ gắn khung Lesson 3 — học thuộc cả cụm. Chọn 1–2 cái phù hợp ngữ cảnh (không nhồi).</p>
+        <p class="lr-section-hint">IELTS đánh giá <strong>Lexical Resource</strong> — không chỉ từ đúng nghĩa mà còn idiom, phrase, collocation tự nhiên. Phần <strong>Phrases</strong> có ví dụ gắn khung Lesson 3–5 — học thuộc cả cụm. Chọn 1–2 cái phù hợp ngữ cảnh (không nhồi).</p>
         <div class="lr-idiom-grid">
 {food_lang_html()}
         </div>
@@ -4602,7 +5147,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr33">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr34">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -4655,15 +5200,18 @@ def build_page_review2() -> str:
       </div>
 
       <header class="lr-hero">
-        <p class="lr-hero-badge">Linear Thinking · Lesson 2 &amp; 3</p>
+        <p class="lr-hero-badge">Linear Thinking · Lesson 2, 3 &amp; 5</p>
         <h1>Food &amp; Drink — Review Exercise 2</h1>
-        <p class="lede">Chỉ <strong>Lesson 2</strong> (Reasons like/dislike) + <strong>Lesson 3</strong> (Do you like X?). Hai sơ đồ tư duy → ví dụ Food → dropdown thực hành. Full capstone (ngữ pháp, mock…): <a href="../review-exercise/">Review Exercise 1</a>.</p>
+        <p class="lede">Lesson 2 (Reasons) + Lesson 3 (Do you like X?) + Lesson 5 (What kind of X?) · skip Lesson 4. Sơ đồ tư duy → ví dụ Food → Scroll read. Full capstone: <a href="../review-exercise/">Review Exercise 1</a>.</p>
         <nav class="lr-toc" aria-label="On this page">
           <a href="#lesson2-formulas">Lesson 2 · Reasons</a>
           <a href="#scroll-lesson2">Scroll · L2</a>
           <a href="#lesson3-formulas">Lesson 3 · Do you like X?</a>
-          <a href="#food-examples">Ví dụ Food</a>
+          <a href="#food-examples">Ví dụ L3</a>
           <a href="#scroll-lesson3">Scroll · L3</a>
+          <a href="#lesson5-formulas">Lesson 5 · What kind?</a>
+          <a href="#food-examples-l5">Ví dụ L5</a>
+          <a href="#scroll-lesson5">Scroll · L5</a>
         </nav>
         <div class="ex-toolbar lr-toolbar lr-toolbar--hero">
           <label class="ex-toggle"><input type="checkbox" id="togVi" /> Vietnamese</label>
@@ -4671,7 +5219,7 @@ def build_page_review2() -> str:
       </header>
 
       <section class="lr-section" id="lessons">
-        <h2>Core formulas — Lesson 2 &amp; 3</h2>
+        <h2>Core formulas — Lesson 2, 3 &amp; 5</h2>
         <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — chọn <strong>1–2 nhánh</strong>, không nhồi hết. Dropdown bên dưới để thay từ B1/B2.</p>
 {lesson_highlights_html(map_suffix="R2", include_food_examples=True, open_practice=True)}
       </section>
@@ -4685,11 +5233,11 @@ def build_page_review2() -> str:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Review Exercise 2 · Food &amp; Drink — The Quiet Corner</title>
-  <meta name="description" content="Lesson 2 &amp; 3 only: Reasons like/dislike mind maps, Food examples, and dropdown practice for Food &amp; Drink.">
+  <meta name="description" content="Lesson 2, 3 &amp; 5: Reasons, Do you like X?, What kind of X? — Food mind maps, examples, and dropdown practice.">
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr33">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr34">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -4741,7 +5289,7 @@ def patch_topic_index() -> None:
           <span class="vocab-level__badge vocab-level__badge--review">Review</span>
           <h2>Linear Thinking · Capstone exercise</h2>
         </div>
-        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — chỉ Lesson 2 &amp; 3 (mind map + ví dụ Food + dropdown). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
+        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (6 thì), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3 &amp; 5 (mind map + ví dụ Food + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
         <div class="vocab-lesson-grid">
           <a class="vocab-lesson-card vocab-lesson-card--review" href="review-exercise/">
             <img src="{review_icon}" alt="" width="72" height="72" loading="lazy">
