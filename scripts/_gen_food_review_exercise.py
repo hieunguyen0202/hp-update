@@ -3588,7 +3588,10 @@ def _pair_answer_html(
 
 
 def _ex_chip_notes_html(chips: list | None) -> str:
-    """Structure / vocab chips under an example card — hover for VI tooltip."""
+    """Structure / vocab chips under an example card — hover for VI tooltip.
+
+    Every chip gets ``lr-tip`` + ``data-tip`` so hover behaviour is consistent.
+    """
     if not chips:
         return ""
     # en → vi (for hover); also split "A · B" into two chips
@@ -3599,6 +3602,7 @@ def _ex_chip_notes_html(chips: list | None) -> str:
         "pose a threat to (my) health": "Gây đe dọa đến sức khỏe",
         "have a sweet tooth": "Thích đồ ngọt (có ‘răng ngọt’)",
         "function (v) — body / brain / nutrients": "Hoạt động (cơ thể / não / khi đủ dinh dưỡng)",
+        "function (v)": "Hoạt động (não / cơ thể) — vd. functions most effectively",
         "have someone to + V": "Có ai đó để làm gì",
         "send sth to sb": "Gửi cái gì cho ai",
         "grab a bite": "Ăn vội một miếng",
@@ -3618,6 +3622,7 @@ def _ex_chip_notes_html(chips: list | None) -> str:
         "from scratch": "Làm từ đầu / từ nguyên liệu thô",
         "light on the stomach": "Dễ tiêu / không nặng bụng",
         "stick to a balanced diet": "Giữ chế độ ăn cân bằng",
+        "balanced diet": "Chế độ ăn cân bằng",
         "hits the spot": "Đúng gu / thỏa mãn đúng lúc",
         "burn excess calories": "Đốt calo thừa",
         "signature dish": "Món đặc trưng",
@@ -3630,38 +3635,65 @@ def _ex_chip_notes_html(chips: list | None) -> str:
         "urban / rural dwellers": "Người thành thị / nông thôn",
         "the younger / older generation": "Thế hệ trẻ / lớn tuổi",
         "reduced relative (passive)": "Rút gọn mệnh đề quan hệ bị động",
+        # Lesson 8
         "… is the best / ideal time to …": "… là thời điểm tốt nhất / lý tưởng để …",
-        "last (v) + thời gian": "Kéo dài bao lâu",
-        "find + myself + adj": "Thấy bản thân như thế nào",
-        "make it + adj + to V": "Khiến việc … trở nên adj",
+        "last (v) + thời gian": "Kéo dài bao lâu — which lasts from … to …",
+        "find + myself + adj": "Thấy bản thân như thế nào — I find myself most energetic",
+        "make it + adj + to V": "Khiến việc … trở nên adj — making it safer to …",
         "It depends on …": "Còn tùy vào …",
+        "It depends on schedules…": "Còn tùy vào lịch trình (và sở thích)",
+        "It depends on the type of…": "Còn tùy vào loại … bạn đang nói tới",
         "hearty / nutritious breakfast": "Bữa sáng no đủ / bổ dưỡng",
+        "hearty breakfast": "Bữa sáng no đủ, đậm đà",
         "grab a quick bite": "Ăn vội một miếng",
         "spoil your appetite": "Làm mất cảm giác ngon miệng",
+        "calm the hunger pangs": "Xoa dịu cơn đói",
         "comfort food / slap-up meal": "Đồ an ủi / bữa đã đời",
+        "comfort food": "Đồ ăn an ủi (comfort food)",
+        "However, some people…": "Tuy nhiên, một số người… (đối chiếu tôi ↔ người khác)",
+        "However, generally speaking": "Tuy nhiên, nói chung…",
+        "as long as": "Miễn là… / với điều kiện là…",
+        "the number of…": "Số lượng + danh từ số nhiều (đếm được)",
+        "during this time": "Trong khoảng thời gian này (paraphrase khung giờ)",
+        "so sánh rainy season": "Đối chiếu thời điểm kém hơn — During the rainy season…",
+        "so sánh thời điểm khác (rainy season)": "Kéo dài câu bằng cách so sánh thời điểm khác",
+        "don't have to worry about work…": "Không phải lo việc làm hay gì tương tự",
     }
+
+    def resolve_vi(en: str) -> str:
+        if en in chip_vi:
+            return chip_vi[en]
+        # soft match: note may be a longer/shorter variant of a known key
+        for key, vi in chip_vi.items():
+            if en.startswith(key.rstrip("…").rstrip(".")) or key.startswith(en.rstrip("…")):
+                return vi
+            if en in key or key in en:
+                return vi
+        return "Cấu trúc / collocation trong ví dụ — dùng đúng ngữ cảnh"
+
     expanded: list[tuple[str, str]] = []
     for c in chips:
         if not c:
             continue
         if isinstance(c, dict):
-            expanded.append((c.get("en", ""), c.get("vi", "")))
+            en = (c.get("en") or "").strip()
+            vi = (c.get("vi") or "").strip() or (resolve_vi(en) if en else "")
+            if en:
+                expanded.append((en, vi))
             continue
         for part in str(c).split(" · "):
             en = part.strip()
             if not en:
                 continue
-            expanded.append((en, chip_vi.get(en, "")))
+            expanded.append((en, resolve_vi(en)))
     items = "".join(
         f'<li class="lr-tip" data-tip="{esc(vi)}" title="{esc(vi)}">'
-        f"<mark>{esc(en)}</mark></li>"
-        if vi
-        else f"<li><mark>{esc(en)}</mark></li>"
+        f'<span class="lr-tip-text"><mark>{esc(en)}</mark></span></li>'
         for en, vi in expanded
-        if en
+        if en and vi
     )
     return f"""
-            <ul class="lr-ex-chips" aria-label="Cấu trúc trong ví dụ">
+            <ul class="lr-ex-chips" aria-label="Cấu trúc trong ví dụ · hover để xem nghĩa">
 {items}
             </ul>"""
 
@@ -7566,7 +7598,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr43">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr44">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -7665,7 +7697,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr43">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr44">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>

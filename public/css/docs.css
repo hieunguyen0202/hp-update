@@ -3608,6 +3608,7 @@ body.ex-hide-ipa .ipa {
   border-radius: 12px;
   border: 1px solid rgba(148, 163, 184, 0.28);
   background: rgba(15, 23, 42, 0.35);
+  overflow: visible;
 }
 
 .lr-food-ex-q {
@@ -5396,15 +5397,29 @@ mark.lr-hl,
   list-style: none;
   margin: 10px 0 0;
   padding: 0;
+  overflow: visible;
 }
 
 .lr-ex-chips li {
   margin: 0;
   padding: 0;
+  position: relative;
 }
 
 .lr-ex-chips li.lr-tip {
   cursor: help;
+  z-index: 1;
+}
+
+.lr-ex-chips li.lr-tip:hover,
+.lr-ex-chips li.lr-tip:focus-within {
+  z-index: 60;
+}
+
+.lr-ex-chips .lr-tip::after {
+  left: 0;
+  right: auto;
+  max-width: min(280px, 72vw);
 }
 
 .lr-ex-chips mark {
@@ -5417,6 +5432,10 @@ mark.lr-hl,
   font-weight: 650;
   font-size: 0.78rem;
   line-height: 1.35;
+}
+
+.lr-ex-chips .lr-tip-text {
+  display: inline-block;
 }
 
 .lr-formula-note mark {
