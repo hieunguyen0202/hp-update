@@ -3875,6 +3875,29 @@ def _lesson2_practice_html(*, open_attr: str = "") -> str:
 {lesson_scroll_read_html("lesson2", title="Lesson 2", source_sel="#lesson2-practice")}"""
 
 
+def _g_mark(text: str) -> str:
+    """Pill highlight for a grammar chunk (Hình 2)."""
+    return f"<mark>{esc(text)}</mark>"
+
+
+def _g_alts(*options: str) -> str:
+    """Vertical choice stack — Hình 3 (would have to be / go for / opt for)."""
+    items = "".join(f"<span>{esc(o)}</span>" for o in options)
+    return f'<span class="lr-g-alts" aria-label="choose one">{items}</span>'
+
+
+def lesson_grammar_notes_html(title: str, skeleton_lines: list[str]) -> str:
+    """Grammar notes after mind map — full-answer skeleton, no toggle."""
+    body = "\n".join(f'            <p class="lr-g-skel-line">{line}</p>' for line in skeleton_lines)
+    return f"""
+          <div class="lr-grammar-notes">
+            <h4 class="lr-grammar-notes-title">Grammar notes · {esc(title)}</h4>
+            <div class="lr-g-skel">
+{body}
+            </div>
+          </div>"""
+
+
 def lesson_highlights_html(
     *,
     map_suffix: str = "",
@@ -3908,16 +3931,67 @@ def lesson_highlights_html(
         lesson6_scroll = lesson_scroll_read_html(
             "lesson6", title="Lesson 6", source_sel="#lesson6-scroll-source"
         )
+
+    g2 = lesson_grammar_notes_html(
+        "Lesson 2",
+        [
+            f'{_g_mark("I love / enjoy")} + V-ing '
+            f'{_g_mark("because")} it\'s + adj. '
+            f'{_g_mark("It helps me")} + V. '
+            f'{_g_mark("It\'s a great way to")} + V.',
+            f'{_g_mark("It gives me the chance to")} + V. '
+            f'{_g_mark("I also get the opportunity to")} + V.',
+            f'NO: {_g_mark("I don\'t like")} + V-ing {_g_mark("because")} + S + V / '
+            f'{_g_mark("because of")} + NP. {_g_mark("can lead to")} …',
+        ],
+    )
+    g3 = lesson_grammar_notes_html(
+        "Lesson 3",
+        [
+            f'{_g_alts("Yes, definitely", "Yes, absolutely")}. '
+            f'{_g_mark("I like / love / enjoy")} + V-ing · '
+            f'{_g_mark("I\'m keen on / interested in")} … · '
+            f'{_g_mark("I\'m a big fan of")} …',
+            f'{_g_mark("because")} / {_g_mark("This is because")} + S + V · '
+            f'{_g_mark("because of")} + NP. '
+            f'{_g_mark("It helps me")} + V / {_g_mark("It gives me the chance to")} + V.',
+            f'{_g_alts("No, definitely not", "No, not really")}. '
+            f'{_g_mark("I don\'t enjoy")} + V-ing · {_g_mark("I\'m not keen on")} … · '
+            f'{_g_mark("I hardly ever")} + V {_g_mark("because")} …',
+            f'{_g_mark("I prefer to V rather than V")} · '
+            f'{_g_mark("I prefer V-ing to V-ing")}.',
+        ],
+    )
+    g5 = lesson_grammar_notes_html(
+        "Lesson 5",
+        [
+            f'Well, I love all kinds of + sth, but if I had to choose one, it '
+            f'{_g_alts("would have to be", "would go for", "I would opt for")} …',
+            f'{_g_mark("This is because")} + S + V · {_g_mark("because of")} + NP.',
+            f'Câu phụ: {_g_mark("I try not to")} + V · {_g_mark("I try to")} + V · '
+            f'{_g_mark("I try")} + V-ing …',
+        ],
+    )
+    g6 = lesson_grammar_notes_html(
+        "Lesson 6",
+        [
+            f'{_g_alts("I prefer X", "I prefer X to Y", "I prefer X rather than Y")} '
+            f'{_g_mark("because")} + ưu điểm của X.',
+            f'{_g_mark("while")} / {_g_mark("whereas")} + nhược điểm của Y.',
+            f'{_g_mark("It takes")} + time (+ for sb) + to V. '
+            f'{_g_mark("I love the feeling of")} + V-ing.',
+            f'{_g_mark("have someone to")} + V · {_g_mark("send sth to sb")} · '
+            f'{_g_mark("function")} (v) — body / brain / nutrients.',
+        ],
+    )
+
     return f"""
       <div class="lr-core-lessons">
 
         <article class="lr-core-lesson" id="lesson2-formulas">
           <header class="lr-core-lesson-head">
             <h3>Lesson 2 · Reasons like / dislike</h3>
-            <p class="lr-formula">Hai trụ: <strong>mang tính giải trí</strong> · <strong>mang tính giáo dục</strong> (+ sức khỏe)</p>
           </header>
-
-          <p class="lr-mm-hint">Luồng ráp câu: <strong>① Mở</strong> (I love this…) → <strong>because</strong> → <strong>Nhánh 1</strong> (It's + adj) hoặc <strong>Nhánh 2</strong> (starter + cụm V). Chọn tối đa 1–2 nhánh. <em>Hover</em> vào cụm tiếng Anh để xem nghĩa VI.</p>
 
 {mind_map_html(
             m2,
@@ -3926,37 +4000,17 @@ def lesson_highlights_html(
             "Dislike ↔ Like",
             LESSON2_MINDMAP_LEFT,
             LESSON2_MINDMAP_RIGHT,
-            note="Trái = <strong>KHÔNG THÍCH</strong> · Phải = <strong>THÍCH</strong>. Mỗi nhánh: ① Mở → because → 2 nhánh con.",
+            note="Trái = <strong>KHÔNG THÍCH</strong> · Phải = <strong>THÍCH</strong>.",
             extra_class=" lr-mmap--lesson2",
             min_width="1280px",
         )}
-
-          <div class="lr-mm-assemble">
-              <p class="lr-mm-label">Ví dụ ráp nhanh (Food)</p>
-              <div class="lr-mm-assemble-grid">
-                <p><span class="lr-mm-tag-yes">YES</span> Cooking + giải trí: <em>I love cooking because it's relaxing. It helps me unwind and temporarily forget all the pressures from my work.</em></p>
-                <p><span class="lr-mm-tag-yes">YES</span> Vegetables + SK: <em>Yes, because it's a great way to stay healthy and prevent various health problems.</em></p>
-                <p><span class="lr-mm-tag-no">NO</span> Fast food + SK: <em>No, definitely not because it's not good for my health. Consuming too much can lead to various health problems, such as diabetes, heart attack, high blood pressure or even cancer.</em></p>
-              </div>
-            </div>
-
-          <details class="lr-formula-details">
-            <summary>Chi tiết · Cấu trúc mở đầu (dùng chung)</summary>
-            <ul class="lr-formula-bullets">
-              <li><mark>It helps me</mark> + V</li>
-              <li><mark>It's a great way to</mark> + V</li>
-              <li><mark>It gives me the chance to</mark> + V</li>
-              <li><mark>I also get the opportunity to</mark> + V</li>
-            </ul>
-          </details>
-
+{g2}
 {_lesson2_practice_html(open_attr=open_attr)}
         </article>
 
         <article class="lr-core-lesson" id="lesson3-formulas">
           <header class="lr-core-lesson-head">
             <h3>Lesson 3 · Do you like X?</h3>
-            <p class="lr-formula"><strong>Công thức:</strong> Yes/No + Reasons (dùng Lesson 2)</p>
           </header>
 
 {mind_map_html(
@@ -3966,38 +4020,22 @@ def lesson_highlights_html(
             "No ↔ Yes + Reasons",
             LESSON3_MINDMAP_LEFT,
             LESSON3_MINDMAP_RIGHT,
-            note="Trái = <strong>NO</strong> (+ <em>hardly ever</em>) · Phải = <strong>YES</strong> (+ <em>prefer … rather than</em>) + Reasons. Luồng ① Mở → because → Lesson 2.",
+            note="Trái = <strong>NO</strong> · Phải = <strong>YES</strong> + Reasons.",
             extra_class=" lr-mmap--lesson3",
             min_width="1200px",
         )}
-
-          <p class="lr-formula-note"><strong>Lưu ý:</strong> <em>because it is not good for my health</em> (mệnh đề) ↔ <em>because of its harmful effects on my health</em> (cụm danh từ). Soft NO: <em>I hardly ever …</em> · Prefer: <em>prefer to V rather than V</em> / <em>prefer V-ing to V-ing</em>.</p>
-
+{g3}
           <div id="lesson3-scroll-source">
 {examples_block}
           </div>
 
 {lesson3_scroll}
-
-          <details class="lr-formula-details">
-            <summary>Grammar notes (Lesson 3)</summary>
-            <ul class="lr-mini-model">
-              <li><strong>V-ing làm chủ ngữ:</strong> <em>Listening to music</em> helps me relax. · <em>Watching movies</em> is a great way to unwind.</li>
-              <li><strong>-ing vs -ed:</strong> boring (tính chất) vs bored (cảm xúc) — <em>This movie is boring</em> · <em>It makes me bored</em></li>
-              <li><strong>every day</strong> (adv) vs <strong>everyday</strong> (adj)</li>
-              <li><strong>hardly ever:</strong> <em>I hardly ever cook / eat spicy dishes</em> — mềm hóa NO (gần như không bao giờ).</li>
-              <li><strong>prefer:</strong> <em>I prefer to cook at home rather than eat out</em> (to V · rather than · V) · <em>I prefer reading to watching TV</em> (V-ing · to · V-ing).</li>
-            </ul>
-          </details>
         </article>
 
         <article class="lr-core-lesson" id="lesson5-formulas">
           <header class="lr-core-lesson-head">
             <h3>Lesson 5 · What kind of X do you like most?</h3>
-            <p class="lr-formula"><strong>Công thức:</strong> Loại gì? + Lý do · <em>(tạm skip Lesson 4)</em></p>
           </header>
-
-          <p class="lr-mm-hint">Luồng: <strong>① chọn loại</strong> (I like … most / soft choose) → <strong>because / This is because</strong> → 1–2 cụm <strong>Lexical Food</strong>. Chỉ câu hỏi Food. Hover cụm để xem VI.</p>
 
 {mind_map_html(
             m5,
@@ -4006,38 +4044,22 @@ def lesson_highlights_html(
             "Loại gì? ↔ Lý do",
             LESSON5_MINDMAP_LEFT,
             LESSON5_MINDMAP_RIGHT,
-            note="Trái = <strong>Loại gì?</strong> · Phải = <strong>Lý do</strong> + Lexical Food (mouth-watering, hits the spot…). Không nhồi ý job/team.",
+            note="Trái = <strong>Loại gì?</strong> · Phải = <strong>Lý do</strong> + Lexical Food.",
             extra_class=" lr-mmap--lesson5",
             min_width="1200px",
         )}
-
-          <p class="lr-formula-note"><strong>Lưu ý:</strong> <em>food</em> (uncountable) vs <em>foods</em> (loại thức ăn). <em>try not to + V</em> · <em>try to + V</em> · <em>try + V-ing</em>. Soft choose: <em>if I had to choose one, I would go for / opt for…</em></p>
-
+{g5}
           <div id="lesson5-scroll-source">
 {examples_l5}
           </div>
 
 {lesson5_scroll}
-
-          <details class="lr-formula-details">
-            <summary>Grammar notes (Lesson 5)</summary>
-            <ul class="lr-mini-model">
-              <li><strong>try not to + V:</strong> <em>I try not to eat out too often.</em></li>
-              <li><strong>try to + V:</strong> <em>I try to stick to a balanced diet.</em></li>
-              <li><strong>try + V-ing:</strong> <em>I try using seasonal ingredients.</em></li>
-              <li><strong>food vs foods:</strong> <em>a lot of food</em> (chung) · <em>certain foods</em> (các loại).</li>
-              <li><strong>go for / opt for:</strong> chọn một loại khi soft choose.</li>
-            </ul>
-          </details>
         </article>
 
         <article class="lr-core-lesson" id="lesson6-formulas">
           <header class="lr-core-lesson-head">
             <h3>Lesson 6 · Do you prefer X or Y?</h3>
-            <p class="lr-formula"><strong>Công thức:</strong> Chọn X/Y + Lý do (ưu điểm · while · ví dụ)</p>
           </header>
-
-          <p class="lr-mm-hint">Luồng: <strong>prefer X (to Y / rather than Y)</strong> → ưu điểm X · <code>while / whereas</code> Y → cấu trúc slide Food (<code>It takes</code> · <code>love the feeling of</code> · <code>have someone to</code> · <code>send sth to sb</code> · <code>function</code>). Hover VI.</p>
 
 {mind_map_html(
             m6,
@@ -4046,30 +4068,16 @@ def lesson_highlights_html(
             "Chọn ↔ Lý do",
             LESSON6_MINDMAP_LEFT,
             LESSON6_MINDMAP_RIGHT,
-            note="Trái = <strong>prefer X / X to Y / rather than</strong> · Phải = ưu điểm X · while Y · cấu trúc slide (Food). V-ing to V-ing.",
+            note="Trái = <strong>prefer X / X to Y / rather than</strong> · Phải = lý do + cấu trúc slide.",
             extra_class=" lr-mmap--lesson6",
             min_width="1200px",
         )}
-
-          <p class="lr-formula-note"><strong>Lưu ý:</strong> <em>prefer V-ing to V-ing</em> · <em>prefer to V rather than V</em>. Contrast: <em>while / whereas</em>. Thời gian: <em>It takes + time + to V</em>. Cơ thể: <em>function</em>.</p>
-
+{g6}
           <div id="lesson6-scroll-source">
 {examples_l6}
           </div>
 
 {lesson6_scroll}
-
-          <details class="lr-formula-details">
-            <summary>Grammar notes (Lesson 6)</summary>
-            <ul class="lr-mini-model">
-              <li><strong>It takes + time (+ for sb) + to V:</strong> <em>It takes me about an hour to cook a proper meal from scratch.</em></li>
-              <li><strong>love the feeling of + V-ing:</strong> <em>I love the feeling of sitting around the table with my family.</em></li>
-              <li><strong>have someone to + V:</strong> <em>have someone to share the meal with / help me in the kitchen.</em></li>
-              <li><strong>send sth to sb:</strong> <em>send photos of my homemade dishes to my friends.</em></li>
-              <li><strong>function (v):</strong> <em>my body functions more effectively</em> · <em>When nutrients are in short supply the body cannot function normally.</em></li>
-              <li><strong>while / whereas:</strong> đối chiếu X và Y trong cùng câu lý do.</li>
-            </ul>
-          </details>
         </article>
 
       </div>"""
@@ -5656,7 +5664,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr35">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr36">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -5749,7 +5757,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr35">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr36">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
