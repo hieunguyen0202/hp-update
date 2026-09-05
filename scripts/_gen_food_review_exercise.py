@@ -390,21 +390,45 @@ WORD_SLOTS: dict[str, list[dict]] = {
         {"form": "various health problems, such as diabetes, heart attack, high blood pressure or even cancer", "vi": "nhiều vấn đề SK: tiểu đường, đau tim, huyết áp cao, ung thư"},
         {"form": "obesity and high blood pressure", "vi": "béo phì và huyết áp cao"},
         {"form": "serious problems such as stroke or heart disease", "vi": "vấn đề nghiêm trọng như đột quỵ hoặc bệnh tim"},
+        {"form": "a shorter life expectancy over time", "vi": "tuổi thọ ngắn hơn theo thời gian"},
     ],
     "convenience_benefit": [
         {"form": "it helps me unwind after a long day", "vi": "giúp thư giãn sau ngày dài"},
         {"form": "it saves me a lot of time", "vi": "tiết kiệm nhiều thời gian"},
         {"form": "it's convenient when I'm too busy to cook", "vi": "tiện khi tôi quá bận để nấu"},
     ],
+    "food_taste_reason": [
+        {"form": "they wake up my taste buds", "vi": "chúng đánh thức vị giác của tôi"},
+        {"form": "they make every meal more exciting", "vi": "chúng làm mọi bữa ăn thú vị hơn"},
+        {"form": "the flavours are so rich and memorable", "vi": "hương vị rất đậm và đáng nhớ"},
+        {"form": "I'm a bit of a foodie when it comes to spices", "vi": "tôi hơi sành ăn với đồ cay"},
+    ],
     "social_benefit": [
         {"form": "a great way to escape from reality for a while", "vi": "cách tuyệt để thoát thực tại một lúc"},
         {"form": "a great way to unwind with friends", "vi": "cách tuyệt để thư giãn với bạn"},
         {"form": "a chance to try something new together", "vi": "cơ hội thử món mới cùng nhau"},
+        {"form": "a great way to grab a bite and catch up", "vi": "cách tuyệt để ăn vội và tám chuyện"},
     ],
     "job_benefit": [
         {"form": "gives me the chance to challenge myself", "vi": "cho cơ hội thử thách bản thân"},
         {"form": "helps me learn how to work effectively in a team", "vi": "giúp học làm việc nhóm hiệu quả"},
         {"form": "pushes me to become more confident and independent", "vi": "đẩy tôi tự tin và độc lập hơn"},
+    ],
+    # Food-only benefits (NEVER reuse job_benefit in Food Qs)
+    "food_benefit": [
+        {"form": "helps me explore new flavours", "vi": "giúp tôi khám phá hương vị mới"},
+        {"form": "helps me strengthen my muscles when I cook and stay active", "vi": "giúp tăng cơ khi nấu và vận động"},
+        {"form": "gives me richer flavours in every dish", "vi": "mang lại hương vị phong phú hơn"},
+        {"form": "makes every meal more memorable", "vi": "làm mọi bữa ăn đáng nhớ hơn"},
+        {"form": "helps me burn a few extra calories", "vi": "giúp đốt thêm một ít calo"},
+        {"form": "wakes up my taste buds", "vi": "đánh thức vị giác của tôi"},
+    ],
+    "food_health_threat": [
+        {"form": "pose a threat to my health", "vi": "gây đe dọa đến sức khỏe"},
+        {"form": "take a heavy toll on my health", "vi": "gây hậu quả nặng nề cho sức khỏe"},
+        {"form": "can shorten my life expectancy", "vi": "có thể làm giảm tuổi thọ"},
+        {"form": "can lead to various stomach problems", "vi": "có thể dẫn đến nhiều vấn đề về dạ dày"},
+        {"form": "can lead to obesity and high blood pressure", "vi": "có thể dẫn đến béo phì và huyết áp cao"},
     ],
     "allergy_risk": [
         {"form": "can lead to allergies", "vi": "có thể gây dị ứng"},
@@ -425,6 +449,7 @@ WORD_SLOTS: dict[str, list[dict]] = {
         {"form": "to eat home-cooked meals rather than grab take-away", "vi": "ăn đồ nấu nhà hơn gọi mang về"},
         {"form": "to have mild dishes rather than spicy food", "vi": "ăn món dịu hơn món cay"},
         {"form": "home-cooked food rather than eating out", "vi": "đồ nấu nhà hơn ăn ngoài"},
+        {"form": "to grab a bite at home rather than dine out", "vi": "ăn vội ở nhà hơn ăn nhà hàng"},
     ],
     "stomach_problem": [
         {"form": "various stomach problems", "vi": "nhiều vấn đề về dạ dày"},
@@ -1633,6 +1658,43 @@ LESSON3_MINDMAP_RIGHT = [
                     ),
                 ],
             },
+            {
+                "label": "Nhánh 3 · Lexical Food (ý theo topic)",
+                "patterns": (
+                    "Chỉ dùng cụm <strong>Food / health</strong> — "
+                    "không ghép ý job/team vào câu Food"
+                ),
+                "leaves": [
+                    tip(
+                        "strengthen my muscles / burn excess calories",
+                        "tăng cường cơ bắp / đốt calo thừa",
+                    ),
+                    tip(
+                        "grab a bite (to eat) · dine out",
+                        "ăn vội một miếng · ăn ngoài",
+                    ),
+                    tip(
+                        "have a sweet tooth",
+                        "thích đồ ngọt (có ‘răng ngọt’)",
+                    ),
+                    tip(
+                        "pose a threat to (my) health",
+                        "gây đe dọa đến sức khỏe",
+                    ),
+                    tip(
+                        "shorten one's / my life expectancy",
+                        "làm giảm tuổi thọ",
+                    ),
+                    tip(
+                        "take a heavy toll on (my) health",
+                        "gây ảnh hưởng nghiêm trọng / hậu quả nặng nề cho sức khỏe",
+                    ),
+                    tip(
+                        "wake up my taste buds · richer flavours",
+                        "đánh thức vị giác · hương vị phong phú hơn",
+                    ),
+                ],
+            },
         ],
     },
 ]
@@ -2685,32 +2747,32 @@ def food_lesson_examples_html() -> str:
         "no_ex": kit_no_tpl,
     })
 
-    # ── spicy food (Favourite · hardly ever + prefer) ──
+    # ── spicy food (Favourite · food lexical only — no job_benefit) ──
     spicy_yes_tpl = (
-        "Yes, absolutely. I'm a big fan of spicy dishes because {convenience_benefit}. "
-        "Trying new spices also {job_benefit}."
+        "Yes, absolutely. I'm a big fan of spicy dishes because {food_taste_reason}. "
+        "Trying new spices also {food_benefit}."
     )
     spicy_no_tpl = (
         "No, I'm not keen on spicy dishes. I hardly ever {hardly_ever_action} because they "
-        "can lead to {stomach_problem}. I prefer {prefer_rather_than}."
+        "{food_health_threat}. I prefer {prefer_rather_than}."
     )
     items.append({
         "q": "Do you like spicy food?",
         "yes_html": spicy_yes_tpl.format(
-            convenience_benefit=phrase_pick("convenience_benefit", 0),
-            job_benefit=phrase_pick("job_benefit", 0),
+            food_taste_reason=phrase_pick("food_taste_reason", 0),
+            food_benefit=phrase_pick("food_benefit", 0),
         ),
-        "yes_vi": "Có, chắc chắn. Tôi rất thích món cay vì giúp thư giãn sau ngày dài. Thử gia vị mới cũng cho cơ hội thử thách bản thân.",
-        "yes_plain": "Yes, absolutely. I'm a big fan of spicy dishes because it helps me unwind after a long day. Trying new spices also gives me the chance to challenge myself.",
+        "yes_vi": "Có, chắc chắn. Tôi rất thích món cay vì chúng đánh thức vị giác. Thử gia vị mới cũng giúp khám phá hương vị mới.",
+        "yes_plain": "Yes, absolutely. I'm a big fan of spicy dishes because they wake up my taste buds. Trying new spices also helps me explore new flavours.",
         "yes_ipa": "/jes ˌæbsəˈluːtli…/",
         "yes_ex": spicy_yes_tpl,
         "no_html": spicy_no_tpl.format(
             hardly_ever_action=phrase_pick("hardly_ever_action", 2),
-            stomach_problem=phrase_pick("stomach_problem", 0),
+            food_health_threat=phrase_pick("food_health_threat", 0),
             prefer_rather_than=phrase_pick("prefer_rather_than", 2),
         ),
-        "no_vi": "Không, tôi không thích các món cay. Tôi hiếm khi ăn chúng vì chúng dẫn đến một số vấn đề về dạ dày. Tôi thích món dịu hơn món cay.",
-        "no_plain": "No, I'm not keen on spicy dishes. I hardly ever eat spicy dishes because they can lead to various stomach problems. I prefer to have mild dishes rather than spicy food.",
+        "no_vi": "Không, tôi không thích các món cay. Tôi hiếm khi ăn chúng vì chúng gây đe dọa đến sức khỏe. Tôi thích món dịu hơn món cay.",
+        "no_plain": "No, I'm not keen on spicy dishes. I hardly ever eat spicy dishes because they pose a threat to my health. I prefer to have mild dishes rather than spicy food.",
         "no_ipa": "/nəʊ aɪm nɒt kiːn ɒn ˈspaɪsi ˈdɪʃɪz…/",
         "no_ex": spicy_no_tpl,
     })
@@ -4540,7 +4602,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr32">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr33">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -4627,7 +4689,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr32">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr33">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
