@@ -528,6 +528,7 @@
     /**
      * Keep English HTML (blanks + words) and add yellow IPA above each token.
      * Walks DOM in order so blanks consume IPA slots like spoken words.
+     * Multi-word blank answers consume one IPA token per word (fixes drift when Hiện từ EN).
      */
     const wrapHtmlWithWordIpa = (html, ipaFull) => {
       const tokens = tokenizeIpa(ipaFull);
@@ -536,6 +537,21 @@
       box.innerHTML = html;
       let ti = 0;
       const takeIpa = () => tokens[ti++] || "";
+
+      const makeWord = (enText, ipaText) => {
+        const span = document.createElement("span");
+        span.className = "scroll-word";
+        const ipaEl = document.createElement("span");
+        ipaEl.className = "scroll-word-ipa";
+        ipaEl.setAttribute("lang", "en-fonipa");
+        ipaEl.textContent = ipaText;
+        const enEl = document.createElement("span");
+        enEl.className = "scroll-word-en";
+        enEl.textContent = enText;
+        span.appendChild(ipaEl);
+        span.appendChild(enEl);
+        return span;
+      };
 
       const wrapTextNode = (textNode) => {
         const raw = textNode.textContent;
@@ -548,18 +564,7 @@
             frag.appendChild(document.createTextNode(part));
             return;
           }
-          const span = document.createElement("span");
-          span.className = "scroll-word";
-          const ipaEl = document.createElement("span");
-          ipaEl.className = "scroll-word-ipa";
-          ipaEl.setAttribute("lang", "en-fonipa");
-          ipaEl.textContent = takeIpa();
-          const enEl = document.createElement("span");
-          enEl.className = "scroll-word-en";
-          enEl.textContent = part;
-          span.appendChild(ipaEl);
-          span.appendChild(enEl);
-          frag.appendChild(span);
+          frag.appendChild(makeWord(part, takeIpa()));
         });
         textNode.parentNode.replaceChild(frag, textNode);
       };
@@ -571,15 +576,30 @@
         }
         if (node.nodeType !== Node.ELEMENT_NODE) return;
         if (node.classList.contains("scroll-blank")) {
+          const form = (node.dataset.answer || "").trim();
+          const words = form ? form.split(/\s+/).filter(Boolean) : [""];
+          // Consume one IPA token per word in the blank (matches data-ipa-full word count)
+          const ipas = words.map(() => takeIpa());
+          if (node.classList.contains("is-revealed") && words.length > 1) {
+            // Expand multi-word revealed blank into per-word IPA+EN units
+            const frag = document.createDocumentFragment();
+            words.forEach((w, i) => {
+              if (i) frag.appendChild(document.createTextNode(" "));
+              frag.appendChild(makeWord(w, ipas[i] || ""));
+            });
+            node.replaceWith(frag);
+            return;
+          }
           const ipaEl = document.createElement("span");
           ipaEl.className = "scroll-word-ipa";
           ipaEl.setAttribute("lang", "en-fonipa");
-          ipaEl.textContent = takeIpa();
+          ipaEl.textContent = ipas.filter(Boolean).join(" ");
           node.classList.add("scroll-word");
           node.insertBefore(ipaEl, node.firstChild);
           return;
         }
         if (node.classList.contains("scroll-word-ipa")) return;
+        if (node.classList.contains("scroll-word")) return;
         [...node.childNodes].forEach(visit);
       };
 
@@ -834,6 +854,69 @@
   };
 
   initLessonScrollReads();
+
+  /** Collapse / expand each Lesson article (default collapsed; open via click or #hash) */
+  const initLessonCollapse = () => {
+    const articles = [...document.querySelectorAll(".lr-core-lesson")];
+    if (!articles.length) return;
+
+    const setOpen = (article, open) => {
+      article.classList.toggle("is-open", open);
+      article.classList.toggle("is-collapsed", !open);
+      const head = article.querySelector(".lr-core-lesson-head");
+      if (head) head.setAttribute("aria-expanded", open ? "true" : "false");
+    };
+
+    articles.forEach((article) => {
+      const head = article.querySelector(".lr-core-lesson-head");
+      if (!head || article.querySelector(".lr-core-lesson-body")) return;
+
+      const body = document.createElement("div");
+      body.className = "lr-core-lesson-body";
+      while (head.nextSibling) body.appendChild(head.nextSibling);
+      article.appendChild(body);
+
+      if (!head.querySelector(".lr-core-lesson-chevron")) {
+        const chev = document.createElement("span");
+        chev.className = "lr-core-lesson-chevron";
+        chev.setAttribute("aria-hidden", "true");
+        head.appendChild(chev);
+      }
+      head.setAttribute("role", "button");
+      head.tabIndex = 0;
+      head.setAttribute("aria-controls", article.id || "");
+
+      const toggle = () => setOpen(article, !article.classList.contains("is-open"));
+      head.addEventListener("click", (e) => {
+        if (e.target.closest("a, button, input, select, label")) return;
+        toggle();
+      });
+      head.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggle();
+        }
+      });
+
+      setOpen(article, false);
+    });
+
+    const openFromHash = () => {
+      const id = (location.hash || "").replace(/^#/, "");
+      if (!id) return;
+      const el = document.getElementById(id);
+      if (!el) return;
+      const article =
+        el.closest(".lr-core-lesson") ||
+        (el.classList.contains("lr-core-lesson") ? el : null);
+      if (article) setOpen(article, true);
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    openFromHash();
+    window.addEventListener("hashchange", openFromHash);
+  };
+
+  initLessonCollapse();
 
   /** Horizontal mind map: SVG cubic bezier from measured node boxes */
   const initMindmaps = () => {

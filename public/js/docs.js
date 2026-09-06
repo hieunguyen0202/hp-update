@@ -397,7 +397,7 @@
     shell.classList.toggle("sidebar-collapsed", collapsed);
     if (sidebarToggle) {
       sidebarToggle.setAttribute("aria-expanded", collapsed ? "false" : "true");
-      sidebarToggle.textContent = collapsed ? "nav ▸" : "nav ◂";
+      sidebarToggle.classList.toggle("is-collapsed", collapsed);
       sidebarToggle.title = collapsed ? "Mở thanh điều hướng" : "Thu thanh điều hướng";
     }
   };

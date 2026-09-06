@@ -13729,7 +13729,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr58">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr59">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -13738,7 +13738,7 @@ def build_page() -> str:
   <div class="grid-bg"></div>
   <header class="docs-topbar">
     <button class="docs-menu-btn" id="docsMenuBtn" type="button">menu</button>
-    <button class="docs-sidebar-toggle" id="docsSidebarToggle" type="button" aria-expanded="true" title="Thu thanh điều hướng">nav ◂</button>
+    <button class="docs-sidebar-toggle" id="docsSidebarToggle" type="button" aria-expanded="true" aria-label="Toggle navigation" title="Thu thanh điều hướng"><svg class="docs-nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
     <a class="docs-brand" href="{home}"><span>✦</span> The Quiet Corner <span>✦</span></a>
     <nav class="docs-series">
       <a href="{home}blog/web-security/">DevSecOps</a>
@@ -13752,8 +13752,8 @@ def build_page() -> str:
   <div class="docs-shell docs-shell--wide">
 {body}
   </div>
-  <script src="{home}js/docs.js?v=lr22"></script>
-  <script src="{home}js/linear-review.js?v=lr31"></script>
+  <script src="{home}js/docs.js?v=lr23"></script>
+  <script src="{home}js/linear-review.js?v=lr32"></script>
 </body>
 </html>"""
 
@@ -13771,6 +13771,23 @@ def build_page_review2() -> str:
         <li><a href="../review-exercise/">Review Exercise 1</a></li>
         <li><a class="active" href="./">Review Exercise 2</a></li>
       </ul>
+      <div class="docs-nav-label">Lessons</div>
+      <ul class="docs-nav docs-nav--page" aria-label="Lessons on this page">
+        <li><a href="#lesson2-formulas">Lesson 2 · Reasons</a></li>
+        <li><a href="#lesson3-formulas">Lesson 3 · Do you like X?</a></li>
+        <li><a href="#lesson5-formulas">Lesson 5 · What kind?</a></li>
+        <li><a href="#lesson6-formulas">Lesson 6 · Prefer X or Y?</a></li>
+        <li><a href="#lesson7-formulas">Lesson 7 · Is X popular?</a></li>
+        <li><a href="#lesson8-formulas">Lesson 8 · Best time?</a></li>
+        <li><a href="#lesson9-formulas">Lesson 9 · First/last time?</a></li>
+        <li><a href="#lesson10-formulas">Lesson 10 · Childhood?</a></li>
+        <li><a href="#lesson11-formulas">Lesson 11 · Suitable?</a></li>
+        <li><a href="#lesson12-formulas">Lesson 12 · Easy/Difficult?</a></li>
+        <li><a href="#lesson13-formulas">Lesson 13 · Dislike about X?</a></li>
+        <li><a href="#lesson14-formulas">Lesson 14 · How often?</a></li>
+        <li><a href="#lesson15-formulas">Lesson 15 · How changed?</a></li>
+        <li><a href="#lesson16-formulas">Lesson 16 · Part 2</a></li>
+      </ul>
     </aside>
     <article class="docs-main lr-page">
       <div class="docs-breadcrumb">
@@ -13782,56 +13799,12 @@ def build_page_review2() -> str:
       </div>
 
       <header class="lr-hero">
-        <p class="lr-hero-badge">Linear Thinking · Lesson 2, 3, 5–16</p>
+        <p class="lr-hero-badge">Linear Thinking · Lesson 2–16</p>
         <h1>Food &amp; Drink — Review Exercise 2</h1>
-        <p class="lede">Lesson 2 + 3 + 5–16 (Part 2 Food) · skip Lesson 4. Sơ đồ tư duy → ví dụ Food → Scroll read. Full capstone: <a href="../review-exercise/">Review Exercise 1</a>.</p>
-        <nav class="lr-toc" aria-label="On this page">
-          <a href="#lesson2-formulas">Lesson 2 · Reasons</a>
-          <a href="#scroll-lesson2">Scroll · L2</a>
-          <a href="#lesson3-formulas">Lesson 3 · Do you like X?</a>
-          <a href="#food-examples">Ví dụ L3</a>
-          <a href="#scroll-lesson3">Scroll · L3</a>
-          <a href="#lesson5-formulas">Lesson 5 · What kind?</a>
-          <a href="#food-examples-l5">Ví dụ L5</a>
-          <a href="#scroll-lesson5">Scroll · L5</a>
-          <a href="#lesson6-formulas">Lesson 6 · Prefer X or Y?</a>
-          <a href="#food-examples-l6">Ví dụ L6</a>
-          <a href="#scroll-lesson6">Scroll · L6</a>
-          <a href="#lesson7-formulas">Lesson 7 · Is X popular?</a>
-          <a href="#food-examples-l7">Ví dụ L7</a>
-          <a href="#scroll-lesson7">Scroll · L7</a>
-          <a href="#lesson8-formulas">Lesson 8 · Best time?</a>
-          <a href="#food-examples-l8">Ví dụ L8</a>
-          <a href="#scroll-lesson8">Scroll · L8</a>
-          <a href="#lesson9-formulas">Lesson 9 · First/last time?</a>
-          <a href="#food-examples-l9">Ví dụ L9</a>
-          <a href="#scroll-lesson9">Scroll · L9</a>
-          <a href="#lesson10-formulas">Lesson 10 · Childhood?</a>
-          <a href="#food-examples-l10">Ví dụ L10</a>
-          <a href="#scroll-lesson10">Scroll · L10</a>
-          <a href="#lesson11-formulas">Lesson 11 · Suitable?</a>
-          <a href="#lesson12-formulas">Lesson 12 · Easy/Difficult?</a>
-          <a href="#lesson13-formulas">Lesson 13 · Dislike about X?</a>
-          <a href="#lesson14-formulas">Lesson 14 · How often?</a>
-          <a href="#lesson15-formulas">Lesson 15 · How changed?</a>
-          <a href="#lesson16-formulas">Lesson 16 · Part 2</a>
-          <a href="#food-examples-l11">Ví dụ L11</a>
-          <a href="#scroll-lesson11">Scroll · L11</a>
-          <a href="#scroll-lesson12">Scroll · L12</a>
-          <a href="#scroll-lesson13">Scroll · L13</a>
-          <a href="#scroll-lesson14">Scroll · L14</a>
-          <a href="#scroll-lesson15">Scroll · L15</a>
-          <a href="#scroll-lesson16">Scroll · L16</a>
-          <a href="#food-examples-l16">Ví dụ Part 2</a>
-        </nav>
-        <div class="ex-toolbar lr-toolbar lr-toolbar--hero">
-          <label class="ex-toggle"><input type="checkbox" id="togVi" /> Vietnamese</label>
-        </div>
       </header>
 
       <section class="lr-section" id="lessons">
-        <h2>Core formulas — Lesson 2, 3, 5–16</h2>
-        <p class="lr-section-hint">Công thức <strong>IELTS Nguyễn Huyền</strong> — chọn <strong>1–2 nhánh</strong>, không nhồi hết. Dropdown bên dưới để thay từ B1/B2.</p>
+        <h2>Lessons</h2>
 {lesson_highlights_html(map_suffix="R2", include_food_examples=True, open_practice=True)}
       </section>
 
@@ -13848,7 +13821,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr58">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr59">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -13857,7 +13830,7 @@ def build_page_review2() -> str:
   <div class="grid-bg"></div>
   <header class="docs-topbar">
     <button class="docs-menu-btn" id="docsMenuBtn" type="button">menu</button>
-    <button class="docs-sidebar-toggle" id="docsSidebarToggle" type="button" aria-expanded="true" title="Thu thanh điều hướng">nav ◂</button>
+    <button class="docs-sidebar-toggle" id="docsSidebarToggle" type="button" aria-expanded="true" aria-label="Toggle navigation" title="Thu thanh điều hướng"><svg class="docs-nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
     <a class="docs-brand" href="{home}"><span>✦</span> The Quiet Corner <span>✦</span></a>
     <nav class="docs-series">
       <a href="{home}blog/web-security/">DevSecOps</a>
@@ -13871,8 +13844,8 @@ def build_page_review2() -> str:
   <div class="docs-shell docs-shell--wide">
 {body}
   </div>
-  <script src="{home}js/docs.js?v=lr22"></script>
-  <script src="{home}js/linear-review.js?v=lr31"></script>
+  <script src="{home}js/docs.js?v=lr23"></script>
+  <script src="{home}js/linear-review.js?v=lr32"></script>
 </body>
 </html>"""
 

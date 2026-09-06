@@ -969,14 +969,37 @@ a.kk-card--biz:hover {
   color: var(--accent);
   font-family: var(--mono);
   font-size: 12px;
-  padding: 6px 10px;
+  padding: 7px 9px;
   cursor: pointer;
   border-radius: 6px;
+  min-width: 36px;
+  min-height: 34px;
 }
 
 .docs-sidebar-toggle:hover {
   border-color: rgba(34, 211, 238, 0.45);
   background: rgba(34, 211, 238, 0.08);
+}
+
+.docs-nav-icon {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
+.docs-sidebar-toggle.is-collapsed .docs-nav-icon {
+  opacity: 0.85;
+}
+
+.docs-nav--page {
+  margin-top: 4px;
+  max-height: min(58vh, 520px);
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.docs-nav--page a {
+  font-size: 12px;
 }
 
 .docs-shell {
@@ -2738,27 +2761,27 @@ a.kk-card--biz:hover {
 
 /* IPA above each English word (Scroll read overlay mode) */
 .scroll-line--a-overlay {
-  line-height: 1.95;
+  line-height: 2.05;
 }
 
 .scroll-word {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
+  display: inline-block;
   vertical-align: baseline;
-  margin: 0 0.06em;
+  text-align: center;
+  margin: 0 0.08em;
   max-width: 100%;
+  line-height: 1.25;
 }
 
 .scroll-word-ipa {
   display: block;
   font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 0.6em;
-  line-height: 1.15;
+  line-height: 1.1;
   font-weight: 500;
   color: #facc15;
   white-space: nowrap;
-  max-width: 100%;
+  max-width: 14em;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -2769,12 +2792,17 @@ a.kk-card--biz:hover {
 }
 
 .scroll-blank.scroll-word {
-  /* blank already column-flex; IPA sits above gap/hint */
-  gap: 0.1em;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.08em;
 }
 
 .scroll-blank.scroll-word .scroll-word-ipa {
   order: -1;
+  max-width: 16em;
+  white-space: normal;
 }
 
 .lr-scroll-read {
@@ -4828,16 +4856,63 @@ mark.lr-hl,
 }
 
 .lr-core-lesson {
-  padding: 18px 20px;
+  padding: 0;
   border: 1px solid var(--border);
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.02);
+  overflow: hidden;
+}
+
+.lr-core-lesson-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  padding: 14px 18px;
+  cursor: pointer;
+  user-select: none;
+  background: rgba(15, 23, 42, 0.45);
+  border-bottom: 1px solid transparent;
+}
+
+.lr-core-lesson-head:hover {
+  background: rgba(34, 211, 238, 0.06);
 }
 
 .lr-core-lesson-head h3 {
-  margin: 0 0 6px;
+  margin: 0;
   font-size: 1.1rem;
   color: #c4b5fd;
+  flex: 1;
+}
+
+.lr-core-lesson-chevron {
+  flex-shrink: 0;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-right: 2px solid rgba(196, 181, 253, 0.85);
+  border-bottom: 2px solid rgba(196, 181, 253, 0.85);
+  transform: rotate(45deg);
+  transition: transform 0.18s ease;
+  margin-right: 4px;
+}
+
+.lr-core-lesson.is-open .lr-core-lesson-chevron {
+  transform: rotate(225deg);
+  margin-top: 4px;
+}
+
+.lr-core-lesson.is-open .lr-core-lesson-head {
+  border-bottom-color: rgba(148, 163, 184, 0.22);
+}
+
+.lr-core-lesson-body {
+  padding: 14px 18px 18px;
+}
+
+.lr-core-lesson.is-collapsed .lr-core-lesson-body {
+  display: none;
 }
 
 .lr-core-subtitle {
