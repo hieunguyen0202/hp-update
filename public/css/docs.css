@@ -2862,13 +2862,15 @@ a.kk-card--biz:hover {
   position: absolute;
   left: 0;
   top: calc(100% + 8px);
-  width: min(420px, 88vw);
-  padding: 0.75rem 0.85rem;
+  width: min(520px, 92vw);
+  max-height: min(70vh, 640px);
+  overflow-y: auto;
+  padding: 0.85rem 0.95rem 0.9rem;
   border-radius: 10px;
   border: 1px solid rgba(103, 232, 249, 0.35);
   background: #0b1220;
   color: #e2e8f0;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   line-height: 1.45;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
   opacity: 0;
@@ -2888,8 +2890,74 @@ a.kk-card--biz:hover {
 }
 
 .lr-intonation-note-lead {
-  margin: 0 0 0.45rem;
+  margin: 0 0 0.55rem;
   color: #cbd5e1;
+}
+
+.lr-intonation-h {
+  margin: 0.7rem 0 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #a5f3fc;
+  letter-spacing: 0.01em;
+}
+
+.lr-intonation-h:first-of-type {
+  margin-top: 0.35rem;
+}
+
+.lr-intonation-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.2rem 0 0.35rem;
+  font-size: 0.74rem;
+}
+
+.lr-intonation-table th,
+.lr-intonation-table td {
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  padding: 0.28rem 0.4rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.lr-intonation-table th {
+  background: rgba(8, 47, 73, 0.55);
+  color: #e0f2fe;
+  font-weight: 650;
+}
+
+.lr-intonation-table td:first-child {
+  white-space: nowrap;
+  color: #f8fafc;
+  font-weight: 600;
+}
+
+.lr-intonation-mini {
+  margin: 0.2rem 0 0.35rem;
+  color: #94a3b8;
+  font-size: 0.72rem;
+}
+
+.lr-intonation-ex {
+  margin: 0.25rem 0 0.35rem;
+  padding: 0.4rem 0.55rem;
+  border-radius: 8px;
+  background: rgba(8, 47, 73, 0.4);
+  border: 1px solid rgba(103, 232, 249, 0.18);
+}
+
+.lr-intonation-ex p {
+  margin: 0 0 0.3rem;
+}
+
+.lr-intonation-ex ol {
+  margin: 0;
+  padding-left: 1.15em;
+}
+
+.lr-intonation-ex li {
+  margin: 0.18em 0;
 }
 
 .lr-intonation-note-legend {
@@ -2899,20 +2967,20 @@ a.kk-card--biz:hover {
 }
 
 .lr-intonation-note-pop ul {
-  margin: 0 0 0.55rem;
+  margin: 0 0 0.35rem;
   padding-left: 1.1em;
 }
 
 .lr-intonation-note-pop li {
-  margin: 0.28em 0;
+  margin: 0.22em 0;
 }
 
 .lr-intonation-note-foot {
-  margin: 0;
-  padding-top: 0.4rem;
+  margin: 0.55rem 0 0;
+  padding-top: 0.45rem;
   border-top: 1px solid rgba(148, 163, 184, 0.25);
   color: #94a3b8;
-  font-size: 0.74rem;
+  font-size: 0.72rem;
 }
 
 .lr-intonation-note-foot a {
