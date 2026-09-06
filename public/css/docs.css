@@ -1678,6 +1678,34 @@ a.kk-card--biz:hover {
   font-weight: 600;
 }
 
+/* Reading article (after Flashcards) */
+.ex-article {
+  margin: 28px 0 8px;
+}
+
+.ex-article-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px 18px;
+  margin-bottom: 12px;
+}
+
+.ex-article-head h2 {
+  margin: 0 0 6px;
+  font-size: 1.25rem;
+}
+
+.ex-article-hint {
+  margin: 0;
+  max-width: 62ch;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: rgba(226, 232, 240, 0.68);
+  font-family: "Outfit", sans-serif;
+}
+
 /* Exercise reading page */
 .ex-toolbar {
   position: sticky;

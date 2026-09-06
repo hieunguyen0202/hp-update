@@ -322,11 +322,11 @@ def main() -> None:
             words,
             sentences,
             [l["title"] for l in lessons],
-        )
-        # Slightly richer lede for speaking focus
-        page = page.replace(
-            "Reading passage with every new word from this level’s LanGeek lessons — IPA, highlights, sentence translation, and free TTS.",
-            "Daily food blog / speaking-style passage — every new word from this level’s LanGeek lessons, with IPA, highlights, VI toggle, and TTS (IPA is display-only).",
+            lede=(
+                "Daily food blog / speaking-style <strong>Reading article</strong> — "
+                "every new word from this level’s LanGeek lessons, with IPA, highlights, VI toggle, "
+                "and <strong>Copy → NaturalReader</strong> (IPA is display-only)."
+            ),
         )
         out_dir = OUT / f"{level.lower()}-exercise"
         out_dir.mkdir(parents=True, exist_ok=True)

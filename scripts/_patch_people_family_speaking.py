@@ -315,15 +315,11 @@ def main() -> None:
             words,
             sentences,
             [l["title"] for l in lessons],
-        )
-        page = page.replace(
-            "Reading passage with every new word from this level’s LanGeek lessons — IPA, highlights, sentence translation, and free TTS.",
-            "Daily people & family blog / speaking-style passage — every new word from this level’s LanGeek lessons, with IPA, highlights, VI toggle, and TTS (IPA is display-only).",
-        )
-        # Also replace food-specific lede if wrap already customized elsewhere
-        page = page.replace(
-            "Daily food blog / speaking-style passage — every new word from this level’s LanGeek lessons, with IPA, highlights, VI toggle, and TTS (IPA is display-only).",
-            "Daily people & family blog / speaking-style passage — every new word from this level’s LanGeek lessons, with IPA, highlights, VI toggle, and TTS (IPA is display-only).",
+            lede=(
+                "Daily people & family blog / speaking-style <strong>Reading article</strong> — "
+                "every new word from this level’s LanGeek lessons, with IPA, highlights, VI toggle, "
+                "and <strong>Copy → NaturalReader</strong> (IPA is display-only)."
+            ),
         )
         out_dir = OUT / f"{level.lower()}-exercise"
         out_dir.mkdir(parents=True, exist_ok=True)

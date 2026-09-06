@@ -248,9 +248,21 @@ PASSAGES: dict[str, dict[str, list[tuple[str, str]]]] = {
 }
 
 LEDE = {
-    "body-appearance": "Daily body & appearance blog / speaking-style passage — every new word from this level’s LanGeek lessons, with IPA, highlights, VI toggle, and TTS (IPA is display-only).",
-    "home-living": "Daily home & living blog / speaking-style passage — every new word from this level’s LanGeek lessons, with IPA, highlights, VI toggle, and TTS (IPA is display-only).",
-    "clothes-fashion": "Daily clothes & fashion blog / speaking-style passage — every new word from this level’s LanGeek lessons, with IPA, highlights, VI toggle, and TTS (IPA is display-only).",
+    "body-appearance": (
+        "Daily body & appearance blog / speaking-style <strong>Reading article</strong> — "
+        "every new word from this level’s LanGeek lessons, with IPA, highlights, VI toggle, "
+        "and <strong>Copy → NaturalReader</strong> (IPA is display-only)."
+    ),
+    "home-living": (
+        "Daily home & living blog / speaking-style <strong>Reading article</strong> — "
+        "every new word from this level’s LanGeek lessons, with IPA, highlights, VI toggle, "
+        "and <strong>Copy → NaturalReader</strong> (IPA is display-only)."
+    ),
+    "clothes-fashion": (
+        "Daily clothes & fashion blog / speaking-style <strong>Reading article</strong> — "
+        "every new word from this level’s LanGeek lessons, with IPA, highlights, VI toggle, "
+        "and <strong>Copy → NaturalReader</strong> (IPA is display-only)."
+    ),
 }
 
 TOPIC_LABEL = {
@@ -317,7 +329,8 @@ def patch_lede(page: str, slug: str) -> str:
 
 
 def main() -> None:
-    for slug in ["body-appearance", "home-living", "clothes-fashion"]:
+    # User request focus: body-appearance first (home/clothes can reuse later).
+    for slug in ["body-appearance"]:
         topic = next(t for t in TOPICS["topics"] if t["slug"] == slug)
         print(f"\n== {slug} ==")
         for level in ["A1", "A2", "B1", "B2"]:
@@ -333,8 +346,8 @@ def main() -> None:
                 words,
                 sentences,
                 [l["title"] for l in lessons],
+                lede=LEDE[slug],
             )
-            page = patch_lede(page, slug)
             out_dir = OUT_ROOT / slug / f"{level.lower()}-exercise"
             out_dir.mkdir(parents=True, exist_ok=True)
             (out_dir / "index.html").write_text(page, encoding="utf-8")

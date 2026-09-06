@@ -340,6 +340,22 @@ def build_sentences(words: list[dict], topic_name: str, level: str, topic_slug: 
     return sentences
 
 
+# Topics that show the blog-style Reading article (after Flashcards).
+READING_ARTICLE_SLUGS = frozenset({"food-drink", "people-family", "body-appearance"})
+
+
+def render_article_passage_html(sentences: list[dict]) -> str:
+    """Blog / article paragraphs — every vocab word woven into natural prose."""
+    lines: list[str] = []
+    for i, s in enumerate(sentences, 1):
+        vi_html = s.get("vi_html") or esc(s.get("vi") or "")
+        lines.append(f'        <p class="ex-sent" data-sent="{i}">')
+        lines.append(f'          <span class="ex-en">{s["en_html"]}</span>')
+        lines.append(f'          <span class="ex-vi">{vi_html}</span>')
+        lines.append("        </p>")
+    return "\n".join(lines)
+
+
 def render_ielts_passage_html(sentences: list[dict]) -> str:
     part_meta = {
         1: (
@@ -448,7 +464,15 @@ def verify_coverage(words: list[dict], sentences: list[dict]) -> list[str]:
 BRAND = '<span>✦</span> The Quiet Corner <span>✦</span>'
 
 
-def wrap_exercise(topic: dict, level: str, words: list[dict], sentences: list[dict], lesson_titles: list[str]) -> str:
+def wrap_exercise(
+    topic: dict,
+    level: str,
+    words: list[dict],
+    sentences: list[dict],
+    lesson_titles: list[str],
+    *,
+    lede: str | None = None,
+) -> str:
     slug = topic["slug"]
     name = topic["name"]
     home = "../../../../"
@@ -471,6 +495,52 @@ def wrap_exercise(topic: dict, level: str, words: list[dict], sentences: list[di
             + ("…" if len(missing) > 12 else "")
             + "</p>"
         )
+
+    default_lede = (
+        f"Luyện từ vựng — <strong>Match quiz</strong>, <strong>Flashcards</strong>, "
+        f"<strong>Reading article</strong> (copy → NaturalReader) và <strong>Word checklist</strong> "
+        f"từ bài LanGeek cấp {esc(level)}. IELTS Speaking mock (Part 1/2/3) nằm ở "
+        f"<strong>Linear Thinking · Capstone exercise</strong> (Review) khi chủ đề có mục đó."
+    )
+    lede_html = lede if lede is not None else default_lede
+
+    article_block = ""
+    if sentences and slug in READING_ARTICLE_SLUGS:
+        is_ielts = bool(sentences and sentences[0].get("ielts_part"))
+        passage_inner = (
+            render_ielts_passage_html(sentences)
+            if is_ielts
+            else render_article_passage_html(sentences)
+        )
+        passage_class = "ex-passage ex-ielts" if is_ielts else "ex-passage"
+        article_block = f"""
+      <section class="ex-article" id="exArticle" aria-label="Reading article">
+        <div class="ex-article-head">
+          <div>
+            <h2>Reading article</h2>
+            <p class="ex-article-hint">Đọc bài viết kiểu blog / article — mọi từ mới của cấp này được xen vào ngữ cảnh tự nhiên (không nhồi một câu). Bật VI / highlight / IPA khi cần; copy đoạn liên tục sang NaturalReader để nghe.</p>
+          </div>
+        </div>
+        <div class="ex-toolbar">
+          <label class="ex-toggle"><input type="checkbox" id="togVi" /> Vietnamese</label>
+          <label class="ex-toggle"><input type="checkbox" id="togHighlight" checked /> Highlight</label>
+          <label class="ex-toggle"><input type="checkbox" id="togIpa" checked /> IPA</label>
+          <span class="ex-sep" aria-hidden="true"></span>
+          <a class="ex-btn" href="https://www.naturalreaders.com/online/" target="_blank" rel="noopener noreferrer">NaturalReader ↗</a>
+          <button type="button" class="ex-btn primary" id="btnCopyPara">Copy for NaturalReader</button>
+        </div>
+        <div class="{passage_class}" id="passage">
+{passage_inner}
+        </div>
+      </section>
+      <section class="ex-continuous" id="exContinuous" aria-label="Continuous paragraph for NaturalReader">
+        <div class="ex-continuous-head">
+          <h2>Continuous paragraph</h2>
+          <button type="button" class="ex-btn primary" id="btnCopyParaAlt">Copy</button>
+        </div>
+        <p class="ex-continuous-hint">Plain English only (no IPA) — copy and paste into <a href="https://www.naturalreaders.com/online/" target="_blank" rel="noopener noreferrer">NaturalReader</a> or any TTS.</p>
+        <textarea id="exParaText" class="ex-para" readonly rows="8" aria-label="Continuous paragraph for external TTS"></textarea>
+      </section>"""
 
     body = f"""    <aside class="docs-sidebar" id="docsSidebar" data-nav="english" data-docs-root="../../" data-active="{esc(slug)}">
       <div class="docs-nav-label">English</div>
@@ -497,7 +567,7 @@ def wrap_exercise(topic: dict, level: str, words: list[dict], sentences: list[di
         <img src="{EXERCISE_ICON}" alt="" width="112" height="112">
         <div>
           <h1>{esc(level)} Exercise · {esc(name)}</h1>
-          <p class="lede">Luyện từ vựng — <strong>Match quiz</strong>, <strong>Flashcards</strong> và <strong>Word checklist</strong> từ bài LanGeek cấp {esc(level)}. IELTS Speaking mock (Part 1/2/3) nằm ở <strong>Linear Thinking · Capstone exercise</strong> (Review) khi chủ đề có mục đó.</p>
+          <p class="lede">{lede_html}</p>
           <div class="docs-meta">
             <span><strong>Words:</strong> {len(words)}</span>
             <span><strong>Lessons:</strong> {lessons_line}</span>
@@ -548,6 +618,7 @@ def wrap_exercise(topic: dict, level: str, words: list[dict], sentences: list[di
         <div class="ex-flash-stage" id="flashStage"></div>
         <p class="ex-flash-msg" id="flashMsg" hidden></p>
       </section>
+{article_block}
       <script type="application/json" id="exVocabData">{json.dumps([{"id": i, "form": w["form"], "word": w["word"], "ipa": w["ipa"], "vi": w["vi"], "pos": w.get("pos") or "", "def_en": w.get("def_en") or "", "ex_en": w.get("ex_en") or "", "ex_vi": w.get("ex_vi") or "", "photo": w.get("photo") or "", "voice_us": w.get("voice_us") or ""} for i, w in enumerate(words)], ensure_ascii=False)}</script>
 
       <section class="ex-vocab">
@@ -569,11 +640,11 @@ def wrap_exercise(topic: dict, level: str, words: list[dict], sentences: list[di
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{esc(level)} Exercise · {esc(name)} — The Quiet Corner</title>
-  <meta name="description" content="{esc(level)} vocabulary exercise for {esc(name)} — match quiz, flashcards, and word checklist.">
+  <meta name="description" content="{esc(level)} vocabulary exercise for {esc(name)} — match quiz, flashcards, reading article, and word checklist.">
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=ielts3">
+  <link rel="stylesheet" href="{home}css/docs.css?v=article1">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -596,7 +667,7 @@ def wrap_exercise(topic: dict, level: str, words: list[dict], sentences: list[di
 {body}
   </div>
   <script src="{home}js/docs.js"></script>
-  <script src="{home}js/exercise.js?v=ielts5"></script>
+  <script src="{home}js/exercise.js?v=article1"></script>
 </body>
 </html>
 """

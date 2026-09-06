@@ -55,8 +55,8 @@
     const ta = document.getElementById("exParaText");
     if (ta) ta.value = passageText();
 
-    const btn = document.getElementById("btnCopyPara");
-    if (btn && !btn.dataset.bound) {
+    const bindCopy = (btn) => {
+      if (!btn || btn.dataset.bound) return;
       btn.dataset.bound = "1";
       btn.addEventListener("click", async () => {
         const text = (ta && ta.value) || passageText();
@@ -75,7 +75,9 @@
           }
         }
       });
-    }
+    };
+    bindCopy(document.getElementById("btnCopyPara"));
+    bindCopy(document.getElementById("btnCopyParaAlt"));
   };
   if (root) ensureContinuousBlock();
 
