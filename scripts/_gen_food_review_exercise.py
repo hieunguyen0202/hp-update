@@ -9775,6 +9775,89 @@ def _p2_sec(label: str, en: str, vi: str, plain: str | None = None) -> str:
             </div>"""
 
 
+
+def lesson17_building_food_grammar_html() -> str:
+    """L17 Building · Food/Restaurant grammar + lexical notes (Nguyễn Huyền + IELTS collocations)."""
+    blocks = [
+        (
+            "Thông tin cơ bản",
+            [
+                ("Tên", "It has a very nice name – … / It's called … which is a nice name"),
+                ("Tip kéo dài tên", "quite a long name · hard to remember · It took me quite a while to remember it"),
+                ("Vị trí", "It's located on + street …, District … · near … · right in the city centre"),
+                ("Diện tích", "quite small / large / spacious · can hold a maximum of … people"),
+                ("1 câu đánh giá", "Although…, which makes it a perfect place for those who…"),
+                ("Paraphrase mở", "which is one of my favourite restaurants / one of the most famous…"),
+            ],
+        ),
+        (
+            "Cây thiết kế (bên ngoài → bên trong)",
+            [
+                ("decorated with…", "beautifully / nicely decorated with coloured string lights, tiny flowers, ornaments"),
+                ("surrounded by…", "tall trees · department stores · steam / the smell of…"),
+                ("made of…", "glass / wood · walls made of glass, which makes it look more spacious"),
+                ("There is/are…", "in front of / behind / outside… · a rose garden · an ornamental pond"),
+                ("Atmosphere", "make the atmosphere even cosier · creates a very relaxing atmosphere that I can't really describe in words"),
+                ("View", "while enjoying the breathtaking view of the city / garden"),
+            ],
+        ),
+        (
+            "Sản phẩm · dịch vụ · giá · nhân viên",
+            [
+                ("Menu", "It serves a wide range of … including …"),
+                ("Order", "I usually order … because I love the taste and the smell"),
+                ("Chưa thử", "I've never tried …; maybe next time I'll give it a try"),
+                ("Chất lượng", "high quality · freshly prepared · mouth-watering · signature dish"),
+                ("Giá", "cheap / affordable / reasonable / expensive · only costs … · I only have to pay … for …"),
+                ("Nhân viên", "fast / polite / helpful / friendly · welcome customers with a smile"),
+                ("Highlight", "The thing that I love most about … is …"),
+                ("Chuyển ý", "Speaking of food / In terms of the menu"),
+            ],
+        ),
+        (
+            "Lexical band (Restaurant / café)",
+            [
+                ("Ambiance", "cosy / welcoming / authentic / sophisticated / casual dining atmosphere"),
+                ("Decor", "tastefully decorated · rustic charm · contemporary décor · intimate setting"),
+                ("Service", "attentive / impeccable / exceptional service · courteous staff"),
+                ("Space", "spacious · family-run · nestled in a quiet corner · bustling atmosphere"),
+                ("Food feel", "generous portions · local delicacies · aromatic · culinary experience"),
+                ("Unwind", "escape from the hustle and bustle · unwind · recharge"),
+            ],
+        ),
+        (
+            "Cảm nhận · Kết",
+            [
+                ("Recommend", "recommend … to someone / to anyone who loves … / wants to …"),
+                ("Feedback", "I've recommended … to many of my friends, and they all said good things about it"),
+                ("Visit again", "This is the first place I think of whenever I want to…"),
+                ("Kết", "So, if I had to talk about …, it would have to be …"),
+            ],
+        ),
+    ]
+    cols = []
+    for title, items in blocks:
+        lis = "".join(
+            f'<li><strong>{esc(k)}</strong> — <mark class="lr-tip" data-tip="{esc(v)}" title="{esc(v)}">{esc(v)}</mark></li>'
+            for k, v in items
+        )
+        cols.append(
+            f"""              <div class="lr-lex-col">
+                <h5 class="lr-lex-col-title">{esc(title)}</h5>
+                <ul class="lr-lex-list">{lis}</ul>
+              </div>"""
+        )
+    return f"""
+          <div class="lr-grammar-notes lr-lex-boost-wrap" id="lesson17-building-grammar">
+            <h4 class="lr-grammar-notes-title">Grammar note · L17 Building (Restaurant / café)</h4>
+            <p class="lr-freq-hint">Khung cố định: <strong>Tên · Vị trí · Diện tích · 1 câu đánh giá</strong> → cốt lõi <strong>Thiết kế (ngoài/trong)</strong> + <strong>Sản phẩm/Dịch vụ</strong> → cảm nhận/recommend → kết. Dùng relative clause <code>which…</code> để kéo dài.</p>
+            <div class="lr-lex-grid lr-lex-grid--l17">
+{chr(10).join(cols)}
+            </div>
+          </div>"""
+
+
+
 def food_lesson16_examples_html() -> str:
     """Lesson 16 · Part 2 Food — full 5-part model talks."""
     cards_data = []
@@ -9929,14 +10012,138 @@ def food_lesson16_examples_html() -> str:
         ],
     })
 
+
+    # --- L17 Building · Restaurant / café (thêm; giữ 4 bài cũ) ---
+    cards_data.append({
+        "cue": "Describe a restaurant that you enjoyed going to",
+        "fw": "L17 Building",
+        "bullets": ["where the restaurant was", "why you chose this restaurant", "what type of food you ate", "and explain why you enjoyed eating there"],
+        "source": "Cambridge 8 · Restaurant (Part 2) · slide Marukame Udon",
+        "choice": "Marukame Udon · Hai Bà Trưng, Q.3",
+        "secs": [
+            ("Mở đầu",
+             f'{phrase_pick("p2_open", 0)} Marukame Udon, which is one of my most favourite restaurants so far.',
+             "Tôi sẽ nói về Marukame Udon — một trong những nhà hàng yêu thích nhất của tôi từ trước đến nay."),
+            ("Thông tin cơ bản",
+             f'{phrase_pick("p2_basic_where", 0)} Hai Ba Trung Street, District 3. Unlike some other Japanese restaurants that are quite small, this place feels more comfortable. '
+             f'Although it\'s right in the city centre, it\'s on a quiet corner of the street, which makes it a perfect place for those who need a little silence to unwind or escape from the hustle and bustle of the city.',
+             "Nằm trên Hai Bà Trưng, Q.3. Khác các quán Nhật nhỏ, chỗ này thoải mái hơn. Dù trung tâm nhưng góc phố yên — hợp người cần yên tĩnh để thư giãn, thoát khỏi sự hối hả."),
+            ("Cốt lõi",
+             f'It doesn\'t have any windows, but the walls are made of glass, which makes it look even more spacious. '
+             f'I really love the ceiling, which is beautifully decorated with coloured string lights and star and moon ornaments, which creates a very cosy and relaxing atmosphere I can\'t really describe in words. '
+             f'{phrase_pick("p2_core_trans", 0)}, it serves a wide range of dishes, including chicken, pork, beef and seafood noodles, but I often order beef noodles because I love the taste and the smell; oh it\'s so good. '
+             f'I\'ve never tried the seafood noodles; maybe next time I\'ll give it a try. '
+             f'{phrase_pick("p2_core_trans", 3)} its staff. They are so fast and friendly. They always welcome their customers with a smile, and they show them to the best seat to enjoy their food.',
+             "Không có cửa sổ nhưng tường kính nên trông rộng hơn. Trần trang trí đèn dây và ngôi sao tạo không khí ấm cúng khó tả. Nói về món, có nhiều loại mì; tôi thường gọi bò vì vị và mùi. Chưa thử hải sản — lần sau sẽ thử. Điều thích nhất là nhân viên nhanh, thân thiện, mỉm cười và dẫn chỗ ngồi đẹp."),
+            ("Cảm nhận",
+             f'I\'ve recommended this restaurant to many of my friends, and they all said good things about it. '
+             f'{phrase_pick("p2_feel", 1)} Japanese food and who wants to find a place to relax after work.',
+             "Tôi đã recommend cho nhiều bạn và họ đều khen. Tôi sẽ giới thiệu cho ai thích đồ Nhật và muốn chỗ thư giãn sau giờ làm."),
+            ("Kết",
+             f'{phrase_pick("p2_close", 0)} one of my favourite restaurants, {phrase_pick("p2_close_tail", 0)} Marukame Udon.',
+             "Vậy nếu tôi phải nói về một trong những nhà hàng yêu thích, thì đó sẽ phải là Marukame Udon."),
+        ],
+        "notes": [
+            "Although…, which makes it…",
+            "made of / decorated with + which…",
+            "a wide range of…",
+            "give it a try",
+            "welcome… with a smile",
+            "So, if I had to talk about…, it would have to be…",
+        ],
+    })
+
+    cards_data.append({
+        "cue": "Describe a café / place where you often eat",
+        "fw": "L17 Building",
+        "bullets": ["where it is", "why you go there", "what you usually eat or drink", "and explain why you like this café"],
+        "source": "Cambridge-style · Café (Part 2) · L17 Building",
+        "choice": "The Daily Grind · gần văn phòng",
+        "secs": [
+            ("Mở đầu",
+             f'{phrase_pick("p2_open", 0)} a cosy café which I often go to if I need a quick lunch or a quiet place to work.',
+             "Tôi sẽ nói về một quán café ấm cúng mà tôi thường đến khi cần ăn trưa nhanh hoặc chỗ yên để làm việc."),
+            ("Thông tin cơ bản",
+             f'{phrase_pick("p2_basic_name", 0)} — The Daily Grind. {phrase_pick("p2_basic_where", 0)} a side street near my office. '
+             f'{phrase_pick("p2_basic_size", 2)}, I think it can hold a maximum of 25 people. '
+             f'Although it\'s close to a busy road, the café has soft lighting and wooden furniture, which makes it a perfect place for those who want a casual dining atmosphere.',
+             "Tên rất hay — The Daily Grind. Nằm hẻm gần văn phòng. Chỗ ấm cúng, tối đa ~25 người. Dù gần đường đông nhưng đèn dịu và nội thất gỗ — hợp không khí casual dining."),
+            ("Cốt lõi",
+             f'There are a few small tables outside, and inside the walls are tastefully decorated with local art. '
+             f'The contemporary décor and the smell of freshly brewed coffee make the atmosphere even cosier. '
+             f'{phrase_pick("p2_core_trans", 1)}, it serves a wide range of drinks and light meals, including sandwiches, salads and homemade cakes, but I usually order an iced latte and a chicken sandwich because they are affordable and high quality. '
+             f'{phrase_pick("p2_core_trans", 3)} the attentive staff. They are polite and helpful, and they always welcome their customers with a smile.',
+             "Có vài bàn ngoài; trong tường trang trí tranh địa phương tinh tế. Decor hiện đại và mùi cà phê làm không khí ấm hơn. Về menu, có nhiều đồ uống và bữa nhẹ; tôi thường gọi latte đá và sandwich gà vì hợp túi tiền và chất lượng. Điểm thích nhất là nhân viên chu đáo, lịch sự, luôn mỉm cười."),
+            ("Cảm nhận",
+             f'{phrase_pick("p2_feel", 0)} grab a coffee and a light meal. '
+             f'I\'ve recommended this café to many of my colleagues, and they all said good things about it.',
+             "Đây là chỗ đầu tiên tôi nghĩ tới khi muốn cà phê và bữa nhẹ. Đã recommend cho đồng nghiệp và họ đều khen."),
+            ("Kết",
+             f'{phrase_pick("p2_close", 0)} a café where I often eat, {phrase_pick("p2_close_tail", 0)} The Daily Grind.',
+             "Vậy nếu tôi phải nói về quán café tôi thường ăn, thì đó sẽ phải là The Daily Grind."),
+        ],
+        "notes": [
+            "cosy café / casual dining atmosphere",
+            "tastefully decorated · contemporary décor",
+            "attentive staff",
+            "affordable · high quality",
+            "So, if I had to talk about…, it would have to be…",
+        ],
+    })
+
+    cards_data.append({
+        "cue": "Describe a place where you go to relax (food/drink angle)",
+        "fw": "L17 Building",
+        "bullets": ["where it is", "how often you go there", "what you usually do there", "and explain why it helps you relax"],
+        "source": "Cambridge-style · Place to relax · slide Teaspoon / L17 Building",
+        "choice": "Teaspoon tearoom · Lý Tự Trọng, Q.1",
+        "secs": [
+            ("Mở đầu",
+             f'{phrase_pick("p2_open", 0)} a tearoom which I usually go to if I need some relaxation.',
+             "Tôi sẽ nói về một quán trà mà tôi thường đến khi cần thư giãn."),
+            ("Thông tin cơ bản",
+             f'{phrase_pick("p2_basic_name", 0)} — Teaspoon. {phrase_pick("p2_basic_where", 0)} Ly Tu Trong Street, District 1. '
+             f'{phrase_pick("p2_basic_size", 0)}, I think it can hold a maximum of 20 people. '
+             f'Although it\'s right in the city centre, it\'s on a quiet corner of the street, which makes it a perfect place for those who need a little silence to unwind or escape from the hustle and bustle of the city.',
+             "Tên hay — Teaspoon. Lý Tự Trọng, Q.1. Khá nhỏ, tối đa ~20 người. Dù trung tâm nhưng góc phố yên — hợp người cần yên tĩnh để unwind, thoát hustle and bustle."),
+            ("Cốt lõi",
+             f'I really love the windows, which are decorated with tiny flowers and coloured string lights. '
+             f'I also love the ceiling, which is nicely decorated with moon and star ornaments, making the atmosphere even cosier. '
+             f'The cosy atmosphere will help you temporarily forget all the pressures of your daily life to just enjoy your tea. '
+             f'{phrase_pick("p2_core_trans", 0)}, it serves a wide range of teas, including black tea, green tea and herbal tea, but I often order herbal tea because I love the taste and the smell. '
+             f'{phrase_pick("p2_core_trans", 3)} its staff. They are so fast and friendly. They always welcome their customers with a smile, and they show them to the best seat to enjoy their tea.',
+             "Tôi thích cửa sổ trang trí hoa nhỏ và đèn dây. Trần có ngôi sao làm không khí ấm hơn. Không khí giúp tạm quên áp lực để thưởng thức trà. Nói về đồ uống, nhiều loại trà; tôi thường gọi thảo mộc vì vị và mùi. Thích nhất nhân viên — nhanh, thân thiện, mỉm cười và dẫn chỗ ngồi đẹp."),
+            ("Cảm nhận",
+             f'This tearoom is the first place I think of whenever I want to relax. '
+             f'{phrase_pick("p2_feel", 1)} drinking tea and who wants to find a place to escape for a while from their work or their stressful lives.',
+             "Đây là chỗ đầu tiên tôi nghĩ tới mỗi khi muốn thư giãn. Tôi sẽ giới thiệu cho ai thích uống trà và muốn tạm thoát công việc/stress."),
+            ("Kết",
+             f'{phrase_pick("p2_close", 0)} a place where I usually go to relax, {phrase_pick("p2_close_tail", 0)} Teaspoon.',
+             "Vậy nếu tôi phải nói về chỗ tôi thường đến để thư giãn, thì đó sẽ phải là Teaspoon."),
+        ],
+        "notes": [
+            "need some relaxation / unwind",
+            "decorated with… · making the atmosphere even cosier",
+            "forget all the pressures…",
+            "hustle and bustle",
+            "So, if I had to talk about…, it would have to be…",
+        ],
+    })
+
+
     cards_html = []
     for it in cards_data:
         bullets = "".join(f"<li>{esc(b)}</li>" for b in it["bullets"])
         secs = "\n".join(_p2_sec(lab, en, vi) for lab, en, vi in it["secs"])
+        fw = it.get("fw") or ""
+        fw_html = (
+            f'<p class="lr-p2-fw"><span class="lr-p2-cue-tag" data-tag="{esc(fw.split()[0].lower())}">{esc(fw)}</span></p>'
+            if fw else ""
+        )
         cards_html.append(f"""          <article class="lr-food-ex-card lr-p2-card">
             <div class="lr-cue-box">
               <p class="lr-cue-title">{esc(it["cue"])}</p>
-              <p class="lr-cue-should">You should say:</p>
+{fw_html}              <p class="lr-cue-should">You should say:</p>
               <ul class="lr-cue-bullets">{bullets}</ul>
             </div>
             <p class="lr-food-ex-source">{esc(it["source"])} · chọn: <strong>{esc(it["choice"])}</strong></p>
@@ -9949,7 +10156,7 @@ def food_lesson16_examples_html() -> str:
     return f"""
         <div class="lr-food-examples" id="food-examples-l16">
           <h3 class="lr-core-subtitle">Ví dụ Part 2 · Food (bài nói đủ 5 phần)</h3>
-          <p class="lr-mm-hint">Mỗi card = <strong>1 cue card</strong> + bài nói đầy đủ theo khung Nguyễn Huyền. Dropdown chỉ ở <strong>cụm khung</strong> (mở / chuyển / cảm nhận / kết). Cốt lõi giữ nguyên để luyện nhịp 2 phút.</p>
+          <p class="lr-mm-hint">Mỗi card = <strong>1 cue card</strong> + bài nói đủ 5 phần. Có thêm <strong>3 bài L17 Building</strong> (Restaurant / café) — không xóa bài cũ. Dropdown ở cụm khung; xem Grammar note L17 phía trên.</p>
 {chr(10).join(cards_html)}
         </div>"""
 
@@ -11380,6 +11587,7 @@ def lesson_highlights_html(
     )
     g16 = (
         lesson16_part2_frame_html()
+        + lesson17_building_food_grammar_html()
         + lesson_grammar_tree_html(
             "Lesson 16 · Part 2",
             "Describe a Food topic (cue card)",
@@ -13338,7 +13546,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr50">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr51">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -13457,7 +13665,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr50">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr51">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>

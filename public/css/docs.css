@@ -5698,6 +5698,17 @@ mark.lr-hl,
 .lr-p2-cue-tag[data-tag="l20"] { background: #7dd3fc; }
 .lr-p2-cue-tag[data-tag="object"] { background: #fdba74; }
 
+.lr-p2-fw { margin: 0 0 6px; }
+
+.lr-lex-grid--l17 {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.lr-lex-grid--l17 .lr-lex-list strong {
+  color: #fde68a;
+  font-weight: 650;
+}
+
 .lr-cue-box {
   border: 1px solid rgba(251, 146, 60, 0.45);
   border-radius: 10px;
