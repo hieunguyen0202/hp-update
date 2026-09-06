@@ -1715,6 +1715,15 @@ WORD_SLOTS: dict[str, list[dict]] = {
             "vi": "Điều khiến nó có ý nghĩa với tôi là",
         },
     ],
+    # L17 Building · tip kéo dài tên (grammar note)
+    "p2_name_tip": [
+        {"form": "It has quite a long name", "vi": "Nó có tên khá dài"},
+        {
+            "form": "To be honest, at first it was really hard for me to remember its name",
+            "vi": "Thành thật mà nói, lúc đầu tôi rất khó nhớ tên của nó",
+        },
+        {"form": "It took me quite a while to remember it", "vi": "Tôi mất khá lâu mới nhớ được tên đó"},
+    ],
 
 }
 
@@ -9933,6 +9942,33 @@ def lesson17_building_food_grammar_html() -> str:
 
 
 
+
+def _food_p2_cards_html(cards_data: list[dict]) -> str:
+    """Render Part 2 cue cards (5-part answer with phrase dropdowns)."""
+    cards_html = []
+    for it in cards_data:
+        bullets = "".join(f"<li>{esc(b)}</li>" for b in it["bullets"])
+        secs = "\n".join(_p2_sec(lab, en, vi) for lab, en, vi in it["secs"])
+        fw = it.get("fw") or ""
+        fw_html = (
+            f'<p class="lr-p2-fw"><span class="lr-p2-cue-tag" data-tag="{esc(fw.split()[0].lower())}">{esc(fw)}</span></p>'
+            if fw else ""
+        )
+        cards_html.append(f"""          <article class="lr-food-ex-card lr-p2-card">
+            <div class="lr-cue-box">
+              <p class="lr-cue-title">{esc(it["cue"])}</p>
+{fw_html}              <p class="lr-cue-should">You should say:</p>
+              <ul class="lr-cue-bullets">{bullets}</ul>
+            </div>
+            <p class="lr-food-ex-source">{esc(it["source"])} · chọn: <strong>{esc(it["choice"])}</strong></p>
+            <div class="lr-p2-answer">
+{secs}
+            </div>
+{_ex_chip_notes_html(it.get("notes"))}
+          </article>""")
+    return "\n".join(cards_html)
+
+
 def food_lesson16_examples_html() -> str:
     """Lesson 16 · Part 2 Food — full 5-part model talks."""
     cards_data = []
@@ -10087,8 +10123,19 @@ def food_lesson16_examples_html() -> str:
         ],
     })
 
+    return f"""
+        <div class="lr-food-examples" id="food-examples-l16">
+          <h3 class="lr-core-subtitle">Ví dụ Part 2 · Food (bài nói đủ 5 phần)</h3>
+          <p class="lr-mm-hint">Mỗi card = <strong>1 cue card</strong> + bài nói đủ 5 phần (khung Lesson 16). Dropdown ở cụm khung. Bài <strong>L17 Building</strong> (Restaurant / café) nằm ngay sau Grammar note L17 phía trên.</p>
+{_food_p2_cards_html(cards_data)}
+        </div>"""
 
-    # --- L17 Building · Restaurant / café (thêm; giữ 4 bài cũ) ---
+
+
+def food_lesson17_examples_html() -> str:
+    """L17 Building · Restaurant / café — 3 Part 2 models right after grammar note."""
+    cards_data = []
+
     cards_data.append({
         "cue": "Describe a restaurant that you enjoyed going to",
         "fw": "L17 Building",
@@ -10100,31 +10147,32 @@ def food_lesson16_examples_html() -> str:
              f'{phrase_pick("p2_open", 0)} Marukame Udon, which is one of my most favourite restaurants so far.',
              "Tôi sẽ nói về Marukame Udon — một trong những nhà hàng yêu thích nhất của tôi từ trước đến nay."),
             ("Thông tin cơ bản",
-             f'{phrase_pick("p2_basic_where", 0)} Hai Ba Trung Street, District 3. Unlike some other Japanese restaurants that are quite small, this place feels more comfortable. '
+             f'{phrase_pick("p2_name_tip", 0)} — Marukame Udon. {phrase_pick("p2_name_tip", 1)}. '
+             f'{phrase_pick("p2_name_tip", 2)}. {phrase_pick("p2_basic_where", 0)} Hai Ba Trung Street, District 3. '
+             f'{phrase_pick("p2_basic_size", 1)}, I think it can hold a maximum of 80 people. '
              f'Although it\'s right in the city centre, it\'s on a quiet corner of the street, which makes it a perfect place for those who need a little silence to unwind or escape from the hustle and bustle of the city.',
-             "Nằm trên Hai Bà Trưng, Q.3. Khác các quán Nhật nhỏ, chỗ này thoải mái hơn. Dù trung tâm nhưng góc phố yên — hợp người cần yên tĩnh để thư giãn, thoát khỏi sự hối hả."),
+             "Tên khá dài — Marukame Udon. Thành thật lúc đầu rất khó nhớ; tôi mất khá lâu mới nhớ. Nằm Hai Bà Trưng, Q.3. Khá rộng, tối đa ~80 người. Dù trung tâm nhưng góc phố yên — hợp người cần yên để unwind, thoát hustle and bustle."),
             ("Cốt lõi",
              f'It doesn\'t have any windows, but the walls are made of glass, which makes it look even more spacious. '
              f'I really love the ceiling, which is beautifully decorated with coloured string lights and star and moon ornaments, which creates a very cosy and relaxing atmosphere I can\'t really describe in words. '
              f'{phrase_pick("p2_core_trans", 0)}, it serves a wide range of dishes, including chicken, pork, beef and seafood noodles, but I often order beef noodles because I love the taste and the smell; oh it\'s so good. '
              f'I\'ve never tried the seafood noodles; maybe next time I\'ll give it a try. '
              f'{phrase_pick("p2_core_trans", 3)} its staff. They are so fast and friendly. They always welcome their customers with a smile, and they show them to the best seat to enjoy their food.',
-             "Không có cửa sổ nhưng tường kính nên trông rộng hơn. Trần trang trí đèn dây và ngôi sao tạo không khí ấm cúng khó tả. Nói về món, có nhiều loại mì; tôi thường gọi bò vì vị và mùi. Chưa thử hải sản — lần sau sẽ thử. Điều thích nhất là nhân viên nhanh, thân thiện, mỉm cười và dẫn chỗ ngồi đẹp."),
+             "Không cửa sổ nhưng tường kính nên trông spacious hơn. Trần decorated with đèn dây và ngôi sao — không khí cosy khó tả. Speaking of food: wide range of mì; thường gọi bò. Chưa thử hải sản — next time give it a try. Thích nhất staff — welcome with a smile."),
             ("Cảm nhận",
              f'I\'ve recommended this restaurant to many of my friends, and they all said good things about it. '
              f'{phrase_pick("p2_feel", 1)} Japanese food and who wants to find a place to relax after work.',
-             "Tôi đã recommend cho nhiều bạn và họ đều khen. Tôi sẽ giới thiệu cho ai thích đồ Nhật và muốn chỗ thư giãn sau giờ làm."),
+             "Đã recommend cho nhiều bạn và họ đều khen. Recommend cho ai thích đồ Nhật và muốn chỗ thư giãn sau giờ làm."),
             ("Kết",
              f'{phrase_pick("p2_close", 0)} one of my favourite restaurants, {phrase_pick("p2_close_tail", 0)} Marukame Udon.',
-             "Vậy nếu tôi phải nói về một trong những nhà hàng yêu thích, thì đó sẽ phải là Marukame Udon."),
+             "Vậy nếu phải nói về nhà hàng yêu thích, thì đó sẽ phải là Marukame Udon."),
         ],
         "notes": [
-            "Although…, which makes it…",
-            "made of / decorated with + which…",
-            "a wide range of…",
-            "give it a try",
-            "welcome… with a smile",
-            "So, if I had to talk about…, it would have to be…",
+            "It has quite a long name · To be honest… · It took me quite a while…",
+            "Although…, which makes it… · unwind · hustle and bustle",
+            "made of glass · decorated with… · spacious / cosy atmosphere",
+            "a wide range of… · give it a try · welcome… with a smile",
+            "I've recommended… · they all said good things about it",
         ],
     })
 
@@ -10137,32 +10185,33 @@ def food_lesson16_examples_html() -> str:
         "secs": [
             ("Mở đầu",
              f'{phrase_pick("p2_open", 0)} a cosy café which I often go to if I need a quick lunch or a quiet place to work.',
-             "Tôi sẽ nói về một quán café ấm cúng mà tôi thường đến khi cần ăn trưa nhanh hoặc chỗ yên để làm việc."),
+             "Tôi sẽ nói về quán café ấm cúng tôi thường đến khi cần ăn trưa nhanh hoặc chỗ yên để làm việc."),
             ("Thông tin cơ bản",
-             f'{phrase_pick("p2_basic_name", 0)} — The Daily Grind. {phrase_pick("p2_basic_where", 0)} a side street near my office. '
+             f'{phrase_pick("p2_basic_name", 0)} — The Daily Grind. {phrase_pick("p2_name_tip", 1)} — '
+             f'it sounds like hard work, but now I never forget it. {phrase_pick("p2_basic_where", 0)} a side street near my office; it\'s nestled in a quiet corner. '
              f'{phrase_pick("p2_basic_size", 2)}, I think it can hold a maximum of 25 people. '
              f'Although it\'s close to a busy road, the café has soft lighting and wooden furniture, which makes it a perfect place for those who want a casual dining atmosphere.',
-             "Tên rất hay — The Daily Grind. Nằm hẻm gần văn phòng. Chỗ ấm cúng, tối đa ~25 người. Dù gần đường đông nhưng đèn dịu và nội thất gỗ — hợp không khí casual dining."),
+             "Tên rất hay — The Daily Grind. Thành thật lúc đầu khó nhớ vì nghe như 'cày việc', giờ thì không quên. Nằm hẻm gần văn phòng, nestled in a quiet corner. Cosy, tối đa ~25 người. Dù gần đường đông nhưng đèn dịu + gỗ — perfect cho casual dining atmosphere."),
             ("Cốt lõi",
              f'There are a few small tables outside, and inside the walls are tastefully decorated with local art. '
-             f'The contemporary décor and the smell of freshly brewed coffee make the atmosphere even cosier. '
+             f'The contemporary décor and the smell of freshly prepared coffee make the atmosphere even cosier. '
              f'{phrase_pick("p2_core_trans", 1)}, it serves a wide range of drinks and light meals, including sandwiches, salads and homemade cakes, but I usually order an iced latte and a chicken sandwich because they are affordable and high quality. '
+             f'I\'ve never tried their signature cake; maybe next time I\'ll give it a try. '
              f'{phrase_pick("p2_core_trans", 3)} the attentive staff. They are polite and helpful, and they always welcome their customers with a smile.',
-             "Có vài bàn ngoài; trong tường trang trí tranh địa phương tinh tế. Decor hiện đại và mùi cà phê làm không khí ấm hơn. Về menu, có nhiều đồ uống và bữa nhẹ; tôi thường gọi latte đá và sandwich gà vì hợp túi tiền và chất lượng. Điểm thích nhất là nhân viên chu đáo, lịch sự, luôn mỉm cười."),
+             "Có bàn ngoài; trong tastefully decorated. Contemporary décor + cà phê freshly prepared làm không khí cosier. In terms of the menu: wide range; thường latte đá + sandwich — affordable, high quality. Chưa thử signature cake — give it a try. Attentive staff, welcome with a smile."),
             ("Cảm nhận",
              f'{phrase_pick("p2_feel", 0)} grab a coffee and a light meal. '
              f'I\'ve recommended this café to many of my colleagues, and they all said good things about it.',
-             "Đây là chỗ đầu tiên tôi nghĩ tới khi muốn cà phê và bữa nhẹ. Đã recommend cho đồng nghiệp và họ đều khen."),
+             "Chỗ đầu tiên nghĩ tới khi muốn cà phê + bữa nhẹ. Đã recommend đồng nghiệp — họ đều khen."),
             ("Kết",
              f'{phrase_pick("p2_close", 0)} a café where I often eat, {phrase_pick("p2_close_tail", 0)} The Daily Grind.',
-             "Vậy nếu tôi phải nói về quán café tôi thường ăn, thì đó sẽ phải là The Daily Grind."),
+             "Vậy nếu phải nói về quán café tôi thường ăn, thì đó sẽ phải là The Daily Grind."),
         ],
         "notes": [
-            "cosy café / casual dining atmosphere",
-            "tastefully decorated · contemporary décor",
-            "attentive staff",
-            "affordable · high quality",
-            "So, if I had to talk about…, it would have to be…",
+            "It has a very nice name · To be honest, at first…",
+            "nestled in a quiet corner · casual dining atmosphere",
+            "tastefully decorated · contemporary décor · freshly prepared",
+            "affordable · high quality · signature · give it a try · attentive staff",
         ],
     })
 
@@ -10175,65 +10224,45 @@ def food_lesson16_examples_html() -> str:
         "secs": [
             ("Mở đầu",
              f'{phrase_pick("p2_open", 0)} a tearoom which I usually go to if I need some relaxation.',
-             "Tôi sẽ nói về một quán trà mà tôi thường đến khi cần thư giãn."),
+             "Tôi sẽ nói về quán trà tôi thường đến khi cần thư giãn."),
             ("Thông tin cơ bản",
-             f'{phrase_pick("p2_basic_name", 0)} — Teaspoon. {phrase_pick("p2_basic_where", 0)} Ly Tu Trong Street, District 1. '
+             f'{phrase_pick("p2_basic_name", 1)} Teaspoon, which is a nice name. '
+             f'{phrase_pick("p2_name_tip", 1)}, because there are so many tearooms nearby — '
+             f'{phrase_pick("p2_name_tip", 2)}. {phrase_pick("p2_basic_where", 0)} Ly Tu Trong Street, District 1. '
              f'{phrase_pick("p2_basic_size", 0)}, I think it can hold a maximum of 20 people. '
              f'Although it\'s right in the city centre, it\'s on a quiet corner of the street, which makes it a perfect place for those who need a little silence to unwind or escape from the hustle and bustle of the city.',
-             "Tên hay — Teaspoon. Lý Tự Trọng, Q.1. Khá nhỏ, tối đa ~20 người. Dù trung tâm nhưng góc phố yên — hợp người cần yên tĩnh để unwind, thoát hustle and bustle."),
+             "It's called Teaspoon, which is a nice name. Thành thật lúc đầu khó nhớ vì nhiều quán trà gần đó — mất khá lâu mới nhớ. Lý Tự Trọng, Q.1. Khá nhỏ, tối đa ~20. Dù trung tâm nhưng góc yên — unwind / hustle and bustle."),
             ("Cốt lõi",
              f'I really love the windows, which are decorated with tiny flowers and coloured string lights. '
              f'I also love the ceiling, which is nicely decorated with moon and star ornaments, making the atmosphere even cosier. '
+             f'The chairs, the tables, the candles — everything there creates a very relaxing atmosphere that I can\'t really describe in words. '
              f'The cosy atmosphere will help you temporarily forget all the pressures of your daily life to just enjoy your tea. '
-             f'{phrase_pick("p2_core_trans", 0)}, it serves a wide range of teas, including black tea, green tea and herbal tea, but I often order herbal tea because I love the taste and the smell. '
+             f'{phrase_pick("p2_core_trans", 0)}, it serves a wide range of teas, including black tea, green tea and herbal tea, but I often order herbal tea because I love the taste and the smell; oh it\'s so aromatic. '
              f'{phrase_pick("p2_core_trans", 3)} its staff. They are so fast and friendly. They always welcome their customers with a smile, and they show them to the best seat to enjoy their tea.',
-             "Tôi thích cửa sổ trang trí hoa nhỏ và đèn dây. Trần có ngôi sao làm không khí ấm hơn. Không khí giúp tạm quên áp lực để thưởng thức trà. Nói về đồ uống, nhiều loại trà; tôi thường gọi thảo mộc vì vị và mùi. Thích nhất nhân viên — nhanh, thân thiện, mỉm cười và dẫn chỗ ngồi đẹp."),
+             "Cửa sổ decorated with hoa nhỏ + đèn dây; trần moon and star ornaments — atmosphere even cosier / can't describe in words. Quên pressures of daily life. Speaking of: wide range of teas; herbal — aromatic. Staff welcome with a smile."),
             ("Cảm nhận",
              f'This tearoom is the first place I think of whenever I want to relax. '
              f'{phrase_pick("p2_feel", 1)} drinking tea and who wants to find a place to escape for a while from their work or their stressful lives.',
-             "Đây là chỗ đầu tiên tôi nghĩ tới mỗi khi muốn thư giãn. Tôi sẽ giới thiệu cho ai thích uống trà và muốn tạm thoát công việc/stress."),
+             "Chỗ đầu tiên nghĩ tới khi muốn thư giãn. Recommend cho ai thích trà và muốn tạm thoát stress."),
             ("Kết",
              f'{phrase_pick("p2_close", 0)} a place where I usually go to relax, {phrase_pick("p2_close_tail", 0)} Teaspoon.',
-             "Vậy nếu tôi phải nói về chỗ tôi thường đến để thư giãn, thì đó sẽ phải là Teaspoon."),
+             "Vậy nếu phải nói về chỗ thư giãn, thì đó sẽ phải là Teaspoon."),
         ],
         "notes": [
-            "need some relaxation / unwind",
-            "decorated with… · making the atmosphere even cosier",
-            "forget all the pressures…",
-            "hustle and bustle",
-            "So, if I had to talk about…, it would have to be…",
+            "It's called … which is a nice name · To be honest… · It took me quite a while…",
+            "decorated with… · making the atmosphere even cosier · can't describe in words",
+            "forget all the pressures… · hustle and bustle · unwind · aromatic",
+            "a wide range of… · welcome… with a smile",
         ],
     })
 
-
-    cards_html = []
-    for it in cards_data:
-        bullets = "".join(f"<li>{esc(b)}</li>" for b in it["bullets"])
-        secs = "\n".join(_p2_sec(lab, en, vi) for lab, en, vi in it["secs"])
-        fw = it.get("fw") or ""
-        fw_html = (
-            f'<p class="lr-p2-fw"><span class="lr-p2-cue-tag" data-tag="{esc(fw.split()[0].lower())}">{esc(fw)}</span></p>'
-            if fw else ""
-        )
-        cards_html.append(f"""          <article class="lr-food-ex-card lr-p2-card">
-            <div class="lr-cue-box">
-              <p class="lr-cue-title">{esc(it["cue"])}</p>
-{fw_html}              <p class="lr-cue-should">You should say:</p>
-              <ul class="lr-cue-bullets">{bullets}</ul>
-            </div>
-            <p class="lr-food-ex-source">{esc(it["source"])} · chọn: <strong>{esc(it["choice"])}</strong></p>
-            <div class="lr-p2-answer">
-{secs}
-            </div>
-{_ex_chip_notes_html(it.get("notes"))}
-          </article>""")
-
     return f"""
-        <div class="lr-food-examples" id="food-examples-l16">
-          <h3 class="lr-core-subtitle">Ví dụ Part 2 · Food (bài nói đủ 5 phần)</h3>
-          <p class="lr-mm-hint">Mỗi card = <strong>1 cue card</strong> + bài nói đủ 5 phần. Có thêm <strong>3 bài L17 Building</strong> (Restaurant / café) — không xóa bài cũ. Dropdown ở cụm khung; xem Grammar note L17 phía trên.</p>
-{chr(10).join(cards_html)}
+        <div class="lr-food-examples" id="food-examples-l17">
+          <h3 class="lr-core-subtitle">Ví dụ L17 Building · Restaurant / café (vận dụng grammar note)</h3>
+          <p class="lr-mm-hint">3 bài ngay sau grammar note. Chú ý tip kéo dài tên (<strong>quite a long name</strong> · <strong>To be honest…</strong> · <strong>took me quite a while</strong>), thiết kế, menu và recommend.</p>
+{_food_p2_cards_html(cards_data)}
         </div>"""
+
 
 
 
@@ -11064,6 +11093,7 @@ def lesson_highlights_html(
     examples_l14 = food_lesson14_examples_html() if include_food_examples else ""
     examples_l15 = food_lesson15_examples_html() if include_food_examples else ""
     examples_l16 = food_lesson16_examples_html() if include_food_examples else ""
+    examples_l17 = food_lesson17_examples_html() if include_food_examples else ""
     lesson3_scroll = ""
     lesson5_scroll = ""
     lesson6_scroll = ""
@@ -11077,6 +11107,7 @@ def lesson_highlights_html(
     lesson14_scroll = ""
     lesson15_scroll = ""
     lesson16_scroll = ""
+    lesson17_scroll = ""
     if include_food_examples:
         lesson3_scroll = lesson_scroll_read_html(
             "lesson3", title="Lesson 3", source_sel="#lesson3-scroll-source"
@@ -11116,6 +11147,9 @@ def lesson_highlights_html(
         )
         lesson16_scroll = lesson_scroll_read_html(
             "lesson16", title="Lesson 16 · Part 2", source_sel="#lesson16-scroll-source"
+        )
+        lesson17_scroll = lesson_scroll_read_html(
+            "lesson17", title="L17 Building · Restaurant / café", source_sel="#lesson17-scroll-source"
         )
 
     g2 = lesson_grammar_notes_html(
@@ -11660,10 +11694,10 @@ def lesson_highlights_html(
             ],
         )
     )
+    g16_frame = lesson16_part2_frame_html()
+    g17_grammar = lesson17_building_food_grammar_html()
     g16 = (
-        lesson16_part2_frame_html()
-        + lesson17_building_food_grammar_html()
-        + lesson_grammar_tree_html(
+        lesson_grammar_tree_html(
             "Lesson 16 · Part 2",
             "Describe a Food topic (cue card)",
             [
@@ -12029,6 +12063,13 @@ def lesson_highlights_html(
             extra_class=" lr-mmap--lesson16",
             min_width="1360px",
         )}
+{g16_frame}
+{g17_grammar}
+          <div id="lesson17-scroll-source">
+{examples_l17}
+          </div>
+
+{lesson17_scroll}
 {g16}
           <div id="lesson16-scroll-source">
 {examples_l16}
@@ -13621,7 +13662,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr53">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr54">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -13740,7 +13781,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr53">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr54">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
