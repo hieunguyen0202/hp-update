@@ -796,6 +796,282 @@
       return box.innerHTML;
     };
 
+    /**
+     * Mark consonant→vowel links in red with "_" bridges (Oxford "How to Link Words").
+     * Visual style matches lesson examples: There's_an_elephant_in …
+     */
+    const wrapHtmlWithLinking = (html) => {
+      const box = document.createElement("div");
+      box.innerHTML = html;
+      const words = [];
+
+      const wordCore = (raw) =>
+        String(raw || "")
+          .replace(/^[^A-Za-z'’]+/, "")
+          .replace(/[^A-Za-z'’]+$/, "");
+
+      const startsWithVowelSound = (raw) => {
+        const w = wordCore(raw).toLowerCase();
+        if (!w) return false;
+        if (/^(uni|use|used|useful|usual|euro|one|once|u\.s)/.test(w)) return false;
+        if (/^(hour|honest|honou?r|heir|herb)/.test(w)) return true;
+        return /^[aeiou]/.test(w);
+      };
+
+      const endsWithConsonantSound = (raw) => {
+        const w = wordCore(raw);
+        if (!w) return false;
+        const lower = w.toLowerCase();
+        if (/'(ve|re|ll|d|m|s)$/i.test(w)) return true;
+        // silent -e after consonant (ate, apple, these…)
+        if (
+          /[bcdfghjklmnpqrstvwxyz]e$/i.test(lower) &&
+          !/(ee|ie|oe|ue)$/i.test(lower)
+        ) {
+          return true;
+        }
+        if (/[bcdfghjklmnpqrstvwxyz]$/i.test(lower)) return true;
+        return false;
+      };
+
+      const shouldLinkCV = (a, b) =>
+        endsWithConsonantSound(a) && startsWithVowelSound(b);
+
+      /** Letters at end of word to paint red (Oxford visual). */
+      const endLinkLetters = (raw) => {
+        const w = wordCore(raw);
+        if (!w) return "";
+        // There's / it's → final s
+        if (/[A-Za-z]'s$/i.test(w) || /s$/i.test(w) && /'/i.test(w)) return "s";
+        // Contractions ending in consonant sound letters
+        if (/'(ve|re|ll|d|m)$/i.test(w)) {
+          const m = w.match(/'([A-Za-z]+)$/);
+          return m ? m[1].slice(-1) : w.slice(-1);
+        }
+        const lower = w.toLowerCase();
+        // these → se ; ate/apple → e (silent-e visual like the lesson)
+        if (
+          /[bcdfghjklmnpqrstvwxyz]e$/i.test(lower) &&
+          !/(ee|ie|oe|ue)$/i.test(lower)
+        ) {
+          if (/se$/i.test(w)) return w.slice(-2);
+          return w.slice(-1);
+        }
+        if (/[bcdfghjklmnpqrstvwxyz]$/i.test(w)) return w.slice(-1);
+        return w.slice(-1);
+      };
+
+      /** Letters at start of word to paint red. */
+      const startLinkLetters = (raw) => {
+        const w = wordCore(raw);
+        if (!w) return "";
+        // Whole short bridges (as in There's_an_ / tomatoes_I've_)
+        if (/^(an|a|I've|I'm|I'd|I'll|I'd)$/i.test(w)) return w;
+        if (/^I'(ve|m|d|ll)$/i.test(w)) return w;
+        return w.charAt(0);
+      };
+
+      const plainFromEl = (el) => {
+        if (el.classList?.contains("scroll-blank")) {
+          return (el.dataset.answer || el.textContent || "").trim();
+        }
+        const en = el.querySelector?.(".scroll-word-en");
+        if (en) {
+          const c = en.cloneNode(true);
+          c.querySelectorAll(
+            ".scroll-tone-mark, .scroll-link, .scroll-link-us"
+          ).forEach((n) => n.remove());
+          return c.textContent.trim();
+        }
+        const c = el.cloneNode(true);
+        c.querySelectorAll(
+          ".scroll-tone-mark, .scroll-word-ipa, .scroll-link, .scroll-link-us"
+        ).forEach((n) => n.remove());
+        return c.textContent.trim();
+      };
+
+      const textHost = (el) => {
+        if (el.classList?.contains("scroll-blank")) return el;
+        return el.querySelector?.(".scroll-word-en") || el;
+      };
+
+      const paintEnd = (el, letters) => {
+        if (!letters) return;
+        const host = textHost(el);
+        const marks = [
+          ...host.querySelectorAll(
+            ":scope > .scroll-tone-mark, :scope > .scroll-link, :scope > .scroll-link-us"
+          ),
+        ];
+        let raw = "";
+        [...host.childNodes].forEach((n) => {
+          if (n.nodeType === Node.TEXT_NODE) raw += n.textContent;
+          else if (
+            n.nodeType === Node.ELEMENT_NODE &&
+            !n.classList.contains("scroll-tone-mark") &&
+            !n.classList.contains("scroll-link") &&
+            !n.classList.contains("scroll-link-us") &&
+            !n.classList.contains("scroll-word-ipa")
+          ) {
+            raw += n.textContent;
+          }
+        });
+        if (!raw) raw = plainFromEl(el);
+        const core = wordCore(raw);
+        const idx = raw.toLowerCase().lastIndexOf(core.toLowerCase());
+        if (idx < 0) return;
+        const before = raw.slice(0, idx);
+        const word = raw.slice(idx, idx + core.length);
+        const after = raw.slice(idx + core.length);
+        const nMark = Math.min(letters.length, word.length);
+        const pre = word.slice(0, word.length - nMark);
+        const mark = word.slice(word.length - nMark);
+        const frag = document.createDocumentFragment();
+        if (before) frag.appendChild(document.createTextNode(before));
+        if (pre) frag.appendChild(document.createTextNode(pre));
+        const span = document.createElement("span");
+        span.className = "scroll-link";
+        span.textContent = mark;
+        frag.appendChild(span);
+        if (after) frag.appendChild(document.createTextNode(after));
+        marks.forEach((m) => frag.appendChild(m));
+        host.innerHTML = "";
+        host.appendChild(frag);
+      };
+
+      const paintStart = (el, letters) => {
+        if (!letters) return;
+        const host = textHost(el);
+        const marks = [
+          ...host.querySelectorAll(
+            ":scope > .scroll-tone-mark, :scope > .scroll-link, :scope > .scroll-link-us"
+          ),
+        ];
+        let raw = "";
+        [...host.childNodes].forEach((n) => {
+          if (n.nodeType === Node.TEXT_NODE) raw += n.textContent;
+          else if (
+            n.nodeType === Node.ELEMENT_NODE &&
+            !n.classList.contains("scroll-tone-mark") &&
+            !n.classList.contains("scroll-link") &&
+            !n.classList.contains("scroll-link-us") &&
+            !n.classList.contains("scroll-word-ipa")
+          ) {
+            raw += n.textContent;
+          }
+        });
+        if (!raw) raw = plainFromEl(el);
+        const core = wordCore(raw);
+        const idx = raw.toLowerCase().indexOf(core.toLowerCase());
+        if (idx < 0) return;
+        const before = raw.slice(0, idx);
+        const word = raw.slice(idx, idx + core.length);
+        const after = raw.slice(idx + core.length);
+        const nMark = Math.min(letters.length, word.length);
+        const mark = word.slice(0, nMark);
+        const post = word.slice(nMark);
+        const frag = document.createDocumentFragment();
+        if (before) frag.appendChild(document.createTextNode(before));
+        const span = document.createElement("span");
+        span.className = "scroll-link";
+        span.textContent = mark;
+        frag.appendChild(span);
+        if (post) frag.appendChild(document.createTextNode(post));
+        if (after) frag.appendChild(document.createTextNode(after));
+        marks.forEach((m) => frag.appendChild(m));
+        host.innerHTML = "";
+        host.appendChild(frag);
+      };
+
+      const insertBridge = (leftEl) => {
+        const us = document.createElement("span");
+        us.className = "scroll-link-us";
+        us.setAttribute("aria-hidden", "true");
+        us.textContent = "_";
+        // Prefer replacing following whitespace text node
+        let n = leftEl.nextSibling;
+        while (n && n.nodeType === Node.TEXT_NODE && !n.textContent.trim()) {
+          const sp = n.textContent;
+          n.textContent = "";
+          leftEl.parentNode.insertBefore(us, n);
+          // keep a zero-width or remove spaces — video has no gap, just _
+          if (sp) n.remove();
+          return;
+        }
+        if (n && n.nodeType === Node.TEXT_NODE) {
+          n.textContent = n.textContent.replace(/^\s+/, "");
+          leftEl.parentNode.insertBefore(us, n);
+          return;
+        }
+        leftEl.parentNode.insertBefore(us, leftEl.nextSibling);
+      };
+
+      const wrapTextNode = (textNode) => {
+        const raw = textNode.textContent;
+        if (!raw || !raw.trim()) return;
+        const parts = raw.split(/(\s+)/);
+        const frag = document.createDocumentFragment();
+        parts.forEach((part) => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) {
+            frag.appendChild(document.createTextNode(part));
+            return;
+          }
+          if (/^[.,;:!?…—–]+$/.test(part)) {
+            frag.appendChild(document.createTextNode(part));
+            return;
+          }
+          const span = document.createElement("span");
+          span.className = "scroll-link-word";
+          span.textContent = part;
+          frag.appendChild(span);
+          words.push(span);
+        });
+        textNode.parentNode.replaceChild(frag, textNode);
+      };
+
+      const visit = (node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          wrapTextNode(node);
+          return;
+        }
+        if (node.nodeType !== Node.ELEMENT_NODE) return;
+        if (
+          node.classList.contains("scroll-tone-mark") ||
+          node.classList.contains("scroll-link") ||
+          node.classList.contains("scroll-link-us")
+        ) {
+          return;
+        }
+        if (node.classList.contains("scroll-blank")) {
+          words.push(node);
+          return;
+        }
+        if (
+          node.classList.contains("scroll-word") ||
+          node.classList.contains("scroll-tone-word") ||
+          node.classList.contains("scroll-link-word")
+        ) {
+          words.push(node);
+          return;
+        }
+        [...node.childNodes].forEach(visit);
+      };
+
+      [...box.childNodes].forEach(visit);
+
+      for (let i = 0; i < words.length - 1; i++) {
+        const a = plainFromEl(words[i]);
+        const b = plainFromEl(words[i + 1]);
+        if (!shouldLinkCV(a, b)) continue;
+        paintEnd(words[i], endLinkLetters(a));
+        paintStart(words[i + 1], startLinkLetters(b));
+        insertBridge(words[i]);
+      }
+
+      return box.innerHTML;
+    };
+
     const plainFromAnswer = (answerEl) => {
       if (answerEl.dataset.plain) return answerEl.dataset.plain;
       const liveSelects = [...answerEl.querySelectorAll(".lr-word-pick")];
@@ -822,7 +1098,9 @@
       const showIpaTog = root.querySelector(".js-scroll-show-ipa");
       const showIpaOverTog = root.querySelector(".js-scroll-show-ipa-over");
       const showIntonationTog = root.querySelector(".js-scroll-show-intonation");
+      const showLinkingTog = root.querySelector(".js-scroll-show-linking");
       const toneLegend = root.querySelector(".ex-scroll-tone-legend");
+      const linkLegend = root.querySelector(".ex-scroll-link-legend");
       const btnPlay = root.querySelector(".js-scroll-play");
       const btnPause = root.querySelector(".js-scroll-pause");
       const btnRestart = root.querySelector(".js-scroll-restart");
@@ -840,8 +1118,11 @@
         const showIpa = !!(showIpaTog && showIpaTog.checked);
         const showIpaOver = !!(showIpaOverTog && showIpaOverTog.checked);
         const showIntonation = !!(showIntonationTog && showIntonationTog.checked);
+        const showLinking = !!(showLinkingTog && showLinkingTog.checked);
         if (toneLegend) toneLegend.hidden = !showIntonation;
+        if (linkLegend) linkLegend.hidden = !showLinking;
         root.classList.toggle("is-intonation", showIntonation);
+        root.classList.toggle("is-linking", showLinking);
         const blocks = [];
 
         const resolveIpa = (ans, qaEl) =>
@@ -855,17 +1136,11 @@
           if (!ans) return;
           const ipa = resolveIpa(ans, qaEl);
           if (showIpa && !showIpaOver) {
-            let ipaHtml = escapeHtml(ipa || plainFromAnswer(ans));
-            if (showIntonation) {
-              // Intonation on IPA-only line is less useful — skip marks
-              blocks.push(
-                `<p class="scroll-line scroll-line--a scroll-line--a-ipa">${ipaHtml}</p>`
-              );
-            } else {
-              blocks.push(
-                `<p class="scroll-line scroll-line--a scroll-line--a-ipa">${ipaHtml}</p>`
-              );
-            }
+            blocks.push(
+              `<p class="scroll-line scroll-line--a scroll-line--a-ipa">${escapeHtml(
+                ipa || plainFromAnswer(ans)
+              )}</p>`
+            );
             return;
           }
           let html = answerToHtml(ans, mode, reveal);
@@ -875,11 +1150,15 @@
           if (showIntonation) {
             html = wrapHtmlWithIntonation(html);
           }
+          if (showLinking) {
+            html = wrapHtmlWithLinking(html);
+          }
           const overlayClass =
             showIpaOver && ipa ? " scroll-line--a-overlay" : "";
           const toneClass = showIntonation ? " scroll-line--a-tone" : "";
+          const linkClass = showLinking ? " scroll-line--a-link" : "";
           blocks.push(
-            `<p class="scroll-line scroll-line--a${overlayClass}${toneClass}">${html}</p>`
+            `<p class="scroll-line scroll-line--a${overlayClass}${toneClass}${linkClass}">${html}</p>`
           );
         };
 
@@ -1038,6 +1317,7 @@
         });
       showIntonationTog &&
         showIntonationTog.addEventListener("change", rebuild);
+      showLinkingTog && showLinkingTog.addEventListener("change", rebuild);
       source.querySelectorAll(".lr-word-pick").forEach((sel) => {
         sel.addEventListener("change", rebuild);
       });

@@ -2987,14 +2987,46 @@ a.kk-card--biz:hover {
   color: #67e8f9;
 }
 
-.ex-scroll-tone-legend {
+.ex-scroll-link-legend {
   margin: 0.15rem 0 0.55rem;
   padding: 0.35rem 0.65rem;
   border-radius: 8px;
-  border: 1px dashed rgba(103, 232, 249, 0.35);
-  background: rgba(8, 47, 73, 0.35);
-  color: #cbd5e1;
+  border: 1px dashed rgba(248, 113, 113, 0.45);
+  background: rgba(69, 10, 10, 0.35);
+  color: #fecaca;
   font-size: 0.78rem;
+}
+
+.lr-linking-note-btn {
+  border-color: rgba(248, 113, 113, 0.5) !important;
+  color: #fecaca !important;
+  background: rgba(69, 10, 10, 0.55) !important;
+}
+
+.lr-linking-note-btn:hover,
+.lr-linking-note:focus-within .lr-linking-note-btn {
+  border-color: rgba(248, 113, 113, 0.9) !important;
+  background: rgba(127, 29, 29, 0.55) !important;
+  color: #fff1f2 !important;
+}
+
+.scroll-link {
+  color: #f87171;
+  font-weight: 650;
+}
+
+.scroll-link-us {
+  color: #ef4444;
+  font-weight: 700;
+  margin: 0 0.01em;
+}
+
+.scroll-link-word {
+  display: inline;
+}
+
+.scroll-line--a-link {
+  letter-spacing: 0.01em;
 }
 
 .scroll-tone-word,
