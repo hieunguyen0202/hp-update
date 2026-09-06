@@ -798,7 +798,8 @@
 
     /**
      * Mark consonant→vowel links in red with "_" bridges (Oxford "How to Link Words").
-     * Visual style matches lesson examples: There's_an_elephant_in …
+     * Single-pass per word so a token that is both link-start and link-end
+     * (e.g. it in makes_it_a) is not painted twice and scrambled.
      */
     const wrapHtmlWithLinking = (html) => {
       const box = document.createElement("div");
@@ -823,52 +824,42 @@
         if (!w) return false;
         const lower = w.toLowerCase();
         if (/'(ve|re|ll|d|m|s)$/i.test(w)) return true;
-        // silent -e after consonant (ate, apple, these…)
         if (
           /[bcdfghjklmnpqrstvwxyz]e$/i.test(lower) &&
           !/(ee|ie|oe|ue)$/i.test(lower)
         ) {
           return true;
         }
-        if (/[bcdfghjklmnpqrstvwxyz]$/i.test(lower)) return true;
-        return false;
+        return /[bcdfghjklmnpqrstvwxyz]$/i.test(lower);
       };
 
       const shouldLinkCV = (a, b) =>
         endsWithConsonantSound(a) && startsWithVowelSound(b);
 
-      /** Letters at end of word to paint red (Oxford visual). */
-      const endLinkLetters = (raw) => {
+      const endLinkLen = (raw) => {
         const w = wordCore(raw);
-        if (!w) return "";
-        // There's / it's → final s
-        if (/[A-Za-z]'s$/i.test(w) || /s$/i.test(w) && /'/i.test(w)) return "s";
-        // Contractions ending in consonant sound letters
-        if (/'(ve|re|ll|d|m)$/i.test(w)) {
-          const m = w.match(/'([A-Za-z]+)$/);
-          return m ? m[1].slice(-1) : w.slice(-1);
-        }
+        if (!w) return 0;
+        if (/[A-Za-z]'s$/i.test(w) || (/s$/i.test(w) && /'/i.test(w))) return 1;
+        if (/'(ve|re|ll|d|m)$/i.test(w)) return 1;
         const lower = w.toLowerCase();
-        // these → se ; ate/apple → e (silent-e visual like the lesson)
         if (
           /[bcdfghjklmnpqrstvwxyz]e$/i.test(lower) &&
           !/(ee|ie|oe|ue)$/i.test(lower)
         ) {
-          if (/se$/i.test(w)) return w.slice(-2);
-          return w.slice(-1);
+          return /se$/i.test(w) ? 2 : 1;
         }
-        if (/[bcdfghjklmnpqrstvwxyz]$/i.test(w)) return w.slice(-1);
-        return w.slice(-1);
+        if (/[bcdfghjklmnpqrstvwxyz]$/i.test(w)) return 1;
+        return 0;
       };
 
-      /** Letters at start of word to paint red. */
-      const startLinkLetters = (raw) => {
+      const startLinkLen = (raw) => {
         const w = wordCore(raw);
-        if (!w) return "";
-        // Whole short bridges (as in There's_an_ / tomatoes_I've_)
-        if (/^(an|a|I've|I'm|I'd|I'll|I'd)$/i.test(w)) return w;
-        if (/^I'(ve|m|d|ll)$/i.test(w)) return w;
-        return w.charAt(0);
+        if (!w) return 0;
+        if (/^(an|a)$/i.test(w)) return w.length;
+        if (/^I'(ve|m|d|ll)$/i.test(w) || /^(I've|I'm|I'd|I'll)$/i.test(w)) {
+          return w.length;
+        }
+        return 1;
       };
 
       const plainFromEl = (el) => {
@@ -876,16 +867,10 @@
           return (el.dataset.answer || el.textContent || "").trim();
         }
         const en = el.querySelector?.(".scroll-word-en");
-        if (en) {
-          const c = en.cloneNode(true);
-          c.querySelectorAll(
-            ".scroll-tone-mark, .scroll-link, .scroll-link-us"
-          ).forEach((n) => n.remove());
-          return c.textContent.trim();
-        }
-        const c = el.cloneNode(true);
+        const src = en || el;
+        const c = src.cloneNode(true);
         c.querySelectorAll(
-          ".scroll-tone-mark, .scroll-word-ipa, .scroll-link, .scroll-link-us"
+          ".scroll-tone-mark, .scroll-link, .scroll-link-us, .scroll-word-ipa"
         ).forEach((n) => n.remove());
         return c.textContent.trim();
       };
@@ -895,113 +880,71 @@
         return el.querySelector?.(".scroll-word-en") || el;
       };
 
-      const paintEnd = (el, letters) => {
-        if (!letters) return;
-        const host = textHost(el);
-        const marks = [
-          ...host.querySelectorAll(
-            ":scope > .scroll-tone-mark, :scope > .scroll-link, :scope > .scroll-link-us"
-          ),
-        ];
-        let raw = "";
-        [...host.childNodes].forEach((n) => {
-          if (n.nodeType === Node.TEXT_NODE) raw += n.textContent;
-          else if (
-            n.nodeType === Node.ELEMENT_NODE &&
-            !n.classList.contains("scroll-tone-mark") &&
-            !n.classList.contains("scroll-link") &&
-            !n.classList.contains("scroll-link-us") &&
-            !n.classList.contains("scroll-word-ipa")
-          ) {
-            raw += n.textContent;
-          }
-        });
-        if (!raw) raw = plainFromEl(el);
-        const core = wordCore(raw);
-        const idx = raw.toLowerCase().lastIndexOf(core.toLowerCase());
-        if (idx < 0) return;
-        const before = raw.slice(0, idx);
-        const word = raw.slice(idx, idx + core.length);
-        const after = raw.slice(idx + core.length);
-        const nMark = Math.min(letters.length, word.length);
-        const pre = word.slice(0, word.length - nMark);
-        const mark = word.slice(word.length - nMark);
-        const frag = document.createDocumentFragment();
-        if (before) frag.appendChild(document.createTextNode(before));
-        if (pre) frag.appendChild(document.createTextNode(pre));
+      const redSpan = (text) => {
         const span = document.createElement("span");
         span.className = "scroll-link";
-        span.textContent = mark;
-        frag.appendChild(span);
-        if (after) frag.appendChild(document.createTextNode(after));
-        marks.forEach((m) => frag.appendChild(m));
-        host.innerHTML = "";
-        host.appendChild(frag);
+        span.textContent = text;
+        return span;
       };
 
-      const paintStart = (el, letters) => {
-        if (!letters) return;
+      /** Rebuild host once: [startRed][middle][endRed] + keep tone marks. */
+      const paintWordOnce = (el, startN, endN) => {
         const host = textHost(el);
-        const marks = [
-          ...host.querySelectorAll(
-            ":scope > .scroll-tone-mark, :scope > .scroll-link, :scope > .scroll-link-us"
-          ),
+        const toneMarks = [
+          ...host.querySelectorAll(":scope > .scroll-tone-mark"),
         ];
-        let raw = "";
-        [...host.childNodes].forEach((n) => {
-          if (n.nodeType === Node.TEXT_NODE) raw += n.textContent;
-          else if (
-            n.nodeType === Node.ELEMENT_NODE &&
-            !n.classList.contains("scroll-tone-mark") &&
-            !n.classList.contains("scroll-link") &&
-            !n.classList.contains("scroll-link-us") &&
-            !n.classList.contains("scroll-word-ipa")
-          ) {
-            raw += n.textContent;
-          }
-        });
-        if (!raw) raw = plainFromEl(el);
+        const raw = plainFromEl(el);
+        if (!raw) return;
+
         const core = wordCore(raw);
         const idx = raw.toLowerCase().indexOf(core.toLowerCase());
         if (idx < 0) return;
         const before = raw.slice(0, idx);
         const word = raw.slice(idx, idx + core.length);
         const after = raw.slice(idx + core.length);
-        const nMark = Math.min(letters.length, word.length);
-        const mark = word.slice(0, nMark);
-        const post = word.slice(nMark);
+
+        let sN = Math.max(0, Math.min(startN || 0, word.length));
+        let eN = Math.max(0, Math.min(endN || 0, word.length - sN));
+        // If start+end would overlap, prefer end mark (rarer for short words)
+        if (sN + eN > word.length) {
+          eN = Math.max(0, word.length - sN);
+        }
+
+        const start = word.slice(0, sN);
+        const mid = word.slice(sN, word.length - eN);
+        const end = word.slice(word.length - eN);
+
         const frag = document.createDocumentFragment();
         if (before) frag.appendChild(document.createTextNode(before));
-        const span = document.createElement("span");
-        span.className = "scroll-link";
-        span.textContent = mark;
-        frag.appendChild(span);
-        if (post) frag.appendChild(document.createTextNode(post));
+        if (start) frag.appendChild(redSpan(start));
+        if (mid) frag.appendChild(document.createTextNode(mid));
+        if (end) frag.appendChild(redSpan(end));
         if (after) frag.appendChild(document.createTextNode(after));
-        marks.forEach((m) => frag.appendChild(m));
+        toneMarks.forEach((m) => frag.appendChild(m));
         host.innerHTML = "";
         host.appendChild(frag);
+        el.classList.add("scroll-link-word");
       };
 
       const insertBridge = (leftEl) => {
+        if (!leftEl?.parentNode) return;
+        if (
+          leftEl.nextSibling?.classList?.contains?.("scroll-link-us")
+        ) {
+          return;
+        }
         const us = document.createElement("span");
         us.className = "scroll-link-us";
         us.setAttribute("aria-hidden", "true");
         us.textContent = "_";
-        // Prefer replacing following whitespace text node
         let n = leftEl.nextSibling;
-        while (n && n.nodeType === Node.TEXT_NODE && !n.textContent.trim()) {
-          const sp = n.textContent;
-          n.textContent = "";
-          leftEl.parentNode.insertBefore(us, n);
-          // keep a zero-width or remove spaces — video has no gap, just _
-          if (sp) n.remove();
-          return;
+        while (n && n.nodeType === Node.TEXT_NODE && !/\S/.test(n.textContent)) {
+          const next = n.nextSibling;
+          n.remove();
+          n = next;
         }
         if (n && n.nodeType === Node.TEXT_NODE) {
           n.textContent = n.textContent.replace(/^\s+/, "");
-          leftEl.parentNode.insertBefore(us, n);
-          return;
         }
         leftEl.parentNode.insertBefore(us, leftEl.nextSibling);
       };
@@ -1060,14 +1003,24 @@
 
       [...box.childNodes].forEach(visit);
 
+      const plains = words.map(plainFromEl);
+      const startN = words.map(() => 0);
+      const endN = words.map(() => 0);
+      const bridgeAfter = words.map(() => false);
+
       for (let i = 0; i < words.length - 1; i++) {
-        const a = plainFromEl(words[i]);
-        const b = plainFromEl(words[i + 1]);
-        if (!shouldLinkCV(a, b)) continue;
-        paintEnd(words[i], endLinkLetters(a));
-        paintStart(words[i + 1], startLinkLetters(b));
-        insertBridge(words[i]);
+        if (!shouldLinkCV(plains[i], plains[i + 1])) continue;
+        endN[i] = endLinkLen(plains[i]);
+        startN[i + 1] = startLinkLen(plains[i + 1]);
+        bridgeAfter[i] = true;
       }
+
+      words.forEach((el, i) => {
+        if (startN[i] || endN[i]) paintWordOnce(el, startN[i], endN[i]);
+      });
+      words.forEach((el, i) => {
+        if (bridgeAfter[i]) insertBridge(el);
+      });
 
       return box.innerHTML;
     };
