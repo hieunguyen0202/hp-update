@@ -528,8 +528,9 @@
     /**
      * Keep English HTML (blanks + words) and add yellow IPA above each token.
      * Generator turns hyphens into spaces before eng_to_ipa, so "mouth-watering"
-     * becomes two IPA tokens — consume that many per EN word. Punctuation-only
-     * EN tokens (e.g. ".") usually already sit on the previous IPA token.
+     * becomes two IPA tokens — consume that many per EN word.
+     * Part 2 often has a standalone em dash "—" as its own IPA token; consume it
+     * when EN is punctuation-only. Periods/commas glued onto words stay 1:1.
      */
     const wrapHtmlWithWordIpa = (html, ipaFull) => {
       const tokens = tokenizeIpa(ipaFull);
@@ -537,6 +538,7 @@
       const box = document.createElement("div");
       box.innerHTML = html;
       let ti = 0;
+      const peekIpa = () => tokens[ti] || "";
       const takeIpa = () => tokens[ti++] || "";
 
       /** EN core without leading/trailing punctuation (keep internal ' and -). */
@@ -549,6 +551,10 @@
         const t = String(enText || "").trim();
         return t.length > 0 && !/[A-Za-z0-9]/.test(t);
       };
+
+      /** Standalone IPA punct (em dash, etc.) — not phoneme letters. */
+      const isIpaPunctOnly = (tok) =>
+        /^[\s.,;:!?\-—–…/]+$/.test(String(tok || "").trim());
 
       /**
        * How many space-separated IPA tokens this EN word should consume.
@@ -574,6 +580,11 @@
           if (t) parts.push(t);
         }
         return parts.join(" ");
+      };
+
+      /** EN "—" / ";" alone: eat matching IPA punct token so the stream stays synced. */
+      const syncPunctOnly = (enText) => {
+        if (isIpaPunctOnly(peekIpa())) takeIpa();
       };
 
       const makeWord = (enText, ipaText) => {
@@ -606,7 +617,7 @@
             return;
           }
           if (isPunctOnly(part)) {
-            // Keep punctuation in the English stream; IPA already glued on prior word
+            syncPunctOnly(part);
             frag.appendChild(document.createTextNode(part));
             return;
           }
@@ -624,11 +635,21 @@
         if (node.classList.contains("scroll-blank")) {
           const form = (node.dataset.answer || "").trim();
           const words = form ? form.split(/\s+/).filter(Boolean) : [""];
-          const ipas = words.map((w) => takeIpaForEn(w));
+          const ipas = words.map((w) => {
+            if (isPunctOnly(w)) {
+              syncPunctOnly(w);
+              return "";
+            }
+            return takeIpaForEn(w);
+          });
           if (node.classList.contains("is-revealed") && words.length > 1) {
             const frag = document.createDocumentFragment();
             words.forEach((w, i) => {
               if (i) frag.appendChild(document.createTextNode(" "));
+              if (isPunctOnly(w)) {
+                frag.appendChild(document.createTextNode(w));
+                return;
+              }
               frag.appendChild(makeWord(w, ipas[i] || ""));
             });
             node.replaceWith(frag);
