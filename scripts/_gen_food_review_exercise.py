@@ -4420,88 +4420,6 @@ LESSON16_MINDMAP_RIGHT = [
 
 
 
-# Lesson 17 · Building (Restaurant / café Food) — cây parent → nhánh
-LESSON17_FOOD_MINDMAP_LEFT = [
-    {
-        "id": "l17-basic-design",
-        "color": "#86efac",
-        "name": "Thông tin cơ bản + Thiết kế",
-        "name_vi": "Tên · Vị trí · Diện tích · Đánh giá → Ngoài/Trong",
-        "flow": True,
-        "opener": "It has a very nice name… · It's located on… · Although…, which makes it…",
-        "branches": [
-            {
-                "label": "Thông tin cơ bản",
-                "leaves": [
-                    tip("Tên: It has a very nice name – … / It's called …", "tip: long name · hard to remember · took me a while"),
-                    tip("Vị trí: It's located on + street…, District…", "near … · right in the city centre · quiet corner"),
-                    tip("Diện tích: quite small / spacious", "can hold a maximum of … people"),
-                    tip("Đánh giá: Although…, which makes it a perfect place for those who…", "unwind · hustle and bustle"),
-                ],
-            },
-            {
-                "label": "Thiết kế · Bên ngoài",
-                "leaves": [
-                    tip("is/are decorated with… (+ beautifully / nicely)", "tiny flowers · coloured string lights · ornaments"),
-                    tip("is/are surrounded by…", "tall trees · shops · steam / the smell of…"),
-                    tip("There is/are … in front of / behind / outside…", "rose garden · ornamental pond · a collection of…"),
-                ],
-            },
-            {
-                "label": "Thiết kế · Bên trong",
-                "leaves": [
-                    tip("is/are made of… (glass / wood)", "walls made of glass, which makes it look more spacious"),
-                    tip("windows / ceiling / walls / furniture", "ceiling decorated with moon and star ornaments"),
-                    tip("Atmosphere: make… even cosier / creates a … atmosphere that I can't describe in words", "breathtaking view of the city / garden"),
-                ],
-            },
-        ],
-        "link": "→ neo ngữ cảnh rồi tả không gian ngoài → trong",
-    },
-]
-
-LESSON17_FOOD_MINDMAP_RIGHT = [
-    {
-        "id": "l17-product-feel",
-        "color": "#fde68a",
-        "name": "Sản phẩm / Dịch vụ + Cảm nhận",
-        "name_vi": "Menu · Giá · Nhân viên · Recommend · Kết",
-        "flow": True,
-        "opener": "Speaking of food… · The thing I love most… · So, if I had to talk about…",
-        "branches": [
-            {
-                "label": "Sản phẩm · Dịch vụ",
-                "leaves": [
-                    tip("It serves a wide range of … including …", "= a lot of · liệt kê"),
-                    tip("I usually order … because I love the taste and the smell", "I've never tried …; maybe next time I'll give it a try"),
-                    tip("Chất lượng: high quality · freshly prepared · mouth-watering · signature dish", "Food feel: generous portions · aromatic · local delicacies"),
-                    tip("Giá: cheap / affordable / reasonable / expensive", "only costs … · I only have to pay … for …"),
-                    tip("Nhân viên: fast / polite / helpful / friendly", "welcome customers with a smile · attentive / courteous staff"),
-                ],
-            },
-            {
-                "label": "Lexical band (Restaurant / café)",
-                "leaves": [
-                    tip("Ambiance: cosy · welcoming · authentic · casual dining atmosphere", "intimate setting · bustling atmosphere"),
-                    tip("Decor: tastefully decorated · rustic charm · contemporary décor", "soft lighting · wooden furniture"),
-                    tip("Space: spacious · family-run · nestled in a quiet corner", "escape from the hustle and bustle · unwind"),
-                ],
-            },
-            {
-                "label": "Cảm nhận · Kết",
-                "leaves": [
-                    tip("I've recommended … to many of my friends, and they all said good things about it", "social proof"),
-                    tip("I would recommend … to anyone who loves … / wants to …", "recommend … to someone"),
-                    tip("So, if I had to talk about …, it would have to be …", "kết cố định Part 2"),
-                ],
-            },
-        ],
-        "link": "→ menu + staff dài · cảm nhận ngắn · kết 1 câu",
-    },
-]
-
-
-
 def collect_review_words() -> list[dict]:
     topic = next(t for t in TOPICS["topics"] if t["slug"] == "food-drink")
     by_level: dict[str, list[dict]] = {}
@@ -9859,55 +9777,41 @@ def _p2_sec(label: str, en: str, vi: str, plain: str | None = None) -> str:
 
 
 def lesson17_building_food_grammar_html() -> str:
-    """L17 Building · Food/Restaurant — tree (mind map + grammar trees), not flat columns."""
-    mmap = mind_map_html(
-        "lesson17FoodBuildingMindmap",
-        "L17 Building · Restaurant / café",
-        "L17 Building",
-        "Restaurant / café",
-        LESSON17_FOOD_MINDMAP_LEFT,
-        LESSON17_FOOD_MINDMAP_RIGHT,
-        note="Trái = <strong>thông tin cơ bản + thiết kế</strong> (ngoài → trong) · Phải = <strong>sản phẩm/dịch vụ + cảm nhận/kết</strong>. Parent → nhánh con như slide Nguyễn Huyền.",
-        extra_class=" lr-mmap--lesson17",
-        min_width="1380px",
-    )
-    tree_flow = lesson_grammar_tree_html(
-        "L17 · Khung nói (Restaurant / café)",
-        "Describe a restaurant / café / place to relax",
+    """L17 Building · Food/Restaurant — grammar trees (folder style), multi-column."""
+    tree_basic = lesson_grammar_tree_html(
+        "L17 · Thông tin cơ bản",
+        "THÔNG TIN CƠ BẢN",
         [
             {
-                "label_html": f'{_g_mark("Mở + Thông tin cơ bản")}',
+                "label_html": f'{_g_mark("Tên")}',
                 "openers": [
-                    "I'm going to talk about [X] which [paraphrase]",
-                    "Name · Location · Size",
-                    "Although…, which makes it a perfect place for those who…",
+                    "It has a very nice name – …",
+                    "It's called … which is a nice name",
                 ],
                 "details_label": "Tip kéo dài",
                 "details": [
-                    "quite a long name · hard to remember · took me a while",
-                    "which is one of my favourite restaurants / tearooms",
-                    "Relative clause which… để nối đánh giá",
+                    "quite a long name · hard to remember",
+                    "It took me quite a while to remember it",
                 ],
             },
             {
-                "label_html": f'{_g_mark("Cốt lõi")} ★ dài nhất',
+                "label_html": f'{_g_mark("Vị trí · Diện tích")}',
                 "openers": [
-                    "Thiết kế: decorated with / surrounded by / made of",
-                    "Menu: a wide range of… including… · I usually order… because…",
-                    "Staff: The thing I love most… · welcome… with a smile",
+                    "It's located on + street …, District …",
+                    "near … · right in the city centre · quiet corner",
+                    "quite small / large / spacious · can hold a maximum of … people",
                 ],
-                "details_label": "Cảm nhận + Kết",
+                "details_label": "1 câu đánh giá",
                 "details": [
-                    "I've recommended… · they all said good things about it",
-                    "recommend… to anyone who loves… / wants to…",
-                    "So, if I had to talk about…, it would have to be…",
+                    "Although…, which makes it a perfect place for those who…",
+                    "It's by the seaside, which makes it a perfect place for…",
+                    "which is one of my favourite restaurants / tearooms",
                 ],
             },
         ],
         footer=[
-            "give it a try · Speaking of / In terms of…",
-            "cosy atmosphere · hustle and bustle · unwind",
-            "attentive staff · tastefully decorated · family-run",
+            "Name · Location · Size → 1 evaluation sentence",
+            "Relative clause which… để kéo dài",
         ],
     )
     tree_design = lesson_grammar_tree_html(
@@ -9917,14 +9821,14 @@ def lesson17_building_food_grammar_html() -> str:
             {
                 "label_html": f'{_g_mark("Bên ngoài")}',
                 "openers": [
-                    "is/are decorated with…",
+                    "is/are decorated with… (+ beautifully / nicely)",
                     "is/are surrounded by…",
-                    "There is/are … outside / in front of…",
+                    "There is/are … outside / in front of / behind…",
                 ],
                 "details_label": "Vocab",
                 "details": [
                     "tiny flowers · coloured string lights · ornaments · balloons",
-                    "tall trees · department stores · souvenir shops",
+                    "tall trees · department stores · souvenir shops · steam / smell of…",
                     "rose garden · ornamental pond · a collection of…",
                 ],
             },
@@ -9932,30 +9836,99 @@ def lesson17_building_food_grammar_html() -> str:
                 "label_html": f'{_g_mark("Bên trong")}',
                 "openers": [
                     "is/are made of glass / wood…",
-                    "windows / ceiling / walls / furniture",
+                    "windows / ceiling / walls / furniture / rooms",
                     "make the atmosphere even cosier / more relaxing",
                 ],
                 "details_label": "Vocab + effect",
                 "details": [
+                    "walls made of glass, which makes it look more spacious",
                     "creates a very cosy atmosphere that I can't really describe in words",
                     "while enjoying the breathtaking view of…",
                     "temporarily forget all the pressures of daily life",
                 ],
             },
         ],
+        footer=None,
+    )
+    tree_product = lesson_grammar_tree_html(
+        "L17 · Sản phẩm / dịch vụ",
+        "SẢN PHẨM · DỊCH VỤ",
+        [
+            {
+                "label_html": f'{_g_mark("Menu")}',
+                "openers": [
+                    "It serves a wide range of … including …",
+                    "I usually order … because I love the taste and the smell",
+                    "I've never tried …; maybe next time I'll give it a try",
+                ],
+                "details_label": "Chất lượng · Giá",
+                "details": [
+                    "high quality · freshly prepared · mouth-watering · signature dish",
+                    "cheap / affordable / reasonable / expensive",
+                    "only costs … · I only have to pay … for …",
+                ],
+            },
+            {
+                "label_html": f'{_g_mark("Nhân viên · Highlight")}',
+                "openers": [
+                    "They are very fast / polite / helpful / friendly",
+                    "They always welcome their customers with a smile",
+                    "The thing that I love most about … is …",
+                ],
+                "details_label": "Chuyển ý",
+                "details": [
+                    "Speaking of food / In terms of the menu",
+                    "give it a try",
+                ],
+            },
+        ],
         footer=[
-            "SẢN PHẨM/DỊCH VỤ → quality · price · staff",
-            "It serves a wide range of… including… (= a lot of)",
-            "The thing that I love most about … is …",
+            "a wide range of = a lot of · liệt kê sau including",
         ],
     )
+    tree_lex = lesson_grammar_tree_html(
+        "L17 · Lexical + Cảm nhận",
+        "LEXICAL BAND · CẢM NHẬN",
+        [
+            {
+                "label_html": f'{_g_mark("Restaurant / café band")}',
+                "openers": [
+                    "cosy / welcoming / authentic / casual dining atmosphere",
+                    "tastefully decorated · rustic charm · contemporary décor",
+                    "attentive / impeccable service · courteous staff",
+                ],
+                "details_label": "Space · Food feel · Unwind",
+                "details": [
+                    "spacious · family-run · nestled in a quiet corner · bustling",
+                    "generous portions · local delicacies · aromatic · culinary experience",
+                    "escape from the hustle and bustle · unwind · recharge",
+                ],
+            },
+            {
+                "label_html": f'{_g_mark("Cảm nhận · Kết")}',
+                "openers": [
+                    "I've recommended … to many of my friends, and they all said good things about it",
+                    "I would recommend … to anyone who loves … / wants to …",
+                    "This is the first place I think of whenever I want to…",
+                ],
+                "details_label": "Kết cố định",
+                "details": [
+                    "So, if I had to talk about …, it would have to be …",
+                ],
+            },
+        ],
+        footer=None,
+    )
     return f"""
-          <div id="lesson17-building-grammar">
-            <h4 class="lr-grammar-notes-title">Grammar note · L17 Building (Restaurant / café) · dạng cây</h4>
-            <p class="lr-freq-hint">Đọc <strong>từ gốc → nhánh</strong> (như Grammar notes Lesson 16). Vuốt ngang sơ đồ nếu cần. Dùng <code>which…</code> để kéo dài câu.</p>
-{mmap}
-{tree_flow}
+          <div class="lr-grammar-notes lr-lex-boost-wrap" id="lesson17-building-grammar">
+            <h4 class="lr-grammar-notes-title">Grammar note · L17 Building (Restaurant / café)</h4>
+            <p class="lr-freq-hint">Khung: <strong>Tên · Vị trí · Diện tích · 1 câu đánh giá</strong> → <strong>Thiết kế (ngoài/trong)</strong> + <strong>Sản phẩm/Dịch vụ</strong> → cảm nhận/recommend → kết. Dạng <strong>cây thư mục</strong> (gốc → nhánh). Dùng <code>which…</code> để kéo dài.</p>
+            <div class="lr-g-tree-grid lr-g-tree-grid--l17">
+{tree_basic}
 {tree_design}
+{tree_product}
+{tree_lex}
+            </div>
           </div>"""
 
 
@@ -13648,7 +13621,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr52">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr53">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -13767,7 +13740,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr52">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr53">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
