@@ -14,6 +14,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 Stop:
 
+
 ```bash
 docker compose down
 ```
