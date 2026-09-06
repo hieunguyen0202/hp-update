@@ -2817,6 +2817,162 @@ a.kk-card--biz:hover {
   margin-bottom: 0.08em;
 }
 
+/* —— Intonation note + tone marks (Scroll read) —— */
+.ex-scroll-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.ex-scroll-title-row h3 {
+  margin: 0;
+}
+
+.lr-intonation-note {
+  position: relative;
+  display: inline-flex;
+  z-index: 6;
+}
+
+.lr-intonation-note-btn {
+  appearance: none;
+  border: 1px solid rgba(103, 232, 249, 0.45);
+  background: rgba(8, 47, 73, 0.75);
+  color: #a5f3fc;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  padding: 0.22em 0.65em;
+  border-radius: 999px;
+  cursor: help;
+  line-height: 1.3;
+}
+
+.lr-intonation-note-btn:hover,
+.lr-intonation-note:focus-within .lr-intonation-note-btn {
+  border-color: rgba(103, 232, 249, 0.85);
+  background: rgba(14, 116, 144, 0.45);
+  color: #ecfeff;
+}
+
+.lr-intonation-note-pop {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 8px);
+  width: min(420px, 88vw);
+  padding: 0.75rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid rgba(103, 232, 249, 0.35);
+  background: #0b1220;
+  color: #e2e8f0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 0.12s ease, transform 0.12s ease, visibility 0.12s;
+  z-index: 50;
+}
+
+.lr-intonation-note:hover .lr-intonation-note-pop,
+.lr-intonation-note:focus-within .lr-intonation-note-pop {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.lr-intonation-note-lead {
+  margin: 0 0 0.45rem;
+  color: #cbd5e1;
+}
+
+.lr-intonation-note-legend {
+  margin: 0 0 0.5rem;
+  font-weight: 650;
+  color: #f8fafc;
+}
+
+.lr-intonation-note-pop ul {
+  margin: 0 0 0.55rem;
+  padding-left: 1.1em;
+}
+
+.lr-intonation-note-pop li {
+  margin: 0.28em 0;
+}
+
+.lr-intonation-note-foot {
+  margin: 0;
+  padding-top: 0.4rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.25);
+  color: #94a3b8;
+  font-size: 0.74rem;
+}
+
+.lr-intonation-note-foot a {
+  color: #67e8f9;
+}
+
+.ex-scroll-tone-legend {
+  margin: 0.15rem 0 0.55rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 8px;
+  border: 1px dashed rgba(103, 232, 249, 0.35);
+  background: rgba(8, 47, 73, 0.35);
+  color: #cbd5e1;
+  font-size: 0.78rem;
+}
+
+.scroll-tone-word,
+.scroll-tone {
+  position: relative;
+  display: inline;
+}
+
+.scroll-tone-mark {
+  display: inline;
+  font-size: 0.78em;
+  font-weight: 700;
+  margin-left: 0.04em;
+  vertical-align: super;
+  line-height: 0;
+}
+
+.scroll-tone-mark--rise {
+  color: #67e8f9;
+}
+
+.scroll-tone-mark--fall {
+  color: #fbbf24;
+}
+
+.scroll-word.scroll-tone {
+  padding-right: 0.55em;
+}
+
+.scroll-word.scroll-tone > .scroll-tone-mark {
+  position: absolute;
+  right: 0;
+  top: 0.15em;
+  margin-left: 0;
+  vertical-align: baseline;
+  line-height: 1;
+}
+
+.scroll-line--a-tone {
+  line-height: 1.75;
+}
+
+.lr-scroll-read .scroll-blank.scroll-tone {
+  padding-right: 0.7em;
+}
+
 .lr-scroll-read {
   margin-top: 1.5rem;
 }

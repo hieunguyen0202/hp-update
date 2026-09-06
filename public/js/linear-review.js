@@ -676,6 +676,126 @@
       return box.innerHTML;
     };
 
+    /**
+     * Mark rising ↗ / falling ↘ on clause & sentence boundaries for practice.
+     * Heuristic (Oxford rules): mid-clause (,;— / before but|because|…) → rise;
+     * sentence end (.!?) → fall; last unmarked word → fall.
+     */
+    const wrapHtmlWithIntonation = (html) => {
+      const box = document.createElement("div");
+      box.innerHTML = html;
+      const words = [];
+      const RISE_NEXT =
+        /^(but|because|although|though|while|whereas|which|who|when|if|and|or|so|as)$/i;
+
+      const markEl = (el, tone) => {
+        if (!el || el.classList.contains("scroll-tone")) return;
+        el.classList.add("scroll-tone", `scroll-tone--${tone}`);
+        if (!el.querySelector(":scope > .scroll-tone-mark")) {
+          const m = document.createElement("span");
+          m.className = `scroll-tone-mark scroll-tone-mark--${tone}`;
+          m.setAttribute("aria-hidden", "true");
+          m.textContent = tone === "rise" ? "↗" : "↘";
+          el.appendChild(m);
+        }
+      };
+
+      const wrapTextNode = (textNode) => {
+        const raw = textNode.textContent;
+        if (!raw) return;
+        const parts = raw.split(/(\s+)/);
+        const frag = document.createDocumentFragment();
+        parts.forEach((part) => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) {
+            frag.appendChild(document.createTextNode(part));
+            return;
+          }
+          if (/^[.,;:!?…—–]+$/.test(part)) {
+            if (words.length) words[words.length - 1].trail += part;
+            frag.appendChild(document.createTextNode(part));
+            return;
+          }
+          const m = part.match(
+            /^([\p{L}\p{N}'’\u00C0-\u024F\-]+)([.,;:!?…—–]*)$/u
+          );
+          if (m) {
+            let host = null;
+            // Prefer attaching into existing .scroll-word-en when IPA overlay is on
+            const span = document.createElement("span");
+            span.className = "scroll-tone-word";
+            span.textContent = m[1];
+            host = span;
+            frag.appendChild(span);
+            if (m[2]) frag.appendChild(document.createTextNode(m[2]));
+            words.push({ el: host, trail: m[2] || "" });
+            return;
+          }
+          const span = document.createElement("span");
+          span.className = "scroll-tone-word";
+          span.textContent = part;
+          frag.appendChild(span);
+          words.push({ el: span, trail: "" });
+        });
+        textNode.parentNode.replaceChild(frag, textNode);
+      };
+
+      const visit = (node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          wrapTextNode(node);
+          return;
+        }
+        if (node.nodeType !== Node.ELEMENT_NODE) return;
+        if (node.classList.contains("scroll-tone-mark")) return;
+        if (node.classList.contains("scroll-blank")) {
+          const ans = (node.dataset.answer || node.textContent || "").trim();
+          const m = ans.match(/[.,;:!?…—–]+$/);
+          words.push({ el: node, trail: m ? m[0] : "" });
+          return;
+        }
+        if (node.classList.contains("scroll-word")) {
+          const en = (
+            node.querySelector(".scroll-word-en")?.textContent ||
+            node.textContent ||
+            ""
+          ).trim();
+          // IPA span may prepend — use EN only when present
+          const enOnly = node.querySelector(".scroll-word-en")
+            ? node.querySelector(".scroll-word-en").textContent.trim()
+            : en.replace(node.querySelector(".scroll-word-ipa")?.textContent || "", "").trim();
+          const m = enOnly.match(/[.,;:!?…—–]+$/);
+          words.push({ el: node, trail: m ? m[0] : "" });
+          return;
+        }
+        [...node.childNodes].forEach(visit);
+      };
+
+      [...box.childNodes].forEach(visit);
+
+      for (let i = 0; i < words.length; i++) {
+        const trail = words[i].trail || "";
+        const nextText = (
+          words[i + 1]?.el?.querySelector?.(".scroll-word-en")?.textContent ||
+          words[i + 1]?.el?.textContent ||
+          ""
+        )
+          .replace(/\s+/g, " ")
+          .trim();
+        const nextCore = nextText.replace(/^[^A-Za-z]+/, "").split(/\s+/)[0] || "";
+
+        if (/[.!?…]/.test(trail)) markEl(words[i].el, "fall");
+        else if (/[,;:—–]/.test(trail)) markEl(words[i].el, "rise");
+        else if (nextCore && RISE_NEXT.test(nextCore)) markEl(words[i].el, "rise");
+      }
+
+      if (words.length) {
+        const last = words[words.length - 1];
+        if (!last.el.classList.contains("scroll-tone")) markEl(last.el, "fall");
+      }
+
+      return box.innerHTML;
+    };
+
     const plainFromAnswer = (answerEl) => {
       if (answerEl.dataset.plain) return answerEl.dataset.plain;
       const liveSelects = [...answerEl.querySelectorAll(".lr-word-pick")];
@@ -701,6 +821,8 @@
       const revealTog = root.querySelector(".js-scroll-reveal");
       const showIpaTog = root.querySelector(".js-scroll-show-ipa");
       const showIpaOverTog = root.querySelector(".js-scroll-show-ipa-over");
+      const showIntonationTog = root.querySelector(".js-scroll-show-intonation");
+      const toneLegend = root.querySelector(".ex-scroll-tone-legend");
       const btnPlay = root.querySelector(".js-scroll-play");
       const btnPause = root.querySelector(".js-scroll-pause");
       const btnRestart = root.querySelector(".js-scroll-restart");
@@ -717,6 +839,9 @@
         const reveal = !!(revealTog && revealTog.checked);
         const showIpa = !!(showIpaTog && showIpaTog.checked);
         const showIpaOver = !!(showIpaOverTog && showIpaOverTog.checked);
+        const showIntonation = !!(showIntonationTog && showIntonationTog.checked);
+        if (toneLegend) toneLegend.hidden = !showIntonation;
+        root.classList.toggle("is-intonation", showIntonation);
         const blocks = [];
 
         const resolveIpa = (ans, qaEl) =>
@@ -730,22 +855,32 @@
           if (!ans) return;
           const ipa = resolveIpa(ans, qaEl);
           if (showIpa && !showIpaOver) {
-            blocks.push(
-              `<p class="scroll-line scroll-line--a scroll-line--a-ipa">${escapeHtml(
-                ipa || plainFromAnswer(ans)
-              )}</p>`
-            );
+            let ipaHtml = escapeHtml(ipa || plainFromAnswer(ans));
+            if (showIntonation) {
+              // Intonation on IPA-only line is less useful — skip marks
+              blocks.push(
+                `<p class="scroll-line scroll-line--a scroll-line--a-ipa">${ipaHtml}</p>`
+              );
+            } else {
+              blocks.push(
+                `<p class="scroll-line scroll-line--a scroll-line--a-ipa">${ipaHtml}</p>`
+              );
+            }
             return;
           }
           let html = answerToHtml(ans, mode, reveal);
           if (showIpaOver && ipa) {
             html = wrapHtmlWithWordIpa(html, ipa);
-            blocks.push(
-              `<p class="scroll-line scroll-line--a scroll-line--a-overlay">${html}</p>`
-            );
-          } else {
-            blocks.push(`<p class="scroll-line scroll-line--a">${html}</p>`);
           }
+          if (showIntonation) {
+            html = wrapHtmlWithIntonation(html);
+          }
+          const overlayClass =
+            showIpaOver && ipa ? " scroll-line--a-overlay" : "";
+          const toneClass = showIntonation ? " scroll-line--a-tone" : "";
+          blocks.push(
+            `<p class="scroll-line scroll-line--a${overlayClass}${toneClass}">${html}</p>`
+          );
         };
 
         // Lesson 16 · Part 2: cue card + 5 labeled sections (no .lr-scroll-qa)
@@ -901,6 +1036,8 @@
           if (showIpaOverTog.checked && showIpaTog) showIpaTog.checked = false;
           rebuild();
         });
+      showIntonationTog &&
+        showIntonationTog.addEventListener("change", rebuild);
       source.querySelectorAll(".lr-word-pick").forEach((sel) => {
         sel.addEventListener("change", rebuild);
       });
