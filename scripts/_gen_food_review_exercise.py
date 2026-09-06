@@ -5244,7 +5244,7 @@ def lesson_scroll_read_html(uid: str, *, title: str, source_sel: str) -> str:
           <div class="ex-scroll-head">
             <div>
               <h3>Scroll read · speaking · {esc(title)}</h3>
-              <p class="ex-scroll-hint">Teleprompter luyện nói — chỉ tiếng Anh. Tắt <strong>Hiện từ EN</strong> để thấy khung + gợi ý VI. Bật <strong>Hiện IPA đoạn</strong> để cả đoạn <em>answer</em> chuyển sang IPA (câu hỏi vẫn giữ tiếng Anh, màu vàng). <strong>Copy</strong> = Q + A tiếng Anh sạch (NaturalReader).</p>
+              <p class="ex-scroll-hint">Teleprompter luyện nói — chỉ tiếng Anh. Tắt <strong>Hiện từ EN</strong> để thấy khung + gợi ý VI. <strong>Hiện IPA đoạn</strong> = cả đoạn answer thành IPA. <strong>Hiện IPA trên từ</strong> = giữ text Anh như cũ, thêm IPA vàng nhỏ (~60%) phía trên từng chữ. <strong>Copy</strong> = Q + A tiếng Anh sạch (NaturalReader).</p>
             </div>
             <div class="ex-scroll-nr-actions">
               <a class="ex-btn ex-scroll-nr-link" href="https://www.naturalreaders.com/online/" target="_blank" rel="noopener noreferrer">NaturalReaders ↗</a>
@@ -5269,6 +5269,7 @@ def lesson_scroll_read_html(uid: str, *, title: str, source_sel: str) -> str:
             </label>
             <label class="ex-toggle"><input type="checkbox" class="js-scroll-reveal"> Hiện từ EN</label>
             <label class="ex-toggle"><input type="checkbox" class="js-scroll-show-ipa"> Hiện IPA đoạn</label>
+            <label class="ex-toggle"><input type="checkbox" class="js-scroll-show-ipa-over"> Hiện IPA trên từ</label>
           </div>
           <div class="ex-scroll-stage">
             <div class="ex-scroll-focus" aria-hidden="true"></div>
@@ -9778,11 +9779,12 @@ def _strip_picks_to_plain(en_html: str) -> str:
 
 def _p2_sec(label: str, en: str, vi: str, plain: str | None = None) -> str:
     plain_text = plain if plain is not None else _strip_picks_to_plain(en)
+    ipa_full = _resolve_ipa("", plain_text)
     # Wrap answer in .lr-tip-text so .lr-food-ex-line flex does not treat each
     # <select>/text node as a separate nowrap flex item (layout shatter).
     return f"""            <div class="lr-p2-sec">
               <span class="lr-p2-sec-label">{esc(label)}</span>
-              <p class="lr-food-ex-line lr-tip lr-answer-text lr-p2-line" data-tip="{esc(vi)}" title="{esc(vi)}" data-plain="{esc(plain_text)}"><span class="lr-tip-text">{en}</span></p>
+              <p class="lr-food-ex-line lr-tip lr-answer-text lr-p2-line" data-tip="{esc(vi)}" title="{esc(vi)}" data-plain="{esc(plain_text)}" data-ipa-full="{esc(ipa_full)}"><span class="lr-tip-text">{en}</span></p>
             </div>"""
 
 
@@ -13727,7 +13729,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr57">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr58">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -13751,7 +13753,7 @@ def build_page() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr22"></script>
-  <script src="{home}js/linear-review.js?v=lr30"></script>
+  <script src="{home}js/linear-review.js?v=lr31"></script>
 </body>
 </html>"""
 
@@ -13846,7 +13848,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr57">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr58">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -13870,7 +13872,7 @@ def build_page_review2() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr22"></script>
-  <script src="{home}js/linear-review.js?v=lr30"></script>
+  <script src="{home}js/linear-review.js?v=lr31"></script>
 </body>
 </html>"""
 

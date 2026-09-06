@@ -517,6 +517,76 @@
       return clone.innerHTML.replace(/\s+/g, " ").trim();
     };
 
+    /** Split full IPA string `/wɛl, aɪ …/` into per-word tokens */
+    const tokenizeIpa = (ipaFull) => {
+      let s = (ipaFull || "").trim();
+      if (!s) return [];
+      s = s.replace(/^\/+/, "").replace(/\/+$/, "").trim();
+      return s.split(/\s+/).filter(Boolean);
+    };
+
+    /**
+     * Keep English HTML (blanks + words) and add yellow IPA above each token.
+     * Walks DOM in order so blanks consume IPA slots like spoken words.
+     */
+    const wrapHtmlWithWordIpa = (html, ipaFull) => {
+      const tokens = tokenizeIpa(ipaFull);
+      if (!tokens.length) return html;
+      const box = document.createElement("div");
+      box.innerHTML = html;
+      let ti = 0;
+      const takeIpa = () => tokens[ti++] || "";
+
+      const wrapTextNode = (textNode) => {
+        const raw = textNode.textContent;
+        if (!raw || !raw.trim()) return;
+        const parts = raw.split(/(\s+)/);
+        const frag = document.createDocumentFragment();
+        parts.forEach((part) => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) {
+            frag.appendChild(document.createTextNode(part));
+            return;
+          }
+          const span = document.createElement("span");
+          span.className = "scroll-word";
+          const ipaEl = document.createElement("span");
+          ipaEl.className = "scroll-word-ipa";
+          ipaEl.setAttribute("lang", "en-fonipa");
+          ipaEl.textContent = takeIpa();
+          const enEl = document.createElement("span");
+          enEl.className = "scroll-word-en";
+          enEl.textContent = part;
+          span.appendChild(ipaEl);
+          span.appendChild(enEl);
+          frag.appendChild(span);
+        });
+        textNode.parentNode.replaceChild(frag, textNode);
+      };
+
+      const visit = (node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          wrapTextNode(node);
+          return;
+        }
+        if (node.nodeType !== Node.ELEMENT_NODE) return;
+        if (node.classList.contains("scroll-blank")) {
+          const ipaEl = document.createElement("span");
+          ipaEl.className = "scroll-word-ipa";
+          ipaEl.setAttribute("lang", "en-fonipa");
+          ipaEl.textContent = takeIpa();
+          node.classList.add("scroll-word");
+          node.insertBefore(ipaEl, node.firstChild);
+          return;
+        }
+        if (node.classList.contains("scroll-word-ipa")) return;
+        [...node.childNodes].forEach(visit);
+      };
+
+      [...box.childNodes].forEach(visit);
+      return box.innerHTML;
+    };
+
     const plainFromAnswer = (answerEl) => {
       if (answerEl.dataset.plain) return answerEl.dataset.plain;
       const liveSelects = [...answerEl.querySelectorAll(".lr-word-pick")];
@@ -541,6 +611,7 @@
       const hintMode = root.querySelector(".js-scroll-hint");
       const revealTog = root.querySelector(".js-scroll-reveal");
       const showIpaTog = root.querySelector(".js-scroll-show-ipa");
+      const showIpaOverTog = root.querySelector(".js-scroll-show-ipa-over");
       const btnPlay = root.querySelector(".js-scroll-play");
       const btnPause = root.querySelector(".js-scroll-pause");
       const btnRestart = root.querySelector(".js-scroll-restart");
@@ -556,21 +627,35 @@
         const mode = hintMode ? hintMode.value : "vi";
         const reveal = !!(revealTog && revealTog.checked);
         const showIpa = !!(showIpaTog && showIpaTog.checked);
+        const showIpaOver = !!(showIpaOverTog && showIpaOverTog.checked);
         const blocks = [];
+
+        const resolveIpa = (ans, qaEl) =>
+          (
+            (ans && ans.dataset.ipaFull) ||
+            (qaEl && qaEl.dataset.ipaFull) ||
+            ""
+          ).trim();
 
         const pushAnswer = (ans, qaEl) => {
           if (!ans) return;
-          if (showIpa) {
-            const ipa = ((qaEl && qaEl.dataset.ipaFull) || "").trim();
+          const ipa = resolveIpa(ans, qaEl);
+          if (showIpa && !showIpaOver) {
             blocks.push(
               `<p class="scroll-line scroll-line--a scroll-line--a-ipa">${escapeHtml(
                 ipa || plainFromAnswer(ans)
               )}</p>`
             );
-          } else {
+            return;
+          }
+          let html = answerToHtml(ans, mode, reveal);
+          if (showIpaOver && ipa) {
+            html = wrapHtmlWithWordIpa(html, ipa);
             blocks.push(
-              `<p class="scroll-line scroll-line--a">${answerToHtml(ans, mode, reveal)}</p>`
+              `<p class="scroll-line scroll-line--a scroll-line--a-overlay">${html}</p>`
             );
+          } else {
+            blocks.push(`<p class="scroll-line scroll-line--a">${html}</p>`);
           }
         };
 
@@ -717,7 +802,16 @@
       }
       hintMode && hintMode.addEventListener("change", rebuild);
       revealTog && revealTog.addEventListener("change", rebuild);
-      showIpaTog && showIpaTog.addEventListener("change", rebuild);
+      showIpaTog &&
+        showIpaTog.addEventListener("change", () => {
+          if (showIpaTog.checked && showIpaOverTog) showIpaOverTog.checked = false;
+          rebuild();
+        });
+      showIpaOverTog &&
+        showIpaOverTog.addEventListener("change", () => {
+          if (showIpaOverTog.checked && showIpaTog) showIpaTog.checked = false;
+          rebuild();
+        });
       source.querySelectorAll(".lr-word-pick").forEach((sel) => {
         sel.addEventListener("change", rebuild);
       });

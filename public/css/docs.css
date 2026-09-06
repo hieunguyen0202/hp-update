@@ -2736,6 +2736,47 @@ a.kk-card--biz:hover {
   letter-spacing: 0.01em;
 }
 
+/* IPA above each English word (Scroll read overlay mode) */
+.scroll-line--a-overlay {
+  line-height: 1.95;
+}
+
+.scroll-word {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: baseline;
+  margin: 0 0.06em;
+  max-width: 100%;
+}
+
+.scroll-word-ipa {
+  display: block;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.6em;
+  line-height: 1.15;
+  font-weight: 500;
+  color: #facc15;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.scroll-word-en {
+  display: block;
+  line-height: 1.35;
+}
+
+.scroll-blank.scroll-word {
+  /* blank already column-flex; IPA sits above gap/hint */
+  gap: 0.1em;
+}
+
+.scroll-blank.scroll-word .scroll-word-ipa {
+  order: -1;
+}
+
 .lr-scroll-read {
   margin-top: 1.5rem;
 }
