@@ -2759,50 +2759,62 @@ a.kk-card--biz:hover {
   letter-spacing: 0.01em;
 }
 
-/* IPA above each English word (Scroll read overlay mode) */
+/* IPA above each English word (Scroll read overlay mode).
+   IPA is absolutely positioned so it never widens EN word spacing. */
 .scroll-line--a-overlay {
-  line-height: 2.05;
+  line-height: 2.15;
+  padding-top: 0.85em;
 }
 
 .scroll-word {
-  display: inline-block;
+  display: inline;
+  position: relative;
   vertical-align: baseline;
-  text-align: center;
-  margin: 0 0.08em;
-  max-width: 100%;
-  line-height: 1.25;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
 }
 
 .scroll-word-ipa {
-  display: block;
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.12em);
+  transform: translateX(-50%);
   font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 0.6em;
-  line-height: 1.1;
+  font-size: 0.58em;
+  line-height: 1;
   font-weight: 500;
   color: #facc15;
   white-space: nowrap;
-  max-width: 14em;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  pointer-events: none;
+  max-width: none;
+  overflow: visible;
+  z-index: 1;
 }
 
 .scroll-word-en {
-  display: block;
-  line-height: 1.35;
+  display: inline;
+  line-height: inherit;
 }
 
 .scroll-blank.scroll-word {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
   text-align: center;
-  gap: 0.08em;
+  white-space: normal;
 }
 
 .scroll-blank.scroll-word .scroll-word-ipa {
+  position: static;
+  left: auto;
+  bottom: auto;
+  transform: none;
   order: -1;
   max-width: 16em;
   white-space: normal;
+  margin-bottom: 0.08em;
 }
 
 .lr-scroll-read {

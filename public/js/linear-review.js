@@ -527,8 +527,9 @@
 
     /**
      * Keep English HTML (blanks + words) and add yellow IPA above each token.
-     * Walks DOM in order so blanks consume IPA slots like spoken words.
-     * Multi-word blank answers consume one IPA token per word (fixes drift when Hiện từ EN).
+     * Generator turns hyphens into spaces before eng_to_ipa, so "mouth-watering"
+     * becomes two IPA tokens — consume that many per EN word. Punctuation-only
+     * EN tokens (e.g. ".") usually already sit on the previous IPA token.
      */
     const wrapHtmlWithWordIpa = (html, ipaFull) => {
       const tokens = tokenizeIpa(ipaFull);
@@ -538,17 +539,57 @@
       let ti = 0;
       const takeIpa = () => tokens[ti++] || "";
 
+      /** EN core without leading/trailing punctuation (keep internal ' and -). */
+      const enCore = (enText) =>
+        String(enText || "")
+          .replace(/^[^A-Za-z0-9'’\-]+/, "")
+          .replace(/[^A-Za-z0-9'’\-]+$/, "");
+
+      const isPunctOnly = (enText) => {
+        const t = String(enText || "").trim();
+        return t.length > 0 && !/[A-Za-z0-9]/.test(t);
+      };
+
+      /**
+       * How many space-separated IPA tokens this EN word should consume.
+       * Matches `_ipa_from_en` (hyphen → space; takeaway → take away).
+       */
+      const ipaSlotsForEn = (enText) => {
+        if (isPunctOnly(enText)) return 0;
+        const core = enCore(enText);
+        if (!core) return 0;
+        const lower = core.toLowerCase();
+        // Pre-normalisations applied in scripts/_gen_food_review_exercise.py
+        if (lower === "takeaway") return 2;
+        const hyphenParts = core.split("-").filter(Boolean);
+        return Math.max(1, hyphenParts.length);
+      };
+
+      const takeIpaForEn = (enText) => {
+        const n = ipaSlotsForEn(enText);
+        if (n <= 0) return "";
+        const parts = [];
+        for (let i = 0; i < n; i++) {
+          const t = takeIpa();
+          if (t) parts.push(t);
+        }
+        return parts.join(" ");
+      };
+
       const makeWord = (enText, ipaText) => {
         const span = document.createElement("span");
         span.className = "scroll-word";
-        const ipaEl = document.createElement("span");
-        ipaEl.className = "scroll-word-ipa";
-        ipaEl.setAttribute("lang", "en-fonipa");
-        ipaEl.textContent = ipaText;
+        if (ipaText) {
+          const ipaEl = document.createElement("span");
+          ipaEl.className = "scroll-word-ipa";
+          ipaEl.setAttribute("lang", "en-fonipa");
+          ipaEl.setAttribute("aria-hidden", "true");
+          ipaEl.textContent = ipaText;
+          span.appendChild(ipaEl);
+        }
         const enEl = document.createElement("span");
         enEl.className = "scroll-word-en";
         enEl.textContent = enText;
-        span.appendChild(ipaEl);
         span.appendChild(enEl);
         return span;
       };
@@ -564,7 +605,12 @@
             frag.appendChild(document.createTextNode(part));
             return;
           }
-          frag.appendChild(makeWord(part, takeIpa()));
+          if (isPunctOnly(part)) {
+            // Keep punctuation in the English stream; IPA already glued on prior word
+            frag.appendChild(document.createTextNode(part));
+            return;
+          }
+          frag.appendChild(makeWord(part, takeIpaForEn(part)));
         });
         textNode.parentNode.replaceChild(frag, textNode);
       };
@@ -578,10 +624,8 @@
         if (node.classList.contains("scroll-blank")) {
           const form = (node.dataset.answer || "").trim();
           const words = form ? form.split(/\s+/).filter(Boolean) : [""];
-          // Consume one IPA token per word in the blank (matches data-ipa-full word count)
-          const ipas = words.map(() => takeIpa());
+          const ipas = words.map((w) => takeIpaForEn(w));
           if (node.classList.contains("is-revealed") && words.length > 1) {
-            // Expand multi-word revealed blank into per-word IPA+EN units
             const frag = document.createDocumentFragment();
             words.forEach((w, i) => {
               if (i) frag.appendChild(document.createTextNode(" "));
@@ -590,12 +634,16 @@
             node.replaceWith(frag);
             return;
           }
-          const ipaEl = document.createElement("span");
-          ipaEl.className = "scroll-word-ipa";
-          ipaEl.setAttribute("lang", "en-fonipa");
-          ipaEl.textContent = ipas.filter(Boolean).join(" ");
-          node.classList.add("scroll-word");
-          node.insertBefore(ipaEl, node.firstChild);
+          const ipaJoined = ipas.filter(Boolean).join(" ");
+          if (ipaJoined) {
+            const ipaEl = document.createElement("span");
+            ipaEl.className = "scroll-word-ipa";
+            ipaEl.setAttribute("lang", "en-fonipa");
+            ipaEl.setAttribute("aria-hidden", "true");
+            ipaEl.textContent = ipaJoined;
+            node.classList.add("scroll-word");
+            node.insertBefore(ipaEl, node.firstChild);
+          }
           return;
         }
         if (node.classList.contains("scroll-word-ipa")) return;
