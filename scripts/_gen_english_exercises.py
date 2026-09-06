@@ -344,12 +344,21 @@ def build_sentences(words: list[dict], topic_name: str, level: str, topic_slug: 
 READING_ARTICLE_SLUGS = frozenset({"food-drink", "people-family", "body-appearance"})
 
 
+def plain_text_from_html(s: str) -> str:
+    text = re.sub(r"<[^>]+>", " ", s or "")
+    text = htmlmod.unescape(text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
 def render_article_passage_html(sentences: list[dict]) -> str:
     """Blog / article paragraphs — every vocab word woven into natural prose."""
     lines: list[str] = []
     for i, s in enumerate(sentences, 1):
         vi_html = s.get("vi_html") or esc(s.get("vi") or "")
-        lines.append(f'        <p class="ex-sent" data-sent="{i}">')
+        tip = plain_text_from_html(s.get("vi") or "") or plain_text_from_html(vi_html)
+        tip_attr = f' data-tip="{esc(tip)}" title="{esc(tip)}"' if tip else ""
+        tip_class = " lr-tip" if tip else ""
+        lines.append(f'        <p class="ex-sent{tip_class}" data-sent="{i}"{tip_attr}>')
         lines.append(f'          <span class="ex-en">{s["en_html"]}</span>')
         lines.append(f'          <span class="ex-vi">{vi_html}</span>')
         lines.append("        </p>")
@@ -680,7 +689,7 @@ def wrap_exercise(
         <div class="ex-article-head">
           <div>
             <h2>Reading article</h2>
-            <p class="ex-article-hint">Đọc bài kiểu diary/article: mỗi câu ~một từ mới (ưu tiên ví dụ LanGeek), thứ tự đã xáo trộn nên không gom theo nhóm nghĩa. Không nhồi list từ vào một câu. Bật VI / highlight / IPA khi cần; copy đoạn liên tục sang NaturalReader để nghe.</p>
+            <p class="ex-article-hint">Đọc bài kiểu diary/article: mỗi câu ~một từ mới (ưu tiên ví dụ LanGeek), thứ tự đã xáo trộn nên không gom theo nhóm nghĩa. <strong>Hover</strong> đoạn EN để xem tooltip dịch VI (hoặc bật Vietnamese). Copy đoạn liên tục sang NaturalReader để nghe.</p>
           </div>
         </div>
         <div class="ex-toolbar">
@@ -806,7 +815,7 @@ def wrap_exercise(
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=article1">
+  <link rel="stylesheet" href="{home}css/docs.css?v=article2">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -829,7 +838,7 @@ def wrap_exercise(
 {body}
   </div>
   <script src="{home}js/docs.js"></script>
-  <script src="{home}js/exercise.js?v=article1"></script>
+  <script src="{home}js/exercise.js?v=article2"></script>
 </body>
 </html>
 """

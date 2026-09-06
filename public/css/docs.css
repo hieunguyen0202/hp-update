@@ -1706,6 +1706,26 @@ a.kk-card--biz:hover {
   font-family: "Outfit", sans-serif;
 }
 
+.ex-sent.lr-tip {
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.ex-sent.lr-tip:hover,
+.ex-sent.lr-tip:focus-within {
+  border-color: rgba(167, 139, 250, 0.45);
+  background: rgba(167, 139, 250, 0.06);
+}
+
+.ex-sent.lr-tip::after {
+  left: 12px;
+  right: 12px;
+  max-width: min(560px, 92vw);
+  max-height: min(42vh, 300px);
+  overflow-y: auto;
+  white-space: pre-wrap;
+  font-family: "Outfit", sans-serif;
+}
+
 /* Exercise reading page */
 .ex-toolbar {
   position: sticky;
