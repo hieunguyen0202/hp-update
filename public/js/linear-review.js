@@ -831,8 +831,8 @@
 
     /**
      * Mark consonant→vowel links in red with "_" bridges (Oxford "How to Link Words").
-     * Single-pass per word so a token that is both link-start and link-end
-     * (e.g. it in makes_it_a) is not painted twice and scrambled.
+     * Expand revealed blanks to per-word units first — painting inside a column-flex
+     * .scroll-blank parks the final red letter on its own row (orphan d / s).
      */
     const wrapHtmlWithLinking = (html) => {
       const box = document.createElement("div");
@@ -896,22 +896,16 @@
       };
 
       const plainFromEl = (el) => {
-        if (el.classList?.contains("scroll-blank")) {
-          return (el.dataset.answer || el.textContent || "").trim();
-        }
         const en = el.querySelector?.(".scroll-word-en");
         const src = en || el;
         const c = src.cloneNode(true);
         c.querySelectorAll(
-          ".scroll-tone-mark, .scroll-link, .scroll-link-us, .scroll-word-ipa"
+          ".scroll-tone-mark, .scroll-link, .scroll-link-us, .scroll-link-keep, .scroll-word-ipa"
         ).forEach((n) => n.remove());
         return c.textContent.trim();
       };
 
-      const textHost = (el) => {
-        if (el.classList?.contains("scroll-blank")) return el;
-        return el.querySelector?.(".scroll-word-en") || el;
-      };
+      const textHost = (el) => el.querySelector?.(".scroll-word-en") || el;
 
       const redSpan = (text) => {
         const span = document.createElement("span");
@@ -920,7 +914,7 @@
         return span;
       };
 
-      /** Rebuild host once: [startRed][middle][endRed] + keep tone marks. */
+      /** Rebuild host once; wrap letters in .scroll-link-keep so they never wrap apart. */
       const paintWordOnce = (el, startN, endN) => {
         const host = textHost(el);
         const toneMarks = [
@@ -938,20 +932,21 @@
 
         let sN = Math.max(0, Math.min(startN || 0, word.length));
         let eN = Math.max(0, Math.min(endN || 0, word.length - sN));
-        // If start+end would overlap, prefer end mark (rarer for short words)
-        if (sN + eN > word.length) {
-          eN = Math.max(0, word.length - sN);
-        }
+        if (sN + eN > word.length) eN = Math.max(0, word.length - sN);
 
         const start = word.slice(0, sN);
         const mid = word.slice(sN, word.length - eN);
         const end = word.slice(word.length - eN);
 
+        const keep = document.createElement("span");
+        keep.className = "scroll-link-keep";
+        if (start) keep.appendChild(redSpan(start));
+        if (mid) keep.appendChild(document.createTextNode(mid));
+        if (end) keep.appendChild(redSpan(end));
+
         const frag = document.createDocumentFragment();
         if (before) frag.appendChild(document.createTextNode(before));
-        if (start) frag.appendChild(redSpan(start));
-        if (mid) frag.appendChild(document.createTextNode(mid));
-        if (end) frag.appendChild(redSpan(end));
+        frag.appendChild(keep);
         if (after) frag.appendChild(document.createTextNode(after));
         toneMarks.forEach((m) => frag.appendChild(m));
         host.innerHTML = "";
@@ -961,11 +956,7 @@
 
       const insertBridge = (leftEl) => {
         if (!leftEl?.parentNode) return;
-        if (
-          leftEl.nextSibling?.classList?.contains?.("scroll-link-us")
-        ) {
-          return;
-        }
+        if (leftEl.nextSibling?.classList?.contains?.("scroll-link-us")) return;
         const us = document.createElement("span");
         us.className = "scroll-link-us";
         us.setAttribute("aria-hidden", "true");
@@ -982,28 +973,57 @@
         leftEl.parentNode.insertBefore(us, leftEl.nextSibling);
       };
 
+      const makeLinkWord = (text, lex) => {
+        const span = document.createElement("span");
+        span.className = lex
+          ? "scroll-link-word scroll-tone-word--lex"
+          : "scroll-link-word";
+        span.textContent = text;
+        return span;
+      };
+
+      const appendTokenParts = (frag, part, lex) => {
+        if (!part) return;
+        if (/^\s+$/.test(part)) {
+          frag.appendChild(document.createTextNode(part));
+          return;
+        }
+        if (/^[.,;:!?…—–]+$/.test(part)) {
+          frag.appendChild(document.createTextNode(part));
+          return;
+        }
+        const m = part.match(
+          /^([\p{L}\p{N}'’\u00C0-\u024F\-]+)([.,;:!?…—–]*)$/u
+        );
+        if (m) {
+          const w = makeLinkWord(m[1], lex);
+          frag.appendChild(w);
+          words.push(w);
+          if (m[2]) frag.appendChild(document.createTextNode(m[2]));
+          return;
+        }
+        const w = makeLinkWord(part, lex);
+        frag.appendChild(w);
+        words.push(w);
+      };
+
       const wrapTextNode = (textNode) => {
         const raw = textNode.textContent;
         if (!raw || !raw.trim()) return;
-        const parts = raw.split(/(\s+)/);
         const frag = document.createDocumentFragment();
-        parts.forEach((part) => {
-          if (!part) return;
-          if (/^\s+$/.test(part)) {
-            frag.appendChild(document.createTextNode(part));
-            return;
-          }
-          if (/^[.,;:!?…—–]+$/.test(part)) {
-            frag.appendChild(document.createTextNode(part));
-            return;
-          }
-          const span = document.createElement("span");
-          span.className = "scroll-link-word";
-          span.textContent = part;
-          frag.appendChild(span);
-          words.push(span);
-        });
+        raw.split(/(\s+)/).forEach((part) => appendTokenParts(frag, part, false));
         textNode.parentNode.replaceChild(frag, textNode);
+      };
+
+      const expandRevealedBlank = (node) => {
+        const form = (node.dataset.answer || node.textContent || "").trim();
+        if (!form) {
+          words.push(node);
+          return;
+        }
+        const frag = document.createDocumentFragment();
+        form.split(/(\s+)/).forEach((part) => appendTokenParts(frag, part, true));
+        node.replaceWith(frag);
       };
 
       const visit = (node) => {
@@ -1015,11 +1035,16 @@
         if (
           node.classList.contains("scroll-tone-mark") ||
           node.classList.contains("scroll-link") ||
-          node.classList.contains("scroll-link-us")
+          node.classList.contains("scroll-link-us") ||
+          node.classList.contains("scroll-link-keep")
         ) {
           return;
         }
         if (node.classList.contains("scroll-blank")) {
+          if (node.classList.contains("is-revealed")) {
+            expandRevealedBlank(node);
+            return;
+          }
           words.push(node);
           return;
         }
@@ -1042,6 +1067,8 @@
       const bridgeAfter = words.map(() => false);
 
       for (let i = 0; i < words.length - 1; i++) {
+        if (words[i].classList?.contains("scroll-blank")) continue;
+        if (words[i + 1].classList?.contains("scroll-blank")) continue;
         if (!shouldLinkCV(plains[i], plains[i + 1])) continue;
         endN[i] = endLinkLen(plains[i]);
         startN[i + 1] = startLinkLen(plains[i + 1]);
@@ -1049,6 +1076,7 @@
       }
 
       words.forEach((el, i) => {
+        if (el.classList?.contains("scroll-blank")) return;
         if (startN[i] || endN[i]) paintWordOnce(el, startN[i], endN[i]);
       });
       words.forEach((el, i) => {

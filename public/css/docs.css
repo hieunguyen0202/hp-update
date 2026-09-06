@@ -3022,6 +3022,12 @@ a.kk-card--biz:hover {
   white-space: nowrap;
 }
 
+/* Keep foo+[d] on one line — never orphan the red end letter */
+.scroll-link-keep {
+  display: inline;
+  white-space: nowrap;
+}
+
 .scroll-link-word {
   display: inline;
   white-space: nowrap;
@@ -3034,8 +3040,15 @@ a.kk-card--biz:hover {
 
 .scroll-line--a-link {
   letter-spacing: 0.01em;
-  overflow-wrap: normal;
+  overflow-wrap: anywhere;
   word-break: normal;
+}
+
+/* Linking must never inherit blank column flex (that stacked orphan d/s) */
+.lr-scroll-read.is-linking .scroll-blank {
+  display: inline;
+  flex-direction: unset;
+  align-items: unset;
 }
 
 .scroll-tone-word,
