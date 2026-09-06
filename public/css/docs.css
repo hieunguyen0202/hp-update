@@ -3026,6 +3026,8 @@ a.kk-card--biz:hover {
 .scroll-link-keep {
   display: inline;
   white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: keep-all;
 }
 
 .scroll-link-word {

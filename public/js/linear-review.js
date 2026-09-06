@@ -1062,6 +1062,20 @@
       [...box.childNodes].forEach(visit);
 
       const plains = words.map(plainFromEl);
+
+      /** No linking across a pause (. , ! ? ; : —) between two tokens. */
+      const hasPausePunctBetween = (leftEl, rightEl) => {
+        if (!leftEl || !rightEl) return true;
+        let n = leftEl.nextSibling;
+        let guard = 0;
+        while (n && n !== rightEl && guard++ < 40) {
+          const t = n.textContent || "";
+          if (/[.?!,;:—–…]/.test(t)) return true;
+          n = n.nextSibling;
+        }
+        return false;
+      };
+
       const startN = words.map(() => 0);
       const endN = words.map(() => 0);
       const bridgeAfter = words.map(() => false);
@@ -1069,6 +1083,8 @@
       for (let i = 0; i < words.length - 1; i++) {
         if (words[i].classList?.contains("scroll-blank")) continue;
         if (words[i + 1].classList?.contains("scroll-blank")) continue;
+        // Phở Thìn_. It's / people_. Although — never link over sentence/clause breaks
+        if (hasPausePunctBetween(words[i], words[i + 1])) continue;
         if (!shouldLinkCV(plains[i], plains[i + 1])) continue;
         endN[i] = endLinkLen(plains[i]);
         startN[i + 1] = startLinkLen(plains[i + 1]);
