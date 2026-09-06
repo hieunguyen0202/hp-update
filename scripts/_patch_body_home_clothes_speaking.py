@@ -23,6 +23,7 @@ collect_words = _gen.collect_words
 mark_sentence = _gen.mark_sentence
 wrap_exercise = _gen.wrap_exercise
 prepare_pair = _gen.prepare_pair
+verify_coverage = _gen.verify_coverage
 
 _ba_spec = importlib.util.spec_from_file_location(
     "body_appearance_passages",
@@ -32,23 +33,6 @@ _ba = importlib.util.module_from_spec(_ba_spec)
 assert _ba_spec and _ba_spec.loader
 _ba_spec.loader.exec_module(_ba)
 
-
-def verify_coverage(words: list[dict], sentences: list[dict]) -> list[str]:
-    """Like generator verify, but decode HTML entities from mark_sentence()."""
-    blob = " ".join(s["en_html"] for s in sentences).lower()
-    blob = (
-        blob.replace("&#x27;", "'")
-        .replace("&#39;", "'")
-        .replace("&apos;", "'")
-        .replace("&amp;", "&")
-    )
-    missing = []
-    for w in words:
-        form = w["form"].lower()
-        lemma = w["word"].lower()
-        if form not in blob and lemma not in blob:
-            missing.append(w["word"])
-    return missing
 
 # PASSAGES[slug][level] = list[(en, vi)]
 PASSAGES: dict[str, dict[str, list[tuple[str, str]]]] = {
@@ -249,19 +233,19 @@ PASSAGES: dict[str, dict[str, list[tuple[str, str]]]] = {
 
 LEDE = {
     "body-appearance": (
-        "Daily body & appearance blog / speaking-style <strong>Reading article</strong> — "
-        "every new word from this level’s LanGeek lessons, with IPA, highlights, VI toggle, "
-        "and <strong>Copy → NaturalReader</strong> (IPA is display-only)."
+        "Body & appearance <strong>Reading article</strong> — "
+        "shuffled real-life scenes (mostly LanGeek examples), one new word per sentence, "
+        "with IPA / highlights / VI toggle and <strong>Copy → NaturalReader</strong>."
     ),
     "home-living": (
-        "Daily home & living blog / speaking-style <strong>Reading article</strong> — "
-        "every new word from this level’s LanGeek lessons, with IPA, highlights, VI toggle, "
-        "and <strong>Copy → NaturalReader</strong> (IPA is display-only)."
+        "Home & living <strong>Reading article</strong> — "
+        "shuffled real-life scenes (mostly LanGeek examples), one new word per sentence, "
+        "with IPA / highlights / VI toggle and <strong>Copy → NaturalReader</strong>."
     ),
     "clothes-fashion": (
-        "Daily clothes & fashion blog / speaking-style <strong>Reading article</strong> — "
-        "every new word from this level’s LanGeek lessons, with IPA, highlights, VI toggle, "
-        "and <strong>Copy → NaturalReader</strong> (IPA is display-only)."
+        "Clothes & fashion <strong>Reading article</strong> — "
+        "shuffled real-life scenes (mostly LanGeek examples), one new word per sentence, "
+        "with IPA / highlights / VI toggle and <strong>Copy → NaturalReader</strong>."
     ),
 }
 
@@ -338,7 +322,9 @@ def main() -> None:
             if not lessons:
                 continue
             words = collect_words([l["id"] for l in lessons])
-            sentences = build_from_passages(slug, level, words)
+            sentences = _gen.build_langeek_article_pairs(
+                words, "body and appearance", level, sentences_per_para=2
+            )
             missing = verify_coverage(words, sentences)
             page = wrap_exercise(
                 topic,

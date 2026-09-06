@@ -307,7 +307,9 @@ def main() -> None:
     for level in ["A1", "A2", "B1", "B2"]:
         lessons = [l for l in topic["lessons"] if l["level"] == level]
         words = collect_words([l["id"] for l in lessons])
-        sentences = build_from_passages(level, words)
+        sentences = _gen.build_langeek_article_pairs(
+            words, "people and family", level, sentences_per_para=2
+        )
         missing = verify_coverage(words, sentences)
         page = wrap_exercise(
             topic,
@@ -316,9 +318,9 @@ def main() -> None:
             sentences,
             [l["title"] for l in lessons],
             lede=(
-                "Daily people & family blog / speaking-style <strong>Reading article</strong> — "
-                "every new word from this level’s LanGeek lessons, with IPA, highlights, VI toggle, "
-                "and <strong>Copy → NaturalReader</strong> (IPA is display-only)."
+                "People & family <strong>Reading article</strong> — "
+                "shuffled real-life scenes (mostly LanGeek examples), one new word per sentence, "
+                "with IPA / highlights / VI toggle and <strong>Copy → NaturalReader</strong>."
             ),
         )
         out_dir = OUT / f"{level.lower()}-exercise"

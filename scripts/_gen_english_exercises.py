@@ -450,13 +450,175 @@ def build_sentences_legacy(words: list[dict], topic_name: str, level: str) -> li
     return sentences
 
 
+def coverage_needles(w: dict) -> list[str]:
+    """Search needles for coverage checks (handles LanGeek bracket / pipe forms)."""
+    needles: list[str] = []
+    for raw in (w.get("form") or "", w.get("word") or ""):
+        s = (raw or "").strip().lower()
+        if not s:
+            continue
+        needles.append(s)
+        body = s[3:].strip() if s.startswith("to ") else s
+        if body != s:
+            needles.append(body)
+
+        # Parse structured LanGeek notation BEFORE stripping brackets.
+        m2 = re.match(r"^\[([^\]]+)\]\s*(.*)$", body)
+        if m2:
+            verb_alts = [a.strip() for a in m2.group(1).split("|") if a.strip()]
+            rest_raw = m2.group(2).strip()
+            rest_someone = re.sub(r"\{?sb\}?", "someone", rest_raw)
+            rest_someone = re.sub(r"\s+", " ", rest_someone).strip()
+            rest_core = re.sub(r"\{[^}]+\}", "", rest_raw)
+            rest_core = re.sub(r"\b(sb|somebody|someone)\b", "", rest_core)
+            rest_core = re.sub(r"\s+", " ", rest_core).strip(" :,-")
+            if rest_core and len(rest_core) >= 3:
+                needles.append(rest_core)
+            if rest_someone:
+                needles.append(rest_someone)
+                for verb in verb_alts:
+                    needles.append(f"{verb} {rest_someone}".strip())
+                    if rest_core:
+                        needles.append(f"{verb} {rest_core}".strip())
+
+        m = re.match(r"^\(([^)]+)\)\s*(.*)$", body)
+        if m:
+            rest = m.group(2).strip()
+            for alt in m.group(1).split("|"):
+                needles.append(f"{alt.strip()} {rest}".strip())
+
+        stripped = re.sub(r"[\[\]\{\}]", "", body)
+        stripped = re.sub(r"\s+", " ", stripped).strip()
+        if stripped:
+            needles.append(stripped)
+        no_sb = re.sub(r"\b\{?sb\}?\b", "someone", stripped)
+        no_sb = re.sub(r"\s+", " ", no_sb).strip()
+        if no_sb:
+            needles.append(no_sb)
+        core = re.sub(r"\b(sb|somebody|someone)\b", "", stripped)
+        core = re.sub(r"\s+", " ", core).strip(" :,-")
+        if core and len(core) >= 3:
+            needles.append(core)
+
+    out: list[str] = []
+    seen: set[str] = set()
+    for n in needles:
+        n = (n or "").strip()
+        if n and n not in seen:
+            seen.add(n)
+            out.append(n)
+    return out
+
+
+def readable_surface(w: dict) -> str:
+    """Human-readable surface for natural prose (no textbook bracket notation)."""
+    cands = [n for n in coverage_needles(w) if not re.search(r"[\[\]\{\}\|\(\)]", n)]
+    if not cands:
+        return (w.get("form") or w.get("word") or "").strip()
+    ex = (w.get("ex_en") or "").lower()
+    if ex:
+        in_ex = [c for c in cands if c in ex]
+        if in_ex:
+            return max(in_ex, key=len)
+    multi = [c for c in cands if " " in c]
+    pool = multi or cands
+    # Prefer shorter multi-word cores (e.g. "bunny ears") over verbose paraphrases
+    if multi:
+        return min(multi, key=len)
+    return max(pool, key=len)
+
+
+def _text_covers_word(text: str, w: dict) -> bool:
+    blob = text.lower()
+    return any(n in blob for n in coverage_needles(w) if len(n) >= 2)
+
+
+def sentence_for_word(w: dict) -> tuple[str, str]:
+    """One natural sentence focused on a single vocabulary item (prefer LanGeek example)."""
+    ex_en = (w.get("ex_en") or "").strip()
+    ex_vi = (w.get("ex_vi") or "").strip()
+    surface = readable_surface(w)
+    gloss = vi_gloss(w)
+
+    if ex_en and _text_covers_word(ex_en, w):
+        en = ex_en
+        vi = ex_vi if ex_vi else ex_en
+    else:
+        en = f"In everyday conversation I still notice how people use {surface}."
+        vi = f"Trong hội thoại đời thường tôi vẫn để ý cách mọi người dùng {gloss}."
+
+    if not _text_covers_word(en, w):
+        en = f"A small real-life detail I keep returning to is {surface}."
+        vi = f"Một chi tiết đời thực tôi vẫn nhớ tới là {gloss}."
+    return en, vi
+
+
+def build_langeek_article_pairs(
+    words: list[dict],
+    topic_label: str,
+    level: str,
+    *,
+    seed: str | None = None,
+    sentences_per_para: int = 2,
+) -> list[dict]:
+    """Build a reading article from shuffled one-word scenes (LanGeek examples).
+
+    Words are shuffled so related lemmas do not clump into list-like sentences.
+    Each sentence targets roughly one new word; paragraphs stay short.
+    """
+    import random
+
+    rng = random.Random(seed or f"{topic_label}|{level}|{len(words)}")
+    ordered = list(words)
+    rng.shuffle(ordered)
+
+    units: list[tuple[str, str]] = [sentence_for_word(w) for w in ordered]
+
+    intro_en = (
+        f"When I revise {level} English for {topic_label}, I collect short real-life scenes "
+        f"instead of forcing many new words into one crowded sentence. "
+        f"The article below keeps each moment light — closer to a diary than a vocabulary dump."
+    )
+    intro_vi = (
+        f"Khi ôn tiếng Anh {level} về {topic_label}, tôi gom những cảnh đời ngắn "
+        f"thay vì nhồi nhiều từ mới vào một câu dày đặc. "
+        f"Bài bên dưới giữ mỗi khoảnh khắc nhẹ — gần nhật ký hơn là danh sách từ."
+    )
+
+    paras: list[tuple[str, str]] = [(intro_en, intro_vi)]
+    step = max(1, sentences_per_para)
+    for i in range(0, len(units), step):
+        chunk = units[i : i + step]
+        en_parts: list[str] = []
+        vi_parts: list[str] = []
+        for en, vi in chunk:
+            en = en.strip()
+            vi = vi.strip()
+            if en and en[-1] not in ".!?":
+                en += "."
+            if vi and vi[-1] not in ".!?":
+                vi += "."
+            en_parts.append(en)
+            vi_parts.append(vi)
+        paras.append((" ".join(en_parts), " ".join(vi_parts)))
+
+    return [prepare_pair(en, vi, words) for en, vi in paras]
+
+
 def verify_coverage(words: list[dict], sentences: list[dict]) -> list[str]:
     blob = " ".join(s["en_html"] for s in sentences).lower()
+    # Strip tags + decode entities from mark_sentence()/esc()
+    blob = re.sub(r"<[^>]+>", " ", blob)
+    blob = (
+        htmlmod.unescape(blob)
+        .replace("&#x27;", "'")
+        .replace("&#39;", "'")
+        .replace("&apos;", "'")
+    )
+    blob = re.sub(r"\s+", " ", blob)
     missing = []
     for w in words:
-        form = w["form"].lower()
-        lemma = w["word"].lower()
-        if form not in blob and lemma not in blob:
+        if not any(n in blob for n in coverage_needles(w) if len(n) >= 2):
             missing.append(w["word"])
     return missing
 
@@ -518,7 +680,7 @@ def wrap_exercise(
         <div class="ex-article-head">
           <div>
             <h2>Reading article</h2>
-            <p class="ex-article-hint">Đọc bài viết kiểu blog / article — mọi từ mới của cấp này được xen vào ngữ cảnh tự nhiên (không nhồi một câu). Bật VI / highlight / IPA khi cần; copy đoạn liên tục sang NaturalReader để nghe.</p>
+            <p class="ex-article-hint">Đọc bài kiểu diary/article: mỗi câu ~một từ mới (ưu tiên ví dụ LanGeek), thứ tự đã xáo trộn nên không gom theo nhóm nghĩa. Không nhồi list từ vào một câu. Bật VI / highlight / IPA khi cần; copy đoạn liên tục sang NaturalReader để nghe.</p>
           </div>
         </div>
         <div class="ex-toolbar">
