@@ -9778,9 +9778,11 @@ def _strip_picks_to_plain(en_html: str) -> str:
 
 def _p2_sec(label: str, en: str, vi: str, plain: str | None = None) -> str:
     plain_text = plain if plain is not None else _strip_picks_to_plain(en)
+    # Wrap answer in .lr-tip-text so .lr-food-ex-line flex does not treat each
+    # <select>/text node as a separate nowrap flex item (layout shatter).
     return f"""            <div class="lr-p2-sec">
               <span class="lr-p2-sec-label">{esc(label)}</span>
-              <p class="lr-food-ex-line lr-tip lr-answer-text" data-tip="{esc(vi)}" title="{esc(vi)}" data-plain="{esc(plain_text)}">{en}</p>
+              <p class="lr-food-ex-line lr-tip lr-answer-text lr-p2-line" data-tip="{esc(vi)}" title="{esc(vi)}" data-plain="{esc(plain_text)}"><span class="lr-tip-text">{en}</span></p>
             </div>"""
 
 
@@ -13662,7 +13664,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr54">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr55">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -13781,7 +13783,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr54">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr55">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>

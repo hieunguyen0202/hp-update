@@ -5773,11 +5773,13 @@ mark.lr-hl,
   flex-direction: column;
   gap: 8px;
   margin: 0.5rem 0 0.75rem;
+  min-width: 0;
 }
 
 .lr-p2-sec {
   border-left: 3px solid rgba(134, 239, 172, 0.7);
   padding: 6px 0 6px 10px;
+  min-width: 0;
 }
 
 .lr-p2-sec:nth-child(3) { border-left-color: rgba(253, 230, 138, 0.85); }
@@ -5793,6 +5795,29 @@ mark.lr-hl,
 }
 
 .lr-p2-sec:nth-child(3) .lr-p2-sec-label { color: #fde68a; }
+
+/* Part 2 answers: normal wrapping (not flex row of selects + text shards) */
+.lr-p2-sec .lr-p2-line,
+.lr-p2-sec .lr-food-ex-line.lr-answer-text {
+  display: block;
+  gap: 0;
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.lr-p2-sec .lr-tip-text {
+  display: inline;
+  flex: none;
+  min-width: 0;
+}
+
+.lr-p2-sec .lr-word-pick {
+  display: inline-block;
+  max-width: 100%;
+  box-sizing: border-box;
+  vertical-align: baseline;
+}
 
 /* Per-example structure chips (under Food cards) */
 .lr-ex-chips {
