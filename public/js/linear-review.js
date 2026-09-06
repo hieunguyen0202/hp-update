@@ -685,8 +685,9 @@
       const box = document.createElement("div");
       box.innerHTML = html;
       const words = [];
+      // Only strong clause starters (avoid false rise on "a while", "x and y", …)
       const RISE_NEXT =
-        /^(but|because|although|though|while|whereas|which|who|when|if|and|or|so|as)$/i;
+        /^(but|because|although|though|whereas|which)$/i;
 
       const markEl = (el, tone) => {
         if (!el || el.classList.contains("scroll-tone")) return;
@@ -698,6 +699,17 @@
           m.textContent = tone === "rise" ? "↗" : "↘";
           el.appendChild(m);
         }
+      };
+
+      const pushToneWord = (frag, text, trail, lex) => {
+        const span = document.createElement("span");
+        span.className = lex
+          ? "scroll-tone-word scroll-tone-word--lex"
+          : "scroll-tone-word";
+        span.textContent = text;
+        frag.appendChild(span);
+        words.push({ el: span, trail: trail || "" });
+        return span;
       };
 
       const wrapTextNode = (textNode) => {
@@ -720,24 +732,45 @@
             /^([\p{L}\p{N}'’\u00C0-\u024F\-]+)([.,;:!?…—–]*)$/u
           );
           if (m) {
-            let host = null;
-            // Prefer attaching into existing .scroll-word-en when IPA overlay is on
-            const span = document.createElement("span");
-            span.className = "scroll-tone-word";
-            span.textContent = m[1];
-            host = span;
-            frag.appendChild(span);
+            pushToneWord(frag, m[1], m[2] || "", false);
             if (m[2]) frag.appendChild(document.createTextNode(m[2]));
-            words.push({ el: host, trail: m[2] || "" });
             return;
           }
-          const span = document.createElement("span");
-          span.className = "scroll-tone-word";
-          span.textContent = part;
-          frag.appendChild(span);
-          words.push({ el: span, trail: "" });
+          pushToneWord(frag, part, "", false);
         });
         textNode.parentNode.replaceChild(frag, textNode);
+      };
+
+      const expandRevealedBlank = (node) => {
+        const form = (node.dataset.answer || node.textContent || "").trim();
+        if (!form) {
+          words.push({ el: node, trail: "" });
+          return;
+        }
+        const frag = document.createDocumentFragment();
+        const parts = form.split(/(\s+)/);
+        parts.forEach((part) => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) {
+            frag.appendChild(document.createTextNode(part));
+            return;
+          }
+          if (/^[.,;:!?…—–]+$/.test(part)) {
+            if (words.length) words[words.length - 1].trail += part;
+            frag.appendChild(document.createTextNode(part));
+            return;
+          }
+          const m = part.match(
+            /^([\p{L}\p{N}'’\u00C0-\u024F\-]+)([.,;:!?…—–]*)$/u
+          );
+          if (m) {
+            pushToneWord(frag, m[1], m[2] || "", true);
+            if (m[2]) frag.appendChild(document.createTextNode(m[2]));
+            return;
+          }
+          pushToneWord(frag, part, "", true);
+        });
+        node.replaceWith(frag);
       };
 
       const visit = (node) => {
@@ -748,21 +781,21 @@
         if (node.nodeType !== Node.ELEMENT_NODE) return;
         if (node.classList.contains("scroll-tone-mark")) return;
         if (node.classList.contains("scroll-blank")) {
-          const ans = (node.dataset.answer || node.textContent || "").trim();
+          // Revealed multi-word blanks must become per-word units — otherwise the
+          // tone mark sits on a column-flex blank and looks mid-phrase when wrapped.
+          if (node.classList.contains("is-revealed")) {
+            expandRevealedBlank(node);
+            return;
+          }
+          const ans = (node.dataset.answer || "").trim();
           const m = ans.match(/[.,;:!?…—–]+$/);
           words.push({ el: node, trail: m ? m[0] : "" });
           return;
         }
         if (node.classList.contains("scroll-word")) {
-          const en = (
-            node.querySelector(".scroll-word-en")?.textContent ||
-            node.textContent ||
-            ""
-          ).trim();
-          // IPA span may prepend — use EN only when present
           const enOnly = node.querySelector(".scroll-word-en")
             ? node.querySelector(".scroll-word-en").textContent.trim()
-            : en.replace(node.querySelector(".scroll-word-ipa")?.textContent || "", "").trim();
+            : (node.textContent || "").trim();
           const m = enOnly.match(/[.,;:!?…—–]+$/);
           words.push({ el: node, trail: m ? m[0] : "" });
           return;

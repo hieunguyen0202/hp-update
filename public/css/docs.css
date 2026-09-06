@@ -3044,13 +3044,20 @@ a.kk-card--biz:hover {
   display: inline;
 }
 
+.scroll-tone-word--lex {
+  color: #fef3c7;
+  font-weight: 650;
+  border-bottom: 2px dashed rgba(250, 204, 21, 0.45);
+  padding-bottom: 0.05em;
+}
+
 .scroll-tone-mark {
   display: inline;
   font-size: 0.78em;
   font-weight: 700;
   margin-left: 0.04em;
   vertical-align: super;
-  line-height: 0;
+  line-height: 1;
 }
 
 .scroll-tone-mark--rise {
@@ -3076,6 +3083,14 @@ a.kk-card--biz:hover {
 
 .scroll-line--a-tone {
   line-height: 1.75;
+}
+
+/* Keep unrevealed blanks usable; never park tone marks in a column under a long phrase */
+.scroll-blank.scroll-tone {
+  display: inline;
+  flex-direction: unset;
+  align-items: unset;
+  padding-right: 0.55em;
 }
 
 .lr-scroll-read .scroll-blank.scroll-tone {
