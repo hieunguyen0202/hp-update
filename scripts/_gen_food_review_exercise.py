@@ -10135,136 +10135,176 @@ def food_lesson16_examples_html() -> str:
 
 
 def food_lesson17_examples_html() -> str:
-    """L17 Building · Restaurant / café — 3 Part 2 models right after grammar note."""
+    """L17 Building · 3 Part 2 models — mỗi bài cover 1 mảng grammar note (chia đều)."""
     cards_data = []
 
+    # 1) Marukame → THÔNG TIN CƠ BẢN (tip kéo dài tên + đánh giá)
     cards_data.append({
         "cue": "Describe a restaurant that you enjoyed going to",
         "fw": "L17 Building",
-        "bullets": ["where the restaurant was", "why you chose this restaurant", "what type of food you ate", "and explain why you enjoyed eating there"],
-        "source": "Cambridge 8 · Restaurant (Part 2) · slide Marukame Udon",
+        "bullets": [
+            "where the restaurant was",
+            "why you chose this restaurant",
+            "what type of food you ate",
+            "and explain why you enjoyed eating there",
+        ],
+        "source": "Cambridge 8 · Restaurant · focus: Thông tin cơ bản / tip tên",
         "choice": "Marukame Udon · Hai Bà Trưng, Q.3",
         "secs": [
-            ("Mở đầu",
-             f'{phrase_pick("p2_open", 0)} Marukame Udon, which is one of my most favourite restaurants so far.',
-             "Tôi sẽ nói về Marukame Udon — một trong những nhà hàng yêu thích nhất của tôi từ trước đến nay."),
-            ("Thông tin cơ bản",
-             f'{phrase_pick("p2_name_tip", 0)} — Marukame Udon. {phrase_pick("p2_name_tip", 1)}. '
-             f'{phrase_pick("p2_name_tip", 2)}. {phrase_pick("p2_basic_where", 0)} Hai Ba Trung Street, District 3. '
-             f'{phrase_pick("p2_basic_size", 1)}, I think it can hold a maximum of 80 people. '
-             f'Although it\'s right in the city centre, it\'s on a quiet corner of the street, which makes it a perfect place for those who need a little silence to unwind or escape from the hustle and bustle of the city.',
-             "Tên khá dài — Marukame Udon. Thành thật lúc đầu rất khó nhớ; tôi mất khá lâu mới nhớ. Nằm Hai Bà Trưng, Q.3. Khá rộng, tối đa ~80 người. Dù trung tâm nhưng góc phố yên — hợp người cần yên để unwind, thoát hustle and bustle."),
-            ("Cốt lõi",
-             f'It doesn\'t have any windows, but the walls are made of glass, which makes it look even more spacious. '
-             f'I really love the ceiling, which is beautifully decorated with coloured string lights and star and moon ornaments, which creates a very cosy and relaxing atmosphere I can\'t really describe in words. '
-             f'{phrase_pick("p2_core_trans", 0)}, it serves a wide range of dishes, including chicken, pork, beef and seafood noodles, but I often order beef noodles because I love the taste and the smell; oh it\'s so good. '
-             f'I\'ve never tried the seafood noodles; maybe next time I\'ll give it a try. '
-             f'{phrase_pick("p2_core_trans", 3)} its staff. They are so fast and friendly. They always welcome their customers with a smile, and they show them to the best seat to enjoy their food.',
-             "Không cửa sổ nhưng tường kính nên trông spacious hơn. Trần decorated with đèn dây và ngôi sao — không khí cosy khó tả. Speaking of food: wide range of mì; thường gọi bò. Chưa thử hải sản — next time give it a try. Thích nhất staff — welcome with a smile."),
-            ("Cảm nhận",
-             f'I\'ve recommended this restaurant to many of my friends, and they all said good things about it. '
-             f'{phrase_pick("p2_feel", 1)} Japanese food and who wants to find a place to relax after work.',
-             "Đã recommend cho nhiều bạn và họ đều khen. Recommend cho ai thích đồ Nhật và muốn chỗ thư giãn sau giờ làm."),
-            ("Kết",
-             f'{phrase_pick("p2_close", 0)} one of my favourite restaurants, {phrase_pick("p2_close_tail", 0)} Marukame Udon.',
-             "Vậy nếu phải nói về nhà hàng yêu thích, thì đó sẽ phải là Marukame Udon."),
+            (
+                "Mở đầu",
+                f'{phrase_pick("p2_open", 0)} Marukame Udon, which is one of my most favourite Japanese restaurants so far.',
+                "Tôi sẽ nói về Marukame Udon — một trong những quán Nhật yêu thích nhất của tôi.",
+            ),
+            (
+                "Thông tin cơ bản ★",
+                f'{phrase_pick("p2_name_tip", 0)} — Marukame Udon. {phrase_pick("p2_name_tip", 1)}. '
+                f'{phrase_pick("p2_name_tip", 2)}. {phrase_pick("p2_basic_where", 0)} Hai Ba Trung Street, District 3. '
+                f'{phrase_pick("p2_basic_size", 1)}, I think it can hold a maximum of 80 people. '
+                f"Although it's right in the city centre, it's on a quiet corner of the street, which makes it a perfect place for those who need a little silence to unwind or escape from the hustle and bustle of the city.",
+                "★ Tip kéo dài tên + vị trí + diện tích + 1 câu đánh giá Although…, which makes it…",
+            ),
+            (
+                "Cốt lõi",
+                "I mainly go there for the beef udon — it's mouth-watering and freshly prepared. "
+                "The place feels family-run, and the portions are generous, so I usually leave full and happy.",
+                "Cốt lõi ngắn — chỉ neo món; thiết kế để bài 2, menu dài để bài 3.",
+            ),
+            (
+                "Cảm nhận",
+                f'{phrase_pick("p2_feel", 0)} grab a comforting bowl of noodles after work.',
+                "Cảm nhận ngắn — first place I think of…",
+            ),
+            (
+                "Kết",
+                f'{phrase_pick("p2_close", 0)} a restaurant I enjoyed going to, {phrase_pick("p2_close_tail", 0)} Marukame Udon.',
+                "Kết cố định Part 2.",
+            ),
         ],
         "notes": [
+            "FOCUS · Thông tin cơ bản",
             "It has quite a long name · To be honest… · It took me quite a while…",
-            "Although…, which makes it… · unwind · hustle and bustle",
-            "made of glass · decorated with… · spacious / cosy atmosphere",
-            "a wide range of… · give it a try · welcome… with a smile",
-            "I've recommended… · they all said good things about it",
+            "located on… · spacious · can hold a maximum of…",
+            "Although…, which makes it a perfect place for those who… · unwind · hustle and bustle",
         ],
     })
 
+    # 2) Daily Grind → THIẾT KẾ (ngoài → trong)
     cards_data.append({
         "cue": "Describe a café / place where you often eat",
         "fw": "L17 Building",
-        "bullets": ["where it is", "why you go there", "what you usually eat or drink", "and explain why you like this café"],
-        "source": "Cambridge-style · Café (Part 2) · L17 Building",
+        "bullets": [
+            "where it is",
+            "why you go there",
+            "what you usually eat or drink",
+            "and explain why you like this café",
+        ],
+        "source": "Cambridge-style · Café · focus: Cây thiết kế (ngoài/trong)",
         "choice": "The Daily Grind · gần văn phòng",
         "secs": [
-            ("Mở đầu",
-             f'{phrase_pick("p2_open", 0)} a cosy café which I often go to if I need a quick lunch or a quiet place to work.',
-             "Tôi sẽ nói về quán café ấm cúng tôi thường đến khi cần ăn trưa nhanh hoặc chỗ yên để làm việc."),
-            ("Thông tin cơ bản",
-             f'{phrase_pick("p2_basic_name", 0)} — The Daily Grind. {phrase_pick("p2_name_tip", 1)} — '
-             f'it sounds like hard work, but now I never forget it. {phrase_pick("p2_basic_where", 0)} a side street near my office; it\'s nestled in a quiet corner. '
-             f'{phrase_pick("p2_basic_size", 2)}, I think it can hold a maximum of 25 people. '
-             f'Although it\'s close to a busy road, the café has soft lighting and wooden furniture, which makes it a perfect place for those who want a casual dining atmosphere.',
-             "Tên rất hay — The Daily Grind. Thành thật lúc đầu khó nhớ vì nghe như 'cày việc', giờ thì không quên. Nằm hẻm gần văn phòng, nestled in a quiet corner. Cosy, tối đa ~25 người. Dù gần đường đông nhưng đèn dịu + gỗ — perfect cho casual dining atmosphere."),
-            ("Cốt lõi",
-             f'There are a few small tables outside, and inside the walls are tastefully decorated with local art. '
-             f'The contemporary décor and the smell of freshly prepared coffee make the atmosphere even cosier. '
-             f'{phrase_pick("p2_core_trans", 1)}, it serves a wide range of drinks and light meals, including sandwiches, salads and homemade cakes, but I usually order an iced latte and a chicken sandwich because they are affordable and high quality. '
-             f'I\'ve never tried their signature cake; maybe next time I\'ll give it a try. '
-             f'{phrase_pick("p2_core_trans", 3)} the attentive staff. They are polite and helpful, and they always welcome their customers with a smile.',
-             "Có bàn ngoài; trong tastefully decorated. Contemporary décor + cà phê freshly prepared làm không khí cosier. In terms of the menu: wide range; thường latte đá + sandwich — affordable, high quality. Chưa thử signature cake — give it a try. Attentive staff, welcome with a smile."),
-            ("Cảm nhận",
-             f'{phrase_pick("p2_feel", 0)} grab a coffee and a light meal. '
-             f'I\'ve recommended this café to many of my colleagues, and they all said good things about it.',
-             "Chỗ đầu tiên nghĩ tới khi muốn cà phê + bữa nhẹ. Đã recommend đồng nghiệp — họ đều khen."),
-            ("Kết",
-             f'{phrase_pick("p2_close", 0)} a café where I often eat, {phrase_pick("p2_close_tail", 0)} The Daily Grind.',
-             "Vậy nếu phải nói về quán café tôi thường ăn, thì đó sẽ phải là The Daily Grind."),
+            (
+                "Mở đầu",
+                f'{phrase_pick("p2_open", 0)} a café near my office which I often go to for a quick lunch.',
+                "Tôi sẽ nói về quán café gần văn phòng — thường đến ăn trưa nhanh.",
+            ),
+            (
+                "Thông tin cơ bản",
+                f'{phrase_pick("p2_basic_name", 0)} — The Daily Grind. {phrase_pick("p2_basic_where", 0)} a side street near my office. '
+                f'{phrase_pick("p2_basic_size", 2)}, I think it can hold a maximum of 25 people.',
+                "Cơ bản ngắn — chỉ tên / vị trí / size (tip tên dài đã cover ở bài 1).",
+            ),
+            (
+                "Cốt lõi ★",
+                "There are a few small tables outside, and the café is surrounded by tall trees and a couple of souvenir shops. "
+                "Inside, the walls are made of wood and glass, which makes it look more spacious. "
+                "I really love the windows, which are tastefully decorated with tiny flowers and coloured string lights. "
+                "The ceiling is nicely decorated with moon and star ornaments, making the atmosphere even cosier. "
+                "The chairs, the soft lighting and the contemporary décor create a very casual dining atmosphere that I can't really describe in words — "
+                "you can sit there while enjoying a quiet view of the street and temporarily forget the pressures of the office.",
+                "★ Thiết kế ngoài→trong: surrounded by / made of / decorated with / atmosphere / view.",
+            ),
+            (
+                "Cảm nhận",
+                "I go there two or three times a week because the space itself helps me slow down.",
+                "Cảm nhận gắn với không gian (recommend dài để bài 3).",
+            ),
+            (
+                "Kết",
+                f'{phrase_pick("p2_close", 0)} a café where I often eat, {phrase_pick("p2_close_tail", 0)} The Daily Grind.',
+                "Kết cố định.",
+            ),
         ],
         "notes": [
-            "It has a very nice name · To be honest, at first…",
-            "nestled in a quiet corner · casual dining atmosphere",
-            "tastefully decorated · contemporary décor · freshly prepared",
-            "affordable · high quality · signature · give it a try · attentive staff",
+            "FOCUS · Thiết kế (ngoài → trong)",
+            "There is/are … outside · surrounded by tall trees / shops",
+            "made of wood and glass · decorated with tiny flowers / string lights / ornaments",
+            "make the atmosphere even cosier · casual dining · can't describe in words",
         ],
     })
 
+    # 3) Teaspoon → SẢN PHẨM / DỊCH VỤ + LEXICAL + CẢM NHẬN
     cards_data.append({
         "cue": "Describe a place where you go to relax (food/drink angle)",
         "fw": "L17 Building",
-        "bullets": ["where it is", "how often you go there", "what you usually do there", "and explain why it helps you relax"],
-        "source": "Cambridge-style · Place to relax · slide Teaspoon / L17 Building",
+        "bullets": [
+            "where it is",
+            "how often you go there",
+            "what you usually do there",
+            "and explain why it helps you relax",
+        ],
+        "source": "Cambridge-style · Place to relax · focus: Menu / giá / staff / recommend",
         "choice": "Teaspoon tearoom · Lý Tự Trọng, Q.1",
         "secs": [
-            ("Mở đầu",
-             f'{phrase_pick("p2_open", 0)} a tearoom which I usually go to if I need some relaxation.',
-             "Tôi sẽ nói về quán trà tôi thường đến khi cần thư giãn."),
-            ("Thông tin cơ bản",
-             f'{phrase_pick("p2_basic_name", 1)} Teaspoon, which is a nice name. '
-             f'{phrase_pick("p2_name_tip", 1)}, because there are so many tearooms nearby — '
-             f'{phrase_pick("p2_name_tip", 2)}. {phrase_pick("p2_basic_where", 0)} Ly Tu Trong Street, District 1. '
-             f'{phrase_pick("p2_basic_size", 0)}, I think it can hold a maximum of 20 people. '
-             f'Although it\'s right in the city centre, it\'s on a quiet corner of the street, which makes it a perfect place for those who need a little silence to unwind or escape from the hustle and bustle of the city.',
-             "It's called Teaspoon, which is a nice name. Thành thật lúc đầu khó nhớ vì nhiều quán trà gần đó — mất khá lâu mới nhớ. Lý Tự Trọng, Q.1. Khá nhỏ, tối đa ~20. Dù trung tâm nhưng góc yên — unwind / hustle and bustle."),
-            ("Cốt lõi",
-             f'I really love the windows, which are decorated with tiny flowers and coloured string lights. '
-             f'I also love the ceiling, which is nicely decorated with moon and star ornaments, making the atmosphere even cosier. '
-             f'The chairs, the tables, the candles — everything there creates a very relaxing atmosphere that I can\'t really describe in words. '
-             f'The cosy atmosphere will help you temporarily forget all the pressures of your daily life to just enjoy your tea. '
-             f'{phrase_pick("p2_core_trans", 0)}, it serves a wide range of teas, including black tea, green tea and herbal tea, but I often order herbal tea because I love the taste and the smell; oh it\'s so aromatic. '
-             f'{phrase_pick("p2_core_trans", 3)} its staff. They are so fast and friendly. They always welcome their customers with a smile, and they show them to the best seat to enjoy their tea.',
-             "Cửa sổ decorated with hoa nhỏ + đèn dây; trần moon and star ornaments — atmosphere even cosier / can't describe in words. Quên pressures of daily life. Speaking of: wide range of teas; herbal — aromatic. Staff welcome with a smile."),
-            ("Cảm nhận",
-             f'This tearoom is the first place I think of whenever I want to relax. '
-             f'{phrase_pick("p2_feel", 1)} drinking tea and who wants to find a place to escape for a while from their work or their stressful lives.',
-             "Chỗ đầu tiên nghĩ tới khi muốn thư giãn. Recommend cho ai thích trà và muốn tạm thoát stress."),
-            ("Kết",
-             f'{phrase_pick("p2_close", 0)} a place where I usually go to relax, {phrase_pick("p2_close_tail", 0)} Teaspoon.',
-             "Vậy nếu phải nói về chỗ thư giãn, thì đó sẽ phải là Teaspoon."),
+            (
+                "Mở đầu",
+                f'{phrase_pick("p2_open", 0)} a tearoom which I usually go to if I need some relaxation.',
+                "Tôi sẽ nói về quán trà tôi thường đến khi cần thư giãn.",
+            ),
+            (
+                "Thông tin cơ bản",
+                f'{phrase_pick("p2_basic_name", 1)} Teaspoon, which is a nice name. '
+                f'{phrase_pick("p2_basic_where", 0)} Ly Tu Trong Street, District 1. '
+                f'{phrase_pick("p2_basic_size", 0)}, I think it can hold a maximum of 20 people. '
+                "It's nestled in a quiet corner, so it feels welcoming rather than bustling.",
+                "Cơ bản ngắn + lexical: nestled / welcoming (không tip tên dài).",
+            ),
+            (
+                "Cốt lõi ★",
+                f'{phrase_pick("p2_core_trans", 1)}, it serves a wide range of teas, including black tea, green tea and herbal tea. '
+                "I usually order herbal tea because I love the taste and the smell — it's so aromatic. "
+                "I've never tried their fermented tea; maybe next time I'll give it a try. "
+                "The drinks are high quality and freshly prepared, and I only have to pay around 45,000 dong for a pot, which is quite affordable. "
+                f'{phrase_pick("p2_core_trans", 3)} the attentive staff. They are fast, polite and helpful, and they always welcome their customers with a smile '
+                "and show them to the best seat to enjoy their tea — the service feels almost impeccable for such a small family-run place.",
+                "★ Menu / chất lượng / giá / nhân viên.",
+            ),
+            (
+                "Cảm nhận ★",
+                "This tearoom is the first place I think of whenever I want to unwind. "
+                "I've recommended it to many of my friends, and they all said good things about it. "
+                f'{phrase_pick("p2_feel", 1)} drinking tea and who wants to escape for a while from the hustle and bustle of the city.',
+                "★ Cảm nhận / recommend / unwind / hustle and bustle.",
+            ),
+            (
+                "Kết",
+                f'{phrase_pick("p2_close", 0)} a place where I usually go to relax, {phrase_pick("p2_close_tail", 0)} Teaspoon.',
+                "Kết cố định.",
+            ),
         ],
         "notes": [
-            "It's called … which is a nice name · To be honest… · It took me quite a while…",
-            "decorated with… · making the atmosphere even cosier · can't describe in words",
-            "forget all the pressures… · hustle and bustle · unwind · aromatic",
-            "a wide range of… · welcome… with a smile",
+            "FOCUS · Sản phẩm / dịch vụ + Lexical + Cảm nhận",
+            "a wide range of… including… · I usually order… because… · give it a try",
+            "high quality · freshly prepared · aromatic · affordable · attentive / impeccable",
+            "I've recommended… · they all said good things · recommend… to anyone who…",
         ],
     })
 
     return f"""
         <div class="lr-food-examples" id="food-examples-l17">
-          <h3 class="lr-core-subtitle">Ví dụ L17 Building · Restaurant / café (vận dụng grammar note)</h3>
-          <p class="lr-mm-hint">3 bài ngay sau grammar note. Chú ý tip kéo dài tên (<strong>quite a long name</strong> · <strong>To be honest…</strong> · <strong>took me quite a while</strong>), thiết kế, menu và recommend.</p>
+          <h3 class="lr-core-subtitle">Ví dụ L17 · chia đều grammar note (3 bài ≠ copy tên)</h3>
+          <p class="lr-mm-hint"><strong>Bài 1 Marukame</strong> = Thông tin cơ bản + tip kéo dài tên · <strong>Bài 2 Daily Grind</strong> = Thiết kế ngoài→trong · <strong>Bài 3 Teaspoon</strong> = Menu / giá / staff + recommend. Gộp 3 bài = cover gần hết note.</p>
 {_food_p2_cards_html(cards_data)}
         </div>"""
-
 
 
 
@@ -13664,7 +13704,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr55">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr56">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -13783,7 +13823,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr55">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr56">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
