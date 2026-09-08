@@ -309,96 +309,101 @@ BLOCKED = {
     "pai": ("拍照", "婚纱照"),
 }
 
+# Outside-lesson words worth noting in this dialogue
+EXTRAS = [
+    {"id": "xiaoxi", "hanzi": "消息", "pinyin": "xiāoxi", "vi": "tin tức, tin", "en": "news / message"},
+    {"id": "fengjing", "hanzi": "风景", "pinyin": "fēngjǐng", "vi": "phong cảnh", "en": "scenery"},
+    {"id": "kongqi", "hanzi": "空气", "pinyin": "kōngqì", "vi": "không khí", "en": "air"},
+    {"id": "duile", "hanzi": "对了", "pinyin": "duìle", "vi": "phải rồi; à đúng rồi", "en": "by the way / oh right"},
+    {"id": "xiangshi", "hanzi": "相识", "pinyin": "xiāngshí", "vi": "quen biết", "en": "to get to know each other"},
+    {"id": "langman", "hanzi": "浪漫", "pinyin": "làngmàn", "vi": "lãng mạn", "en": "romantic"},
+    {"id": "meili", "hanzi": "美丽", "pinyin": "měilì", "vi": "xinh đẹp, đẹp", "en": "beautiful"},
+    {"id": "dasao", "hanzi": "打扫", "pinyin": "dǎsǎo", "vi": "dọn dẹp", "en": "to clean"},
+    {"id": "bangmang", "hanzi": "帮忙", "pinyin": "bāngmáng", "vi": "giúp đỡ", "en": "to help"},
+    {"id": "xingfu", "hanzi": "幸福", "pinyin": "xìngfú", "vi": "hạnh phúc", "en": "happiness / happy"},
+    {"id": "tiqian", "hanzi": "提前", "pinyin": "tíqián", "vi": "trước, sớm hơn", "en": "in advance"},
+]
+
+# Everyday reaction phrases (not lesson vocab)
+EMOTIONS = [
+    {"hanzi": "太好了", "pinyin": "tài hǎo le", "vi": "Tuyệt quá!", "en": "Great!"},
+    {"hanzi": "太棒了", "pinyin": "tài bàng le", "vi": "Quá đỉnh!", "en": "Awesome!"},
+    {"hanzi": "真的吗", "pinyin": "zhēn de ma", "vi": "Thật á?", "en": "Really?"},
+    {"hanzi": "没问题", "pinyin": "méi wèntí", "vi": "Không vấn đề gì!", "en": "No problem!"},
+    {"hanzi": "噢", "pinyin": "ò", "vi": "Ồ", "en": "Oh"},
+]
+
+# A/B wedding invitation dialogue — (speaker, zh, py, en, vi)
 PARAS = [
     (
-        "大家好！今天我给大家拍一个小视频。你们知道吗？我的好朋友下个月结婚！她跟她的男朋友结婚。我很高兴，也有点儿忙。",
-        "Dàjiā hǎo! Jīntiān wǒ gěi dàjiā pāi yí ge xiǎo shìpín. Nǐmen zhīdào ma? Wǒ de hǎo péngyou xià ge yuè jiéhūn! Tā gēn tā de nánpéngyou jiéhūn. Wǒ hěn gāoxìng, yě yǒudiǎnr máng.",
-        "Hello everyone! Today I'm filming a short vlog. Do you know? My good friend is getting married next month! She is marrying her boyfriend. I'm very happy, and also a bit busy.",
+        "A",
+        "下个月十二号，我打算同女朋友结婚，举行一场浪漫的婚礼。你能来参加吗？",
+        "Xià ge yuè shí'èr hào, wǒ dǎsuàn tóng nǚpéngyou jiéhūn, jǔxíng yì chǎng làngmàn de hūnlǐ. Nǐ néng lái cānjiā ma?",
+        "Next month on the 12th, I plan to marry my girlfriend and hold a romantic wedding. Can you come?",
+        "Tháng sau ngày 12, tôi dự định kết hôn với bạn gái, tổ chức một hôn lễ lãng mạn. Bạn có thể đến tham gia không?",
     ),
     (
-        "你知道他们什么时候结婚吗？他们打算今年十二月结婚。十二月是今年最后一个月。下个月就是十二月。一个月以后，他们就结婚了。",
-        "Nǐ zhīdào tāmen shénme shíhou jiéhūn ma? Tāmen dǎsuàn jīnnián shí'èr yuè jiéhūn. Shí'èr yuè shì jīnnián zuìhòu yí ge yuè. Xià ge yuè jiù shì shí'èr yuè. Yí ge yuè yǐhòu, tāmen jiù jiéhūn le.",
-        "Do you know when they are getting married? They plan to get married this December. December is the last month of this year. Next month is December. In one month, they will be married.",
+        "B",
+        "太好了！一定去！这是我第一次收到你结婚的消息。你们打算在哪儿举行？",
+        "Tài hǎo le! Yídìng qù! Zhè shì wǒ dì yí cì shōudào nǐ jiéhūn de xiāoxi. Nǐmen dǎsuàn zài nǎr jǔxíng?",
+        "Great! I'll definitely go! This is the first time I've heard you're getting married. Where do you plan to hold it?",
+        "Tuyệt quá! Nhất định đi! Đây là lần đầu tiên tôi nhận được tin bạn kết hôn. Các bạn định tổ chức ở đâu?",
     ),
     (
-        "她问我：“你能来参加我们的婚礼吗？”我说：“我一定去参加你们的婚礼！”祝福你们！她很高兴。她说：“太好了，你一定要来。”",
-        "Tā wèn wǒ: “Nǐ néng lái cānjiā wǒmen de hūnlǐ ma?” Wǒ shuō: “Wǒ yídìng qù cānjiā nǐmen de hūnlǐ!” Zhùfú nǐmen! Tā hěn gāoxìng. Tā shuō: “Tài hǎo le, nǐ yídìng yào lái.”",
-        "She asked me: “Can you come to our wedding?” I said: “I will definitely attend your wedding!” Best wishes! She was very happy. She said: “Great — you must come.”",
+        "A",
+        "我们打算在那个美丽的教堂举行，那是我们第一次相识、见面的地方。",
+        "Wǒmen dǎsuàn zài nàge měilì de jiàotáng jǔxíng, nà shì wǒmen dì yí cì xiāngshí, jiànmiàn de dìfang.",
+        "We plan to hold it at that beautiful church — that's where we first got to know each other and met.",
+        "Chúng tôi dự định tổ chức ở nhà thờ đẹp đó, đó là nơi lần đầu tiên chúng tôi quen biết và gặp mặt.",
     ),
     (
-        "有的同学不能来参加，因为他们很忙。她问：“你为什么不来参加我们的婚礼？”同学说：“因为我下个月去中国。我不能来。”她说：“知道了，没关系。”",
-        "Yǒude tóngxué bù néng lái cānjiā, yīnwèi tāmen hěn máng. Tā wèn: “Nǐ wèishénme bù lái cānjiā wǒmen de hūnlǐ?” Tóngxué shuō: “Yīnwèi wǒ xià ge yuè qù Zhōngguó. Wǒ bù néng lái.” Tā shuō: “Zhīdào le, méi guānxi.”",
-        "Some classmates cannot come, because they are busy. She asked: “Why aren't you coming to our wedding?” A classmate said: “Because I'm going to China next month. I can't come.” She said: “I see — that's okay.”",
+        "B",
+        "噢，我知道那个地方，风景很美。为什么选在那里呢？",
+        "Ò, wǒ zhīdào nàge dìfang, fēngjǐng hěn měi. Wèishénme xuǎn zài nàlǐ ne?",
+        "Oh, I know that place — the scenery is beautiful. Why choose there?",
+        "Ồ, tôi biết nơi đó, phong cảnh rất đẹp. Tại sao lại chọn ở đó vậy?",
     ),
     (
-        "他们打算去北京拍婚纱照。她问我：“你打算去哪儿拍婚纱照？”我说：“我还没结婚。你呢？你想怎么拍？”她说：“我想用手机拍，也想请人拍。”",
-        "Tāmen dǎsuàn qù Běijīng pāi hūnshāzhào. Tā wèn wǒ: “Nǐ dǎsuàn qù nǎr pāi hūnshāzhào?” Wǒ shuō: “Wǒ hái méi jiéhūn. Nǐ ne? Nǐ xiǎng zěnme pāi?” Tā shuō: “Wǒ xiǎng yòng shǒujī pāi, yě xiǎng qǐng rén pāi.”",
-        "They plan to go to Beijing to take wedding photos. She asked me: “Where do you plan to take wedding photos?” I said: “I'm not married yet. What about you? How do you want to shoot?” She said: “I want to shoot with a phone, and also hire someone.”",
+        "A",
+        "因为那里的空气很好，我们很喜欢。对了，我们最近还买了一些新家具，常常去那儿打扫。",
+        "Yīnwèi nàlǐ de kōngqì hěn hǎo, wǒmen hěn xǐhuan. Duìle, wǒmen zuìjìn hái mǎi le yìxiē xīn jiājù, chángcháng qù nàr dǎsǎo.",
+        "Because the air there is great, and we really like it. Oh right — we recently bought some new furniture and often go there to clean.",
+        "Bởi vì không khí ở đó rất tốt, chúng tôi rất thích. Phải rồi, dạo gần đây chúng tôi còn mua một ít đồ gia dụng mới, thường hay đến đó dọn dẹp.",
     ),
     (
-        "为什么去北京拍？因为那个地方很好。那是他们第一次见面的地方。她说：“我觉得这个地方很好。我要去那个地方拍照。”第一次见面的地方，一定很好。",
-        "Wèishénme qù Běijīng pāi? Yīnwèi nàge dìfang hěn hǎo. Nà shì tāmen dì yí cì jiànmiàn de dìfang. Tā shuō: “Wǒ juéde zhège dìfang hěn hǎo. Wǒ yào qù nàge dìfang pāizhào.” Dì yí cì jiànmiàn de dìfang, yídìng hěn hǎo.",
-        "Why Beijing? Because that place is beautiful. That is where they first met. She said: “I think this place is really nice. I want to go there to take photos.” The place of a first meeting is certainly special.",
+        "B",
+        "太棒了！拍照的时候能找人帮忙吗？我朋友很会拍，特别是婚纱照。",
+        "Tài bàng le! Pāizhào de shíhou néng zhǎo rén bāngmáng ma? Wǒ péngyou hěn huì pāi, tèbié shì hūnshāzhào.",
+        "Awesome! When taking photos, can we find someone to help? My friend is great at shooting, especially wedding photos.",
+        "Quá đỉnh! Lúc chụp ảnh có thể tìm người giúp không? Bạn tôi chụp rất giỏi, đặc biệt là ảnh cưới.",
     ),
     (
-        "这里有的地方不能拍照。她问：“我能在这儿拍照吗？”有人说：“这里不能拍照。”她说：“知道了。那我们去别的地方拍婚纱照吧。”",
-        "Zhèlǐ yǒude dìfang bù néng pāizhào. Tā wèn: “Wǒ néng zài zhèr pāizhào ma?” Yǒu rén shuō: “Zhèlǐ bù néng pāizhào.” Tā shuō: “Zhīdào le. Nà wǒmen qù biéde dìfang pāi hūnshāzhào ba.”",
-        "In some places here you cannot take photos. She asked: “Can I take photos here?” Someone said: “No photos here.” She said: “Got it. Then let's take the wedding photos somewhere else.”",
+        "A",
+        "真的吗？那太好了！我正想找人来拍呢。",
+        "Zhēn de ma? Nà tài hǎo le! Wǒ zhèng xiǎng zhǎo rén lái pāi ne.",
+        "Really? That's great! I was just looking for someone to shoot.",
+        "Thật á? Thế thì tốt quá! Tôi đang muốn tìm người đến chụp đây.",
     ),
     (
-        "你们打算在哪儿举行婚礼？他们打算在教堂举行婚礼。英国人常常在教堂举行婚礼。她问：“请问大教堂在哪儿？”我说：“我知道，我能带你去。”",
-        "Nǐmen dǎsuàn zài nǎr jǔxíng hūnlǐ? Tāmen dǎsuàn zài jiàotáng jǔxíng hūnlǐ. Yīngguó rén chángcháng zài jiàotáng jǔxíng hūnlǐ. Tā wèn: “Qǐngwèn dà jiàotáng zài nǎr?” Wǒ shuō: “Wǒ zhīdào, wǒ néng dài nǐ qù.”",
-        "Where do you plan to hold the wedding? They plan to hold it in a church. British people often hold weddings in a church. She asked: “Where is the big church?” I said: “I know — I can take you there.”",
+        "B",
+        "没问题！对了，参加婚礼我应该送什么礼物？送红包行吗？",
+        "Méi wèntí! Duìle, cānjiā hūnlǐ wǒ yīnggāi sòng shénme lǐwù? Sòng hóngbāo xíng ma?",
+        "No problem! By the way, what gift should I give for the wedding? Is a red envelope okay?",
+        "Không vấn đề gì! Đúng rồi, đi dự đám cưới tôi nên tặng quà gì? Tặng phong bì (tiền mừng) có được không?",
     ),
     (
-        "结婚以后，他们打算去买一些家具。下个星期一她打算跟他一起去买家具。新家要有桌子、椅子，也要有新家具。家具有点儿贵，可是应该买。",
-        "Jiéhūn yǐhòu, tāmen dǎsuàn qù mǎi yìxiē jiājù. Xià ge xīngqīyī tā dǎsuàn gēn tā yìqǐ qù mǎi jiājù. Xīn jiā yào yǒu zhuōzi, yǐzi, yě yào yǒu xīn jiājù. Jiājù yǒudiǎnr guì, kěshì yīnggāi mǎi.",
-        "After they get married, they plan to buy some furniture. Next Monday she plans to go buy furniture with him. A new home needs desks and chairs, and also new furniture. Furniture is a bit expensive, but they should buy it.",
+        "A",
+        "送红包很好，谢谢你！提前祝福我们吧！",
+        "Sòng hóngbāo hěn hǎo, xièxie nǐ! Tíqián zhùfú wǒmen ba!",
+        "A red envelope is perfect, thank you! Please give us your blessings in advance!",
+        "Tặng phong bì rất tốt, cảm ơn bạn! Hãy chúc phúc cho chúng tôi trước nhé!",
     ),
     (
-        "我应该送什么礼物？你打算买什么礼物？参加婚礼的时候，越南人常送红包。我说：“我打算送红包。”她笑了：“红包很好。谢谢你的礼物，也谢谢你来参加。”",
-        "Wǒ yīnggāi sòng shénme lǐwù? Nǐ dǎsuàn mǎi shénme lǐwù? Cānjiā hūnlǐ de shíhou, Yuènán rén cháng sòng hóngbāo. Wǒ shuō: “Wǒ dǎsuàn sòng hóngbāo.” Tā xiào le: “Hóngbāo hěn hǎo. Xièxie nǐ de lǐwù, yě xièxie nǐ lái cānjiā.”",
-        "What gift should I give? What gift do you plan to buy? When attending a wedding, Vietnamese people often give a red envelope. I said: “I plan to give a red envelope.” She smiled: “A red envelope is great. Thanks for the gift, and thanks for coming.”",
-    ),
-    (
-        "这是我第一次参加婚礼。第一个月我认识她，现在她要结婚了。第一次见面的地方，我还记得。第一次喝咖啡的地方，也在那个城市。时间过得真快。",
-        "Zhè shì wǒ dì yí cì cānjiā hūnlǐ. Dì yí ge yuè wǒ rènshi tā, xiànzài tā yào jiéhūn le. Dì yí cì jiànmiàn de dìfang, wǒ hái jìde. Dì yí cì hē kāfēi de dìfang, yě zài nàge chéngshì. Shíjiān guò de zhēn kuài.",
-        "This is my first time attending a wedding. The first month I met her — and now she is getting married. I still remember the place where we first met. The place where I first drank coffee is in that city too. Time goes so fast.",
-    ),
-    (
-        "婚礼那天，我一定来。我能说汉语，能帮他们拍。她说：“你能帮我们拍婚纱照吗？你能给我们拍吗？”我说：“我能。我一定帮你拍。你跟我一起拍吧！”",
-        "Hūnlǐ nà tiān, wǒ yídìng lái. Wǒ néng shuō Hànyǔ, néng bāng tāmen pāi. Tā shuō: “Nǐ néng bāng wǒmen pāi hūnshāzhào ma? Nǐ néng gěi wǒmen pāi ma?” Wǒ shuō: “Wǒ néng. Wǒ yídìng bāng nǐ pāi. Nǐ gēn wǒ yìqǐ pāi ba!”",
-        "On the wedding day I will definitely come. I can speak Chinese, and I can help them shoot. She said: “Can you help us take the wedding photos? Can you shoot for us?” I said: “I can. I will definitely help you shoot. Take one with me!”",
-    ),
-    (
-        "我还应该做什么？我应该早一点儿来教堂。我不应该迟到。我不应该开车去，因为我不能喝酒以后开车。我打算坐公共汽车去那个地方。",
-        "Wǒ hái yīnggāi zuò shénme? Wǒ yīnggāi zǎo yìdiǎnr lái jiàotáng. Wǒ bù yīnggāi chídào. Wǒ bù yīnggāi kāichē qù, yīnwèi wǒ bù néng hējiǔ yǐhòu kāichē. Wǒ dǎsuàn zuò gōnggòng qìchē qù nàge dìfang.",
-        "What else should I do? I should come to the church a bit early. I shouldn't be late. I shouldn't drive, because I can't drive after drinking. I plan to take the bus to that place.",
-    ),
-    (
-        "你们呢？你们结婚了吗？你打算什么时候结婚？你跟谁结婚？你们打算在哪儿举行婚礼？在教堂，还是在别的地方？你为什么选那个地方？因为那儿很好吗？",
-        "Nǐmen ne? Nǐmen jiéhūn le ma? Nǐ dǎsuàn shénme shíhou jiéhūn? Nǐ gēn shéi jiéhūn? Nǐmen dǎsuàn zài nǎr jǔxíng hūnlǐ? Zài jiàotáng, háishì zài biéde dìfang? Nǐ wèishénme xuǎn nàge dìfang? Yīnwèi nàr hěn hǎo ma?",
-        "What about you? Are you married? When do you plan to get married? Who are you marrying? Where do you plan to hold the wedding? In a church, or somewhere else? Why that place? Because it's nice?",
-    ),
-    (
-        "参加别人的婚礼的时候，你常送什么礼物？你常送红包吗？你知道应该送什么吗？第一次参加婚礼，我不知道。现在我知道了：祝福他们，来参加，送红包，就很好。",
-        "Cānjiā biérén de hūnlǐ de shíhou, nǐ cháng sòng shénme lǐwù? Nǐ cháng sòng hóngbāo ma? Nǐ zhīdào yīnggāi sòng shénme ma? Dì yí cì cānjiā hūnlǐ, wǒ bù zhīdào. Xiànzài wǒ zhīdào le: zhùfú tāmen, lái cānjiā, sòng hóngbāo, jiù hěn hǎo.",
-        "When you attend someone else's wedding, what gift do you often give? Do you often give a red envelope? Do you know what you should give? The first time, I didn't know. Now I know: bless them, come, and give a red envelope — that's already good.",
-    ),
-    (
-        "十二月结婚以前，他们还要见面很多次。第一次见面的地方，他们还想再去拍。我能来，就来。我不能来的时候，我会送礼物，也会祝福他们。",
-        "Shí'èr yuè jiéhūn yǐqián, tāmen hái yào jiànmiàn hěn duō cì. Dì yí cì jiànmiàn de dìfang, tāmen hái xiǎng zài qù pāi. Wǒ néng lái, jiù lái. Wǒ bù néng lái de shíhou, wǒ huì sòng lǐwù, yě huì zhùfú tāmen.",
-        "Before the December wedding they will still meet many times. They still want to go back to the first-meeting place to shoot. If I can come, I will come. When I cannot come, I will send a gift and still bless them.",
-    ),
-    (
-        "我常在那个教堂附近走路。我知道大教堂在哪儿。举行婚礼的时候，很多人来。你应该早来。你不应该在教堂里乱拍照。有的地方能拍，有的地方不能拍。你知道了吗？",
-        "Wǒ cháng zài nàge jiàotáng fùjìn zǒulù. Wǒ zhīdào dà jiàotáng zài nǎr. Jǔxíng hūnlǐ de shíhou, hěn duō rén lái. Nǐ yīnggāi zǎo lái. Nǐ bù yīnggāi zài jiàotáng lǐ luàn pāizhào. Yǒude dìfang néng pāi, yǒude dìfang bù néng pāi. Nǐ zhīdào le ma?",
-        "I often walk near that church. I know where the big church is. When they hold the wedding, many people come. You should come early. You shouldn't take photos everywhere in the church. Some places allow shooting, some don't. Got it?",
-    ),
-    (
-        "好，今天的视频就到这儿。下个月见！我一定来参加他们的婚礼，也一定给大家拍。祝福我的朋友！谢谢大家。再见！",
-        "Hǎo, jīntiān de shìpín jiù dào zhèr. Xià ge yuè jiàn! Wǒ yídìng lái cānjiā tāmen de hūnlǐ, yě yídìng gěi dàjiā pāi. Zhùfú wǒ de péngyou! Xièxie dàjiā. Zàijiàn!",
-        "Okay, that's all for today's video. See you next month! I will definitely attend their wedding, and I will definitely shoot for everyone. Blessings to my friend! Thanks everyone. Bye!",
+        "B",
+        "祝你们幸福！",
+        "Zhù nǐmen xìngfú!",
+        "Wish you both happiness!",
+        "Chúc các bạn hạnh phúc!",
     ),
 ]
 
@@ -412,4 +417,6 @@ if __name__ == "__main__":
         vocab=VOCAB,
         paras=PARAS,
         blocked_if_inside=BLOCKED,
+        extras=EXTRAS,
+        emotions=EMOTIONS,
     )

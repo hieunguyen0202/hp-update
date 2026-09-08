@@ -26,11 +26,11 @@ def page(
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HSK {lesson} · {title} — HSK Corner — Hieu Nguyen</title>
-  <meta name="description" content="HSK Lesson {lesson} — flashcards, vlog script (~{hanzi} 字), English + Pinyin toggle, and Scroll read speaking with cloze new words.">
+  <meta name="description" content="HSK Lesson {lesson} — flashcards, dialogue script (~{hanzi} 字), Vietnamese + English + Pinyin toggle, and Scroll read speaking with cloze new words.">
   <link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../css/docs.css?v=hsk3">
+  <link rel="stylesheet" href="../../../css/docs.css?v=hsk4">
 </head>
 <body class="docs hsk-page">
   <div class="cursor" id="cursor"></div>
@@ -72,8 +72,9 @@ def page(
         <div>
           <h1>Lesson {lesson} · {title}</h1>
           <p class="lede">
-            Ôn {words} từ mới bằng <strong>flashcards</strong>, rồi đọc vlog mức
-            <strong>HSK 1 → bài {lesson}</strong>. Bật English + Pinyin trên script.
+            Ôn {words} từ mới bằng <strong>flashcards</strong>, rồi đọc hội thoại mức
+            <strong>HSK 1 → bài {lesson}</strong>. Bật <strong>Vietnamese</strong> / English / Pinyin trên script.
+            Highlight: <mark class="hsk-new">từ bài</mark> · <mark class="hsk-extra">ngoài bài</mark> · <mark class="hsk-emotion">cảm thán</mark>.
             Scroll read ẩn từ mới — bạn điền lại khi luyện nói.
           </p>
           <div class="docs-meta">
@@ -86,7 +87,7 @@ def page(
 
       <nav class="hsk-jump" aria-label="On this page">
         <a href="#exFlash">Flashcards</a>
-        <a href="#hskScript">Vlog script</a>
+        <a href="#hskScript">Dialogue</a>
         <a href="#hskScroll">Scroll read</a>
         <a href="#hskVocab">Word list</a>
       </nav>
@@ -116,13 +117,16 @@ def page(
         <p class="ex-flash-msg" id="flashMsg" hidden></p>
       </section>
 
-      <section class="hsk-script" id="hskScript" aria-label="Vlog script">
+      <section class="hsk-script" id="hskScript" aria-label="Dialogue script">
         <div class="ex-flash-head">
           <div>
-            <h2>Vlog script · {title}</h2>
+            <h2>Dialogue · {title}</h2>
             <p class="ex-flash-hint">
-              Đoạn văn kiểu vlog, mức HSK 1 đến bài {lesson}. Từ mới được
-              <mark class="hsk-new">highlight</mark>. Bật Pinyin và English khi cần.
+              Hội thoại A/B mức HSK 1 đến bài {lesson}.
+              <mark class="hsk-new">cyan</mark> = từ bài ·
+              <mark class="hsk-extra">amber</mark> = ngoài bài ·
+              <mark class="hsk-emotion">hồng</mark> = cảm thán.
+              Bật Vietnamese / Pinyin / English khi cần.
             </p>
           </div>
           <div class="hsk-script-actions">
@@ -130,10 +134,12 @@ def page(
           </div>
         </div>
         <div class="hsk-script-toolbar">
+          <label class="ex-toggle"><input type="checkbox" id="togVietnamese"> Hiện Vietnamese</label>
           <label class="ex-toggle"><input type="checkbox" id="togPinyin"> Hiện Pinyin</label>
           <label class="ex-toggle"><input type="checkbox" id="togEnglish"> Hiện English</label>
         </div>
         <div id="hskScriptBody"></div>
+        <aside class="hsk-script-notes" id="hskScriptNotes" hidden aria-label="Extra words and reactions"></aside>
       </section>
 
       <section class="ex-scroll" id="hskScroll" aria-label="Scroll read speaking">
@@ -191,7 +197,7 @@ def page(
   </div>
   <script src="../../../js/docs.js"></script>
   <script src="../../../js/hsk-lesson-{lesson}-data.js"></script>
-  <script src="../../../js/hsk.js?v=hsk2"></script>
+  <script src="../../../js/hsk.js?v=hsk4"></script>
 </body>
 </html>
 """
@@ -207,5 +213,5 @@ def write_lesson(**kwargs) -> None:
 
 if __name__ == "__main__":
     write_lesson(lesson=14, title="开学这一天", badge="开学", words=31, hanzi=1111, prev=None, nxt=(15, "朋友的婚礼"))
-    write_lesson(lesson=15, title="朋友的婚礼", badge="婚礼", words=25, hanzi=975, prev=(14, "开学这一天"), nxt=(16, "我的一天"))
+    write_lesson(lesson=15, title="朋友的婚礼", badge="婚礼", words=25, hanzi=225, prev=(14, "开学这一天"), nxt=(16, "我的一天"))
     write_lesson(lesson=16, title="我的一天", badge="一天", words=43, hanzi=1032, prev=(15, "朋友的婚礼"), nxt=None)

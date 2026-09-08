@@ -260,45 +260,104 @@
     restart(true);
   };
 
-  /* ── Vlog script ──────────────────────────────────────────────────── */
+  /* ── Vlog / dialogue script ───────────────────────────────────────── */
   const renderScript = () => {
     const root = document.getElementById("hskScriptBody");
     if (!root) return;
     const paras = data.script || [];
+    const byExtra = new Map((data.extras || []).map((e) => [e.id, e]));
+    const byEmotion = new Map((data.emotions || []).map((e) => [e.hanzi, e]));
+
+    const renderTok = (tok) => {
+      if (tok.new) {
+        const meta = byId.get(tok.new) || {};
+        return `<mark class="hsk-new" data-word="${escapeHtml(tok.new)}" title="${escapeHtml(
+          [meta.pinyin, meta.en, meta.vi].filter(Boolean).join(" · ")
+        )}">${escapeHtml(tok.t)}</mark>`;
+      }
+      if (tok.extra) {
+        const meta = byExtra.get(tok.extra) || {};
+        return `<mark class="hsk-extra" data-extra="${escapeHtml(tok.extra)}" title="${escapeHtml(
+          [meta.pinyin, meta.en, meta.vi].filter(Boolean).join(" · ")
+        )}">${escapeHtml(tok.t)}</mark>`;
+      }
+      if (tok.emotion) {
+        const meta = byEmotion.get(tok.t) || {};
+        return `<mark class="hsk-emotion" title="${escapeHtml(
+          [meta.pinyin, meta.en, meta.vi].filter(Boolean).join(" · ")
+        )}">${escapeHtml(tok.t)}</mark>`;
+      }
+      return escapeHtml(tok.t);
+    };
+
     root.innerHTML = paras
       .map((p, i) => {
-        const zh = (p.tokens || [])
-          .map((tok) => {
-            if (tok.new) {
-              const meta = byId.get(tok.new) || {};
-              return `<mark class="hsk-new" data-word="${escapeHtml(tok.new)}" title="${escapeHtml(
-                [meta.pinyin, meta.en, meta.vi].filter(Boolean).join(" · ")
-              )}">${escapeHtml(tok.t)}</mark>`;
-            }
-            return escapeHtml(tok.t);
-          })
-          .join("");
-        return `<div class="hsk-para" data-idx="${i}">
-          <p class="hsk-zh">${zh}</p>
+        const zh = (p.tokens || []).map(renderTok).join("");
+        const sp = p.speaker
+          ? `<span class="hsk-speaker" aria-label="Speaker ${escapeHtml(p.speaker)}">${escapeHtml(
+              p.speaker
+            )}</span>`
+          : "";
+        return `<div class="hsk-para" data-idx="${i}"${p.speaker ? ` data-speaker="${escapeHtml(p.speaker)}"` : ""}>
+          <p class="hsk-zh">${sp}${zh}</p>
           <p class="hsk-py">${escapeHtml(p.py || "")}</p>
           <p class="hsk-en">${escapeHtml(p.en || "")}</p>
+          ${p.vi ? `<p class="hsk-vi">${escapeHtml(p.vi)}</p>` : ""}
         </div>`;
       })
       .join("");
 
+    const notes = document.getElementById("hskScriptNotes");
+    if (notes) {
+      const extras = data.extras || [];
+      const emotions = data.emotions || [];
+      const bits = [];
+      if (extras.length) {
+        bits.push(
+          `<div class="hsk-note-block"><h3>Từ ngoài bài · highlight amber</h3><ul class="hsk-note-list">${extras
+            .map(
+              (e) =>
+                `<li><mark class="hsk-extra">${escapeHtml(e.hanzi)}</mark> <span class="ipa">${escapeHtml(
+                  e.pinyin || ""
+                )}</span> — ${escapeHtml(e.vi || e.en || "")}</li>`
+            )
+            .join("")}</ul></div>`
+        );
+      }
+      if (emotions.length) {
+        bits.push(
+          `<div class="hsk-note-block"><h3>Câu cảm thán · highlight hồng</h3><ul class="hsk-note-list">${emotions
+            .map(
+              (e) =>
+                `<li><mark class="hsk-emotion">${escapeHtml(e.hanzi)}</mark> <span class="ipa">${escapeHtml(
+                  e.pinyin || ""
+                )}</span> — ${escapeHtml(e.vi || e.en || "")}</li>`
+            )
+            .join("")}</ul></div>`
+        );
+      }
+      notes.innerHTML = bits.join("") || "";
+      notes.hidden = !bits.length;
+    }
+
     const togPy = document.getElementById("togPinyin");
     const togEn = document.getElementById("togEnglish");
+    const togVi = document.getElementById("togVietnamese");
     const apply = () => {
       body.classList.toggle("hsk-show-py", !!(togPy && togPy.checked));
       body.classList.toggle("hsk-show-en", !!(togEn && togEn.checked));
+      body.classList.toggle("hsk-show-vi", !!(togVi && togVi.checked));
     };
     togPy?.addEventListener("change", apply);
     togEn?.addEventListener("change", apply);
+    togVi?.addEventListener("change", apply);
     apply();
 
     document.getElementById("btnCopyZh")?.addEventListener("click", async (e) => {
       const btn = e.currentTarget;
-      const text = paras.map((p) => p.zh).join("\n\n");
+      const text = paras
+        .map((p) => (p.speaker ? `${p.speaker}: ${p.zh}` : p.zh))
+        .join("\n\n");
       try {
         await navigator.clipboard.writeText(text);
         const prev = btn.textContent;
@@ -387,9 +446,24 @@
         line.className = "scroll-line hsk-scroll-zh";
         (p.tokens || []).forEach((tok) => {
           if (tok.new) line.appendChild(makeBlank(tok, mode, reveal));
-          else line.appendChild(document.createTextNode(tok.t));
+          else if (tok.extra) {
+            const mark = document.createElement("mark");
+            mark.className = "hsk-extra";
+            mark.textContent = tok.t;
+            line.appendChild(mark);
+          } else if (tok.emotion) {
+            const mark = document.createElement("mark");
+            mark.className = "hsk-emotion";
+            mark.textContent = tok.t;
+            line.appendChild(mark);
+          } else line.appendChild(document.createTextNode(tok.t));
         });
-        frag.appendChild(line);
+        if (p.speaker) {
+          const sp = document.createElement("span");
+          sp.className = "hsk-speaker";
+          sp.textContent = p.speaker;
+          line.insertBefore(sp, line.firstChild);
+        }        frag.appendChild(line);
         if (showPy && p.py) {
           const py = document.createElement("p");
           py.className = "scroll-line hsk-scroll-py";

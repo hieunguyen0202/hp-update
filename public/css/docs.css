@@ -8336,8 +8336,45 @@ body.hsk-page {
   padding: 0 1px;
 }
 
+.docs-main mark.hsk-extra,
+.hsk-page mark.hsk-extra {
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.12);
+  border-bottom: 2px dashed rgba(251, 191, 36, 0.75);
+  font-weight: 700;
+  padding: 0 1px;
+}
+
+.docs-main mark.hsk-emotion,
+.hsk-page mark.hsk-emotion {
+  color: #f9a8d4;
+  background: rgba(244, 114, 182, 0.14);
+  border-bottom: 2px solid rgba(244, 114, 182, 0.65);
+  font-weight: 700;
+  padding: 0 1px;
+  border-radius: 3px;
+}
+
+.docs-main .hsk-speaker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.55rem;
+  margin-right: 0.45rem;
+  padding: 0.05rem 0.4rem;
+  border-radius: 6px;
+  background: rgba(34, 211, 238, 0.16);
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  vertical-align: 0.12em;
+}
+
 .docs-main .hsk-py,
-.docs-main .hsk-en {
+.docs-main .hsk-en,
+.docs-main .hsk-vi {
   display: none;
   margin: 10px 0 0;
   font-size: 0.95rem;
@@ -8354,12 +8391,58 @@ body.hsk-page {
   color: rgba(186, 230, 253, 0.88);
 }
 
+.docs-main .hsk-vi {
+  font-family: var(--sans);
+  color: rgba(196, 181, 253, 0.92);
+  border-top: 1px dashed rgba(167, 139, 250, 0.28);
+  padding-top: 8px;
+}
+
 body.hsk-show-py .hsk-py {
   display: block;
 }
 
 body.hsk-show-en .hsk-en {
   display: block;
+}
+
+body.hsk-show-vi .hsk-vi {
+  display: block;
+}
+
+.hsk-script-notes {
+  margin-top: 18px;
+  display: grid;
+  gap: 14px;
+}
+
+.hsk-note-block {
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.hsk-note-block h3 {
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+  color: rgba(226, 232, 240, 0.88);
+}
+
+.hsk-note-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 6px;
+  color: rgba(226, 232, 240, 0.78);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.hsk-note-list .ipa {
+  margin-left: 4px;
+  color: #facc15;
+  font-size: 0.82em;
 }
 
 .hsk-flash-hanzi {

@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HSK 14 · 开学这一天 — HSK Corner — Hieu Nguyen</title>
-  <meta name="description" content="HSK Lesson 14 — flashcards, vlog script (~1111 字), English + Pinyin toggle, and Scroll read speaking with cloze new words.">
+  <meta name="description" content="HSK Lesson 14 — flashcards, dialogue script (~1111 字), Vietnamese + English + Pinyin toggle, and Scroll read speaking with cloze new words.">
   <link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../css/docs.css?v=hsk3">
+  <link rel="stylesheet" href="../../../css/docs.css?v=hsk4">
 </head>
 <body class="docs hsk-page">
   <div class="cursor" id="cursor"></div>
@@ -50,8 +50,9 @@
         <div>
           <h1>Lesson 14 · 开学这一天</h1>
           <p class="lede">
-            Ôn 31 từ mới bằng <strong>flashcards</strong>, rồi đọc vlog mức
-            <strong>HSK 1 → bài 14</strong>. Bật English + Pinyin trên script.
+            Ôn 31 từ mới bằng <strong>flashcards</strong>, rồi đọc hội thoại mức
+            <strong>HSK 1 → bài 14</strong>. Bật <strong>Vietnamese</strong> / English / Pinyin trên script.
+            Highlight: <mark class="hsk-new">từ bài</mark> · <mark class="hsk-extra">ngoài bài</mark> · <mark class="hsk-emotion">cảm thán</mark>.
             Scroll read ẩn từ mới — bạn điền lại khi luyện nói.
           </p>
           <div class="docs-meta">
@@ -64,7 +65,7 @@
 
       <nav class="hsk-jump" aria-label="On this page">
         <a href="#exFlash">Flashcards</a>
-        <a href="#hskScript">Vlog script</a>
+        <a href="#hskScript">Dialogue</a>
         <a href="#hskScroll">Scroll read</a>
         <a href="#hskVocab">Word list</a>
       </nav>
@@ -94,13 +95,16 @@
         <p class="ex-flash-msg" id="flashMsg" hidden></p>
       </section>
 
-      <section class="hsk-script" id="hskScript" aria-label="Vlog script">
+      <section class="hsk-script" id="hskScript" aria-label="Dialogue script">
         <div class="ex-flash-head">
           <div>
-            <h2>Vlog script · 开学这一天</h2>
+            <h2>Dialogue · 开学这一天</h2>
             <p class="ex-flash-hint">
-              Đoạn văn kiểu vlog, mức HSK 1 đến bài 14. Từ mới được
-              <mark class="hsk-new">highlight</mark>. Bật Pinyin và English khi cần.
+              Hội thoại A/B mức HSK 1 đến bài 14.
+              <mark class="hsk-new">cyan</mark> = từ bài ·
+              <mark class="hsk-extra">amber</mark> = ngoài bài ·
+              <mark class="hsk-emotion">hồng</mark> = cảm thán.
+              Bật Vietnamese / Pinyin / English khi cần.
             </p>
           </div>
           <div class="hsk-script-actions">
@@ -108,10 +112,12 @@
           </div>
         </div>
         <div class="hsk-script-toolbar">
+          <label class="ex-toggle"><input type="checkbox" id="togVietnamese"> Hiện Vietnamese</label>
           <label class="ex-toggle"><input type="checkbox" id="togPinyin"> Hiện Pinyin</label>
           <label class="ex-toggle"><input type="checkbox" id="togEnglish"> Hiện English</label>
         </div>
         <div id="hskScriptBody"></div>
+        <aside class="hsk-script-notes" id="hskScriptNotes" hidden aria-label="Extra words and reactions"></aside>
       </section>
 
       <section class="ex-scroll" id="hskScroll" aria-label="Scroll read speaking">
@@ -169,6 +175,6 @@
   </div>
   <script src="../../../js/docs.js"></script>
   <script src="../../../js/hsk-lesson-14-data.js"></script>
-  <script src="../../../js/hsk.js?v=hsk2"></script>
+  <script src="../../../js/hsk.js?v=hsk4"></script>
 </body>
 </html>
