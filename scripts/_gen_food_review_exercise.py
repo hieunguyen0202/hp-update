@@ -87,7 +87,7 @@ def _ex_card_q_html(q: str) -> str:
     return f"""            <div class="lr-food-ex-head">
               <p class="lr-food-ex-q">{esc(q)}</p>
               <div class="lr-food-ex-head-actions">
-                <button type="button" class="lr-q-star" aria-pressed="false" aria-label="Favorite question" title="Thêm vào Lesson 17 · Favorites">☆</button>
+                <button type="button" class="lr-q-star" aria-pressed="false" aria-label="Favorite question" title="Chọn câu này cho Lesson 17 (mỗi lesson tối đa 1 câu)">☆</button>
                 <label class="ex-toggle lr-ex-ipa-tog"><input type="checkbox" class="js-ex-show-ipa"> Hiện IPA</label>
               </div>
             </div>"""
@@ -11338,6 +11338,7 @@ def lesson_highlights_html(
     lesson15_scroll = ""
     lesson16_scroll = ""
     lesson17_scroll = ""
+    lesson17_fav_scroll = ""
     if include_food_examples:
         lesson3_scroll = lesson_scroll_read_html(
             "lesson3", title="Lesson 3", source_sel="#lesson3-scroll-source"
@@ -11380,6 +11381,11 @@ def lesson_highlights_html(
         )
         lesson17_scroll = lesson_scroll_read_html(
             "lesson17", title="L17 Building · Restaurant / café", source_sel="#lesson17-scroll-source"
+        )
+        lesson17_fav_scroll = lesson_scroll_read_html(
+            "lesson17-fav",
+            title="Lesson 17 · Food Test",
+            source_sel="#lesson17-favorites-source",
         )
 
     g2 = lesson_grammar_notes_html(
@@ -12307,17 +12313,18 @@ def lesson_highlights_html(
 
 {lesson16_scroll}
         </article>
-{"" if not include_food_examples else '''
+{"" if not include_food_examples else f'''
         <article class="lr-core-lesson" id="lesson17-favorites">
           <div class="lr-core-lesson-head">
             <div>
               <h3>Lesson 17 · IELTS Speaking Test — Food Topic</h3>
-              <p class="lr-core-lead">Tổng hợp câu hỏi ưa thích từ Lesson 2–15 (mỗi dạng chọn câu hay nhất). Bấm <strong>☆</strong> trên từng câu hỏi ở các bài trước để thêm/bớt tại đây — mặc định đã gắn các câu Cambridge-style hay nhất.</p>
+              <p class="lr-core-lead">Tổng hợp câu hỏi ưa thích từ Lesson 2–15 — <strong>mỗi lesson tối đa 1 câu</strong> để đủ dạng. Bấm <strong>☆</strong> để chọn (chọn câu mới sẽ thay câu cũ cùng lesson). Mặc định đã gắn các câu Cambridge-style hay nhất. Dùng <strong>Scroll read</strong> bên dưới để luyện nói.</p>
             </div>
           </div>
           <div class="lr-food-examples" id="lesson17-favorites-source">
             <p class="lr-mm-hint" id="lesson17-favorites-empty">Đang tải câu hỏi yêu thích…</p>
           </div>
+{lesson17_fav_scroll}
         </article>
 '''}
       </div>"""
@@ -13928,7 +13935,7 @@ def build_page() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr23"></script>
-  <script src="{home}js/linear-review.js?v=lr41"></script>
+  <script src="{home}js/linear-review.js?v=lr43"></script>
 </body>
 </html>"""
 
@@ -14021,7 +14028,7 @@ def build_page_review2() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr23"></script>
-  <script src="{home}js/linear-review.js?v=lr41"></script>
+  <script src="{home}js/linear-review.js?v=lr43"></script>
 </body>
 </html>"""
 

@@ -1291,6 +1291,7 @@
         applyTransform();
         if (wasPlaying) play();
       };
+      root.__lrRebuildScroll = rebuild;
 
       const copyText = () => {
         const parts = [];
@@ -1434,15 +1435,15 @@
 
   initLessonCollapse();
 
-  /** Lesson 17 · favorite questions from Lessons 2–15 (☆ on each card) */
+  /** Lesson 17 · favorite questions from Lessons 2–15 (☆ on each card; max 1 per lesson) */
   const initQuestionFavorites = () => {
-    const STORAGE_KEY = "lr-food-fav-v1";
+    const STORAGE_KEY = "lr-food-fav-v2";
     const panel = document.getElementById("lesson17-favorites-source");
     if (!panel) return;
 
+    // One best question per lesson form (L3–L15). L2 optional via star.
     const DEFAULT_FAVORITES = [
       "lesson3|do-you-like-eating-vegetables",
-      "lesson3|do-you-like-fast-food",
       "lesson5|what-kind-of-cuisine-do-you-like-most",
       "lesson6|do-you-prefer-eating-at-home-or-eating-out",
       "lesson7|is-street-food-popular-in-your-country",
@@ -1462,11 +1463,36 @@
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/^-+|-+$/g, "");
 
+    const lessonOfKey = (key) => {
+      const m = String(key || "").match(/^lesson(\d+)\|/i);
+      return m ? Number(m[1]) : null;
+    };
+
     const lessonNumFromEl = (el) => {
       const art = el.closest(".lr-core-lesson");
       if (!art || !art.id) return null;
       const m = art.id.match(/^lesson(\d+)/i);
       return m ? Number(m[1]) : null;
+    };
+
+    /** Keep at most one favorite per lesson number. */
+    const normalizeOnePerLesson = (keys) => {
+      const list = keys.map(String);
+      const byLesson = new Map();
+      DEFAULT_FAVORITES.forEach((k) => {
+        if (!list.includes(k)) return;
+        const n = lessonOfKey(k);
+        if (n != null && !byLesson.has(n)) byLesson.set(n, k);
+      });
+      list.forEach((k) => {
+        const n = lessonOfKey(k);
+        if (n != null && !byLesson.has(n)) byLesson.set(n, k);
+      });
+      return new Set(
+        [...byLesson.entries()]
+          .sort((a, b) => a[0] - b[0])
+          .map(([, k]) => k)
+      );
     };
 
     const assignKeys = () => {
@@ -1488,7 +1514,7 @@
         if (raw == null) return new Set(DEFAULT_FAVORITES);
         const parsed = JSON.parse(raw);
         if (!Array.isArray(parsed)) return new Set(DEFAULT_FAVORITES);
-        return new Set(parsed.map(String));
+        return normalizeOnePerLesson(parsed.map(String));
       } catch {
         return new Set(DEFAULT_FAVORITES);
       }
@@ -1504,8 +1530,8 @@
       btn.setAttribute("aria-pressed", on ? "true" : "false");
       btn.textContent = on ? "★" : "☆";
       btn.title = on
-        ? "Bỏ khỏi Lesson 17 · Favorites"
-        : "Thêm vào Lesson 17 · Favorites";
+        ? "Bỏ khỏi Lesson 17 (mỗi lesson tối đa 1 câu)"
+        : "Chọn câu này cho Lesson 17 (thay câu khác cùng lesson nếu có)";
     };
 
     const syncStars = (favs) => {
@@ -1528,9 +1554,31 @@
       });
       [...favs]
         .filter((k) => !seen.has(k))
-        .sort()
+        .sort((a, b) => (lessonOfKey(a) || 0) - (lessonOfKey(b) || 0) || a.localeCompare(b))
         .forEach((k) => out.push(k));
       return out;
+    };
+
+    const refreshFavScroll = () => {
+      const scrollRoot = document.getElementById("scroll-lesson17-fav");
+      if (scrollRoot && typeof scrollRoot.__lrRebuildScroll === "function") {
+        scrollRoot.__lrRebuildScroll();
+      }
+    };
+
+    const setFavorite = (favs, key, on) => {
+      const lesson = lessonOfKey(key);
+      if (on) {
+        if (lesson != null) {
+          [...favs].forEach((k) => {
+            if (lessonOfKey(k) === lesson) favs.delete(k);
+          });
+        }
+        favs.add(key);
+      } else {
+        favs.delete(key);
+      }
+      return favs;
     };
 
     const renderPanel = (favs) => {
@@ -1541,8 +1589,9 @@
         empty.className = "lr-mm-hint";
         empty.id = "lesson17-favorites-empty";
         empty.textContent =
-          "Chưa có câu hỏi yêu thích. Bấm ☆ trên các câu hỏi Lesson 2–15 để thêm vào đây.";
+          "Chưa có câu hỏi yêu thích. Bấm ☆ trên các câu hỏi Lesson 2–15 để thêm vào đây (mỗi lesson tối đa 1 câu).";
         panel.appendChild(empty);
+        refreshFavScroll();
         return;
       }
 
@@ -1560,7 +1609,7 @@
           star.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
-            favs.delete(key);
+            setFavorite(favs, key, false);
             saveFavs(favs);
             syncStars(favs);
             renderPanel(favs);
@@ -1576,11 +1625,16 @@
           "Không tìm thấy card gốc cho các favorite đã lưu. Thử hard-refresh hoặc chọn lại ☆.";
         panel.appendChild(empty);
       }
+
+      panel.querySelectorAll(".lr-word-pick").forEach((sel) => {
+        sel.addEventListener("change", refreshFavScroll);
+      });
+      refreshFavScroll();
     };
 
     assignKeys();
     const favs = loadFavs();
-    saveFavs(favs); // persist defaults on first visit
+    saveFavs(favs);
     syncStars(favs);
     renderPanel(favs);
 
@@ -1592,8 +1646,8 @@
         const card = btn.closest(".lr-food-ex-card");
         const key = card?.dataset.qKey;
         if (!key) return;
-        if (favs.has(key)) favs.delete(key);
-        else favs.add(key);
+        const turningOn = !favs.has(key);
+        setFavorite(favs, key, turningOn);
         saveFavs(favs);
         syncStars(favs);
         renderPanel(favs);
