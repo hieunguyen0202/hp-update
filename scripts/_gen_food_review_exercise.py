@@ -83,10 +83,13 @@ def _resolve_ipa(ipa: str, plain: str) -> str:
 
 
 def _ex_card_q_html(q: str) -> str:
-    """Question + per-card IPA toggle (IPA line sits under each answer)."""
+    """Question + favorite star + per-card IPA toggle (IPA line sits under each answer)."""
     return f"""            <div class="lr-food-ex-head">
               <p class="lr-food-ex-q">{esc(q)}</p>
-              <label class="ex-toggle lr-ex-ipa-tog"><input type="checkbox" class="js-ex-show-ipa"> Hiện IPA</label>
+              <div class="lr-food-ex-head-actions">
+                <button type="button" class="lr-q-star" aria-pressed="false" aria-label="Favorite question" title="Thêm vào Lesson 17 · Favorites">☆</button>
+                <label class="ex-toggle lr-ex-ipa-tog"><input type="checkbox" class="js-ex-show-ipa"> Hiện IPA</label>
+              </div>
             </div>"""
 
 GRAMMAR_REFS = [
@@ -12304,7 +12307,19 @@ def lesson_highlights_html(
 
 {lesson16_scroll}
         </article>
-
+{"" if not include_food_examples else '''
+        <article class="lr-core-lesson" id="lesson17-favorites">
+          <div class="lr-core-lesson-head">
+            <div>
+              <h3>Lesson 17 · IELTS Speaking Test — Food Topic</h3>
+              <p class="lr-core-lead">Tổng hợp câu hỏi ưa thích từ Lesson 2–15 (mỗi dạng chọn câu hay nhất). Bấm <strong>☆</strong> trên từng câu hỏi ở các bài trước để thêm/bớt tại đây — mặc định đã gắn các câu Cambridge-style hay nhất.</p>
+            </div>
+          </div>
+          <div class="lr-food-examples" id="lesson17-favorites-source">
+            <p class="lr-mm-hint" id="lesson17-favorites-empty">Đang tải câu hỏi yêu thích…</p>
+          </div>
+        </article>
+'''}
       </div>"""
 
 
@@ -13889,7 +13904,7 @@ def build_page() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr67">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr68">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -13913,7 +13928,7 @@ def build_page() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr23"></script>
-  <script src="{home}js/linear-review.js?v=lr40"></script>
+  <script src="{home}js/linear-review.js?v=lr41"></script>
 </body>
 </html>"""
 
@@ -13947,6 +13962,7 @@ def build_page_review2() -> str:
         <li><a href="#lesson14-formulas">Lesson 14 · How often?</a></li>
         <li><a href="#lesson15-formulas">Lesson 15 · How changed?</a></li>
         <li><a href="#lesson16-formulas">Lesson 16 · Part 2</a></li>
+        <li><a href="#lesson17-favorites">Lesson 17 · Food Test</a></li>
       </ul>
     </aside>
     <article class="docs-main lr-page">
@@ -13959,7 +13975,7 @@ def build_page_review2() -> str:
       </div>
 
       <header class="lr-hero">
-        <p class="lr-hero-badge">Linear Thinking · Lesson 2–16</p>
+        <p class="lr-hero-badge">Linear Thinking · Lesson 2–17</p>
         <h1>Food &amp; Drink — Review Exercise 2</h1>
       </header>
 
@@ -13981,7 +13997,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr67">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr68">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -14005,7 +14021,7 @@ def build_page_review2() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr23"></script>
-  <script src="{home}js/linear-review.js?v=lr40"></script>
+  <script src="{home}js/linear-review.js?v=lr41"></script>
 </body>
 </html>"""
 

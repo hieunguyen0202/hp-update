@@ -1434,6 +1434,175 @@
 
   initLessonCollapse();
 
+  /** Lesson 17 · favorite questions from Lessons 2–15 (☆ on each card) */
+  const initQuestionFavorites = () => {
+    const STORAGE_KEY = "lr-food-fav-v1";
+    const panel = document.getElementById("lesson17-favorites-source");
+    if (!panel) return;
+
+    const DEFAULT_FAVORITES = [
+      "lesson3|do-you-like-eating-vegetables",
+      "lesson3|do-you-like-fast-food",
+      "lesson5|what-kind-of-cuisine-do-you-like-most",
+      "lesson6|do-you-prefer-eating-at-home-or-eating-out",
+      "lesson7|is-street-food-popular-in-your-country",
+      "lesson8|what-is-the-best-time-of-day-to-eat-the-main-meal",
+      "lesson9|when-was-the-first-time-you-tried-a-foreign-dish",
+      "lesson10|did-you-enjoy-eating-vegetables-when-you-were-a-child",
+      "lesson11|is-cooking-from-scratch-suitable-for-busy-people",
+      "lesson12|is-it-easy-to-cook-at-home-after-a-long-day-at-work",
+      "lesson13|what-do-you-dislike-about-fast-food",
+      "lesson14|how-often-do-you-go-out-for-dinner-with-friends",
+      "lesson15|how-has-the-way-people-cook-changed-in-recent-years",
+    ];
+
+    const slugQ = (q) =>
+      String(q || "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+
+    const lessonNumFromEl = (el) => {
+      const art = el.closest(".lr-core-lesson");
+      if (!art || !art.id) return null;
+      const m = art.id.match(/^lesson(\d+)/i);
+      return m ? Number(m[1]) : null;
+    };
+
+    const assignKeys = () => {
+      document.querySelectorAll(".lr-food-ex-card").forEach((card) => {
+        if (card.closest("#lesson17-favorites-source")) return;
+        const n = lessonNumFromEl(card);
+        if (!n || n < 2 || n > 15) return;
+        if (card.classList.contains("lr-p2-card")) return;
+        const q = card.querySelector(".lr-food-ex-q")?.textContent?.trim() || "";
+        if (!q) return;
+        const key = `lesson${n}|${slugQ(q)}`;
+        card.dataset.qKey = key;
+      });
+    };
+
+    const loadFavs = () => {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw == null) return new Set(DEFAULT_FAVORITES);
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return new Set(DEFAULT_FAVORITES);
+        return new Set(parsed.map(String));
+      } catch {
+        return new Set(DEFAULT_FAVORITES);
+      }
+    };
+
+    const saveFavs = (set) => {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([...set]));
+    };
+
+    const paintStar = (btn, on) => {
+      if (!btn) return;
+      btn.classList.toggle("is-starred", on);
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+      btn.textContent = on ? "★" : "☆";
+      btn.title = on
+        ? "Bỏ khỏi Lesson 17 · Favorites"
+        : "Thêm vào Lesson 17 · Favorites";
+    };
+
+    const syncStars = (favs) => {
+      document.querySelectorAll(".lr-food-ex-card[data-q-key]").forEach((card) => {
+        if (card.closest("#lesson17-favorites-source")) return;
+        const on = favs.has(card.dataset.qKey);
+        card.classList.toggle("is-favorite", on);
+        paintStar(card.querySelector(".lr-q-star"), on);
+      });
+    };
+
+    const orderedKeys = (favs) => {
+      const out = [];
+      const seen = new Set();
+      DEFAULT_FAVORITES.forEach((k) => {
+        if (favs.has(k)) {
+          out.push(k);
+          seen.add(k);
+        }
+      });
+      [...favs]
+        .filter((k) => !seen.has(k))
+        .sort()
+        .forEach((k) => out.push(k));
+      return out;
+    };
+
+    const renderPanel = (favs) => {
+      const keys = orderedKeys(favs);
+      panel.innerHTML = "";
+      if (!keys.length) {
+        const empty = document.createElement("p");
+        empty.className = "lr-mm-hint";
+        empty.id = "lesson17-favorites-empty";
+        empty.textContent =
+          "Chưa có câu hỏi yêu thích. Bấm ☆ trên các câu hỏi Lesson 2–15 để thêm vào đây.";
+        panel.appendChild(empty);
+        return;
+      }
+
+      keys.forEach((key) => {
+        const src = [...document.querySelectorAll(`.lr-food-ex-card[data-q-key="${CSS.escape(key)}"]`)].find(
+          (el) => !el.closest("#lesson17-favorites-source")
+        );
+        if (!src) return;
+        const clone = src.cloneNode(true);
+        clone.classList.add("is-favorite", "lr-fav-clone");
+        clone.dataset.favCloneOf = key;
+        const star = clone.querySelector(".lr-q-star");
+        paintStar(star, true);
+        if (star) {
+          star.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            favs.delete(key);
+            saveFavs(favs);
+            syncStars(favs);
+            renderPanel(favs);
+          });
+        }
+        panel.appendChild(clone);
+      });
+
+      if (!panel.children.length) {
+        const empty = document.createElement("p");
+        empty.className = "lr-mm-hint";
+        empty.textContent =
+          "Không tìm thấy card gốc cho các favorite đã lưu. Thử hard-refresh hoặc chọn lại ☆.";
+        panel.appendChild(empty);
+      }
+    };
+
+    assignKeys();
+    const favs = loadFavs();
+    saveFavs(favs); // persist defaults on first visit
+    syncStars(favs);
+    renderPanel(favs);
+
+    document.querySelectorAll(".lr-food-ex-card[data-q-key] .lr-q-star").forEach((btn) => {
+      if (btn.closest("#lesson17-favorites-source")) return;
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const card = btn.closest(".lr-food-ex-card");
+        const key = card?.dataset.qKey;
+        if (!key) return;
+        if (favs.has(key)) favs.delete(key);
+        else favs.add(key);
+        saveFavs(favs);
+        syncStars(favs);
+        renderPanel(favs);
+      });
+    });
+  };
+
+  initQuestionFavorites();
+
   /** Horizontal mind map: SVG cubic bezier from measured node boxes */
   const initMindmaps = () => {
     document.querySelectorAll(".lr-mmap").forEach((wrap) => {
