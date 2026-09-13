@@ -373,11 +373,42 @@ def lesson5_examples_html() -> str:
         "ex": t6,
         "notes": [{"en": "like two peas in a pod", "vi": "giống nhau như đúc"}],
     })
+    t7 = (
+        "I find myself attracted to {attracted_to}. "
+        "Loyalty and mutual respect matter more to me than a huge social circle."
+    )
+    items.append({
+        "q": "What kind of people do you like to have as friends? (TAK12 · attracted to)",
+        "html": t7.format(attracted_to=phrase_pick("attracted_to", 0)),
+        "vi": "Tôi thấy mình bị thu hút bởi người thành thật và biết cư xử. Lòng trung thành và tôn trọng lẫn nhau quan trọng hơn một vòng tròn xã hội rộng.",
+        "plain": "I find myself attracted to people who are honest and who know how to behave with others. Loyalty and mutual respect matter more to me than a huge social circle.",
+        "ex": t7,
+        "notes": [
+            {"en": "attracted to", "vi": "bị thu hút (TAK12)"},
+            {"en": "live in harmony with somebody", "vi": "chung sống hòa hợp"},
+            {"en": "loyalty · mutual respect", "vi": "trung thành · tôn trọng lẫn nhau (ECE)"},
+        ],
+    })
+    t8 = (
+        "If I had to choose, I would go for {kind_quality}. "
+        "That helps me build a relationship that feels {relation_adj}, not just a short friendship."
+    )
+    items.append({
+        "q": "What kind of relationship do you value most?",
+        "html": t8.format(kind_quality=phrase_pick("kind_quality", 4), relation_adj=phrase_pick("relation_adj", 1)),
+        "vi": "Nếu phải chọn, tôi chọn lòng trung thành và tôn trọng lẫn nhau. Điều đó giúp xây mối quan hệ ý nghĩa, bền vững — không chỉ tình bạn ngắn.",
+        "plain": "If I had to choose, I would go for loyalty and mutual respect. That helps me build a relationship that feels meaningful and long-lasting, not just a short friendship.",
+        "ex": t8,
+        "notes": [
+            {"en": "build a relationship", "vi": "xây dựng mối quan hệ (ECE)"},
+            {"en": "long-lasting · meaningful", "vi": "bền vững · ý nghĩa"},
+        ],
+    })
     return _sample_cards(
         items,
         box_id="pf-examples-l5",
         subtitle="Ví dụ People & Family · What kind of X?",
-        hint="Soft choose + because. Câu TAK12 / ZIM / Mc / ECE + collocation DOL.",
+        hint="Soft choose + because. TAK12 attracted to · ECE loyalty / build a relationship · DOL scoring phrases.",
     )
 
 
@@ -456,11 +487,26 @@ def lesson6_examples_html() -> str:
         "ex": t5,
         "notes": [{"en": "acquaintance", "vi": "người quen (ECE)"}],
     })
+    t6 = (
+        "I prefer hanging out with {relation_type} to making small talk with an acquaintance. "
+        "A roommate or classmate can become a companion if we live in harmony with each other."
+    )
+    items.append({
+        "q": "Do you prefer close friends or acquaintances? (ECE relation types)",
+        "html": t6.format(relation_type=phrase_pick("relation_type", 0)),
+        "vi": "Tôi thích đi với bạn thân hơn chuyện xã giao với người quen. Bạn cùng phòng hoặc bạn cùng lớp có thể thành người đồng hành nếu sống hòa hợp.",
+        "plain": "I prefer hanging out with a close friend to making small talk with an acquaintance. A roommate or classmate can become a companion if we live in harmony with each other.",
+        "ex": t6,
+        "notes": [
+            {"en": "roommate · classmate · companion", "vi": "bạn cùng phòng · bạn cùng lớp · người đồng hành (ECE)"},
+            {"en": "live in harmony with somebody", "vi": "chung sống hòa hợp (TAK12)"},
+        ],
+    })
     return _sample_cards(
         items,
         box_id="pf-examples-l6",
         subtitle="Ví dụ People & Family · Prefer X or Y?",
-        hint="prefer X to Y / rather than / lean towards. Câu ZIM, ECE, TAK12, WESET.",
+        hint="prefer X to Y / rather than / lean towards. ECE types: roommate, classmate, companion.",
     )
 
 
@@ -544,11 +590,27 @@ def lesson7_examples_html() -> str:
         "kind": "pop_yes",
         "notes": [{"en": "generally speaking", "vi": "nói chung"}],
     })
+    t7 = (
+        "It depends on the family. Some people still feel {fighter_family} even from abroad. "
+        "A few households are matriarchal, while others stay patriarchal. Disowning a child is rare, but it does happen after a serious scandal."
+    )
+    items.append({
+        "q": "Do family lineage and kinship still matter in your country? (IELTS-Fighter)",
+        "html": t7.format(fighter_family=phrase_pick("fighter_family", 0)),
+        "vi": "Còn tùy gia đình. Có người vẫn cảm thấy mối họ hàng sâu dù ở nước ngoài. Một số hộ gia mẫu, số khác vẫn gia trưởng. Từ bỏ con cái hiếm, nhưng vẫn xảy ra sau scandal.",
+        "plain": "It depends on the family. Some people still feel a deep sense of kinship even from abroad. A few households are matriarchal, while others stay patriarchal. Disowning a child is rare, but it does happen after a serious scandal.",
+        "ex": t7,
+        "kind": "depends",
+        "notes": [
+            {"en": "kinship · lineage · descendant", "vi": "họ hàng · dòng dõi · hậu duệ"},
+            {"en": "matriarchal · patriarchal · disown", "vi": "gia mẫu · gia trưởng · từ bỏ (IELTS-Fighter)"},
+        ],
+    })
     return _sample_cards(
         items,
         box_id="pf-examples-l7",
         subtitle="Ví dụ People & Family · Is X popular?",
-        hint="Có / Không / Còn tùy. Câu DOL (lonely cities, society → personality) + WESET customs.",
+        hint="Có / Không / Còn tùy. DOL lonely cities + IELTS-Fighter kinship / lineage / disown.",
     )
 
 
@@ -860,11 +922,27 @@ def lesson11_examples_html() -> str:
         "kind": "yes",
         "notes": [{"en": "adj + enough + to V", "vi": "đủ … để …"}, {"en": "adapt and compromise", "vi": "thích nghi và thỏa hiệp (WESET)"}],
     })
+    t7 = (
+        "It depends. {romance_lex} can start a relationship, but without commitment "
+        "and compatibility it will not stay harmonious. Affection matters more than a brief attraction."
+    )
+    items.append({
+        "q": "Is chemistry enough for a long-term relationship? (IELTS-Fighter romance)",
+        "html": t7.format(romance_lex=phrase_pick("romance_lex", 1)),
+        "vi": "Còn tùy. Chemistry có thể khởi đầu, nhưng thiếu cam kết và sự hòa hợp thì không giữ được hòa hợp. Tình cảm quan trọng hơn sự thu hút thoáng qua.",
+        "plain": "It depends. chemistry can start a relationship, but without commitment and compatibility it will not stay harmonious. Affection matters more than a brief attraction.",
+        "ex": t7,
+        "kind": "depends",
+        "notes": [
+            {"en": "chemistry · affection · attraction", "vi": "hóa học tình cảm · tình cảm · sự thu hút (Fighter)"},
+            {"en": "harmonious", "vi": "hòa hợp (ECE adj)"},
+        ],
+    })
     return _sample_cards(
         items,
         box_id="pf-examples-l11",
         subtitle="Ví dụ People & Family · Is X suitable?",
-        hint="Có / Không / Còn tùy. WESET long-distance · ZIM love at first sight · TAK12 borrow money · DOL clothing.",
+        hint="Có / Không / Còn tùy. Fighter romance: chemistry, affection, attraction.",
     )
 
 
@@ -936,11 +1014,27 @@ def lesson12_examples_html() -> str:
         "kind": "hard",
         "notes": [{"en": "take + time + to V", "vi": "mất thời gian để…"}],
     })
+    t6 = (
+        "It's quite easy to meet {relation_type}, but it's harder to {rel_verb}. "
+        "The hardest part is to maintain a relationship after you leave school."
+    )
+    items.append({
+        "q": "Is it easy to build and maintain a relationship? (ECE phrasal verbs)",
+        "html": t6.format(relation_type=phrase_pick("relation_type", 2), rel_verb=phrase_pick("rel_verb", 2)),
+        "vi": "Gặp bạn cùng lớp thì dễ, nhưng củng cố mối quan hệ thì khó hơn. Phần khó nhất là duy trì sau khi rời trường.",
+        "plain": "It's quite easy to meet a classmate, but it's harder to strengthen a relationship. The hardest part is to maintain a relationship after you leave school.",
+        "ex": t6,
+        "kind": "hard",
+        "notes": [
+            {"en": "build / maintain / strengthen a relationship", "vi": "xây / duy trì / củng cố mối quan hệ (ECE)"},
+            {"en": "have a strong bond with someone", "vi": "có sự gắn kết mạnh mẽ"},
+        ],
+    })
     return _sample_cards(
         items,
         box_id="pf-examples-l12",
         subtitle="Ví dụ People & Family · Easy / Difficult?",
-        hint="Dễ / Khó / Ban đầu khó. TAK12 friends online · DOL meet new people.",
+        hint="Dễ / Khó / Ban đầu khó. ECE build–maintain–strengthen a relationship.",
     )
 
 
@@ -1010,11 +1104,27 @@ def lesson13_examples_html() -> str:
         "kind": "soft",
         "notes": [{"en": "sibling rivalry", "vi": "ganh đua anh chị em (IDP)"}, {"en": "apart from that", "vi": "ngoài điều đó ra"}],
     })
+    t6 = (
+        "Well, generally speaking I love my family, but some family bonds feel {relation_adj}. "
+        "If we fall out with someone and never reconcile, the relationship stays distant."
+    )
+    items.append({
+        "q": "What do you dislike about complicated family bonds? (ECE adj)",
+        "html": t6.format(relation_adj=phrase_pick("relation_adj", 3)),
+        "vi": "Nói chung tôi yêu gia đình, nhưng một số sự gắn bó cảm thấy phức tạp. Nếu cãi nhau rồi không hàn gắn thì quan hệ mãi xa cách.",
+        "plain": "Well, generally speaking I love my family, but some family bonds feel complicated. If we fall out with someone and never reconcile, the relationship stays distant.",
+        "ex": t6,
+        "kind": "soft",
+        "notes": [
+            {"en": "family bond · complicated · distant", "vi": "sự gắn bó gia đình · phức tạp · xa cách (ECE)"},
+            {"en": "fall out with someone", "vi": "cãi nhau với ai đó"},
+        ],
+    })
     return _sample_cards(
         items,
         box_id="pf-examples-l13",
         subtitle="Ví dụ People & Family · Dislike about X?",
-        hint="Nói thẳng / Nói vòng / Liệt kê. TAK12 breakdown · Mc couple problems.",
+        hint="Nói thẳng / Nói vòng / Liệt kê. ECE complicated / family bond / fall out.",
     )
 
 

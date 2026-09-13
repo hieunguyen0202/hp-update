@@ -108,6 +108,55 @@ WORD_SLOTS: dict[str, list[dict]] = {
         _opt("mutual trust and respect", "tin tưởng và tôn trọng lẫn nhau"),
         _opt("compatibility and shared interests", "sự hòa hợp và sở thích chung"),
         _opt("empathy and open communication", "đồng cảm và giao tiếp cởi mở"),
+        _opt("loyalty and mutual respect", "lòng trung thành và tôn trọng lẫn nhau"),
+        _opt("understanding and affection", "sự thấu hiểu và tình cảm"),
+    ],
+    "attracted_to": [
+        _opt("people who are honest and who know how to behave with others", "người thành thật và biết cư xử (TAK12)"),
+        _opt("like-minded individuals I can live in harmony with", "người cùng chí hướng, sống hòa hợp được"),
+        _opt("a partner I have chemistry and compatibility with", "bạn đời hợp nhau về chemistry và compatibility"),
+        _opt("companions who show loyalty, not just acquaintances", "người đồng hành có lòng trung thành, không chỉ người quen"),
+    ],
+    "relation_type": [
+        _opt("a close friend", "bạn thân"),
+        _opt("a childhood friend", "bạn thời thơ ấu"),
+        _opt("a classmate", "bạn cùng lớp"),
+        _opt("a roommate", "bạn cùng phòng"),
+        _opt("a colleague", "đồng nghiệp"),
+        _opt("a companion", "người đồng hành"),
+        _opt("an acquaintance", "người quen"),
+        _opt("a partner", "bạn đời / người yêu"),
+    ],
+    "relation_adj": [
+        _opt("close-knit and supportive", "gắn bó và luôn ủng hộ"),
+        _opt("meaningful and long-lasting", "ý nghĩa và bền vững"),
+        _opt("harmonious", "hòa hợp"),
+        _opt("complicated", "phức tạp"),
+        _opt("distant or strained", "xa cách hoặc căng thẳng"),
+    ],
+    "rel_verb": [
+        _opt("build a relationship", "xây dựng mối quan hệ"),
+        _opt("maintain a relationship", "duy trì mối quan hệ"),
+        _opt("strengthen a relationship", "củng cố mối quan hệ"),
+        _opt("have a strong bond with someone", "có sự gắn kết mạnh mẽ với ai"),
+        _opt("fall out with someone", "cãi nhau / cắt đứt với ai"),
+        _opt("get along with someone", "hòa hợp với ai"),
+    ],
+    "fighter_family": [
+        _opt("a deep sense of kinship", "mối quan hệ họ hàng sâu (IELTS-Fighter)"),
+        _opt("a long family lineage", "dòng họ / dòng dõi dài"),
+        _opt("a descendant of a well-known family", "hậu duệ của một dòng họ nổi tiếng"),
+        _opt("a matriarchal household", "hộ gia đình theo gia mẫu"),
+        _opt("a patriarchal system", "hệ thống gia trưởng"),
+        _opt("disown a family member and cut all ties", "từ bỏ người trong gia đình, cắt hết quan hệ"),
+    ],
+    "romance_lex": [
+        _opt("affection", "tình cảm, lòng yêu mến"),
+        _opt("chemistry", "hóa học tình cảm"),
+        _opt("attraction", "sự thu hút"),
+        _opt("commitment", "sự cam kết"),
+        _opt("compatibility", "sự hòa hợp"),
+        _opt("empathy", "sự đồng cảm"),
     ],
     "kind_family_act": [
         _opt("having dinner together", "ăn tối cùng nhau"),
@@ -506,7 +555,8 @@ LESSON2_MINDMAP_RIGHT = [
                         "mang hỗ trợ cảm xúc / lắng nghe đồng hành",
                     ),
                     tip("foster a sense of security", "nuôi dưỡng cảm giác an toàn"),
-                    tip("strengthen family ties / maintain strong bonds", "củng cố / duy trì mối liên kết"),
+                    tip("strengthen family ties / have a strong bond with someone", "củng cố / có sự gắn kết mạnh (ECE)"),
+                    tip("build / maintain / strengthen a relationship", "xây · duy trì · củng cố mối quan hệ"),
                     tip("prevent loneliness / a sense of isolation", "ngăn cô đơn / cảm giác bị cô lập"),
                     tip("maintain a healthy relationship", "duy trì mối quan hệ lành mạnh"),
                     tip(
@@ -656,8 +706,12 @@ LESSON5_MINDMAP_LEFT = [
                         "hạt nhân / đại gia đình / tái hợp / gắn bó",
                     ),
                     tip(
-                        "honesty · mutual trust · compatibility · empathy",
-                        "trung thực · tin tưởng lẫn nhau · hòa hợp · đồng cảm",
+                        "honesty · mutual trust · compatibility · empathy · loyalty",
+                        "trung thực · tin tưởng lẫn nhau · hòa hợp · đồng cảm · trung thành",
+                    ),
+                    tip(
+                        "attracted to honest people · live in harmony with somebody",
+                        "bị thu hút bởi người thành thật · chung sống hòa hợp (TAK12)",
                     ),
                 ],
             },
@@ -724,8 +778,16 @@ LESSON5_MINDMAP_RIGHT = [
                         "gắn bó · thời gian chất lượng · cảm giác thuộc về",
                     ),
                     tip(
-                        "compatibility · chemistry · deal-breaker",
-                        "sự hòa hợp · hợp nhau · điều chấm dứt quan hệ",
+                        "compatibility · chemistry · affection · attraction",
+                        "hòa hợp · hóa học tình cảm · tình cảm · sự thu hút (Fighter)",
+                    ),
+                    tip(
+                        "build / maintain / strengthen a relationship",
+                        "xây · duy trì · củng cố mối quan hệ (ECE)",
+                    ),
+                    tip(
+                        "have a strong bond · family bond · lifelong friendship",
+                        "gắn kết mạnh · sự gắn bó gia đình · tình bạn lâu dài",
                     ),
                     tip(
                         "unwavering support · pillars of strength",
@@ -837,8 +899,16 @@ LESSON6_MINDMAP_RIGHT = [
                         "gặp trực tiếp · giao tiếp ảo",
                     ),
                     tip(
-                        "close friend · acquaintance · companion",
-                        "bạn thân · người quen · người đồng hành",
+                        "close friend · classmate · roommate · colleague",
+                        "bạn thân · bạn cùng lớp · bạn cùng phòng · đồng nghiệp",
+                    ),
+                    tip(
+                        "companion · acquaintance · partner",
+                        "người đồng hành · người quen · bạn đời",
+                    ),
+                    tip(
+                        "meaningful · long-lasting · harmonious · complicated",
+                        "ý nghĩa · bền vững · hòa hợp · phức tạp (ECE adj)",
                     ),
                     tip(
                         "blood is thicker than water",
@@ -929,7 +999,11 @@ LESSON7_MINDMAP_RIGHT = [
                     ),
                     tip(
                         "Family structure: patriarchal ↔ matriarchal / egalitarian",
-                        "Cấu trúc: gia trưởng ↔ gia mẫu / bình đẳng",
+                        "Cấu trúc: gia trưởng ↔ gia mẫu / bình đẳng (Fighter)",
+                    ),
+                    tip(
+                        "kinship · lineage · descendant · disown / cut all ties",
+                        "họ hàng · dòng dõi · hậu duệ · từ bỏ / cắt quan hệ (Fighter)",
                     ),
                     tip(
                         "Major cities ↔ countryside (lonely in crowded cities)",
