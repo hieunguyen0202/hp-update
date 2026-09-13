@@ -62,6 +62,185 @@ def phrase_pick(slot_id: str, default_idx: int = 0) -> str:
     return slot_select(slot_id, default_idx, kind="phrase")
 
 
+def vocab_notes_html(items: list[tuple[str, str, str]]) -> str:
+    """Vocab notes after Grammar notes — term (VI): explanation."""
+    if not items:
+        return ""
+    rows = []
+    for en, vi, meaning in items:
+        rows.append(
+            f'<p class="lr-vocab-note"><strong>{esc(en)}</strong> '
+            f'<em>({esc(vi)})</em>: {esc(meaning)}</p>'
+        )
+    return f"""
+          <div class="lr-grammar-notes lr-vocab-notes">
+            <h4 class="lr-grammar-notes-title">Vocab notes</h4>
+            <p class="lr-vocab-notes-hint">Từ / cụm mới dùng trong lesson này — đọc nghĩa rồi lắp vào dropdown.</p>
+            <div class="lr-vocab-notes-list">
+{chr(10).join("              " + r for r in rows)}
+            </div>
+          </div>"""
+
+
+VOCAB_L2 = [
+    ("unwind / recharge my batteries", "thư giãn / nạp lại năng lượng", "Nghỉ ngơi sau ngày dài để đầu óc nhẹ lại, như sạc pin cho bản thân."),
+    ("widen my social circles", "mở rộng vòng tròn xã hội", "Kết thêm bạn, đồng nghiệp, người quen — không chỉ ở trong nhóm cũ."),
+    ("like-minded individuals", "những người cùng chí hướng", "Người có cùng sở thích, giá trị hoặc cách nghĩ, nên dễ nói chuyện và kết bạn."),
+    ("emotional support", "hỗ trợ về cảm xúc", "Có người lắng nghe, an ủi khi bạn stress hoặc buồn — không chỉ giúp việc thực tế."),
+    ("a sense of belonging", "cảm giác thuộc về", "Cảm giác mình là một phần của gia đình / nhóm, được chấp nhận chứ không đứng ngoài."),
+    ("strained relationship", "mối quan hệ căng thẳng", "Quan hệ còn đó nhưng gượng, dễ cãi, thiếu thoải mái."),
+    ("drift apart", "dần xa nhau", "Không cãi lớn nhưng ít nói, ít gặp, tình cảm tự mỏng đi theo thời gian."),
+    ("fall out with someone", "cãi nhau / cắt đứt với ai", "Mất hòa khí sau một chuyện; nặng hơn drift apart vì thường có cãi vã."),
+    ("have a strong bond with someone", "có sự gắn kết mạnh mẽ với ai", "Gắn bó sâu: tin tưởng, hiểu nhau, không chỉ là người quen."),
+    ("through thick and thin", "trong mọi hoàn cảnh", "Ở bên nhau lúc vui lẫn lúc khó — cụm hay dùng khi nói family / close friends."),
+    ("work through disagreements", "giải quyết bất đồng", "Nói chuyện để hết mâu thuẫn, không để chuyện nhỏ thành cãi lớn."),
+    ("prevent loneliness", "ngăn cảm giác cô đơn", "Gia đình / bạn bè giúp mình không bị cô lập khi stress hoặc sống xa nhà."),
+    ("build / maintain / strengthen a relationship", "xây / duy trì / củng cố mối quan hệ", "Ba động từ ECE: bắt đầu → giữ cho không đứt → làm cho chặt hơn."),
+]
+
+VOCAB_L3 = [
+    ("close-knit family", "gia đình gắn bó", "Gia đình thường nói chuyện, hỗ trợ nhau, ít xa cách dù bận."),
+    ("quality time", "thời gian chất lượng", "Thời gian thật sự dành cho nhau (ăn tối, nói chuyện) — không phải ngồi cùng phòng mà ai cũng dán điện thoại."),
+    ("keep in touch", "giữ liên lạc", "Vẫn nhắn / gọi / gặp dù không sống chung."),
+    ("confide in", "tâm sự với", "Kể chuyện riêng, chuyện buồn cho người mình tin — không kể với người ngoài."),
+    ("hold immense importance", "có ý nghĩa to lớn", "Cụm paraphrase của “very important” — nghe band cao hơn khi nói về gia đình."),
+    ("hold a special place (in my heart)", "giữ một vị trí đặc biệt", "Vẫn quý / nhớ người đó dù họ đã xa hoặc đã mất."),
+    ("passed away", "qua đời", "Cách nói lịch sự hơn “died” — hay dùng khi kể về ông bà."),
+    ("get along with", "hòa thuận với", "Sống / chơi với ai mà ít cãi, dễ chịu."),
+    ("lend a listening ear", "lắng nghe đồng hành", "Sẵn sàng nghe người khác kể chuyện, không vội khuyên hay phán."),
+    ("hardly ever + V", "hiếm khi làm gì", "Cách nói NO mềm: không phải “never”, mà gần như không bao giờ."),
+]
+
+VOCAB_L5 = [
+    ("emotionally supportive", "hỗ trợ về mặt cảm xúc", "Bạn / người thân biết lắng nghe và đứng về phía bạn khi bạn gặp chuyện khó."),
+    ("like-minded individuals", "những người cùng chí hướng", "Người cùng gu, cùng giá trị — dễ bond vì có shared interests."),
+    ("mutual trust", "sự tin tưởng lẫn nhau", "Hai bên đều tin nhau; thiếu cái này thì dễ sinh nghi."),
+    ("shared interests", "sở thích chung", "Điểm chung (phim, thể thao, nấu ăn…) giúp hai người nhanh thân."),
+    ("compatibility", "sự hòa hợp", "Hợp nhau về tính cách, giá trị, nhịp sống — quan trọng hơn “thích lúc mới gặp”."),
+    ("attracted to", "bị thu hút", "Thấy mình thích / muốn gần ai đó vì tính cách hoặc cách họ cư xử (TAK12)."),
+    ("live in harmony with somebody", "chung sống hòa hợp với ai", "Ở cùng / chơi cùng mà ít va chạm, biết nhường và tôn trọng nhau."),
+    ("loyalty", "lòng trung thành", "Đứng về phía bạn khi có chuyện, không “đâm sau lưng” hay bỏ rơi."),
+    ("mutual respect", "sự tôn trọng lẫn nhau", "Hai bên coi trọng ý kiến và ranh giới của nhau — không áp đặt."),
+    ("build a relationship", "xây dựng mối quan hệ", "Bắt đầu và gây dựng tình bạn / tình cảm từ từ, không phải quen một lần là xong."),
+    ("long-lasting / meaningful", "bền vững / ý nghĩa", "Quan hệ kéo dài và có chiều sâu, không chỉ vui tạm thời."),
+    ("childhood friend", "bạn thời thơ ấu", "Bạn quen từ nhỏ; thường có kỷ niệm chung nên dễ lifelong friendship."),
+]
+
+VOCAB_L6 = [
+    ("lean towards", "nghiêng về (một lựa chọn)", "Thích cả hai nhưng hơi nghiêng về một bên — mềm hơn “I prefer only X” (ZIM)."),
+    ("acquaintance", "người quen", "Biết mặt, nói chuyện xã giao, nhưng chưa đủ thân để tâm sự."),
+    ("roommate", "bạn cùng phòng", "Người ở chung phòng / nhà; có thể thành companion nếu sống hòa hợp."),
+    ("classmate", "bạn cùng lớp", "Học cùng lớp; dễ gặp nhưng chưa chắc là close friend."),
+    ("colleague", "đồng nghiệp", "Người làm cùng chỗ — quan hệ công việc, đôi khi thành bạn."),
+    ("companion", "người đồng hành", "Người đi cùng mình trong việc / chuyến đi / một giai đoạn đời — gần hơn acquaintance."),
+    ("comfort and security", "sự an ủi và an toàn", "Cảm giác được che chở, được hiểu — thường gắn với gia đình hơn đám đông."),
+    ("live in harmony with somebody", "chung sống hòa hợp", "Ở chung hoặc chơi thường xuyên mà vẫn êm, ít xung đột."),
+]
+
+VOCAB_L7 = [
+    ("Collectivist families", "Gia đình theo chủ nghĩa tập thể", "Kiểu gia đình đề cao sự gắn kết cộng đồng, lợi ích và sự hòa hợp của cả gia đình/dòng họ lên trên cái tôi cá nhân."),
+    ("Individualist", "theo chủ nghĩa cá nhân", "Đề cao tự do, lựa chọn và thành tựu của từng người hơn là “gia đình bảo sao nghe vậy”."),
+    ("Extended kinship", "Họ hàng thân thuộc / đại gia đình", "Gia đình gồm nhiều thế hệ sống chung hoặc giữ mối liên hệ rất chặt (ông bà, cô chú, bác, họ hàng…)."),
+    ("Nuclear households", "Gia đình hạt nhân", "Gia đình cơ bản chỉ gồm 2 thế hệ (bố mẹ và con cái chưa kết hôn) sống độc lập, riêng biệt."),
+    ("Patriarchal", "có tính chất gia trưởng", "Đàn ông (thường là bố/ông) nắm quyền quyết định chính trong nhà."),
+    ("Matriarchal", "có tính chất gia mẫu", "Phụ nữ (mẹ/bà) là người chủ trì, quyết định việc lớn trong gia đình."),
+    ("Kinship", "mối quan hệ họ hàng", "Cảm giác “cùng máu mủ” với họ hàng, kể cả khi sống xa."),
+    ("Lineage", "dòng họ, dòng dõi", "Dòng họ kéo dài nhiều đời; hay dùng khi nói gia đình có truyền thống nghề / gốc gác."),
+    ("Descendant", "con cháu, hậu duệ", "Người thuộc đời sau của một tổ tiên hoặc dòng họ nổi tiếng."),
+    ("Disown", "từ bỏ, không nhận là người trong gia đình", "Cắt đứt quan hệ, không còn xem ai đó là thành viên gia đình (thường sau scandal)."),
+    ("fast-paced lifestyle", "lối sống vội vã", "Sống ở thành phố lớn: bận, nhanh, ít thời gian gặp người thân — dễ cô đơn dù đông người."),
+]
+
+VOCAB_L8 = [
+    ("catch up on each other's day", "kể / cập nhật ngày của nhau", "Hỏi nhau hôm nay làm gì, mệt không — cách giữ quality time dù chỉ 15 phút."),
+    ("celebrate milestones", "kỷ niệm các mốc quan trọng", "Sinh nhật, tốt nghiệp, nhận việc… — dịp gia đình/bạn bè tụ họp có ý nghĩa."),
+    ("live under the same roof", "sống chung một mái nhà", "Ở cùng nhà (thường với bố mẹ / ông bà), nên gặp nhau hàng ngày."),
+    ("as long as", "miễn là", "Đặt điều kiện mềm: “Tối nào cũng được, miễn là nói chuyện trực tiếp”."),
+]
+
+VOCAB_L9 = [
+    ("get in contact / lose contact", "liên lạc lại / mất liên lạc", "Mất số, mất tin tức một thời gian rồi tìm lại (Facebook, bạn chung) hoặc đứt hẳn."),
+    ("reconcile", "giải hòa, hàn gắn", "Nói chuyện lại sau khi giận / không nói với nhau nhiều năm."),
+    ("a friend request", "lời mời kết bạn (mạng)", "Nút kết bạn trên Facebook / mạng xã hội — hay dùng khi kể gặp lại bạn cũ."),
+    ("hold a special place", "giữ vị trí đặc biệt", "Vẫn nhớ / quý người đó dù đã lâu không gặp."),
+]
+
+VOCAB_L10 = [
+    ("instilled (in me)", "được thấm nhuần", "Bố mẹ / ông bà truyền giá trị từ nhỏ đến mức nó thành thói quen suy nghĩ."),
+    ("take after", "giống (người thân)", "Giống bố/mẹ về tính hoặc ngoại hình — “I take after my dad”."),
+    ("look up to", "ngưỡng mộ", "Coi ai đó là tấm gương, muốn học theo (thường anh/chị/bố mẹ)."),
+    ("upbringing", "sự nuôi dưỡng, cách dạy dỗ", "Cách mình được lớn lên trong gia đình — ảnh hưởng cách cư xử sau này."),
+    ("pass down traditional values", "truyền giá trị truyền thống", "Thế hệ trước dạy thế hệ sau về lễ nghĩa, gia đình, cách đối nhân xử thế."),
+    ("immediate family", "gia đình gần", "Bố mẹ và anh chị em ruột — khác extended family (họ hàng rộng)."),
+    ("like father, like son", "cha nào con nấy", "Idiom: con thường giống bố về tính nết hoặc thói quen."),
+]
+
+VOCAB_L11 = [
+    ("long-distance relationship", "mối quan hệ yêu xa", "Hai người yêu nhau nhưng ở khác thành phố / khác nước; sống được nhờ tin tưởng và gọi điện thường xuyên."),
+    ("love at first sight", "tình yêu sét đánh", "Thích ngay từ lần gặp đầu; nhiều thí sinh nói đây nghiêng về physical attraction hơn meaningful bond."),
+    ("deal-breaker", "điều chấm dứt mối quan hệ", "Một thứ không chấp nhận được (nói dối, mượn tiền…) khiến quan hệ dừng lại."),
+    ("tell the full story", "cho thấy tất cả / kể hết câu chuyện", "Không nhìn bề ngoài là đủ — quần áo hay số liệu không nói hết con người thật."),
+    ("chemistry", "phản ứng hóa học tình cảm", "Cảm giác “hợp sóng”, nói chuyện dễ, bị kéo về phía nhau."),
+    ("affection", "tình cảm, lòng yêu mến", "Sự quan tâm thể hiện bằng lời nói, cử chỉ — sâu hơn attraction thoáng qua."),
+    ("attraction", "sự thu hút", "Bị lôi cuốn (thường lúc mới gặp); cần commitment mới thành long-term."),
+    ("commitment", "sự cam kết", "Hai bên chịu trách nhiệm với nhau, không chỉ “thích thì yêu”."),
+    ("harmonious", "hòa hợp", "Quan hệ êm, ít căng, hai bên tôn trọng nhịp của nhau."),
+]
+
+VOCAB_L12 = [
+    ("common ground", "điểm chung", "Chủ đề / giá trị hai người cùng có — nền để kết bạn hoặc giải quyết bất đồng."),
+    ("like-minded individuals", "người cùng chí hướng", "Người cùng gu; hay gặp ở club, lớp học, nhóm sở thích."),
+    ("build a relationship", "xây dựng mối quan hệ", "Gây dựng từ đầu: làm quen, tạo tin tưởng."),
+    ("maintain a relationship", "duy trì mối quan hệ", "Giữ cho khỏi nguội sau khi đã quen (nhắn, gặp, không “mất hút”)."),
+    ("strengthen a relationship", "củng cố mối quan hệ", "Làm cho chặt hơn — trải nghiệm chung, vượt chuyện khó cùng nhau."),
+    ("… is not an exception", "… cũng không phải ngoại lệ", "Cái này cũng khó lúc đầu như mọi thứ mới khác."),
+]
+
+VOCAB_L13 = [
+    ("overprotective (parents)", "bảo bọc quá mức", "Bố mẹ lo đến mức hạn chế tự do của con — hay dùng khi nói dislike về family."),
+    ("sibling rivalry", "sự ganh đua giữa anh chị em", "Anh chị em so sánh, giành sự chú ý của bố mẹ."),
+    ("stab someone in the back", "đâm sau lưng", "Lừa / nói xấu người đang tin mình — yếu tố làm đổ tình bạn."),
+    ("miscommunication", "sự hiểu lầm (do nói không rõ)", "Không hiểu ý nhau, hay xảy ra trên chat / mạng xã hội."),
+    ("family bond", "sự gắn bó gia đình", "Sợi dây tình cảm trong nhà; có thể chặt hoặc complicated."),
+    ("complicated", "phức tạp", "Quan hệ rối: yêu nhưng hay cãi, hoặc họ hàng nhiều tầng mâu thuẫn."),
+    ("fall out with someone", "cãi nhau / cắt đứt với ai", "Mất hòa khí, có thể ngừng nói chuyện một thời gian."),
+    ("distant", "xa cách", "Còn quan hệ trên giấy nhưng tình cảm lạnh, ít chia sẻ."),
+]
+
+VOCAB_L14 = [
+    ("keep in touch", "giữ liên lạc", "Vẫn nhắn/gọi dù không gặp thường xuyên."),
+    ("once in a blue moon", "năm thì mười họa", "Rất hiếm — mạnh hơn “sometimes”, gần “almost never”."),
+    ("every now and then", "thỉnh thoảng", "Thỉnh thoảng có làm, không đều."),
+    ("make efforts to stay connected", "nỗ lực giữ liên lạc", "Chủ động sắp xếp thời gian, không để quan hệ tự chết."),
+    ("keep each other updated", "cập nhật cho nhau", "Kể nhau nghe chuyện đời — TAK12 hay dùng với “meet once a month”."),
+]
+
+VOCAB_L15 = [
+    ("nuclear households", "gia đình hạt nhân", "Chỉ bố mẹ và con, sống riêng — phổ biến hơn ở thành phố lớn ngày nay."),
+    ("extended families (under one roof)", "đại gia đình sống chung", "Nhiều thế hệ ở cùng nhà — kiểu phổ biến hơn trong quá khứ / ở quê."),
+    ("fast-paced lifestyle", "lối sống vội vã", "Nhịp sống thành phố khiến người ta ít gặp mặt, dù công nghệ kết nối được."),
+    ("virtual interaction / face-to-face", "giao tiếp ảo / gặp trực tiếp", "Chat, video call khác gặp thật — ảo tiện nhưng dễ nông hơn."),
+    ("a shift towards…", "sự chuyển dịch hướng tới…", "Xã hội nghiêng sang hướng mới (ví dụ individualist values, hộ hạt nhân)."),
+    ("individualist values", "giá trị cá nhân", "Coi trọng lựa chọn và sự độc lập của từng người hơn bổn phận dòng họ."),
+    ("through thick and thin", "trong mọi hoàn cảnh", "Ở bên nhau lúc vui lẫn lúc khó — cụm hay dùng khi nói family values không đổi."),
+    ("family ties", "mối quan hệ gia đình", "Sợi dây họ hàng; có thể mỏng đi nhưng ít khi mất hết."),
+]
+
+VOCAB_L16 = [
+    ("look up to", "ngưỡng mộ", "Coi người trong gia đình là tấm gương — mở bài Part 2 “admire a person”."),
+    ("emulate", "noi gương", "Cố sống / làm việc giống người mình ngưỡng mộ."),
+    ("selflessness", "sự vị tha", "Biết giúp người khác, không chỉ nghĩ mình."),
+    ("perseverance", "sự bền bỉ", "Không bỏ cuộc khi việc khó — hay kể về anh/chị học hành."),
+    ("broke the ice", "phá băng", "Mở lời đầu tiên cho bớt ngại khi mới quen (ECE)."),
+    ("take (care) for granted", "xem là đương nhiên", "Không trân trọng sự quan tâm; câu ECE: never take this care for granted."),
+    ("through thick and thin", "trong mọi hoàn cảnh", "Bạn/gia đình không bỏ nhau lúc khó."),
+    ("sentimental value", "giá trị tình cảm", "Chỗ / món đồ quý vì kỷ niệm, không phải vì đắt (WESET rooftop café)."),
+    ("celebrate milestones", "kỷ niệm các mốc", "Sinh nhật 30, tốt nghiệp… — cốt lõi Part 2 “memorable moment”."),
+    ("enduring friendship", "tình bạn bền vững", "Tình bạn kéo dài nhiều năm, không chỉ lúc học cùng."),
+    ("lose contact / get in contact", "mất liên lạc / liên lạc lại", "Khung kể bạn cũ tìm lại trên Facebook (TAK12)."),
+]
+
+
 def _yes_no_cards(items: list[dict], *, box_id: str, subtitle: str, hint: str) -> str:
     cards = []
     for it in items:
@@ -1715,7 +1894,7 @@ def lesson_highlights_html() -> str:
         footer=["Reuse Family lexical từ L2–L15", "Cốt lõi ~60%"],
     )
 
-    def _lesson(num: str, title: str, mmap_id: str, center: str, sides: str, left, right, note: str, extra: str, gmin: str, grammar: str, examples: str, scroll_id: str) -> str:
+    def _lesson(num: str, title: str, mmap_id: str, center: str, sides: str, left, right, note: str, extra: str, gmin: str, grammar: str, vocab: str, examples: str, scroll_id: str) -> str:
         return f"""
         <article class="lr-core-lesson" id="lesson{num}-formulas">
           <header class="lr-core-lesson-head">
@@ -1723,6 +1902,7 @@ def lesson_highlights_html() -> str:
           </header>
 {mind_map_html(mmap_id, f"Lesson {num} · {title}", center, sides, left, right, note=note, extra_class=extra, min_width=gmin)}
 {grammar}
+{vocab}
           <div id="lesson{scroll_id}-scroll-source">
 {examples}
           </div>
@@ -1737,20 +1917,21 @@ def lesson_highlights_html() -> str:
           </header>
 {mind_map_html("lesson2MindmapPF", "Lesson 2 · Reasons like / dislike", "Reasons", "Dislike ↔ Like", _maps.LESSON2_MINDMAP_LEFT, _maps.LESSON2_MINDMAP_RIGHT, note="Trái = <strong>KHÔNG THÍCH</strong> · Phải = <strong>THÍCH</strong>. Nhánh sức khỏe Food → <strong>tinh thần / gắn kết</strong>.", extra_class=" lr-mmap--lesson2", min_width="1280px")}
 {g2}
+{vocab_notes_html(VOCAB_L2)}
 {lesson2_practice_html()}
         </article>
-{_lesson("3", "Do you like X?", "lesson3MindmapPF", "Do you like X?", "No ↔ Yes + Reasons", _maps.LESSON3_MINDMAP_LEFT, _maps.LESSON3_MINDMAP_RIGHT, "Trái = <strong>NO</strong> · Phải = <strong>YES</strong> + Reasons.", " lr-mmap--lesson3", "1200px", g3, lesson3_examples_html(), "3")}
-{_lesson("5", "What kind of X do you like most?", "lesson5MindmapPF", "What kind of X?", "Loại gì? ↔ Lý do", _maps.LESSON5_MINDMAP_LEFT, _maps.LESSON5_MINDMAP_RIGHT, "Trái = <strong>Loại gì?</strong> · Phải = <strong>Lý do</strong> + Lexical Family.", " lr-mmap--lesson5", "1200px", g5, lesson5_examples_html(), "5")}
-{_lesson("6", "Do you prefer X or Y?", "lesson6MindmapPF", "Do you prefer X or Y?", "Chọn ↔ Lý do", _maps.LESSON6_MINDMAP_LEFT, _maps.LESSON6_MINDMAP_RIGHT, "Trái = <strong>prefer X / X to Y / rather than</strong> · Phải = lý do Family.", " lr-mmap--lesson6", "1200px", g6, lesson6_examples_html(), "6")}
-{_lesson("7", "Is X popular in your country?", "lesson7MindmapPF", "Is X popular?", "Có/Không ↔ Còn tùy", _maps.LESSON7_MINDMAP_LEFT, _maps.LESSON7_MINDMAP_RIGHT, "Trái = <strong>Có / Không</strong> · Phải = <strong>Còn tùy</strong> (collectivist · đô thị · cấu trúc gia đình).", " lr-mmap--lesson7", "1280px", g7, lesson7_examples_html(), "7")}
-{_lesson("8", "What is the best time to do X?", "lesson8MindmapPF", "Best time to do X?", "Thời điểm ↔ Còn tùy", _maps.LESSON8_MINDMAP_LEFT, _maps.LESSON8_MINDMAP_RIGHT, "Trái = <strong>Thời điểm tốt nhất</strong> · Phải = <strong>Còn tùy</strong> + Lexical Family.", " lr-mmap--lesson8", "1280px", g8, lesson8_examples_html(), "8")}
-{_lesson("9", "When was the first/last time you did X?", "lesson9MindmapPF", "First / last time?", "Nhớ rõ ↔ Đoán", _maps.LESSON9_MINDMAP_LEFT, _maps.LESSON9_MINDMAP_RIGHT, "Trái = <strong>Nói rõ thời gian</strong> · Phải = <strong>Đoán</strong> + get in contact / reconcile.", " lr-mmap--lesson9", "1280px", g9, lesson9_examples_html(), "9")}
-{_lesson("10", "Did you do X when you were a child?", "lesson10MindmapPF", "When you were a child?", "Có ↔ Không", _maps.LESSON10_MINDMAP_LEFT, _maps.LESSON10_MINDMAP_RIGHT, "Trái = <strong>Có</strong> + childhood time · Phải = <strong>Không</strong> + take after / instilled.", " lr-mmap--lesson10", "1280px", g10, lesson10_examples_html(), "10")}
-{_lesson("11", "Is X suitable for…?", "lesson11MindmapPF", "Is X suitable for…?", "Có / Không ↔ Còn tùy", _maps.LESSON11_MINDMAP_LEFT, _maps.LESSON11_MINDMAP_RIGHT, "Trái = <strong>Có</strong> · Phải = <strong>Không</strong> + <strong>Còn tùy</strong> (long-distance · love at first sight).", " lr-mmap--lesson11", "1320px", g11, lesson11_examples_html(), "11")}
-{_lesson("12", "Is it easy/difficult to do X?", "lesson12MindmapPF", "Easy / Difficult?", "Dễ / Khó ↔ Ban đầu khó", _maps.LESSON12_MINDMAP_LEFT, _maps.LESSON12_MINDMAP_RIGHT, "Trái = <strong>Dễ</strong> · Phải = <strong>Khó</strong> + tiến trình. Câu TAK12 / DOL.", " lr-mmap--lesson12", "1320px", g12, lesson12_examples_html(), "12")}
-{_lesson("13", "What do you dislike about X?", "lesson13MindmapPF", "Dislike about X?", "Nói thẳng ↔ Nói vòng", _maps.LESSON13_MINDMAP_LEFT, _maps.LESSON13_MINDMAP_RIGHT, "Trái = <strong>Nói thẳng</strong> · Phải = <strong>Nói vòng</strong> / liệt kê.", " lr-mmap--lesson13", "1320px", g13, lesson13_examples_html(), "13")}
-{_lesson("14", "How often do you do X?", "lesson14MindmapPF", "How often?", "Tần suất ↔ Lý do", _maps.LESSON14_MINDMAP_LEFT, _maps.LESSON14_MINDMAP_RIGHT, "Trái = <strong>5 bậc</strong> · Phải = lý do + none of / too…to.", " lr-mmap--lesson14", "1320px", g14, lesson14_examples_html(), "14")}
-{_lesson("15", "How has X changed?", "lesson15MindmapPF", "How has X changed?", "Đổi nhiều ↔ Đổi ít", _maps.LESSON15_MINDMAP_LEFT, _maps.LESSON15_MINDMAP_RIGHT, "Trái = <strong>đổi nhiều</strong> · Phải = <strong>đổi ít</strong> + lexical nâng điểm Family.", " lr-mmap--lesson15", "1320px", g15, lesson15_examples_html(), "15")}
+{_lesson("3", "Do you like X?", "lesson3MindmapPF", "Do you like X?", "No ↔ Yes + Reasons", _maps.LESSON3_MINDMAP_LEFT, _maps.LESSON3_MINDMAP_RIGHT, "Trái = <strong>NO</strong> · Phải = <strong>YES</strong> + Reasons.", " lr-mmap--lesson3", "1200px", g3, vocab_notes_html(VOCAB_L3), lesson3_examples_html(), "3")}
+{_lesson("5", "What kind of X do you like most?", "lesson5MindmapPF", "What kind of X?", "Loại gì? ↔ Lý do", _maps.LESSON5_MINDMAP_LEFT, _maps.LESSON5_MINDMAP_RIGHT, "Trái = <strong>Loại gì?</strong> · Phải = <strong>Lý do</strong> + Lexical Family.", " lr-mmap--lesson5", "1200px", g5, vocab_notes_html(VOCAB_L5), lesson5_examples_html(), "5")}
+{_lesson("6", "Do you prefer X or Y?", "lesson6MindmapPF", "Do you prefer X or Y?", "Chọn ↔ Lý do", _maps.LESSON6_MINDMAP_LEFT, _maps.LESSON6_MINDMAP_RIGHT, "Trái = <strong>prefer X / X to Y / rather than</strong> · Phải = lý do Family.", " lr-mmap--lesson6", "1200px", g6, vocab_notes_html(VOCAB_L6), lesson6_examples_html(), "6")}
+{_lesson("7", "Is X popular in your country?", "lesson7MindmapPF", "Is X popular?", "Có/Không ↔ Còn tùy", _maps.LESSON7_MINDMAP_LEFT, _maps.LESSON7_MINDMAP_RIGHT, "Trái = <strong>Có / Không</strong> · Phải = <strong>Còn tùy</strong> (collectivist · đô thị · cấu trúc gia đình).", " lr-mmap--lesson7", "1280px", g7, vocab_notes_html(VOCAB_L7), lesson7_examples_html(), "7")}
+{_lesson("8", "What is the best time to do X?", "lesson8MindmapPF", "Best time to do X?", "Thời điểm ↔ Còn tùy", _maps.LESSON8_MINDMAP_LEFT, _maps.LESSON8_MINDMAP_RIGHT, "Trái = <strong>Thời điểm tốt nhất</strong> · Phải = <strong>Còn tùy</strong> + Lexical Family.", " lr-mmap--lesson8", "1280px", g8, vocab_notes_html(VOCAB_L8), lesson8_examples_html(), "8")}
+{_lesson("9", "When was the first/last time you did X?", "lesson9MindmapPF", "First / last time?", "Nhớ rõ ↔ Đoán", _maps.LESSON9_MINDMAP_LEFT, _maps.LESSON9_MINDMAP_RIGHT, "Trái = <strong>Nói rõ thời gian</strong> · Phải = <strong>Đoán</strong> + get in contact / reconcile.", " lr-mmap--lesson9", "1280px", g9, vocab_notes_html(VOCAB_L9), lesson9_examples_html(), "9")}
+{_lesson("10", "Did you do X when you were a child?", "lesson10MindmapPF", "When you were a child?", "Có ↔ Không", _maps.LESSON10_MINDMAP_LEFT, _maps.LESSON10_MINDMAP_RIGHT, "Trái = <strong>Có</strong> + childhood time · Phải = <strong>Không</strong> + take after / instilled.", " lr-mmap--lesson10", "1280px", g10, vocab_notes_html(VOCAB_L10), lesson10_examples_html(), "10")}
+{_lesson("11", "Is X suitable for…?", "lesson11MindmapPF", "Is X suitable for…?", "Có / Không ↔ Còn tùy", _maps.LESSON11_MINDMAP_LEFT, _maps.LESSON11_MINDMAP_RIGHT, "Trái = <strong>Có</strong> · Phải = <strong>Không</strong> + <strong>Còn tùy</strong> (long-distance · love at first sight).", " lr-mmap--lesson11", "1320px", g11, vocab_notes_html(VOCAB_L11), lesson11_examples_html(), "11")}
+{_lesson("12", "Is it easy/difficult to do X?", "lesson12MindmapPF", "Easy / Difficult?", "Dễ / Khó ↔ Ban đầu khó", _maps.LESSON12_MINDMAP_LEFT, _maps.LESSON12_MINDMAP_RIGHT, "Trái = <strong>Dễ</strong> · Phải = <strong>Khó</strong> + tiến trình. Câu TAK12 / DOL.", " lr-mmap--lesson12", "1320px", g12, vocab_notes_html(VOCAB_L12), lesson12_examples_html(), "12")}
+{_lesson("13", "What do you dislike about X?", "lesson13MindmapPF", "Dislike about X?", "Nói thẳng ↔ Nói vòng", _maps.LESSON13_MINDMAP_LEFT, _maps.LESSON13_MINDMAP_RIGHT, "Trái = <strong>Nói thẳng</strong> · Phải = <strong>Nói vòng</strong> / liệt kê.", " lr-mmap--lesson13", "1320px", g13, vocab_notes_html(VOCAB_L13), lesson13_examples_html(), "13")}
+{_lesson("14", "How often do you do X?", "lesson14MindmapPF", "How often?", "Tần suất ↔ Lý do", _maps.LESSON14_MINDMAP_LEFT, _maps.LESSON14_MINDMAP_RIGHT, "Trái = <strong>5 bậc</strong> · Phải = lý do + none of / too…to.", " lr-mmap--lesson14", "1320px", g14, vocab_notes_html(VOCAB_L14), lesson14_examples_html(), "14")}
+{_lesson("15", "How has X changed?", "lesson15MindmapPF", "How has X changed?", "Đổi nhiều ↔ Đổi ít", _maps.LESSON15_MINDMAP_LEFT, _maps.LESSON15_MINDMAP_RIGHT, "Trái = <strong>đổi nhiều</strong> · Phải = <strong>đổi ít</strong> + lexical nâng điểm Family.", " lr-mmap--lesson15", "1320px", g15, vocab_notes_html(VOCAB_L15), lesson15_examples_html(), "15")}
         <article class="lr-core-lesson" id="lesson16-formulas">
           <header class="lr-core-lesson-head">
             <h3>Lesson 16 · Part 2 People &amp; Family (5 phần)</h3>
@@ -1758,6 +1939,7 @@ def lesson_highlights_html() -> str:
 {mind_map_html("lesson16MindmapPF", "Lesson 16 · Part 2 Family", "Describe a People cue card", "5 phần cố định", _maps.LESSON16_MINDMAP_LEFT, _maps.LESSON16_MINDMAP_RIGHT, note="Trái = <strong>mở · cơ bản · kết</strong> · Phải = <strong>cốt lõi + cảm nhận</strong> theo loại đề Family.", extra_class=" lr-mmap--lesson16", min_width="1360px")}
 {lesson16_frame_html()}
 {g16}
+{vocab_notes_html(VOCAB_L16)}
           <div id="lesson16-scroll-source">
 {lesson16_examples_html()}
           </div>
@@ -1824,7 +2006,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr68">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr69">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>

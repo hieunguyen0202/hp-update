@@ -5719,6 +5719,45 @@ mark.lr-hl,
   color: #a5f3fc;
 }
 
+.lr-vocab-notes {
+  border-color: rgba(167, 139, 250, 0.28);
+}
+
+.lr-vocab-notes .lr-grammar-notes-title {
+  color: #ddd6fe;
+}
+
+.lr-vocab-notes-hint {
+  margin: -4px 0 12px;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: rgba(196, 181, 253, 0.82);
+}
+
+.lr-vocab-notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.lr-vocab-note {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: rgba(226, 232, 240, 0.92);
+}
+
+.lr-vocab-note strong {
+  color: #e9d5ff;
+  font-weight: 700;
+}
+
+.lr-vocab-note em {
+  color: #c4b5fd;
+  font-style: normal;
+  font-weight: 550;
+}
+
 .lr-g-skel {
   display: flex;
   flex-direction: column;
