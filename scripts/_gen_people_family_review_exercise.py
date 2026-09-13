@@ -1161,7 +1161,8 @@ def build_page() -> str:
       <ul class="docs-nav" id="docsNav">
         <li><a href="../../">All topics</a></li>
         <li><a href="../">People &amp; Family</a></li>
-        <li><a class="active" href="./">Review Exercise</a></li>
+        <li><a class="active" href="./">Review Exercise 1</a></li>
+        <li><a href="../review-exercise-2/">Review Exercise 2</a></li>
       </ul>
     </aside>
     <article class="docs-main lr-page">
@@ -1306,11 +1307,15 @@ def patch_topic_index() -> None:
           <span class="vocab-level__badge vocab-level__badge--review">Review</span>
           <h2>Linear Thinking · Capstone exercise</h2>
         </div>
-        <p class="vocab-level__desc">Sau B2 — ôn ngữ pháp (gerunds &amp; preferences, because/conditional 2), mind map, Lesson 4/5, và mock IELTS Part 1/2/3 (từ vựng B1/B2, dropdown thay từ). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
+        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (gerunds, because/conditional 2), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3, 5–16 (mind map + ví dụ People &amp; Family + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
         <div class="vocab-lesson-grid">
           <a class="vocab-lesson-card vocab-lesson-card--review" href="review-exercise/">
             <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72' fill='none'%3E%3Crect width='72' height='72' rx='14' fill='%231a1033'/%3E%3Ccircle cx='36' cy='36' r='22' stroke='%23a78bfa' stroke-width='2.5'/%3E%3Cpath d='M36 20v16l10 8' stroke='%2322d3ee' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M22 48h28' stroke='%23e4e4e7' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E" alt="" width="72" height="72" loading="lazy">
-            <span>Review Exercise</span>
+            <span>Review Exercise 1</span>
+          </a>
+          <a class="vocab-lesson-card vocab-lesson-card--review" href="review-exercise-2/">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72' fill='none'%3E%3Crect width='72' height='72' rx='14' fill='%23101828'/%3E%3Ccircle cx='36' cy='36' r='18' stroke='%2334d399' stroke-width='2.5'/%3E%3Cpath d='M24 36h24M36 24v24' stroke='%2367e8f9' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E" alt="" width="72" height="72" loading="lazy">
+            <span>Review Exercise 2</span>
           </a>
         </div>
 {core_steps_teaser_html()}

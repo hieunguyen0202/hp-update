@@ -1,0 +1,1833 @@
+#!/usr/bin/env python3
+"""Generate People & Family · Review Exercise 2 (Lesson 2, 3, 5–16; skip 4).
+
+Same Linear Thinking format as Food Review Exercise 2. Food leaves that do not
+travel (keep fit, burn calories, culinary tradition…) are replaced with
+relationship / family phrases from DOL, ECE, TAK12, ZIM, WESET, Mc IELTS, IDP.
+"""
+from __future__ import annotations
+
+import importlib.util
+import json
+import re
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+OUT2 = ROOT / "public" / "blog" / "english" / "people-family" / "review-exercise-2"
+
+_food_spec = importlib.util.spec_from_file_location(
+    "food_rev", Path(__file__).with_name("_gen_food_review_exercise.py")
+)
+_food = importlib.util.module_from_spec(_food_spec)
+assert _food_spec and _food_spec.loader
+_food_spec.loader.exec_module(_food)
+
+_maps_spec = importlib.util.spec_from_file_location(
+    "pf_maps", Path(__file__).with_name("_people_family_review2_maps.py")
+)
+_maps = importlib.util.module_from_spec(_maps_spec)
+assert _maps_spec and _maps_spec.loader
+_maps_spec.loader.exec_module(_maps)
+
+WORD_SLOTS = _maps.WORD_SLOTS
+esc = _food.esc
+mind_map_html = _food.mind_map_html
+_ex_card_q_html = _food._ex_card_q_html
+_pair_answer_html = _food._pair_answer_html
+_ex_chip_notes_html = _food._ex_chip_notes_html
+lesson_grammar_tree_html = _food.lesson_grammar_tree_html
+lesson_scroll_read_html = _food.lesson_scroll_read_html
+lesson_grammar_notes_html = _food.lesson_grammar_notes_html
+_g_mark = _food._g_mark
+_p2_sec = _food._p2_sec
+
+
+def slot_select(slot_id: str, default_idx: int = 0, *, kind: str = "vocab") -> str:
+    opts = WORD_SLOTS[slot_id]
+    idx = min(default_idx, len(opts) - 1)
+    extra_cls = " lr-idiom-pick" if kind == "idiom" else ""
+    options = "\n".join(
+        f'<option value="{esc(o["form"])}" title="{esc(o["vi"])}" data-vi="{esc(o["vi"])}"'
+        f'{" selected" if i == idx else ""}>{esc(o["form"])}</option>'
+        for i, o in enumerate(opts)
+    )
+    return (
+        f'<select class="lr-word-pick{extra_cls}" data-slot="{esc(slot_id)}" '
+        f'data-kind="{esc(kind)}" title="Hover option · nghĩa VI" '
+        f'aria-label="Choose vocabulary">{options}</select>'
+    )
+
+
+def phrase_pick(slot_id: str, default_idx: int = 0) -> str:
+    return slot_select(slot_id, default_idx, kind="phrase")
+
+
+def _yes_no_cards(items: list[dict], *, box_id: str, subtitle: str, hint: str) -> str:
+    cards = []
+    for it in items:
+        cards.append(
+            f"""          <article class="lr-food-ex-card">
+{_ex_card_q_html(it["q"])}
+            <div class="lr-food-ex-pair">
+{_pair_answer_html(kind="yes", en_html=it["yes_html"], vi=it["yes_vi"], plain=it["yes_plain"], ipa=it.get("yes_ipa", ""), q=it["q"], ex_en=it.get("yes_ex", ""))}
+{_pair_answer_html(kind="no", en_html=it["no_html"], vi=it["no_vi"], plain=it["no_plain"], ipa=it.get("no_ipa", ""), q=it["q"], ex_en=it.get("no_ex", ""))}
+            </div>
+{_ex_chip_notes_html(it.get("notes"))}
+          </article>"""
+        )
+    return f"""
+        <div class="lr-food-examples" id="{esc(box_id)}">
+          <h3 class="lr-core-subtitle">{esc(subtitle)}</h3>
+          <p class="lr-mm-hint">{hint}</p>
+{chr(10).join(cards)}
+        </div>"""
+
+
+def _sample_cards(items: list[dict], *, box_id: str, subtitle: str, hint: str) -> str:
+    cards = []
+    for it in items:
+        alts = ""
+        if it.get("alt_html"):
+            alts = _pair_answer_html(
+                kind=it.get("alt_kind", "alt"),
+                en_html=it["alt_html"],
+                vi=it["alt_vi"],
+                plain=it["alt_plain"],
+                ipa=it.get("alt_ipa", ""),
+                q=it["q"],
+                ex_en=it.get("alt_ex", ""),
+            )
+        cards.append(
+            f"""          <article class="lr-food-ex-card">
+{_ex_card_q_html(it["q"])}
+            <div class="lr-food-ex-pair lr-food-ex-pair--kind">
+{_pair_answer_html(kind=it.get("kind", "sample"), en_html=it["html"], vi=it["vi"], plain=it["plain"], ipa=it.get("ipa", ""), q=it["q"], ex_en=it.get("ex", ""))}
+{alts}
+            </div>
+{_ex_chip_notes_html(it.get("notes"))}
+          </article>"""
+        )
+    return f"""
+        <div class="lr-food-examples" id="{esc(box_id)}">
+          <h3 class="lr-core-subtitle">{esc(subtitle)}</h3>
+          <p class="lr-mm-hint">{hint}</p>
+{chr(10).join(cards)}
+        </div>"""
+
+
+def lesson2_practice_html(*, open_attr: str = " open") -> str:
+    home_yes_tpl = (
+        "I think because it's a great way to {relax_phrase} — especially after a long week. "
+        "Having dinner together also helps us {bond_phrase}."
+    )
+    home_no_tpl = (
+        "Well, some people don't enjoy big family gatherings because they {soft_dislike} "
+        "and {no_benefit}."
+    )
+    edu_yes_tpl = (
+        "Yes, because it helps me {edu_phrase}. "
+        "I also get the opportunity to practise empathy."
+    )
+    edu_no_tpl = (
+        "No, not really — networking events {soft_dislike}. {no_benefit}."
+    )
+    bond_yes_tpl = (
+        "Yes, because it's a great way to {bond_phrase}. "
+        "{bond_followup}"
+    )
+    bond_no_tpl = (
+        "No, definitely not because arguing all the time can lead to {toxic_outcome}."
+    )
+    cards = f"""
+            <div class="lr-practice-source" id="lesson2-practice">
+              <article class="lr-food-ex-card">
+{_ex_card_q_html("Why do people like spending time with family?")}
+                <div class="lr-food-ex-pair">
+{_pair_answer_html(kind="yes", en_html=home_yes_tpl.format(relax_phrase=phrase_pick("relax_phrase", 0), bond_phrase=phrase_pick("bond_phrase", 2)), vi="Tôi nghĩ vì đó là cách tuyệt để thư giãn sau tuần dài. Ăn tối cùng nhau cũng giúp củng cố mối quan hệ gia đình.", plain="I think because it's a great way to unwind after a long day — especially after a long week. Having dinner together also helps us strengthen family ties.", ipa="", q="Why do people like spending time with family?", ex_en=home_yes_tpl)}
+{_pair_answer_html(kind="no", en_html=home_no_tpl.format(soft_dislike=phrase_pick("soft_dislike", 2), no_benefit=phrase_pick("no_benefit", 0)), vi="Một số người không thích họp mặt lớn vì khá căng thẳng và không cho cơ hội kết nối sâu.", plain="Well, some people don't enjoy big family gatherings because they can feel quite stressful and It doesn't give me the chance to connect on a deep level.", ipa="", q="Why do people like spending time with family?", ex_en=home_no_tpl)}
+                </div>
+              </article>
+              <article class="lr-food-ex-card">
+{_ex_card_q_html("Do you like joining clubs to meet new people?")}
+                <div class="lr-food-ex-pair">
+{_pair_answer_html(kind="yes", en_html=edu_yes_tpl.format(edu_phrase=phrase_pick("edu_phrase", 0)), vi="Có, vì nó giúp tôi mở rộng vòng tròn xã hội. Tôi cũng được luyện sự đồng cảm.", plain="Yes, because it helps me widen my social circles. I also get the opportunity to practise empathy.", ipa="", q="Do you like joining clubs to meet new people?", ex_en=edu_yes_tpl)}
+{_pair_answer_html(kind="no", en_html=edu_no_tpl.format(soft_dislike=phrase_pick("soft_dislike", 0), no_benefit=phrase_pick("no_benefit", 1)), vi="Không thực sự — sự kiện networking không phải sở thích của tôi. Nó không giúp tôi thư giãn.", plain="No, not really — networking events isn't my cup of tea. It doesn't help me unwind.", ipa="", q="Do you like joining clubs to meet new people?", ex_en=edu_no_tpl)}
+                </div>
+              </article>
+              <article class="lr-food-ex-card">
+{_ex_card_q_html("Do you like staying close to your relatives?")}
+                <div class="lr-food-ex-pair">
+{_pair_answer_html(kind="yes", en_html=bond_yes_tpl.format(bond_phrase=phrase_pick("bond_phrase", 1), bond_followup=phrase_pick("bond_followup", 0)), vi="Có, vì đó là cách tuyệt để nuôi dưỡng cảm giác thuộc về. Nó cũng giúp tôi khỏe tinh thần.", plain="Yes, because it's a great way to foster a sense of belonging. It also helps me stay emotionally healthy.", ipa="", q="Do you like staying close to your relatives?", ex_en=bond_yes_tpl)}
+{_pair_answer_html(kind="no", en_html=bond_no_tpl.format(toxic_outcome=phrase_pick("toxic_outcome", 0)), vi="Không, chắc chắn không — cãi nhau suốt có thể dẫn đến cô đơn và cảm giác bị cô lập.", plain="No, definitely not because arguing all the time can lead to loneliness and a sense of isolation.", ipa="", q="Do you like staying close to your relatives?", ex_en=bond_no_tpl)}
+                </div>
+              </article>
+            </div>"""
+    return f"""
+          <details class="lr-formula-details"{open_attr}>
+            <summary>Thực hành · Giải trí / Giáo dục / Sức khỏe tinh thần</summary>
+            <p class="lr-mm-hint">Cùng format Food: <strong>Thích</strong> và <strong>Không thích</strong> đều có dropdown. Nhánh 2 · Cụm V dùng cụm Family (emotional support, family ties…) thay keep fit / burn calories.</p>
+{cards}
+          </details>
+{lesson_scroll_read_html("lesson2", title="Lesson 2", source_sel="#lesson2-practice")}"""
+
+
+def lesson3_examples_html() -> str:
+    items = []
+    t1y = (
+        "Yes, definitely. I'm a big fan of my {family_type} because we enjoy "
+        "{activity}. This is because it gives me a real sense of belonging."
+    )
+    t1n = (
+        "Well, not really. I hardly ever {hardly_ever_action} because big gatherings "
+        "{soft_dislike}. I prefer {prefer_rather_than}."
+    )
+    items.append({
+        "q": "Do you have a close-knit family? (WESET)",
+        "yes_html": t1y.format(family_type=phrase_pick("family_type", 0), activity=phrase_pick("activity", 0)),
+        "yes_vi": "Vâng. Tôi rất thích gia đình gắn bó vì chúng tôi thích ăn tối cùng nhau. Điều đó mang lại cảm giác thuộc về.",
+        "yes_plain": "Yes, definitely. I'm a big fan of my close-knit family because we enjoy having dinner together. This is because it gives me a real sense of belonging.",
+        "yes_ex": t1y,
+        "no_html": t1n.format(hardly_ever_action=phrase_pick("hardly_ever_action", 1), soft_dislike=phrase_pick("soft_dislike", 2), prefer_rather_than=phrase_pick("prefer_rather_than", 1)),
+        "no_vi": "Không thực sự. Tôi hiếm khi đi tiệc lớn vì khá căng thẳng. Tôi thích buổi họp mặt nhỏ hơn.",
+        "no_plain": "Well, not really. I hardly ever go to large family parties because big gatherings can feel quite stressful. I prefer small gatherings rather than big parties.",
+        "no_ex": t1n,
+        "notes": [{"en": "I hardly ever + V", "vi": "Hiếm khi + V"}, {"en": "close-knit family", "vi": "gia đình gắn bó"}],
+    })
+    t2y = (
+        "Yes, absolutely. Family {score_phrase} in my life. I {relationship_v} my parents "
+        "and we always make time for quality time."
+    )
+    t2n = (
+        "I'm a bit more independent these days. I hardly ever {hardly_ever_action} "
+        "because of my busy schedule. Still, they {score_phrase}."
+    )
+    items.append({
+        "q": "Is family very important to you? (ZIM / Mc / ECE)",
+        "yes_html": t2y.format(score_phrase=phrase_pick("score_phrase", 0), relationship_v=phrase_pick("relationship_v", 0)),
+        "yes_vi": "Vâng. Gia đình có ý nghĩa to lớn. Tôi hòa thuận với bố mẹ và luôn dành thời gian chất lượng.",
+        "yes_plain": "Yes, absolutely. Family hold immense importance in my life. I get on well with my parents and we always make time for quality time.",
+        "yes_ex": t2y,
+        "no_html": t2n.format(hardly_ever_action=phrase_pick("hardly_ever_action", 0), score_phrase=phrase_pick("score_phrase", 2)),
+        "no_vi": "Tôi độc lập hơn. Hiếm khi thăm đại gia đình vì lịch bận. Nhưng họ vẫn hỗ trợ kiên định.",
+        "no_plain": "I'm a bit more independent these days. I hardly ever visit my extended family because of my busy schedule. Still, they give me unwavering support.",
+        "no_ex": t2n,
+        "notes": [{"en": "hold immense importance", "vi": "có ý nghĩa to lớn (IDP)"}, {"en": "quality time", "vi": "thời gian chất lượng"}],
+    })
+    t3y = (
+        "Yes, I do — not a huge circle, but a few people I can confide in. "
+        "I'm keen on {kind_friend} because we have so many shared interests."
+    )
+    t3n = (
+        "No, not really. I'm pretty picky. I hardly ever open up because I have "
+        "an irrational fear that people barely tolerate me."
+    )
+    items.append({
+        "q": "Do you have many close friends? (TAK12 / ECE)",
+        "yes_html": t3y.format(kind_friend=phrase_pick("kind_friend", 0)),
+        "yes_vi": "Có — không nhiều, nhưng vài người tôi tâm sự được. Tôi thích bạn hỗ trợ cảm xúc vì có nhiều sở thích chung.",
+        "yes_plain": "Yes, I do — not a huge circle, but a few people I can confide in. I'm keen on emotionally supportive friends because we have so many shared interests.",
+        "yes_ex": t3y,
+        "no_html": t3n,
+        "no_vi": "Không thực sự. Tôi khá kén. Hiếm khi mở lòng vì sợ người khác chỉ chịu đựng mình (TAK12).",
+        "no_plain": "No, not really. I'm pretty picky. I hardly ever open up because I have an irrational fear that people barely tolerate me.",
+        "no_ex": t3n,
+        "notes": [{"en": "confide in", "vi": "tâm sự với"}, {"en": "shared interests", "vi": "sở thích chung (DOL)"}],
+    })
+    t4y = (
+        "Yes, definitely. I'm keen on {activity} because it helps me {relax_phrase}."
+    )
+    t4n = (
+        "No, not really. I prefer {prefer_rather_than} because big groups {soft_dislike}."
+    )
+    items.append({
+        "q": "Do you like spending time with your family? (ZIM / WESET)",
+        "yes_html": t4y.format(activity=phrase_pick("activity", 3), relax_phrase=phrase_pick("relax_phrase", 1)),
+        "yes_vi": "Vâng. Tôi thích dành thời gian chất lượng ở nhà vì giúp nạp lại năng lượng.",
+        "yes_plain": "Yes, definitely. I'm keen on spending quality time at home because it helps me recharge my batteries.",
+        "yes_ex": t4y,
+        "no_html": t4n.format(prefer_rather_than=phrase_pick("prefer_rather_than", 1), soft_dislike=phrase_pick("soft_dislike", 2)),
+        "no_vi": "Không thực sự. Tôi thích họp mặt nhỏ hơn tiệc lớn vì đám đông khá căng.",
+        "no_plain": "No, not really. I prefer small gatherings rather than big parties because big groups can feel quite stressful.",
+        "no_ex": t4n,
+        "notes": [{"en": "prefer … rather than …", "vi": "thích … hơn là …"}],
+    })
+    t5y = (
+        "Yes, I still do. Visiting them is always a special occasion filled with stories. "
+        "They {score_phrase}."
+    )
+    t5n = (
+        "Unfortunately both my grandparents have passed away, but they still "
+        "hold a special place in my heart. My maternal grandfather used to tell army stories."
+    )
+    items.append({
+        "q": "Do you still have your grandparents? (ZIM / Mc)",
+        "yes_html": t5y.format(score_phrase=phrase_pick("score_phrase", 4)),
+        "yes_vi": "Vẫn còn. Thăm họ luôn là dịp đặc biệt đầy chuyện kể. Họ đứng bên tôi trong mọi hoàn cảnh.",
+        "yes_plain": "Yes, I still do. Visiting them is always a special occasion filled with stories. They stand by me through thick and thin.",
+        "yes_ex": t5y,
+        "no_html": t5n,
+        "no_vi": "Rất tiếc ông bà đã mất, nhưng vẫn giữ chỗ đặc biệt trong tim. Ông ngoại từng kể chuyện quân ngũ (ZIM).",
+        "no_plain": "Unfortunately both my grandparents have passed away, but they still hold a special place in my heart. My maternal grandfather used to tell army stories.",
+        "no_ex": t5n,
+        "notes": [{"en": "hold a special place", "vi": "giữ vị trí đặc biệt"}, {"en": "passed away", "vi": "qua đời"}],
+    })
+    t6y = (
+        "Yes, occasionally. Dining out with friends is a great way to {relax_phrase}. "
+        "Still, most days I prefer {prefer_rather_than}."
+    )
+    t6n = (
+        "No, not really. I hardly ever {hardly_ever_action} because I prefer "
+        "{prefer_rather_than}."
+    )
+    items.append({
+        "q": "Do you like large family parties?",
+        "yes_html": t6y.format(relax_phrase=phrase_pick("relax_phrase", 3), prefer_rather_than=phrase_pick("prefer_rather_than", 0)),
+        "yes_vi": "Có, thỉnh thoảng. Ăn ngoài với bạn giúp thoát khỏi sự hối hả. Nhưng hầu hết ngày tôi vẫn thích ở với gia đình.",
+        "yes_plain": "Yes, occasionally. Dining out with friends is a great way to escape from the hustle and bustle of the city. Still, most days I prefer spending time with family rather than going out.",
+        "yes_ex": t6y,
+        "no_html": t6n.format(hardly_ever_action=phrase_pick("hardly_ever_action", 1), prefer_rather_than=phrase_pick("prefer_rather_than", 1)),
+        "no_vi": "Không thực sự. Tôi hiếm khi đi tiệc lớn vì thích họp mặt nhỏ hơn.",
+        "no_plain": "No, not really. I hardly ever go to large family parties because I prefer small gatherings rather than big parties.",
+        "no_ex": t6n,
+        "notes": [{"en": "I hardly ever + V", "vi": "Hiếm khi + V"}],
+    })
+    return _yes_no_cards(
+        items,
+        box_id="pf-examples-l3",
+        subtitle="Ví dụ People & Family · Do you like X?",
+        hint="Câu từ WESET / ZIM / Mc / TAK12 / ECE. Mỗi câu có <strong>Thích / Không thích</strong> + dropdown. Chip = cụm ghi điểm.",
+    )
+
+
+def lesson5_examples_html() -> str:
+    items = []
+    t1 = (
+        "Well, I love all kinds of friends, but if I had to choose one, I would opt for "
+        "{kind_friend}. This is because that kind of friend {kind_reason}."
+    )
+    items.append({
+        "q": "What kind of people do you like to have as friends? (TAK12)",
+        "html": t1.format(kind_friend=phrase_pick("kind_friend", 0), kind_reason=phrase_pick("kind_reason", 0)),
+        "vi": "Tôi thích mọi kiểu bạn, nhưng nếu phải chọn thì bạn hỗ trợ cảm xúc vì giúp gắn kết hơn.",
+        "plain": "Well, I love all kinds of friends, but if I had to choose one, I would opt for emotionally supportive friends. This is because that kind of friend helps us strengthen our bond.",
+        "ex": t1,
+        "notes": [{"en": "if I had to choose… I would opt for", "vi": "nếu phải chọn… tôi sẽ chọn"}, {"en": "emotionally supportive", "vi": "hỗ trợ về cảm xúc (DOL)"}],
+    })
+    t2 = (
+        "For me, the most important qualities are {kind_quality}. "
+        "Without mutual trust, suspicion develops; without respect, we cannot appreciate differences."
+    )
+    items.append({
+        "q": "What qualities do you look for in a romantic partner? (ZIM / Mc / ECE)",
+        "html": t2.format(kind_quality=phrase_pick("kind_quality", 0)),
+        "vi": "Với tôi phẩm chất quan trọng nhất là trung thực và tử tế. Không có tin tưởng thì sinh nghi; không tôn trọng thì không chấp nhận khác biệt (ECE).",
+        "plain": "For me, the most important qualities are honesty and kindness. Without mutual trust, suspicion develops; without respect, we cannot appreciate differences.",
+        "ex": t2,
+        "notes": [{"en": "mutual trust", "vi": "sự tin tưởng lẫn nhau"}, {"en": "compatibility", "vi": "sự hòa hợp"}],
+    })
+    t3 = (
+        "Well, I love all kinds of family activities, but if I had to choose one, "
+        "it would have to be {kind_family_act}. This is because it {kind_reason}."
+    )
+    items.append({
+        "q": "What kind of family activities do you like most?",
+        "html": t3.format(kind_family_act=phrase_pick("kind_family_act", 0), kind_reason=phrase_pick("kind_reason", 1)),
+        "vi": "Tôi thích mọi hoạt động gia đình, nhưng nếu phải chọn thì ăn tối cùng nhau vì mang lại cảm giác thuộc về.",
+        "plain": "Well, I love all kinds of family activities, but if I had to choose one, it would have to be having dinner together. This is because it gives me a real sense of belonging.",
+        "ex": t3,
+        "notes": [{"en": "it would have to be", "vi": "thì sẽ phải là"}],
+    })
+    t4 = (
+        "I like {kind_friend} most because we share so many shared interests. "
+        "I try to stay connected even when we live in different cities."
+    )
+    items.append({
+        "q": "What kind of friends do you like most?",
+        "html": t4.format(kind_friend=phrase_pick("kind_friend", 2)),
+        "vi": "Tôi thích bạn thời thơ ấu nhất vì có nhiều sở thích chung. Tôi cố giữ liên lạc dù ở khác thành phố.",
+        "plain": "I like childhood friends most because we share so many shared interests. I try to stay connected even when we live in different cities.",
+        "ex": t4,
+        "notes": [{"en": "try to + V", "vi": "cố gắng làm gì"}, {"en": "like-minded individuals", "vi": "người cùng chí hướng (DOL)"}],
+    })
+    t5 = (
+        "Trust, respect and communication. I would go for {kind_quality} "
+        "because that lays the groundwork for a long-term relationship."
+    )
+    items.append({
+        "q": "What qualities are important in a good relationship? (ECE / TAK12)",
+        "html": t5.format(kind_quality=phrase_pick("kind_quality", 1)),
+        "vi": "Tin tưởng, tôn trọng và giao tiếp. Tôi sẽ chọn tin tưởng lẫn nhau vì đó đặt nền cho mối quan hệ lâu dài.",
+        "plain": "Trust, respect and communication. I would go for mutual trust and respect because that lays the groundwork for a long-term relationship.",
+        "ex": t5,
+        "notes": [{"en": "lay the groundwork for", "vi": "đặt nền tảng cho"}, {"en": "long-term relationship", "vi": "mối quan hệ lâu dài"}],
+    })
+    t6 = (
+        "Well, I get on with all kinds of relatives, but if I had to choose one, "
+        "I would opt for my {family_type}. People even say we are {family_idiom}."
+    )
+    items.append({
+        "q": "What kind of family do you come from?",
+        "html": t6.format(family_type=phrase_pick("family_type", 0), family_idiom=phrase_pick("family_idiom", 1)),
+        "vi": "Tôi hòa hợp với mọi họ hàng, nhưng nếu phải chọn thì gia đình gắn bó. Người ta còn nói chúng tôi giống nhau như đúc.",
+        "plain": "Well, I get on with all kinds of relatives, but if I had to choose one, I would opt for my close-knit family. People even say we are like two peas in a pod.",
+        "ex": t6,
+        "notes": [{"en": "like two peas in a pod", "vi": "giống nhau như đúc"}],
+    })
+    return _sample_cards(
+        items,
+        box_id="pf-examples-l5",
+        subtitle="Ví dụ People & Family · What kind of X?",
+        hint="Soft choose + because. Câu TAK12 / ZIM / Mc / ECE + collocation DOL.",
+    )
+
+
+def lesson6_examples_html() -> str:
+    items = []
+    t1 = (
+        "Well, I love both, but I {prefer_x} to {prefer_y}. This is because family "
+        "gives me comfort and security, while a big crowd can feel superficial."
+    )
+    # prefer_x/y are V-ing/NP already in slots - "I prefer X to Y"
+    t1 = (
+        "Well, I love both, but I prefer {prefer_x} to {prefer_y}. This is because family "
+        "gives me comfort and security, while a big crowd can feel superficial."
+    )
+    items.append({
+        "q": "Do you prefer spending time with family or with friends? (ZIM / ECE / Mc)",
+        "html": t1.format(prefer_x=phrase_pick("prefer_x", 0), prefer_y=phrase_pick("prefer_y", 0)),
+        "vi": "Tôi thích cả hai, nhưng thích ở với gia đình hơn đi chơi với đám đông vì gia đình cho sự an ủi, còn đám đông đôi khi hời hợt.",
+        "plain": "Well, I love both, but I prefer spending time with my family to going out with a big crowd. This is because family gives me comfort and security, while a big crowd can feel superficial.",
+        "ex": t1,
+        "alt_html": (
+            "As a young adult I lean more towards my friends when I want to explore. "
+            "However, I always make sure to spend quality time with my family."
+        ),
+        "alt_vi": "Khi còn trẻ tôi hơi nghiêng về bạn khi muốn khám phá. Nhưng tôi vẫn dành thời gian chất lượng cho gia đình (ZIM).",
+        "alt_plain": "As a young adult I lean more towards my friends when I want to explore. However, I always make sure to spend quality time with my family.",
+        "alt_kind": "depends",
+        "notes": [{"en": "prefer X to Y", "vi": "thích X hơn Y"}, {"en": "lean towards", "vi": "nghiêng về (ZIM)"}],
+    })
+    t2 = (
+        "I prefer {prefer_x} rather than {prefer_y}. I love the feeling of having "
+        "someone to confide in, whereas staying alone too long can lead to loneliness."
+    )
+    items.append({
+        "q": "Which do you prefer — spending time with a friend or alone? (TAK12)",
+        "html": t2.format(prefer_x=phrase_pick("prefer_x", 1), prefer_y=phrase_pick("prefer_y", 1)),
+        "vi": "Tôi thích đi chơi với bạn thân hơn ở một mình cả cuối tuần. Tôi thích có người tâm sự, còn ở một mình lâu dễ cô đơn.",
+        "plain": "I prefer hanging out with close friends rather than staying alone all weekend. I love the feeling of having someone to confide in, whereas staying alone too long can lead to loneliness.",
+        "ex": t2,
+        "notes": [{"en": "prefer X rather than Y", "vi": "thích X hơn là Y"}, {"en": "confide in", "vi": "tâm sự"}],
+    })
+    t3 = (
+        "I prefer {prefer_x} to {prefer_y}. Face-to-face talks hold a special place "
+        "in my heart, while endless texting can feel distant."
+    )
+    items.append({
+        "q": "Do you prefer talking face to face or chatting online? (WESET)",
+        "html": t3.format(prefer_x=phrase_pick("prefer_x", 3), prefer_y=phrase_pick("prefer_y", 2)),
+        "vi": "Tôi thích nói chuyện trực tiếp hơn giữ mọi thứ trên mạng. Gặp mặt giữ chỗ đặc biệt, còn nhắn tin mãi thì xa cách.",
+        "plain": "I prefer talking face to face to keeping everything online. Face-to-face talks hold a special place in my heart, while endless texting can feel distant.",
+        "ex": t3,
+        "notes": [{"en": "hold a special place", "vi": "giữ vị trí đặc biệt"}, {"en": "face-to-face", "vi": "trực tiếp"}],
+    })
+    t4 = (
+        "It depends on the situation. If I want to chill, I prefer {prefer_x}. "
+        "But if I need comfort, I prefer my family because they understand me better."
+    )
+    items.append({
+        "q": "Who are you closest to — family or friends?",
+        "html": t4.format(prefer_x=phrase_pick("prefer_x", 1)),
+        "vi": "Tùy tình huống. Muốn thư giãn thì bạn; cần an ủi thì gia đình vì họ hiểu tôi hơn (ECE).",
+        "plain": "It depends on the situation. If I want to chill, I prefer hanging out with close friends. But if I need comfort, I prefer my family because they understand me better.",
+        "ex": t4,
+        "kind": "depends",
+        "notes": [{"en": "It depends on the situation", "vi": "còn tùy tình huống"}],
+    })
+    t5 = (
+        "Most of my friends are around my age. I prefer {prefer_x} to making small talk "
+        "with acquaintances, although I do {relationship_v} a few older colleagues."
+    )
+    items.append({
+        "q": "Are your friends mostly your age or different ages? (TAK12)",
+        "html": t5.format(prefer_x=phrase_pick("prefer_x", 2), relationship_v=phrase_pick("relationship_v", 0)),
+        "vi": "Hầu hết bạn tôi cùng tuổi. Tôi thích nhóm nhỏ hơn chuyện xã giao, dù vẫn hòa thuận với vài đồng nghiệp lớn tuổi.",
+        "plain": "Most of my friends are around my age. I prefer being with a small group to making small talk with acquaintances, although I do get on well with a few older colleagues.",
+        "ex": t5,
+        "notes": [{"en": "acquaintance", "vi": "người quen (ECE)"}],
+    })
+    return _sample_cards(
+        items,
+        box_id="pf-examples-l6",
+        subtitle="Ví dụ People & Family · Prefer X or Y?",
+        hint="prefer X to Y / rather than / lean towards. Câu ZIM, ECE, TAK12, WESET.",
+    )
+
+
+def lesson7_examples_html() -> str:
+    items = []
+    t1 = (
+        "Yes, it's very popular. The majority of families still {pop_custom}. "
+        "You can see three generations living under the same roof, especially in the countryside."
+    )
+    items.append({
+        "q": "Is family very important in your country?",
+        "html": t1.format(pop_custom=phrase_pick("pop_custom", 0)),
+        "vi": "Có, rất phổ biến. Đa số gia đình vẫn tôn trọng người lớn và xin lời khuyên. Ở quê vẫn thấy ba thế hệ chung một mái nhà.",
+        "plain": "Yes, it's very popular. The majority of families still honouring elders and seeking their advice. You can see three generations living under the same roof, especially in the countryside.",
+        "ex": t1,
+        "kind": "pop_yes",
+        "notes": [{"en": "live under the same roof", "vi": "sống chung một mái nhà"}, {"en": "the majority of", "vi": "đa số"}],
+    })
+    t2 = (
+        "It depends. In collectivist families, {pop_group} still value extended kinship. "
+        "But in major cities, an increasing number of people live in nuclear households."
+    )
+    items.append({
+        "q": "Are there traditional customs related to relationships in your culture? (WESET)",
+        "html": t2.format(pop_group=phrase_pick("pop_group", 1)),
+        "vi": "Còn tùy. Gia đình theo chủ nghĩa tập thể, người lớn tuổi vẫn coi trọng họ hàng rộng. Nhưng ở thành phố ngày càng nhiều hộ hạt nhân.",
+        "plain": "It depends. In collectivist families, older people still value extended kinship. But in major cities, an increasing number of people live in nuclear households.",
+        "ex": t2,
+        "kind": "depends",
+        "notes": [{"en": "collectivist", "vi": "theo chủ nghĩa tập thể (DOL)"}, {"en": "nuclear households", "vi": "hộ gia đình hạt nhân"}],
+    })
+    t3 = (
+        "Yes, especially in crowded cities. A fast-paced lifestyle can lead to loneliness "
+        "even when {pop_group} are surrounded by people."
+    )
+    items.append({
+        "q": "Do people feel lonely in crowded cities? (DOL Part 3)",
+        "html": t3.format(pop_group=phrase_pick("pop_group", 2)),
+        "vi": "Có, nhất là thành phố đông. Lối sống vội vã có thể dẫn đến cô đơn dù người thành thị bị bao quanh bởi mọi người.",
+        "plain": "Yes, especially in crowded cities. A fast-paced lifestyle can lead to loneliness even when urban dwellers are surrounded by people.",
+        "ex": t3,
+        "kind": "pop_yes",
+        "notes": [{"en": "fast-paced lifestyle", "vi": "lối sống vội vã (DOL)"}, {"en": "can lead to …", "vi": "có thể dẫn đến"}],
+    })
+    t4 = (
+        "No, not really — at least not every day. Very few young couples still "
+        "{pop_custom}. It used to account for a large percentage, but rarely now."
+    )
+    items.append({
+        "q": "Is arranged marriage still popular in your country?",
+        "html": t4.format(pop_custom=phrase_pick("pop_custom", 2)),
+        "vi": "Không thực sự — ít nhất không phải mỗi ngày. Rất ít cặp trẻ vẫn hôn nhân sắp đặt. Trước chiếm tỷ lệ lớn, nay hiếm.",
+        "plain": "No, not really — at least not every day. Very few young couples still arranging marriages based on family values. It used to account for a large percentage, but rarely now.",
+        "ex": t4,
+        "kind": "pop_no",
+        "notes": [{"en": "account for + %", "vi": "chiếm bao nhiêu %"}, {"en": "hardly ever / rarely", "vi": "hiếm khi"}],
+    })
+    t5 = (
+        "It depends on the generation. {pop_group} are more individualist, "
+        "whereas older people still prefer patriarchal or at least family-led decisions."
+    )
+    items.append({
+        "q": "How does society influence a person's personality? (DOL)",
+        "html": t5.format(pop_group=phrase_pick("pop_group", 0)),
+        "vi": "Còn tùy thế hệ. Thế hệ trẻ cá nhân hơn, còn người lớn tuổi vẫn thích quyết định theo gia đình / gia trưởng.",
+        "plain": "It depends on the generation. the younger generation are more individualist, whereas older people still prefer patriarchal or at least family-led decisions.",
+        "ex": t5,
+        "kind": "depends",
+        "notes": [{"en": "individualist", "vi": "theo chủ nghĩa cá nhân (DOL)"}, {"en": "patriarchal", "vi": "gia trưởng (ZIM)"}],
+    })
+    t6 = (
+        "Generally speaking, yes. Most people still {pop_custom}. "
+        "However, urban dwellers can hardly ever visit every relative."
+    )
+    items.append({
+        "q": "Do people in your country still live with their grandparents?",
+        "html": t6.format(pop_custom=phrase_pick("pop_custom", 1)),
+        "vi": "Nói chung có. Hầu hết vẫn sống chung đại gia đình. Nhưng người thành thị hiếm khi thăm hết họ hàng.",
+        "plain": "Generally speaking, yes. Most people still living with extended family under one roof. However, urban dwellers can hardly ever visit every relative.",
+        "ex": t6,
+        "kind": "pop_yes",
+        "notes": [{"en": "generally speaking", "vi": "nói chung"}],
+    })
+    return _sample_cards(
+        items,
+        box_id="pf-examples-l7",
+        subtitle="Ví dụ People & Family · Is X popular?",
+        hint="Có / Không / Còn tùy. Câu DOL (lonely cities, society → personality) + WESET customs.",
+    )
+
+
+def lesson8_examples_html() -> str:
+    items = []
+    t1 = (
+        "{best_time} is the best time to spend with family. This is because nobody "
+        "is rushing, so we can catch up on each other's day."
+    )
+    items.append({
+        "q": "What is the best time to spend with your family?",
+        "html": t1.format(best_time=phrase_pick("best_time", 0)),
+        "vi": "Bữa trưa Chủ nhật là lúc tốt nhất. Không ai vội nên chúng tôi kể cho nhau nghe ngày hôm đó.",
+        "plain": "Sunday lunch is the best time to spend with family. This is because nobody is rushing, so we can catch up on each other's day.",
+        "ex": t1,
+        "notes": [{"en": "catch up on each other's day", "vi": "cập nhật ngày của nhau (ZIM)"}],
+    })
+    t2 = (
+        "{best_time} is my favourite time to meet friends. I find myself most relaxed "
+        "then. However, generally speaking, any evening is fine as long as we talk face to face."
+    )
+    items.append({
+        "q": "What is the best time to meet your friends?",
+        "html": t2.format(best_time=phrase_pick("best_time", 4)),
+        "vi": "Sáng cuối tuần là lúc tôi thích gặp bạn nhất — lúc đó tôi thấy thư thái. Nói chung tối nào cũng được miễn là nói chuyện trực tiếp.",
+        "plain": "weekend mornings is my favourite time to meet friends. I find myself most relaxed then. However, generally speaking, any evening is fine as long as we talk face to face.",
+        "ex": t2,
+        "notes": [{"en": "find + myself + adj", "vi": "thấy bản thân như thế nào"}, {"en": "as long as", "vi": "miễn là"}],
+    })
+    t3 = (
+        "It depends. For me, {best_time} is ideal because it lasts several days "
+        "and relatives come from everywhere. However, some people prefer a quiet Sunday."
+    )
+    items.append({
+        "q": "When is the best time for a family reunion?",
+        "html": t3.format(best_time=phrase_pick("best_time", 2)),
+        "vi": "Còn tùy. Với tôi Tết lý tưởng vì kéo dài vài ngày và họ hàng về từ khắp nơi. Nhưng có người thích Chủ nhật yên.",
+        "plain": "It depends. For me, the Tet holiday is ideal because it lasts several days and relatives come from everywhere. However, some people prefer a quiet Sunday.",
+        "ex": t3,
+        "kind": "depends",
+        "notes": [{"en": "last (v) + thời gian", "vi": "kéo dài bao lâu"}, {"en": "celebrate milestones", "vi": "kỷ niệm các mốc (WESET)"}],
+    })
+    t4 = (
+        "{best_time} is the perfect time to call my parents. After work I am tired, "
+        "but a short call still makes it easier to stay connected."
+    )
+    items.append({
+        "q": "What is the best time to call your parents?",
+        "html": t4.format(best_time=phrase_pick("best_time", 3)),
+        "vi": "Tối sau giờ làm là lúc hoàn hảo để gọi bố mẹ. Dù mệt, một cuộc gọi ngắn vẫn giúp giữ liên lạc.",
+        "plain": "quiet evenings after work is the perfect time to call my parents. After work I am tired, but a short call still makes it easier to stay connected.",
+        "ex": t4,
+        "notes": [{"en": "make it + adj + to V", "vi": "khiến việc … trở nên adj"}],
+    })
+    t5 = (
+        "Weekday dinners are the best time if everyone lives under the same roof. "
+        "On weekends I lean more towards friends, as long as Sunday lunch stays family time."
+    )
+    items.append({
+        "q": "Is evening the best time for family meals?",
+        "html": t5,
+        "vi": "Bữa tối ngày thường tốt nhất nếu sống chung. Cuối tuần tôi nghiêng về bạn, miễn là trưa Chủ nhật vẫn là giờ gia đình.",
+        "plain": "Weekday dinners are the best time if everyone lives under the same roof. On weekends I lean more towards friends, as long as Sunday lunch stays family time.",
+        "ex": t5,
+        "notes": [{"en": "live under the same roof", "vi": "sống chung một mái nhà"}],
+    })
+    return _sample_cards(
+        items,
+        box_id="pf-examples-l8",
+        subtitle="Ví dụ People & Family · Best time?",
+        hint="Thời điểm tốt nhất / Còn tùy. catch up on · Tet · quality time.",
+    )
+
+
+def lesson9_examples_html() -> str:
+    items = []
+    t1 = (
+        "As far as I can remember, the last time I saw my extended family was {time_anchor}. "
+        "We spent a whole afternoon catching up on old memories."
+    )
+    items.append({
+        "q": "When was the last time you saw your extended family?",
+        "html": t1.format(time_anchor=phrase_pick("time_anchor", 1)),
+        "vi": "Theo tôi nhớ, lần gần nhất gặp đại gia đình là Tết vừa rồi. Chúng tôi dành cả buổi chiều ôn kỷ niệm.",
+        "plain": "As far as I can remember, the last time I saw my extended family was just last Tet. We spent a whole afternoon catching up on old memories.",
+        "ex": t1,
+        "kind": "clear",
+        "notes": [{"en": "As far as I can remember", "vi": "theo như tôi còn nhớ"}, {"en": "it's been … since", "vi": "đã … kể từ"}],
+    })
+    t2 = (
+        "I can't remember exactly, but I guess I last got in contact with an old friend "
+        "{time_anchor}. I sent a friend request and we started calling again."
+    )
+    items.append({
+        "q": "When was the last time you got in contact with an old friend? (TAK12)",
+        "html": t2.format(time_anchor=phrase_pick("time_anchor", 3)),
+        "vi": "Không nhớ chính xác, nhưng đoán là trong đại dịch. Tôi gửi lời mời kết bạn rồi chúng tôi gọi lại.",
+        "plain": "I can't remember exactly, but I guess I last got in contact with an old friend during the pandemic. I sent a friend request and we started calling again.",
+        "ex": t2,
+        "kind": "guess",
+        "notes": [{"en": "get in contact / lose contact", "vi": "liên lạc lại / mất liên lạc"}, {"en": "a friend request", "vi": "lời mời kết bạn"}],
+    })
+    t3 = (
+        "It's been years since we last spoke, but we reconciled {time_anchor}. "
+        "I felt thrilled because I had missed her a lot."
+    )
+    items.append({
+        "q": "When was the first time you reconciled with someone? (ZIM vocab)",
+        "html": t3.format(time_anchor=phrase_pick("time_anchor", 0)),
+        "vi": "Đã nhiều năm không nói chuyện, nhưng chúng tôi hàn gắn khoảng hai năm trước. Tôi vui sướng vì nhớ cô ấy nhiều.",
+        "plain": "It's been years since we last spoke, but we reconciled about two years ago. I felt thrilled because I had missed her a lot.",
+        "ex": t3,
+        "kind": "clear",
+        "notes": [{"en": "reconcile", "vi": "hàn gắn, giải hòa (ZIM)"}, {"en": "it's been … since", "vi": "đã … kể từ"}],
+    })
+    t4 = (
+        "I'm not really sure but I guess the first time I lived away from my parents "
+        "was {time_anchor}. Coming home still holds a special place in my heart."
+    )
+    items.append({
+        "q": "When was the first time you lived away from your family?",
+        "html": t4.format(time_anchor=phrase_pick("time_anchor", 2)),
+        "vi": "Không chắc lắm nhưng đoán là khi học cấp 3. Về nhà vẫn giữ chỗ đặc biệt trong tim.",
+        "plain": "I'm not really sure but I guess the first time I lived away from my parents was when I was in high school. Coming home still holds a special place in my heart.",
+        "ex": t4,
+        "kind": "guess",
+        "notes": [{"en": "hold a special place", "vi": "giữ vị trí đặc biệt"}],
+    })
+    t5 = (
+        "Just last month. A cousin came over to celebrate a milestone, and we had "
+        "a great time together."
+    )
+    items.append({
+        "q": "When was the last time you had a family gathering?",
+        "html": t5,
+        "vi": "Tháng trước thôi. Một người anh em họ đến nhà kỷ niệm một mốc, chúng tôi vui vẻ.",
+        "plain": "Just last month. A cousin came over to celebrate a milestone, and we had a great time together.",
+        "ex": t5,
+        "kind": "clear",
+        "notes": [{"en": "come over to + V", "vi": "đến nhà để làm gì"}, {"en": "celebrate milestones", "vi": "kỷ niệm các mốc"}],
+    })
+    return _sample_cards(
+        items,
+        box_id="pf-examples-l9",
+        subtitle="Ví dụ People & Family · First / last time?",
+        hint="Nhớ rõ / Đoán. TAK12 get in contact · ZIM reconcile.",
+    )
+
+
+def lesson10_examples_html() -> str:
+    items = []
+    t1 = (
+        "Yes, I did. When I was a kid I used to {child_detail}. "
+        "Those family ties were instilled in me from a young age."
+    )
+    items.append({
+        "q": "Did you spend a lot of time with your family when you were a child? (WESET)",
+        "html": t1.format(child_detail=phrase_pick("child_detail", 3)),
+        "vi": "Có. Khi còn nhỏ tôi thường tối nào cũng ở chung một mái nhà. Những mối quan hệ đó được thấm nhuần từ nhỏ.",
+        "plain": "Yes, I did. When I was a kid I used to spend most evenings under the same roof. Those family ties were instilled in me from a young age.",
+        "ex": t1,
+        "kind": "yes",
+        "alt_html": (
+            "No, not really. I spent most of my time studying. I did see my cousins "
+            "sometimes but not too often."
+        ),
+        "alt_vi": "Không thật sự. Tôi dành phần lớn thời gian học. Tôi có gặp anh em họ nhưng không thường.",
+        "alt_plain": "No, not really. I spent most of my time studying. I did see my cousins sometimes but not too often.",
+        "alt_kind": "no",
+        "notes": [{"en": "instilled", "vi": "được thấm nhuần (ZIM)"}, {"en": "did + V (emphasis)", "vi": "nhấn mạnh quá khứ"}],
+    })
+    t2 = (
+        "Yes. When I was in primary school I used to {child_detail}. "
+        "People still say {family_idiom}."
+    )
+    items.append({
+        "q": "Did you take after anyone in your family as a child?",
+        "html": t2.format(child_detail=phrase_pick("child_detail", 2), family_idiom=phrase_pick("family_idiom", 3)),
+        "vi": "Có. Khi học tiểu học tôi đã giống bố. Người ta vẫn nói cha nào con nấy.",
+        "plain": "Yes. When I was in primary school I used to take after my dad. People still say like father, like son.",
+        "ex": t2,
+        "kind": "yes",
+        "notes": [{"en": "take after", "vi": "giống người thân"}, {"en": "like father, like son", "vi": "cha nào con nấy"}],
+    })
+    t3 = (
+        "Yes, I did. My mum encouraged me to {child_detail}. "
+        "She also used to help me with homework after dinner."
+    )
+    items.append({
+        "q": "Did your parents encourage you when you were a child?",
+        "html": t3.format(child_detail=phrase_pick("child_detail", 1)),
+        "vi": "Có. Mẹ khuyến khích tôi ngưỡng mộ anh trai. Bà cũng giúp tôi bài tập sau bữa tối.",
+        "plain": "Yes, I did. My mum encouraged me to look up to my older brother. She also used to help me with homework after dinner.",
+        "ex": t3,
+        "kind": "yes",
+        "notes": [{"en": "encourage sb to + V", "vi": "khuyến khích ai làm gì"}, {"en": "look up to", "vi": "ngưỡng mộ"}],
+    })
+    t4 = (
+        "No, not really. I was not really interested in big reunions. "
+        "I found them quite noisy, so I stayed with my immediate family."
+    )
+    items.append({
+        "q": "Did you enjoy family reunions when you were a child?",
+        "html": t4,
+        "vi": "Không thật sự. Tôi không thích họp mặt lớn — thấy ồn — nên chỉ ở với gia đình gần.",
+        "plain": "No, not really. I was not really interested in big reunions. I found them quite noisy, so I stayed with my immediate family.",
+        "ex": t4,
+        "kind": "no",
+        "notes": [{"en": "find + sth + adj", "vi": "thấy cái gì như thế nào"}, {"en": "immediate family", "vi": "gia đình gần"}],
+    })
+    t5 = (
+        "Yes. When I was little my parents passed down traditional values. "
+        "My upbringing still shapes how I treat people with respect."
+    )
+    items.append({
+        "q": "Did your family teach you traditional values as a child?",
+        "html": t5,
+        "vi": "Có. Khi còn nhỏ bố mẹ truyền giá trị truyền thống. Cách nuôi dưỡng vẫn định hình cách tôi tôn trọng người khác.",
+        "plain": "Yes. When I was little my parents passed down traditional values. My upbringing still shapes how I treat people with respect.",
+        "ex": t5,
+        "kind": "yes",
+        "notes": [{"en": "pass down traditional values", "vi": "truyền giá trị truyền thống"}, {"en": "upbringing", "vi": "sự nuôi dưỡng"}],
+    })
+    return _sample_cards(
+        items,
+        box_id="pf-examples-l10",
+        subtitle="Ví dụ People & Family · When you were a child?",
+        hint="Yes, I did / No, not really + childhood time. take after · instilled · upbringing.",
+    )
+
+
+def lesson11_examples_html() -> str:
+    items = []
+    t1 = (
+        "Yes, I think so — as long as {suit_case}. Physical distance is hard, "
+        "but emotional closeness can still be maintained through video calls."
+    )
+    items.append({
+        "q": "Do you think long-distance relationships can be successful? (WESET / Mc)",
+        "html": t1.format(suit_case=phrase_pick("suit_case", 0)),
+        "vi": "Tôi nghĩ có — miễn là cả hai giao tiếp cởi mở. Xa về địa lý khó, nhưng gần về cảm xúc vẫn giữ được nhờ video call.",
+        "plain": "Yes, I think so — as long as both people communicate openly. Physical distance is hard, but emotional closeness can still be maintained through video calls.",
+        "ex": t1,
+        "kind": "yes",
+        "notes": [{"en": "long-distance relationship", "vi": "mối quan hệ yêu xa"}, {"en": "as long as", "vi": "miễn là"}],
+    })
+    t2 = (
+        "I'm a bit skeptical. Instant attraction can happen, but true love needs "
+        "commitment. Love at first sight is more physical attraction than a meaningful bond."
+    )
+    items.append({
+        "q": "Do you believe in love at first sight? (ZIM / Mc)",
+        "html": t2,
+        "vi": "Tôi hơi hoài nghi. Có thể bị thu hút ngay, nhưng tình yêu thật cần cam kết. Tình yêu sét đánh nghiêng về hấp dẫn thể xác hơn gắn kết cảm xúc.",
+        "plain": "I'm a bit skeptical. Instant attraction can happen, but true love needs commitment. Love at first sight is more physical attraction than a meaningful bond.",
+        "ex": t2,
+        "kind": "no",
+        "notes": [{"en": "skeptical", "vi": "hoài nghi"}, {"en": "deal-breaker", "vi": "điều chấm dứt quan hệ"}],
+    })
+    t3 = (
+        "No, I don't think it's a good idea. Money can become a deal-breaker; "
+        "that's the reason why I try not to mix friendship with loans."
+    )
+    items.append({
+        "q": "Is it a good idea to borrow money from a friend? (TAK12)",
+        "html": t3,
+        "vi": "Tôi không nghĩ vậy. Tiền có thể thành điều chấm dứt quan hệ; vì thế tôi cố không trộn tình bạn với nợ.",
+        "plain": "No, I don't think it's a good idea. Money can become a deal-breaker; that's the reason why I try not to mix friendship with loans.",
+        "ex": t3,
+        "kind": "no",
+        "notes": [{"en": "that's the reason why", "vi": "đó là lý do tại sao"}, {"en": "deal-breaker", "vi": "điều chấm dứt quan hệ (ZIM)"}],
+    })
+    t4 = (
+        "It depends. If {suit_case}, then I would say yes. "
+        "But if it is mainly for showing off online, then it is not really suitable."
+    )
+    items.append({
+        "q": "Is social media suitable for romantic relationships? (WESET / Mc)",
+        "html": t4.format(suit_case=phrase_pick("suit_case", 1)),
+        "vi": "Còn tùy. Nếu có tin tưởng lẫn nhau thì được. Nhưng nếu chủ yếu để khoe trên mạng thì không phù hợp.",
+        "plain": "It depends. If there is mutual trust, then I would say yes. But if it is mainly for showing off online, then it is not really suitable.",
+        "ex": t4,
+        "kind": "depends",
+        "notes": [{"en": "If … then … / But if …", "vi": "Nếu … thì … / Nhưng nếu …"}],
+    })
+    t5 = (
+        "Not really. Clothing can hint at style, but it doesn't tell the full story "
+        "of a person's personality. Plus, people dress for work, not for who they are."
+    )
+    items.append({
+        "q": "Can clothing tell and reveal a person's personality? (DOL)",
+        "html": t5,
+        "vi": "Không thật sự. Quần áo gợi ý phong cách nhưng không cho thấy tất cả tính cách. Hơn nữa người ta mặc vì việc, không phải vì con người thật.",
+        "plain": "Not really. Clothing can hint at style, but it doesn't tell the full story of a person's personality. Plus, people dress for work, not for who they are.",
+        "ex": t5,
+        "kind": "no",
+        "notes": [{"en": "tell the full story", "vi": "cho thấy tất cả (DOL)"}, {"en": "Plus / Moreover", "vi": "thêm vào đó"}],
+    })
+    t6 = (
+        "Yes, it would be a great idea if both partners are mature enough to "
+        "adapt and compromise. Shared interests help, but they are not a deal-breaker."
+    )
+    items.append({
+        "q": "Is it important to have similar interests with your partner? (ZIM / Mc)",
+        "html": t6,
+        "vi": "Đó sẽ là ý hay nếu cả hai đủ trưởng thành để thích nghi và thỏa hiệp. Sở thích chung hữu ích nhưng không phải điều chấm dứt quan hệ.",
+        "plain": "Yes, it would be a great idea if both partners are mature enough to adapt and compromise. Shared interests help, but they are not a deal-breaker.",
+        "ex": t6,
+        "kind": "yes",
+        "notes": [{"en": "adj + enough + to V", "vi": "đủ … để …"}, {"en": "adapt and compromise", "vi": "thích nghi và thỏa hiệp (WESET)"}],
+    })
+    return _sample_cards(
+        items,
+        box_id="pf-examples-l11",
+        subtitle="Ví dụ People & Family · Is X suitable?",
+        hint="Có / Không / Còn tùy. WESET long-distance · ZIM love at first sight · TAK12 borrow money · DOL clothing.",
+    )
+
+
+def lesson12_examples_html() -> str:
+    items = []
+    t1 = (
+        "It's not really easy to {easy_hard_x}. I think the hardest part is finding "
+        "common ground. It takes time for busy people to trust someone new."
+    )
+    items.append({
+        "q": "Is it easy to make friends as an adult? (TAK12)",
+        "html": t1.format(easy_hard_x=phrase_pick("easy_hard_x", 0)),
+        "vi": "Không thật sự dễ kết bạn khi đã lớn. Phần khó nhất là tìm điểm chung. Người bận cần thời gian mới tin ai đó.",
+        "plain": "It's not really easy to make new friends as an adult. I think the hardest part is finding common ground. It takes time for busy people to trust someone new.",
+        "ex": t1,
+        "kind": "hard",
+        "notes": [{"en": "the hardest part is…", "vi": "phần khó nhất là"}, {"en": "common ground", "vi": "điểm chung"}],
+    })
+    t2 = (
+        "It's quite challenging to {easy_hard_x}. Online chats are easy, but becoming "
+        "real friends takes shared experiences. Take my classmate as an example."
+    )
+    items.append({
+        "q": "Is it possible to become real friends with people you meet on the internet? (TAK12)",
+        "html": t2.format(easy_hard_x=phrase_pick("easy_hard_x", 1)),
+        "vi": "Khá thách thức. Chat thì dễ, nhưng thành bạn thật cần trải nghiệm chung. Lấy bạn cùng lớp làm ví dụ.",
+        "plain": "It's quite challenging to become real friends with people you meet online. Online chats are easy, but becoming real friends takes shared experiences. Take my classmate as an example.",
+        "ex": t2,
+        "kind": "hard",
+        "notes": [{"en": "Take … as an example", "vi": "lấy … làm ví dụ"}],
+    })
+    t3 = (
+        "It's always quite difficult at the beginning when you try something new, "
+        "and {easy_hard_x} is not an exception. At first you feel awkward, "
+        "but after a while things begin to get a bit easier."
+    )
+    items.append({
+        "q": "Is it difficult to maintain a long-distance relationship?",
+        "html": t3.format(easy_hard_x=phrase_pick("easy_hard_x", 2)),
+        "vi": "Lúc đầu cái gì mới cũng khó, và yêu xa cũng không ngoại lệ. Ban đầu ngượng, sau một thời gian dễ hơn.",
+        "plain": "It's always quite difficult at the beginning when you try something new, and maintain a long-distance relationship is not an exception. At first you feel awkward, but after a while things begin to get a bit easier.",
+        "ex": t3,
+        "kind": "then",
+        "notes": [{"en": "… is not an exception", "vi": "cũng không phải ngoại lệ"}, {"en": "At first… / after a while…", "vi": "lúc đầu… / sau một thời gian…"}],
+    })
+    t4 = (
+        "It's quite simple to meet people if you join a club. You can meet "
+        "like-minded individuals nearby. However, staying close is another story."
+    )
+    items.append({
+        "q": "Where and how can people get to know new people? (DOL)",
+        "html": t4,
+        "vi": "Khá đơn giản nếu tham gia câu lạc bộ — gặp người cùng chí hướng. Nhưng giữ quan hệ lại là chuyện khác.",
+        "plain": "It's quite simple to meet people if you join a club. You can meet like-minded individuals nearby. However, staying close is another story.",
+        "ex": t4,
+        "kind": "easy",
+        "notes": [{"en": "like-minded individuals", "vi": "người cùng chí hướng (DOL)"}],
+    })
+    t5 = (
+        "Adults and children do not make friends in the same way. For kids it is "
+        "really easy — they just play. For adults it takes time to {easy_hard_x}."
+    )
+    items.append({
+        "q": "Do adults and children make friends in the same way? (TAK12)",
+        "html": t5.format(easy_hard_x=phrase_pick("easy_hard_x", 3)),
+        "vi": "Người lớn và trẻ con không kết bạn giống nhau. Trẻ thì dễ — chỉ cần chơi. Người lớn mất thời gian để giải quyết bất đồng bình tĩnh.",
+        "plain": "Adults and children do not make friends in the same way. For kids it is really easy — they just play. For adults it takes time to work through disagreements calmly.",
+        "ex": t5,
+        "kind": "hard",
+        "notes": [{"en": "take + time + to V", "vi": "mất thời gian để…"}],
+    })
+    return _sample_cards(
+        items,
+        box_id="pf-examples-l12",
+        subtitle="Ví dụ People & Family · Easy / Difficult?",
+        hint="Dễ / Khó / Ban đầu khó. TAK12 friends online · DOL meet new people.",
+    )
+
+
+def lesson13_examples_html() -> str:
+    items = []
+    t1 = (
+        "I don't really like {dislike_point}. It makes it hard for me to become independent."
+    )
+    items.append({
+        "q": "What do you dislike about family life?",
+        "html": t1.format(dislike_point=phrase_pick("dislike_point", 0)),
+        "vi": "Tôi không thật sự thích bố mẹ bảo bọc quá mức. Nó khiến tôi khó độc lập.",
+        "plain": "I don't really like overprotective parents. It makes it hard for me to become independent.",
+        "ex": t1,
+        "kind": "direct",
+        "notes": [{"en": "overprotective parents", "vi": "bố mẹ bảo bọc quá mức (IDP)"}],
+    })
+    t2 = (
+        "Well, generally speaking I love my family, but the only thing I don't really like "
+        "is {dislike_point}. Apart from that, I'm fine."
+    )
+    items.append({
+        "q": "Is there anything you dislike about your relatives?",
+        "html": t2.format(dislike_point=phrase_pick("dislike_point", 2)),
+        "vi": "Nói chung tôi yêu gia đình, nhưng điều duy nhất tôi không thích là áp lực hôn nhân. Ngoài ra thì ổn.",
+        "plain": "Well, generally speaking I love my family, but the only thing I don't really like is family pressure about marriage. Apart from that, I'm fine.",
+        "ex": t2,
+        "kind": "soft",
+        "notes": [{"en": "the only thing I don't really like about X is…", "vi": "điều duy nhất tôi không thích là…"}],
+    })
+    t3 = (
+        "There are a few things that can break a friendship. First, {dislike_point}. "
+        "Second, people simply grow apart. Finally, some friends might stab you in the back."
+    )
+    items.append({
+        "q": "What factors may result in the breakdown of a good friendship? (TAK12)",
+        "html": t3.format(dislike_point=phrase_pick("dislike_point", 3)),
+        "vi": "Có vài thứ làm tình bạn vỡ. Thứ nhất hiểu lầm trên mạng. Thứ hai mọi người lớn theo hướng khác. Cuối cùng có người đâm sau lưng.",
+        "plain": "There are a few things that can break a friendship. First, miscommunication on social media. Second, people simply grow apart. Finally, some friends might stab you in the back.",
+        "ex": t3,
+        "kind": "list",
+        "notes": [{"en": "stab someone in the back", "vi": "đâm sau lưng (TAK12)"}, {"en": "First / Second / Finally", "vi": "liệt kê"}],
+    })
+    t4 = (
+        "Undoubtedly one common issue is {dislike_point}. Financial stress is another "
+        "contributing factor, and in Vietnam family pressure can place a real strain on couples."
+    )
+    items.append({
+        "q": "What are some common problems that couples face? (Mc Part 3)",
+        "html": t4.format(dislike_point=phrase_pick("dislike_point", 3)),
+        "vi": "Chắc chắn một vấn đề phổ biến là hiểu lầm. Áp lực tài chính cũng góp phần, và ở Việt Nam áp lực gia đình đè nặng cặp đôi.",
+        "plain": "Undoubtedly one common issue is miscommunication on social media. Financial stress is another contributing factor, and in Vietnam family pressure can place a real strain on couples.",
+        "ex": t4,
+        "kind": "list",
+        "notes": [{"en": "contributing factor", "vi": "yếu tố góp phần (Mc)"}, {"en": "miscommunication", "vi": "sự hiểu lầm"}],
+    })
+    t5 = (
+        "Well, I don't really like {dislike_point}. It's hard for quieter kids "
+        "to feel seen, but apart from that we still get along."
+    )
+    items.append({
+        "q": "What do you dislike about having siblings?",
+        "html": t5.format(dislike_point=phrase_pick("dislike_point", 1)),
+        "vi": "Tôi không thật sự thích sự ganh đua anh chị em. Trẻ trầm hơn khó được để ý, nhưng ngoài ra chúng tôi vẫn hòa thuận.",
+        "plain": "Well, I don't really like sibling rivalry. It's hard for quieter kids to feel seen, but apart from that we still get along.",
+        "ex": t5,
+        "kind": "soft",
+        "notes": [{"en": "sibling rivalry", "vi": "ganh đua anh chị em (IDP)"}, {"en": "apart from that", "vi": "ngoài điều đó ra"}],
+    })
+    return _sample_cards(
+        items,
+        box_id="pf-examples-l13",
+        subtitle="Ví dụ People & Family · Dislike about X?",
+        hint="Nói thẳng / Nói vòng / Liệt kê. TAK12 breakdown · Mc couple problems.",
+    )
+
+
+def lesson14_examples_html() -> str:
+    items = []
+    t1 = (
+        "I try to meet my friends {freq}, which may not seem much, but it is enough "
+        "to keep each other updated about our lives."
+    )
+    items.append({
+        "q": "How often do you meet with your friends? (TAK12)",
+        "html": t1.format(freq=phrase_pick("freq", 2)),
+        "vi": "Tôi cố gặp bạn mỗi tháng một lần — nghe không nhiều nhưng đủ để cập nhật cuộc sống cho nhau.",
+        "plain": "I try to meet my friends once a month, which may not seem much, but it is enough to keep each other updated about our lives.",
+        "ex": t1,
+        "kind": "freq",
+        "notes": [{"en": "keep each other updated", "vi": "cập nhật cho nhau (TAK12)"}, {"en": "once a month", "vi": "mỗi tháng một lần"}],
+    })
+    t2 = (
+        "I see my parents {freq} because we still live under the same roof. "
+        "I also keep in touch with cousins every now and then."
+    )
+    items.append({
+        "q": "How much time do you manage to spend with your family? (TAK12 / ZIM)",
+        "html": t2.format(freq=phrase_pick("freq", 0)),
+        "vi": "Tôi gặp bố mẹ hầu như mỗi ngày vì vẫn ở chung. Tôi cũng thỉnh thoảng giữ liên lạc với anh em họ.",
+        "plain": "I see my parents almost every day because we still live under the same roof. I also keep in touch with cousins every now and then.",
+        "ex": t2,
+        "kind": "freq",
+        "notes": [{"en": "I also + freq", "vi": "đối chiếu tần suất"}, {"en": "keep in touch", "vi": "giữ liên lạc"}],
+    })
+    t3 = (
+        "I call my grandparents {freq}. I'm too busy to visit every weekend, "
+        "but none of us want to lose contact."
+    )
+    items.append({
+        "q": "How often do you visit your grandparents?",
+        "html": t3.format(freq=phrase_pick("freq", 1)),
+        "vi": "Tôi gọi ông bà mỗi tuần một lần. Tôi quá bận để về mỗi cuối tuần, nhưng không ai muốn mất liên lạc.",
+        "plain": "I call my grandparents once a week. I'm too busy to visit every weekend, but none of us want to lose contact.",
+        "ex": t3,
+        "kind": "rare",
+        "notes": [{"en": "too + adj + to V", "vi": "quá … nên không …"}, {"en": "none of + group", "vi": "không một ai trong nhóm"}],
+    })
+    t4 = (
+        "Honestly, I check social media {freq}, but I meet people face to face "
+        "once in a blue moon. I make efforts to stay connected, though."
+    )
+    items.append({
+        "q": "How often do you keep in touch with distant relatives?",
+        "html": t4.format(freq=phrase_pick("freq", 0)),
+        "vi": "Thành thật thì tôi xem mạng hầu như mỗi ngày, nhưng gặp trực tiếp thì năm thì mười họa. Tôi vẫn nỗ lực giữ liên lạc.",
+        "plain": "Honestly, I check social media almost every day, but I meet people face to face once in a blue moon. I make efforts to stay connected, though.",
+        "ex": t4,
+        "kind": "rare",
+        "notes": [{"en": "once in a blue moon", "vi": "năm thì mười họa"}, {"en": "make efforts to stay connected", "vi": "nỗ lực giữ liên lạc"}],
+    })
+    t5 = (
+        "At the weekend when none of us have to work, we have dinner together. "
+        "On weekdays I hardly ever stay up chatting — I'm too tired to talk for long."
+    )
+    items.append({
+        "q": "How often do you have dinner with your family?",
+        "html": t5,
+        "vi": "Cuối tuần khi không ai phải làm, chúng tôi ăn tối cùng. Ngày thường tôi hiếm khi thức trò chuyện — quá mệt để nói lâu.",
+        "plain": "At the weekend when none of us have to work, we have dinner together. On weekdays I hardly ever stay up chatting — I'm too tired to talk for long.",
+        "ex": t5,
+        "kind": "freq",
+        "notes": [{"en": "none of us have to work", "vi": "không ai phải đi làm"}],
+    })
+    return _sample_cards(
+        items,
+        box_id="pf-examples-l14",
+        subtitle="Ví dụ People & Family · How often?",
+        hint="5 bậc tần suất + lý do. TAK12 once a month · keep in touch.",
+    )
+
+
+def lesson15_examples_html() -> str:
+    items = []
+    t1 = (
+        "It has changed a great deal in recent years. In the past, {change_old}. "
+        "But recently {change_new} have become much more common."
+    )
+    items.append({
+        "q": "How has the concept of family changed over the years? (WESET / TAK12)",
+        "html": t1.format(change_old=phrase_pick("change_old", 0), change_new=phrase_pick("change_new", 0)),
+        "vi": "Đã thay đổi rất nhiều. Trước đây đại gia đình sống chung một mái nhà. Gần đây hộ hạt nhân ở thành phố lớn phổ biến hơn.",
+        "plain": "It has changed a great deal in recent years. In the past, extended families living under one roof. But recently nuclear households in big cities have become much more common.",
+        "ex": t1,
+        "kind": "alot",
+        "notes": [{"en": "It has changed a great deal", "vi": "đã thay đổi rất lớn"}, {"en": "nuclear households", "vi": "hộ hạt nhân"}],
+    })
+    t2 = (
+        "Technology has had a profound impact. In the past {change_old}. "
+        "These days {change_new} help us stay in touch, but they can reduce face-to-face depth."
+    )
+    items.append({
+        "q": "How has technology affected relationships? (WESET / Mc / DOL)",
+        "html": t2.format(change_old=phrase_pick("change_old", 2), change_new=phrase_pick("change_new", 1)),
+        "vi": "Công nghệ ảnh hưởng sâu. Trước là thư mất cả tuần. Nay video call giúp giữ liên lạc nhưng có thể làm giảm chiều sâu gặp mặt.",
+        "plain": "Technology has had a profound impact. In the past letters that took weeks to arrive. These days virtual interaction and video calls help us stay in touch, but they can reduce face-to-face depth.",
+        "ex": t2,
+        "kind": "alot",
+        "notes": [{"en": "profound impact", "vi": "ảnh hưởng sâu (Mc)"}, {"en": "face-to-face vs virtual", "vi": "trực tiếp vs ảo"}],
+    })
+    t3 = (
+        "Yes, at least to some extent. People used to become friends through direct "
+        "interaction. Nowadays a fast-paced lifestyle and social media have started "
+        "to replace some of that, so some friendships feel less strong."
+    )
+    items.append({
+        "q": "Do you think friendships are different now compared to the past? (ECE)",
+        "html": t3,
+        "vi": "Có, ít nhất một phần. Trước kết bạn qua gặp mặt. Nay lối sống vội và mạng xã hội thay một phần, nên tình bạn đôi khi mỏng hơn.",
+        "plain": "Yes, at least to some extent. People used to become friends through direct interaction. Nowadays a fast-paced lifestyle and social media have started to replace some of that, so some friendships feel less strong.",
+        "ex": t3,
+        "kind": "alot",
+        "notes": [{"en": "used to", "vi": "đã từng"}, {"en": "fast-paced lifestyle", "vi": "lối sống vội vã"}],
+    })
+    t4 = (
+        "It hasn't changed much at the core. The only change is that {change_new}. "
+        "Family values like standing by each other through thick and thin are still the same."
+    )
+    items.append({
+        "q": "Have things changed since your parents' time? (TAK12)",
+        "html": t4.format(change_new=phrase_pick("change_new", 3)),
+        "vi": "Cốt lõi không đổi nhiều. Thay đổi duy nhất là cả hai cùng chia sẻ việc nhà. Giá trị đứng bên nhau trong mọi hoàn cảnh vẫn vậy.",
+        "plain": "It hasn't changed much at the core. The only change is that both partners sharing household responsibilities. Family values like standing by each other through thick and thin are still the same.",
+        "ex": t4,
+        "kind": "little",
+        "notes": [{"en": "The only change is that…", "vi": "thay đổi duy nhất là…"}, {"en": "through thick and thin", "vi": "trong mọi hoàn cảnh"}],
+    })
+    t5 = (
+        "As I've grown older, the relationship has evolved from dependency to a more "
+        "equal, friendship-like dynamic. We have transitioned, but the deep bonds are still there."
+    )
+    items.append({
+        "q": "How has your relationship with your family changed as you've grown older? (WESET)",
+        "html": t5,
+        "vi": "Khi lớn hơn, quan hệ chuyển từ phụ thuộc sang bình đẳng, hơi giống bạn bè. Chúng tôi đã chuyển, nhưng mối liên kết sâu vẫn còn.",
+        "plain": "As I've grown older, the relationship has evolved from dependency to a more equal, friendship-like dynamic. We have transitioned, but the deep bonds are still there.",
+        "ex": t5,
+        "kind": "alot",
+        "notes": [{"en": "have/has + V3", "vi": "Hiện tại hoàn thành"}, {"en": "since I was a child", "vi": "kể từ khi còn nhỏ"}],
+    })
+    t6 = (
+        "There has been a shift towards individualist values. An increasing number of "
+        "young people leave home early. Still, family ties have not been replaced completely."
+    )
+    items.append({
+        "q": "In what ways have families in your country changed recently? (TAK12)",
+        "html": t6,
+        "vi": "Có sự chuyển dịch sang giá trị cá nhân. Ngày càng nhiều người trẻ ra ở riêng sớm. Nhưng mối quan hệ gia đình chưa bị thay hết.",
+        "plain": "There has been a shift towards individualist values. An increasing number of young people leave home early. Still, family ties have not been replaced completely.",
+        "ex": t6,
+        "kind": "alot",
+        "notes": [{"en": "a shift towards…", "vi": "sự chuyển dịch hướng tới…"}, {"en": "an increasing number of", "vi": "ngày càng nhiều"}],
+    })
+    return _sample_cards(
+        items,
+        box_id="pf-examples-l15",
+        subtitle="Ví dụ People & Family · How has X changed?",
+        hint="Đổi nhiều / đổi ít. WESET concept of family · ECE friendships · TAK12 parents' time.",
+    )
+
+
+def lesson16_frame_html() -> str:
+    parts = [
+        ("1", "Mở đầu", "I'm going to talk about [X] which [paraphrase cue card].",
+         "Paraphrase từ khóa trên đề (admire → look up to / good relationship → lifelong bond)."),
+        ("2", "Thông tin cơ bản", "Who + How you met + How long + 1 câu đánh giá",
+         "Although we don't live under the same roof now, which makes every visit…"),
+        ("3", "Cốt lõi ★", "Chiếm phần lớn thời gian (~1–1.5 phút)",
+         "Người: tính cách + việc họ làm · Bạn: gặp thế nào + trust · Kỷ niệm: occasion + why memorable"),
+        ("4", "Cảm nhận", "Kỷ niệm gần đây · ý nghĩa · emulate / recommend",
+         "This is the person I think of… / I try to emulate…"),
+        ("5", "Kết", "So, if I had to talk about [topic], it would have to be [X].",
+         "Nhắc lại đề (paraphrase) + tên cụ thể đã chọn."),
+    ]
+    part_cards = "".join(
+        f"""              <div class="lr-p2-part" data-p2-step="{n}">
+                <span class="lr-p2-num">{n}</span>
+                <div class="lr-p2-part-body">
+                  <h5 class="lr-p2-part-title">{esc(title)}</h5>
+                  <p class="lr-p2-tpl"><code>{esc(tpl)}</code></p>
+                  <p class="lr-p2-hint">{esc(hint)}</p>
+                </div>
+              </div>"""
+        for n, title, tpl, hint in parts
+    )
+    cues = [
+        (
+            "Family member",
+            [
+                ("Describe a person you admire in your family (Mc)", "Person"),
+                ("Describe a family member you get on well with (TAK12)", "Person"),
+                ("Describe something useful you learned from a family member", "Person"),
+            ],
+        ),
+        (
+            "Friend / relationship",
+            [
+                ("Describe a person you have a very good relationship with (ECE)", "Friend"),
+                ("Describe a friend you really like to spend time with (TAK12)", "Friend"),
+                ("Describe an old friend you got in contact with again (TAK12)", "Friend"),
+            ],
+        ),
+        (
+            "Memory / moment",
+            [
+                ("Describe a memorable moment in a close relationship (WESET)", "Event"),
+                ("Describe a person you only met once and want to know more (TAK12)", "Person"),
+            ],
+        ),
+    ]
+    cue_cols = []
+    for title, items in cues:
+        lis = "".join(
+            f'<li><span class="lr-p2-cue-q">{esc(q)}</span> '
+            f'<span class="lr-p2-cue-tag" data-tag="{esc(tag.lower())}">{esc(tag)}</span></li>'
+            for q, tag in items
+        )
+        cue_cols.append(
+            f"""              <div class="lr-lex-col">
+                <h5 class="lr-lex-col-title">{esc(title)}</h5>
+                <ul class="lr-lex-list lr-p2-cue-list">{lis}</ul>
+              </div>"""
+        )
+    return f"""
+          <div class="lr-grammar-notes lr-p2-frame-wrap" id="lesson16-part2-frame">
+            <h4 class="lr-grammar-notes-title">Part 2 · Khung 5 phần (cố định mọi đề)</h4>
+            <p class="lr-freq-hint">Giống Food: <strong>mở đầu &amp; kết = công thức cố định</strong> · <strong>cốt lõi = dài nhất</strong>. People &amp; Family chỉ đổi nội dung nhánh 2–4.</p>
+            <div class="lr-p2-parts">
+{part_cards}
+            </div>
+            <h4 class="lr-grammar-notes-title" style="margin-top:1rem">Cue card People &amp; Family · nguồn bạn gửi</h4>
+            <p class="lr-freq-hint">Mc admire · ECE good relationship · TAK12 old friend / spend time with · WESET memorable moment.</p>
+            <div class="lr-lex-grid">
+{chr(10).join(cue_cols)}
+            </div>
+          </div>"""
+
+
+def lesson16_examples_html() -> str:
+    cards_data = [
+        {
+            "cue": "Describe a person you admire in your family",
+            "bullets": ["who the person is", "what he or she does", "what he or she is like", "and explain why you admire him or her"],
+            "source": "Mc IELTS · TAK12 · family member",
+            "choice": "Anh trai Minh · mentor / role model",
+            "fw": "Person",
+            "secs": [
+                ("Mở đầu",
+                 f'{phrase_pick("p2_open", 0)} my older brother Minh, who I really look up to — not just as a sibling but as a mentor.',
+                 "Tôi sẽ nói về anh trai Minh, người tôi thực sự ngưỡng mộ — không chỉ là anh em mà còn là người dẫn dắt."),
+                ("Thông tin cơ bản",
+                 "He studied engineering and used to stay up late, never giving up. Although he is busy now, he still makes time, which makes every conversation meaningful.",
+                 "Anh học kỹ thuật, từng thức khuya không bỏ cuộc. Dù bận, anh vẫn sắp xếp thời gian, khiến mỗi cuộc nói chuyện đều ý nghĩa."),
+                ("Cốt lõi",
+                 "What I admire most is his kindness and selflessness. He never hesitates to lend a hand — helping a neighbour or volunteering. I also remember our weekend fishing trips, when he taught me perseverance and patience. People say we are like two peas in a pod, but he is the one I try to emulate.",
+                 "Điều tôi ngưỡng mộ nhất là sự tử tế và vị tha. Anh không ngần ngại giúp hàng xóm hay tình nguyện. Tôi nhớ những buổi câu cuối tuần, khi anh dạy tôi sự bền bỉ. Người ta nói chúng tôi giống như đúc, nhưng anh là người tôi muốn noi theo."),
+                ("Cảm nhận",
+                 "His influence still shapes my values. I would recommend having a role model like him to anyone who needs unwavering support.",
+                 "Ảnh hưởng của anh vẫn định hình giá trị của tôi. Tôi khuyên ai cần sự hỗ trợ kiên định hãy có một tấm gương như anh."),
+                ("Kết",
+                 f'{phrase_pick("p2_close", 0)}, {phrase_pick("p2_close_tail", 2)}',
+                 "Vậy nếu tôi phải nói về người tôi ngưỡng mộ, thì đó sẽ phải là anh Minh."),
+            ],
+            "notes": [
+                {"en": "look up to / emulate", "vi": "ngưỡng mộ / noi gương (Mc)"},
+                {"en": "selflessness · perseverance", "vi": "vị tha · sự bền bỉ"},
+            ],
+        },
+        {
+            "cue": "Describe a person you have a very good relationship with",
+            "bullets": ["who the person is", "how you met", "what you usually do together", "and explain why the relationship is good"],
+            "source": "ECE English · best friend",
+            "choice": "Bạn thân Lam · 10+ năm",
+            "fw": "Friend",
+            "secs": [
+                ("Mở đầu",
+                 f'{phrase_pick("p2_open", 1)} my best friend Lam, who I have known for over ten years.',
+                 "Tôi muốn nói về bạn thân Lam, người tôi quen hơn mười năm."),
+                ("Thông tin cơ bản",
+                 "We met in secondary school and were assigned to sit next to each other. She broke the ice by asking about a school club. Although we no longer live in the same city, which makes meeting harder, we still keep in touch.",
+                 "Chúng tôi gặp ở cấp 2, được xếp ngồi cạnh. Cô ấy phá băng bằng câu hỏi về CLB. Dù không còn cùng thành phố, chúng tôi vẫn giữ liên lạc."),
+                ("Cốt lõi",
+                 "We have so many shared interests and similar personalities. We used to ride to school and have lunch together. What makes the friendship special is the trust — we never take this care for granted, and we stand by each other through thick and thin.",
+                 "Chúng tôi có nhiều sở thích chung và tính cách giống. Ngày xưa đi học chung, ăn trưa chung. Điều đặc biệt là sự tin tưởng — không xem sự quan tâm là đương nhiên, và đứng bên nhau trong mọi hoàn cảnh."),
+                ("Cảm nhận",
+                 "I know I will always receive willing support from her, and I would definitely do the same. That is why I believe our friendship is going to last.",
+                 "Tôi biết mình luôn nhận được sự hỗ trợ sẵn lòng, và tôi cũng sẽ làm vậy. Vì thế tôi tin tình bạn này sẽ bền."),
+                ("Kết",
+                 f'{phrase_pick("p2_close", 1)}, {phrase_pick("p2_close_tail", 1)}',
+                 "Vậy nếu tôi phải nói về một mối quan hệ thân, thì đó sẽ phải là bạn thân Lan."),
+            ],
+            "notes": [
+                {"en": "broke the ice", "vi": "phá băng (ECE)"},
+                {"en": "never take … for granted", "vi": "không xem là đương nhiên"},
+                {"en": "through thick and thin", "vi": "trong mọi hoàn cảnh"},
+            ],
+        },
+        {
+            "cue": "Describe an old friend that you got in contact with again",
+            "bullets": ["who he or she is", "what he or she is like", "how you got in contact", "and explain how you felt"],
+            "source": "TAK12 · old friend / Facebook",
+            "choice": "Bạn học Preet · mất liên lạc rồi gặp lại",
+            "fw": "Friend",
+            "secs": [
+                ("Mở đầu",
+                 f'{phrase_pick("p2_open", 0)} a school friend I lost contact with and found again on Facebook.',
+                 "Tôi sẽ nói về một bạn học tôi mất liên lạc rồi tìm lại trên Facebook."),
+                ("Thông tin cơ bản",
+                 "Her name is Preet. We studied together for ten years before her family shifted to another city. Unfortunately I lost her number. Although years passed, she still holds a special place in my memory.",
+                 "Tên cô ấy là Preet. Chúng tôi học cùng mười năm trước khi gia đình chuyển đi. Không may tôi mất số. Dù nhiều năm, cô ấy vẫn giữ chỗ đặc biệt trong trí nhớ."),
+                ("Cốt lõi",
+                 "She was a brilliant student, good at maths and sports, and she liked to live simply. Last month I typed her name in the search box, sent a friend request, and she accepted the next day. After that we started calling and recalling our old days.",
+                 "Cô ấy học giỏi, giỏi toán và thể thao, sống giản dị. Tháng trước tôi gõ tên trên thanh tìm, gửi lời mời, hôm sau cô ấy nhận. Sau đó chúng tôi gọi và ôn ngày cũ."),
+                ("Cảm nhận",
+                 "I felt thrilled because I had been trying to find her for years. Whenever we call, we keep each other updated and laugh about school memories.",
+                 "Tôi thấy vui sướng vì đã cố tìm cô ấy nhiều năm. Mỗi lần gọi, chúng tôi cập nhật cho nhau và cười về kỷ niệm trường."),
+                ("Kết",
+                 f'{phrase_pick("p2_close", 2)}, {phrase_pick("p2_close_tail", 3)}',
+                 "Vậy nếu tôi phải nói về một người bạn cũ, thì đó sẽ phải là bạn học Preet."),
+            ],
+            "notes": [
+                {"en": "lose contact / get in contact", "vi": "mất liên lạc / liên lạc lại (TAK12)"},
+                {"en": "a friend request", "vi": "lời mời kết bạn"},
+            ],
+        },
+        {
+            "cue": "Describe a memorable moment in a close relationship",
+            "bullets": ["who the person is", "what the occasion was", "where it happened", "and why it was memorable"],
+            "source": "WESET · surprise birthday",
+            "choice": "Tiệc sinh nhật bất ngờ · bạn Lan 30 tuổi",
+            "fw": "Event",
+            "secs": [
+                ("Mở đầu",
+                 f'{phrase_pick("p2_open", 1)} a surprise birthday I organised for my best friend Lan when she turned 30.',
+                 "Tôi muốn nói về tiệc sinh nhật bất ngờ tôi tổ chức cho bạn thân Lan khi cô ấy 30 tuổi."),
+                ("Thông tin cơ bản",
+                 "It took place at a rooftop café that held sentimental value — we had spent countless evenings there in college. Although I was nervous about the surprise, the location made it a perfect place for those who wanted a warm celebration.",
+                 "Ở quán cà phê sân thượng có giá trị tình cảm — chúng tôi từng ngồi đó vô số tối đại học. Dù tôi hồi hộp vì bất ngờ, địa điểm rất hợp cho buổi kỷ niệm ấm."),
+                ("Cốt lõi",
+                 "Lan had no idea. Seeing her reaction — joy, disbelief, then tears — is etched in my memory. The speeches and heartfelt conversations reaffirmed our enduring friendship. It was not only a birthday; it was a reminder to celebrate milestones with those who matter most.",
+                 "Lan không hề biết. Nhìn phản ứng — vui, không tin, rồi nước mắt — khắc trong trí nhớ. Những lời phát biểu khẳng định tình bạn bền. Không chỉ sinh nhật; còn là nhắc nhở kỷ niệm các mốc với người quan trọng."),
+                ("Cảm nhận",
+                 "That night highlighted the power of genuine connections. It is a memory both of us hold dear to our hearts.",
+                 "Đêm đó làm nổi bật sức mạnh của kết nối thật. Đó là kỷ niệm cả hai đều trân trọng."),
+                ("Kết",
+                 f'{phrase_pick("p2_close", 1)}, that rooftop surprise for Lan.',
+                 "Vậy nếu tôi phải nói về một mối quan hệ thân, thì đó sẽ phải là đêm bất ngờ trên sân thượng cho Lan."),
+            ],
+            "notes": [
+                {"en": "sentimental value", "vi": "giá trị tình cảm (WESET)"},
+                {"en": "celebrate milestones", "vi": "kỷ niệm các mốc quan trọng"},
+                {"en": "enduring friendship", "vi": "tình bạn bền vững"},
+            ],
+        },
+    ]
+    cards_html = []
+    for it in cards_data:
+        bullets = "".join(f"<li>{esc(b)}</li>" for b in it["bullets"])
+        secs = "\n".join(_p2_sec(lab, en, vi) for lab, en, vi in it["secs"])
+        fw = it.get("fw") or ""
+        fw_html = (
+            f'<p class="lr-p2-fw"><span class="lr-p2-cue-tag" data-tag="{esc(fw.lower())}">{esc(fw)}</span></p>'
+            if fw else ""
+        )
+        cards_html.append(f"""          <article class="lr-food-ex-card lr-p2-card">
+            <div class="lr-cue-box">
+              <p class="lr-cue-title">{esc(it["cue"])}</p>
+{fw_html}              <p class="lr-cue-should">You should say:</p>
+              <ul class="lr-cue-bullets">{bullets}</ul>
+            </div>
+            <p class="lr-food-ex-source">{esc(it["source"])} · chọn: <strong>{esc(it["choice"])}</strong></p>
+            <div class="lr-p2-answer">
+{secs}
+            </div>
+{_ex_chip_notes_html(it.get("notes"))}
+          </article>""")
+    return f"""
+        <div class="lr-food-examples" id="pf-examples-l16">
+          <h3 class="lr-core-subtitle">Ví dụ People &amp; Family · Part 2 (5 phần)</h3>
+          <p class="lr-mm-hint">Cue từ Mc / ECE / TAK12 / WESET. Hover đoạn → tooltip VI. Dropdown ở mở/kết để đổi khung.</p>
+{chr(10).join(cards_html)}
+        </div>"""
+
+
+def lesson_highlights_html() -> str:
+    g2 = lesson_grammar_notes_html(
+        "Lesson 2",
+        [
+            "It's + adj · It makes me + adj · It helps me + V · It's a great way to + V",
+            "doesn't + V · can lead to + NP (loneliness / mistrust / drifting apart)",
+            "Nhánh Sức khỏe tinh thần = Cụm V Family — không dùng keep fit / burn calories",
+        ],
+    )
+    g3 = lesson_grammar_tree_html(
+        "Lesson 3 · Do you like X?",
+        "Yes / No + Reasons",
+        [
+            {
+                "label_html": f'{_g_mark("YES")}',
+                "openers": ["Yes, definitely / absolutely", "I like/love/enjoy + V-ing · I'm keen on · I'm a big fan of"],
+                "details_label": "Family",
+                "details": ["close-knit · quality time · keep in touch · confide in"],
+            },
+            {
+                "label_html": f'{_g_mark("NO")}',
+                "openers": ["No, not really · I hardly ever + V", "prefer to V rather than V"],
+                "details_label": "Family",
+                "details": ["large parties · lose contact · posting private life"],
+            },
+        ],
+        footer=["because / This is because + S + V", "because of + NP"],
+    )
+    g5 = lesson_grammar_tree_html(
+        "Lesson 5 · What kind?",
+        "Loại gì? + Lý do",
+        [
+            {
+                "label_html": f'{_g_mark("Soft choose")}',
+                "openers": ["I love all kinds of …, but if I had to choose one,", "it would have to be / I would go for / opt for"],
+            },
+            {
+                "label_html": f'{_g_mark("Lý do")}',
+                "openers": ["This is because + S + V", "try to / try not to / try + V-ing"],
+                "details_label": "Lexical Family",
+                "details": ["emotionally supportive · like-minded · mutual trust · compatibility"],
+            },
+        ],
+    )
+    g6 = lesson_grammar_tree_html(
+        "Lesson 6 · Prefer X or Y?",
+        "Chọn + Lý do",
+        [
+            {
+                "label_html": f'{_g_mark("prefer")}',
+                "openers": ["I prefer X", "I prefer X to Y", "I prefer X rather than Y · lean towards"],
+            },
+            {
+                "label_html": f'{_g_mark("Contrast")}',
+                "openers": ["while / whereas", "comfort and security ↔ superficial crowd"],
+            },
+        ],
+    )
+    g7 = lesson_grammar_tree_html(
+        "Lesson 7 · Is X popular?",
+        "Có / Không / Còn tùy",
+        [
+            {
+                "label_html": f'{_g_mark("Có / Không")}',
+                "openers": ["the majority / a large proportion / account for %", "not many / very few / rarely"],
+            },
+            {
+                "label_html": f'{_g_mark("Còn tùy")}',
+                "openers": ["collectivist ↔ individualist", "urban ↔ rural · nuclear ↔ extended"],
+            },
+        ],
+    )
+    g8 = lesson_grammar_tree_html(
+        "Lesson 8 · Best time?",
+        "Thời điểm / Còn tùy",
+        [
+            {
+                "label_html": f'{_g_mark("Thời điểm")}',
+                "openers": ["… is the best / ideal time to …", "catch up on each other's day · Tet"],
+            },
+            {
+                "label_html": f'{_g_mark("Còn tùy")}',
+                "openers": ["It depends on mood / schedule", "as long as · generally speaking"],
+            },
+        ],
+    )
+    g9 = lesson_grammar_tree_html(
+        "Lesson 9 · First / last time?",
+        "Nhớ rõ / Đoán",
+        [
+            {
+                "label_html": f'{_g_mark("Nhớ rõ")}',
+                "openers": ["As far as I can remember", "it's been … since · get in contact / reconcile"],
+            },
+            {
+                "label_html": f'{_g_mark("Đoán")}',
+                "openers": ["I can't remember exactly, but I guess", "About … ago / when I was in…"],
+            },
+        ],
+    )
+    g10 = lesson_grammar_tree_html(
+        "Lesson 10 · Childhood?",
+        "Có / Không",
+        [
+            {
+                "label_html": f'{_g_mark("Có")}',
+                "openers": ["Yes, I did · When I was a kid", "instilled · take after · look up to"],
+            },
+            {
+                "label_html": f'{_g_mark("Không")}',
+                "openers": ["No, not really", "find + sth + adj · did + V (emphasis)"],
+            },
+        ],
+    )
+    g11 = lesson_grammar_tree_html(
+        "Lesson 11 · Suitable?",
+        "Có / Không / Còn tùy",
+        [
+            {
+                "label_html": f'{_g_mark("Có")}',
+                "openers": ["Yes, I think so · as long as there is mutual trust", "long-distance + video calls"],
+            },
+            {
+                "label_html": f'{_g_mark("Không / Còn tùy")}',
+                "openers": ["deal-breaker · love at first sight", "If … then … / But if …"],
+            },
+        ],
+    )
+    g12 = lesson_grammar_tree_html(
+        "Lesson 12 · Easy / Difficult?",
+        "Dễ / Khó / Ban đầu khó",
+        [
+            {
+                "label_html": f'{_g_mark("Dễ / Khó")}',
+                "openers": ["It's quite easy / not really difficult", "the hardest part is · take + time"],
+            },
+            {
+                "label_html": f'{_g_mark("Tiến trình")}',
+                "openers": ["… is not an exception", "At first… / after a while…"],
+            },
+        ],
+    )
+    g13 = lesson_grammar_tree_html(
+        "Lesson 13 · Dislike?",
+        "Nói thẳng / Nói vòng",
+        [
+            {
+                "label_html": f'{_g_mark("Thẳng")}',
+                "openers": ["I don't really like…", "overprotective · sibling rivalry"],
+            },
+            {
+                "label_html": f'{_g_mark("Vòng")}',
+                "openers": ["generally speaking · the only thing", "First / Second / Finally · stab in the back"],
+            },
+        ],
+    )
+    g14 = lesson_grammar_tree_html(
+        "Lesson 14 · How often?",
+        "Tần suất + lý do",
+        [
+            {
+                "label_html": f'{_g_mark("5 bậc")}',
+                "openers": ["almost every day · once a week · once a month", "every now and then · once in a blue moon"],
+            },
+            {
+                "label_html": f'{_g_mark("Grammar")}',
+                "openers": ["none of + group", "too + adj + to V · keep in touch"],
+            },
+        ],
+    )
+    g15 = lesson_grammar_tree_html(
+        "Lesson 15 · How changed?",
+        "Đổi nhiều / Đổi ít",
+        [
+            {
+                "label_html": f'{_g_mark("Đổi nhiều")}',
+                "openers": ["It has changed a great deal", "Past Simple → Present Perfect · nuclear / virtual"],
+            },
+            {
+                "label_html": f'{_g_mark("Đổi ít")}',
+                "openers": ["It hasn't changed much · The only change is…", "family values · through thick and thin"],
+            },
+        ],
+    )
+    g16 = lesson_grammar_tree_html(
+        "Lesson 16 · Part 2",
+        "Describe a People / Family cue card",
+        [
+            {
+                "label_html": f'{_g_mark("Mở + Kết")} cố định',
+                "openers": ["I'm going to talk about [X] which [paraphrase]", "So, if I had to talk about [topic], it would have to be [X]"],
+            },
+            {
+                "label_html": f'{_g_mark("Cốt lõi")} ★',
+                "openers": ["Người: look up to + selflessness", "Bạn: broke the ice + keep in touch", "Kỷ niệm: celebrate milestones"],
+            },
+        ],
+        footer=["Reuse Family lexical từ L2–L15", "Cốt lõi ~60%"],
+    )
+
+    def _lesson(num: str, title: str, mmap_id: str, center: str, sides: str, left, right, note: str, extra: str, gmin: str, grammar: str, examples: str, scroll_id: str) -> str:
+        return f"""
+        <article class="lr-core-lesson" id="lesson{num}-formulas">
+          <header class="lr-core-lesson-head">
+            <h3>Lesson {num} · {esc(title)}</h3>
+          </header>
+{mind_map_html(mmap_id, f"Lesson {num} · {title}", center, sides, left, right, note=note, extra_class=extra, min_width=gmin)}
+{grammar}
+          <div id="lesson{scroll_id}-scroll-source">
+{examples}
+          </div>
+{lesson_scroll_read_html(f"lesson{scroll_id}", title=f"Lesson {num}", source_sel=f"#lesson{scroll_id}-scroll-source")}
+        </article>"""
+
+    return f"""
+      <div class="lr-core-lessons">
+        <article class="lr-core-lesson" id="lesson2-formulas">
+          <header class="lr-core-lesson-head">
+            <h3>Lesson 2 · Reasons like / dislike</h3>
+          </header>
+{mind_map_html("lesson2MindmapPF", "Lesson 2 · Reasons like / dislike", "Reasons", "Dislike ↔ Like", _maps.LESSON2_MINDMAP_LEFT, _maps.LESSON2_MINDMAP_RIGHT, note="Trái = <strong>KHÔNG THÍCH</strong> · Phải = <strong>THÍCH</strong>. Nhánh sức khỏe Food → <strong>tinh thần / gắn kết</strong>.", extra_class=" lr-mmap--lesson2", min_width="1280px")}
+{g2}
+{lesson2_practice_html()}
+        </article>
+{_lesson("3", "Do you like X?", "lesson3MindmapPF", "Do you like X?", "No ↔ Yes + Reasons", _maps.LESSON3_MINDMAP_LEFT, _maps.LESSON3_MINDMAP_RIGHT, "Trái = <strong>NO</strong> · Phải = <strong>YES</strong> + Reasons.", " lr-mmap--lesson3", "1200px", g3, lesson3_examples_html(), "3")}
+{_lesson("5", "What kind of X do you like most?", "lesson5MindmapPF", "What kind of X?", "Loại gì? ↔ Lý do", _maps.LESSON5_MINDMAP_LEFT, _maps.LESSON5_MINDMAP_RIGHT, "Trái = <strong>Loại gì?</strong> · Phải = <strong>Lý do</strong> + Lexical Family.", " lr-mmap--lesson5", "1200px", g5, lesson5_examples_html(), "5")}
+{_lesson("6", "Do you prefer X or Y?", "lesson6MindmapPF", "Do you prefer X or Y?", "Chọn ↔ Lý do", _maps.LESSON6_MINDMAP_LEFT, _maps.LESSON6_MINDMAP_RIGHT, "Trái = <strong>prefer X / X to Y / rather than</strong> · Phải = lý do Family.", " lr-mmap--lesson6", "1200px", g6, lesson6_examples_html(), "6")}
+{_lesson("7", "Is X popular in your country?", "lesson7MindmapPF", "Is X popular?", "Có/Không ↔ Còn tùy", _maps.LESSON7_MINDMAP_LEFT, _maps.LESSON7_MINDMAP_RIGHT, "Trái = <strong>Có / Không</strong> · Phải = <strong>Còn tùy</strong> (collectivist · đô thị · cấu trúc gia đình).", " lr-mmap--lesson7", "1280px", g7, lesson7_examples_html(), "7")}
+{_lesson("8", "What is the best time to do X?", "lesson8MindmapPF", "Best time to do X?", "Thời điểm ↔ Còn tùy", _maps.LESSON8_MINDMAP_LEFT, _maps.LESSON8_MINDMAP_RIGHT, "Trái = <strong>Thời điểm tốt nhất</strong> · Phải = <strong>Còn tùy</strong> + Lexical Family.", " lr-mmap--lesson8", "1280px", g8, lesson8_examples_html(), "8")}
+{_lesson("9", "When was the first/last time you did X?", "lesson9MindmapPF", "First / last time?", "Nhớ rõ ↔ Đoán", _maps.LESSON9_MINDMAP_LEFT, _maps.LESSON9_MINDMAP_RIGHT, "Trái = <strong>Nói rõ thời gian</strong> · Phải = <strong>Đoán</strong> + get in contact / reconcile.", " lr-mmap--lesson9", "1280px", g9, lesson9_examples_html(), "9")}
+{_lesson("10", "Did you do X when you were a child?", "lesson10MindmapPF", "When you were a child?", "Có ↔ Không", _maps.LESSON10_MINDMAP_LEFT, _maps.LESSON10_MINDMAP_RIGHT, "Trái = <strong>Có</strong> + childhood time · Phải = <strong>Không</strong> + take after / instilled.", " lr-mmap--lesson10", "1280px", g10, lesson10_examples_html(), "10")}
+{_lesson("11", "Is X suitable for…?", "lesson11MindmapPF", "Is X suitable for…?", "Có / Không ↔ Còn tùy", _maps.LESSON11_MINDMAP_LEFT, _maps.LESSON11_MINDMAP_RIGHT, "Trái = <strong>Có</strong> · Phải = <strong>Không</strong> + <strong>Còn tùy</strong> (long-distance · love at first sight).", " lr-mmap--lesson11", "1320px", g11, lesson11_examples_html(), "11")}
+{_lesson("12", "Is it easy/difficult to do X?", "lesson12MindmapPF", "Easy / Difficult?", "Dễ / Khó ↔ Ban đầu khó", _maps.LESSON12_MINDMAP_LEFT, _maps.LESSON12_MINDMAP_RIGHT, "Trái = <strong>Dễ</strong> · Phải = <strong>Khó</strong> + tiến trình. Câu TAK12 / DOL.", " lr-mmap--lesson12", "1320px", g12, lesson12_examples_html(), "12")}
+{_lesson("13", "What do you dislike about X?", "lesson13MindmapPF", "Dislike about X?", "Nói thẳng ↔ Nói vòng", _maps.LESSON13_MINDMAP_LEFT, _maps.LESSON13_MINDMAP_RIGHT, "Trái = <strong>Nói thẳng</strong> · Phải = <strong>Nói vòng</strong> / liệt kê.", " lr-mmap--lesson13", "1320px", g13, lesson13_examples_html(), "13")}
+{_lesson("14", "How often do you do X?", "lesson14MindmapPF", "How often?", "Tần suất ↔ Lý do", _maps.LESSON14_MINDMAP_LEFT, _maps.LESSON14_MINDMAP_RIGHT, "Trái = <strong>5 bậc</strong> · Phải = lý do + none of / too…to.", " lr-mmap--lesson14", "1320px", g14, lesson14_examples_html(), "14")}
+{_lesson("15", "How has X changed?", "lesson15MindmapPF", "How has X changed?", "Đổi nhiều ↔ Đổi ít", _maps.LESSON15_MINDMAP_LEFT, _maps.LESSON15_MINDMAP_RIGHT, "Trái = <strong>đổi nhiều</strong> · Phải = <strong>đổi ít</strong> + lexical nâng điểm Family.", " lr-mmap--lesson15", "1320px", g15, lesson15_examples_html(), "15")}
+        <article class="lr-core-lesson" id="lesson16-formulas">
+          <header class="lr-core-lesson-head">
+            <h3>Lesson 16 · Part 2 People &amp; Family (5 phần)</h3>
+          </header>
+{mind_map_html("lesson16MindmapPF", "Lesson 16 · Part 2 Family", "Describe a People cue card", "5 phần cố định", _maps.LESSON16_MINDMAP_LEFT, _maps.LESSON16_MINDMAP_RIGHT, note="Trái = <strong>mở · cơ bản · kết</strong> · Phải = <strong>cốt lõi + cảm nhận</strong> theo loại đề Family.", extra_class=" lr-mmap--lesson16", min_width="1360px")}
+{lesson16_frame_html()}
+{g16}
+          <div id="lesson16-scroll-source">
+{lesson16_examples_html()}
+          </div>
+{lesson_scroll_read_html("lesson16", title="Lesson 16 · Part 2", source_sel="#lesson16-scroll-source")}
+        </article>
+      </div>"""
+
+
+def build_page_review2() -> str:
+    home = "../../../../"
+    slots_json = json.dumps(WORD_SLOTS, ensure_ascii=False)
+    body = f"""    <aside class="docs-sidebar" id="docsSidebar" data-nav="english" data-docs-root="../../" data-active="people-family">
+      <div class="docs-nav-label">English</div>
+      <ul class="docs-nav" id="docsNav">
+        <li><a href="../../">All topics</a></li>
+        <li><a href="../">People &amp; Family</a></li>
+        <li><a href="../review-exercise/">Review Exercise 1</a></li>
+        <li><a class="active" href="./">Review Exercise 2</a></li>
+      </ul>
+      <div class="docs-nav-label">Lessons</div>
+      <ul class="docs-nav docs-nav--page" aria-label="Lessons on this page">
+        <li><a href="#lesson2-formulas">Lesson 2 · Reasons</a></li>
+        <li><a href="#lesson3-formulas">Lesson 3 · Do you like X?</a></li>
+        <li><a href="#lesson5-formulas">Lesson 5 · What kind?</a></li>
+        <li><a href="#lesson6-formulas">Lesson 6 · Prefer X or Y?</a></li>
+        <li><a href="#lesson7-formulas">Lesson 7 · Is X popular?</a></li>
+        <li><a href="#lesson8-formulas">Lesson 8 · Best time?</a></li>
+        <li><a href="#lesson9-formulas">Lesson 9 · First/last time?</a></li>
+        <li><a href="#lesson10-formulas">Lesson 10 · Childhood?</a></li>
+        <li><a href="#lesson11-formulas">Lesson 11 · Suitable?</a></li>
+        <li><a href="#lesson12-formulas">Lesson 12 · Easy/Difficult?</a></li>
+        <li><a href="#lesson13-formulas">Lesson 13 · Dislike about X?</a></li>
+        <li><a href="#lesson14-formulas">Lesson 14 · How often?</a></li>
+        <li><a href="#lesson15-formulas">Lesson 15 · How changed?</a></li>
+        <li><a href="#lesson16-formulas">Lesson 16 · Part 2</a></li>
+      </ul>
+    </aside>
+    <article class="docs-main lr-page">
+      <div class="docs-breadcrumb">
+        <a href="{home}">Home</a><span>›</span>
+        <a href="{home}#blogs">Blogs</a><span>›</span>
+        <a href="../../">English</a><span>›</span>
+        <a href="../">People &amp; Family</a><span>›</span>
+        <span>Review Exercise 2</span>
+      </div>
+      <header class="lr-hero">
+        <p class="lr-hero-badge">Linear Thinking · Lesson 2–16</p>
+        <h1>People &amp; Family — Review Exercise 2</h1>
+        <p class="lede">Cùng khung Food (skip Lesson 4): mind map + ví dụ Relationships &amp; Family + dropdown. Cụm từ / idiom lấy từ <a href="https://tuhoc.dolenglish.vn/blog/relationships-and-personalities-bai-mau-sample-ielts-speaking-part-3" target="_blank" rel="noopener">DOL</a>, <a href="https://ece.edu.vn/ielts-speaking-topic-relationships/" target="_blank" rel="noopener">ECE</a>, <a href="https://tak12.com/news/n/1601/on-thi-ielts-tong-hop-de-thi-ielts-speaking-topic-people-and-relationships" target="_blank" rel="noopener">TAK12</a>, <a href="https://zim.vn/ielts-speaking-part-1-topic-relationship" target="_blank" rel="noopener">ZIM</a>, <a href="https://weset.edu.vn/blog/bai-hoc-moi-ngay/ielts-speaking-topic-relationship/" target="_blank" rel="noopener">WESET</a>, <a href="https://mcielts.com/topic-relationship-ielts-speaking/" target="_blank" rel="noopener">Mc IELTS</a>, IDP.</p>
+      </header>
+      <section class="lr-section" id="lessons">
+        <h2>Lessons</h2>
+{lesson_highlights_html()}
+      </section>
+      <script type="application/json" id="lrWordSlots">{slots_json}</script>
+    </article>"""
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review Exercise 2 · People &amp; Family — The Quiet Corner</title>
+  <meta name="description" content="Lesson 2, 3, 5–16: Reasons through Part 2 People &amp; Family — mind maps and cue-card talks.">
+  <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr68">
+</head>
+<body class="docs lr-body">
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <canvas id="matrix-canvas"></canvas>
+  <div class="grid-bg"></div>
+  <header class="docs-topbar">
+    <button class="docs-menu-btn" id="docsMenuBtn" type="button">menu</button>
+    <button class="docs-sidebar-toggle" id="docsSidebarToggle" type="button" aria-expanded="true" aria-label="Toggle navigation" title="Thu thanh điều hướng"><svg class="docs-nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    <a class="docs-brand" href="{home}"><span>✦</span> The Quiet Corner <span>✦</span></a>
+    <nav class="docs-series">
+      <a href="{home}blog/web-security/">DevSecOps</a>
+      <a href="{home}blog/kubestronaut/">Kubestronaut</a>
+      <a class="active" href="../../">English</a>
+      <a href="{home}blog/tech-hub/">Tech Hub</a>
+    </nav>
+    <span class="docs-topbar-spacer"></span>
+    <a class="docs-top-link" href="{home}#blogs">blogs</a>
+  </header>
+  <div class="docs-shell docs-shell--wide">
+{body}
+  </div>
+  <script src="{home}js/docs.js?v=lr23"></script>
+  <script src="{home}js/linear-review.js?v=lr43"></script>
+</body>
+</html>"""
+
+
+def patch_topic_index() -> None:
+    path = ROOT / "public" / "blog" / "english" / "people-family" / "index.html"
+    text = path.read_text(encoding="utf-8")
+    review_icon = (
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72' fill='none'%3E"
+        "%3Crect width='72' height='72' rx='14' fill='%231a1033'/%3E"
+        "%3Ccircle cx='36' cy='36' r='22' stroke='%23a78bfa' stroke-width='2.5'/%3E"
+        "%3Cpath d='M36 20v16l10 8' stroke='%2322d3ee' stroke-width='2.5' stroke-linecap='round'/%3E"
+        "%3Cpath d='M22 48h28' stroke='%23e4e4e7' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"
+    )
+    review2_icon = (
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72' fill='none'%3E"
+        "%3Crect width='72' height='72' rx='14' fill='%23101828'/%3E"
+        "%3Ccircle cx='36' cy='36' r='18' stroke='%2334d399' stroke-width='2.5'/%3E"
+        "%3Cpath d='M24 36h24M36 24v24' stroke='%2367e8f9' stroke-width='2.5' stroke-linecap='round'/%3E"
+        "%3C/svg%3E"
+    )
+    review_section = f"""
+      <section class="vocab-level vocab-level--review" id="review">
+        <div class="vocab-level__head">
+          <span class="vocab-level__badge vocab-level__badge--review">Review</span>
+          <h2>Linear Thinking · Capstone exercise</h2>
+        </div>
+        <p class="vocab-level__desc"><strong>Review 1</strong> — full capstone: ngữ pháp (gerunds, because/conditional 2), mental model, cấu trúc Speaking, mock IELTS Part 1/2/3. <strong>Review 2</strong> — Lesson 2, 3, 5–16 (mind map + ví dụ People &amp; Family + dropdown; skip Lesson 4). Trước khi học: Pareto 80/20 → neo ngữ cảnh → khung câu an toàn.</p>
+        <div class="vocab-lesson-grid">
+          <a class="vocab-lesson-card vocab-lesson-card--review" href="review-exercise/">
+            <img src="{review_icon}" alt="" width="72" height="72" loading="lazy">
+            <span>Review Exercise 1</span>
+          </a>
+          <a class="vocab-lesson-card vocab-lesson-card--review" href="review-exercise-2/">
+            <img src="{review2_icon}" alt="" width="72" height="72" loading="lazy">
+            <span>Review Exercise 2</span>
+          </a>
+        </div>
+        <div class="vocab-core-steps">
+          <h3 class="vocab-core-steps-title">Core steps · trước khi học &amp; ôn</h3>
+          <p class="vocab-core-steps-lead">Đừng ôm 100 từ. Làm 3 bước này trước Flashcards / Review Exercise:</p>
+          <ol class="vocab-core-steps-list">
+            <li><strong>Pareto 80/20</strong> — chia 3 nhóm: Không thông dụng · Phải học · Đã biết. Chỉ giữ ~20–30 từ vàng.</li>
+            <li><strong>Neo ngữ cảnh</strong> — gắn mỗi từ vào 1 câu mẫu duy nhất (vd. “We're a <em>close-knit</em> family, so we talk almost every day.”).</li>
+            <li><strong>Khung câu an toàn</strong> — lắp từ vào: <em>I'm a big fan of…</em> · <em>Whenever I have free time, I really love to…</em> · <em>What I like most about…</em></li>
+          </ol>
+          <p class="vocab-core-steps-more"><a href="review-exercise/#core-steps">Xem hướng dẫn đầy đủ trong Review Exercise 1 →</a></p>
+        </div>
+      </section>
+"""
+    if 'id="review"' in text:
+        text, n = re.subn(
+            r'\s*<section class="vocab-level vocab-level--review" id="review">.*?</section>',
+            "\n" + review_section.rstrip() + "\n",
+            text,
+            count=1,
+            flags=re.S,
+        )
+        if n:
+            path.write_text(text, encoding="utf-8")
+        return
+    marker = '      <div class="docs-pager">'
+    if marker in text:
+        text = text.replace(marker, review_section + "\n" + marker)
+        path.write_text(text, encoding="utf-8")
+
+
+def patch_review1_nav() -> None:
+    path = ROOT / "public" / "blog" / "english" / "people-family" / "review-exercise" / "index.html"
+    if not path.exists():
+        return
+    text = path.read_text(encoding="utf-8")
+    old = """        <li><a class="active" href="./">Review Exercise</a></li>
+      </ul>"""
+    new = """        <li><a class="active" href="./">Review Exercise 1</a></li>
+        <li><a href="../review-exercise-2/">Review Exercise 2</a></li>
+      </ul>"""
+    if old in text and "review-exercise-2" not in text:
+        path.write_text(text.replace(old, new, 1), encoding="utf-8")
+
+
+def main() -> None:
+    OUT2.mkdir(parents=True, exist_ok=True)
+    (OUT2 / "index.html").write_text(build_page_review2(), encoding="utf-8")
+    patch_topic_index()
+    patch_review1_nav()
+    print("Wrote", OUT2 / "index.html")
+    print("Patched people-family/index.html with Review 1 + Review 2")
+
+
+if __name__ == "__main__":
+    main()
