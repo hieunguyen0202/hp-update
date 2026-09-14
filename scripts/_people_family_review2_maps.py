@@ -102,6 +102,32 @@ WORD_SLOTS: dict[str, list[dict]] = {
         _opt("go to large family parties", "đi tiệc gia đình lớn"),
         _opt("call distant relatives", "gọi họ hàng xa"),
         _opt("post about my private life", "đăng chuyện riêng tư"),
+        _opt("feel lonely", "cảm thấy cô đơn"),
+    ],
+    "quality_time": [
+        _opt("quality time", "thời gian chất lượng"),
+        _opt("quality time at home", "thời gian chất lượng ở nhà"),
+        _opt("quality time together", "thời gian chất lượng cùng nhau"),
+    ],
+    "listen_phrase": [
+        _opt("lend a listening ear", "sẵn sàng lắng nghe"),
+        _opt("lend a listening ear without judging", "lắng nghe mà không phán xét"),
+        _opt("lend a sympathetic ear", "lắng nghe đồng cảm"),
+    ],
+    "keep_touch": [
+        _opt("keep in touch", "giữ liên lạc"),
+        _opt("keep in touch with each other", "giữ liên lạc với nhau"),
+        _opt("make an effort to keep in touch", "nỗ lực giữ liên lạc"),
+    ],
+    "get_along": [
+        _opt("get along with each other", "hòa thuận với nhau"),
+        _opt("get on well with each other", "hòa thuận với nhau"),
+        _opt("get along with my parents", "hòa thuận với bố mẹ"),
+    ],
+    "importance_phrase": [
+        _opt("holds immense importance to me", "có ý nghĩa to lớn với tôi"),
+        _opt("is my pillar of strength", "là trụ cột tinh thần của tôi"),
+        _opt("gives me unwavering support", "mang lại sự hỗ trợ kiên định"),
     ],
     # Lesson 5
     "kind_friend": [

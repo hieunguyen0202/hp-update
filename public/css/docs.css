@@ -5262,7 +5262,8 @@ mark.lr-hl,
   overflow: hidden;
 }
 
-#lesson2-formulas {
+#lesson2-formulas,
+#lesson3-formulas {
   overflow: visible;
 }
 

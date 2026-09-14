@@ -104,11 +104,11 @@ VOCAB_L3 = [
     ("keep in touch", "giữ liên lạc", "Vẫn nhắn / gọi / gặp dù không sống chung."),
     ("confide in", "tâm sự với", "Kể chuyện riêng, chuyện buồn cho người mình tin — không kể với người ngoài."),
     ("hold immense importance", "có ý nghĩa to lớn", "Cụm paraphrase của “very important” — nghe band cao hơn khi nói về gia đình."),
-    ("hold a special place (in my heart)", "giữ một vị trí đặc biệt", "Vẫn quý / nhớ người đó dù họ đã xa hoặc đã mất."),
+    ("hold a special place in my heart", "giữ một vị trí đặc biệt trong tim", "Vẫn quý / nhớ người đó dù họ đã xa hoặc đã mất."),
     ("passed away", "qua đời", "Cách nói lịch sự hơn “died” — hay dùng khi kể về ông bà."),
     ("get along with", "hòa thuận với", "Sống / chơi với ai mà ít cãi, dễ chịu."),
-    ("lend a listening ear", "lắng nghe đồng hành", "Sẵn sàng nghe người khác kể chuyện, không vội khuyên hay phán."),
-    ("hardly ever + V", "hiếm khi làm gì", "Cách nói NO mềm: không phải “never”, mà gần như không bao giờ."),
+    ("lend a listening ear", "sẵn sàng lắng nghe", "Sẵn sàng nghe người khác kể chuyện, không vội khuyên hay phán."),
+    ("hardly ever + V", "hiếm khi làm gì", "Cách nói NO mềm: không phải “never”, mà gần như không bao giờ — vd. hardly ever feel lonely."),
 ]
 
 VOCAB_L5 = [
@@ -308,65 +308,26 @@ def _memo_sent(en_html: str, vi: str) -> str:
     )
 
 
-def lesson2_memo_html() -> str:
-    s1 = _memo_sent(
-        f'In my daily life, I always try to {_memo_v("unwind and recharge my batteries")} after a hard-working day.',
-        "Trong cuộc sống hàng ngày, tôi luôn cố thư giãn và nạp lại năng lượng sau một ngày làm việc vất vả.",
-    )
-    s2 = _memo_sent(
-        f'Spending time with my family or close friends {_memo_s("helps me feel relaxed")} because we {_memo_v("have a strong bond with each other")}, and they always offer me great {_memo_v("emotional support")}.',
-        "Dành thời gian với gia đình hoặc bạn thân giúp tôi cảm thấy thư giãn vì chúng tôi có sự gắn kết mạnh mẽ với nhau, và họ luôn cho tôi sự hỗ trợ cảm xúc lớn.",
-    )
-    s3 = _memo_sent(
-        f'{_memo_s("It\'s also a great way to")} {_memo_v("prevent loneliness")} and {_memo_v("widen my social circles")} to meet {_memo_v("like-minded individuals")}.',
-        "Đó cũng là một cách tuyệt vời để ngăn cảm giác cô đơn và mở rộng vòng tròn xã hội để gặp những người cùng chí hướng.",
-    )
-    s4 = _memo_sent(
-        f'However, I believe that ignoring small issues {_memo_s("doesn\'t solve anything")} and {_memo_s("can lead to")} {_memo_v("a strained relationship")}, or even make people {_memo_v("drift apart")}.',
-        "Tuy nhiên, tôi tin rằng bỏ qua chuyện nhỏ không giải quyết được gì và có thể dẫn đến một mối quan hệ căng thẳng, thậm chí khiến mọi người dần xa nhau.",
-    )
-    s5 = _memo_sent(
-        f'That\'s why whenever a problem happens, it is important to {_memo_v("work through disagreements")} instead of letting things go too far.',
-        "Vì vậy mỗi khi có vấn đề, điều quan trọng là giải quyết bất đồng thay vì để mọi thứ đi quá xa.",
-    )
-    s6 = _memo_sent(
-        f'On the other hand, some people might {_memo_v("fall out with someone")} over trivial things, which is really unfortunate.',
-        "Mặt khác, một số người có thể cãi nhau / cắt đứt với ai đó vì chuyện vặt, điều đó thật đáng tiếc.",
-    )
-    keys = [
-        ("unwind / recharge my batteries", "thư giãn / nạp lại năng lượng", "v"),
-        ("helps me + V", "giúp tôi làm gì — giúp tôi cảm thấy thư giãn", "s"),
-        ("have a strong bond with each other", "có sự gắn kết mạnh mẽ với nhau", "v"),
-        ("emotional support", "hỗ trợ về cảm xúc", "v"),
-        ("It's a great way to + V", "Đó là một cách tuyệt vời để… — ngăn cô đơn / mở rộng vòng tròn xã hội", "s"),
-        ("prevent loneliness", "ngăn cảm giác cô đơn", "v"),
-        ("widen my social circles", "mở rộng vòng tròn xã hội", "v"),
-        ("like-minded individuals", "những người cùng chí hướng", "v"),
-        ("doesn't + V", "doesn't solve anything", "s"),
-        ("can lead to + NP", "can lead to a strained relationship / drift apart", "s"),
-        ("strained relationship", "mối quan hệ căng thẳng", "v"),
-        ("drift apart", "dần xa nhau", "v"),
-        ("work through disagreements", "giải quyết bất đồng", "v"),
-        ("fall out with someone", "cãi nhau / cắt đứt với ai", "v"),
-    ]
+def lesson_memo_html(
+    *,
+    lesson: str,
+    sentences: list[tuple[str, str]],
+    keys: list[tuple[str, str, str]],
+) -> str:
+    sent_html = "\n              ".join(_memo_sent(en, vi) for en, vi in sentences)
     key_lis = []
     for en, vi, kind in keys:
         mark = _memo_s(en) if kind == "s" else _memo_v(en)
         key_lis.append(f"<li>{mark} <em>({esc(vi)})</em></li>")
     return f"""
-          <aside class="lr-memo" id="lesson2-memo">
+          <aside class="lr-memo" id="lesson{esc(lesson)}-memo">
             <div class="lr-memo-head">
-              <h4 class="lr-memo-title">Đoạn văn nhớ · Lesson 2</h4>
+              <h4 class="lr-memo-title">Đoạn văn nhớ · Lesson {esc(lesson)}</h4>
               <label class="ex-toggle"><input type="checkbox" class="js-memo-hl" checked> Hiện highlight</label>
             </div>
-            <p class="lr-memo-hint">Thuộc đoạn này để nhớ cụm Lesson 2. <strong>Tím</strong> = cụm từ mới · <strong>Vàng</strong> = cấu trúc. Hover <em>từng câu</em> để xem bản dịch riêng câu đó.</p>
+            <p class="lr-memo-hint">Thuộc đoạn này để nhớ cụm Lesson {esc(lesson)}. <strong>Tím</strong> = cụm từ mới · <strong>Vàng</strong> = cấu trúc. Hover <em>từng câu</em> để xem bản dịch riêng câu đó.</p>
             <div class="lr-memo-body">
-              {s1}
-              {s2}
-              {s3}
-              {s4}
-              {s5}
-              {s6}
+              {sent_html}
             </div>
             <ul class="lr-memo-legend" aria-hidden="true">
               <li>{_memo_v("cụm từ mới")}</li>
@@ -376,6 +337,98 @@ def lesson2_memo_html() -> str:
               {chr(10).join("              " + x for x in key_lis)}
             </ul>
           </aside>"""
+
+
+def lesson2_memo_html() -> str:
+    return lesson_memo_html(
+        lesson="2",
+        sentences=[
+            (
+                f'In my daily life, I always try to {_memo_v("unwind and recharge my batteries")} after a hard-working day.',
+                "Trong cuộc sống hàng ngày, tôi luôn cố thư giãn và nạp lại năng lượng sau một ngày làm việc vất vả.",
+            ),
+            (
+                f'Spending time with my family or close friends {_memo_s("helps me feel relaxed")} because we {_memo_v("have a strong bond with each other")}, and they always offer me great {_memo_v("emotional support")}.',
+                "Dành thời gian với gia đình hoặc bạn thân giúp tôi cảm thấy thư giãn vì chúng tôi có sự gắn kết mạnh mẽ với nhau, và họ luôn cho tôi sự hỗ trợ cảm xúc lớn.",
+            ),
+            (
+                f'{_memo_s("It\'s also a great way to")} {_memo_v("prevent loneliness")} and {_memo_v("widen my social circles")} to meet {_memo_v("like-minded individuals")}.',
+                "Đó cũng là một cách tuyệt vời để ngăn cảm giác cô đơn và mở rộng vòng tròn xã hội để gặp những người cùng chí hướng.",
+            ),
+            (
+                f'However, I believe that ignoring small issues {_memo_s("doesn\'t solve anything")} and {_memo_s("can lead to")} {_memo_v("a strained relationship")}, or even make people {_memo_v("drift apart")}.',
+                "Tuy nhiên, tôi tin rằng bỏ qua chuyện nhỏ không giải quyết được gì và có thể dẫn đến một mối quan hệ căng thẳng, thậm chí khiến mọi người dần xa nhau.",
+            ),
+            (
+                f'That\'s why whenever a problem happens, it is important to {_memo_v("work through disagreements")} instead of letting things go too far.',
+                "Vì vậy mỗi khi có vấn đề, điều quan trọng là giải quyết bất đồng thay vì để mọi thứ đi quá xa.",
+            ),
+            (
+                f'On the other hand, some people might {_memo_v("fall out with someone")} over trivial things, which is really unfortunate.',
+                "Mặt khác, một số người có thể cãi nhau / cắt đứt với ai đó vì chuyện vặt, điều đó thật đáng tiếc.",
+            ),
+        ],
+        keys=[
+            ("unwind / recharge my batteries", "thư giãn / nạp lại năng lượng", "v"),
+            ("helps me + V", "giúp tôi làm gì — giúp tôi cảm thấy thư giãn", "s"),
+            ("have a strong bond with each other", "có sự gắn kết mạnh mẽ với nhau", "v"),
+            ("emotional support", "hỗ trợ về cảm xúc", "v"),
+            ("It's a great way to + V", "Đó là một cách tuyệt vời để… — ngăn cô đơn / mở rộng vòng tròn xã hội", "s"),
+            ("prevent loneliness", "ngăn cảm giác cô đơn", "v"),
+            ("widen my social circles", "mở rộng vòng tròn xã hội", "v"),
+            ("like-minded individuals", "những người cùng chí hướng", "v"),
+            ("doesn't + V", "doesn't solve anything", "s"),
+            ("can lead to + NP", "can lead to a strained relationship / drift apart", "s"),
+            ("strained relationship", "mối quan hệ căng thẳng", "v"),
+            ("drift apart", "dần xa nhau", "v"),
+            ("work through disagreements", "giải quyết bất đồng", "v"),
+            ("fall out with someone", "cãi nhau / cắt đứt với ai", "v"),
+        ],
+    )
+
+
+def lesson3_memo_html() -> str:
+    return lesson_memo_html(
+        lesson="3",
+        sentences=[
+            (
+                f'Yes, I\'m a big fan of spending {_memo_v("quality time")} with my family because we are a really {_memo_v("close-knit family")}.',
+                "Vâng, tôi rất thích dành thời gian chất lượng với gia đình vì chúng tôi là một gia đình gắn bó.",
+            ),
+            (
+                f'Family {_memo_v("holds immense importance")} to me.',
+                "Gia đình có ý nghĩa to lớn với tôi.",
+            ),
+            (
+                f'Whenever I go through a tough time, I can easily {_memo_v("confide in")} my parents, and they always {_memo_v("lend a listening ear")} without judging.',
+                "Mỗi khi gặp chuyện khó, tôi có thể dễ dàng tâm sự với bố mẹ, và họ luôn sẵn sàng lắng nghe mà không phán xét.",
+            ),
+            (
+                f'We {_memo_v("get along with")} each other very well.',
+                "Chúng tôi hòa thuận với nhau rất tốt.",
+            ),
+            (
+                f'Even though my grandfather has {_memo_v("passed away")}, he still {_memo_v("holds a special place in my heart")}.',
+                "Dù ông tôi đã qua đời, ông vẫn giữ một vị trí đặc biệt trong tim tôi.",
+            ),
+            (
+                f'We always make an effort to {_memo_v("keep in touch")} no matter how busy we get, so I {_memo_s("hardly ever feel lonely")}.',
+                "Chúng tôi luôn nỗ lực giữ liên lạc dù bận đến mấy, nên tôi hiếm khi cảm thấy cô đơn.",
+            ),
+        ],
+        keys=[
+            ("quality time", "thời gian chất lượng", "v"),
+            ("close-knit family", "gia đình gắn bó", "v"),
+            ("hold immense importance", "có ý nghĩa to lớn", "v"),
+            ("confide in", "tâm sự với", "v"),
+            ("lend a listening ear", "sẵn sàng lắng nghe", "v"),
+            ("get along with", "hòa thuận với", "v"),
+            ("passed away", "qua đời", "v"),
+            ("hold a special place in my heart", "giữ một vị trí đặc biệt trong tim", "v"),
+            ("keep in touch", "giữ liên lạc", "v"),
+            ("hardly ever + V", "hardly ever feel lonely — hiếm khi cảm thấy cô đơn", "s"),
+        ],
+    )
 
 
 def lesson2_practice_html(*, open_attr: str = " open") -> str:
@@ -460,8 +513,8 @@ def lesson2_practice_html(*, open_attr: str = " open") -> str:
 def lesson3_examples_html() -> str:
     items = []
     t1y = (
-        "Yes, definitely. I'm a big fan of my {family_type} because we enjoy "
-        "{activity}. This is because it gives me a real sense of belonging."
+        "Yes, I'm a big fan of spending {quality_time} with my family because we are "
+        "a really {family_type}."
     )
     t1n = (
         "Well, not really. I hardly ever {hardly_ever_action} because big gatherings "
@@ -469,119 +522,117 @@ def lesson3_examples_html() -> str:
     )
     items.append({
         "q": "Do you have a close-knit family? (WESET)",
-        "yes_html": t1y.format(family_type=phrase_pick("family_type", 0), activity=phrase_pick("activity", 0)),
-        "yes_vi": "Vâng. Tôi rất thích gia đình gắn bó vì chúng tôi thích ăn tối cùng nhau. Điều đó mang lại cảm giác thuộc về.",
-        "yes_plain": "Yes, definitely. I'm a big fan of my close-knit family because we enjoy having dinner together. This is because it gives me a real sense of belonging.",
+        "yes_html": t1y.format(quality_time=phrase_pick("quality_time", 0), family_type=phrase_pick("family_type", 0)),
+        "yes_vi": "Vâng. Tôi rất thích dành thời gian chất lượng với gia đình vì chúng tôi là một gia đình gắn bó.",
+        "yes_plain": "Yes, I'm a big fan of spending quality time with my family because we are a really close-knit family.",
         "yes_ex": t1y,
         "no_html": t1n.format(hardly_ever_action=phrase_pick("hardly_ever_action", 1), soft_dislike=phrase_pick("soft_dislike", 2), prefer_rather_than=phrase_pick("prefer_rather_than", 1)),
         "no_vi": "Không thực sự. Tôi hiếm khi đi tiệc lớn vì khá căng thẳng. Tôi thích buổi họp mặt nhỏ hơn.",
         "no_plain": "Well, not really. I hardly ever go to large family parties because big gatherings can feel quite stressful. I prefer small gatherings rather than big parties.",
         "no_ex": t1n,
-        "notes": [{"en": "I hardly ever + V", "vi": "Hiếm khi + V"}, {"en": "close-knit family", "vi": "gia đình gắn bó"}],
+        "notes": [{"en": "quality time", "vi": "thời gian chất lượng"}, {"en": "close-knit family", "vi": "gia đình gắn bó"}, {"en": "I hardly ever + V", "vi": "hiếm khi + V"}],
     })
     t2y = (
-        "Yes, absolutely. Family {score_phrase} in my life. I {relationship_v} my parents "
-        "and we always make time for quality time."
+        "Yes, absolutely. Family {importance_phrase}. We {get_along} very well."
     )
     t2n = (
         "I'm a bit more independent these days. I hardly ever {hardly_ever_action} "
-        "because of my busy schedule. Still, they {score_phrase}."
+        "because of my busy schedule."
     )
     items.append({
         "q": "Is family very important to you? (ZIM / Mc / ECE)",
-        "yes_html": t2y.format(score_phrase=phrase_pick("score_phrase", 0), relationship_v=phrase_pick("relationship_v", 0)),
-        "yes_vi": "Vâng. Gia đình có ý nghĩa to lớn. Tôi hòa thuận với bố mẹ và luôn dành thời gian chất lượng.",
-        "yes_plain": "Yes, absolutely. Family hold immense importance in my life. I get on well with my parents and we always make time for quality time.",
+        "yes_html": t2y.format(importance_phrase=phrase_pick("importance_phrase", 0), get_along=phrase_pick("get_along", 0)),
+        "yes_vi": "Vâng. Gia đình có ý nghĩa to lớn với tôi. Chúng tôi hòa thuận với nhau rất tốt.",
+        "yes_plain": "Yes, absolutely. Family holds immense importance to me. We get along with each other very well.",
         "yes_ex": t2y,
-        "no_html": t2n.format(hardly_ever_action=phrase_pick("hardly_ever_action", 0), score_phrase=phrase_pick("score_phrase", 2)),
-        "no_vi": "Tôi độc lập hơn. Hiếm khi thăm đại gia đình vì lịch bận. Nhưng họ vẫn hỗ trợ kiên định.",
-        "no_plain": "I'm a bit more independent these days. I hardly ever visit my extended family because of my busy schedule. Still, they give me unwavering support.",
+        "no_html": t2n.format(hardly_ever_action=phrase_pick("hardly_ever_action", 0)),
+        "no_vi": "Tôi độc lập hơn. Hiếm khi thăm đại gia đình vì lịch bận.",
+        "no_plain": "I'm a bit more independent these days. I hardly ever visit my extended family because of my busy schedule.",
         "no_ex": t2n,
-        "notes": [{"en": "hold immense importance", "vi": "có ý nghĩa to lớn (IDP)"}, {"en": "quality time", "vi": "thời gian chất lượng"}],
+        "notes": [{"en": "hold immense importance", "vi": "có ý nghĩa to lớn"}, {"en": "get along with", "vi": "hòa thuận với"}],
     })
     t3y = (
-        "Yes, I do — not a huge circle, but a few people I can confide in. "
-        "I'm keen on {kind_friend} because we have so many shared interests."
+        "Yes, I do. Whenever I go through a tough time, I can easily {relationship_v} "
+        "my parents, and they always {listen_phrase}."
     )
     t3n = (
         "No, not really. I'm pretty picky. I hardly ever open up because I have "
         "an irrational fear that people barely tolerate me."
     )
     items.append({
-        "q": "Do you have many close friends? (TAK12 / ECE)",
-        "yes_html": t3y.format(kind_friend=phrase_pick("kind_friend", 0)),
-        "yes_vi": "Có — không nhiều, nhưng vài người tôi tâm sự được. Tôi thích bạn hỗ trợ cảm xúc vì có nhiều sở thích chung.",
-        "yes_plain": "Yes, I do — not a huge circle, but a few people I can confide in. I'm keen on emotionally supportive friends because we have so many shared interests.",
+        "q": "Do you confide in your family when you have problems? (TAK12 / ECE)",
+        "yes_html": t3y.format(relationship_v=phrase_pick("relationship_v", 4), listen_phrase=phrase_pick("listen_phrase", 1)),
+        "yes_vi": "Có. Mỗi khi gặp chuyện khó, tôi có thể dễ dàng tâm sự với bố mẹ, và họ luôn lắng nghe mà không phán xét.",
+        "yes_plain": "Yes, I do. Whenever I go through a tough time, I can easily confide in my parents, and they always lend a listening ear without judging.",
         "yes_ex": t3y,
         "no_html": t3n,
         "no_vi": "Không thực sự. Tôi khá kén. Hiếm khi mở lòng vì sợ người khác chỉ chịu đựng mình (TAK12).",
         "no_plain": "No, not really. I'm pretty picky. I hardly ever open up because I have an irrational fear that people barely tolerate me.",
         "no_ex": t3n,
-        "notes": [{"en": "confide in", "vi": "tâm sự với"}, {"en": "shared interests", "vi": "sở thích chung (DOL)"}],
+        "notes": [{"en": "confide in", "vi": "tâm sự với"}, {"en": "lend a listening ear", "vi": "sẵn sàng lắng nghe"}],
     })
     t4y = (
-        "Yes, definitely. I'm keen on {activity} because it helps me {relax_phrase}."
+        "Yes, definitely. We always make an effort to {keep_touch} no matter how busy "
+        "we get, so I hardly ever {hardly_ever_action}."
     )
     t4n = (
         "No, not really. I prefer {prefer_rather_than} because big groups {soft_dislike}."
     )
     items.append({
         "q": "Do you like spending time with your family? (ZIM / WESET)",
-        "yes_html": t4y.format(activity=phrase_pick("activity", 3), relax_phrase=phrase_pick("relax_phrase", 1)),
-        "yes_vi": "Vâng. Tôi thích dành thời gian chất lượng ở nhà vì giúp nạp lại năng lượng.",
-        "yes_plain": "Yes, definitely. I'm keen on spending quality time at home because it helps me recharge my batteries.",
+        "yes_html": t4y.format(keep_touch=phrase_pick("keep_touch", 0), hardly_ever_action=phrase_pick("hardly_ever_action", 4)),
+        "yes_vi": "Vâng. Chúng tôi luôn nỗ lực giữ liên lạc dù bận đến mấy, nên tôi hiếm khi cảm thấy cô đơn.",
+        "yes_plain": "Yes, definitely. We always make an effort to keep in touch no matter how busy we get, so I hardly ever feel lonely.",
         "yes_ex": t4y,
         "no_html": t4n.format(prefer_rather_than=phrase_pick("prefer_rather_than", 1), soft_dislike=phrase_pick("soft_dislike", 2)),
         "no_vi": "Không thực sự. Tôi thích họp mặt nhỏ hơn tiệc lớn vì đám đông khá căng.",
         "no_plain": "No, not really. I prefer small gatherings rather than big parties because big groups can feel quite stressful.",
         "no_ex": t4n,
-        "notes": [{"en": "prefer … rather than …", "vi": "thích … hơn là …"}],
+        "notes": [{"en": "keep in touch", "vi": "giữ liên lạc"}, {"en": "hardly ever + V", "vi": "hardly ever feel lonely"}],
     })
     t5y = (
-        "Yes, I still do. Visiting them is always a special occasion filled with stories. "
-        "They {score_phrase}."
+        "Yes, I still do. We {keep_touch} and visiting them is always a special occasion."
     )
     t5n = (
-        "Unfortunately both my grandparents have passed away, but they still "
-        "hold a special place in my heart. My maternal grandfather used to tell army stories."
+        "Unfortunately my grandfather has passed away, but he still "
+        "holds a special place in my heart. My maternal grandfather used to tell army stories."
     )
     items.append({
         "q": "Do you still have your grandparents? (ZIM / Mc)",
-        "yes_html": t5y.format(score_phrase=phrase_pick("score_phrase", 4)),
-        "yes_vi": "Vẫn còn. Thăm họ luôn là dịp đặc biệt đầy chuyện kể. Họ đứng bên tôi trong mọi hoàn cảnh.",
-        "yes_plain": "Yes, I still do. Visiting them is always a special occasion filled with stories. They stand by me through thick and thin.",
+        "yes_html": t5y.format(keep_touch=phrase_pick("keep_touch", 1)),
+        "yes_vi": "Vẫn còn. Chúng tôi giữ liên lạc với nhau và thăm họ luôn là dịp đặc biệt.",
+        "yes_plain": "Yes, I still do. We keep in touch with each other and visiting them is always a special occasion.",
         "yes_ex": t5y,
         "no_html": t5n,
-        "no_vi": "Rất tiếc ông bà đã mất, nhưng vẫn giữ chỗ đặc biệt trong tim. Ông ngoại từng kể chuyện quân ngũ (ZIM).",
-        "no_plain": "Unfortunately both my grandparents have passed away, but they still hold a special place in my heart. My maternal grandfather used to tell army stories.",
+        "no_vi": "Rất tiếc ông tôi đã mất, nhưng ông vẫn giữ một vị trí đặc biệt trong tim. Ông ngoại từng kể chuyện quân ngũ (ZIM).",
+        "no_plain": "Unfortunately my grandfather has passed away, but he still holds a special place in my heart. My maternal grandfather used to tell army stories.",
         "no_ex": t5n,
-        "notes": [{"en": "hold a special place", "vi": "giữ vị trí đặc biệt"}, {"en": "passed away", "vi": "qua đời"}],
+        "notes": [{"en": "passed away", "vi": "qua đời"}, {"en": "hold a special place in my heart", "vi": "giữ một vị trí đặc biệt trong tim"}],
     })
-    t6y = (
-        "Yes, occasionally. Dining out with friends is a great way to {relax_phrase}. "
-        "Still, most days I prefer {prefer_rather_than}."
-    )
     t6n = (
         "No, not really. I hardly ever {hardly_ever_action} because I prefer "
         "{prefer_rather_than}."
     )
+    t6y = (
+        "Yes, occasionally — as long as we still {keep_touch} afterwards."
+    )
     items.append({
         "q": "Do you like large family parties?",
-        "yes_html": t6y.format(relax_phrase=phrase_pick("relax_phrase", 3), prefer_rather_than=phrase_pick("prefer_rather_than", 0)),
-        "yes_vi": "Có, thỉnh thoảng. Ăn ngoài với bạn giúp thoát khỏi sự hối hả. Nhưng hầu hết ngày tôi vẫn thích ở với gia đình.",
-        "yes_plain": "Yes, occasionally. Dining out with friends is a great way to escape from the hustle and bustle of the city. Still, most days I prefer spending time with family rather than going out.",
+        "yes_html": t6y.format(keep_touch=phrase_pick("keep_touch", 0)),
+        "yes_vi": "Có, thỉnh thoảng — miễn là sau đó chúng tôi vẫn giữ liên lạc.",
+        "yes_plain": "Yes, occasionally — as long as we still keep in touch afterwards.",
         "yes_ex": t6y,
         "no_html": t6n.format(hardly_ever_action=phrase_pick("hardly_ever_action", 1), prefer_rather_than=phrase_pick("prefer_rather_than", 1)),
         "no_vi": "Không thực sự. Tôi hiếm khi đi tiệc lớn vì thích họp mặt nhỏ hơn.",
         "no_plain": "No, not really. I hardly ever go to large family parties because I prefer small gatherings rather than big parties.",
         "no_ex": t6n,
-        "notes": [{"en": "I hardly ever + V", "vi": "Hiếm khi + V"}],
+        "notes": [{"en": "I hardly ever + V", "vi": "Hiếm khi + V"}, {"en": "keep in touch", "vi": "giữ liên lạc"}],
     })
     return _yes_no_cards(
         items,
         box_id="pf-examples-l3",
         subtitle="Ví dụ People & Family · Do you like X?",
-        hint="Câu từ WESET / ZIM / Mc / TAK12 / ECE. Mỗi câu có <strong>Thích / Không thích</strong> + dropdown. Chip = cụm ghi điểm.",
+        hint="Mỗi câu <strong>Thích / Không thích</strong> dùng đúng cụm Vocab notes Lesson 3. Sau các câu hỏi: đoạn văn nhớ + highlight.",
     )
 
 
@@ -2001,7 +2052,7 @@ def lesson_highlights_html() -> str:
         footer=["Reuse Family lexical từ L2–L15", "Cốt lõi ~60%"],
     )
 
-    def _lesson(num: str, title: str, mmap_id: str, center: str, sides: str, left, right, note: str, extra: str, gmin: str, grammar: str, vocab: str, examples: str, scroll_id: str) -> str:
+    def _lesson(num: str, title: str, mmap_id: str, center: str, sides: str, left, right, note: str, extra: str, gmin: str, grammar: str, vocab: str, examples: str, scroll_id: str, memo: str = "") -> str:
         return f"""
         <article class="lr-core-lesson" id="lesson{num}-formulas">
           <header class="lr-core-lesson-head">
@@ -2013,6 +2064,7 @@ def lesson_highlights_html() -> str:
           <div id="lesson{scroll_id}-scroll-source">
 {examples}
           </div>
+{memo}
 {lesson_scroll_read_html(f"lesson{scroll_id}", title=f"Lesson {num}", source_sel=f"#lesson{scroll_id}-scroll-source")}
         </article>"""
 
@@ -2027,7 +2079,7 @@ def lesson_highlights_html() -> str:
 {vocab_notes_html(VOCAB_L2)}
 {lesson2_practice_html()}
         </article>
-{_lesson("3", "Do you like X?", "lesson3MindmapPF", "Do you like X?", "No ↔ Yes + Reasons", _maps.LESSON3_MINDMAP_LEFT, _maps.LESSON3_MINDMAP_RIGHT, "Trái = <strong>NO</strong> · Phải = <strong>YES</strong> + Reasons.", " lr-mmap--lesson3", "1200px", g3, vocab_notes_html(VOCAB_L3), lesson3_examples_html(), "3")}
+{_lesson("3", "Do you like X?", "lesson3MindmapPF", "Do you like X?", "No ↔ Yes + Reasons", _maps.LESSON3_MINDMAP_LEFT, _maps.LESSON3_MINDMAP_RIGHT, "Trái = <strong>NO</strong> · Phải = <strong>YES</strong> + Reasons.", " lr-mmap--lesson3", "1200px", g3, vocab_notes_html(VOCAB_L3), lesson3_examples_html(), "3", lesson3_memo_html())}
 {_lesson("5", "What kind of X do you like most?", "lesson5MindmapPF", "What kind of X?", "Loại gì? ↔ Lý do", _maps.LESSON5_MINDMAP_LEFT, _maps.LESSON5_MINDMAP_RIGHT, "Trái = <strong>Loại gì?</strong> · Phải = <strong>Lý do</strong> + Lexical Family.", " lr-mmap--lesson5", "1200px", g5, vocab_notes_html(VOCAB_L5), lesson5_examples_html(), "5")}
 {_lesson("6", "Do you prefer X or Y?", "lesson6MindmapPF", "Do you prefer X or Y?", "Chọn ↔ Lý do", _maps.LESSON6_MINDMAP_LEFT, _maps.LESSON6_MINDMAP_RIGHT, "Trái = <strong>prefer X / X to Y / rather than</strong> · Phải = lý do Family.", " lr-mmap--lesson6", "1200px", g6, vocab_notes_html(VOCAB_L6), lesson6_examples_html(), "6")}
 {_lesson("7", "Is X popular in your country?", "lesson7MindmapPF", "Is X popular?", "Có/Không ↔ Còn tùy", _maps.LESSON7_MINDMAP_LEFT, _maps.LESSON7_MINDMAP_RIGHT, "Trái = <strong>Có / Không</strong> · Phải = <strong>Còn tùy</strong> (collectivist · đô thị · cấu trúc gia đình).", " lr-mmap--lesson7", "1280px", g7, vocab_notes_html(VOCAB_L7), lesson7_examples_html(), "7")}
@@ -2113,7 +2165,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr70">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr71">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
