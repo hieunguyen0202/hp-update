@@ -29,6 +29,13 @@ _maps = importlib.util.module_from_spec(_maps_spec)
 assert _maps_spec and _maps_spec.loader
 _maps_spec.loader.exec_module(_maps)
 
+_memos_spec = importlib.util.spec_from_file_location(
+    "pf_memos", Path(__file__).with_name("_people_family_review2_memos.py")
+)
+_memos = importlib.util.module_from_spec(_memos_spec)
+assert _memos_spec and _memos_spec.loader
+_memos_spec.loader.exec_module(_memos)
+
 WORD_SLOTS = _maps.WORD_SLOTS
 esc = _food.esc
 mind_map_html = _food.mind_map_html
@@ -303,8 +310,10 @@ def _memo_s(text: str) -> str:
 
 
 def _memo_sent(en_html: str, vi: str) -> str:
+    plain = re.sub(r"<[^>]+>", "", en_html)
     return (
-        f'<p class="lr-memo-sent lr-tip" data-tip="{esc(vi)}">{en_html}</p>'
+        f'<p class="lr-memo-sent lr-tip lr-answer-text" data-tip="{esc(vi)}" '
+        f'data-plain="{esc(plain)}">{en_html}</p>'
     )
 
 
@@ -313,20 +322,26 @@ def lesson_memo_html(
     lesson: str,
     sentences: list[tuple[str, str]],
     keys: list[tuple[str, str, str]],
+    question: str = "",
 ) -> str:
     sent_html = "\n              ".join(_memo_sent(en, vi) for en, vi in sentences)
     key_lis = []
     for en, vi, kind in keys:
         mark = _memo_s(en) if kind == "s" else _memo_v(en)
         key_lis.append(f"<li>{mark} <em>({esc(vi)})</em></li>")
+    q_html = (
+        f'<p class="lr-memo-q">{esc(question)}</p>\n            '
+        if question
+        else ""
+    )
     return f"""
           <aside class="lr-memo" id="lesson{esc(lesson)}-memo">
             <div class="lr-memo-head">
               <h4 class="lr-memo-title">Đoạn văn nhớ · Lesson {esc(lesson)}</h4>
               <label class="ex-toggle"><input type="checkbox" class="js-memo-hl" checked> Hiện highlight</label>
             </div>
-            <p class="lr-memo-hint">Thuộc đoạn này để nhớ cụm Lesson {esc(lesson)}. <strong>Tím</strong> = cụm từ mới · <strong>Vàng</strong> = cấu trúc. Hover <em>từng câu</em> để xem bản dịch riêng câu đó.</p>
-            <div class="lr-memo-body">
+            <p class="lr-memo-hint">Thuộc đoạn này để nhớ cụm Lesson {esc(lesson)}. <strong>Tím</strong> = cụm từ mới · <strong>Vàng</strong> = cấu trúc. Hover <em>từng câu</em> để xem bản dịch riêng câu đó. Scroll read → chọn nguồn <strong>Đoạn văn nhớ</strong>.</p>
+            {q_html}<div class="lr-memo-body">
               {sent_html}
             </div>
             <ul class="lr-memo-legend" aria-hidden="true">
@@ -339,9 +354,23 @@ def lesson_memo_html(
           </aside>"""
 
 
+MEMO_BANK = _memos.lesson_memos(_memo_v, _memo_s)
+
+
+def memo_html_for(n: str) -> str:
+    spec = MEMO_BANK[n]
+    return lesson_memo_html(
+        lesson=n,
+        question=spec["question"],
+        sentences=spec["sentences"],
+        keys=spec["keys"],
+    )
+
+
 def lesson2_memo_html() -> str:
     return lesson_memo_html(
         lesson="2",
+        question="How do you usually relax or unwind after a hard-working day?",
         sentences=[
             (
                 f'In my daily life, I always try to {_memo_v("unwind and recharge my batteries")} after a hard-working day.',
@@ -390,6 +419,7 @@ def lesson2_memo_html() -> str:
 def lesson3_memo_html() -> str:
     return lesson_memo_html(
         lesson="3",
+        question="Do you like spending time with your family?",
         sentences=[
             (
                 f'Yes, I\'m a big fan of spending {_memo_v("quality time")} with my family because we are a really {_memo_v("close-knit family")}.',
@@ -507,7 +537,7 @@ def lesson2_practice_html(*, open_attr: str = " open") -> str:
 {cards}
           </details>
 {lesson2_memo_html()}
-{lesson_scroll_read_html("lesson2", title="Lesson 2", source_sel="#lesson2-practice")}"""
+{lesson_scroll_read_html("lesson2", title="Lesson 2", source_sel="#lesson2-practice", memo_sel="#lesson2-memo")}"""
 
 
 def lesson3_examples_html() -> str:
@@ -2053,6 +2083,7 @@ def lesson_highlights_html() -> str:
     )
 
     def _lesson(num: str, title: str, mmap_id: str, center: str, sides: str, left, right, note: str, extra: str, gmin: str, grammar: str, vocab: str, examples: str, scroll_id: str, memo: str = "") -> str:
+        memo_sel = f"#lesson{num}-memo" if memo else ""
         return f"""
         <article class="lr-core-lesson" id="lesson{num}-formulas">
           <header class="lr-core-lesson-head">
@@ -2065,7 +2096,7 @@ def lesson_highlights_html() -> str:
 {examples}
           </div>
 {memo}
-{lesson_scroll_read_html(f"lesson{scroll_id}", title=f"Lesson {num}", source_sel=f"#lesson{scroll_id}-scroll-source")}
+{lesson_scroll_read_html(f"lesson{scroll_id}", title=f"Lesson {num}", source_sel=f"#lesson{scroll_id}-scroll-source", memo_sel=memo_sel)}
         </article>"""
 
     return f"""
@@ -2080,17 +2111,17 @@ def lesson_highlights_html() -> str:
 {lesson2_practice_html()}
         </article>
 {_lesson("3", "Do you like X?", "lesson3MindmapPF", "Do you like X?", "No ↔ Yes + Reasons", _maps.LESSON3_MINDMAP_LEFT, _maps.LESSON3_MINDMAP_RIGHT, "Trái = <strong>NO</strong> · Phải = <strong>YES</strong> + Reasons.", " lr-mmap--lesson3", "1200px", g3, vocab_notes_html(VOCAB_L3), lesson3_examples_html(), "3", lesson3_memo_html())}
-{_lesson("5", "What kind of X do you like most?", "lesson5MindmapPF", "What kind of X?", "Loại gì? ↔ Lý do", _maps.LESSON5_MINDMAP_LEFT, _maps.LESSON5_MINDMAP_RIGHT, "Trái = <strong>Loại gì?</strong> · Phải = <strong>Lý do</strong> + Lexical Family.", " lr-mmap--lesson5", "1200px", g5, vocab_notes_html(VOCAB_L5), lesson5_examples_html(), "5")}
-{_lesson("6", "Do you prefer X or Y?", "lesson6MindmapPF", "Do you prefer X or Y?", "Chọn ↔ Lý do", _maps.LESSON6_MINDMAP_LEFT, _maps.LESSON6_MINDMAP_RIGHT, "Trái = <strong>prefer X / X to Y / rather than</strong> · Phải = lý do Family.", " lr-mmap--lesson6", "1200px", g6, vocab_notes_html(VOCAB_L6), lesson6_examples_html(), "6")}
-{_lesson("7", "Is X popular in your country?", "lesson7MindmapPF", "Is X popular?", "Có/Không ↔ Còn tùy", _maps.LESSON7_MINDMAP_LEFT, _maps.LESSON7_MINDMAP_RIGHT, "Trái = <strong>Có / Không</strong> · Phải = <strong>Còn tùy</strong> (collectivist · đô thị · cấu trúc gia đình).", " lr-mmap--lesson7", "1280px", g7, vocab_notes_html(VOCAB_L7), lesson7_examples_html(), "7")}
-{_lesson("8", "What is the best time to do X?", "lesson8MindmapPF", "Best time to do X?", "Thời điểm ↔ Còn tùy", _maps.LESSON8_MINDMAP_LEFT, _maps.LESSON8_MINDMAP_RIGHT, "Trái = <strong>Thời điểm tốt nhất</strong> · Phải = <strong>Còn tùy</strong> + Lexical Family.", " lr-mmap--lesson8", "1280px", g8, vocab_notes_html(VOCAB_L8), lesson8_examples_html(), "8")}
-{_lesson("9", "When was the first/last time you did X?", "lesson9MindmapPF", "First / last time?", "Nhớ rõ ↔ Đoán", _maps.LESSON9_MINDMAP_LEFT, _maps.LESSON9_MINDMAP_RIGHT, "Trái = <strong>Nói rõ thời gian</strong> · Phải = <strong>Đoán</strong> + get in contact / reconcile.", " lr-mmap--lesson9", "1280px", g9, vocab_notes_html(VOCAB_L9), lesson9_examples_html(), "9")}
-{_lesson("10", "Did you do X when you were a child?", "lesson10MindmapPF", "When you were a child?", "Có ↔ Không", _maps.LESSON10_MINDMAP_LEFT, _maps.LESSON10_MINDMAP_RIGHT, "Trái = <strong>Có</strong> + childhood time · Phải = <strong>Không</strong> + take after / instilled.", " lr-mmap--lesson10", "1280px", g10, vocab_notes_html(VOCAB_L10), lesson10_examples_html(), "10")}
-{_lesson("11", "Is X suitable for…?", "lesson11MindmapPF", "Is X suitable for…?", "Có / Không ↔ Còn tùy", _maps.LESSON11_MINDMAP_LEFT, _maps.LESSON11_MINDMAP_RIGHT, "Trái = <strong>Có</strong> · Phải = <strong>Không</strong> + <strong>Còn tùy</strong> (long-distance · love at first sight).", " lr-mmap--lesson11", "1320px", g11, vocab_notes_html(VOCAB_L11), lesson11_examples_html(), "11")}
-{_lesson("12", "Is it easy/difficult to do X?", "lesson12MindmapPF", "Easy / Difficult?", "Dễ / Khó ↔ Ban đầu khó", _maps.LESSON12_MINDMAP_LEFT, _maps.LESSON12_MINDMAP_RIGHT, "Trái = <strong>Dễ</strong> · Phải = <strong>Khó</strong> + tiến trình. Câu TAK12 / DOL.", " lr-mmap--lesson12", "1320px", g12, vocab_notes_html(VOCAB_L12), lesson12_examples_html(), "12")}
-{_lesson("13", "What do you dislike about X?", "lesson13MindmapPF", "Dislike about X?", "Nói thẳng ↔ Nói vòng", _maps.LESSON13_MINDMAP_LEFT, _maps.LESSON13_MINDMAP_RIGHT, "Trái = <strong>Nói thẳng</strong> · Phải = <strong>Nói vòng</strong> / liệt kê.", " lr-mmap--lesson13", "1320px", g13, vocab_notes_html(VOCAB_L13), lesson13_examples_html(), "13")}
-{_lesson("14", "How often do you do X?", "lesson14MindmapPF", "How often?", "Tần suất ↔ Lý do", _maps.LESSON14_MINDMAP_LEFT, _maps.LESSON14_MINDMAP_RIGHT, "Trái = <strong>5 bậc</strong> · Phải = lý do + none of / too…to.", " lr-mmap--lesson14", "1320px", g14, vocab_notes_html(VOCAB_L14), lesson14_examples_html(), "14")}
-{_lesson("15", "How has X changed?", "lesson15MindmapPF", "How has X changed?", "Đổi nhiều ↔ Đổi ít", _maps.LESSON15_MINDMAP_LEFT, _maps.LESSON15_MINDMAP_RIGHT, "Trái = <strong>đổi nhiều</strong> · Phải = <strong>đổi ít</strong> + lexical nâng điểm Family.", " lr-mmap--lesson15", "1320px", g15, vocab_notes_html(VOCAB_L15), lesson15_examples_html(), "15")}
+{_lesson("5", "What kind of X do you like most?", "lesson5MindmapPF", "What kind of X?", "Loại gì? ↔ Lý do", _maps.LESSON5_MINDMAP_LEFT, _maps.LESSON5_MINDMAP_RIGHT, "Trái = <strong>Loại gì?</strong> · Phải = <strong>Lý do</strong> + Lexical Family.", " lr-mmap--lesson5", "1200px", g5, vocab_notes_html(VOCAB_L5), lesson5_examples_html(), "5", memo_html_for("5"))}
+{_lesson("6", "Do you prefer X or Y?", "lesson6MindmapPF", "Do you prefer X or Y?", "Chọn ↔ Lý do", _maps.LESSON6_MINDMAP_LEFT, _maps.LESSON6_MINDMAP_RIGHT, "Trái = <strong>prefer X / X to Y / rather than</strong> · Phải = lý do Family.", " lr-mmap--lesson6", "1200px", g6, vocab_notes_html(VOCAB_L6), lesson6_examples_html(), "6", memo_html_for("6"))}
+{_lesson("7", "Is X popular in your country?", "lesson7MindmapPF", "Is X popular?", "Có/Không ↔ Còn tùy", _maps.LESSON7_MINDMAP_LEFT, _maps.LESSON7_MINDMAP_RIGHT, "Trái = <strong>Có / Không</strong> · Phải = <strong>Còn tùy</strong> (collectivist · đô thị · cấu trúc gia đình).", " lr-mmap--lesson7", "1280px", g7, vocab_notes_html(VOCAB_L7), lesson7_examples_html(), "7", memo_html_for("7"))}
+{_lesson("8", "What is the best time to do X?", "lesson8MindmapPF", "Best time to do X?", "Thời điểm ↔ Còn tùy", _maps.LESSON8_MINDMAP_LEFT, _maps.LESSON8_MINDMAP_RIGHT, "Trái = <strong>Thời điểm tốt nhất</strong> · Phải = <strong>Còn tùy</strong> + Lexical Family.", " lr-mmap--lesson8", "1280px", g8, vocab_notes_html(VOCAB_L8), lesson8_examples_html(), "8", memo_html_for("8"))}
+{_lesson("9", "When was the first/last time you did X?", "lesson9MindmapPF", "First / last time?", "Nhớ rõ ↔ Đoán", _maps.LESSON9_MINDMAP_LEFT, _maps.LESSON9_MINDMAP_RIGHT, "Trái = <strong>Nói rõ thời gian</strong> · Phải = <strong>Đoán</strong> + get in contact / reconcile.", " lr-mmap--lesson9", "1280px", g9, vocab_notes_html(VOCAB_L9), lesson9_examples_html(), "9", memo_html_for("9"))}
+{_lesson("10", "Did you do X when you were a child?", "lesson10MindmapPF", "When you were a child?", "Có ↔ Không", _maps.LESSON10_MINDMAP_LEFT, _maps.LESSON10_MINDMAP_RIGHT, "Trái = <strong>Có</strong> + childhood time · Phải = <strong>Không</strong> + take after / instilled.", " lr-mmap--lesson10", "1280px", g10, vocab_notes_html(VOCAB_L10), lesson10_examples_html(), "10", memo_html_for("10"))}
+{_lesson("11", "Is X suitable for…?", "lesson11MindmapPF", "Is X suitable for…?", "Có / Không ↔ Còn tùy", _maps.LESSON11_MINDMAP_LEFT, _maps.LESSON11_MINDMAP_RIGHT, "Trái = <strong>Có</strong> · Phải = <strong>Không</strong> + <strong>Còn tùy</strong> (long-distance · love at first sight).", " lr-mmap--lesson11", "1320px", g11, vocab_notes_html(VOCAB_L11), lesson11_examples_html(), "11", memo_html_for("11"))}
+{_lesson("12", "Is it easy/difficult to do X?", "lesson12MindmapPF", "Easy / Difficult?", "Dễ / Khó ↔ Ban đầu khó", _maps.LESSON12_MINDMAP_LEFT, _maps.LESSON12_MINDMAP_RIGHT, "Trái = <strong>Dễ</strong> · Phải = <strong>Khó</strong> + tiến trình. Câu TAK12 / DOL.", " lr-mmap--lesson12", "1320px", g12, vocab_notes_html(VOCAB_L12), lesson12_examples_html(), "12", memo_html_for("12"))}
+{_lesson("13", "What do you dislike about X?", "lesson13MindmapPF", "Dislike about X?", "Nói thẳng ↔ Nói vòng", _maps.LESSON13_MINDMAP_LEFT, _maps.LESSON13_MINDMAP_RIGHT, "Trái = <strong>Nói thẳng</strong> · Phải = <strong>Nói vòng</strong> / liệt kê.", " lr-mmap--lesson13", "1320px", g13, vocab_notes_html(VOCAB_L13), lesson13_examples_html(), "13", memo_html_for("13"))}
+{_lesson("14", "How often do you do X?", "lesson14MindmapPF", "How often?", "Tần suất ↔ Lý do", _maps.LESSON14_MINDMAP_LEFT, _maps.LESSON14_MINDMAP_RIGHT, "Trái = <strong>5 bậc</strong> · Phải = lý do + none of / too…to.", " lr-mmap--lesson14", "1320px", g14, vocab_notes_html(VOCAB_L14), lesson14_examples_html(), "14", memo_html_for("14"))}
+{_lesson("15", "How has X changed?", "lesson15MindmapPF", "How has X changed?", "Đổi nhiều ↔ Đổi ít", _maps.LESSON15_MINDMAP_LEFT, _maps.LESSON15_MINDMAP_RIGHT, "Trái = <strong>đổi nhiều</strong> · Phải = <strong>đổi ít</strong> + lexical nâng điểm Family.", " lr-mmap--lesson15", "1320px", g15, vocab_notes_html(VOCAB_L15), lesson15_examples_html(), "15", memo_html_for("15"))}
         <article class="lr-core-lesson" id="lesson16-formulas">
           <header class="lr-core-lesson-head">
             <h3>Lesson 16 · Part 2 People &amp; Family (5 phần)</h3>
@@ -2165,7 +2196,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr71">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr72">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -2189,7 +2220,7 @@ def build_page_review2() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr23"></script>
-  <script src="{home}js/linear-review.js?v=lr44"></script>
+  <script src="{home}js/linear-review.js?v=lr45"></script>
 </body>
 </html>"""
 

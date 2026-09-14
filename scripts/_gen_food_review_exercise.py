@@ -5392,10 +5392,23 @@ def _linking_note_html(uid: str) -> str:
               </div>"""
 
 
-def lesson_scroll_read_html(uid: str, *, title: str, source_sel: str) -> str:
+def lesson_scroll_read_html(uid: str, *, title: str, source_sel: str, memo_sel: str = "") -> str:
     """Per-lesson teleprompter: structure blanks + VI/IPA hints + copy EN for NaturalReader."""
+    memo_attr = f' data-scroll-memo="{esc(memo_sel)}"' if memo_sel else ""
+    src_ctrl = ""
+    if memo_sel:
+        src_ctrl = """
+            <label class="ex-voice">Nguồn
+              <select class="js-scroll-src" aria-label="Nguồn đọc">
+                <option value="examples">Ví dụ</option>
+                <option value="memo">Đoạn văn nhớ</option>
+              </select>
+            </label>"""
+        hint_extra = " <strong>Nguồn</strong> = Ví dụ dropdown / Đoạn văn nhớ."
+    else:
+        hint_extra = ""
     return f"""
-        <section class="ex-scroll lr-scroll-read lr-lesson-scroll" id="scroll-{esc(uid)}" data-scroll-uid="{esc(uid)}" data-scroll-source="{esc(source_sel)}" aria-label="{esc(title)}">
+        <section class="ex-scroll lr-scroll-read lr-lesson-scroll" id="scroll-{esc(uid)}" data-scroll-uid="{esc(uid)}" data-scroll-source="{esc(source_sel)}"{memo_attr} aria-label="{esc(title)}">
           <div class="ex-scroll-head">
             <div>
               <div class="ex-scroll-title-row">
@@ -5403,7 +5416,7 @@ def lesson_scroll_read_html(uid: str, *, title: str, source_sel: str) -> str:
 {_intonation_note_html(uid)}
 {_linking_note_html(uid)}
               </div>
-              <p class="ex-scroll-hint">Teleprompter luyện nói — chỉ tiếng Anh. Tắt <strong>Hiện từ EN</strong> để thấy khung + gợi ý VI. <strong>Hiện IPA</strong> = IPA đoạn / trên từ. <strong>Hiện ngữ điệu</strong> = ↗↘. <strong>Hiện nối âm</strong> = tô đỏ C→V (linking). <strong>Copy</strong> = Q + A sạch (NaturalReader).</p>
+              <p class="ex-scroll-hint">Teleprompter luyện nói — chỉ tiếng Anh. Tắt <strong>Hiện từ EN</strong> để thấy khung + gợi ý VI. <strong>Hiện IPA</strong> = IPA đoạn / trên từ. <strong>Hiện ngữ điệu</strong> = ↗↘. <strong>Hiện nối âm</strong> = tô đỏ C→V (linking). <strong>Copy</strong> = Q + A sạch (NaturalReader).{hint_extra}</p>
             </div>
             <div class="ex-scroll-nr-actions">
               <a class="ex-btn ex-scroll-nr-link" href="https://www.naturalreaders.com/online/" target="_blank" rel="noopener noreferrer">NaturalReaders ↗</a>
@@ -5425,7 +5438,7 @@ def lesson_scroll_read_html(uid: str, *, title: str, source_sel: str) -> str:
                 <option value="both">VI + IPA</option>
                 <option value="struct">Chỉ cấu trúc</option>
               </select>
-            </label>
+            </label>{src_ctrl}
             <label class="ex-toggle"><input type="checkbox" class="js-scroll-reveal"> Hiện từ EN</label>
             <label class="ex-toggle"><input type="checkbox" class="js-scroll-show-ipa"> Hiện IPA đoạn</label>
             <label class="ex-toggle"><input type="checkbox" class="js-scroll-show-ipa-over"> Hiện IPA trên từ</label>

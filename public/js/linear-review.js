@@ -1144,6 +1144,11 @@
       const btnPause = root.querySelector(".js-scroll-pause");
       const btnRestart = root.querySelector(".js-scroll-restart");
       const btnCopy = root.querySelector(".js-scroll-copy");
+      const srcSel = root.querySelector(".js-scroll-src");
+      const memoSel = (root.dataset.scrollMemo || "").trim();
+      const memoEl = memoSel ? document.querySelector(memoSel) : null;
+      const isMemoMode = () =>
+        !!(srcSel && srcSel.value === "memo" && memoEl);
 
       let playing = false;
       let offset = 0;
@@ -1163,6 +1168,7 @@
         root.classList.toggle("is-intonation", showIntonation);
         root.classList.toggle("is-linking", showLinking);
         const blocks = [];
+        root.classList.toggle("is-memo-src", isMemoMode());
 
         const resolveIpa = (ans, qaEl) =>
           (
@@ -1201,6 +1207,18 @@
           );
         };
 
+        const pushQuestion = (qText) => {
+          if (!qText) return;
+          blocks.push(`<p class="scroll-line scroll-line--q">${escapeHtml(qText)}</p>`);
+        };
+
+        if (isMemoMode()) {
+          const qEl = memoEl.querySelector(".lr-memo-q");
+          pushQuestion(qEl ? qEl.textContent.replace(/\s+/g, " ").trim() : "");
+          memoEl.querySelectorAll(".lr-memo-sent").forEach((sent) => {
+            pushAnswer(sent, null);
+          });
+        } else {
         // Lesson 16 · Part 2: cue card + 5 labeled sections (no .lr-scroll-qa)
         source.querySelectorAll(".lr-p2-card").forEach((card) => {
           const cue =
@@ -1238,6 +1256,7 @@
           }
           pushAnswer(ans, qa);
         });
+        }
 
         track.innerHTML = `<div class="scroll-pad scroll-pad--top"></div>${blocks.join(
           ""
@@ -1302,7 +1321,7 @@
       };
       root.__lrRebuildScroll = rebuild;
 
-      const copyText = () => {
+      const collectExampleCopy = () => {
         const parts = [];
         source.querySelectorAll(".lr-p2-card").forEach((card) => {
           const cue =
@@ -1321,7 +1340,6 @@
             qa.querySelector(".lr-answer-text") ||
             qa.querySelector(".lr-practice-flow");
           if (!ans) return;
-          // Clean English only — no Thích/Không thích, no IPA, no Vietnamese
           const qText = cardQ
             ? cardQ.textContent.replace(/\s+/g, " ").trim()
             : "";
@@ -1330,6 +1348,19 @@
         });
         return parts.filter(Boolean).join("\n\n");
       };
+
+      const collectMemoCopy = () => {
+        if (!memoEl) return "";
+        const parts = [];
+        const q = memoEl.querySelector(".lr-memo-q");
+        if (q) parts.push(q.textContent.replace(/\s+/g, " ").trim());
+        memoEl.querySelectorAll(".lr-memo-sent").forEach((sent) => {
+          parts.push(plainFromAnswer(sent));
+        });
+        return parts.filter(Boolean).join("\n\n");
+      };
+
+      const copyText = () => (isMemoMode() ? collectMemoCopy() : collectExampleCopy());
 
       buildTrack();
       applyTransform();
@@ -1344,6 +1375,11 @@
         });
       }
       hintMode && hintMode.addEventListener("change", rebuild);
+      srcSel &&
+        srcSel.addEventListener("change", () => {
+          offset = 0;
+          rebuild();
+        });
       revealTog && revealTog.addEventListener("change", rebuild);
       showIpaTog &&
         showIpaTog.addEventListener("change", () => {
