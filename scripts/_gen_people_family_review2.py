@@ -294,59 +294,166 @@ def _sample_cards(items: list[dict], *, box_id: str, subtitle: str, hint: str) -
         </div>"""
 
 
+def _memo_v(text: str) -> str:
+    return f'<mark class="vocab">{esc(text)}</mark>'
+
+
+def _memo_s(text: str) -> str:
+    return f'<mark class="lr-memo-struct">{esc(text)}</mark>'
+
+
+def _memo_sent(en_html: str, vi: str) -> str:
+    return (
+        f'<p class="lr-memo-sent lr-tip" data-tip="{esc(vi)}">{en_html}</p>'
+    )
+
+
+def lesson2_memo_html() -> str:
+    s1 = _memo_sent(
+        f'In my daily life, I always try to {_memo_v("unwind and recharge my batteries")} after a hard-working day.',
+        "Trong cuộc sống hàng ngày, tôi luôn cố thư giãn và nạp lại năng lượng sau một ngày làm việc vất vả.",
+    )
+    s2 = _memo_sent(
+        f'Spending time with my family or close friends {_memo_s("helps me feel relaxed")} because we {_memo_v("have a strong bond with each other")}, and they always offer me great {_memo_v("emotional support")}.',
+        "Dành thời gian với gia đình hoặc bạn thân giúp tôi cảm thấy thư giãn vì chúng tôi có sự gắn kết mạnh mẽ với nhau, và họ luôn cho tôi sự hỗ trợ cảm xúc lớn.",
+    )
+    s3 = _memo_sent(
+        f'{_memo_s("It\'s also a great way to")} {_memo_v("prevent loneliness")} and {_memo_v("widen my social circles")} to meet {_memo_v("like-minded individuals")}.',
+        "Đó cũng là một cách tuyệt vời để ngăn cảm giác cô đơn và mở rộng vòng tròn xã hội để gặp những người cùng chí hướng.",
+    )
+    s4 = _memo_sent(
+        f'However, I believe that ignoring small issues {_memo_s("doesn\'t solve anything")} and {_memo_s("can lead to")} {_memo_v("a strained relationship")}, or even make people {_memo_v("drift apart")}.',
+        "Tuy nhiên, tôi tin rằng bỏ qua chuyện nhỏ không giải quyết được gì và có thể dẫn đến một mối quan hệ căng thẳng, thậm chí khiến mọi người dần xa nhau.",
+    )
+    s5 = _memo_sent(
+        f'That\'s why whenever a problem happens, it is important to {_memo_v("work through disagreements")} instead of letting things go too far.',
+        "Vì vậy mỗi khi có vấn đề, điều quan trọng là giải quyết bất đồng thay vì để mọi thứ đi quá xa.",
+    )
+    s6 = _memo_sent(
+        f'On the other hand, some people might {_memo_v("fall out with someone")} over trivial things, which is really unfortunate.',
+        "Mặt khác, một số người có thể cãi nhau / cắt đứt với ai đó vì chuyện vặt, điều đó thật đáng tiếc.",
+    )
+    keys = [
+        ("unwind / recharge my batteries", "thư giãn / nạp lại năng lượng", "v"),
+        ("helps me + V", "giúp tôi làm gì — giúp tôi cảm thấy thư giãn", "s"),
+        ("have a strong bond with each other", "có sự gắn kết mạnh mẽ với nhau", "v"),
+        ("emotional support", "hỗ trợ về cảm xúc", "v"),
+        ("It's a great way to + V", "Đó là một cách tuyệt vời để… — ngăn cô đơn / mở rộng vòng tròn xã hội", "s"),
+        ("prevent loneliness", "ngăn cảm giác cô đơn", "v"),
+        ("widen my social circles", "mở rộng vòng tròn xã hội", "v"),
+        ("like-minded individuals", "những người cùng chí hướng", "v"),
+        ("doesn't + V", "doesn't solve anything", "s"),
+        ("can lead to + NP", "can lead to a strained relationship / drift apart", "s"),
+        ("strained relationship", "mối quan hệ căng thẳng", "v"),
+        ("drift apart", "dần xa nhau", "v"),
+        ("work through disagreements", "giải quyết bất đồng", "v"),
+        ("fall out with someone", "cãi nhau / cắt đứt với ai", "v"),
+    ]
+    key_lis = []
+    for en, vi, kind in keys:
+        mark = _memo_s(en) if kind == "s" else _memo_v(en)
+        key_lis.append(f"<li>{mark} <em>({esc(vi)})</em></li>")
+    return f"""
+          <aside class="lr-memo" id="lesson2-memo">
+            <div class="lr-memo-head">
+              <h4 class="lr-memo-title">Đoạn văn nhớ · Lesson 2</h4>
+              <label class="ex-toggle"><input type="checkbox" class="js-memo-hl" checked> Hiện highlight</label>
+            </div>
+            <p class="lr-memo-hint">Thuộc đoạn này để nhớ cụm Lesson 2. <strong>Tím</strong> = cụm từ mới · <strong>Vàng</strong> = cấu trúc. Hover <em>từng câu</em> để xem bản dịch riêng câu đó.</p>
+            <div class="lr-memo-body">
+              {s1}
+              {s2}
+              {s3}
+              {s4}
+              {s5}
+              {s6}
+            </div>
+            <ul class="lr-memo-legend" aria-hidden="true">
+              <li>{_memo_v("cụm từ mới")}</li>
+              <li>{_memo_s("cấu trúc")}</li>
+            </ul>
+            <ul class="lr-memo-key">
+              {chr(10).join("              " + x for x in key_lis)}
+            </ul>
+          </aside>"""
+
+
 def lesson2_practice_html(*, open_attr: str = " open") -> str:
     home_yes_tpl = (
-        "I think because it's a great way to {relax_phrase} — especially after a long week. "
-        "Having dinner together also helps us {bond_phrase}."
+        "I think because it's a great way to {relax_phrase} after a hard-working day. "
+        "Spending time together helps us {bond_phrase}, and they {support_phrase}."
     )
     home_no_tpl = (
-        "Well, some people don't enjoy big family gatherings because they {soft_dislike} "
-        "and {no_benefit}."
+        "Well, some people don't enjoy big family gatherings because arguing can lead to "
+        "{toxic_outcome} instead of helping anyone unwind."
     )
     edu_yes_tpl = (
         "Yes, because it helps me {edu_phrase}. "
-        "I also get the opportunity to practise empathy."
+        "I also get the opportunity to {meet_phrase}."
     )
     edu_no_tpl = (
-        "No, not really — networking events {soft_dislike}. {no_benefit}."
+        "No, not really — large networking events aren't my cup of tea. {no_benefit}."
     )
     bond_yes_tpl = (
-        "Yes, because it's a great way to {bond_phrase}. "
-        "{bond_followup}"
+        "Yes, because it's a great way to {belong_phrase} and {lonely_phrase}. "
+        "They also {thick_thin}."
     )
     bond_no_tpl = (
         "No, definitely not because arguing all the time can lead to {toxic_outcome}."
     )
+    talk_yes_tpl = (
+        "Yes, because if we want to {rel_verb}, we have to {edu_phrase}."
+    )
+    talk_no_tpl = (
+        "If you ignore small issues, it can lead to {toxic_outcome} "
+        "rather than helping you {rel_verb}."
+    )
+    q1 = "Why do people like spending time with family?"
+    q2 = "Do you like joining clubs to meet new people?"
+    q3 = "Do you like staying close to your relatives?"
+    q4 = "Is it important to talk things through with family?"
     cards = f"""
             <div class="lr-practice-source" id="lesson2-practice">
               <article class="lr-food-ex-card">
-{_ex_card_q_html("Why do people like spending time with family?")}
+{_ex_card_q_html(q1)}
                 <div class="lr-food-ex-pair">
-{_pair_answer_html(kind="yes", en_html=home_yes_tpl.format(relax_phrase=phrase_pick("relax_phrase", 0), bond_phrase=phrase_pick("bond_phrase", 2)), vi="Tôi nghĩ vì đó là cách tuyệt để thư giãn sau tuần dài. Ăn tối cùng nhau cũng giúp củng cố mối quan hệ gia đình.", plain="I think because it's a great way to unwind after a long day — especially after a long week. Having dinner together also helps us strengthen family ties.", ipa="", q="Why do people like spending time with family?", ex_en=home_yes_tpl)}
-{_pair_answer_html(kind="no", en_html=home_no_tpl.format(soft_dislike=phrase_pick("soft_dislike", 2), no_benefit=phrase_pick("no_benefit", 0)), vi="Một số người không thích họp mặt lớn vì khá căng thẳng và không cho cơ hội kết nối sâu.", plain="Well, some people don't enjoy big family gatherings because they can feel quite stressful and It doesn't give me the chance to connect on a deep level.", ipa="", q="Why do people like spending time with family?", ex_en=home_no_tpl)}
+{_pair_answer_html(kind="yes", en_html=home_yes_tpl.format(relax_phrase=phrase_pick("relax_phrase", 5), bond_phrase=phrase_pick("bond_phrase", 6), support_phrase=phrase_pick("bond_phrase", 0)), vi="Tôi nghĩ vì đó là cách tuyệt để thư giãn và nạp lại năng lượng sau ngày làm việc vất vả. Dành thời gian cùng nhau giúp chúng tôi có sự gắn kết mạnh, và họ mang lại hỗ trợ cảm xúc.", plain="I think because it's a great way to unwind and recharge my batteries after a hard-working day. Spending time together helps us have a strong bond with each other, and they provide emotional support.", ipa="", q=q1, ex_en=home_yes_tpl)}
+{_pair_answer_html(kind="no", en_html=home_no_tpl.format(toxic_outcome=phrase_pick("toxic_outcome", 2)), vi="Một số người không thích họp mặt lớn vì cãi nhau có thể dẫn đến mối quan hệ căng thẳng, thay vì giúp ai thư giãn.", plain="Well, some people don't enjoy big family gatherings because arguing can lead to a strained relationship instead of helping anyone unwind.", ipa="", q=q1, ex_en=home_no_tpl)}
                 </div>
+{_ex_chip_notes_html([{"en": "unwind / recharge my batteries", "vi": "thư giãn / nạp lại năng lượng"}, {"en": "have a strong bond with each other", "vi": "có sự gắn kết mạnh mẽ với nhau"}, {"en": "emotional support", "vi": "hỗ trợ về cảm xúc"}, {"en": "can lead to a strained relationship", "vi": "có thể dẫn đến mối quan hệ căng thẳng"}])}
               </article>
               <article class="lr-food-ex-card">
-{_ex_card_q_html("Do you like joining clubs to meet new people?")}
+{_ex_card_q_html(q2)}
                 <div class="lr-food-ex-pair">
-{_pair_answer_html(kind="yes", en_html=edu_yes_tpl.format(edu_phrase=phrase_pick("edu_phrase", 0)), vi="Có, vì nó giúp tôi mở rộng vòng tròn xã hội. Tôi cũng được luyện sự đồng cảm.", plain="Yes, because it helps me widen my social circles. I also get the opportunity to practise empathy.", ipa="", q="Do you like joining clubs to meet new people?", ex_en=edu_yes_tpl)}
-{_pair_answer_html(kind="no", en_html=edu_no_tpl.format(soft_dislike=phrase_pick("soft_dislike", 0), no_benefit=phrase_pick("no_benefit", 1)), vi="Không thực sự — sự kiện networking không phải sở thích của tôi. Nó không giúp tôi thư giãn.", plain="No, not really — networking events isn't my cup of tea. It doesn't help me unwind.", ipa="", q="Do you like joining clubs to meet new people?", ex_en=edu_no_tpl)}
+{_pair_answer_html(kind="yes", en_html=edu_yes_tpl.format(edu_phrase=phrase_pick("edu_phrase", 0), meet_phrase=phrase_pick("edu_phrase", 1)), vi="Có, vì nó giúp tôi mở rộng vòng tròn xã hội. Tôi cũng có cơ hội gặp những người cùng chí hướng.", plain="Yes, because it helps me widen my social circles. I also get the opportunity to meet like-minded individuals.", ipa="", q=q2, ex_en=edu_yes_tpl)}
+{_pair_answer_html(kind="no", en_html=edu_no_tpl.format(no_benefit=phrase_pick("no_benefit", 1)), vi="Không thực sự — sự kiện networking lớn không phải sở thích của tôi. Nó không giúp tôi thư giãn.", plain="No, not really — large networking events aren't my cup of tea. It doesn't help me unwind.", ipa="", q=q2, ex_en=edu_no_tpl)}
                 </div>
+{_ex_chip_notes_html([{"en": "helps me + V", "vi": "giúp tôi làm gì"}, {"en": "widen my social circles", "vi": "mở rộng vòng tròn xã hội"}, {"en": "like-minded individuals", "vi": "người cùng chí hướng"}, {"en": "doesn't + V", "vi": "It doesn't help me unwind"}])}
               </article>
               <article class="lr-food-ex-card">
-{_ex_card_q_html("Do you like staying close to your relatives?")}
+{_ex_card_q_html(q3)}
                 <div class="lr-food-ex-pair">
-{_pair_answer_html(kind="yes", en_html=bond_yes_tpl.format(bond_phrase=phrase_pick("bond_phrase", 1), bond_followup=phrase_pick("bond_followup", 0)), vi="Có, vì đó là cách tuyệt để nuôi dưỡng cảm giác thuộc về. Nó cũng giúp tôi khỏe tinh thần.", plain="Yes, because it's a great way to foster a sense of belonging. It also helps me stay emotionally healthy.", ipa="", q="Do you like staying close to your relatives?", ex_en=bond_yes_tpl)}
-{_pair_answer_html(kind="no", en_html=bond_no_tpl.format(toxic_outcome=phrase_pick("toxic_outcome", 0)), vi="Không, chắc chắn không — cãi nhau suốt có thể dẫn đến cô đơn và cảm giác bị cô lập.", plain="No, definitely not because arguing all the time can lead to loneliness and a sense of isolation.", ipa="", q="Do you like staying close to your relatives?", ex_en=bond_no_tpl)}
+{_pair_answer_html(kind="yes", en_html=bond_yes_tpl.format(belong_phrase=phrase_pick("bond_phrase", 1), lonely_phrase=phrase_pick("bond_phrase", 4), thick_thin=phrase_pick("thick_thin", 0)), vi="Có, vì đó là cách tuyệt để nuôi dưỡng cảm giác thuộc về và ngăn cô đơn. Họ cũng đứng bên tôi trong mọi hoàn cảnh.", plain="Yes, because it's a great way to foster a sense of belonging and prevent loneliness. They also stand by me through thick and thin.", ipa="", q=q3, ex_en=bond_yes_tpl)}
+{_pair_answer_html(kind="no", en_html=bond_no_tpl.format(toxic_outcome=phrase_pick("toxic_outcome", 4)), vi="Không, chắc chắn không — cãi nhau suốt có thể dẫn đến cắt đứt với người mình quý.", plain="No, definitely not because arguing all the time can lead to falling out with someone you care about.", ipa="", q=q3, ex_en=bond_no_tpl)}
                 </div>
+{_ex_chip_notes_html([{"en": "It's a great way to + V", "vi": "Đó là cách tuyệt để…"}, {"en": "a sense of belonging", "vi": "cảm giác thuộc về"}, {"en": "prevent loneliness", "vi": "ngăn cảm giác cô đơn"}, {"en": "through thick and thin", "vi": "trong mọi hoàn cảnh"}, {"en": "fall out with someone", "vi": "cãi nhau / cắt đứt với ai"}])}
+              </article>
+              <article class="lr-food-ex-card">
+{_ex_card_q_html(q4)}
+                <div class="lr-food-ex-pair">
+{_pair_answer_html(kind="yes", en_html=talk_yes_tpl.format(rel_verb=phrase_pick("rel_verb", 2), edu_phrase=phrase_pick("edu_phrase", 2)), vi="Có, vì nếu muốn củng cố mối quan hệ, chúng ta phải học cách giải quyết bất đồng.", plain="Yes, because if we want to strengthen a relationship, we have to learn how to work through disagreements.", ipa="", q=q4, ex_en=talk_yes_tpl)}
+{_pair_answer_html(kind="no", en_html=talk_no_tpl.format(toxic_outcome=phrase_pick("toxic_outcome", 3), rel_verb=phrase_pick("rel_verb", 0)), vi="Nếu bỏ qua chuyện nhỏ, điều đó có thể khiến mọi người dần xa nhau thay vì giúp bạn xây dựng mối quan hệ.", plain="If you ignore small issues, it can lead to people drifting apart rather than helping you build a relationship.", ipa="", q=q4, ex_en=talk_no_tpl)}
+                </div>
+{_ex_chip_notes_html([{"en": "build / maintain / strengthen a relationship", "vi": "xây / duy trì / củng cố mối quan hệ"}, {"en": "work through disagreements", "vi": "giải quyết bất đồng"}, {"en": "drift apart", "vi": "dần xa nhau"}, {"en": "can lead to + NP", "vi": "có thể dẫn đến…"}])}
               </article>
             </div>"""
     return f"""
           <details class="lr-formula-details"{open_attr}>
             <summary>Thực hành · Giải trí / Giáo dục / Sức khỏe tinh thần</summary>
-            <p class="lr-mm-hint">Cùng format Food: <strong>Thích</strong> và <strong>Không thích</strong> đều có dropdown. Nhánh 2 · Cụm V dùng cụm Family (emotional support, family ties…) thay keep fit / burn calories.</p>
+            <p class="lr-mm-hint">Mỗi câu <strong>Thích / Không thích</strong> dùng đúng cụm trong Vocab notes (dropdown đổi được cụm cùng nhóm). Sau các câu hỏi: đoạn văn nhớ + highlight.</p>
 {cards}
           </details>
+{lesson2_memo_html()}
 {lesson_scroll_read_html("lesson2", title="Lesson 2", source_sel="#lesson2-practice")}"""
 
 
@@ -2006,7 +2113,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr69">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr70">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -2030,7 +2137,7 @@ def build_page_review2() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr23"></script>
-  <script src="{home}js/linear-review.js?v=lr43"></script>
+  <script src="{home}js/linear-review.js?v=lr44"></script>
 </body>
 </html>"""
 

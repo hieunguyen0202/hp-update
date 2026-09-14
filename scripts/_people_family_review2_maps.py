@@ -32,6 +32,7 @@ WORD_SLOTS: dict[str, list[dict]] = {
         _opt("clear my head", "giải tỏa đầu óc"),
         _opt("escape from the hustle and bustle of the city", "thoát khỏi sự hối hả của thành phố"),
         _opt("temporarily forget all the pressures from my work", "tạm quên áp lực công việc"),
+        _opt("unwind and recharge my batteries", "thư giãn và nạp lại năng lượng"),
     ],
     "edu_phrase": [
         _opt("widen my social circles", "mở rộng vòng tròn xã hội"),
@@ -47,11 +48,17 @@ WORD_SLOTS: dict[str, list[dict]] = {
         _opt("maintain strong bonds", "duy trì mối liên kết bền"),
         _opt("prevent loneliness", "ngăn cảm giác cô đơn"),
         _opt("work through disagreements in a respectful way", "giải quyết bất đồng một cách tôn trọng"),
+        _opt("have a strong bond with each other", "có sự gắn kết mạnh mẽ với nhau"),
     ],
     "bond_followup": [
         _opt("It also helps me stay emotionally healthy.", "Nó cũng giúp tôi khỏe về mặt tinh thần."),
         _opt("Spending time together can also prevent us from drifting apart.", "Dành thời gian cùng nhau cũng giúp không xa cách."),
         _opt("It also helps me feel truly at home.", "Nó cũng giúp tôi cảm thấy thật sự thuộc về."),
+    ],
+    "thick_thin": [
+        _opt("stand by me through thick and thin", "đứng bên tôi trong mọi hoàn cảnh"),
+        _opt("stand by each other through thick and thin", "đứng bên nhau trong mọi hoàn cảnh"),
+        _opt("stay with me through thick and thin", "ở bên tôi trong mọi hoàn cảnh"),
     ],
     "soft_dislike": [
         _opt("isn't my cup of tea", "không phải sở thích của tôi"),

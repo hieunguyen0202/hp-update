@@ -7,6 +7,15 @@
     });
   }
 
+  document.querySelectorAll(".js-memo-hl").forEach((tog) => {
+    const box = tog.closest(".lr-memo");
+    const apply = () => {
+      if (box) box.classList.toggle("lr-memo--plain", !tog.checked);
+    };
+    tog.addEventListener("change", apply);
+    apply();
+  });
+
   /** Replace only the first `{slot}` so repeated slots map 1:1 to dropdown order */
   const replaceFirstPlaceholder = (text, slot, value) => {
     const token = `{${slot}}`;
