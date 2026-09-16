@@ -32,6 +32,14 @@ assert _seg_spec and _seg_spec.loader
 _seg_spec.loader.exec_module(_seg_mod)
 SPEAKING_SEGMENTS = _seg_mod.SPEAKING_SEGMENTS
 
+_notes_spec = importlib.util.spec_from_file_location(
+    "food_r2_notes", Path(__file__).with_name("_food_review2_notes.py")
+)
+_food_notes = importlib.util.module_from_spec(_notes_spec)
+assert _notes_spec and _notes_spec.loader
+_notes_spec.loader.exec_module(_food_notes)
+FOOD_VOCABS = _food_notes.VOCABS
+
 esc = _gen.esc
 collect_words = _gen.collect_words
 TOPICS = _gen.TOPICS
@@ -10993,7 +11001,7 @@ def food_lesson_examples_html() -> str:
         </div>"""
 
 
-def _lesson2_practice_html(*, open_attr: str = "") -> str:
+def _lesson2_practice_html(*, open_attr: str = "", memo_html: str = "", memo_sel: str = "") -> str:
     """Lesson 2 practice — Thích + Không thích đều có dropdown ngữ cảnh."""
     home_yes_tpl = (
         "I think because it's a great way to {relax_phrase} — especially when they're tired after work. "
@@ -11078,7 +11086,8 @@ def _lesson2_practice_html(*, open_attr: str = "") -> str:
             <p class="lr-mm-hint">Cùng format hình 1: <strong>Thích</strong> và <strong>Không thích</strong> đều có dropdown (đổi cụm lý do Lesson 2). Hover cả đoạn → 1 tooltip VI. Bật <strong>Hiện IPA</strong> trên mỗi card để xem phiên âm dưới câu trả lời.</p>
 {cards}
           </details>
-{lesson_scroll_read_html("lesson2", title="Lesson 2", source_sel="#lesson2-practice")}"""
+{memo_html}
+{lesson_scroll_read_html("lesson2", title="Lesson 2", source_sel="#lesson2-practice", memo_sel=memo_sel)}"""
 
 
 def _g_mark(text: str) -> str:
@@ -11102,6 +11111,137 @@ def lesson_grammar_notes_html(title: str, skeleton_lines: list[str]) -> str:
 {body}
             </div>
           </div>"""
+
+
+def vocab_notes_html(items: list[tuple[str, str, str]]) -> str:
+    """Vocab notes after Grammar notes — term (VI): explanation."""
+    if not items:
+        return ""
+    rows = []
+    for en, vi, meaning in items:
+        rows.append(
+            f'<p class="lr-vocab-note"><strong>{esc(en)}</strong> '
+            f'<em>({esc(vi)})</em>: {esc(meaning)}</p>'
+        )
+    return f"""
+          <div class="lr-grammar-notes lr-vocab-notes">
+            <h4 class="lr-grammar-notes-title">Vocab notes</h4>
+            <p class="lr-vocab-notes-hint">Từ / cụm mới dùng trong lesson này — đọc nghĩa rồi lắp vào dropdown.</p>
+            <div class="lr-vocab-notes-list">
+{chr(10).join("              " + r for r in rows)}
+            </div>
+          </div>"""
+
+
+def _memo_v(text: str, vi: str = "") -> str:
+    extra = f' data-vi="{esc(vi)}"' if vi else ""
+    return f'<mark class="vocab"{extra}>{esc(text)}</mark>'
+
+
+def _memo_s(text: str, vi: str = "") -> str:
+    extra = f' data-vi="{esc(vi)}"' if vi else ""
+    return f'<mark class="lr-memo-struct"{extra}>{esc(text)}</mark>'
+
+
+def _memo_key_stem(en: str) -> str:
+    s = re.sub(r"\s*\+\s*(NP|V-ing|V)\b", "", en, flags=re.I)
+    s = s.replace("…", " ").replace("...", " ")
+    return re.sub(r"\s+", " ", s).strip().lower()
+
+
+def _memo_find_vi(keys: list[tuple[str, str, str]], mark_en: str) -> str:
+    m = re.sub(r"\s+", " ", mark_en).strip().lower()
+    if not m:
+        return ""
+    stop = {"to", "a", "an", "the", "of", "for", "in", "on", "or", "and", "with", "is", "it"}
+    best, best_n = "", 0
+    for k, vi, _kind in keys:
+        stem = _memo_key_stem(k)
+        if not stem:
+            continue
+        if m == stem or m.startswith(stem + " ") or stem.startswith(m):
+            return vi
+        words = [w for w in re.findall(r"[a-z']+", stem) if len(w) > 1 and w not in stop]
+        if words and all(w in m for w in words) and len(words) > best_n:
+            best, best_n = vi, len(words)
+    return best
+
+
+def _inject_mark_vi(html_src: str, keys: list[tuple[str, str, str]]) -> str:
+    """Attach data-vi on memo highlights so Scroll read can blank them with Vietnamese."""
+
+    def repl(match: re.Match) -> str:
+        full, cls, inner = match.group(0), match.group(1), match.group(2)
+        if "data-vi=" in full:
+            return full
+        en = htmlmod.unescape(re.sub(r"<[^>]+>", "", inner))
+        vi = _memo_find_vi(keys, en)
+        if not vi:
+            return full
+        return f'<mark class="{cls}" data-vi="{esc(vi)}">{inner}</mark>'
+
+    return re.sub(r'<mark class="(vocab|lr-memo-struct)">(.*?)</mark>', repl, html_src)
+
+
+def _memo_sent(en_html: str, vi: str) -> str:
+    plain = re.sub(r"<[^>]+>", "", en_html)
+    return (
+        f'<p class="lr-memo-sent lr-tip lr-answer-text" data-tip="{esc(vi)}" '
+        f'data-plain="{esc(plain)}">{en_html}</p>'
+    )
+
+
+def lesson_memo_html(
+    *,
+    lesson: str,
+    sentences: list[tuple[str, str]],
+    keys: list[tuple[str, str, str]],
+    question: str = "",
+) -> str:
+    sent_html = _inject_mark_vi(
+        "\n              ".join(_memo_sent(en, vi) for en, vi in sentences),
+        keys,
+    )
+    key_lis = []
+    for en, vi, kind in keys:
+        mark = _memo_s(en) if kind == "s" else _memo_v(en)
+        key_lis.append(f"<li>{mark} <em>({esc(vi)})</em></li>")
+    q_html = (
+        f'<p class="lr-memo-q">{esc(question)}</p>\n            '
+        if question
+        else ""
+    )
+    return f"""
+          <aside class="lr-memo" id="lesson{esc(lesson)}-memo">
+            <div class="lr-memo-head">
+              <h4 class="lr-memo-title">Đoạn văn nhớ · Lesson {esc(lesson)}</h4>
+              <label class="ex-toggle"><input type="checkbox" class="js-memo-hl" checked> Hiện highlight</label>
+            </div>
+            <p class="lr-memo-hint">Thuộc đoạn này để nhớ cụm Lesson {esc(lesson)}. <strong>Tím</strong> = cụm từ mới · <strong>Vàng</strong> = cấu trúc. Hover <em>từng câu</em> để xem bản dịch riêng câu đó. Scroll read → nguồn <strong>Đoạn văn nhớ</strong>: Hint <strong>Blank từ mới (VI)</strong> / <strong>Cả đoạn tiếng Việt</strong>.</p>
+            {q_html}<div class="lr-memo-body">
+              {sent_html}
+            </div>
+            <ul class="lr-memo-legend" aria-hidden="true">
+              <li>{_memo_v("cụm từ mới")}</li>
+              <li>{_memo_s("cấu trúc")}</li>
+            </ul>
+            <ul class="lr-memo-key">
+              {chr(10).join("              " + x for x in key_lis)}
+            </ul>
+          </aside>"""
+
+
+MEMO_BANK = _food_notes.lesson_memos(_memo_v, _memo_s)
+
+
+def memo_html_for(n: str) -> str:
+    spec = MEMO_BANK[n]
+    return lesson_memo_html(
+        lesson=n,
+        question=spec["question"],
+        sentences=spec["sentences"],
+        keys=spec["keys"],
+    )
 
 
 
@@ -11307,12 +11447,14 @@ def lesson_highlights_html(
     map_suffix: str = "",
     include_food_examples: bool = False,
     open_practice: bool = False,
+    include_memos: bool = False,
 ) -> str:
     """Lesson 2 + 3 + 5–16 mind maps and practice (Lesson 4 skipped).
 
     map_suffix: unique id suffix when the same maps appear on Review Exercise 2.
     include_food_examples: annotated Food cards (Review Exercise 2).
     open_practice: expand Lesson 2 dropdown practice by default.
+    include_memos: Vocab notes + Đoạn văn nhớ (Review Exercise 2 only).
     """
     m2 = f"lesson2Mindmap{map_suffix}"
     m3 = f"lesson3Mindmap{map_suffix}"
@@ -11343,6 +11485,9 @@ def lesson_highlights_html(
     examples_l15 = food_lesson15_examples_html() if include_food_examples else ""
     examples_l16 = food_lesson16_examples_html() if include_food_examples else ""
     examples_l17 = food_lesson17_examples_html() if include_food_examples else ""
+    vn = {n: vocab_notes_html(FOOD_VOCABS[n]) if include_memos else "" for n in FOOD_VOCABS}
+    mh = {n: memo_html_for(n) if include_memos else "" for n in FOOD_VOCABS}
+    ms = {n: f"#lesson{n}-memo" if include_memos else "" for n in FOOD_VOCABS}
     lesson3_scroll = ""
     lesson5_scroll = ""
     lesson6_scroll = ""
@@ -11360,43 +11505,43 @@ def lesson_highlights_html(
     lesson17_fav_scroll = ""
     if include_food_examples:
         lesson3_scroll = lesson_scroll_read_html(
-            "lesson3", title="Lesson 3", source_sel="#lesson3-scroll-source"
+            "lesson3", title="Lesson 3", source_sel="#lesson3-scroll-source", memo_sel=ms["3"]
         )
         lesson5_scroll = lesson_scroll_read_html(
-            "lesson5", title="Lesson 5", source_sel="#lesson5-scroll-source"
+            "lesson5", title="Lesson 5", source_sel="#lesson5-scroll-source", memo_sel=ms["5"]
         )
         lesson6_scroll = lesson_scroll_read_html(
-            "lesson6", title="Lesson 6", source_sel="#lesson6-scroll-source"
+            "lesson6", title="Lesson 6", source_sel="#lesson6-scroll-source", memo_sel=ms["6"]
         )
         lesson7_scroll = lesson_scroll_read_html(
-            "lesson7", title="Lesson 7", source_sel="#lesson7-scroll-source"
+            "lesson7", title="Lesson 7", source_sel="#lesson7-scroll-source", memo_sel=ms["7"]
         )
         lesson8_scroll = lesson_scroll_read_html(
-            "lesson8", title="Lesson 8", source_sel="#lesson8-scroll-source"
+            "lesson8", title="Lesson 8", source_sel="#lesson8-scroll-source", memo_sel=ms["8"]
         )
         lesson9_scroll = lesson_scroll_read_html(
-            "lesson9", title="Lesson 9", source_sel="#lesson9-scroll-source"
+            "lesson9", title="Lesson 9", source_sel="#lesson9-scroll-source", memo_sel=ms["9"]
         )
         lesson10_scroll = lesson_scroll_read_html(
-            "lesson10", title="Lesson 10", source_sel="#lesson10-scroll-source"
+            "lesson10", title="Lesson 10", source_sel="#lesson10-scroll-source", memo_sel=ms["10"]
         )
         lesson11_scroll = lesson_scroll_read_html(
-            "lesson11", title="Lesson 11", source_sel="#lesson11-scroll-source"
+            "lesson11", title="Lesson 11", source_sel="#lesson11-scroll-source", memo_sel=ms["11"]
         )
         lesson12_scroll = lesson_scroll_read_html(
-            "lesson12", title="Lesson 12", source_sel="#lesson12-scroll-source"
+            "lesson12", title="Lesson 12", source_sel="#lesson12-scroll-source", memo_sel=ms["12"]
         )
         lesson13_scroll = lesson_scroll_read_html(
-            "lesson13", title="Lesson 13", source_sel="#lesson13-scroll-source"
+            "lesson13", title="Lesson 13", source_sel="#lesson13-scroll-source", memo_sel=ms["13"]
         )
         lesson14_scroll = lesson_scroll_read_html(
-            "lesson14", title="Lesson 14", source_sel="#lesson14-scroll-source"
+            "lesson14", title="Lesson 14", source_sel="#lesson14-scroll-source", memo_sel=ms["14"]
         )
         lesson15_scroll = lesson_scroll_read_html(
-            "lesson15", title="Lesson 15", source_sel="#lesson15-scroll-source"
+            "lesson15", title="Lesson 15", source_sel="#lesson15-scroll-source", memo_sel=ms["15"]
         )
         lesson16_scroll = lesson_scroll_read_html(
-            "lesson16", title="Lesson 16 · Part 2", source_sel="#lesson16-scroll-source"
+            "lesson16", title="Lesson 16 · Part 2", source_sel="#lesson16-scroll-source", memo_sel=ms["16"]
         )
         lesson17_scroll = lesson_scroll_read_html(
             "lesson17", title="L17 Building · Restaurant / café", source_sel="#lesson17-scroll-source"
@@ -12011,7 +12156,8 @@ def lesson_highlights_html(
             min_width="1280px",
         )}
 {g2}
-{_lesson2_practice_html(open_attr=open_attr)}
+{vn["2"]}
+{_lesson2_practice_html(open_attr=open_attr, memo_html=mh["2"], memo_sel=ms["2"])}
         </article>
 
         <article class="lr-core-lesson" id="lesson3-formulas">
@@ -12031,10 +12177,11 @@ def lesson_highlights_html(
             min_width="1200px",
         )}
 {g3}
+{vn["3"]}
           <div id="lesson3-scroll-source">
 {examples_block}
           </div>
-
+{mh["3"]}
 {lesson3_scroll}
         </article>
 
@@ -12055,10 +12202,11 @@ def lesson_highlights_html(
             min_width="1200px",
         )}
 {g5}
+{vn["5"]}
           <div id="lesson5-scroll-source">
 {examples_l5}
           </div>
-
+{mh["5"]}
 {lesson5_scroll}
         </article>
 
@@ -12079,10 +12227,11 @@ def lesson_highlights_html(
             min_width="1200px",
         )}
 {g6}
+{vn["6"]}
           <div id="lesson6-scroll-source">
 {examples_l6}
           </div>
-
+{mh["6"]}
 {lesson6_scroll}
         </article>
 
@@ -12103,10 +12252,11 @@ def lesson_highlights_html(
             min_width="1280px",
         )}
 {g7}
+{vn["7"]}
           <div id="lesson7-scroll-source">
 {examples_l7}
           </div>
-
+{mh["7"]}
 {lesson7_scroll}
         </article>
 
@@ -12127,10 +12277,11 @@ def lesson_highlights_html(
             min_width="1280px",
         )}
 {g8}
+{vn["8"]}
           <div id="lesson8-scroll-source">
 {examples_l8}
           </div>
-
+{mh["8"]}
 {lesson8_scroll}
         </article>
 
@@ -12151,10 +12302,11 @@ def lesson_highlights_html(
             min_width="1280px",
         )}
 {g9}
+{vn["9"]}
           <div id="lesson9-scroll-source">
 {examples_l9}
           </div>
-
+{mh["9"]}
 {lesson9_scroll}
         </article>
 
@@ -12175,10 +12327,11 @@ def lesson_highlights_html(
             min_width="1280px",
         )}
 {g10}
+{vn["10"]}
           <div id="lesson10-scroll-source">
 {examples_l10}
           </div>
-
+{mh["10"]}
 {lesson10_scroll}
         </article>
 
@@ -12199,10 +12352,11 @@ def lesson_highlights_html(
             min_width="1320px",
         )}
 {g11}
+{vn["11"]}
           <div id="lesson11-scroll-source">
 {examples_l11}
           </div>
-
+{mh["11"]}
 {lesson11_scroll}
         </article>
 
@@ -12223,10 +12377,11 @@ def lesson_highlights_html(
             min_width="1320px",
         )}
 {g12}
+{vn["12"]}
           <div id="lesson12-scroll-source">
 {examples_l12}
           </div>
-
+{mh["12"]}
 {lesson12_scroll}
         </article>
 
@@ -12247,10 +12402,11 @@ def lesson_highlights_html(
             min_width="1320px",
         )}
 {g13}
+{vn["13"]}
           <div id="lesson13-scroll-source">
 {examples_l13}
           </div>
-
+{mh["13"]}
 {lesson13_scroll}
         </article>
 
@@ -12271,10 +12427,11 @@ def lesson_highlights_html(
             min_width="1320px",
         )}
 {g14}
+{vn["14"]}
           <div id="lesson14-scroll-source">
 {examples_l14}
           </div>
-
+{mh["14"]}
 {lesson14_scroll}
         </article>
 
@@ -12295,10 +12452,11 @@ def lesson_highlights_html(
             min_width="1320px",
         )}
 {g15}
+{vn["15"]}
           <div id="lesson15-scroll-source">
 {examples_l15}
           </div>
-
+{mh["15"]}
 {lesson15_scroll}
         </article>
 
@@ -12326,10 +12484,11 @@ def lesson_highlights_html(
 
 {lesson17_scroll}
 {g16}
+{vn["16"]}
           <div id="lesson16-scroll-source">
 {examples_l16}
           </div>
-
+{mh["16"]}
 {lesson16_scroll}
         </article>
 {"" if not include_food_examples else f'''
@@ -14007,7 +14166,7 @@ def build_page_review2() -> str:
 
       <section class="lr-section" id="lessons">
         <h2>Lessons</h2>
-{lesson_highlights_html(map_suffix="R2", include_food_examples=True, open_practice=True)}
+{lesson_highlights_html(map_suffix="R2", include_food_examples=True, open_practice=True, include_memos=True)}
       </section>
 
       <script type="application/json" id="lrWordSlots">{slots_json}</script>
@@ -14023,7 +14182,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr68">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr73">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -14047,7 +14206,7 @@ def build_page_review2() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr23"></script>
-  <script src="{home}js/linear-review.js?v=lr43"></script>
+  <script src="{home}js/linear-review.js?v=lr46"></script>
 </body>
 </html>"""
 
