@@ -7,6 +7,7 @@ relationship / family phrases from DOL, ECE, TAK12, ZIM, WESET, Mc IELTS, IDP.
 """
 from __future__ import annotations
 
+import html
 import importlib.util
 import json
 import re
@@ -301,12 +302,54 @@ def _sample_cards(items: list[dict], *, box_id: str, subtitle: str, hint: str) -
         </div>"""
 
 
-def _memo_v(text: str) -> str:
-    return f'<mark class="vocab">{esc(text)}</mark>'
+def _memo_v(text: str, vi: str = "") -> str:
+    extra = f' data-vi="{esc(vi)}"' if vi else ""
+    return f'<mark class="vocab"{extra}>{esc(text)}</mark>'
 
 
-def _memo_s(text: str) -> str:
-    return f'<mark class="lr-memo-struct">{esc(text)}</mark>'
+def _memo_s(text: str, vi: str = "") -> str:
+    extra = f' data-vi="{esc(vi)}"' if vi else ""
+    return f'<mark class="lr-memo-struct"{extra}>{esc(text)}</mark>'
+
+
+def _memo_key_stem(en: str) -> str:
+    s = re.sub(r"\s*\+\s*(NP|V-ing|V)\b", "", en, flags=re.I)
+    s = s.replace("…", " ").replace("...", " ")
+    return re.sub(r"\s+", " ", s).strip().lower()
+
+
+def _memo_find_vi(keys: list[tuple[str, str, str]], mark_en: str) -> str:
+    m = re.sub(r"\s+", " ", mark_en).strip().lower()
+    if not m:
+        return ""
+    stop = {"to", "a", "an", "the", "of", "for", "in", "on", "or", "and", "with", "is", "it"}
+    best, best_n = "", 0
+    for k, vi, _kind in keys:
+        stem = _memo_key_stem(k)
+        if not stem:
+            continue
+        if m == stem or m.startswith(stem + " ") or stem.startswith(m):
+            return vi
+        words = [w for w in re.findall(r"[a-z']+", stem) if len(w) > 1 and w not in stop]
+        if words and all(w in m for w in words) and len(words) > best_n:
+            best, best_n = vi, len(words)
+    return best
+
+
+def _inject_mark_vi(html_src: str, keys: list[tuple[str, str, str]]) -> str:
+    """Attach data-vi on memo highlights so Scroll read can blank them with Vietnamese."""
+
+    def repl(match: re.Match) -> str:
+        full, cls, inner = match.group(0), match.group(1), match.group(2)
+        if "data-vi=" in full:
+            return full
+        en = html.unescape(re.sub(r"<[^>]+>", "", inner))
+        vi = _memo_find_vi(keys, en)
+        if not vi:
+            return full
+        return f'<mark class="{cls}" data-vi="{esc(vi)}">{inner}</mark>'
+
+    return re.sub(r'<mark class="(vocab|lr-memo-struct)">(.*?)</mark>', repl, html_src)
 
 
 def _memo_sent(en_html: str, vi: str) -> str:
@@ -324,7 +367,10 @@ def lesson_memo_html(
     keys: list[tuple[str, str, str]],
     question: str = "",
 ) -> str:
-    sent_html = "\n              ".join(_memo_sent(en, vi) for en, vi in sentences)
+    sent_html = _inject_mark_vi(
+        "\n              ".join(_memo_sent(en, vi) for en, vi in sentences),
+        keys,
+    )
     key_lis = []
     for en, vi, kind in keys:
         mark = _memo_s(en) if kind == "s" else _memo_v(en)
@@ -340,7 +386,7 @@ def lesson_memo_html(
               <h4 class="lr-memo-title">Đoạn văn nhớ · Lesson {esc(lesson)}</h4>
               <label class="ex-toggle"><input type="checkbox" class="js-memo-hl" checked> Hiện highlight</label>
             </div>
-            <p class="lr-memo-hint">Thuộc đoạn này để nhớ cụm Lesson {esc(lesson)}. <strong>Tím</strong> = cụm từ mới · <strong>Vàng</strong> = cấu trúc. Hover <em>từng câu</em> để xem bản dịch riêng câu đó. Scroll read → chọn nguồn <strong>Đoạn văn nhớ</strong>.</p>
+            <p class="lr-memo-hint">Thuộc đoạn này để nhớ cụm Lesson {esc(lesson)}. <strong>Tím</strong> = cụm từ mới · <strong>Vàng</strong> = cấu trúc. Hover <em>từng câu</em> để xem bản dịch riêng câu đó. Scroll read → nguồn <strong>Đoạn văn nhớ</strong>: Hint <strong>Blank từ mới (VI)</strong> / <strong>Cả đoạn tiếng Việt</strong>.</p>
             {q_html}<div class="lr-memo-body">
               {sent_html}
             </div>
@@ -2196,7 +2242,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr72">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr73">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -2220,7 +2266,7 @@ def build_page_review2() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr23"></script>
-  <script src="{home}js/linear-review.js?v=lr45"></script>
+  <script src="{home}js/linear-review.js?v=lr46"></script>
 </body>
 </html>"""
 

@@ -5404,7 +5404,13 @@ def lesson_scroll_read_html(uid: str, *, title: str, source_sel: str, memo_sel: 
                 <option value="memo">Đoạn văn nhớ</option>
               </select>
             </label>"""
-        hint_extra = " <strong>Nguồn</strong> = Ví dụ dropdown / Đoạn văn nhớ."
+        hint_extra = (
+            " <strong>Nguồn</strong> = Ví dụ / Đoạn văn nhớ. "
+            "Khi <strong>Đoạn văn nhớ</strong>: Hint "
+            "<strong>Blank từ mới (VI)</strong> = giữ câu tiếng Anh, ẩn cụm mới và hiện nghĩa Việt · "
+            "<strong>Cả đoạn tiếng Việt</strong> = chỉ hiện bản dịch, tự dịch ngược sang tiếng Anh "
+            "(bấm blank / bật Hiện từ EN để xem đáp án)."
+        )
     else:
         hint_extra = ""
     return f"""

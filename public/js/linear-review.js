@@ -485,6 +485,7 @@
       const blank = document.createElement("span");
       blank.className = "scroll-blank";
       blank.dataset.answer = form;
+      blank.dataset.hint = hintFor(meta, mode);
       blank.title = "Click to peek answer";
       const setContent = (revealed) => {
         if (revealed) {
@@ -1150,6 +1151,147 @@
       const isMemoMode = () =>
         !!(srcSel && srcSel.value === "memo" && memoEl);
 
+      const EXAMPLE_HINTS = [
+        ["vi", "Nghĩa VI"],
+        ["ipa", "IPA từ"],
+        ["both", "VI + IPA"],
+        ["struct", "Chỉ cấu trúc"],
+      ];
+      const MEMO_HINTS = [
+        ["en", "Đoạn tiếng Anh"],
+        ["memo-vocab", "Blank từ mới (VI)"],
+        ["memo-vi", "Cả đoạn tiếng Việt"],
+      ];
+      let lastExampleHint = "vi";
+      let lastMemoHint = "en";
+
+      const fillHintSelect = () => {
+        if (!hintMode || !srcSel) return;
+        const memo = isMemoMode();
+        const list = memo ? MEMO_HINTS : EXAMPLE_HINTS;
+        const allowed = new Set(list.map(([v]) => v));
+        const preferred = memo ? lastMemoHint : lastExampleHint;
+        const prev = hintMode.value;
+        hintMode.innerHTML = list
+          .map(([v, lab]) => `<option value="${v}">${escapeHtml(lab)}</option>`)
+          .join("");
+        hintMode.value = allowed.has(prev)
+          ? prev
+          : allowed.has(preferred)
+            ? preferred
+            : list[0][0];
+      };
+
+      const memoKeyEntries = () => {
+        if (!memoEl) return [];
+        return [...memoEl.querySelectorAll(".lr-memo-key li")]
+          .map((li) => {
+            const mark = li.querySelector("mark");
+            const em = li.querySelector("em");
+            const en = (mark?.textContent || "").replace(/\s+/g, " ").trim();
+            const vi = (em?.textContent || "").replace(/^\(|\)$/g, "").trim();
+            return [en, vi];
+          })
+          .filter(([en, vi]) => en && vi);
+      };
+
+      const lookupMemoVi = (en, entries) => {
+        const m = en.replace(/\s+/g, " ").trim().toLowerCase();
+        if (!m) return "";
+        const stem = (s) =>
+          s
+            .toLowerCase()
+            .replace(/\s*\+\s*(np|v-ing|v)\b/gi, "")
+            .replace(/[….]+/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
+        const stop = new Set([
+          "to",
+          "a",
+          "an",
+          "the",
+          "of",
+          "for",
+          "in",
+          "on",
+          "or",
+          "and",
+          "with",
+          "is",
+          "it",
+        ]);
+        let best = "";
+        let bestN = 0;
+        for (const [k, vi] of entries) {
+          const st = stem(k);
+          if (!st) continue;
+          if (m === st || m.startsWith(`${st} `) || st.startsWith(m)) return vi;
+          const words = (st.match(/[a-z']+/g) || []).filter(
+            (w) => w.length > 1 && !stop.has(w)
+          );
+          if (
+            words.length &&
+            words.every((w) => m.includes(w)) &&
+            words.length > bestN
+          ) {
+            best = vi;
+            bestN = words.length;
+          }
+        }
+        return best;
+      };
+
+      const paintScrollBlank = (blank, revealed) => {
+        const form = blank.dataset.answer || "";
+        const hint = blank.dataset.hint || "…";
+        if (revealed) {
+          blank.classList.add("is-revealed");
+          blank.innerHTML = `<span class="scroll-blank-answer">${escapeHtml(form)}</span>`;
+          return;
+        }
+        blank.classList.remove("is-revealed");
+        if (blank.classList.contains("scroll-blank--sent")) {
+          blank.innerHTML = `<span class="scroll-blank-hint">${escapeHtml(hint)}</span>`;
+          return;
+        }
+        blank.innerHTML = `<span class="scroll-blank-gap">______</span><span class="scroll-blank-hint">${escapeHtml(
+          hint
+        )}</span>`;
+      };
+
+      const bindScrollBlanks = () => {
+        track.querySelectorAll(".scroll-blank").forEach((blank) => {
+          blank.addEventListener("click", (e) => {
+            e.preventDefault();
+            paintScrollBlank(blank, !blank.classList.contains("is-revealed"));
+          });
+        });
+      };
+
+      const memoVocabHtml = (sentEl, reveal) => {
+        const clone = sentEl.cloneNode(true);
+        const entries = memoKeyEntries();
+        clone.querySelectorAll("mark.vocab, mark.lr-memo-struct").forEach((mark) => {
+          const en = (mark.textContent || "").replace(/\s+/g, " ").trim();
+          const vi = (
+            mark.dataset.vi ||
+            lookupMemoVi(en, entries) ||
+            ""
+          ).trim();
+          const extra = mark.classList.contains("lr-memo-struct")
+            ? "scroll-blank--struct"
+            : "scroll-blank--vocab";
+          const blank = document.createElement("span");
+          blank.className = `scroll-blank ${extra}`;
+          blank.dataset.answer = en;
+          blank.dataset.hint = vi || "…";
+          blank.title = "Click to peek";
+          paintScrollBlank(blank, reveal);
+          mark.replaceWith(blank);
+        });
+        return clone.innerHTML.replace(/\s+/g, " ").trim();
+      };
+
       let playing = false;
       let offset = 0;
       let raf = 0;
@@ -1215,7 +1357,34 @@
         if (isMemoMode()) {
           const qEl = memoEl.querySelector(".lr-memo-q");
           pushQuestion(qEl ? qEl.textContent.replace(/\s+/g, " ").trim() : "");
+          const drill =
+            mode === "memo-vocab" || mode === "memo-vi" ? mode : "en";
           memoEl.querySelectorAll(".lr-memo-sent").forEach((sent) => {
+            if (drill === "memo-vi") {
+              const vi = (sent.getAttribute("data-tip") || "").trim();
+              const en = plainFromAnswer(sent);
+              if (reveal) {
+                pushAnswer(sent, null);
+                return;
+              }
+              blocks.push(
+                `<p class="scroll-line scroll-line--a scroll-line--memo-vi"><span class="scroll-blank scroll-blank--sent" data-answer="${escapeHtml(
+                  en
+                )}" data-hint="${escapeHtml(vi)}" title="Click để xem tiếng Anh"><span class="scroll-blank-hint">${escapeHtml(
+                  vi
+                )}</span></span></p>`
+              );
+              return;
+            }
+            if (drill === "memo-vocab") {
+              blocks.push(
+                `<p class="scroll-line scroll-line--a">${memoVocabHtml(
+                  sent,
+                  reveal
+                )}</p>`
+              );
+              return;
+            }
             pushAnswer(sent, null);
           });
         } else {
@@ -1265,6 +1434,7 @@
         const bottomPad = track.querySelector(".scroll-pad--bottom");
         if (topPad) topPad.style.height = `${Math.max(40, viewport.clientHeight * 0.42)}px`;
         if (bottomPad) bottomPad.style.height = `${Math.max(40, viewport.clientHeight * 0.55)}px`;
+        bindScrollBlanks();
       };
 
       const applyTransform = () => {
@@ -1362,6 +1532,7 @@
 
       const copyText = () => (isMemoMode() ? collectMemoCopy() : collectExampleCopy());
 
+      fillHintSelect();
       buildTrack();
       applyTransform();
 
@@ -1377,6 +1548,9 @@
       hintMode && hintMode.addEventListener("change", rebuild);
       srcSel &&
         srcSel.addEventListener("change", () => {
+          if (isMemoMode()) lastExampleHint = hintMode ? hintMode.value : "vi";
+          else lastMemoHint = hintMode ? hintMode.value : "en";
+          fillHintSelect();
           offset = 0;
           rebuild();
         });

@@ -3228,6 +3228,56 @@ a.kk-card--biz:hover {
   border-bottom-color: rgba(250, 204, 21, 0.55);
 }
 
+.scroll-blank--vocab {
+  border-bottom-color: rgba(167, 139, 250, 0.65);
+}
+
+.scroll-blank--struct {
+  border-bottom-color: rgba(251, 191, 36, 0.65);
+}
+
+.scroll-blank--vocab .scroll-blank-hint,
+.scroll-blank--struct .scroll-blank-hint {
+  max-width: 16em;
+}
+
+.scroll-blank--vocab .scroll-blank-hint {
+  color: #ddd6fe;
+}
+
+.scroll-blank--struct .scroll-blank-hint {
+  color: #fde68a;
+}
+
+.scroll-blank--sent {
+  display: block;
+  align-items: stretch;
+  min-width: 0;
+  margin: 0;
+  padding: 0.15em 0 0.35em;
+  border-bottom: 2px dashed rgba(196, 181, 253, 0.45);
+}
+
+.scroll-blank--sent .scroll-blank-hint {
+  max-width: none;
+  font-size: 0.95em;
+  line-height: 1.65;
+  text-align: left;
+  color: #e9d5ff;
+  font-family: inherit;
+}
+
+.scroll-blank--sent .scroll-blank-answer {
+  font-size: 1em;
+  line-height: 1.65;
+  color: rgba(226, 232, 240, 0.96);
+  font-weight: 500;
+}
+
+.scroll-line--memo-vi {
+  padding-left: 0;
+}
+
 .ex-sent {
   margin: 0;
   padding: 14px 16px;
