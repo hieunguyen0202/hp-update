@@ -90,56 +90,28 @@ def vocab_notes_html(items: list[tuple[str, str, str]]) -> str:
           </div>"""
 
 
-_POLARITY_LABEL = {
-    "tot": ("Tốt", "lr-pol-plus"),
-    "xau": ("Xấu", "lr-pol-minus"),
-    "ketqua": ("Kết quả", "lr-pol-result"),
-    "khung": ("Khung", "lr-pol-frame"),
-    "loai": ("Loại", "lr-pol-type"),
-}
-
-
-def _polarity_badge(key: str) -> str:
-    label, cls = _POLARITY_LABEL.get(key, ("Tốt", "lr-pol-plus"))
-    return f'<span class="lr-pol {cls}">{esc(label)}</span>'
-
-
-def vocab_think_notes_html(groups: list[dict]) -> str:
-    """Lesson 5 vocab as a thinking table: phẩm chất · tốt/xấu · lý do."""
-    sections = []
-    for group in groups:
-        body_rows = []
-        for row in group["rows"]:
-            plus = row.get("plus") or ""
-            minus = row.get("minus") or ""
-            reason_bits = []
-            if plus:
-                reason_bits.append(
-                    f'<p class="lr-vocab-why-plus"><span class="lr-why-sign" aria-hidden="true">+</span> {plus}</p>'
-                )
-            if minus:
-                reason_bits.append(
-                    f'<p class="lr-vocab-why-minus"><span class="lr-why-sign" aria-hidden="true">−</span> {minus}</p>'
-                )
-            body_rows.append(
-                f"""                <tr>
+def vocab_think_notes_html(rows: list[dict]) -> str:
+    """Lesson 5 vocab: 2 columns — phẩm chất → lý do. Purple highlight on new chunks."""
+    body_rows = []
+    for row in rows:
+        body_rows.append(
+            f"""                <tr>
                   <td>
-                    <strong>{esc(row["en"])}</strong>
+                    <mark class="vocab">{esc(row["en"])}</mark>
                     <em>({esc(row["vi"])})</em>
-                    <span class="lr-vocab-think-mean">{esc(row["meaning"])}</span>
                   </td>
-                  <td>{_polarity_badge(row["polarity"])}</td>
-                  <td>{"".join(reason_bits)}</td>
+                  <td>{row["why"]}</td>
                 </tr>"""
-            )
-        sections.append(
-            f"""            <h5 class="lr-vocab-think-h">{esc(group["title"])}</h5>
+        )
+    return f"""
+          <div class="lr-grammar-notes lr-vocab-notes lr-vocab-think">
+            <h4 class="lr-grammar-notes-title">Vocab notes</h4>
+            <p class="lr-vocab-notes-hint">Chọn <strong>1–2 phẩm chất</strong> → lấy <strong>lý do</strong> bên phải để nói <em>because</em>. Ráp cụm từ đoạn văn nhớ.</p>
             <div class="lr-vocab-think-wrap">
               <table class="lr-vocab-think-table">
                 <thead>
                   <tr>
-                    <th scope="col">Phẩm chất / cụm</th>
-                    <th scope="col">Tốt / Xấu</th>
+                    <th scope="col">Phẩm chất</th>
                     <th scope="col">Lý do</th>
                   </tr>
                 </thead>
@@ -147,31 +119,26 @@ def vocab_think_notes_html(groups: list[dict]) -> str:
 {chr(10).join(body_rows)}
                 </tbody>
               </table>
-            </div>"""
-        )
-    return f"""
-          <div class="lr-grammar-notes lr-vocab-notes lr-vocab-think">
-            <h4 class="lr-grammar-notes-title">Vocab notes</h4>
-            <p class="lr-vocab-notes-hint">Bảng tư duy Lesson 5: chọn <strong>1–2 phẩm chất</strong> → nhìn cột <strong>Tốt / Xấu</strong> → lấy <strong>Lý do</strong> để nói <em>because</em>. Không thuộc nguyên đoạn nhớ; ráp cụm đã học.</p>
-            <p class="lr-vocab-think-flow">1 · Phẩm chất &nbsp;→&nbsp; 2 · Tốt (+) hoặc xấu nếu thiếu (−) &nbsp;→&nbsp; 3 · Lý do / ví dụ</p>
-{chr(10).join(sections)}
+            </div>
           </div>"""
 
 
+def _vmark(text: str) -> str:
+    return f'<mark class="vocab">{esc(text)}</mark>'
+
+
 def _think_steps_html(steps: list[dict]) -> str:
-    """3-step idea development shown above a Lesson 5 sample answer."""
+    """3-step idea notes above a Lesson 5 sample — chunks only, no coaching."""
     if not steps:
         return ""
     lis = []
     for i, st in enumerate(steps, 1):
         title = st.get("title") or f"Bước {i}"
         en = st.get("en") or ""
-        vi = st.get("vi") or ""
-        vi_html = f'\n            <span class="lr-think-step-vi">{esc(vi)}</span>' if vi else ""
         lis.append(
             f"""            <li class="lr-think-step">
-              <span class="lr-think-step-n">{i} · {esc(title)}</span>
-              <span class="lr-think-step-en">{en}</span>{vi_html}
+              <span class="lr-think-step-n">{i}. {esc(title)}</span>
+              <span class="lr-think-step-en">{en}</span>
             </li>"""
         )
     return f"""            <ol class="lr-think-steps" aria-label="Tư duy phát triển ý">
@@ -210,155 +177,64 @@ VOCAB_L3 = [
 
 VOCAB_L5 = [
     {
-        "title": "Phẩm chất — chọn 1–2, rồi because",
-        "rows": [
-            {
-                "en": "emotionally supportive",
-                "vi": "hỗ trợ về mặt cảm xúc",
-                "meaning": "Bạn / người thân biết lắng nghe và đứng về phía bạn khi bạn gặp chuyện khó.",
-                "polarity": "tot",
-                "plus": "có người đồng hành lúc khó khăn · <em>helps us strengthen our bond</em>",
-                "minus": "thiếu: dễ cô đơn, không có ai để <em>confide in</em>",
-            },
-            {
-                "en": "like-minded individuals",
-                "vi": "những người cùng chí hướng",
-                "meaning": "Người cùng gu, cùng giá trị — dễ bond vì có shared interests.",
-                "polarity": "tot",
-                "plus": "cùng <em>shared interests</em> nên dễ nói chuyện, nhanh thân",
-                "minus": "thiếu: nói chuyện gượng, quan hệ dễ <em>superficial</em>",
-            },
-            {
-                "en": "mutual trust",
-                "vi": "sự tin tưởng lẫn nhau",
-                "meaning": "Hai bên đều tin nhau; thiếu cái này thì dễ sinh nghi.",
-                "polarity": "tot",
-                "plus": "then chốt cho mối liên kết <em>long-lasting / meaningful</em>",
-                "minus": "thiếu: <em>suspicion develops</em> — sinh nghi, khó gần",
-            },
-            {
-                "en": "shared interests",
-                "vi": "sở thích chung",
-                "meaning": "Điểm chung (phim, thể thao, nấu ăn…) giúp hai người nhanh thân.",
-                "polarity": "tot",
-                "plus": "nền để <em>build a relationship</em> · đi cùng <em>compatibility</em>",
-                "minus": "thiếu: ít điểm chung, khó giữ liên lạc lâu",
-            },
-            {
-                "en": "compatibility",
-                "vi": "sự hòa hợp",
-                "meaning": "Hợp nhau về tính cách, giá trị, nhịp sống — quan trọng hơn “thích lúc mới gặp”.",
-                "polarity": "tot",
-                "plus": "foundation whenever you want to <em>build a relationship</em>",
-                "minus": "thiếu: hay va chạm, khó <em>live in harmony</em>",
-            },
-            {
-                "en": "loyalty",
-                "vi": "lòng trung thành",
-                "meaning": "Đứng về phía bạn khi có chuyện, không “đâm sau lưng” hay bỏ rơi.",
-                "polarity": "tot",
-                "plus": "đứng bên bạn lúc khó · mình <em>attracted to</em> người này",
-                "minus": "thiếu: dễ bị <em>stab in the back</em> / bỏ rơi",
-            },
-            {
-                "en": "mutual respect",
-                "vi": "sự tôn trọng lẫn nhau",
-                "meaning": "Hai bên coi trọng ý kiến và ranh giới của nhau — không áp đặt.",
-                "polarity": "tot",
-                "plus": "dễ <em>live in harmony with somebody</em> · chấp nhận khác biệt",
-                "minus": "thiếu: không <em>appreciate differences</em>, dễ áp đặt",
-            },
-            {
-                "en": "honesty",
-                "vi": "sự trung thực",
-                "meaning": "Nói thật, không giấu chuyện lớn — phẩm chất TAK12 hay gắn với attracted to.",
-                "polarity": "tot",
-                "plus": "mình <em>attracted to</em> người thành thật, biết cư xử",
-                "minus": "thiếu: sinh nghi, khó có <em>mutual trust</em>",
-            },
-            {
-                "en": "kindness",
-                "vi": "sự tử tế",
-                "meaning": "Đối xử nhẹ nhàng, không làm người khác tổn thương — hay đi cặp honesty and kindness.",
-                "polarity": "tot",
-                "plus": "dễ gần, quan hệ ấm · hay dùng cho partner / friend",
-                "minus": "thiếu: quan hệ lạnh, người kia không muốn mở lòng",
-            },
-            {
-                "en": "empathy",
-                "vi": "sự đồng cảm",
-                "meaning": "Hiểu cảm xúc của người khác — phẩm chất đi cùng emotionally supportive.",
-                "polarity": "tot",
-                "plus": "lắng nghe đúng ý · củng cố <em>emotionally supportive</em>",
-                "minus": "thiếu: kể chuyện mà bị phán, không muốn tâm sự nữa",
-            },
-        ],
+        "en": "emotionally supportive",
+        "vi": "hỗ trợ về mặt cảm xúc",
+        "why": f'{_vmark("build a relationship")}',
     },
     {
-        "title": "Nếu thiếu thì xấu — dùng để contrast (without X, …)",
-        "rows": [
-            {
-                "en": "suspicion",
-                "vi": "sự nghi ngờ",
-                "meaning": "Đối của mutual trust — ECE: without trust, suspicion develops.",
-                "polarity": "xau",
-                "plus": "",
-                "minus": "Without <em>mutual trust</em>, suspicion develops — dùng khi nói partner / relationship",
-            },
-            {
-                "en": "a superficial connection",
-                "vi": "mối liên kết hời hợt",
-                "meaning": "Đối của long-lasting / meaningful — vui tạm, không có chiều sâu.",
-                "polarity": "xau",
-                "plus": "",
-                "minus": "Chỉ vui lúc gặp, không <em>meaningful</em> — contrast với bạn thân / gia đình",
-            },
-        ],
+        "en": "like-minded individuals",
+        "vi": "những người cùng chí hướng",
+        "why": f'{_vmark("strengthen our bond")}',
     },
     {
-        "title": "Khung / kết quả — lắp vào câu because",
-        "rows": [
-            {
-                "en": "attracted to",
-                "vi": "bị thu hút",
-                "meaning": "Thấy mình thích / muốn gần ai đó vì tính cách hoặc cách họ cư xử (TAK12).",
-                "polarity": "khung",
-                "plus": "I am <em>attracted to</em> people who + phẩm chất (honesty, loyalty…)",
-                "minus": "",
-            },
-            {
-                "en": "live in harmony with somebody",
-                "vi": "chung sống hòa hợp với ai",
-                "meaning": "Ở cùng / chơi cùng mà ít va chạm, biết nhường và tôn trọng nhau.",
-                "polarity": "ketqua",
-                "plus": "lợi ích khi có <em>loyalty</em> + <em>mutual respect</em>",
-                "minus": "thiếu tôn trọng → khó sống / chơi hòa hợp",
-            },
-            {
-                "en": "build a relationship",
-                "vi": "xây dựng mối quan hệ",
-                "meaning": "Bắt đầu và gây dựng tình bạn / tình cảm từ từ, không phải quen một lần là xong.",
-                "polarity": "ketqua",
-                "plus": "<em>compatibility</em> + <em>shared interests</em> là foundation để build",
-                "minus": "",
-            },
-            {
-                "en": "long-lasting / meaningful",
-                "vi": "bền vững / ý nghĩa",
-                "meaning": "Quan hệ kéo dài và có chiều sâu, không chỉ vui tạm thời.",
-                "polarity": "ketqua",
-                "plus": "nhờ <em>mutual trust</em> · đối lập <em>a superficial connection</em>",
-                "minus": "",
-            },
-            {
-                "en": "childhood friend",
-                "vi": "bạn thời thơ ấu",
-                "meaning": "Bạn quen từ nhỏ; thường có kỷ niệm chung nên dễ lifelong friendship.",
-                "polarity": "loai",
-                "plus": "chọn làm “kind of friend” · kỷ niệm chung → lifelong",
-                "minus": "nếu mất liên lạc: vẫn có thể lấy làm ví dụ “still close today”",
-            },
-        ],
+        "en": "compatibility",
+        "vi": "sự hòa hợp",
+        "why": f'foundation to {_vmark("build a relationship")}',
+    },
+    {
+        "en": "shared interests",
+        "vi": "sở thích chung",
+        "why": f'foundation to {_vmark("build a relationship")}',
+    },
+    {
+        "en": "loyalty",
+        "vi": "lòng trung thành",
+        "why": f'{_vmark("live in harmony with somebody")}',
+    },
+    {
+        "en": "mutual respect",
+        "vi": "sự tôn trọng lẫn nhau",
+        "why": f'{_vmark("live in harmony with somebody")}',
+    },
+    {
+        "en": "mutual trust",
+        "vi": "sự tin tưởng lẫn nhau",
+        "why": f'{_vmark("long-lasting / meaningful")}',
+    },
+    {
+        "en": "honesty",
+        "vi": "sự trung thực",
+        "why": f'{_vmark("attracted to")} honest people',
+    },
+    {
+        "en": "kindness",
+        "vi": "sự tử tế",
+        "why": f'{_vmark("live in harmony with somebody")}',
+    },
+    {
+        "en": "empathy",
+        "vi": "sự đồng cảm",
+        "why": f'{_vmark("strengthen our bond")}',
+    },
+    {
+        "en": "childhood friend",
+        "vi": "bạn thời thơ ấu",
+        "why": f'still close today · {_vmark("mutual trust")}',
+    },
+    {
+        "en": "attracted to",
+        "vi": "bị thu hút",
+        "why": f'{_vmark("loyalty")} and {_vmark("mutual respect")}',
     },
 ]
 
@@ -945,284 +821,268 @@ def lesson3_examples_html() -> str:
 def lesson5_examples_html() -> str:
     items = []
     t1 = (
-        "Well, I love all kinds of friends, but if I had to choose one, I would opt for "
-        "{kind_friend}. This is because I think {kind_why}."
+        "Well, I love all kinds of friends, but if I had to choose one, it would have to be "
+        "{kind_friend}. This is because I think {kind_why}. For example, my childhood friend "
+        "is still close to me today because mutual trust is essential if you want to develop "
+        "a long-lasting and meaningful connection."
     )
     items.append({
         "q": "What kind of people do you like to have as friends? (TAK12)",
         "think": [
             {
                 "title": "Chọn 1–2 phẩm chất",
-                "en": "<mark>emotionally supportive</mark> friends "
-                      "(có thể kèm <mark>like-minded individuals</mark>)",
-                "vi": "People → friend: chọn phẩm chất, không kể hết đoạn nhớ",
+                "en": f'{_vmark("emotionally supportive")} và {_vmark("like-minded individuals")}',
             },
             {
-                "title": "Lý do · tốt",
-                "en": "<mark>compatibility</mark> + <mark>shared interests</mark> "
-                      "are the foundation to <mark>build a relationship</mark> "
-                      "· hoặc <mark>strengthen our bond</mark> / đồng hành lúc khó",
-                "vi": "Ráp câu 2 của đoạn nhớ — không cần lý do mới",
+                "title": "Lý do",
+                "en": f'{_vmark("strengthen our bond")} và are the foundation to {_vmark("build a relationship")}',
             },
             {
-                "title": "Ví dụ (optional)",
-                "en": "a friend who listens when I am under pressure at work",
-                "vi": "1 cảnh cụ thể là đủ — không kể cả đời",
+                "title": "Ví dụ",
+                "en": f'{_vmark("childhood friend")} is still close to me today. This is because '
+                      f'{_vmark("mutual trust")} is essential if you want to develop a '
+                      f'{_vmark("long-lasting / meaningful")} connection.',
             },
         ],
         "html": t1.format(kind_friend=phrase_pick("kind_friend", 0), kind_why=phrase_pick("kind_why", 0)),
-        "vi": "Tôi thích mọi kiểu bạn, nhưng nếu phải chọn thì bạn hỗ trợ cảm xúc. Vì sự hòa hợp và sở thích chung là nền tảng mỗi khi muốn xây mối quan hệ.",
-        "plain": "Well, I love all kinds of friends, but if I had to choose one, I would opt for emotionally supportive friends. This is because I think compatibility and shared interests are the foundation whenever you want to build a relationship.",
+        "vi": "Tôi thích mọi kiểu bạn, nhưng nếu phải chọn thì người hỗ trợ cảm xúc và cùng chí hướng. Vì sự hòa hợp và sở thích chung là nền tảng để xây mối quan hệ. Ví dụ, bạn thời thơ ấu đến nay vẫn thân vì tin tưởng lẫn nhau then chốt cho mối liên kết bền.",
+        "plain": "Well, I love all kinds of friends, but if I had to choose one, it would have to be emotionally supportive and like-minded individuals. This is because I think compatibility and shared interests are the foundation whenever you want to build a relationship. For example, my childhood friend is still close to me today because mutual trust is essential if you want to develop a long-lasting and meaningful connection.",
         "ex": t1,
         "notes": [
-            {"en": "if I had to choose… I would opt for", "vi": "nếu phải chọn… tôi sẽ chọn"},
-            {"en": "emotionally supportive", "vi": "hỗ trợ về cảm xúc (DOL)"},
-            {"en": "compatibility · shared interests", "vi": "hòa hợp · sở thích chung — ráp từ đoạn nhớ"},
+            {"en": "if I had to choose… it would have to be", "vi": "nếu phải chọn… thì sẽ là"},
+            {"en": "emotionally supportive", "vi": "hỗ trợ về cảm xúc"},
+            {"en": "like-minded individuals", "vi": "người cùng chí hướng"},
+            {"en": "build a relationship", "vi": "xây dựng mối quan hệ"},
         ],
     })
     t2 = (
-        "For me, the most important qualities are {kind_quality}. "
-        "Without mutual trust, suspicion develops; without respect, we cannot appreciate differences."
+        "Well, I look for all kinds of qualities, but if I had to choose, I would go for "
+        "{kind_quality}. This is because mutual respect makes it much easier to live in "
+        "harmony with somebody. For example, without mutual trust, suspicion develops."
     )
     items.append({
         "q": "What qualities do you look for in a romantic partner? (ZIM / Mc / ECE)",
         "think": [
             {
                 "title": "Chọn 1–2 phẩm chất",
-                "en": "<mark>honesty</mark> and <mark>kindness</mark> "
-                      "(cùng kho với friends — chỉ đổi X = partner)",
-                "vi": "Friend → partner: giữ phẩm chất, đổi đối tượng",
+                "en": f'{_vmark("honesty")} và {_vmark("kindness")}',
             },
             {
-                "title": "Tốt / xấu",
-                "en": "+ <mark>mutual respect</mark> → <mark>live in harmony</mark> "
-                      "· − without <mark>mutual trust</mark>, <mark>suspicion</mark> develops",
-                "vi": "Cột Tốt/Xấu trên bảng vocab: có thì hòa hợp, thiếu thì sinh nghi",
+                "title": "Lý do",
+                "en": f'{_vmark("mutual respect")} · {_vmark("live in harmony with somebody")}',
             },
             {
-                "title": "Ví dụ (optional)",
-                "en": "someone I can talk to after a long day, without being judged",
-                "vi": "1 việc cụ thể chứng minh kindness / trust",
+                "title": "Ví dụ",
+                "en": f'without {_vmark("mutual trust")}, suspicion develops',
             },
         ],
         "html": t2.format(kind_quality=phrase_pick("kind_quality", 0)),
-        "vi": "Với tôi phẩm chất quan trọng nhất là trung thực và tử tế. Không có tin tưởng thì sinh nghi; không tôn trọng thì không chấp nhận khác biệt (ECE).",
-        "plain": "For me, the most important qualities are honesty and kindness. Without mutual trust, suspicion develops; without respect, we cannot appreciate differences.",
+        "vi": "Tôi tìm nhiều phẩm chất, nhưng nếu phải chọn thì trung thực và tử tế. Vì tôn trọng lẫn nhau giúp sống hòa hợp. Ví dụ, không có tin tưởng thì sinh nghi.",
+        "plain": "Well, I look for all kinds of qualities, but if I had to choose, I would go for honesty and kindness. This is because mutual respect makes it much easier to live in harmony with somebody. For example, without mutual trust, suspicion develops.",
         "ex": t2,
         "notes": [
             {"en": "honesty · kindness", "vi": "trung thực · tử tế"},
+            {"en": "live in harmony with somebody", "vi": "chung sống hòa hợp"},
             {"en": "mutual trust", "vi": "sự tin tưởng lẫn nhau"},
-            {"en": "suspicion develops", "vi": "sinh nghi — mặt xấu nếu thiếu trust"},
         ],
     })
     t3 = (
         "Well, I love all kinds of family activities, but if I had to choose one, "
-        "it would have to be {kind_family_act}. This is because it {kind_reason}."
+        "it would have to be {kind_family_act}. This is because it {kind_reason}. "
+        "For example, we catch up on each other's lives and it helps us strengthen our bond."
     )
     items.append({
         "q": "What kind of family activities do you like most?",
         "think": [
             {
-                "title": "Chọn 1 loại (không phải phẩm chất người)",
-                "en": "<mark>having dinner together</mark> — cùng máy Lesson 5, X = activity",
-                "vi": "Loại gì? → 1 hoạt động, không kể mọi thứ gia đình làm",
+                "title": "Chọn 1–2 phẩm chất / loại",
+                "en": f'{_vmark("having dinner together")}',
             },
             {
-                "title": "Lý do · tốt",
-                "en": "<mark>gives me a real sense of belonging</mark> "
-                      "· <mark>catch up on each other's lives</mark>",
-                "vi": "Lợi ích lấy từ kho Family, cùng cột Lý do",
+                "title": "Lý do",
+                "en": f'{_vmark("sense of belonging")} và {_vmark("strengthen our bond")}',
             },
             {
-                "title": "Ví dụ (optional)",
-                "en": "Sunday dinner with my parents after a busy week",
-                "vi": "1 cảnh là đủ cho Part 1",
+                "title": "Ví dụ",
+                "en": "we catch up on each other's lives",
             },
         ],
         "html": t3.format(kind_family_act=phrase_pick("kind_family_act", 0), kind_reason=phrase_pick("kind_reason", 1)),
-        "vi": "Tôi thích mọi hoạt động gia đình, nhưng nếu phải chọn thì ăn tối cùng nhau vì mang lại cảm giác thuộc về.",
-        "plain": "Well, I love all kinds of family activities, but if I had to choose one, it would have to be having dinner together. This is because it gives me a real sense of belonging.",
+        "vi": "Tôi thích mọi hoạt động gia đình, nhưng nếu phải chọn thì ăn tối cùng nhau vì mang lại cảm giác thuộc về. Ví dụ, chúng tôi kể cho nhau nghe ngày hôm đó và gắn kết hơn.",
+        "plain": "Well, I love all kinds of family activities, but if I had to choose one, it would have to be having dinner together. This is because it gives me a real sense of belonging. For example, we catch up on each other's lives and it helps us strengthen our bond.",
         "ex": t3,
         "notes": [
             {"en": "it would have to be", "vi": "thì sẽ phải là"},
             {"en": "sense of belonging", "vi": "cảm giác thuộc về"},
+            {"en": "strengthen our bond", "vi": "gắn kết hơn"},
         ],
     })
     t4 = (
-        "I like {kind_friend} most because we share so many shared interests. "
-        "I try to stay connected even when we live in different cities."
+        "Well, I love all kinds of friends, but if I had to choose one, it would have to be "
+        "{kind_friend}. This is because I think {kind_why}. For example, my childhood friend "
+        "is still close to me today because mutual trust is essential if you want to develop "
+        "a long-lasting and meaningful connection."
     )
     items.append({
         "q": "What kind of friends do you like most?",
         "think": [
             {
-                "title": "Chọn 1–2 phẩm chất / loại",
-                "en": "<mark>childhood friends</mark> "
-                      "hoặc <mark>emotionally supportive</mark> + <mark>like-minded individuals</mark>",
-                "vi": "Câu trùng đoạn nhớ — vẫn chỉ chọn 1–2, không đọc nguyên đoạn",
+                "title": "Chọn 1–2 phẩm chất",
+                "en": f'{_vmark("emotionally supportive")} và {_vmark("like-minded individuals")}',
             },
             {
-                "title": "Lý do · tốt",
-                "en": "<mark>shared interests</mark> → dễ bond · "
-                      "kỷ niệm chung → lifelong / <mark>long-lasting</mark>",
-                "vi": "Vì sao chọn loại đó — lấy từ bảng vocab",
+                "title": "Lý do",
+                "en": f'{_vmark("compatibility")} và {_vmark("shared interests")} are the foundation to {_vmark("build a relationship")}',
             },
             {
-                "title": "Ví dụ (optional)",
-                "en": "I try to stay connected even when we live in different cities",
-                "vi": "1 thói quen cụ thể = ví dụ",
+                "title": "Ví dụ",
+                "en": f'{_vmark("childhood friend")} is still close to me today because {_vmark("mutual trust")} is essential for a {_vmark("long-lasting / meaningful")} connection.',
             },
         ],
-        "html": t4.format(kind_friend=phrase_pick("kind_friend", 2)),
-        "vi": "Tôi thích bạn thời thơ ấu nhất vì có nhiều sở thích chung. Tôi cố giữ liên lạc dù ở khác thành phố.",
-        "plain": "I like childhood friends most because we share so many shared interests. I try to stay connected even when we live in different cities.",
+        "html": t4.format(kind_friend=phrase_pick("kind_friend", 0), kind_why=phrase_pick("kind_why", 0)),
+        "vi": "Tôi thích mọi kiểu bạn, nhưng nếu phải chọn thì người hỗ trợ cảm xúc và cùng chí hướng. Vì sự hòa hợp và sở thích chung là nền tảng để xây mối quan hệ. Ví dụ, bạn thời thơ ấu đến nay vẫn thân vì tin tưởng lẫn nhau.",
+        "plain": "Well, I love all kinds of friends, but if I had to choose one, it would have to be emotionally supportive and like-minded individuals. This is because I think compatibility and shared interests are the foundation whenever you want to build a relationship. For example, my childhood friend is still close to me today because mutual trust is essential if you want to develop a long-lasting and meaningful connection.",
         "ex": t4,
         "notes": [
-            {"en": "try to + V", "vi": "cố gắng làm gì"},
-            {"en": "like-minded individuals", "vi": "người cùng chí hướng (DOL)"},
+            {"en": "emotionally supportive", "vi": "hỗ trợ về cảm xúc"},
+            {"en": "like-minded individuals", "vi": "người cùng chí hướng"},
             {"en": "childhood friend", "vi": "bạn thời thơ ấu"},
         ],
     })
     t5 = (
-        "Trust, respect and communication. I would go for {kind_quality} "
-        "because that lays the groundwork for a long-term relationship."
+        "If I had to choose, I would go for {kind_quality}. This is because that lays "
+        "the groundwork whenever you want to build a relationship. For example, without "
+        "mutual trust, suspicion develops, so a long-lasting and meaningful connection is hard to keep."
     )
     items.append({
         "q": "What qualities are important in a good relationship? (ECE / TAK12)",
         "think": [
             {
                 "title": "Chọn 1–2 phẩm chất",
-                "en": "<mark>mutual trust</mark> and <mark>mutual respect</mark>",
-                "vi": "Câu hỏi “qualities” = bước 1 của bảng tư duy",
+                "en": f'{_vmark("mutual trust")} và {_vmark("mutual respect")}',
             },
             {
-                "title": "Lý do · tốt",
-                "en": "lays the groundwork for a <mark>long-lasting / meaningful</mark> relationship",
-                "vi": "Trust = nền; kết quả = durable connection",
+                "title": "Lý do",
+                "en": f'lay the groundwork to {_vmark("build a relationship")} · {_vmark("long-lasting / meaningful")}',
             },
             {
-                "title": "Tốt / xấu (optional)",
-                "en": "− without trust, <mark>suspicion</mark> develops · "
-                      "without respect, we cannot appreciate differences",
-                "vi": "Contrast 1 câu nếu còn hơi",
+                "title": "Ví dụ",
+                "en": f'without {_vmark("mutual trust")}, suspicion develops',
             },
         ],
         "html": t5.format(kind_quality=phrase_pick("kind_quality", 1)),
-        "vi": "Tin tưởng, tôn trọng và giao tiếp. Tôi sẽ chọn tin tưởng lẫn nhau vì đó đặt nền cho mối quan hệ lâu dài.",
-        "plain": "Trust, respect and communication. I would go for mutual trust and respect because that lays the groundwork for a long-term relationship.",
+        "vi": "Nếu phải chọn, tôi chọn tin tưởng và tôn trọng lẫn nhau. Vì đó đặt nền để xây mối quan hệ. Ví dụ, không tin tưởng thì sinh nghi, khó giữ mối liên kết bền.",
+        "plain": "If I had to choose, I would go for mutual trust and respect. This is because that lays the groundwork whenever you want to build a relationship. For example, without mutual trust, suspicion develops, so a long-lasting and meaningful connection is hard to keep.",
         "ex": t5,
         "notes": [
             {"en": "lay the groundwork for", "vi": "đặt nền tảng cho"},
-            {"en": "long-term relationship", "vi": "mối quan hệ lâu dài"},
+            {"en": "build a relationship", "vi": "xây dựng mối quan hệ"},
+            {"en": "long-lasting / meaningful", "vi": "bền vững / ý nghĩa"},
         ],
     })
     t6 = (
         "Well, I get on with all kinds of relatives, but if I had to choose one, "
-        "I would opt for my {family_type}. People even say we are {family_idiom}."
+        "I would opt for my {family_type}. This is because we live in harmony with each other "
+        "and it gives me a real sense of belonging. For example, we still have dinner together "
+        "most evenings — people even say we are {family_idiom}."
     )
     items.append({
         "q": "What kind of family do you come from?",
         "think": [
             {
-                "title": "Chọn 1 loại",
-                "en": "<mark>close-knit family</mark> — X = family type, không phải friend quality",
-                "vi": "Cùng khung soft choose, đổi linh kiện",
+                "title": "Chọn 1–2 phẩm chất / loại",
+                "en": f'{_vmark("close-knit family")}',
             },
             {
-                "title": "Lý do · tốt",
-                "en": "we <mark>get along</mark> · like two peas in a pod · "
-                      "thường <mark>have dinner together</mark>",
-                "vi": "Lợi ích / đặc điểm của loại gia đình đó",
+                "title": "Lý do",
+                "en": f'{_vmark("live in harmony with somebody")} và {_vmark("sense of belonging")}',
             },
             {
-                "title": "Ví dụ (optional)",
-                "en": "we still sit down for dinner most weeknights",
-                "vi": "1 thói quen nhà = ví dụ",
+                "title": "Ví dụ",
+                "en": f'we still have dinner together · {_vmark("like two peas in a pod")}',
             },
         ],
         "html": t6.format(family_type=phrase_pick("family_type", 0), family_idiom=phrase_pick("family_idiom", 1)),
-        "vi": "Tôi hòa hợp với mọi họ hàng, nhưng nếu phải chọn thì gia đình gắn bó. Người ta còn nói chúng tôi giống nhau như đúc.",
-        "plain": "Well, I get on with all kinds of relatives, but if I had to choose one, I would opt for my close-knit family. People even say we are like two peas in a pod.",
+        "vi": "Tôi hòa hợp với mọi họ hàng, nhưng nếu phải chọn thì gia đình gắn bó. Vì chúng tôi sống hòa hợp và có cảm giác thuộc về. Ví dụ, tối nào cũng ăn cùng nhau — người ta còn nói giống nhau như đúc.",
+        "plain": "Well, I get on with all kinds of relatives, but if I had to choose one, I would opt for my close-knit family. This is because we live in harmony with each other and it gives me a real sense of belonging. For example, we still have dinner together most evenings — people even say we are like two peas in a pod.",
         "ex": t6,
-        "notes": [{"en": "like two peas in a pod", "vi": "giống nhau như đúc"}],
+        "notes": [
+            {"en": "close-knit family", "vi": "gia đình gắn bó"},
+            {"en": "live in harmony with somebody", "vi": "chung sống hòa hợp"},
+            {"en": "like two peas in a pod", "vi": "giống nhau như đúc"},
+        ],
     })
     t7 = (
-        "I find myself attracted to {attracted_to}. "
-        "Loyalty and mutual respect matter more to me than a huge social circle."
+        "I find myself attracted to {attracted_to}. This is because it makes it much easier "
+        "to live in harmony with somebody. For example, my childhood friend is still close "
+        "to me today because mutual trust is essential if you want to develop a long-lasting "
+        "and meaningful connection."
     )
     items.append({
         "q": "What kind of people do you like to have as friends? (TAK12 · attracted to)",
         "think": [
             {
-                "title": "Chọn phẩm chất",
-                "en": "<mark>honesty</mark> · <mark>loyalty</mark> · <mark>mutual respect</mark>",
-                "vi": "Cùng câu friends, cửa vào khác: attracted to + phẩm chất",
+                "title": "Chọn 1–2 phẩm chất",
+                "en": f'{_vmark("honesty")} · {_vmark("loyalty")} và {_vmark("mutual respect")}',
             },
             {
-                "title": "Khung + lý do",
-                "en": "I am <mark>attracted to</mark> people who… "
-                      "→ dễ <mark>live in harmony</mark> · hơn một huge social circle",
-                "vi": "Khung TAK12 + kết quả từ đoạn nhớ",
+                "title": "Lý do",
+                "en": f'{_vmark("attracted to")} · {_vmark("live in harmony with somebody")}',
             },
             {
-                "title": "Tốt / xấu",
-                "en": "+ companion you can trust · − acquaintances only = <mark>superficial</mark>",
-                "vi": "Đối chiếu bạn đồng hành vs người quen",
+                "title": "Ví dụ",
+                "en": f'{_vmark("childhood friend")} is still close to me today because {_vmark("mutual trust")} is essential for a {_vmark("long-lasting / meaningful")} connection.',
             },
         ],
         "html": t7.format(attracted_to=phrase_pick("attracted_to", 0)),
-        "vi": "Tôi thấy mình bị thu hút bởi người thành thật và biết cư xử. Lòng trung thành và tôn trọng lẫn nhau quan trọng hơn một vòng tròn xã hội rộng.",
-        "plain": "I find myself attracted to people who are honest and who know how to behave with others. Loyalty and mutual respect matter more to me than a huge social circle.",
+        "vi": "Tôi bị thu hút bởi người thành thật và biết cư xử. Vì như thế dễ sống hòa hợp. Ví dụ, bạn thời thơ ấu đến nay vẫn thân vì tin tưởng lẫn nhau then chốt cho mối liên kết bền.",
+        "plain": "I find myself attracted to people who are honest and who know how to behave with others. This is because it makes it much easier to live in harmony with somebody. For example, my childhood friend is still close to me today because mutual trust is essential if you want to develop a long-lasting and meaningful connection.",
         "ex": t7,
         "notes": [
             {"en": "attracted to", "vi": "bị thu hút (TAK12)"},
-            {"en": "live in harmony with somebody", "vi": "chung sống hòa hợp"},
-            {"en": "loyalty · mutual respect", "vi": "trung thành · tôn trọng lẫn nhau (ECE)"},
+            {"en": "loyalty · mutual respect", "vi": "trung thành · tôn trọng lẫn nhau"},
+            {"en": "childhood friend", "vi": "bạn thời thơ ấu"},
         ],
     })
     t8 = (
-        "If I had to choose, I would go for {kind_quality}. "
-        "That helps me build a relationship that feels {relation_adj}, not just a short friendship."
+        "If I had to choose, I would go for {kind_quality}. This is because that helps me "
+        "build a relationship that feels {relation_adj}. For example, my childhood friend "
+        "is still close to me today because mutual trust is essential for a long-lasting "
+        "and meaningful connection."
     )
     items.append({
         "q": "What kind of relationship do you value most?",
         "think": [
             {
                 "title": "Chọn 1–2 phẩm chất",
-                "en": "<mark>loyalty</mark> and <mark>mutual respect</mark>",
-                "vi": "Relationship = cùng kho phẩm chất với friends / partner",
+                "en": f'{_vmark("loyalty")} và {_vmark("mutual respect")}',
             },
             {
-                "title": "Lý do · kết quả tốt",
-                "en": "helps me <mark>build a relationship</mark> that feels "
-                      "<mark>long-lasting / meaningful</mark>",
-                "vi": "Lắp cụm kết quả từ đoạn nhớ",
+                "title": "Lý do",
+                "en": f'{_vmark("build a relationship")} that feels {_vmark("long-lasting / meaningful")}',
             },
             {
-                "title": "Tốt / xấu (optional)",
-                "en": "not just a short friendship / not a <mark>superficial connection</mark>",
-                "vi": "Một nhịp contrast là đủ",
+                "title": "Ví dụ",
+                "en": f'{_vmark("childhood friend")} is still close to me today because {_vmark("mutual trust")} is essential.',
             },
         ],
         "html": t8.format(kind_quality=phrase_pick("kind_quality", 4), relation_adj=phrase_pick("relation_adj", 1)),
-        "vi": "Nếu phải chọn, tôi chọn lòng trung thành và tôn trọng lẫn nhau. Điều đó giúp xây mối quan hệ ý nghĩa, bền vững — không chỉ tình bạn ngắn.",
-        "plain": "If I had to choose, I would go for loyalty and mutual respect. That helps me build a relationship that feels meaningful and long-lasting, not just a short friendship.",
+        "vi": "Nếu phải chọn, tôi chọn lòng trung thành và tôn trọng lẫn nhau. Vì điều đó giúp xây mối quan hệ bền vững, ý nghĩa. Ví dụ, bạn thời thơ ấu đến nay vẫn thân vì tin tưởng lẫn nhau.",
+        "plain": "If I had to choose, I would go for loyalty and mutual respect. This is because that helps me build a relationship that feels meaningful and long-lasting. For example, my childhood friend is still close to me today because mutual trust is essential for a long-lasting and meaningful connection.",
         "ex": t8,
         "notes": [
-            {"en": "build a relationship", "vi": "xây dựng mối quan hệ (ECE)"},
+            {"en": "build a relationship", "vi": "xây dựng mối quan hệ"},
             {"en": "long-lasting · meaningful", "vi": "bền vững · ý nghĩa"},
+            {"en": "mutual trust", "vi": "sự tin tưởng lẫn nhau"},
         ],
     })
     return _sample_cards(
         items,
         box_id="pf-examples-l5",
         subtitle="Ví dụ People & Family · What kind of X?",
-        hint="Tư duy 3 bước từ <strong>đoạn văn nhớ</strong>: "
-             "<strong>1</strong> chọn 1–2 phẩm chất / loại · "
-             "<strong>2</strong> lợi ích (tốt) hoặc nếu thiếu thì xấu · "
-             "<strong>3</strong> một ví dụ. "
-             "Cùng một kho cụm, đổi X = friends / partner / family / activities. "
-             "Dropdown = thử ráp khác — không thuộc nguyên đoạn.",
+        hint="3 bước từ đoạn văn nhớ: <strong>1</strong> chọn 1–2 phẩm chất · "
+             "<strong>2</strong> lý do · <strong>3</strong> ví dụ. "
+             "Cùng kho cụm, đổi X = friends / partner / family / activities.",
     )
 
 

@@ -131,6 +131,7 @@ WORD_SLOTS: dict[str, list[dict]] = {
     ],
     # Lesson 5
     "kind_friend": [
+        _opt("emotionally supportive and like-minded individuals", "hỗ trợ cảm xúc và cùng chí hướng"),
         _opt("emotionally supportive friends", "bạn hỗ trợ về cảm xúc"),
         _opt("like-minded individuals", "người cùng chí hướng"),
         _opt("childhood friends", "bạn thời thơ ấu"),
