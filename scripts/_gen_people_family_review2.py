@@ -90,23 +90,28 @@ def vocab_notes_html(items: list[tuple[str, str, str]]) -> str:
           </div>"""
 
 
+def _vocab_gloss(en: str, vi: str, meaning: str) -> str:
+    """Same gloss as other lessons: term (VI): explanation — purple highlight on the term."""
+    return (
+        f'<mark class="vocab">{esc(en)}</mark> '
+        f'<em>({esc(vi)})</em>: {esc(meaning)}'
+    )
+
+
 def vocab_think_notes_html(rows: list[dict]) -> str:
-    """Lesson 5 vocab: 2 columns — phẩm chất → lý do. Purple highlight on new chunks."""
+    """Lesson 5 vocab: same gloss as other lessons, laid out in 2 columns."""
     body_rows = []
     for row in rows:
         body_rows.append(
             f"""                <tr>
-                  <td>
-                    <mark class="vocab">{esc(row["en"])}</mark>
-                    <em>({esc(row["vi"])})</em>
-                  </td>
-                  <td>{row["why"]}</td>
+                  <td>{_vocab_gloss(row["en"], row["vi"], row["meaning"])}</td>
+                  <td>{_vocab_gloss(row["why_en"], row["why_vi"], row["why_meaning"])}</td>
                 </tr>"""
         )
     return f"""
           <div class="lr-grammar-notes lr-vocab-notes lr-vocab-think">
             <h4 class="lr-grammar-notes-title">Vocab notes</h4>
-            <p class="lr-vocab-notes-hint">Chọn <strong>1–2 phẩm chất</strong> → lấy <strong>lý do</strong> bên phải để nói <em>because</em>. Ráp cụm từ đoạn văn nhớ.</p>
+            <p class="lr-vocab-notes-hint">Từ / cụm mới dùng trong lesson này — đọc nghĩa rồi lắp vào <em>because</em>. Trái = <strong>phẩm chất</strong> · Phải = <strong>lý do</strong>.</p>
             <div class="lr-vocab-think-wrap">
               <table class="lr-vocab-think-table">
                 <thead>
@@ -179,62 +184,98 @@ VOCAB_L5 = [
     {
         "en": "emotionally supportive",
         "vi": "hỗ trợ về mặt cảm xúc",
-        "why": f'{_vmark("build a relationship")}',
+        "meaning": "Bạn / người thân biết lắng nghe và đứng về phía bạn khi bạn gặp chuyện khó.",
+        "why_en": "build a relationship",
+        "why_vi": "xây dựng mối quan hệ",
+        "why_meaning": "Bắt đầu và gây dựng tình bạn / tình cảm từ từ, không phải quen một lần là xong.",
     },
     {
         "en": "like-minded individuals",
         "vi": "những người cùng chí hướng",
-        "why": f'{_vmark("strengthen our bond")}',
+        "meaning": "Người cùng gu, cùng giá trị — dễ bond vì có shared interests.",
+        "why_en": "strengthen our bond",
+        "why_vi": "củng cố sự gắn kết",
+        "why_meaning": "Làm cho tình bạn / gia đình chặt hơn nhờ trải nghiệm chung, không chỉ vui lúc gặp.",
     },
     {
         "en": "compatibility",
         "vi": "sự hòa hợp",
-        "why": f'foundation to {_vmark("build a relationship")}',
+        "meaning": "Hợp nhau về tính cách, giá trị, nhịp sống — quan trọng hơn “thích lúc mới gặp”.",
+        "why_en": "build a relationship",
+        "why_vi": "xây dựng mối quan hệ",
+        "why_meaning": "Bắt đầu và gây dựng tình bạn / tình cảm từ từ, không phải quen một lần là xong.",
     },
     {
         "en": "shared interests",
         "vi": "sở thích chung",
-        "why": f'foundation to {_vmark("build a relationship")}',
+        "meaning": "Điểm chung (phim, thể thao, nấu ăn…) giúp hai người nhanh thân.",
+        "why_en": "build a relationship",
+        "why_vi": "xây dựng mối quan hệ",
+        "why_meaning": "Bắt đầu và gây dựng tình bạn / tình cảm từ từ, không phải quen một lần là xong.",
     },
     {
         "en": "loyalty",
         "vi": "lòng trung thành",
-        "why": f'{_vmark("live in harmony with somebody")}',
+        "meaning": "Đứng về phía bạn khi có chuyện, không “đâm sau lưng” hay bỏ rơi.",
+        "why_en": "live in harmony with somebody",
+        "why_vi": "chung sống hòa hợp với ai",
+        "why_meaning": "Ở cùng / chơi cùng mà ít va chạm, biết nhường và tôn trọng nhau.",
     },
     {
         "en": "mutual respect",
         "vi": "sự tôn trọng lẫn nhau",
-        "why": f'{_vmark("live in harmony with somebody")}',
+        "meaning": "Hai bên coi trọng ý kiến và ranh giới của nhau — không áp đặt.",
+        "why_en": "live in harmony with somebody",
+        "why_vi": "chung sống hòa hợp với ai",
+        "why_meaning": "Ở cùng / chơi cùng mà ít va chạm, biết nhường và tôn trọng nhau.",
     },
     {
         "en": "mutual trust",
         "vi": "sự tin tưởng lẫn nhau",
-        "why": f'{_vmark("long-lasting / meaningful")}',
+        "meaning": "Hai bên đều tin nhau; thiếu cái này thì dễ sinh nghi.",
+        "why_en": "long-lasting / meaningful",
+        "why_vi": "bền vững / ý nghĩa",
+        "why_meaning": "Quan hệ kéo dài và có chiều sâu, không chỉ vui tạm thời.",
     },
     {
         "en": "honesty",
         "vi": "sự trung thực",
-        "why": f'{_vmark("attracted to")} honest people',
+        "meaning": "Nói thật, không giấu chuyện lớn — phẩm chất TAK12 hay gắn với attracted to.",
+        "why_en": "attracted to",
+        "why_vi": "bị thu hút",
+        "why_meaning": "Thấy mình thích / muốn gần ai đó vì tính cách hoặc cách họ cư xử (TAK12).",
     },
     {
         "en": "kindness",
         "vi": "sự tử tế",
-        "why": f'{_vmark("live in harmony with somebody")}',
+        "meaning": "Đối xử nhẹ nhàng, không làm người khác tổn thương — hay đi cặp honesty and kindness.",
+        "why_en": "live in harmony with somebody",
+        "why_vi": "chung sống hòa hợp với ai",
+        "why_meaning": "Ở cùng / chơi cùng mà ít va chạm, biết nhường và tôn trọng nhau.",
     },
     {
         "en": "empathy",
         "vi": "sự đồng cảm",
-        "why": f'{_vmark("strengthen our bond")}',
+        "meaning": "Hiểu cảm xúc của người khác — phẩm chất đi cùng emotionally supportive.",
+        "why_en": "strengthen our bond",
+        "why_vi": "củng cố sự gắn kết",
+        "why_meaning": "Làm cho tình bạn / gia đình chặt hơn nhờ trải nghiệm chung, không chỉ vui lúc gặp.",
     },
     {
         "en": "childhood friend",
         "vi": "bạn thời thơ ấu",
-        "why": f'still close today · {_vmark("mutual trust")}',
+        "meaning": "Bạn quen từ nhỏ; thường có kỷ niệm chung nên dễ lifelong friendship.",
+        "why_en": "mutual trust",
+        "why_vi": "sự tin tưởng lẫn nhau",
+        "why_meaning": "Hai bên đều tin nhau; thiếu cái này thì dễ sinh nghi.",
     },
     {
         "en": "attracted to",
         "vi": "bị thu hút",
-        "why": f'{_vmark("loyalty")} and {_vmark("mutual respect")}',
+        "meaning": "Thấy mình thích / muốn gần ai đó vì tính cách hoặc cách họ cư xử (TAK12).",
+        "why_en": "loyalty",
+        "why_vi": "lòng trung thành",
+        "why_meaning": "Đứng về phía bạn khi có chuyện, không “đâm sau lưng” hay bỏ rơi.",
     },
 ]
 

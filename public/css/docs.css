@@ -5854,8 +5854,11 @@ mark.lr-hl,
 .lr-vocab-think-table td {
   padding: 10px 14px;
   text-align: left;
-  vertical-align: middle;
+  vertical-align: top;
   border-bottom: 1px solid rgba(167, 139, 250, 0.16);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: rgba(226, 232, 240, 0.92);
 }
 
 .lr-vocab-think-table thead th {
@@ -5880,8 +5883,7 @@ mark.lr-hl,
   background: rgba(167, 139, 250, 0.06);
 }
 
-.lr-vocab-think-table td:first-child em {
-  margin-left: 6px;
+.lr-vocab-think-table td em {
   color: #c4b5fd;
   font-style: normal;
   font-weight: 550;
