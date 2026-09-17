@@ -91,9 +91,9 @@ def vocab_notes_html(items: list[tuple[str, str, str]]) -> str:
 
 
 def _vocab_gloss(en: str, vi: str, meaning: str) -> str:
-    """Same gloss as other lessons: term (VI): explanation — purple highlight on the term."""
+    """Same gloss as other lessons: term (VI): explanation — bold purple, no box."""
     return (
-        f'<mark class="vocab">{esc(en)}</mark> '
+        f'<strong>{esc(en)}</strong> '
         f'<em>({esc(vi)})</em>: {esc(meaning)}'
     )
 
@@ -129,7 +129,7 @@ def vocab_think_notes_html(rows: list[dict]) -> str:
 
 
 def _vmark(text: str) -> str:
-    return f'<mark class="vocab">{esc(text)}</mark>'
+    return f"<strong>{esc(text)}</strong>"
 
 
 def _think_steps_html(steps: list[dict]) -> str:
