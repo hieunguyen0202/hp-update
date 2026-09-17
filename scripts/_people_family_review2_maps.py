@@ -203,6 +203,28 @@ WORD_SLOTS: dict[str, list[dict]] = {
         _opt("lets us catch up on each other's lives", "để chúng tôi cập nhật cuộc sống của nhau"),
         _opt("lays the groundwork for a lifelong friendship", "đặt nền cho tình bạn bền lâu"),
     ],
+    "kind_why": [
+        _opt(
+            "compatibility and shared interests are the foundation whenever you want to build a relationship",
+            "sự hòa hợp và sở thích chung là nền tảng để xây mối quan hệ",
+        ),
+        _opt(
+            "that kind of friend helps us strengthen our bond",
+            "loại bạn đó giúp gắn kết hơn",
+        ),
+        _opt(
+            "they stand by you when times are hard",
+            "họ đứng bên bạn lúc khó khăn",
+        ),
+        _opt(
+            "mutual trust is essential for a long-lasting and meaningful connection",
+            "tin tưởng lẫn nhau then chốt cho mối liên kết bền",
+        ),
+        _opt(
+            "it makes it much easier to live in harmony with somebody",
+            "dễ chung sống hòa hợp hơn",
+        ),
+    ],
     # Lesson 6
     "prefer_x": [
         _opt("spending time with my family", "dành thời gian với gia đình"),
