@@ -1150,6 +1150,228 @@ VOCAB_EXAMPLES: dict[str, dict[str, list[tuple[str, str]]]] = {
             ),
         ],
     },
+    "7": {
+        "depends on": [
+            (
+                "What the most popular food is depends on the region, age group, and personal preferences.",
+                "Món ăn nào phổ biến nhất còn tùy thuộc vào vùng miền, nhóm tuổi và sở thích cá nhân.",
+            ),
+            (
+                "Whether I cook at home or dine out depends on how much free time I have after work.",
+                "Việc tôi nấu ăn ở nhà hay đi ăn ngoài tùy thuộc vào việc tôi có bao nhiêu thời gian rảnh sau giờ làm.",
+            ),
+            (
+                "Choosing a restaurant for special occasions depends on our budget and who we are dining with.",
+                "Việc chọn nhà hàng cho các dịp đặc biệt tùy thuộc vào ngân sách của chúng ta và chúng ta đi ăn cùng ai.",
+            ),
+            (
+                "Whether a dish poses a health risk depends on the portion size and how often you consume it.",
+                "Việc một món ăn có gây rủi ro sức khỏe hay không tùy thuộc vào kích cỡ khẩu phần và tần suất bạn tiêu thụ nó.",
+            ),
+            (
+                "Finding an authentic local speciality depends on knowing the right hidden spots in the city.",
+                "Việc tìm được một món đặc sản địa phương chính gốc tùy thuộc vào việc biết được các địa điểm ẩn mình phù hợp trong thành phố.",
+            ),
+        ],
+        "local speciality": [
+            (
+                "Every region in Vietnam has its own local speciality that reflects its unique culture.",
+                "Mỗi vùng miền ở Việt Nam đều có một món đặc sản địa phương riêng phản ánh nền văn hóa độc đáo của nơi đó.",
+            ),
+            (
+                "When traveling to Hue, tasting their famous local speciality is an absolute must-do.",
+                "Khi du lịch đến Huế, nếm thử món đặc sản địa phương nổi tiếng của họ là điều tuyệt đối phải làm.",
+            ),
+            (
+                "Foreign visitors always look forward to trying the local speciality during their culinary experience.",
+                "Du khách nước ngoài luôn mong chờ được thử món đặc sản địa phương trong suốt trải nghiệm ẩm thực của họ.",
+            ),
+            (
+                "Instead of eating fast food, I prefer hunting down a genuine local speciality on the street.",
+                "Thay vì ăn đồ ăn nhanh, tôi thích săn lùng một món đặc sản địa phương chính hiệu trên phố hơn.",
+            ),
+            (
+                "A well-prepared local speciality carries the traditional flavors and secrets of generations.",
+                "Một món đặc sản địa phương được chuẩn bị kỹ lưỡng mang theo hương vị truyền thống và bí quyết của nhiều thế hệ.",
+            ),
+        ],
+        "well-seasoned": [
+            (
+                "I love Vietnamese soups because they are always well-seasoned with a harmonious blend of spices.",
+                "Tôi rất thích các món canh Việt Nam vì chúng luôn được nêm đậm vị với sự kết hợp hài hòa của các loại gia vị.",
+            ),
+            (
+                "A well-seasoned bowl of phở can instantly whet your appetite on a rainy day.",
+                "Một tô phở được nêm nếm vừa vặn có thể ngay lập tức kích thích vị giác của bạn vào một ngày mưa.",
+            ),
+            (
+                "Cooking from scratch allows you to ensure your food is well-seasoned to your personal taste.",
+                "Việc tự nấu ăn từ đầu giúp bạn đảm bảo món ăn của mình được nêm đậm vị theo đúng khẩu vị cá nhân.",
+            ),
+            (
+                "The grilled chicken was well-seasoned with aromatic spices, making it bursting with flavor.",
+                "Món gà nướng được nêm nếm đậm đà với các loại gia vị thơm nồng, khiến nó ngập tràn hương vị.",
+            ),
+            (
+                "If a dish is not well-seasoned, it can taste quite bland and disappointing.",
+                "Nếu một món ăn không được nêm nếm vừa miệng, nó có thể có vị khá nhạt nhẽo và gây thất vọng.",
+            ),
+        ],
+        "cultural diversity": [
+            (
+                "Vietnam's rich cultural diversity is clearly reflected in its wide variety of traditional cuisine.",
+                "Sự đa dạng văn hóa phong phú của Việt Nam được thể hiện rõ nét qua sự đa dạng của các món ăn truyền thống.",
+            ),
+            (
+                "Exploring the cultural diversity through food is the main reason why many foodies travel to Asia.",
+                "Khám phá sự đa dạng văn hóa thông qua ẩm thực là lý do chính khiến nhiều tín đồ ẩm thực du lịch đến châu Á.",
+            ),
+            (
+                "The cultural diversity of the city brings together authentic local specialities from every province.",
+                "Sự đa dạng văn hóa của thành phố quy tụ những món đặc sản địa phương chính gốc từ mọi tỉnh thành.",
+            ),
+            (
+                "Food festivals are a fantastic way to celebrate the cultural diversity of different communities.",
+                "Các lễ hội ẩm thực là một cách tuyệt vời để tôn vinh sự đa dạng văn hóa của các cộng đồng khác nhau.",
+            ),
+            (
+                "A nation's cultural diversity often influences how people experiment with spices and recipes.",
+                "Sự đa dạng văn hóa của một quốc gia thường ảnh hưởng đến cách mọi người thử nghiệm gia vị và công thức nấu ăn.",
+            ),
+        ],
+        "click with people from all walks of life": [
+            (
+                "A warm bowl of phở in the morning tends to click with people from all walks of life.",
+                "Một tô phở ấm nóng vào buổi sáng có xu hướng hợp khẩu vị với mọi tầng lớp người trong xã hội.",
+            ),
+            (
+                "Simple comfort food often manages to click with people from all walks of life because of its familiar taste.",
+                "Món ăn an ủi giản dị thường dễ dàng chiếm cảm tình của mọi tầng lớp người nhờ hương vị quen thuộc của nó.",
+            ),
+            (
+                "Street food in Vietnam easily clicks with people from all walks of life, from local workers to foreign tourists.",
+                "Đồ ăn đường phố ở Việt Nam dễ dàng chinh phục mọi tầng lớp xã hội, từ những người thợ địa phương cho đến du khách nước ngoài.",
+            ),
+            (
+                "Traditional music and cuisine are things that truly click with people from all walks of life.",
+                "Âm nhạc và ẩm thực truyền thống là những thứ thực sự gắn kết và phù hợp với mọi tầng lớp trong xã hội.",
+            ),
+            (
+                "A good cup of coffee in the morning is something that can click with people from all walks of life.",
+                "Một ly cà phê ngon vào buổi sáng là thứ có thể làm hài lòng tất cả mọi người từ mọi tầng lớp.",
+            ),
+        ],
+        "chow down": [
+            (
+                "After working out at the gym, I was so starving that I just wanted to chow down a hearty meal.",
+                "Sau khi tập gym, tôi đói lả người và chỉ muốn ăn ngấu nghiến một bữa ăn thịnh soạn.",
+            ),
+            (
+                "Instead of bolting your food down, take your time to enjoy when you chow down.",
+                "Thay vì nuốt chửng thức ăn, hãy dành thời gian thưởng thức khi bạn ăn uống thỏa thích nhé.",
+            ),
+            (
+                "When the delicious street food arrived, we couldn't wait to chow down.",
+                "Khi những món ăn đường phố ngon lành được dọn ra, chúng tôi đã không tài nào chờ được để ăn ngay.",
+            ),
+            (
+                "Teenagers often chow down large portions of food during their growth spurts.",
+                "Thanh thiếu niên thường ăn khẩu phần ăn rất lớn trong giai đoạn phát triển chiều cao của chúng.",
+            ),
+            (
+                "We grabbed a quick bite to eat and began to chow down before heading to class.",
+                "Chúng tôi tranh thủ ăn nhanh một chút và bắt đầu ăn ngấu nghiến trước khi đến lớp.",
+            ),
+        ],
+        "a hearty start (to the day)": [
+            (
+                "Eating a bowl of phở in the morning gives me a hearty start to the day.",
+                "Ăn một tô phở vào buổi sáng mang lại cho tôi một khởi đầu ngày mới đầy năng lượng và no đủ.",
+            ),
+            (
+                "A nutritious breakfast is essential if you want a hearty start to the day.",
+                "Một bữa sáng giàu dinh dưỡng là điều thiết yếu nếu bạn muốn có một khởi đầu ngày mới tràn đầy sức sống.",
+            ),
+            (
+                "Instead of skipping breakfast, I prefer a hearty start to the day with eggs and wholesome bread.",
+                "Thay vì bỏ bữa sáng, tôi thích một khởi đầu ngày mới no đủ với trứng và bánh mì lành mạnh.",
+            ),
+            (
+                "Manual workers usually need a hearty start to the day to maintain their physical strength.",
+                "Những công nhân lao động chân tay thường cần một bữa ăn đầu ngày thịnh soạn để duy trì thể lực.",
+            ),
+            (
+                "Enjoying traditional cuisine in the morning provides a hearty start to the day.",
+                "Thưởng thức ẩm thực truyền thống vào buổi sáng mang lại một khởi đầu ngày mới vô cùng trọn vẹn.",
+            ),
+        ],
+        "foreign cuisine / Japanese cuisine": [
+            (
+                "Nowadays, foreign cuisine like Italian pizza and Japanese sushi are becoming extremely popular in Vietnam.",
+                "Ngày nay, ẩm thực nước ngoài như pizza Ý và sushi Nhật Bản đang trở nên vô cùng phổ biến tại Việt Nam.",
+            ),
+            (
+                "Japanese cuisine is globally admired for its focus on elemental balance and harmony.",
+                "Ẩm thực Nhật Bản được ngưỡng mộ trên toàn cầu vì sự tập trung vào sự cân bằng và hài hòa nguyên tố.",
+            ),
+            (
+                "Whenever I want to spice things up, I love exploring foreign cuisine downtown.",
+                "Bất cứ khi nào tôi muốn đổi gió, tôi rất thích khám phá ẩm thực nước ngoài ở trung tâm thành phố.",
+            ),
+            (
+                "Japanese cuisine often emphasizes the original freshness of ingredients rather than heavy seasoning.",
+                "Ẩm thực Nhật Bản thường nhấn mạnh độ tươi nguyên bản của nguyên liệu hơn là việc nêm nếm quá nhiều gia vị.",
+            ),
+            (
+                "Exploring foreign cuisine is a great way to broaden your palate and step out of your comfort zone.",
+                "Khám phá ẩm thực nước ngoài là một cách tuyệt vời để mở rộng khẩu vị và bước ra khỏi vùng an toàn của bạn.",
+            ),
+        ],
+        "elemental balance and harmony": [
+            (
+                "Both Vietnamese and Japanese cooking philosophies heavily focus on elemental balance and harmony.",
+                "Cả triết lý nấu ăn của Việt Nam và Nhật Bản đều tập trung mạnh mẽ vào sự cân bằng và hài hòa nguyên tố.",
+            ),
+            (
+                "A great dish achieves elemental balance and harmony when no single spice overpowers the others.",
+                "Một món ăn tuyệt vời đạt được sự cân bằng và hài hòa khi không có một loại gia vị nào lấn át các vị khác.",
+            ),
+            (
+                "The secret to traditional Asian cuisine lies in maintaining this elemental balance and harmony.",
+                "Bí quyết của ẩm thực truyền thống châu Á nằm ở việc duy trì sự cân bằng và hài hòa nguyên tố này.",
+            ),
+            (
+                "By combining fresh herbs, vegetables, and lean protein, you can create elemental balance and harmony in your meal.",
+                "Bằng cách kết hợp rau thơm tươi, rau củ và protein nạc, bạn có thể tạo ra sự cân bằng và hài hòa trong bữa ăn của mình.",
+            ),
+            (
+                "The chef explained how elemental balance and harmony makes the dish both nutritious and wholesome.",
+                "Vị đầu bếp đã giải thích cách thức sự cân bằng và hài hòa giúp cho món ăn vừa bổ dưỡng lại vừa lành mạnh.",
+            ),
+        ],
+        "imprint in one's mind": [
+            (
+                "The unforgettable taste of authentic phở will forever imprint in one's mind after visiting Vietnam.",
+                "Hương vị khó quên của tô phở chính gốc sẽ mãi khắc sâu trong tâm trí sau khi ghé thăm Việt Nam.",
+            ),
+            (
+                "That wonderful culinary experience in Hanoi left a deep imprint in my mind.",
+                "Trải nghiệm ẩm thực tuyệt vời đó ở Hà Nội đã để lại dấu ấn sâu sắc khắc sâu trong tâm trí tôi.",
+            ),
+            (
+                "The aromatic spices and bold flavors of local street food easily imprint in tourist's minds.",
+                "Các loại gia vị thơm nồng và hương vị đậm đà của đồ ăn đường phố địa phương dễ dàng khắc sâu vào tâm trí du khách.",
+            ),
+            (
+                "A heartwarming home-cooked meal can imprint in a child's mind for a lifetime.",
+                "Một bữa cơm nhà ấm áp tình cảm có thể khắc sâu vào tâm trí đứa trẻ suốt cả cuộc đời.",
+            ),
+            (
+                "The beauty of traditional cuisine and its underlying meaning imprint in the minds of all foodies.",
+                "Vẻ đẹp của ẩm thực truyền thống và ý nghĩa ẩn giấu đằng sau nó khắc sâu vào tâm trí của tất cả những người mê ẩm thực.",
+            ),
+        ],
+    },
 }
 
 # Longest-first regexes to highlight Lesson vocab inside example sentences.
@@ -1216,6 +1438,20 @@ VOCAB_EXAMPLE_HIGHLIGHTS: dict[str, list[str]] = {
         r"treat(?:ed)? (?:my|her|him|your)self",
         r"(?:dine|dining|eating) out",
         r"special occasions?",
+    ],
+    "7": [
+        r"clicks? with people from all walks of life",
+        r"elemental balance and harmony",
+        r"(?:left a deep )?imprint in (?:one's mind|my mind|tourist'?s'? minds|a child's mind|the minds)",
+        r"a hearty start(?: to the day)?",
+        r"authentic local specialit(?:y|ies)",
+        r"Japanese cuisine",
+        r"foreign cuisine",
+        r"local specialit(?:y|ies)",
+        r"cultural diversity",
+        r"well-seasoned",
+        r"\bdepends on\b",
+        r"chow down",
     ],
 }
 
