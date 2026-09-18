@@ -684,6 +684,250 @@ VOCAB_EXAMPLES: dict[str, dict[str, list[tuple[str, str]]]] = {
             ),
         ],
     },
+    "5": {
+        "would have to be / go for / opt for": [
+            (
+                "If I had to choose a dish to eat for dinner, it would have to be a warm bowl of phở.",
+                "Nếu tôi phải chọn một món để ăn tối, đó chắc chắn sẽ phải là một tô phở ấm nóng.",
+            ),
+            (
+                "When looking at the menu, I usually go for something healthy and easy to digest.",
+                "Khi nhìn vào thực đơn, tôi thường chọn một món gì đó lành mạnh và dễ tiêu hóa.",
+            ),
+            (
+                "Instead of fast food, I would always opt for a home-cooked meal.",
+                "Thay vì đồ ăn nhanh, tôi sẽ luôn nghiêng về việc chọn một bữa cơm nhà tự nấu.",
+            ),
+            (
+                "If you ask me about my favorite dessert, it would have to be a creamy cheesecake.",
+                "Nếu bạn hỏi tôi về món tráng miệng yêu thích, câu trả lời sẽ phải là bánh cheesecake béo ngậy.",
+            ),
+            (
+                "Whenever I visit an Italian restaurant, I usually go for a classic plate of pasta.",
+                "Bất cứ khi nào tôi đến một nhà hàng Ý, tôi thường chọn một đĩa mì Ý truyền thống.",
+            ),
+        ],
+        "hearty": [
+            (
+                "After a long walk in the cold rain, a hearty bowl of beef stew was just what I needed.",
+                "Sau một quãng đường dài đi dưới cơn mưa lạnh, một tô thịt hầm thịnh soạn chính xác là thứ tôi cần.",
+            ),
+            (
+                "This restaurant is well-known for serving hearty portions that can easily satisfy any hungry customer.",
+                "Nhà hàng này nổi tiếng với việc phục vụ các phần ăn đầy đặn có thể dễ dàng làm hài lòng bất kỳ thực khách đói bụng nào.",
+            ),
+            (
+                "My grandmother loves preparing hearty meals for the whole family during winter.",
+                "Bà tôi rất thích chuẩn bị những bữa ăn thịnh soạn cho cả gia đình vào mùa đông.",
+            ),
+            (
+                "A hearty breakfast gives me enough energy to get through a busy working morning.",
+                "Một bữa sáng thịnh soạn cung cấp cho tôi đủ năng lượng để vượt qua buổi sáng làm việc bận rộn.",
+            ),
+            (
+                "We enjoyed a hearty plate of pasta before heading out for our night shift.",
+                "Chúng tôi đã thưởng thức một đĩa mì Ý đầy đặn trước khi xuất phát cho ca trực đêm.",
+            ),
+        ],
+        "bursting with flavor": [
+            (
+                "The Thai curry was absolutely amazing, completely bursting with flavor and aromatic spices.",
+                "Món cà ri Thái thực sự tuyệt vời, hoàn toàn tràn đầy hương vị và các loại gia vị thơm nồng.",
+            ),
+            (
+                "Street food in Vietnam is famous for being fresh, vibrant, and bursting with flavor.",
+                "Đồ ăn đường phố ở Việt Nam nổi tiếng vì sự tươi ngon, bắt mắt và tràn đầy hương vị.",
+            ),
+            (
+                "Even simple dishes can be bursting with flavor if you know how to combine herbs and spices properly.",
+                "Ngay cả những món ăn giản dị cũng có thể tràn đầy hương vị nếu bạn biết cách kết hợp rau thơm và gia vị đúng cách.",
+            ),
+            (
+                "I love eating traditional soups because every single spoonful is bursting with flavor.",
+                "Tôi rất thích ăn các món canh truyền thống vì từng muỗng nước dùng đều tràn ngập hương vị.",
+            ),
+            (
+                "The chef created a special sauce that was rich, spicy, and bursting with flavor.",
+                "Vị đầu bếp đã tạo ra một loại sốt đặc biệt vừa đậm đà, cay nồng lại vừa tràn đầy hương vị.",
+            ),
+        ],
+        "cooked from scratch / made from scratch": [
+            (
+                "Everything served at this restaurant is cooked from scratch, using only fresh local ingredients.",
+                "Mọi thứ được phục vụ tại nhà hàng này đều được nấu từ đầu bằng các nguyên liệu tươi ngon tại địa phương.",
+            ),
+            (
+                "I prefer eating bread made from scratch rather than buying packaged sliced bread from the supermarket.",
+                "Tôi thích ăn bánh mì tự làm từ nguyên liệu tươi hơn là mua bánh mì cắt lát đóng gói sẵn trong siêu thị.",
+            ),
+            (
+                "Cooking meals from scratch allows me to stay in control of what I consume.",
+                "Việc tự nấu ăn từ đầu giúp tôi kiểm soát được những gì mình tiêu thụ.",
+            ),
+            (
+                "Her secret to a delicious cake is that the dough is always prepared and baked from scratch.",
+                "Bí quyết tạo nên chiếc bánh ngon của cô ấy là phần bột luôn được chuẩn bị và nướng hoàn toàn thủ công từ đầu.",
+            ),
+            (
+                "Making soup from scratch takes more time, but the fresh taste is definitely worth it.",
+                "Nấu súp hoàn toàn từ nguyên liệu tươi mất nhiều thời gian hơn, nhưng hương vị tươi ngon chắc chắn rất đáng giá.",
+            ),
+        ],
+        "wholesome": [
+            (
+                "A wholesome diet consisting of vegetables, fruits, and lean protein is essential for a long life.",
+                "Một chế độ ăn uống lành mạnh bao gồm rau củ, trái cây và protein nạc là điều thiết yếu cho một cuộc sống lâu dài.",
+            ),
+            (
+                "Instead of eating processed snacks, I prefer a wholesome bowl of oatmeal for breakfast.",
+                "Thay vì ăn đồ ăn vặt chế biến sẵn, tôi thích một bát bột yến mạch bổ dưỡng cho bữa sáng.",
+            ),
+            (
+                "Home-cooked meals are usually much more wholesome than dining out at fast-food restaurants.",
+                "Các bữa cơm nhà thường lành mạnh và tốt cho sức khỏe hơn nhiều so với việc đi ăn ở các nhà hàng đồ ăn nhanh.",
+            ),
+            (
+                "She gave her children a wholesome snack made from fresh fruits and yogurt.",
+                "Cô ấy đã cho các con mình một món ăn vặt lành mạnh làm từ trái cây tươi và sữa chua.",
+            ),
+            (
+                "Eating wholesome food helps you avoid health risks linked to junk food.",
+                "Ăn những thực phẩm bổ dưỡng giúp bạn tránh được các rủi ro sức khỏe liên quan đến đồ ăn vặt.",
+            ),
+        ],
+        "hits the spot": [
+            (
+                "After working under the hot sun all day, an iced lemonade really hits the spot.",
+                "Sau khi làm việc dưới trời nắng gắt cả ngày, một ly nước chanh đá thực sự giải nhiệt và đúng ý ghê.",
+            ),
+            (
+                "When you are starving, a hot and spicy bowl of noodles just hits the spot.",
+                "Khi bạn đang đói lả người, một tô mì cay nóng hổi chính là món ăn giải tỏa cơn thèm tuyệt vời nhất.",
+            ),
+            (
+                "That mouth-watering slice of chocolate cheesecake totally hits the spot after a heavy meal.",
+                "Miếng bánh cheesecake sô-cô-la ngon tuyệt đó hoàn toàn làm tôi thỏa mãn sau một bữa ăn chính.",
+            ),
+            (
+                "A cup of hot green tea on a rainy afternoon always hits the spot.",
+                "Một tách trà xanh nóng vào buổi chiều mưa lúc nào cũng mang lại cảm giác dễ chịu tuyệt vời.",
+            ),
+            (
+                "I was craving something sweet, and this traditional dessert really hit the spot.",
+                "Tôi đang thèm một thứ gì đó ngọt ngào, và món tráng miệng truyền thống này đã giải quyết đúng cơn thèm đó.",
+            ),
+        ],
+        "nutritious": [
+            (
+                "Fish is widely known as a highly nutritious food that is great for brain development.",
+                "Cá được biết đến rộng rãi như một thực phẩm rất giàu dinh dưỡng, rất tốt cho sự phát triển của não bộ.",
+            ),
+            (
+                "Parents should ensure their children eat a balanced and nutritious diet every day.",
+                "Cha mẹ nên đảm bảo con cái họ ăn một chế độ ăn uống cân bằng và nhiều dinh dưỡng mỗi ngày.",
+            ),
+            (
+                "You don't need expensive ingredients to prepare a simple yet nutritious meal.",
+                "Bạn không cần những nguyên liệu đắt tiền để chuẩn bị một bữa ăn đơn giản nhưng vẫn giàu dinh dưỡng.",
+            ),
+            (
+                "Adding leafy greens to your soup makes the dish much more nutritious.",
+                "Việc cho thêm các loại rau lá xanh vào món canh sẽ giúp món ăn trở nên bổ dưỡng hơn rất nhiều.",
+            ),
+            (
+                "Fast food is cheap and convenient, but it is rarely nutritious.",
+                "Đồ ăn nhanh thì rẻ và tiện lợi, nhưng nó hiếm khi giàu dinh dưỡng.",
+            ),
+        ],
+        "aromatic": [
+            (
+                "The kitchen was filled with the aromatic scent of garlic, ginger, and fresh herbs.",
+                "Căn bếp ngập tràn mùi hương thơm ngát của tỏi, gừng và các loại rau thơm tươi.",
+            ),
+            (
+                "Aromatic spices play a crucial role in creating the unique identity of Asian cuisine.",
+                "Các loại gia vị thơm nồng đóng vai trò vô cùng quan trọng trong việc tạo nên bản sắc độc đáo của ẩm thực châu Á.",
+            ),
+            (
+                "I love waking up to the aromatic smell of freshly brewed coffee in the morning.",
+                "Tôi thích thức dậy với mùi thơm nức mũi của ly cà phê mới pha vào buổi sáng.",
+            ),
+            (
+                "The aromatic herbs added a wonderful layer of flavor to the grilled meat.",
+                "Các loại rau thơm ngát đã mang lại một tầng hương vị tuyệt vời cho món thịt nướng.",
+            ),
+            (
+                "Vietnamese phở is globally famous for its clear, aromatic broth.",
+                "Phở Việt Nam nổi tiếng toàn cầu nhờ phần nước dùng trong và thơm phức.",
+            ),
+        ],
+        "a culinary delight": [
+            (
+                "Tasting the authentic street food in Hanoi was an absolute culinary delight for me.",
+                "Thưởng thức món ăn đường phố chính gốc ở Hà Nội là một niềm vui ẩm thực tuyệt đối đối với tôi.",
+            ),
+            (
+                "The restaurant's signature seafood dish turned out to be a true culinary delight.",
+                "Món hải sản đặc trưng của nhà hàng hóa ra lại là một trải nghiệm ẩm thực thực sự đáng nhớ.",
+            ),
+            (
+                "For any foodie, exploring regional specialties in Vietnam is a constant culinary delight.",
+                "Đối với bất kỳ tín đồ ẩm thực nào, việc khám phá các đặc sản vùng miền ở Việt Nam mang lại niềm vui ẩm thực không dứt.",
+            ),
+            (
+                "Combining sweet and sour flavors skillfully can turn a basic meal into a culinary delight.",
+                "Việc kết hợp khéo léo giữa vị chua và ngọt có thể biến một bữa ăn cơ bản thành một niềm vui ẩm thực.",
+            ),
+            (
+                "That dinner party was packed with traditional dishes that offered a wonderful culinary delight.",
+                "Buổi tiệc tối đó ngập tràn các món ăn truyền thống mang lại trải nghiệm ẩm thực vô cùng tuyệt vời.",
+            ),
+        ],
+        "can't get enough of": [
+            (
+                "Since I have a sweet tooth, I simply can't get enough of creamy cheesecakes.",
+                "Vì tôi hảo ngọt, tôi thực sự không bao giờ chán các loại bánh cheesecake béo ngậy.",
+            ),
+            (
+                "The carbonara at that restaurant is so delicious that I just can't get enough of it.",
+                "Món mì carbonara ở nhà hàng đó ngon đến mức tôi ăn hoài không thấy chán.",
+            ),
+            (
+                "Once you try these crispy spring rolls with spicy fish sauce, you won't be able to get enough of them.",
+                "Một khi bạn đã thử món nem rán giòn rụm với nước mắm chua cay này, bạn sẽ cứ muốn ăn mãi không thôi.",
+            ),
+            (
+                "She loves bubble tea so much that she says she can't get enough of it every single week.",
+                "Cô ấy thích trà sữa đến mức nói rằng bản thân không bao giờ thấy chán món này dù uống mỗi tuần.",
+            ),
+            (
+                "The bold flavors of this traditional cuisine are something I simply can't get enough of.",
+                "Hương vị đậm đà của nền ẩm thực truyền thống này là thứ mà tôi mãi không chán.",
+            ),
+        ],
+        "get a craving for": [
+            (
+                "Whenever it rains heavily outside, I always get a craving for a hot bowl of spicy noodle soup.",
+                "Bất cứ khi nào trời mưa lớn bên ngoài, cơn thèm một tô mì cay nóng hổi lại trỗi dậy trong tôi.",
+            ),
+            (
+                "Seeing pictures of grilled chicken online instantly gave me a craving for midnight snacks.",
+                "Nhìn thấy hình ảnh gà nướng trên mạng ngay lập tức làm tôi thèm thuồng món ăn vặt đêm khuya.",
+            ),
+            (
+                "Pregnant women often get a craving for unusual food combinations late at night.",
+                "Phụ nữ mang thai thường đột nhiên rất thèm những sự kết hợp món ăn lạ lùng vào đêm muộn.",
+            ),
+            (
+                "I got a craving for something sweet, so I decided to bake a cake from scratch.",
+                "Tôi đột nhiên thèm một thứ gì đó ngọt ngào, thế nên tôi quyết định tự tay nướng một chiếc bánh.",
+            ),
+            (
+                "Watching food vlogs late at night usually gives me a strong craving for street food.",
+                "Xem các vlog ẩm thực vào đêm muộn thường khiến cơn thèm đồ ăn đường phố của tôi bùng lên dữ dội.",
+            ),
+        ],
+    },
 }
 
 # Longest-first regexes to highlight Lesson vocab inside example sentences.
@@ -718,6 +962,23 @@ VOCAB_EXAMPLE_HIGHLIGHTS: dict[str, list[str]] = {
         r"bold flavors",
         r"hardly ever",
         r"\bfoodie\b",
+    ],
+    "5": [
+        r"(?:cooked|made|cooking meals|prepared and baked|making soup|bake a cake) from scratch",
+        r"from scratch",
+        r"bursting with flavor",
+        r"(?:an? )?(?:absolute |true |constant |wonderful )?culinary delight",
+        r"(?:can(?:not|'t) |won'?t be able to )get enough of",
+        r"(?:(?:get|got) a |(?:gave|gives) me (?:a (?:strong )?)?)craving for",
+        r"would have to be",
+        r"hits the spot",
+        r"hit the spot",
+        r"\bopt for\b",
+        r"\bgo for\b",
+        r"\bnutritious\b",
+        r"\bwholesome\b",
+        r"\baromatic\b",
+        r"\bhearty\b",
     ],
 }
 
