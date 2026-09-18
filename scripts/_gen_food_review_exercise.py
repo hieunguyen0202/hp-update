@@ -11113,20 +11113,86 @@ def lesson_grammar_notes_html(title: str, skeleton_lines: list[str]) -> str:
           </div>"""
 
 
-def vocab_notes_html(items: list[tuple[str, str, str]]) -> str:
-    """Vocab notes after Grammar notes — term (VI): explanation."""
+def _highlight_vocab_in_example(text: str, patterns: list[re.Pattern[str]]) -> str:
+    """Wrap Lesson vocab chunks in example sentences (longest match, no overlap)."""
+    if not text or not patterns:
+        return esc(text)
+    found: list[tuple[int, int, str]] = []
+    for pat in patterns:
+        for m in pat.finditer(text):
+            found.append((m.start(), m.end(), m.group(0)))
+    found.sort(key=lambda t: (t[0], -(t[1] - t[0])))
+    kept: list[tuple[int, int, str]] = []
+    occupied: list[tuple[int, int]] = []
+    for start, end, frag in found:
+        if any(start < e and end > s for s, e in occupied):
+            continue
+        kept.append((start, end, frag))
+        occupied.append((start, end))
+    kept.sort(key=lambda t: t[0])
+    out: list[str] = []
+    i = 0
+    for start, end, frag in kept:
+        out.append(esc(text[i:start]))
+        out.append(f'<mark class="vocab">{esc(frag)}</mark>')
+        i = end
+    out.append(esc(text[i:]))
+    return "".join(out)
+
+
+def vocab_notes_html(
+    items: list[tuple[str, str, str]],
+    examples: dict[str, list[tuple[str, str]]] | None = None,
+    highlight_res: list[str] | None = None,
+) -> str:
+    """Vocab notes after Grammar notes — term (VI): explanation.
+
+    If examples is provided, each term gets an expand/collapse with example sentences.
+    """
     if not items:
         return ""
+    examples = examples or {}
+    patterns = [re.compile(p, re.I) for p in (highlight_res or [])]
     rows = []
     for en, vi, meaning in items:
-        rows.append(
-            f'<p class="lr-vocab-note"><strong>{esc(en)}</strong> '
-            f'<em>({esc(vi)})</em>: {esc(meaning)}</p>'
+        gloss = (
+            f'<span class="lr-vocab-note"><strong>{esc(en)}</strong> '
+            f'<em>({esc(vi)})</em>: {esc(meaning)}</span>'
         )
+        term_ex = examples.get(en) or []
+        if term_ex:
+            lis = []
+            for i, (en_ex, vi_ex) in enumerate(term_ex, 1):
+                highlighted = _highlight_vocab_in_example(en_ex, patterns)
+                lis.append(
+                    "<li>"
+                    f'<p class="lr-vocab-ex-en"><span class="lr-vocab-ex-n">Ví dụ {i}:</span> {highlighted}</p>'
+                    f'<p class="lr-vocab-ex-vi">({esc(vi_ex)})</p>'
+                    "</li>"
+                )
+            rows.append(
+                '<details class="lr-vocab-ex">'
+                '<summary>'
+                '<span class="lr-vocab-ex-toggle" aria-hidden="true"></span>'
+                f"{gloss}"
+                "</summary>"
+                f'<ol class="lr-vocab-ex-list">{"".join(lis)}</ol>'
+                "</details>"
+            )
+        else:
+            rows.append(
+                f'<p class="lr-vocab-note"><strong>{esc(en)}</strong> '
+                f'<em>({esc(vi)})</em>: {esc(meaning)}</p>'
+            )
+    hint = (
+        "Từ / cụm mới dùng trong lesson này — bấm icon để xem 5 câu ví dụ (từ mới được highlight)."
+        if examples
+        else "Từ / cụm mới dùng trong lesson này — đọc nghĩa rồi lắp vào dropdown."
+    )
     return f"""
           <div class="lr-grammar-notes lr-vocab-notes">
             <h4 class="lr-grammar-notes-title">Vocab notes</h4>
-            <p class="lr-vocab-notes-hint">Từ / cụm mới dùng trong lesson này — đọc nghĩa rồi lắp vào dropdown.</p>
+            <p class="lr-vocab-notes-hint">{hint}</p>
             <div class="lr-vocab-notes-list">
 {chr(10).join("              " + r for r in rows)}
             </div>
@@ -11485,7 +11551,16 @@ def lesson_highlights_html(
     examples_l15 = food_lesson15_examples_html() if include_food_examples else ""
     examples_l16 = food_lesson16_examples_html() if include_food_examples else ""
     examples_l17 = food_lesson17_examples_html() if include_food_examples else ""
-    vn = {n: vocab_notes_html(FOOD_VOCABS[n]) if include_memos else "" for n in FOOD_VOCABS}
+    vn = {
+        n: vocab_notes_html(
+            FOOD_VOCABS[n],
+            examples=_food_notes.VOCAB_EXAMPLES.get(n),
+            highlight_res=_food_notes.VOCAB_EXAMPLE_HIGHLIGHTS.get(n),
+        )
+        if include_memos
+        else ""
+        for n in FOOD_VOCABS
+    }
     mh = {n: memo_html_for(n) if include_memos else "" for n in FOOD_VOCABS}
     ms = {n: f"#lesson{n}-memo" if include_memos else "" for n in FOOD_VOCABS}
     lesson3_scroll = ""

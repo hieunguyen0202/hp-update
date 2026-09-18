@@ -172,6 +172,297 @@ VOCABS: dict[str, list[tuple[str, str, str]]] = {
     ],
 }
 
+# Expand/collapse example sentences keyed by VOCABS term (EN + VI).
+VOCAB_EXAMPLES: dict[str, dict[str, list[tuple[str, str]]]] = {
+    "2": {
+        "unwind / recharge my batteries": [
+            (
+                "After a long day at the office, I cook a simple meal to unwind and recharge my batteries.",
+                "Sau một ngày dài ở văn phòng, tôi nấu một bữa đơn giản để thư giãn và nạp lại năng lượng.",
+            ),
+            (
+                "Cooking is my favorite way to unwind after work because it takes my mind off emails and meetings.",
+                "Nấu ăn là cách thư giãn yêu thích của tôi sau giờ làm vì nó giúp tôi tạm quên đi email và các cuộc họp.",
+            ),
+            (
+                "Whenever I feel exhausted, a mouth-watering home-cooked dinner helps me recharge my batteries.",
+                "Bất cứ khi nào cảm thấy kiệt sức, một bữa tối nhà nấu ngon miệng giúp tôi nạp lại năng lượng.",
+            ),
+            (
+                "Some people go to the gym to unwind, but I prefer to experiment with spices and recipes in the kitchen.",
+                "Một số người đến phòng gym để thư giãn, nhưng tôi thích thử gia vị và công thức mới trong bếp hơn.",
+            ),
+            (
+                "I don't just cook to fill my stomach; I cook to unwind and recharge my batteries after a stressful week.",
+                "Tôi không chỉ nấu để no bụng; tôi nấu để thư giãn và nạp lại năng lượng sau một tuần căng thẳng.",
+            ),
+        ],
+        "have a sweet tooth": [
+            (
+                "Since I have a sweet tooth, I can never say no to a slice of chocolate cheesecake after dinner.",
+                "Vì tôi hảo ngọt nên tôi không bao giờ có thể từ chối một miếng bánh cheesecake sô-cô-la sau bữa tối.",
+            ),
+            (
+                "My sister has a sweet tooth, so her kitchen is always stocked with cookies, candies, and pastries.",
+                "Em gái tôi rất hảo ngọt, thế nên trong bếp của nó lúc nào cũng trữ sẵn bánh quy, kẹo và bánh ngọt.",
+            ),
+            (
+                "Even though he has a sweet tooth, he is trying to cut down on sugar for health reasons.",
+                "Mặc dù rất thích đồ ngọt, anh ấy đang cố gắng cắt giảm lượng đường vì lý do sức khỏe.",
+            ),
+            (
+                "If you have a sweet tooth, you are going to fall in love with the traditional desserts in this bakery.",
+                "Nếu bạn là một người hảo ngọt, bạn chắc chắn sẽ mê mẩn các món tráng miệng truyền thống ở tiệm bánh này.",
+            ),
+            (
+                "It's hard for me to stick to a healthy diet because I have a sweet tooth and a big weakness for ice cream.",
+                "Thật khó để tôi duy trì một chế độ ăn uống lành mạnh vì tôi rất thích đồ ngọt và cực kỳ mê kem.",
+            ),
+        ],
+        "mouth-watering": [
+            (
+                "The moment I walked into the kitchen, a mouth-watering aroma of grilled chicken filled the air.",
+                "Ngay khoảnh khắc tôi bước vào bếp, mùi thơm ngon nức mũi của gà nướng ngập tràn không gian.",
+            ),
+            (
+                "This bakery is famous for its mouth-watering cheesecakes that look too good to eat.",
+                "Tiệm bánh này nổi tiếng với những chiếc bánh cheesecake ngon đến chảy nước miếng, trông đẹp đến mức không nỡ ăn.",
+            ),
+            (
+                "Looking at these mouth-watering pictures on the food blog instantly made me feel hungry.",
+                "Nhìn vào những bức ảnh món ăn hấp dẫn trên blog ẩm thực đó ngay lập tức khiến tôi thấy đói bụng.",
+            ),
+            (
+                "The chef prepared a mouth-watering feast with traditional spices and fresh ingredients.",
+                "Vị đầu bếp đã chuẩn bị một bữa tiệc ngon miệng với các loại gia vị truyền thống và nguyên liệu tươi ngon.",
+            ),
+            (
+                "It's hard to resist such a mouth-watering dessert, especially when you have a sweet tooth.",
+                "Thật khó để cưỡng lại một món tráng miệng hấp dẫn như vậy, đặc biệt là khi bạn là một người hảo ngọt.",
+            ),
+        ],
+        "comfort food": [
+            (
+                "Whenever I feel stressed or exhausted after work, a bowl of hot noodle soup is my go-to comfort food.",
+                "Bất cứ khi nào tôi cảm thấy căng thẳng hoặc kiệt sức sau giờ làm việc, một tô mì nước nóng hổi chính là món ăn an ủi ruột của tôi.",
+            ),
+            (
+                "Comfort food doesn't have to be unhealthy; sometimes a simple home-cooked meal can make you feel completely relaxed.",
+                "Món ăn an ủi không nhất thiết phải không lành mạnh; đôi khi một bữa cơm nhà giản dị cũng có thể khiến bạn cảm thấy hoàn toàn thư giãn.",
+            ),
+            (
+                "After failing my driving test, my mother made a mouth-watering chocolate cake, which is my ultimate comfort food.",
+                "Sau khi trượt bài thi lái xe, mẹ tôi đã làm một chiếc bánh sô-cô-la ngon tuyệt, đó chính là món ăn giải tỏa tâm trạng tuyệt vời nhất của tôi.",
+            ),
+            (
+                "People often turn to high-calorie comfort food like pizza or ice cream when they are going through a tough time.",
+                "Mọi người thường tìm đến các món ăn an ủi nhiều calo như pizza hoặc kem khi họ đang trải qua giai đoạn khó khăn.",
+            ),
+            (
+                "Cooking my grandmother's traditional recipe always serves as a great comfort food that helps me unwind and recharge my batteries.",
+                "Nấu theo công thức truyền thống của bà tôi luôn mang lại cảm giác dễ chịu tuyệt vời, giúp tôi thư giãn và nạp lại năng lượng.",
+            ),
+        ],
+        "grab a bite to eat": [
+            (
+                "I was so busy with work this afternoon that I only had time to grab a bite to eat at a nearby bakery.",
+                "Chiều nay tôi bận công việc đến mức chỉ có thời gian ăn vội một chút ở tiệm bánh gần đó.",
+            ),
+            (
+                "Instead of sitting down for a heavy meal, let's just grab a bite to eat before heading to the cinema.",
+                "Thay vì ngồi ăn một bữa lớn, chúng ta hãy tranh thủ ăn nhanh cái gì đó trước khi ra rạp chiếu phim nhé.",
+            ),
+            (
+                "Because I overslept this morning, I didn't have time for breakfast and had to grab a bite to eat on my way to school.",
+                "Vì sáng nay ngủ nướng nên tôi không kịp ăn sáng và phải ăn vội một chút trên đường đến trường.",
+            ),
+            (
+                "Working long hours usually leaves me no choice but to grab a bite to eat at my desk instead of enjoying a proper meal.",
+                "Làm việc kéo dài giờ thường khiến tôi không còn lựa chọn nào khác ngoài việc ăn nhanh ngay tại bàn làm việc thay vì thưởng thức một bữa ăn tử tế.",
+            ),
+            (
+                "Whenever I got the munchies late at night, I prefer to grab a bite to eat like a piece of fruit rather than cooking a full meal.",
+                "Bất cứ khi nào tôi thèm ăn vặt vào đêm khuya, tôi thích ăn nhanh một chút gì đó như một trái cây hơn là nấu một bữa ăn thịnh soạn.",
+            ),
+        ],
+        "got the munchies": [
+            (
+                "Whenever I stay up late studying for exams, I always get the munchies and look for some snacks in the kitchen.",
+                "Bất cứ khi nào tôi thức khuya ôn thi, tôi luôn thình lình thèm ăn vặt và tìm kiếm chút đồ ăn nhẹ trong bếp.",
+            ),
+            (
+                "Instead of bolting something down when you get the munchies, try to choose healthier options like fruits or nuts.",
+                "Thay vì nuốt chửng đồ ăn một cách vội vã lúc thèm ăn vặt, hãy cố gắng chọn các lựa chọn lành mạnh hơn như trái cây hoặc các loại hạt.",
+            ),
+            (
+                "Watching food videos online is dangerous because it instantly makes me get the munchies even though I've just eaten.",
+                "Xem video nấu ăn trên mạng rất nguy hiểm vì nó ngay lập tức làm tôi thèm ăn vặt dù tôi vừa mới ăn xong.",
+            ),
+            (
+                "Because I have a sweet tooth, I often get the munchies for something sugary in the middle of the afternoon.",
+                "Vì tôi là một người hảo ngọt, tôi thường thèm ăn vặt một món gì đó có đường vào giữa buổi chiều.",
+            ),
+            (
+                "To avoid getting the munchies while working, I always keep a bottle of water and some healthy snacks on my desk.",
+                "Để tránh việc thèm ăn vặt trong lúc làm việc, tôi luôn để sẵn một chai nước và vài món ăn nhẹ lành mạnh trên bàn làm việc của mình.",
+            ),
+        ],
+        "to bolt something down": [
+            (
+                "Because I was running late for work this morning, I had to bolt down my breakfast in less than five minutes.",
+                "Vì sáng nay đi làm muộn, tôi đành phải nuốt chửng bữa sáng của mình trong chưa đầy năm phút.",
+            ),
+            (
+                "Eating too fast or bolting something down can easily lead to stomachaches and digestive issues.",
+                "Việc ăn quá nhanh hoặc nuốt chửng thức ăn có thể dễ dàng dẫn đến đau dạ dày và các vấn đề tiêu hóa.",
+            ),
+            (
+                "Instead of bolting down your food, you should chew slowly to truly appreciate the flavors of a home-cooked meal.",
+                "Thay vì ăn vội vàng nuốt chửng, bạn nên nhai chậm để thực sự cảm nhận được hương vị của bữa cơm nhà.",
+            ),
+            (
+                "He was so absorbed in his video game that he just bolted down his dinner without even tasting it.",
+                "Cậu ấy mải chơi trò chơi điện tử đến mức cứ thế nuốt chửng bữa tối mà chẳng thèm nếm vị của nó ra sao.",
+            ),
+            (
+                "When you get the munchies late at night, try not to bolt down snacks; instead, eat mindfully to stay healthy.",
+                "Khi bạn thèm ăn vặt vào đêm khuya, cố gắng đừng ăn vội nuốt chửng; thay vào đó, hãy ăn một cách có ý thức để giữ gìn sức khỏe.",
+            ),
+        ],
+        "eat like a horse": [
+            (
+                "After working out at the gym for two hours, I was so starving that I could eat like a horse.",
+                "Sau khi tập gym suốt hai tiếng, tôi đói cồn cào đến mức có thể ăn một lượng thức ăn khổng lồ.",
+            ),
+            (
+                "Teenagers often eat like a horse during their growth spurts because their bodies need a lot of energy.",
+                "Thanh thiếu niên thường ăn rất nhiều trong giai đoạn phát triển chiều cao vì cơ thể chúng cần rất nhiều năng lượng.",
+            ),
+            (
+                "Although he eats like a horse, he manages to stay in shape by maintaining a strict exercise routine.",
+                "Mặc dù ăn rất nhiều, anh ấy vẫn giữ được vóc dáng cân đối nhờ duy trì lịch tập luyện nghiêm ngặt.",
+            ),
+            (
+                "Instead of following a healthy, balanced diet, some people just eat like a horse without caring about calories.",
+                "Thay vì theo đuổi một chế độ ăn uống lành mạnh và cân bằng, một số người chỉ biết ăn uống thỏa thích mà không quan tâm đến lượng calo.",
+            ),
+            (
+                "Whenever I visit my grandmother, she always makes sure I eat like a horse by serving endless dishes of comfort food.",
+                "Mỗi khi tôi đến thăm bà, bà luôn đảm bảo tôi ăn uống thật no nê bằng cách dọn ra vô số món ăn ngon lành.",
+            ),
+        ],
+        "pose a health risk": [
+            (
+                "Consuming too much fast food and sugary drinks can pose a health risk and lead to long-term chronic diseases.",
+                "Việc tiêu thụ quá nhiều đồ ăn nhanh và đồ uống có đường có thể gây rủi ro cho sức khỏe và dẫn đến các bệnh mãn tính lâu dài.",
+            ),
+            (
+                "Eating processed food on a daily basis definitely poses a health risk if you lack a balanced diet.",
+                "Việc ăn thực phẩm chế biến sẵn hàng ngày chắc chắn sẽ gây nguy hiểm cho sức khỏe nếu bạn thiếu một chế độ ăn uống cân bằng.",
+            ),
+            (
+                "Overeating and a sedentary lifestyle together pose a serious health risk for many modern office workers.",
+                "Việc ăn quá nhiều và lối sống ít vận động kết hợp lại gây ra rủi ro sức khỏe nghiêm trọng cho nhiều nhân viên văn phòng hiện đại.",
+            ),
+            (
+                "Instead of eating like a horse or bolting down unhealthy snacks, you should avoid habits that pose a health risk.",
+                "Thay vì ăn rất nhiều hay nuốt chửng những món ăn vặt không lành mạnh, bạn nên tránh những thói quen gây rủi ro cho sức khỏe.",
+            ),
+            (
+                "Cooking at home allows you to stay in control of what you consume and helps you avoid ingredients that pose a health risk.",
+                "Nấu ăn ở nhà giúp bạn kiểm soát được những gì mình tiêu thụ và giúp bạn tránh được các nguyên liệu gây nguy hiểm cho sức khỏe.",
+            ),
+        ],
+        "junk food / processed food": [
+            (
+                "I try to limit junk food during the week because it can make me feel sluggish the next morning.",
+                "Tôi cố hạn chế đồ ăn vặt trong tuần vì nó có thể khiến tôi uể oải vào sáng hôm sau.",
+            ),
+            (
+                "Processed food is convenient when I'm busy, but eating it every day can pose a health risk.",
+                "Thực phẩm chế biến sẵn rất tiện khi tôi bận, nhưng ăn hàng ngày có thể gây rủi ro sức khỏe.",
+            ),
+            (
+                "Instead of grabbing junk food when I get the munchies, I keep fruit at my desk.",
+                "Thay vì vớ đồ ăn vặt khi thèm, tôi để sẵn trái cây trên bàn.",
+            ),
+            (
+                "Cooking at home helps me stay in control of what I consume instead of relying on processed food.",
+                "Nấu ăn ở nhà giúp tôi kiểm soát những gì mình ăn thay vì phụ thuộc vào thực phẩm chế biến sẵn.",
+            ),
+            (
+                "Too much junk food and processed food can pose a health risk if you don't have a balanced diet.",
+                "Quá nhiều đồ ăn vặt và thực phẩm chế biến sẵn có thể gây rủi ro sức khỏe nếu bạn không có chế độ ăn cân bằng.",
+            ),
+        ],
+        "experiment with spices and recipes": [
+            (
+                "I love cooking after a hard-working day because it gives me the chance to experiment with spices and recipes to unwind.",
+                "Tôi thích nấu ăn sau một ngày làm việc chăm chỉ vì nó cho tôi cơ hội thử nghiệm các loại gia vị và công thức mới để thư giãn.",
+            ),
+            (
+                "Cooking at home is fantastic because you can freely experiment with spices and recipes without following strict rules.",
+                "Nấu ăn ở nhà thật tuyệt vời vì bạn có thể tự do thử nghiệm gia vị và công thức mà không phải tuân theo các quy tắc khắt khe.",
+            ),
+            (
+                "Whenever I have free time on the weekend, I enjoy watching food shows and trying to experiment with spices and recipes in my kitchen.",
+                "Bất cứ khi nào có thời gian rảnh vào cuối tuần, tôi thích xem các chương trình ẩm thực và cố gắng thử nghiệm gia vị cũng như công thức trong căn bếp của mình.",
+            ),
+            (
+                "Being creative in the kitchen by choosing to experiment with spices and recipes helps me stay in control of what I consume.",
+                "Sự sáng tạo trong gian bếp bằng việc lựa chọn thử nghiệm gia vị và công thức giúp tôi kiểm soát được những gì mình tiêu thụ.",
+            ),
+            (
+                "Instead of grabbing a quick bite to eat, preparing a homemade meal allows me to experiment with spices and recipes to make a mouth-watering dish.",
+                "Thay vì ăn vội một món gì đó, việc chuẩn bị một bữa ăn nhà làm cho phép tôi thử nghiệm gia vị và công thức để tạo ra một món ăn ngon kích thích vị giác.",
+            ),
+        ],
+        "stay in control of what I consume": [
+            (
+                "Cooking meals at home allows me to stay in control of what I consume, especially regarding the amount of oil, salt, and sugar.",
+                "Nấu ăn tại nhà cho phép tôi kiểm soát những gì mình tiêu thụ, đặc biệt là về lượng dầu, muối và đường.",
+            ),
+            (
+                "By choosing to prepare my own food instead of buying processed food, I can easily stay in control of what I consume and maintain a healthy lifestyle.",
+                "Bằng cách tự chuẩn bị đồ ăn thay vì mua thực phẩm chế biến sẵn, tôi có thể dễ dàng kiểm soát những gì mình ăn và duy trì lối sống lành mạnh.",
+            ),
+            (
+                "People who want to avoid the health risks of junk food should learn to cook so they can stay in control of what they consume.",
+                "Những ai muốn tránh rủi ro sức khỏe từ đồ ăn vặt nên học cách nấu nướng để có thể tự kiểm soát những gì mình nạp vào cơ thể.",
+            ),
+            (
+                "Being creative in the kitchen and experimenting with recipes helps me stay in control of what I consume while still enjoying delicious dishes.",
+                "Sự sáng tạo trong bếp và thử nghiệm các công thức giúp tôi kiểm soát được những gì mình ăn mà vẫn thưởng thức được những món ăn ngon.",
+            ),
+            (
+                "Instead of grabbing a quick bite to eat outside, cooking at home gives me the freshness I need and helps me stay in control of what I consume.",
+                "Thay vì ăn vội một món gì đó bên ngoài, nấu ăn ở nhà mang lại cho tôi độ tươi ngon cần thiết và giúp tôi kiểm soát những gì mình tiêu thụ.",
+            ),
+        ],
+    },
+}
+
+# Longest-first regexes to highlight Lesson vocab inside example sentences.
+VOCAB_EXAMPLE_HIGHLIGHTS: dict[str, list[str]] = {
+    "2": [
+        r"stay in control of what (?:I|they|you|we) consume",
+        r"unwind and recharge my batteries",
+        r"recharge my batteries",
+        r"experiment(?:ing)? with spices and recipes",
+        r"grab(?:bing)? a (?:quick )?bite to eat",
+        r"processed food",
+        r"junk food",
+        r"pose(?:s|d)? a(?: serious)? health risk",
+        r"bolt(?:s|ed|ing)?(?: something)? down",
+        r"ha(?:ve|s|ving) a sweet tooth",
+        r"eat(?:s|ing)? like a horse",
+        r"(?:get(?:s|ting)?|got) the munchies",
+        r"mouth-watering",
+        r"comfort food",
+        r"\bunwind\b",
+    ],
+}
+
 
 def _memo_join(fn, text: str) -> str:
     return fn(text)
