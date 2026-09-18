@@ -928,6 +928,228 @@ VOCAB_EXAMPLES: dict[str, dict[str, list[tuple[str, str]]]] = {
             ),
         ],
     },
+    "6": {
+        "lean towards": [
+            (
+                "Between ordering fast food and cooking at home, I usually lean towards preparing a healthy meal.",
+                "Giữa việc gọi đồ ăn nhanh và tự nấu ăn ở nhà, tôi thường nghiêng về việc tự chuẩn bị một bữa ăn lành mạnh hơn.",
+            ),
+            (
+                "When choosing between Italian or Vietnamese cuisine, she leans towards traditional phở.",
+                "Khi phải chọn giữa ẩm thực Ý hoặc Việt Nam, cô ấy nghiêng về món phở truyền thống hơn.",
+            ),
+            (
+                "If I have to pick a dessert, I lean towards something sweet and creamy like cheesecake.",
+                "Nếu tôi phải chọn một món tráng miệng, tôi nghiêng về món gì đó ngọt và béo ngậy như bánh cheesecake.",
+            ),
+            (
+                "Instead of dining out every weekend, I lean towards staying in and cooking from scratch.",
+                "Thay vì đi ăn ngoài vào mọi dịp cuối tuần, tôi nghiêng về việc ở nhà và tự nấu ăn từ đầu.",
+            ),
+            (
+                "Customers often lean towards dishes that are described as wholesome and nutritious.",
+                "Khách hàng thường nghiêng về những món ăn được mô tả là lành mạnh và giàu dinh dưỡng.",
+            ),
+        ],
+        "love the feeling of + V-ing": [
+            (
+                "I love the feeling of cooking at my own pace after a stressful working day.",
+                "Tôi thích cảm giác được tự nấu ăn theo nhịp độ riêng của mình sau một ngày làm việc căng thẳng.",
+            ),
+            (
+                "She loves the feeling of waking up to the aromatic smell of fresh coffee.",
+                "Cô ấy thích cảm giác thức dậy trong mùi thơm ngát của ly cà phê tươi.",
+            ),
+            (
+                "We love the feeling of gathering around a hearty meal with our family.",
+                "Chúng tôi thích cảm giác quây quần bên bữa ăn thịnh soạn cùng gia đình.",
+            ),
+            (
+                "I love the feeling of experimenting with new spices and recipes in my kitchen.",
+                "Tôi thích cảm giác thử nghiệm các loại gia vị và công thức mới trong căn bếp của mình.",
+            ),
+            (
+                "Foodies love the feeling of discovering an authentic local speciality.",
+                "Những người mê ẩm thực thích cảm giác khám phá ra một món đặc sản địa phương chính gốc.",
+            ),
+        ],
+        "dine out / eating out": [
+            (
+                "Although I prefer home-cooked food, I occasionally dine out with my friends on weekends.",
+                "Mặc dù tôi thích cơm nhà hơn, thỉnh thoảng tôi vẫn đi ăn ngoài với bạn bè vào cuối tuần.",
+            ),
+            (
+                "Eating out too often can be expensive and may pose a health risk if you don't choose wisely.",
+                "Việc ăn ngoài quá thường xuyên có thể tốn kém và gây rủi ro sức khỏe nếu bạn không lựa chọn khôn ngoan.",
+            ),
+            (
+                "We decided to dine out at a nice restaurant to celebrate our anniversary.",
+                "Chúng tôi quyết định đi ăn ngoài ở một nhà hàng đẹp để kỷ niệm ngày cưới.",
+            ),
+            (
+                "Instead of cooking after a long trip, we opted to dine out at a nearby local eatery.",
+                "Thay vì nấu ăn sau một chuyến đi dài, chúng tôi chọn đi ăn ngoài tại một quán ăn địa phương gần đó.",
+            ),
+            (
+                "Dining out gives you a wonderful culinary experience without having to clean up afterwards.",
+                "Việc ăn ngoài mang lại cho bạn một trải nghiệm ẩm thực tuyệt vời mà không phải dọn dẹp sau đó.",
+            ),
+        ],
+        "treat myself": [
+            (
+                "After finishing a massive project at work, I like to treat myself to a mouth-watering dessert.",
+                "Sau khi hoàn thành một dự án lớn tại công việc, tôi thích tự thưởng cho bản thân một món tráng miệng ngon đến chảy nước miếng.",
+            ),
+            (
+                "I treated myself to a luxurious dinner at a high-end restaurant last night.",
+                "Tôi đã tự thưởng cho mình một bữa tối sang trọng tại một nhà hàng cao cấp vào tối qua.",
+            ),
+            (
+                "Sometimes it's nice to treat myself with some comfort food after a tough week.",
+                "Đôi khi thật tuyệt khi được tự thưởng bản thân bằng một ít món ăn an ủi sau một tuần khó khăn.",
+            ),
+            (
+                "Instead of buying clothes, she prefers to treat herself by trying out new culinary delights.",
+                "Thay vì mua quần áo, cô ấy thích tự thưởng bằng cách trải nghiệm những niềm vui ẩm thực mới.",
+            ),
+            (
+                "I treated myself to an extra large slice of chocolate cheesecake because I got the munchies.",
+                "Tôi tự thưởng cho mình một miếng bánh cheesecake sô-cô-la ngoại cỡ vì cơn thèm ăn vặt trỗi dậy.",
+            ),
+        ],
+        "spice things up": [
+            (
+                "I like to spice things up by trying a new restaurant instead of cooking the same meals every week.",
+                "Tôi thích đổi gió bằng cách thử một nhà hàng mới thay vì nấu mãi những món cũ mỗi tuần.",
+            ),
+            (
+                "We decided to spice things up by visiting a completely new restaurant this weekend.",
+                "Chúng tôi quyết định đổi gió bằng cách ghé thăm một nhà hàng hoàn toàn mới vào cuối tuần này.",
+            ),
+            (
+                "Adding some aromatic spices to your regular soup can really spice things up.",
+                "Cho thêm một số gia vị thơm nồng vào món canh thường ngày thực sự có thể làm mọi thứ trở nên thú vị hơn.",
+            ),
+            (
+                "Instead of eating the same old dishes, let's spice things up with some exotic street food.",
+                "Thay vì ăn mãi những món quen thuộc, hãy đổi gió với một vài món ăn đường phố lạ miệng xem sao.",
+            ),
+            (
+                "Traveling to a foreign country is a great way to spice things up and broaden your palate.",
+                "Đi du lịch nước ngoài là một cách tuyệt vời để đổi gió và mở rộng khẩu vị của bạn.",
+            ),
+        ],
+        "stay in control": [
+            (
+                "Cooking meals at home helps me stay in control of the ingredients and calories I take in.",
+                "Nấu ăn tại nhà giúp tôi kiểm soát được các nguyên liệu và lượng calo nạp vào cơ thể.",
+            ),
+            (
+                "By planning our weekly menu, we can stay in control of our food budget.",
+                "Bằng cách lên kế hoạch thực đơn hàng tuần, chúng tôi có thể kiểm soát được ngân sách ăn uống của mình.",
+            ),
+            (
+                "Making food from scratch allows you to stay in control of what you consume.",
+                "Việc tự làm đồ ăn từ đầu cho phép bạn kiểm soát những gì mình tiêu thụ.",
+            ),
+            (
+                "It's important to stay in control of portion sizes so you don't end up eating like a horse.",
+                "Điều quan trọng là phải kiểm soát khẩu phần ăn để bạn không cuối cùng ăn quá nhiều.",
+            ),
+            (
+                "Even when eating out, you should try to stay in control by picking wholesome options.",
+                "Ngay cả khi đi ăn ngoài, bạn vẫn nên cố gắng kiểm soát bằng cách chọn các món lành mạnh.",
+            ),
+        ],
+        "make meals from scratch": [
+            (
+                "I usually make meals from scratch on Sundays because I have more free time.",
+                "Tôi thường nấu hoàn toàn từ nguyên liệu tươi vào các ngày Chủ nhật vì có nhiều thời gian rảnh hơn.",
+            ),
+            (
+                "Making meals from scratch is much healthier than relying on processed food.",
+                "Việc nấu ăn từ đầu hoàn toàn lành mạnh hơn nhiều so với việc phụ thuộc vào thực phẩm chế biến sẵn.",
+            ),
+            (
+                "She loves making meals from scratch because she can experiment with spices freely.",
+                "Cô ấy thích nấu ăn từ đầu vì có thể tự do thử nghiệm với các loại gia vị.",
+            ),
+            (
+                "The restaurant prides itself on making all its pasta dishes from scratch.",
+                "Nhà hàng tự hào về việc làm tất cả các món mì Ý hoàn toàn thủ công từ đầu.",
+            ),
+            (
+                "It takes effort to make meals from scratch, but the wholesome taste is worth it.",
+                "Sẽ mất công sức để nấu ăn từ đầu, nhưng hương vị lành mạnh rất xứng đáng.",
+            ),
+        ],
+        "special occasions": [
+            (
+                "We usually save dining out at expensive restaurants for special occasions.",
+                "Chúng tôi thường dành việc đi ăn ngoài ở các nhà hàng đắt tiền cho những dịp đặc biệt.",
+            ),
+            (
+                "Traditional cuisine plays a vital role during family gatherings and special occasions.",
+                "Ẩm thực truyền thống đóng vai trò quan trọng trong các buổi họp mặt gia đình và những dịp đặc biệt.",
+            ),
+            (
+                "Birthdays and anniversaries are perfect special occasions to treat myself to a culinary delight.",
+                "Sinh nhật và ngày kỷ niệm là những dịp đặc biệt hoàn hảo để tự thưởng cho bản thân một niềm vui ẩm thực.",
+            ),
+            (
+                "People tend to eat like a horse during festive holidays and special occasions.",
+                "Mọi người có xu hướng ăn rất nhiều trong các dịp lễ hội và những dịp đặc biệt.",
+            ),
+            (
+                "She prepared a hearty feast from scratch for this special occasion.",
+                "Cô ấy đã chuẩn bị một bữa tiệc thịnh soạn từ đầu cho dịp đặc biệt này.",
+            ),
+        ],
+        "quality justifies the bill": [
+            (
+                "Although the meal was quite expensive, the fresh ingredients and great taste proved that quality justifies the bill.",
+                "Mặc dù bữa ăn khá đắt đỏ, nguyên liệu tươi ngon và hương vị tuyệt vời đã chứng minh rằng chất lượng hoàn toàn xứng đáng với hóa đơn.",
+            ),
+            (
+                "When dining at a high-end restaurant, you don't mind paying more if quality justifies the bill.",
+                "Khi dùng bữa tại một nhà hàng cao cấp, bạn không ngại trả nhiều tiền hơn nếu chất lượng tương xứng với giá tiền.",
+            ),
+            (
+                "This cafe charges a bit more for its organic coffee, but quality justifies the bill.",
+                "Quán cà phê này tính phí cao hơn một chút cho cà phê hữu cơ, nhưng chất lượng rất xứng với giá tiền.",
+            ),
+            (
+                "I was hesitant to order the expensive seafood, but the amazing flavor showed that quality justifies the bill.",
+                "Tôi từng ngần ngại khi gọi món hải sản đắt tiền, nhưng hương vị tuyệt vời đã cho thấy chất lượng hoàn toàn xứng đáng.",
+            ),
+            (
+                "As long as quality justifies the bill, I am willing to treat myself there on special occasions.",
+                "Miễn là chất lượng xứng đáng với giá tiền, tôi sẵn sàng tự thưởng cho mình ở đó vào những dịp đặc biệt.",
+            ),
+        ],
+        "wine and dine": [
+            (
+                "Businessmen often wine and dine their partners at luxurious restaurants to close deals.",
+                "Các doanh nhân thường chiêu đãi đối tác những bữa ăn sang trọng tại các nhà hàng cao cấp để chốt hợp đồng.",
+            ),
+            (
+                "He wanted to wine and dine his girlfriend on their anniversary at an authentic Italian place.",
+                "Anh ấy muốn chiêu đãi bạn gái một bữa ăn thịnh soạn vào ngày kỷ niệm của họ tại một địa điểm đậm chất Ý.",
+            ),
+            (
+                "It's nice to be wined and dined once in a while after working extremely hard.",
+                "Thật tuyệt khi được chiêu đãi một bữa ăn sang trọng thỉnh thoảng sau khi làm việc cực kỳ vất vả.",
+            ),
+            (
+                "The hotel offers special packages to wine and dine guests with local specialties.",
+                "Khách sạn cung cấp các gói dịch vụ đặc biệt để chiêu đãi khách du lịch với các món đặc sản địa phương.",
+            ),
+            (
+                "Instead of cooking at home, they decided to wine and dine downtown to spice things up.",
+                "Thay vì nấu ăn ở nhà, họ quyết định đi ăn uống sang trọng ở trung tâm thành phố để đổi gió.",
+            ),
+        ],
+    },
 }
 
 # Longest-first regexes to highlight Lesson vocab inside example sentences.
@@ -979,6 +1201,21 @@ VOCAB_EXAMPLE_HIGHLIGHTS: dict[str, list[str]] = {
         r"\bwholesome\b",
         r"\baromatic\b",
         r"\bhearty\b",
+    ],
+    "6": [
+        r"quality justifies the bill",
+        r"mak(?:e|ing)(?: all its pasta dishes| meals| food)? from scratch",
+        r"cooking from scratch",
+        r"from scratch",
+        r"stay in control(?: of (?:the ingredients and calories I take in|our food budget|what you consume|portion sizes))?",
+        r"love(?:s)? the feeling of",
+        r"lean(?:s)? towards",
+        r"spice things up",
+        r"wined and dined",
+        r"wine and dine",
+        r"treat(?:ed)? (?:my|her|him|your)self",
+        r"(?:dine|dining|eating) out",
+        r"special occasions?",
     ],
 }
 
