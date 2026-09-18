@@ -440,6 +440,250 @@ VOCAB_EXAMPLES: dict[str, dict[str, list[tuple[str, str]]]] = {
             ),
         ],
     },
+    "3": {
+        "foodie": [
+            (
+                "As a true foodie, I always spend my weekends exploring hidden street food stalls in the city.",
+                "Là một người sành ăn thực thụ, tôi luôn dành những ngày cuối tuần để khám phá các quán ăn đường phố ẩn mình trong thành phố.",
+            ),
+            (
+                "Being a foodie, she loves trying out new restaurants and sharing her reviews on social media.",
+                "Là một người mê ẩm thực, cô ấy rất thích thử nghiệm các nhà hàng mới và chia sẻ bài đánh giá của mình lên mạng xã hội.",
+            ),
+            (
+                "If you consider yourself a foodie, you definitely shouldn't miss out on the night markets in Vietnam.",
+                "Nếu bạn tự coi mình là một tín đồ ẩm thực, bạn chắc chắn không nên bỏ lỡ các khu chợ đêm ở Việt Nam.",
+            ),
+            (
+                "My brother is a massive foodie who travels to different regions just to taste their authentic local dishes.",
+                "Anh trai tôi là một người cực kỳ mê ẩm thực, người đi du lịch đến các vùng miền khác nhau chỉ để thưởng thức các món ăn địa phương chính gốc của họ.",
+            ),
+            (
+                "Joining a local cooking tour is a fantastic way for any foodie to understand the culture deeply.",
+                "Tham gia một tour nấu ăn địa phương là một cách tuyệt vời để bất kỳ tín đồ ẩm thực nào hiểu sâu sắc hơn về văn hóa.",
+            ),
+        ],
+        "have a soft spot for": [
+            (
+                "Although I enjoy various kinds of Asian dishes, I have a soft spot for traditional bún chả.",
+                "Mặc dù tôi thích nhiều loại món ăn châu Á khác nhau, tôi đặc biệt yêu thích món bún chả truyền thống.",
+            ),
+            (
+                "She has a soft spot for spicy street food, especially grilled skewers and hot pots.",
+                "Cô ấy dành sự yêu thích đặc biệt cho đồ ăn vặt đường phố cay, đặc biệt là xiên nướng và lẩu.",
+            ),
+            (
+                "Most people from Hanoi have a soft spot for a warm bowl of phở in the early morning.",
+                "Hầu hết người dân Hà Nội đều đặc biệt yêu thích một tô phở ấm nóng vào sáng sớm.",
+            ),
+            (
+                "Even though I try to eat healthily, I still have a soft spot for creamy cheesecakes.",
+                "Dù tôi cố gắng ăn uống lành mạnh, tôi vẫn có sự yếu lòng và rất thích các loại bánh cheesecake béo ngậy.",
+            ),
+            (
+                "He has a soft spot for home-cooked meals prepared by his grandmother.",
+                "Anh ấy đặc biệt yêu thích những bữa cơm nhà do chính tay bà mình chuẩn bị.",
+            ),
+        ],
+        "authentic local speciality": [
+            (
+                "Whenever I visit a new province, hunting down an authentic local speciality is my top priority.",
+                "Bất cứ khi nào tôi đến thăm một tỉnh mới, việc săn lùng một món đặc sản địa phương chính gốc luôn là ưu tiên hàng đầu của tôi.",
+            ),
+            (
+                "This small family-run restaurant serves the most authentic local speciality of the central region.",
+                "Nhà hàng do gia đình tự quản nhỏ bé này phục vụ món đặc sản địa phương chính gốc nhất của vùng miền Trung.",
+            ),
+            (
+                "Tourists often fall in love with the rich taste of the authentic local speciality here.",
+                "Du khách thường đem lòng yêu mến hương vị đậm đà của món đặc sản địa phương chính gốc ở đây.",
+            ),
+            (
+                "Instead of eating at western fast-food chains, I prefer tasting an authentic local speciality on the street.",
+                "Thay vì ăn ở các chuỗi đồ ăn nhanh phương Tây, tôi thích nếm thử một món đặc sản địa phương chính gốc ở ngoài phố hơn.",
+            ),
+            (
+                "Preparing an authentic local speciality requires traditional ingredients and secret family recipes.",
+                "Việc chuẩn bị một món đặc sản địa phương chính gốc đòi hỏi các nguyên liệu truyền thống và công thức gia truyền bí mật.",
+            ),
+        ],
+        "traditional cuisine": [
+            (
+                "Vietnamese traditional cuisine is famous worldwide for its harmonious blend of fresh herbs and spices.",
+                "Ẩm thực truyền thống Việt Nam nổi tiếng toàn thế giới nhờ sự kết hợp hài hòa giữa các loại rau thơm và gia vị tươi.",
+            ),
+            (
+                "During Tet holiday, families gather together to prepare dishes deeply rooted in our traditional cuisine.",
+                "Vào dịp Tết, các gia đình quây quần bên nhau để chuẩn bị các món ăn mang đậm cội nguồn ẩm thực truyền thống của chúng ta.",
+            ),
+            (
+                "Foreign visitors are often fascinated by the unique flavors found in Asian traditional cuisine.",
+                "Du khách nước ngoài thường bị mê hoặc bởi những hương vị độc đáo có trong nền ẩm thực truyền thống châu Á.",
+            ),
+            (
+                "Learning how to cook traditional cuisine helps younger generations preserve their cultural identity.",
+                "Học cách nấu các món ăn ẩm thực truyền thống giúp thế hệ trẻ gìn giữ bản sắc văn hóa của họ.",
+            ),
+            (
+                "Traditional cuisine carries stories and values passed down through many generations.",
+                "Ẩm thực truyền thống mang theo những câu chuyện và giá trị được truyền qua nhiều thế hệ.",
+            ),
+        ],
+        "whet my appetite": [
+            (
+                "The mouth-watering aroma of lemongrass and chili instantly whet my appetite.",
+                "Mùi hương ngon nức mũi của sả và ớt ngay lập tức kích thích vị giác của tôi.",
+            ),
+            (
+                "Seeing pictures of delicious dishes on food blogs always whet my appetite before dinner.",
+                "Nhìn thấy hình ảnh những món ăn ngon trên các blog ẩm thực luôn làm tôi thèm ăn trước bữa tối.",
+            ),
+            (
+                "A small bowl of spicy soup can easily whet my appetite on a hot summer day.",
+                "Một chén súp cay nhỏ có thể dễ dàng đánh thức vị giác của tôi vào một ngày hè nóng nực.",
+            ),
+            (
+                "Just the sight of fresh herbs and lime wedges can whet my appetite for a bowl of phở.",
+                "Chỉ cần nhìn thấy rau thơm tươi và chanh miếng là đủ làm tôi thèm thuồng một tô phở.",
+            ),
+            (
+                "Starters like crispy spring rolls are designed to whet your appetite before the main course.",
+                "Các món khai vị như nem giòn được thiết kế để kích thích vị giác của bạn trước món chính.",
+            ),
+        ],
+        "bold flavors / aromatic spices": [
+            (
+                "I love Vietnamese food because of its bold flavors and the use of aromatic spices.",
+                "Tôi yêu đồ ăn Việt Nam vì hương vị đậm đà và việc sử dụng các loại gia vị thơm nồng.",
+            ),
+            (
+                "Curries cooked with aromatic spices and bold flavors always warm me up on rainy days.",
+                "Các món cà ri được nấu với gia vị thơm nồng và hương vị đậm đà luôn làm tôi ấm người vào những ngày mưa.",
+            ),
+            (
+                "If you prefer bold flavors, you will definitely enjoy dishes seasoned with fish sauce and garlic.",
+                "Nếu bạn thích hương vị đậm đà, bạn chắc chắn sẽ thích các món ăn được nêm nếm với nước mắm và tỏi.",
+            ),
+            (
+                "The secret to this soup lies in the combination of fresh herbs and aromatic spices.",
+                "Bí quyết của món súp này nằm ở sự kết hợp giữa rau thơm tươi và các gia vị thơm nồng.",
+            ),
+            (
+                "Experimenting with bold flavors and aromatic spices makes cooking a truly creative activity.",
+                "Việc thử nghiệm với hương vị đậm đà và gia vị thơm nồng biến việc nấu nướng thành một hoạt động thực sự sáng tạo.",
+            ),
+        ],
+        "broaden my palate": [
+            (
+                "Traveling to different countries is the best way to broaden my palate and try strange ingredients.",
+                "Đi du lịch đến các quốc gia khác nhau là cách tốt nhất để mở rộng khẩu vị của tôi và thử các nguyên liệu lạ.",
+            ),
+            (
+                "I like to step out of my comfort zone and broaden my palate by tasting exotic street food.",
+                "Tôi thích bước ra khỏi vùng an toàn và mở rộng khẩu vị của mình bằng cách nếm thử đồ ăn đường phố lạ miệng.",
+            ),
+            (
+                "Trying spicy local dishes helped me broaden my palate significantly over the years.",
+                "Việc thử các món ăn cay địa phương đã giúp tôi mở rộng khẩu vị đáng kể qua nhiều năm.",
+            ),
+            (
+                "As a foodie, I'm always eager to broaden my palate by exploring different culinary cultures.",
+                "Là một người mê ẩm thực, tôi luôn hào hứng mở rộng khẩu vị bằng cách khám phá các nền văn hóa ẩm thực khác nhau.",
+            ),
+            (
+                "Don't be afraid to taste unfamiliar food; it's a great opportunity to broaden your palate.",
+                "Đừng ngại nếm thử những món ăn lạ; đó là cơ hội tuyệt vời để mở rộng khẩu vị của bạn.",
+            ),
+        ],
+        "step out of my comfort zone": [
+            (
+                "Eating insects in night markets was a way for me to step out of my comfort zone.",
+                "Việc ăn côn trùng ở các khu chợ đêm là một cách để tôi bước ra khỏi vùng an toàn của mình.",
+            ),
+            (
+                "I decided to step out of my comfort zone and order a dish I couldn't even pronounce.",
+                "Tôi quyết định bước ra khỏi vùng an toàn và gọi một món ăn mà tôi thậm chí không thể phát âm được.",
+            ),
+            (
+                "Stepping out of your comfort zone in terms of food can lead to unexpected pleasant surprises.",
+                "Việc bước ra khỏi vùng an toàn về mặt ăn uống có thể mang đến những bất ngờ dễ chịu không ngờ tới.",
+            ),
+            (
+                "Cooking a complex recipe from another country helps me step out of my comfort zone in the kitchen.",
+                "Nấu một công thức phức tạp từ một quốc gia khác giúp tôi bước ra khỏi vùng an toàn trong gian bếp.",
+            ),
+            (
+                "If you never step out of your comfort zone, you will miss out on many amazing culinary experiences.",
+                "Nếu bạn không bao giờ bước ra khỏi vùng an toàn, bạn sẽ bỏ lỡ nhiều trải nghiệm ẩm thực tuyệt vời.",
+            ),
+        ],
+        "culinary experience": [
+            (
+                "Dining at that floating restaurant offered a truly unforgettable culinary experience.",
+                "Dùng bữa tại nhà hàng nổi đó mang lại một trải nghiệm ẩm thực thực sự khó quên.",
+            ),
+            (
+                "For me, traveling is as much about the culinary experience as it is about sightseeing.",
+                "Đối với tôi, đi du lịch coi trọng trải nghiệm ẩm thực cũng nhiều như việc ngắm cảnh vậy.",
+            ),
+            (
+                "Street food tours provide a wonderful culinary experience that luxury restaurants cannot match.",
+                "Các tour ẩm thực đường phố mang lại một trải nghiệm ẩm thực tuyệt vời mà các nhà hàng sang trọng không thể sánh bằng.",
+            ),
+            (
+                "Every region in Vietnam brings a unique culinary experience to visitors.",
+                "Mỗi vùng miền ở Việt Nam đều mang lại một trải nghiệm ẩm thực độc đáo cho du khách.",
+            ),
+            (
+                "Sharing a home-cooked meal with locals is a meaningful culinary experience.",
+                "Chia sẻ một bữa cơm nhà với người dân địa phương là một trải nghiệm ẩm thực đầy ý nghĩa.",
+            ),
+        ],
+        "underlying meaning": [
+            (
+                "Every dish served during the Lunar New Year has a deep underlying meaning of luck and prosperity.",
+                "Mỗi món ăn được dọn ra trong dịp Tết Nguyên Đán đều mang ý nghĩa sâu xa về sự may mắn và thịnh vượng.",
+            ),
+            (
+                "Understanding the underlying meaning of traditional foods makes eating them much more special.",
+                "Hiểu được ý nghĩa đằng sau của các món ăn truyền thống khiến việc thưởng thức chúng trở nên đặc biệt hơn rất nhiều.",
+            ),
+            (
+                "Beyond just tasting good, these ancestral offerings carry a strong cultural and underlying meaning.",
+                "Vượt lên trên việc chỉ có vị ngon, những món dâng cúng tổ tiên này còn mang ý nghĩa văn hóa và ẩn chứa sâu sắc.",
+            ),
+            (
+                "The chef explained the underlying meaning behind the arrangement of colors on the plate.",
+                "Vị đầu bếp đã giải thích ý nghĩa đằng sau cách bài trí màu sắc trên đĩa ăn.",
+            ),
+            (
+                "Many festive cakes in our country have an underlying meaning related to family reunion.",
+                "Nhiều loại bánh lễ hội ở nước ta có ý nghĩa đằng sau liên quan đến sự đoàn tụ gia đình.",
+            ),
+        ],
+        "hardly ever + V": [
+            (
+                "I hardly ever turn down a new dish when I travel, even if it looks unusual.",
+                "Tôi hiếm khi từ chối một món mới khi đi du lịch, dù nó trông có vẻ lạ.",
+            ),
+            (
+                "As a foodie, she hardly ever eats the same meal twice in a week.",
+                "Là một người mê ẩm thực, cô ấy hiếm khi ăn cùng một món hai lần trong một tuần.",
+            ),
+            (
+                "I hardly ever skip street food stalls because they often serve an authentic local speciality.",
+                "Tôi hiếm khi bỏ qua các quán ăn đường phố vì chúng thường phục vụ món đặc sản địa phương chính gốc.",
+            ),
+            (
+                "He hardly ever says no to spicy food, even when the chili makes him sweat.",
+                "Anh ấy hiếm khi nói không với đồ cay, dù ớt làm anh đổ mồ hôi.",
+            ),
+            (
+                "I hardly ever cook western food at home; I prefer traditional cuisine with bold flavors.",
+                "Tôi hiếm khi nấu món Tây ở nhà; tôi thích ẩm thực truyền thống với hương vị đậm đà hơn.",
+            ),
+        ],
+    },
 }
 
 # Longest-first regexes to highlight Lesson vocab inside example sentences.
@@ -460,6 +704,20 @@ VOCAB_EXAMPLE_HIGHLIGHTS: dict[str, list[str]] = {
         r"mouth-watering",
         r"comfort food",
         r"\bunwind\b",
+    ],
+    "3": [
+        r"authentic local speciality",
+        r"step(?:ping)? out of (?:my|your|his|her|our|their) comfort zone",
+        r"broaden (?:my|your|his|her|our|their) palate",
+        r"whet(?:s|ted)? (?:my|your|his|her|our|their) appetite",
+        r"ha(?:ve|s|ving) a soft spot for",
+        r"culinary experience(?:s)?",
+        r"traditional cuisine",
+        r"underlying meaning",
+        r"aromatic spices",
+        r"bold flavors",
+        r"hardly ever",
+        r"\bfoodie\b",
     ],
 }
 
