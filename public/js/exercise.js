@@ -96,8 +96,8 @@
       const self = document.querySelector('script[src*="exercise.js"]');
       const s = document.createElement("script");
       s.src = self
-        ? self.src.replace(/exercise\.js(\?.*)?$/, "sheet-sync.js?v=sheet10")
-        : "../../../../js/sheet-sync.js?v=sheet10";
+        ? self.src.replace(/exercise\.js(\?.*)?$/, "sheet-sync.js?v=sheet11")
+        : "../../../../js/sheet-sync.js?v=sheet11";
       s.onload = () => resolve(window.SheetBackend || null);
       s.onerror = () => resolve(null);
       document.head.appendChild(s);
@@ -1202,7 +1202,7 @@
     const hint = root.querySelector(".ex-flash-hint");
     if (hint) {
       hint.innerHTML =
-        'Pareto 80/20 — chạm thẻ để lật. Vuốt trái = <strong>Đã biết</strong> (xanh) · Vuốt phải = <strong>Phải học</strong> (đỏ). <strong>Lưu Sheet</strong> / <strong>Ôn phải học</strong>.';
+        'Pareto 80/20 — chạm thẻ để lật. Vuốt trái = <strong>Đã biết</strong> (xanh) · Vuốt phải = <strong>Phải học</strong> (đỏ). Phân loại tự lưu Sheet · <strong>Ôn phải học</strong>.';
     }
     const stats = root.querySelector(".ex-flash-stats");
     if (stats) {
@@ -1245,7 +1245,7 @@
         <div class="ex-flash-head">
           <div>
             <h2>Flashcards</h2>
-            <p class="ex-flash-hint">Pareto 80/20 — chạm thẻ để lật. Vuốt trái = <strong>Đã biết</strong> (xanh) · Vuốt phải = <strong>Phải học</strong> (đỏ). <strong>Lưu Sheet</strong> / <strong>Ôn phải học</strong>.</p>
+            <p class="ex-flash-hint">Pareto 80/20 — chạm thẻ để lật. Vuốt trái = <strong>Đã biết</strong> (xanh) · Vuốt phải = <strong>Phải học</strong> (đỏ). Phân loại tự lưu Sheet · <strong>Ôn phải học</strong>.</p>
           </div>
           <div class="ex-flash-controls">
             <div class="ex-flash-stats" aria-live="polite">
@@ -1288,7 +1288,7 @@
     let mode = "all";
     let goldPool = [];
     const hintAll =
-      'Pareto 80/20 — chạm thẻ để lật. Vuốt trái = <strong>Đã biết</strong> (xanh) · Vuốt phải = <strong>Phải học</strong> (đỏ). <strong>Lưu Sheet</strong> / <strong>Ôn phải học</strong>.';
+      'Pareto 80/20 — chạm thẻ để lật. Vuốt trái = <strong>Đã biết</strong> (xanh) · Vuốt phải = <strong>Phải học</strong> (đỏ). Phân loại tự lưu Sheet · <strong>Ôn phải học</strong>.';
 
     const paintMode = () => {
       section.classList.toggle("ex-flash--gold", mode === "gold");
@@ -1460,8 +1460,8 @@
           <p class="ex-flash-done-meta">Phải học <strong>${classified.gold.length}</strong> · Đã biết ${classified.known.length}</p>
           <p class="ex-flash-done-hint">${
             goldDone
-              ? "Từ vẫn bấm <strong>Phải học</strong> sẽ ở lại nhóm vàng. Lưu Sheet để cập nhật danh sách."
-              : "Tải .txt hoặc <strong>Lưu Sheet</strong> để giữ danh sách — đặc biệt nhóm <strong>Phải học</strong> (~20–30 từ vàng)."
+              ? "Từ vẫn bấm <strong>Phải học</strong> sẽ ở lại nhóm vàng — đã tự lưu Sheet."
+              : "Danh sách đã tự lưu Sheet, đặc biệt nhóm <strong>Phải học</strong> (~20–30 từ vàng)."
           }</p>
           <div class="ex-flash-done-actions">
             <button type="button" class="ex-btn primary" id="btnFlashDownloadDone">Tải .txt</button>
@@ -1561,6 +1561,7 @@
         classified[bucket].push(w);
         idx += 1;
         renderCard();
+        window.SheetBackend && window.SheetBackend.queuePersist && window.SheetBackend.queuePersist();
       };
 
       const knownBtn = document.getElementById("flashKnownBtn");

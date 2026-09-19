@@ -320,6 +320,7 @@
         return;
       }
       showMsg("Đã lưu cấu hình Sheet trên trình duyệt này.", true);
+      window.SheetBackend.queuePersist && window.SheetBackend.queuePersist();
     });
 
     document.getElementById("flashSheetPing")?.addEventListener("click", async () => {
@@ -332,22 +333,14 @@
       }
     });
 
-    btnSave.addEventListener("click", async () => {
-      if (needConfig()) return;
+    const persistLive = async () => {
+      if (!isConfigured()) return false;
       const live = getLive();
-      if (!live || !live.deck || !live.deck.length) {
-        showMsg("Chưa có từ vựng để lưu.", false);
-        return;
-      }
-      btnSave.disabled = true;
-      try {
-        let payload;
-        if (live.mode === "gold") {
-          const data = await load(keyOf());
-          if (!data.found || !data.payload) {
-            showMsg("Sheet chưa có bản Pareto đầy đủ. Sàng lọc đủ bộ rồi Lưu Sheet trước.", false);
-            return;
-          }
+      if (!live || !live.deck || !live.deck.length) return false;
+      let payload;
+      if (live.mode === "gold") {
+        const data = await load(keyOf());
+        if (data.found && data.payload) {
           const base = restore(data.payload, vocab);
           const merged = mergeGoldReview(base, live);
           payload = snapshot(merged.deck, merged.idx, {
@@ -358,11 +351,57 @@
         } else {
           payload = snapshot(live.deck, live.idx, live.classified);
         }
-        payload.savedAt = new Date().toISOString();
-        await save(keyOf(), payload);
-        const nGold = (payload.gold || []).length;
+      } else {
+        payload = snapshot(live.deck, live.idx, live.classified);
+      }
+      payload.savedAt = new Date().toISOString();
+      await save(keyOf(), payload);
+      return true;
+    };
+
+    let persistChain = Promise.resolve();
+    let persistTimer = null;
+
+    const queuePersist = () => {
+      if (!isConfigured()) return;
+      window.clearTimeout(persistTimer);
+      persistTimer = window.setTimeout(() => {
+        persistChain = persistChain
+          .then(() => persistLive())
+          .catch((err) => {
+            showMsg(err.message || "Lưu Sheet thất bại.", false);
+          });
+      }, 280);
+    };
+
+    const flushPersist = async () => {
+      if (!isConfigured()) return false;
+      window.clearTimeout(persistTimer);
+      persistTimer = null;
+      persistChain = persistChain.then(() => persistLive());
+      try {
+        await persistChain;
+        return true;
+      } catch (err) {
+        showMsg(err.message || "Lưu Sheet thất bại.", false);
+        return false;
+      }
+    };
+
+    window.SheetBackend.queuePersist = queuePersist;
+    window.SheetBackend.flushPersist = flushPersist;
+
+    btnSave.hidden = true;
+    btnLoad.hidden = true;
+    btnSave.addEventListener("click", async () => {
+      if (needConfig()) return;
+      btnSave.disabled = true;
+      try {
+        await flushPersist();
+        const live = getLive();
+        const nGold = live && live.classified ? live.classified.gold.length : 0;
         showMsg(
-          live.mode === "gold"
+          live && live.mode === "gold"
             ? `Đã cập nhật nhóm Phải học trên Sheet (${nGold} từ).`
             : `Đã lưu ${keyOf()} lên Google Sheet.`,
           true
@@ -405,9 +444,10 @@
       if (typeof applyGoldReview !== "function") return;
       btnGold.disabled = true;
       try {
+        await flushPersist();
         const data = await load(keyOf());
         if (!data.found || !data.payload) {
-          showMsg("Sheet chưa có dữ liệu. Phân loại rồi Lưu Sheet trước.", false);
+          showMsg("Chưa có dữ liệu trên Sheet. Phân loại vài thẻ trước.", false);
           return;
         }
         const next = restore(data.payload, vocab);
@@ -887,7 +927,7 @@
       try {
         const data = await load(keyOf());
         if (!data.found || !data.payload) {
-          board.innerHTML = `<div class="ex-cloze-empty"><p>Sheet chưa có dữ liệu cho bộ này. Phân loại flashcards rồi <strong>Lưu Sheet</strong> trước.</p></div>`;
+          board.innerHTML = `<div class="ex-cloze-empty"><p>Sheet chưa có dữ liệu cho bộ này. Phân loại flashcards trước (tự lưu Sheet).</p></div>`;
           setStatus("Chưa có dữ liệu Sheet.", "bad");
           return;
         }
@@ -1085,5 +1125,7 @@
     mount,
     mountCloze,
     bindCardSwipe,
+    queuePersist: () => {},
+    flushPersist: async () => false,
   };
 })();

@@ -35,8 +35,8 @@
       const self = document.querySelector('script[src*="hsk.js"]');
       const s = document.createElement("script");
       s.src = self
-        ? self.src.replace(/hsk\.js(\?.*)?$/, "sheet-sync.js?v=sheet10")
-        : "../../../js/sheet-sync.js?v=sheet10";
+        ? self.src.replace(/hsk\.js(\?.*)?$/, "sheet-sync.js?v=sheet11")
+        : "../../../js/sheet-sync.js?v=sheet11";
       s.onload = () => resolve(window.SheetBackend || null);
       s.onerror = () => resolve(null);
       document.head.appendChild(s);
@@ -294,6 +294,7 @@
         classified[bucket].push(cur);
         idx += 1;
         renderCard();
+        window.SheetBackend && window.SheetBackend.queuePersist && window.SheetBackend.queuePersist();
       };
       document.getElementById("flashKnownBtn")?.addEventListener("click", () => advance("known"));
       document.getElementById("flashGoldBtn")?.addEventListener("click", () => advance("gold"));

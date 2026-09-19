@@ -197,7 +197,7 @@ def page(
   </div>
   <script src="../../../js/docs.js?v=nav1"></script>
   <script src="../../../js/hsk-lesson-{lesson}-data.js"></script>
-  <script src="../../../js/hsk.js?v=sheet10"></script>
+  <script src="../../../js/hsk.js?v=sheet11"></script>
 </body>
 </html>
 """
