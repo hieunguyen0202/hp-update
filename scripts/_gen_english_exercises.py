@@ -814,7 +814,7 @@ def wrap_exercise(
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=sheet6">
+  <link rel="stylesheet" href="{home}css/docs.css?v=sheet7">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -837,7 +837,7 @@ def wrap_exercise(
 {body}
   </div>
   <script src="{home}js/docs.js?v=nav1"></script>
-  <script src="{home}js/exercise.js?v=sheet6"></script>
+  <script src="{home}js/exercise.js?v=sheet7"></script>
 </body>
 </html>
 """

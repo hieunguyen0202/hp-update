@@ -736,20 +736,26 @@
       const choices = pickChoices(w);
       board.innerHTML = `
         <div class="ex-cloze-card">
-          <p class="ex-cloze-meta">Câu ${qIdx + 1}/${queue.length}</p>
-          <p class="ex-cloze-q">${html}</p>
-          <p class="ex-cloze-vi" id="clozeVi" hidden>${escapeHtml(vi)}</p>
+          <div class="ex-cloze-meta">Câu ${qIdx + 1} / ${queue.length}</div>
+          <div class="ex-cloze-example">
+            <div class="ex-cloze-example-label">Ví dụ</div>
+            <p class="ex-cloze-q">${html}</p>
+            <p class="ex-cloze-vi" id="clozeVi" hidden>${escapeHtml(vi)}</p>
+          </div>
           <div class="ex-cloze-choices">
             ${choices
               .map((opt, i) => {
                 const lab = choiceLabel(opt);
                 return `<button type="button" class="ex-cloze-choice" data-key="${escapeHtml(wordKey(opt))}">
                   <span class="ex-cloze-letter">${LETTERS[i]}</span>
-                  <span>${escapeHtml(lab.term)}${
-                    lab.sub && lab.sub !== lab.term
-                      ? `<span class="ex-cloze-sub">${escapeHtml(lab.sub)}</span>`
-                      : ""
-                  }</span>
+                  <span>
+                    <span class="ex-cloze-term">${escapeHtml(lab.term)}</span>
+                    ${
+                      lab.sub && lab.sub !== lab.term
+                        ? `<span class="ex-cloze-sub">${escapeHtml(lab.sub)}</span>`
+                        : ""
+                    }
+                  </span>
                 </button>`;
               })
               .join("")}
