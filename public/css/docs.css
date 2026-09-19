@@ -2150,6 +2150,271 @@ a.kk-card--biz:hover {
   color: var(--accent);
 }
 
+/* ── Cloze quiz (gold-word review) ───────────────────────────────────── */
+.ex-cloze {
+  margin-bottom: 36px;
+  padding: 16px 18px 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.ex-cloze-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.ex-cloze-head h2 {
+  margin: 0 0 4px;
+  font-size: 1.05rem;
+}
+
+.ex-cloze-hint {
+  margin: 0;
+  max-width: 42rem;
+  font-size: 0.88rem;
+  color: rgba(226, 232, 240, 0.65);
+  font-family: "Outfit", sans-serif;
+}
+
+.ex-cloze-hint strong {
+  color: rgba(226, 232, 240, 0.92);
+}
+
+.ex-flash-mastery,
+.ex-cloze-progress {
+  width: 100%;
+  margin: 4px 0 14px;
+}
+
+.ex-flash-mastery {
+  flex: 1 0 100%;
+}
+
+.ex-flash-mastery-row,
+.ex-cloze-progress-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+  font-family: "Outfit", sans-serif;
+  font-size: 0.82rem;
+  color: rgba(226, 232, 240, 0.7);
+}
+
+.ex-flash-mastery-row strong,
+.ex-cloze-progress-row strong {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.8rem;
+  color: #86efac;
+}
+
+.ex-flash-mastery-track,
+.ex-cloze-progress-track {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.18);
+  overflow: hidden;
+}
+
+.ex-flash-mastery-fill,
+.ex-cloze-progress-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #16a34a, #4ade80);
+  box-shadow: 0 0 16px rgba(74, 222, 128, 0.35);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ex-cloze-board {
+  max-width: 42rem;
+}
+
+.ex-cloze-card {
+  padding: 22px 20px 18px;
+  border-radius: 18px;
+  background: #f1f5f9;
+  color: #0f172a;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
+}
+
+.ex-cloze-meta {
+  margin: 0 0 12px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.ex-cloze-q {
+  margin: 0;
+  font-family: "Outfit", sans-serif;
+  font-size: 1.12rem;
+  font-weight: 550;
+  line-height: 1.55;
+  color: #020617;
+}
+
+.ex-cloze-blank {
+  display: inline-block;
+  min-width: 5.5rem;
+  padding: 0 8px;
+  margin: 0 2px;
+  border-bottom: 2px dashed #0e7490;
+  color: #0e7490;
+  font-weight: 750;
+  text-align: center;
+}
+
+.ex-cloze-blank.is-ok {
+  border-bottom-color: #16a34a;
+  color: #166534;
+  background: #fde68a;
+  border-radius: 4px;
+  border-bottom-style: solid;
+}
+
+.ex-cloze-blank.is-bad {
+  border-bottom-color: #dc2626;
+  color: #991b1b;
+}
+
+.ex-cloze-vi {
+  margin: 10px 0 0;
+  font-size: 0.9rem;
+  color: #334155;
+  font-family: "Outfit", sans-serif;
+}
+
+.ex-cloze-choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.ex-cloze-choice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  background: #fff;
+  color: #0f172a;
+  font-family: "Outfit", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ex-cloze-choice:hover:not(:disabled) {
+  border-color: #0e7490;
+  background: #ecfeff;
+}
+
+.ex-cloze-letter {
+  flex: 0 0 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.ex-cloze-choice.is-correct {
+  border-color: #16a34a;
+  background: #dcfce7;
+}
+
+.ex-cloze-choice.is-wrong {
+  border-color: #dc2626;
+  background: #fee2e2;
+}
+
+.ex-cloze-choice:disabled {
+  cursor: default;
+}
+
+.ex-cloze-choice > span:last-child {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.ex-cloze-sub {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.ex-cloze-status {
+  margin: 12px 0 0;
+  min-height: 1.2em;
+  font-size: 0.88rem;
+  color: rgba(226, 232, 240, 0.7);
+  font-family: "Outfit", sans-serif;
+}
+
+.ex-cloze-status.ok {
+  color: #86efac;
+}
+
+.ex-cloze-status.bad {
+  color: #fca5a5;
+}
+
+.ex-cloze-lock,
+.ex-cloze-empty,
+.ex-cloze-done {
+  padding: 22px 18px;
+  border-radius: 16px;
+  background: rgba(11, 18, 32, 0.55);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  font-family: "Outfit", sans-serif;
+}
+
+.ex-cloze-lock p,
+.ex-cloze-empty p,
+.ex-cloze-done p {
+  margin: 0 0 12px;
+  color: rgba(226, 232, 240, 0.82);
+}
+
+.ex-cloze-done-meta {
+  color: rgba(226, 232, 240, 0.6) !important;
+  font-size: 0.9rem;
+}
+
+.ex-cloze-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+@media (max-width: 640px) {
+  .ex-cloze-choices {
+    grid-template-columns: 1fr;
+  }
+
+  .ex-cloze-q {
+    font-size: 1.02rem;
+  }
+}
+
 /* ── Flashcards (LanGeek-inspired, dark exercise chrome) ─────────────── */
 .ex-flash {
   margin-bottom: 36px;

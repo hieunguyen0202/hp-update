@@ -254,6 +254,7 @@
     const btnCfg = addBtn("btnFlashSheetCfg", "Sheet…");
 
     const stats = section.querySelector(".ex-flash-stats");
+    ensureMastery(section);
     if (stats && !document.getElementById("flashGoldMode")) {
       const badge = document.createElement("span");
       badge.id = "flashGoldMode";
@@ -424,6 +425,435 @@
     });
   };
 
+  const escapeHtml = (s) =>
+    String(s ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+
+  const escapeRegExp = (s) => String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+  const shuffle = (arr) => {
+    const a = (arr || []).slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  };
+
+  const termOf = (w) => String((w && (w.form || w.hanzi || w.word)) || "").trim();
+  const stemOf = (w) => termOf(w).replace(/^to\s+/i, "").trim() || termOf(w);
+
+  const exampleOf = (w) => {
+    if (!w) return { en: "", vi: "", zh: "", py: "" };
+    const ex = (w.examples && w.examples[0]) || null;
+    return {
+      en: String(w.ex_en || (ex && (ex.en || ex.zh)) || "").trim(),
+      vi: String(w.ex_vi || (ex && ex.vi) || "").trim(),
+      zh: String((ex && ex.zh) || "").trim(),
+      py: String((ex && ex.py) || "").trim(),
+    };
+  };
+
+  const clozeHtml = (w) => {
+    const ex = exampleOf(w);
+    const sentence = ex.zh || ex.en;
+    const answer = termOf(w);
+    const stem = stemOf(w);
+    const vi = ex.vi;
+    if (!sentence) {
+      return {
+        html: `Chọn từ đúng với nghĩa: <strong>${escapeHtml(w.vi || w.en || answer)}</strong>`,
+        vi: "",
+      };
+    }
+    const needles = [...new Set([answer, stem].filter(Boolean))].sort(
+      (a, b) => b.length - a.length
+    );
+    let idx = -1;
+    let len = 0;
+    needles.forEach((p) => {
+      if (idx >= 0) return;
+      const cjk = /[\u3400-\u9fff]/.test(p);
+      const re = cjk ? new RegExp(escapeRegExp(p)) : new RegExp(`\\b${escapeRegExp(p)}\\b`, "i");
+      const m = sentence.match(re);
+      if (m) {
+        idx = sentence.search(re);
+        len = m[0].length;
+      }
+    });
+    if (idx < 0) {
+      return {
+        html: `${escapeHtml(sentence)} <span class="ex-cloze-blank">______</span>`,
+        vi,
+      };
+    }
+    return {
+      html:
+        escapeHtml(sentence.slice(0, idx)) +
+        `<span class="ex-cloze-blank">______</span>` +
+        escapeHtml(sentence.slice(idx + len)),
+      vi,
+    };
+  };
+
+  const paintMastery = (knownN, goldN) => {
+    const known = Number(knownN || 0);
+    const gold = Number(goldN || 0);
+    const total = known + gold;
+    const pct = total ? Math.round((known / total) * 100) : 0;
+    const label = document.getElementById("flashMasteryLabel");
+    const fill = document.getElementById("flashMasteryFill");
+    const track = fill && fill.parentElement;
+    if (label) label.textContent = total ? `${known}/${total} · ${pct}%` : "Chưa phân loại";
+    if (fill) fill.style.width = `${pct}%`;
+    if (track) track.setAttribute("aria-valuenow", String(pct));
+  };
+
+  const ensureMastery = (section) => {
+    if (document.getElementById("flashMastery")) return;
+    if (!section) return;
+    const el = document.createElement("div");
+    el.id = "flashMastery";
+    el.className = "ex-flash-mastery";
+    el.innerHTML = `
+      <div class="ex-flash-mastery-row">
+        <span>Tiến độ phải học → đã biết</span>
+        <strong id="flashMasteryLabel">0/0</strong>
+      </div>
+      <div class="ex-flash-mastery-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="ex-flash-mastery-fill" id="flashMasteryFill"></div>
+      </div>
+    `;
+    const head = section.querySelector(".ex-flash-head");
+    if (head) head.appendChild(el);
+    else section.prepend(el);
+  };
+
+  const choiceLabel = (w) => {
+    const term = termOf(w);
+    const sub = w && w.pinyin ? w.pinyin : w && w.vi ? w.vi : "";
+    return { term, sub };
+  };
+
+  const mountCloze = ({ section, deckKey, vocab, getLive, applyGrade, showMsg }) => {
+    if (!section || document.getElementById("exCloze")) return;
+    injectCss();
+    const root = document.createElement("section");
+    root.className = "ex-cloze";
+    root.id = "exCloze";
+    root.setAttribute("aria-label", "Điền chỗ trống");
+    root.innerHTML = `
+      <div class="ex-cloze-head">
+        <div>
+          <h2>Điền chỗ trống</h2>
+          <p class="ex-cloze-hint">
+            Chỉ ôn từ <strong>Phải học</strong> đã lưu trên Sheet. Câu ví dụ + 4 đáp án
+            (nhiễu lấy từ nhóm <strong>Đã biết</strong> và từ khác). Đúng → Đã biết · Sai → vẫn Phải học.
+            Mỗi câu tự lưu Sheet.
+          </p>
+        </div>
+        <div class="ex-cloze-actions">
+          <button type="button" class="ex-btn primary" id="btnClozeStart">Bắt đầu</button>
+        </div>
+      </div>
+      <div class="ex-cloze-progress" id="clozeProgress" hidden>
+        <div class="ex-cloze-progress-row">
+          <span>Hoàn thành phải học → đã biết</span>
+          <strong id="clozeProgressLabel">0/0</strong>
+        </div>
+        <div class="ex-cloze-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="ex-cloze-progress-fill" id="clozeProgressFill"></div>
+        </div>
+      </div>
+      <div class="ex-cloze-board" id="clozeBoard"></div>
+      <p class="ex-cloze-status" id="clozeStatus"></p>
+    `;
+    section.insertAdjacentElement("afterend", root);
+
+    const nav = document.querySelector(".hsk-jump");
+    if (nav && !nav.querySelector('[href="#exCloze"]')) {
+      const a = document.createElement("a");
+      a.href = "#exCloze";
+      a.textContent = "Điền chỗ trống";
+      nav.appendChild(a);
+    }
+
+    if (!document.getElementById("btnFlashCloze")) {
+      const controls = section.querySelector(".ex-flash-controls");
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "ex-btn";
+      btn.id = "btnFlashCloze";
+      btn.textContent = "Điền chỗ trống";
+      btn.addEventListener("click", () => {
+        document.getElementById("exCloze")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+      const restart = document.getElementById("btnFlashRestart");
+      if (controls) controls.insertBefore(btn, restart || null);
+    }
+
+    const board = document.getElementById("clozeBoard");
+    const status = document.getElementById("clozeStatus");
+    const btnStart = document.getElementById("btnClozeStart");
+    const keyOf = () => (typeof deckKey === "function" ? deckKey() : String(deckKey || "deck"));
+    const LETTERS = ["A", "B", "C", "D"];
+
+    const setStatus = (text, kind) => {
+      if (!status) return;
+      status.textContent = text || "";
+      status.classList.toggle("ok", kind === "ok");
+      status.classList.toggle("bad", kind === "bad");
+    };
+
+    const paintSessionBar = (cleared, total) => {
+      const wrap = document.getElementById("clozeProgress");
+      const label = document.getElementById("clozeProgressLabel");
+      const fill = document.getElementById("clozeProgressFill");
+      if (wrap) wrap.hidden = !total;
+      const pct = total ? Math.round((cleared / total) * 100) : 0;
+      if (label) label.textContent = `${cleared}/${total} · ${pct}%`;
+      if (fill) fill.style.width = `${pct}%`;
+      if (fill && fill.parentElement) fill.parentElement.setAttribute("aria-valuenow", String(pct));
+    };
+
+    const openSheetPanel = () => {
+      const panel = document.getElementById("flashSheetPanel");
+      if (panel) {
+        panel.classList.add("is-open");
+        panel.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      if (showMsg) showMsg("Dán Web App URL + secret rồi bấm Lưu cấu hình.", false);
+    };
+
+    const renderLock = () => {
+      if (!board) return;
+      board.innerHTML = `
+        <div class="ex-cloze-lock">
+          <p>Kết nối Google Sheet trước khi chơi. Trò này chỉ ôn các từ <strong>Phải học</strong> đã lưu.</p>
+          <div class="ex-cloze-actions">
+            <button type="button" class="ex-btn primary" id="btnClozeCfg">Mở cấu hình Sheet</button>
+          </div>
+        </div>`;
+      document.getElementById("btnClozeCfg")?.addEventListener("click", openSheetPanel);
+    };
+
+    let state = null;
+    let queue = [];
+    let qIdx = 0;
+    let startTotal = 0;
+    let cleared = 0;
+    let correctN = 0;
+    let wrongN = 0;
+    let busy = false;
+
+    const uniquePush = (arr, w) => {
+      const k = wordKey(w);
+      if (!k || arr.some((x) => wordKey(x) === k)) return;
+      arr.push(w);
+    };
+
+    const mergeLive = (base) => {
+      const live = getLive && getLive();
+      if (!live || !live.classified) return base;
+      const gold = (base.gold || []).slice();
+      const known = (base.known || []).slice();
+      const knownKeys = new Set((live.classified.known || []).map(wordKey));
+      (live.classified.gold || []).forEach((w) => uniquePush(gold, w));
+      (live.classified.known || []).forEach((w) => uniquePush(known, w));
+      return {
+        ...base,
+        gold: gold.filter((w) => !knownKeys.has(wordKey(w))),
+        known,
+        deck: live.deck && live.deck.length && live.mode !== "gold" ? live.deck : base.deck,
+        idx: live.deck && live.deck.length && live.mode !== "gold" ? live.idx : base.idx,
+        trash: live.classified.trash || base.trash || [],
+      };
+    };
+
+    const persist = async () => {
+      const payload = snapshot(state.deck, state.idx, {
+        gold: state.gold,
+        known: state.known,
+        trash: state.trash,
+      });
+      payload.savedAt = new Date().toISOString();
+      await save(keyOf(), payload);
+    };
+
+    const pickChoices = (answer) => {
+      const used = new Set([wordKey(answer)]);
+      const out = [];
+      const take = (arr) => {
+        shuffle(arr).forEach((w) => {
+          if (out.length >= 3) return;
+          const k = wordKey(w);
+          if (!k || used.has(k) || !termOf(w)) return;
+          used.add(k);
+          out.push(w);
+        });
+      };
+      const samePos = (arr) =>
+        (arr || []).filter((w) => answer.pos && w.pos && String(w.pos) === String(answer.pos));
+      take(samePos(state.known));
+      take(state.known);
+      take(samePos(vocab));
+      take(vocab);
+      const options = shuffle([answer, ...out.slice(0, 3)]);
+      let i = 0;
+      while (options.length < 4 && i < (vocab || []).length) {
+        uniquePush(options, vocab[i]);
+        i += 1;
+      }
+      return options.slice(0, 4);
+    };
+
+    const renderDone = () => {
+      board.innerHTML = `
+        <div class="ex-cloze-done">
+          <p>Đã ôn ${startTotal} từ phải học.</p>
+          <p class="ex-cloze-done-meta">Đúng <strong>${correctN}</strong> → Đã biết · Sai <strong>${wrongN}</strong> → vẫn Phải học</p>
+          <div class="ex-cloze-actions">
+            <button type="button" class="ex-btn primary" id="btnClozeAgain">Chơi lại</button>
+            <button type="button" class="ex-btn" id="btnClozeFlash">Về flashcards</button>
+          </div>
+        </div>`;
+      document.getElementById("btnClozeAgain")?.addEventListener("click", () => startGame());
+      document.getElementById("btnClozeFlash")?.addEventListener("click", () => {
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    };
+
+    const renderQuestion = () => {
+      const w = queue[qIdx];
+      if (!w) {
+        renderDone();
+        return;
+      }
+      const { html, vi } = clozeHtml(w);
+      const choices = pickChoices(w);
+      board.innerHTML = `
+        <div class="ex-cloze-card">
+          <p class="ex-cloze-meta">Câu ${qIdx + 1}/${queue.length}</p>
+          <p class="ex-cloze-q">${html}</p>
+          <p class="ex-cloze-vi" id="clozeVi" hidden>${escapeHtml(vi)}</p>
+          <div class="ex-cloze-choices">
+            ${choices
+              .map((opt, i) => {
+                const lab = choiceLabel(opt);
+                return `<button type="button" class="ex-cloze-choice" data-key="${escapeHtml(wordKey(opt))}">
+                  <span class="ex-cloze-letter">${LETTERS[i]}</span>
+                  <span>${escapeHtml(lab.term)}${
+                    lab.sub && lab.sub !== lab.term
+                      ? `<span class="ex-cloze-sub">${escapeHtml(lab.sub)}</span>`
+                      : ""
+                  }</span>
+                </button>`;
+              })
+              .join("")}
+          </div>
+        </div>`;
+      board.querySelectorAll(".ex-cloze-choice").forEach((btn) => {
+        btn.addEventListener("click", () => onPick(btn, w));
+      });
+    };
+
+    const onPick = async (btn, word) => {
+      if (busy) return;
+      busy = true;
+      const ok = btn.getAttribute("data-key") === wordKey(word);
+      board.querySelectorAll(".ex-cloze-choice").forEach((el) => {
+        el.disabled = true;
+        if (el.getAttribute("data-key") === wordKey(word)) el.classList.add("is-correct");
+      });
+      if (!ok) btn.classList.add("is-wrong");
+      const blank = board.querySelector(".ex-cloze-blank");
+      if (blank) {
+        blank.textContent = termOf(word);
+        blank.classList.add(ok ? "is-ok" : "is-bad");
+      }
+      const viEl = document.getElementById("clozeVi");
+      if (viEl && viEl.textContent.trim()) viEl.hidden = false;
+
+      const k = wordKey(word);
+      state.gold = (state.gold || []).filter((w) => wordKey(w) !== k);
+      state.known = (state.known || []).filter((w) => wordKey(w) !== k);
+      if (ok) {
+        state.known.push(word);
+        cleared += 1;
+        correctN += 1;
+      } else {
+        state.gold.push(word);
+        wrongN += 1;
+      }
+      if (typeof applyGrade === "function") applyGrade(word, ok);
+      paintSessionBar(cleared, startTotal);
+      paintMastery(state.known.length, state.gold.length);
+      setStatus(ok ? "Đúng — chuyển sang Đã biết, đang lưu Sheet…" : "Sai — vẫn Phải học, đang lưu Sheet…", ok ? "ok" : "bad");
+      try {
+        await persist();
+        setStatus(ok ? "Đúng · đã lưu Sheet." : "Sai · đã lưu Sheet.", ok ? "ok" : "bad");
+      } catch (err) {
+        setStatus(err.message || "Lưu Sheet thất bại.", "bad");
+      }
+      window.setTimeout(() => {
+        qIdx += 1;
+        busy = false;
+        renderQuestion();
+      }, 900);
+    };
+
+    const startGame = async () => {
+      if (!isConfigured()) {
+        renderLock();
+        openSheetPanel();
+        return;
+      }
+      btnStart.disabled = true;
+      setStatus("Đang tải từ phải học trên Sheet…");
+      try {
+        const data = await load(keyOf());
+        if (!data.found || !data.payload) {
+          board.innerHTML = `<div class="ex-cloze-empty"><p>Sheet chưa có dữ liệu cho bộ này. Phân loại flashcards rồi <strong>Lưu Sheet</strong> trước.</p></div>`;
+          setStatus("Chưa có dữ liệu Sheet.", "bad");
+          return;
+        }
+        state = mergeLive(restore(data.payload, vocab));
+        queue = shuffle(state.gold || []);
+        if (!queue.length) {
+          board.innerHTML = `<div class="ex-cloze-empty"><p>Không còn từ <strong>Phải học</strong>. Sàng lọc flashcards hoặc ôn bộ khác.</p></div>`;
+          paintMastery(state.known.length, 0);
+          paintSessionBar(0, 0);
+          setStatus("Hết từ phải học.", "ok");
+          return;
+        }
+        qIdx = 0;
+        startTotal = queue.length;
+        cleared = 0;
+        correctN = 0;
+        wrongN = 0;
+        busy = false;
+        paintSessionBar(0, startTotal);
+        paintMastery(state.known.length, state.gold.length);
+        setStatus(`Ôn ${startTotal} từ phải học.`);
+        renderQuestion();
+      } catch (err) {
+        setStatus(err.message || String(err), "bad");
+        renderLock();
+      } finally {
+        btnStart.disabled = false;
+      }
+    };
+
+    btnStart.addEventListener("click", () => startGame());
+    if (!isConfigured()) renderLock();
+    else {
+      board.innerHTML = `<div class="ex-cloze-empty"><p>Bấm <strong>Bắt đầu</strong> để ôn các từ phải học từ Google Sheet.</p></div>`;
+    }
+  };
+
   const bindCardSwipe = (deckEl, { onGradeLeft, onGradeRight, onTap, onBrowseNext, onBrowsePrev }) => {
     if (!deckEl || deckEl.dataset.swipeBound) return;
     deckEl.dataset.swipeBound = "1";
@@ -579,7 +1009,10 @@
     restore,
     mergeGoldReview,
     wordRef,
+    wordKey,
+    paintMastery,
     mount,
+    mountCloze,
     bindCardSwipe,
   };
 })();

@@ -96,8 +96,8 @@
       const self = document.querySelector('script[src*="exercise.js"]');
       const s = document.createElement("script");
       s.src = self
-        ? self.src.replace(/exercise\.js(\?.*)?$/, "sheet-sync.js?v=sheet5")
-        : "../../../../js/sheet-sync.js?v=sheet5";
+        ? self.src.replace(/exercise\.js(\?.*)?$/, "sheet-sync.js?v=sheet6")
+        : "../../../../js/sheet-sync.js?v=sheet6";
       s.onload = () => resolve(window.SheetBackend || null);
       s.onerror = () => resolve(null);
       document.head.appendChild(s);
@@ -1365,6 +1365,8 @@
       if (elTotal) elTotal.textContent = String(deck.length);
       if (elGold) elGold.textContent = String(classified.gold.length);
       if (elKnown) elKnown.textContent = String(classified.known.length);
+      window.SheetBackend &&
+        window.SheetBackend.paintMastery(classified.known.length, classified.gold.length);
     };
 
     const current = () => deck[idx] || null;
@@ -1627,6 +1629,28 @@
           mode = "gold";
           goldPool = words.slice();
           restart(true);
+        },
+        showMsg,
+      });
+
+    window.SheetBackend &&
+      window.SheetBackend.mountCloze({
+        section,
+        deckKey: exportSlug,
+        vocab,
+        getLive: () => ({ deck, idx, classified, mode }),
+        applyGrade: (word, correct) => {
+          const keyFn = window.SheetBackend.wordKey;
+          const k = keyFn(word);
+          const drop = (arr) => (arr || []).filter((w) => keyFn(w) !== k);
+          classified.gold = drop(classified.gold);
+          classified.known = drop(classified.known);
+          if (correct) classified.known.push(word);
+          else classified.gold.push(word);
+          goldPool = drop(goldPool);
+          if (!correct && mode === "gold") goldPool.push(word);
+          renderStats();
+          paintMode();
         },
         showMsg,
       });

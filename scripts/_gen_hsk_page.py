@@ -30,7 +30,7 @@ def page(
   <link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../css/docs.css?v=sheet5">
+  <link rel="stylesheet" href="../../../css/docs.css?v=sheet6">
 </head>
 <body class="docs hsk-page">
   <div class="cursor" id="cursor"></div>
@@ -87,6 +87,7 @@ def page(
 
       <nav class="hsk-jump" aria-label="On this page">
         <a href="#exFlash">Flashcards</a>
+        <a href="#exCloze">Điền chỗ trống</a>
         <a href="#hskScript">Dialogue</a>
         <a href="#hskScroll">Scroll read</a>
         <a href="#hskVocab">Word list</a>
@@ -196,7 +197,7 @@ def page(
   </div>
   <script src="../../../js/docs.js?v=nav1"></script>
   <script src="../../../js/hsk-lesson-{lesson}-data.js"></script>
-  <script src="../../../js/hsk.js?v=sheet5"></script>
+  <script src="../../../js/hsk.js?v=sheet6"></script>
 </body>
 </html>
 """
