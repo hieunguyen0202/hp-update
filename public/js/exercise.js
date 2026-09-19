@@ -96,8 +96,8 @@
       const self = document.querySelector('script[src*="exercise.js"]');
       const s = document.createElement("script");
       s.src = self
-        ? self.src.replace(/exercise\.js(\?.*)?$/, "sheet-sync.js?v=sheet8")
-        : "../../../../js/sheet-sync.js?v=sheet8";
+        ? self.src.replace(/exercise\.js(\?.*)?$/, "sheet-sync.js?v=sheet9")
+        : "../../../../js/sheet-sync.js?v=sheet9";
       s.onload = () => resolve(window.SheetBackend || null);
       s.onerror = () => resolve(null);
       document.head.appendChild(s);

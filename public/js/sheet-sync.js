@@ -448,6 +448,11 @@
 
   const foldText = (s) =>
     String(s || "")
+      .replace(/[æÆ]/g, "ae")
+      .replace(/[œŒ]/g, "oe")
+      .replace(/ß/g, "ss")
+      .replace(/[øØ]/g, "o")
+      .replace(/[łŁ]/g, "l")
       .normalize("NFD")
       .replace(/\p{M}/gu, "")
       .toLowerCase();
