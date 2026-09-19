@@ -5519,7 +5519,7 @@ def _pair_answer_html(
     vi_tpl_attr = f' data-vi-tpl="{esc(ex_vi)}"' if ex_vi else ""
     return f"""              <div class="lr-scroll-qa{chain}" data-ipa-full="{ipa_attr}"{ex_attr}>
                 <p class="lr-scroll-q" hidden>{esc(q)}</p>
-                <p class="lr-food-ex-line lr-tip lr-answer-text" data-tip="{esc(vi)}" title="{esc(vi)}" data-plain="{esc(plain)}"{vi_tpl_attr}>
+                <p class="lr-food-ex-line lr-tip lr-answer-text" data-tip="{esc(vi)}" title="{esc(vi)}" data-plain="{esc(plain)}" data-ipa-full="{ipa_attr}"{vi_tpl_attr}>
                   <span class="{tag_cls}">{tag}</span>
                   <span class="lr-tip-text">{en_html}</span>
                 </p>{ipa_line}
