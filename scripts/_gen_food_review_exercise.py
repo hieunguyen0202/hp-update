@@ -11062,7 +11062,86 @@ def _l2_cloze_html(text: str) -> str:
     return "".join(out)
 
 
-def _lesson2_think_card_html(q: str, ideas: list[dict]) -> str:
+L3_CLOZE_VI = {
+    "have a soft spot for": "đặc biệt yêu thích",
+    "has a soft spot for": "đặc biệt yêu thích",
+    "having a soft spot for": "đặc biệt yêu thích",
+    "bold flavors": "hương vị đậm",
+    "aromatic spices": "gia vị thơm nồng",
+    "traditional cuisine": "ẩm thực truyền thống",
+    "underlying meaning": "ý nghĩa đằng sau",
+    "hardly ever": "hiếm khi",
+    "step out of my comfort zone": "bước ra khỏi vùng an toàn",
+    "foodie": "người mê ẩm thực",
+    "authentic local speciality": "đặc sản địa phương chính gốc",
+    "broaden my palate": "mở rộng khẩu vị",
+    "culinary experience": "trải nghiệm ẩm thực",
+    "whet my appetite": "kích thích vị giác",
+    "whets my appetite": "kích thích vị giác",
+    "pose a health risk": "gây rủi ro sức khỏe",
+    "pose a serious health risk": "gây rủi ro sức khỏe nghiêm trọng",
+    "harmful / detrimental to your health": "có hại / bất lợi cho sức khỏe",
+    "harmful or detrimental to your health": "có hại / bất lợi cho sức khỏe",
+    "shorten my life expectancy": "làm giảm tuổi thọ",
+}
+L3_CLOZE_VI_LC = {k.lower(): v for k, v in L3_CLOZE_VI.items()}
+L3_THINK_EXTRA_PATS = [
+    r"pose a(?: serious)? health risk",
+    r"harmful(?: / | or )detrimental to (?:your|my) health",
+    r"shorten my life expectancy",
+]
+
+
+def _l3_pats() -> list[re.Pattern[str]]:
+    return [
+        re.compile(p, re.I)
+        for p in (_food_notes.VOCAB_EXAMPLE_HIGHLIGHTS.get("3") or [])
+        + L3_THINK_EXTRA_PATS
+    ]
+
+
+def _l3_hl(text: str) -> str:
+    return _highlight_vocab_in_example(text, _l3_pats())
+
+
+def _l3_cloze_html(text: str) -> str:
+    pats = _l3_pats()
+    if not text or not pats:
+        return esc(text)
+    found: list[tuple[int, int, str]] = []
+    for pat in pats:
+        for m in pat.finditer(text):
+            found.append((m.start(), m.end(), m.group(0)))
+    found.sort(key=lambda t: (t[0], -(t[1] - t[0])))
+    kept: list[tuple[int, int, str]] = []
+    occupied: list[tuple[int, int]] = []
+    for start, end, frag in found:
+        if any(start < e and end > s for s, e in occupied):
+            continue
+        kept.append((start, end, frag))
+        occupied.append((start, end))
+    kept.sort(key=lambda t: t[0])
+    out: list[str] = []
+    i = 0
+    for start, end, frag in kept:
+        out.append(esc(text[i:start]))
+        vi = L3_CLOZE_VI_LC.get(frag.lower(), "")
+        out.append(
+            f'<span class="lr-cloze" data-en="{esc(frag)}" data-vi="{esc(vi)}">{esc(frag)}</span>'
+        )
+        i = end
+    out.append(esc(text[i:]))
+    return "".join(out)
+
+
+def _think_card_html(
+    q: str,
+    ideas: list[dict],
+    *,
+    hl_fn,
+    cloze_fn,
+    lesson_n: str = "2",
+) -> str:
     """Review Exercise 2: develop 3 ideas, then reveal a sample paragraph."""
     blocks = []
     for idea in ideas:
@@ -11074,7 +11153,7 @@ def _lesson2_think_card_html(q: str, ideas: list[dict]) -> str:
                   <p class="lr-idea-think"><span>Gợi ý tư duy:</span> {esc(idea["think"])}</p>
                   <details class="lr-reveal">
                     <summary><span class="lr-reveal-toggle" aria-hidden="true"></span> Reveal answer</summary>
-                    <p class="lr-reveal-en">{_l2_hl(idea["sample"])}</p>
+                    <p class="lr-reveal-en">{hl_fn(idea["sample"])}</p>
                     <p class="lr-reveal-vi">({esc(idea["vi"])})</p>
                   </details>
                 </section>"""
@@ -11084,7 +11163,7 @@ def _lesson2_think_card_html(q: str, ideas: list[dict]) -> str:
         scroll_qas.append(
             _pair_answer_html(
                 kind="sample",
-                en_html=_l2_cloze_html(idea["sample"]),
+                en_html=cloze_fn(idea["sample"]),
                 vi=idea["vi"],
                 plain=idea["sample"],
                 ipa="",
@@ -11093,12 +11172,18 @@ def _lesson2_think_card_html(q: str, ideas: list[dict]) -> str:
         )
     return f"""              <article class="lr-food-ex-card lr-think-card">
 {_ex_card_q_html(q)}
-                <p class="lr-mm-hint">Đừng học thuộc một đoạn. Chọn <strong>1–2 ý</strong>, dùng từ khóa Lesson 2, rồi bấm <strong>Reveal answer</strong> để đối chiếu đoạn mẫu.</p>
+                <p class="lr-mm-hint">Đừng học thuộc một đoạn. Chọn <strong>1–2 ý</strong>, dùng từ khóa Lesson {lesson_n}, rồi bấm <strong>Reveal answer</strong> để đối chiếu đoạn mẫu.</p>
 {chr(10).join(blocks)}
                 <div class="lr-think-scroll-src" hidden>
 {chr(10).join(scroll_qas)}
                 </div>
               </article>"""
+
+
+def _lesson2_think_card_html(q: str, ideas: list[dict]) -> str:
+    return _think_card_html(
+        q, ideas, hl_fn=_l2_hl, cloze_fn=_l2_cloze_html, lesson_n="2"
+    )
 
 
 LESSON2_THINK_HOME = [
@@ -11266,6 +11351,419 @@ LESSON2_THINK_VEG = [
         ),
     },
 ]
+
+
+LESSON3_THINK_COOK = [
+    {
+        "title": "Ý 1: Về việc tự nấu ăn để thỏa mãn niềm đam mê và tạo ra hương vị đậm đà",
+        "en": "Passion & Flavor",
+        "keys": ["have a soft spot for", "bold flavors / aromatic spices"],
+        "think": (
+            "Tôi rất thích nấu ăn ở nhà vì tôi có một sự yêu thích đặc biệt với việc tự tay "
+            "tạo ra những món ăn có hương vị đậm đà và gia vị thơm nồng."
+        ),
+        "sample": (
+            "Yes, absolutely. I have a soft spot for cooking at home because it allows me to "
+            "prepare meals packed with bold flavors and aromatic spices just the way I like them."
+        ),
+        "vi": (
+            "Có, chắc chắn rồi. Tôi đặc biệt thích nấu ở nhà vì được tự chuẩn bị những món đậm vị, "
+            "gia vị thơm nồng đúng theo ý mình."
+        ),
+    },
+    {
+        "title": "Ý 2: Về việc khám phá ẩm thực truyền thống qua từng món ăn tự nấu",
+        "en": "Traditional Culture & Meaning",
+        "keys": ["traditional cuisine", "underlying meaning"],
+        "think": (
+            "Nấu ăn tại nhà không chỉ là để thưởng thức ẩm thực truyền thống mà còn giúp tôi "
+            "cảm nhận được những ý nghĩa sâu xa đằng sau mỗi món ăn gia đình."
+        ),
+        "sample": (
+            "Moreover, preparing traditional cuisine at home gives me a chance to appreciate "
+            "the underlying meaning of family recipes that have been passed down through generations."
+        ),
+        "vi": (
+            "Hơn nữa, tự nấu ẩm thực truyền thống ở nhà giúp tôi cảm nhận ý nghĩa sâu xa của "
+            "những công thức gia đình được truyền qua nhiều thế hệ."
+        ),
+    },
+    {
+        "title": "Ý 3: Về sự linh hoạt tự nấu thay vì ra ngoài và sự sẵn lòng thử nghiệm món mới",
+        "en": "Flexibility & Openness",
+        "keys": ["hardly ever + V", "step out of my comfort zone"],
+        "think": (
+            "Tôi hầu như không bao giờ từ chối việc tự vào bếp thử các công thức mới "
+            "để bước ra khỏi vùng an toàn của bản thân."
+        ),
+        "sample": (
+            "In fact, I hardly ever turn down a chance to experiment with new ingredients in my kitchen, "
+            "which helps me step out of my comfort zone and improve my cooking skills."
+        ),
+        "vi": (
+            "Thực tế, tôi hầu như không bao giờ bỏ lỡ cơ hội thử nguyên liệu mới trong bếp — "
+            "điều đó giúp tôi bước ra vùng an toàn và nấu khéo hơn."
+        ),
+    },
+]
+
+LESSON3_THINK_FAST = [
+    {
+        "title": "Ý 1: Về việc không phải là người sành ăn hay thích thú với đồ ăn nhanh",
+        "en": "Not a Foodie's Choice",
+        "keys": ["foodie", "have a soft spot for"],
+        "think": (
+            "Dù tự nhận là một người mê ẩm thực, tôi hoàn toàn không có sự yêu thích "
+            "đặc biệt nào dành cho đồ ăn nhanh."
+        ),
+        "sample": (
+            "As much as I consider myself a true foodie, I certainly don't have a soft spot "
+            "for fast food or processed snacks."
+        ),
+        "vi": (
+            "Dù tự nhận là người mê ẩm thực thực thụ, tôi chắc chắn không đặc biệt thích "
+            "đồ ăn nhanh hay snack chế biến sẵn."
+        ),
+    },
+    {
+        "title": "Ý 2: Về việc đồ ăn nhanh không thể thay thế được các món ăn truyền thống",
+        "en": "Traditional Cuisine Contrast",
+        "keys": ["traditional cuisine", "underlying meaning"],
+        "think": (
+            "Đồ ăn nhanh chỉ mang tính chất ăn vội, hoàn toàn không thể so sánh với "
+            "ẩm thực truyền thống mang nhiều ý nghĩa sâu sắc."
+        ),
+        "sample": (
+            "Fast food can never replace the value of traditional cuisine, which carries a deep "
+            "underlying meaning connected to our culture and family gatherings."
+        ),
+        "vi": (
+            "Đồ ăn nhanh không bao giờ thay được giá trị ẩm thực truyền thống — thứ mang ý nghĩa "
+            "sâu sắc gắn với văn hóa và bữa cơm gia đình."
+        ),
+    },
+    {
+        "title": "Ý 3: Về thói quen hiếm khi tiêu thụ loại thực phẩm này",
+        "en": "Rare Consumption Habit",
+        "keys": ["hardly ever + V", "step out of my comfort zone"],
+        "think": (
+            "Tôi hầu như không bao giờ ăn đồ ăn nhanh, và thỉnh thoảng nếu có thử thì đó chỉ là "
+            "lúc tôi muốn bước ra khỏi vùng an toàn của mình."
+        ),
+        "sample": (
+            "In fact, I hardly ever touch fast-food items, and eating them would only happen if I "
+            "wanted to step out of my comfort zone for a strange meal."
+        ),
+        "vi": (
+            "Thực tế, tôi hầu như không bao giờ đụng tới đồ ăn nhanh; nếu có ăn thì chỉ khi muốn "
+            "bước ra vùng an toàn với một bữa lạ."
+        ),
+    },
+]
+
+LESSON3_THINK_CUISINE = [
+    {
+        "title": "Ý 1: Về đam mê của một người sành ăn muốn mở rộng khẩu vị",
+        "en": "Foodie Passion & Palate",
+        "keys": ["foodie", "broaden my palate"],
+        "think": (
+            "Là một người sành ăn thực thụ, tôi rất thích khám phá các món mới "
+            "để mở rộng khẩu vị của bản thân."
+        ),
+        "sample": (
+            "Yes, absolutely, as I consider myself a true foodie. I always love trying unfamiliar "
+            "dishes to broaden my palate beyond my usual daily meals."
+        ),
+        "vi": (
+            "Có, chắc chắn, vì tôi tự nhận là người mê ẩm thực. Tôi luôn thích thử món lạ "
+            "để mở rộng khẩu vị, không chỉ quanh những bữa quen thuộc."
+        ),
+    },
+    {
+        "title": "Ý 2: Về cơ hội bước ra vùng an toàn để tận hưởng trải nghiệm ẩm thực",
+        "en": "Comfort Zone & Experience",
+        "keys": ["step out of my comfort zone", "culinary experience"],
+        "think": (
+            "Việc nếm thử những món ăn lạ giúp tôi bước ra khỏi vùng an toàn "
+            "và mang lại một trải nghiệm ẩm thực trọn vẹn."
+        ),
+        "sample": (
+            "Tasting diverse food gives me a wonderful chance to step out of my comfort zone "
+            "and turn every single meal into a memorable culinary experience."
+        ),
+        "vi": (
+            "Nếm nhiều món khác nhau cho tôi cơ hội tuyệt để bước ra vùng an toàn "
+            "và biến mỗi bữa thành trải nghiệm ẩm thực đáng nhớ."
+        ),
+    },
+    {
+        "title": "Ý 3: Về sự kích thích vị giác khi thưởng thức đặc sản địa phương",
+        "en": "Appetite & Specialties",
+        "keys": ["whet my appetite", "authentic local speciality"],
+        "think": (
+            "Những món đặc sản địa phương chính gốc luôn có sức hút tuyệt vời, "
+            "kích thích vị giác của tôi ngay lập tức."
+        ),
+        "sample": (
+            "Furthermore, whenever I have the chance to taste an authentic local speciality, "
+            "the rich and unique taste never fails to whet my appetite instantly."
+        ),
+        "vi": (
+            "Hơn nữa, mỗi khi được nếm đặc sản địa phương chính gốc, vị đậm và độc đáo "
+            "luôn kích thích vị giác ngay lập tức."
+        ),
+    },
+]
+
+LESSON3_THINK_SEA = [
+    {
+        "title": "Ý 1: Về tình yêu đặc biệt dành cho hải sản của một người sành ăn",
+        "en": "Foodie Passion & Special Affection",
+        "keys": ["foodie", "have a soft spot for"],
+        "think": (
+            "Là một người sành ăn chính hiệu, tôi có một sự yêu thích đặc biệt "
+            "và luôn dành tình cảm lớn cho các món hải sản tươi ngon."
+        ),
+        "sample": (
+            "Yes, absolutely, as I consider myself a true foodie. I definitely have a soft spot "
+            "for fresh seafood dishes compared to other types of meat."
+        ),
+        "vi": (
+            "Có, chắc chắn, vì tôi tự nhận là người mê ẩm thực. Tôi đặc biệt yêu thích "
+            "hải sản tươi hơn các loại thịt khác."
+        ),
+    },
+    {
+        "title": "Ý 2: Về trải nghiệm thưởng thức đặc sản biển chính gốc mang lại hương vị đậm đà",
+        "en": "Authentic Specialties & Flavors",
+        "keys": ["authentic local speciality", "bold flavors / aromatic spices"],
+        "think": (
+            "Thưởng thức một món đặc sản hải sản địa phương chính gốc với hương vị đậm đà "
+            "và gia vị thơm nồng là một trải nghiệm tuyệt vời."
+        ),
+        "sample": (
+            "Whenever I visit coastal regions, tasting an authentic local speciality featuring "
+            "seafood packed with bold flavors and aromatic spices always blows my mind."
+        ),
+        "vi": (
+            "Mỗi khi đến vùng biển, nếm đặc sản địa phương chính gốc với hải sản đậm vị, "
+            "gia vị thơm nồng luôn khiến tôi choáng ngợp."
+        ),
+    },
+    {
+        "title": "Ý 3: Về sự kích thích vị giác và mong muốn mở rộng khẩu vị qua các món hải sản lạ",
+        "en": "Appetite & Palate Expansion",
+        "keys": ["whet my appetite", "broaden my palate"],
+        "think": (
+            "Mùi thơm của hải sản chế biến luôn kích thích vị giác của tôi ngay lập tức, "
+            "đồng thời giúp tôi mở rộng khẩu vị với các món ăn mới."
+        ),
+        "sample": (
+            "Furthermore, the irresistible aroma of grilled seafood never fails to whet my appetite "
+            "instantly, giving me a great chance to broaden my palate with unique ocean flavors."
+        ),
+        "vi": (
+            "Hơn nữa, mùi hải sản nướng khó cưỡng luôn kích thích vị giác ngay, "
+            "cho tôi cơ hội mở rộng khẩu vị với hương vị biển độc đáo."
+        ),
+    },
+]
+
+LESSON3_THINK_KITCHEN = [
+    {
+        "title": "Ý 1: Về niềm đam mê ẩm thực thực sự khi làm việc trong môi trường bếp chuyên nghiệp",
+        "en": "Foodie Passion",
+        "keys": ["foodie", "culinary experience"],
+        "think": (
+            "Là một người sành ăn thực sự, việc làm việc trong một căn bếp bận rộn mang lại "
+            "cho tôi những trải nghiệm ẩm thực vô cùng phong phú và chuyên nghiệp."
+        ),
+        "sample": (
+            "Yes, absolutely, as I consider myself a true foodie. Working in a busy kitchen allows "
+            "me to turn every single shift into a hands-on, professional culinary experience."
+        ),
+        "vi": (
+            "Có, chắc chắn, vì tôi tự nhận là người mê ẩm thực. Làm việc trong bếp bận rộn "
+            "biến mỗi ca thành trải nghiệm ẩm thực trực tay, chuyên nghiệp."
+        ),
+    },
+    {
+        "title": "Ý 2: Về sự thăng hoa trong hương vị và việc sử dụng gia vị đặc trưng",
+        "en": "Flavors & Spices",
+        "keys": ["bold flavors / aromatic spices", "whet my appetite"],
+        "think": (
+            "Tôi rất thích việc chế biến những món ăn có hương vị đậm đà, gia vị thơm nồng, "
+            "điều này luôn làm tôi cảm thấy hứng thú và kích thích vị giác ngay lập tức."
+        ),
+        "sample": (
+            "I especially love the process of crafting dishes packed with bold flavors and "
+            "aromatic spices, which never fail to whet my appetite while cooking."
+        ),
+        "vi": (
+            "Tôi đặc biệt thích quá trình tạo món đậm vị, gia vị thơm nồng — "
+            "lúc nấu chúng luôn kích thích vị giác."
+        ),
+    },
+    {
+        "title": "Ý 3: Về cơ hội dũng cảm bước ra khỏi vùng an toàn để nâng cao kỹ năng",
+        "en": "Comfort Zone & Skills",
+        "keys": ["step out of my comfort zone", "hardly ever + V"],
+        "think": (
+            "Môi trường nhà bếp bận rộn buộc tôi phải bước ra khỏi vùng an toàn, và tôi hầu như "
+            "không bao giờ bỏ lỡ cơ hội thử thách bản thân với những công thức khó."
+        ),
+        "sample": (
+            "Moreover, the fast-paced nature of the job pushes me to step out of my comfort zone, "
+            "meaning I hardly ever shy away from difficult cooking challenges or new recipes."
+        ),
+        "vi": (
+            "Hơn nữa, nhịp độ nhanh của công việc đẩy tôi bước ra vùng an toàn, nên tôi hầu như "
+            "không bao giờ né những thử thách nấu khó hay công thức mới."
+        ),
+    },
+]
+
+LESSON3_THINK_SPICY = [
+    {
+        "title": "Ý 1: Về sở thích ban đầu đối với các món ăn cay nồng",
+        "en": "Passion for Spice",
+        "keys": ["foodie", "have a soft spot for"],
+        "think": (
+            "Là một người sành ăn, thú thật là tôi có một sự yêu thích đặc biệt "
+            "với các món ăn có vị cay nồng giúp làm tăng hương vị."
+        ),
+        "sample": (
+            "Yes, as a true foodie, I used to have a soft spot for spicy dishes because they "
+            "bring an intense and exciting kick to meals."
+        ),
+        "vi": (
+            "Có, với tư cách người mê ẩm thực, trước đây tôi đặc biệt thích món cay "
+            "vì chúng mang lại cú huých mạnh, thú vị cho bữa ăn."
+        ),
+    },
+    {
+        "title": "Ý 2: Về sự kích thích vị giác và mong muốn vượt qua giới hạn bản thân",
+        "en": "Appetite & Comfort Zone",
+        "keys": ["whet my appetite", "step out of my comfort zone"],
+        "think": (
+            "Hương vị cay đậm đà thường kích thích vị giác rất mạnh và tạo cho tôi "
+            "cảm giác muốn bước ra khỏi vùng an toàn để thử thách."
+        ),
+        "sample": (
+            "Eating food packed with rich spices can quickly whet my appetite and give me a chance "
+            "to step out of my comfort zone with new flavors."
+        ),
+        "vi": (
+            "Ăn món nhiều gia vị có thể kích thích vị giác rất nhanh và cho tôi cơ hội "
+            "bước ra vùng an toàn với hương vị mới."
+        ),
+    },
+    {
+        "title": "Ý 3: Về mặt tiêu cực và rủi ro sức khỏe khi ăn quá nhiều đồ cay",
+        "en": "Health Risks",
+        "keys": ["pose a health risk"],
+        "think": (
+            "Dù vậy, tôi cũng nhận thức rõ rằng ăn quá nhiều đồ cay không hề tốt, "
+            "nó có thể gây ra những vấn đề nghiêm trọng cho hệ tiêu hóa nếu dùng thường xuyên."
+        ),
+        "sample": (
+            "However, I have learned to cut down on it because consuming too much spicy food can "
+            "actually pose a serious health risk to my stomach, leading to discomfort and digestion "
+            "issues over time."
+        ),
+        "vi": (
+            "Tuy nhiên, tôi đã học cách ăn ít lại vì ăn quá nhiều đồ cay có thể gây rủi ro nghiêm trọng "
+            "cho dạ dày, dẫn đến khó chịu và vấn đề tiêu hóa theo thời gian."
+        ),
+    },
+]
+
+LESSON3_THINK_EATOUT = [
+    {
+        "title": "Ý 1: Về sở thích khám phá ẩm thực cùng bạn bè khi ra ngoài",
+        "en": "Social Dining & Foodie",
+        "keys": ["foodie", "hardly ever + V"],
+        "think": (
+            "Là một người sành ăn, tôi hầu như không bao giờ từ chối những buổi đi ăn uống "
+            "cùng bạn bè ở các hàng quán bên ngoài."
+        ),
+        "sample": (
+            "Yes, as a true foodie, I hardly ever turn down an invitation to dine out at restaurants "
+            "and explore new dishes with friends."
+        ),
+        "vi": (
+            "Có, với tư cách người mê ẩm thực, tôi hầu như không bao giờ từ chối lời mời "
+            "ra ngoài nhà hàng khám phá món mới cùng bạn."
+        ),
+    },
+    {
+        "title": "Ý 2: Về trải nghiệm thưởng thức các món ăn độc đáo và mở rộng khẩu vị",
+        "en": "Culinary Experience & Palate",
+        "keys": ["culinary experience", "broaden my palate"],
+        "think": (
+            "Việc ăn uống ở ngoài mang lại những trải nghiệm ẩm thực thú vị "
+            "và giúp tôi mở rộng khẩu vị với nhiều hương vị lạ."
+        ),
+        "sample": (
+            "Going out to eat gives me a wonderful chance to enjoy a unique culinary experience "
+            "and broaden my palate beyond my daily home-cooked meals."
+        ),
+        "vi": (
+            "Ăn ngoài cho tôi cơ hội tuyệt để tận hưởng trải nghiệm ẩm thực độc đáo "
+            "và mở rộng khẩu vị, không chỉ quanh những bữa nấu nhà hằng ngày."
+        ),
+    },
+    {
+        "title": "Ý 3: Về mặt tiêu cực và rủi ro sức khỏe khi ăn ngoài quá nhiều",
+        "en": "Health Risks & Detrimental Effects",
+        "keys": [
+            "pose a health risk",
+            "harmful / detrimental to your health",
+            "shorten my life expectancy",
+        ],
+        "think": (
+            "Tuy nhiên, tôi cũng hạn chế ăn hàng quán thường xuyên vì đồ ăn ngoài thường chứa nhiều "
+            "dầu mỡ, gia vị công nghiệp có thể gây rủi ro sức khỏe, làm hại cơ thể và thậm chí "
+            "làm giảm tuổi thọ theo thời gian."
+        ),
+        "sample": (
+            "However, I try not to eat out too often because relying heavily on restaurant food can "
+            "pose a health risk and prove harmful / detrimental to your health. Consuming excessive "
+            "fast or oily foods over time may even shorten my life expectancy and lead to various "
+            "health problems if not controlled."
+        ),
+        "vi": (
+            "Tuy nhiên, tôi cố không ăn ngoài quá thường xuyên vì phụ thuộc nhiều vào đồ nhà hàng "
+            "có thể gây rủi ro sức khỏe và có hại cho cơ thể. Ăn quá nhiều đồ nhanh hoặc nhiều dầu "
+            "theo thời gian thậm chí có thể làm giảm tuổi thọ và dẫn đến nhiều vấn đề sức khỏe "
+            "nếu không kiểm soát."
+        ),
+    },
+]
+
+
+def _lesson3_think_card_html(q: str, ideas: list[dict]) -> str:
+    return _think_card_html(
+        q, ideas, hl_fn=_l3_hl, cloze_fn=_l3_cloze_html, lesson_n="3"
+    )
+
+
+def _lesson3_think_practice_html() -> str:
+    cards = [
+        _lesson3_think_card_html("Do you like cooking at home?", LESSON3_THINK_COOK),
+        _lesson3_think_card_html("Do you like fast food?", LESSON3_THINK_FAST),
+        _lesson3_think_card_html("Do you like trying new cuisines?", LESSON3_THINK_CUISINE),
+        _lesson3_think_card_html("Do you like seafood?", LESSON3_THINK_SEA),
+        _lesson3_think_card_html("Do you like your job in a busy kitchen?", LESSON3_THINK_KITCHEN),
+        _lesson3_think_card_html("Do you like spicy food?", LESSON3_THINK_SPICY),
+        _lesson3_think_card_html("Do you like eating out?", LESSON3_THINK_EATOUT),
+    ]
+    return f"""
+        <div class="lr-food-examples lr-think-examples" id="food-examples-l3">
+          <h3 class="lr-core-subtitle">Ví dụ Food · Tư duy 3 ý</h3>
+          <p class="lr-mm-hint">Phát triển <strong>ý</strong> trước khi xem đoạn mẫu. Chọn 1–2 ý, lắp từ khóa Lesson 3, rồi bấm <strong>Reveal answer</strong>.</p>
+{chr(10).join(cards)}
+        </div>"""
 
 
 def _lesson2_practice_html(
@@ -11823,7 +12321,11 @@ def lesson_highlights_html(
     m15 = f"lesson15Mindmap{map_suffix}"
     m16 = f"lesson16Mindmap{map_suffix}"
     open_attr = " open" if open_practice else ""
-    examples_block = food_lesson_examples_html() if include_food_examples else ""
+    examples_block = (
+        _lesson3_think_practice_html()
+        if include_food_examples
+        else food_lesson_examples_html()
+    )
     examples_l5 = food_lesson5_examples_html() if include_food_examples else ""
     examples_l6 = food_lesson6_examples_html() if include_food_examples else ""
     examples_l7 = food_lesson7_examples_html() if include_food_examples else ""
@@ -11849,7 +12351,9 @@ def lesson_highlights_html(
     }
     mh = {n: memo_html_for(n) if include_memos else "" for n in FOOD_VOCABS}
     ms = {n: f"#lesson{n}-memo" if include_memos else "" for n in FOOD_VOCABS}
-    lesson3_scroll = ""
+    lesson3_scroll = lesson_scroll_read_html(
+        "lesson3", title="Lesson 3", source_sel="#lesson3-scroll-source", memo_sel=ms["3"]
+    )
     lesson5_scroll = ""
     lesson6_scroll = ""
     lesson7_scroll = ""
@@ -11865,9 +12369,6 @@ def lesson_highlights_html(
     lesson17_scroll = ""
     lesson17_fav_scroll = ""
     if include_food_examples:
-        lesson3_scroll = lesson_scroll_read_html(
-            "lesson3", title="Lesson 3", source_sel="#lesson3-scroll-source", memo_sel=ms["3"]
-        )
         lesson5_scroll = lesson_scroll_read_html(
             "lesson5", title="Lesson 5", source_sel="#lesson5-scroll-source", memo_sel=ms["5"]
         )
