@@ -11001,8 +11001,105 @@ def food_lesson_examples_html() -> str:
         </div>"""
 
 
-def _lesson2_practice_html(*, open_attr: str = "", memo_html: str = "", memo_sel: str = "") -> str:
-    """Lesson 2 practice — Thích + Không thích đều có dropdown ngữ cảnh."""
+def _l2_hl(text: str) -> str:
+    """Highlight Lesson 2 vocab inside a thinking-sample paragraph."""
+    pats = [re.compile(p, re.I) for p in (_food_notes.VOCAB_EXAMPLE_HIGHLIGHTS.get("2") or [])]
+    return _highlight_vocab_in_example(text, pats)
+
+
+def _lesson2_home_think_card_html() -> str:
+    """Review Exercise 2: develop 3 ideas, then reveal a sample paragraph."""
+    ideas = [
+        {
+            "title": "Ý 1: Về sức khỏe & kiểm soát",
+            "en": "Health & Control",
+            "keys": [
+                "stay in control of what I consume",
+                "processed food",
+                "pose a health risk",
+            ],
+            "think": "Tự nấu giúp mình kiểm soát được lượng dầu mỡ, muối, đảm bảo tươi ngon hơn so với đồ ăn nhanh bên ngoài.",
+            "sample": (
+                "Many people love home-cooked meals because it is a great way to stay in control of what they consume. "
+                "Unlike eating out at restaurants, which often relies heavily on processed food and can pose a health risk "
+                "over time, preparing meals by yourself allows you to carefully manage the amount of oil and salt, "
+                "ensuring that every dish is much fresher and healthier."
+            ),
+            "vi": (
+                "Nhiều người thích bữa cơm nhà vì đó là cách tuyệt vời để kiểm soát những gì mình ăn. "
+                "Khác với ăn ngoài — thường dựa nhiều vào thực phẩm chế biến sẵn và có thể gây rủi ro sức khỏe lâu dài — "
+                "tự nấu giúp bạn kiểm soát lượng dầu và muối, mỗi món tươi và lành mạnh hơn."
+            ),
+        },
+        {
+            "title": "Ý 2: Về tinh thần & sự thư giãn",
+            "en": "Mental & Relaxation",
+            "keys": [
+                "unwind / recharge my batteries",
+                "comfort food",
+                "mouth-watering",
+            ],
+            "think": "Nấu ăn hoặc thưởng thức bữa cơm nhà là cách để giải tỏa căng thẳng, tìm lại cảm giác thư thái, ấm cúng.",
+            "sample": (
+                "Enjoying a warm, home-cooked meal is also a wonderful way to unwind and recharge my batteries "
+                "after a long and stressful day at work. It serves as true comfort food that eases the mind, "
+                "while the delicious, mouth-watering aroma brings a cozy, relaxing atmosphere right into your home."
+            ),
+            "vi": (
+                "Thưởng thức một bữa cơm nhà ấm nóng cũng là cách tuyệt để thư giãn và nạp lại năng lượng sau ngày làm việc căng thẳng. "
+                "Nó như món ăn an ủi giúp đầu óc nhẹ lại, còn mùi thơm ngon miệng mang cảm giác ấm cúng vào nhà."
+            ),
+        },
+        {
+            "title": "Ý 3: Về sự sáng tạo",
+            "en": "Creativity",
+            "keys": ["experiment with spices and recipes"],
+            "think": "Ta có cơ hội tự thử nghiệm các gia vị và công thức nấu nướng mới lạ để tạo ra món ăn hấp dẫn theo ý thích.",
+            "sample": (
+                "Finally, cooking at home gives me the chance to experiment with spices and recipes. "
+                "Instead of eating the same repetitive dishes outside, you have the full freedom to mix different "
+                "ingredients together, turning a simple cooking session into an exciting experience to create your favorite meals."
+            ),
+            "vi": (
+                "Cuối cùng, nấu ở nhà cho mình cơ hội thử gia vị và công thức mới. "
+                "Thay vì ăn mãi những món lặp lại bên ngoài, bạn tự do kết hợp nguyên liệu, "
+                "biến buổi nấu thành trải nghiệm thú vị để tạo món mình thích."
+            ),
+        },
+    ]
+    blocks = []
+    for idea in ideas:
+        keys = ", ".join(f'<mark class="vocab">{esc(k)}</mark>' for k in idea["keys"])
+        blocks.append(
+            f"""                <section class="lr-idea">
+                  <h5 class="lr-idea-title">{esc(idea["title"])} <em>({esc(idea["en"])})</em></h5>
+                  <p class="lr-idea-keys"><span>Từ khóa gợi ý:</span> {keys}</p>
+                  <p class="lr-idea-think"><span>Gợi ý tư duy:</span> {esc(idea["think"])}</p>
+                  <details class="lr-reveal">
+                    <summary><span class="lr-reveal-toggle" aria-hidden="true"></span> Reveal answer</summary>
+                    <p class="lr-reveal-en">{_l2_hl(idea["sample"])}</p>
+                    <p class="lr-reveal-vi">({esc(idea["vi"])})</p>
+                  </details>
+                </section>"""
+        )
+    return f"""              <article class="lr-food-ex-card lr-think-card">
+{_ex_card_q_html("Why do people like home-cooked meals?")}
+                <p class="lr-mm-hint">Đừng học thuộc một đoạn. Chọn <strong>1–2 ý</strong>, dùng từ khóa Lesson 2, rồi bấm <strong>Reveal answer</strong> để đối chiếu đoạn mẫu.</p>
+{chr(10).join(blocks)}
+              </article>"""
+
+
+def _lesson2_practice_html(
+    *,
+    open_attr: str = "",
+    memo_html: str = "",
+    memo_sel: str = "",
+    think_first: bool = False,
+) -> str:
+    """Lesson 2 practice — Thích + Không thích đều có dropdown ngữ cảnh.
+
+    think_first: Review Exercise 2 replaces the first card with idea-development + Reveal answer.
+    """
     home_yes_tpl = (
         "I think because it's a great way to {relax_phrase} — especially when they're tired after work. "
         "{relax_followup}"
@@ -11056,15 +11153,25 @@ def _lesson2_practice_html(*, open_attr: str = "", memo_html: str = "", memo_sel
         taste_complaint=phrase_pick("taste_complaint", 2),
     )
 
-    cards = f"""
-            <div class="lr-practice-source" id="lesson2-practice">
-              <article class="lr-food-ex-card">
+    home_card = (
+        _lesson2_home_think_card_html()
+        if think_first
+        else f"""              <article class="lr-food-ex-card">
 {_ex_card_q_html("Why do people like home-cooked meals?")}
                 <div class="lr-food-ex-pair">
 {_pair_answer_html(kind="yes", en_html=home_yes, vi="Tôi nghĩ vì đó là cách tuyệt vời để thư giãn — nhất là khi mệt sau giờ làm. Ở trong bếp cũng giúp tạm quên áp lực công việc.", plain="I think because it's a great way to unwind and recharge their batteries — especially when they're tired after work. Being in the kitchen also helps them temporarily forget all the pressures from their work.", ipa="/aɪ θɪŋk bɪˈkɒz ɪts ə ɡreɪt weɪ tuː…/", q="Why do people like home-cooked meals?", ex_en=home_yes_tpl)}
 {_pair_answer_html(kind="no", en_html=home_no, vi="Một số người không thích nấu ở nhà vì việc nấu khiến họ kiệt sức và phải làm những việc lặp lại mỗi ngày.", plain="Well, some people don't enjoy home-cooked meals because cooking makes them exhausted and they have to deal with the same tasks every day.", ipa="/wel səm ˈpiːpl…/", q="Why do people like home-cooked meals?", ex_en=home_no_tpl)}
                 </div>
-              </article>
+              </article>"""
+    )
+    hint = (
+        "Phát triển <strong>ý</strong> trước khi xem đoạn mẫu. Câu còn lại vẫn là <strong>Thích / Không thích</strong> + dropdown."
+        if think_first
+        else "Cùng format hình 1: <strong>Thích</strong> và <strong>Không thích</strong> đều có dropdown (đổi cụm lý do Lesson 2). Hover cả đoạn → 1 tooltip VI. Bật <strong>Hiện IPA</strong> trên mỗi card để xem phiên âm dưới câu trả lời."
+    )
+    cards = f"""
+            <div class="lr-practice-source" id="lesson2-practice">
+{home_card}
               <article class="lr-food-ex-card">
 {_ex_card_q_html("Do you like reading about food & nutrition?")}
                 <div class="lr-food-ex-pair">
@@ -11083,7 +11190,7 @@ def _lesson2_practice_html(*, open_attr: str = "", memo_html: str = "", memo_sel
     return f"""
           <details class="lr-formula-details"{open_attr}>
             <summary>Thực hành · Giải trí / Giáo dục / Sức khỏe</summary>
-            <p class="lr-mm-hint">Cùng format hình 1: <strong>Thích</strong> và <strong>Không thích</strong> đều có dropdown (đổi cụm lý do Lesson 2). Hover cả đoạn → 1 tooltip VI. Bật <strong>Hiện IPA</strong> trên mỗi card để xem phiên âm dưới câu trả lời.</p>
+            <p class="lr-mm-hint">{hint}</p>
 {cards}
           </details>
 {memo_html}
@@ -12232,7 +12339,7 @@ def lesson_highlights_html(
         )}
 {g2}
 {vn["2"]}
-{_lesson2_practice_html(open_attr=open_attr, memo_html=mh["2"], memo_sel=ms["2"])}
+{_lesson2_practice_html(open_attr=open_attr, memo_html=mh["2"], memo_sel=ms["2"], think_first=include_food_examples)}
         </article>
 
         <article class="lr-core-lesson" id="lesson3-formulas">
