@@ -11001,10 +11001,65 @@ def food_lesson_examples_html() -> str:
         </div>"""
 
 
+L2_CLOZE_VI = {
+    "stay in control of what they consume": "kiểm soát những gì mình ăn",
+    "stay in control of what I consume": "kiểm soát những gì mình ăn",
+    "stay in control of what you consume": "kiểm soát những gì mình ăn",
+    "processed food": "thực phẩm chế biến sẵn",
+    "junk food": "đồ ăn vặt",
+    "pose a health risk": "gây rủi ro sức khỏe",
+    "unwind and recharge my batteries": "thư giãn / nạp lại năng lượng",
+    "recharge my batteries": "nạp lại năng lượng",
+    "unwind": "thư giãn",
+    "comfort food": "món ăn an ủi",
+    "mouth-watering": "ngon đến chảy nước miếng",
+    "experiment with spices and recipes": "thử gia vị và công thức mới",
+    "eat like a horse": "ăn rất nhiều",
+    "have a sweet tooth": "hảo ngọt",
+    "got the munchies": "thèm ăn vặt",
+    "get the munchies": "thèm ăn vặt",
+    "grab a bite to eat": "ăn vội một chút",
+    "bolt something down": "nuốt chửng",
+    "bolt down": "nuốt chửng",
+}
+L2_CLOZE_VI_LC = {k.lower(): v for k, v in L2_CLOZE_VI.items()}
+
+
 def _l2_hl(text: str) -> str:
     """Highlight Lesson 2 vocab inside a thinking-sample paragraph."""
     pats = [re.compile(p, re.I) for p in (_food_notes.VOCAB_EXAMPLE_HIGHLIGHTS.get("2") or [])]
     return _highlight_vocab_in_example(text, pats)
+
+
+def _l2_cloze_html(text: str) -> str:
+    """Same chunks as highlight, but as scroll-read cloze blanks."""
+    pats = [re.compile(p, re.I) for p in (_food_notes.VOCAB_EXAMPLE_HIGHLIGHTS.get("2") or [])]
+    if not text or not pats:
+        return esc(text)
+    found: list[tuple[int, int, str]] = []
+    for pat in pats:
+        for m in pat.finditer(text):
+            found.append((m.start(), m.end(), m.group(0)))
+    found.sort(key=lambda t: (t[0], -(t[1] - t[0])))
+    kept: list[tuple[int, int, str]] = []
+    occupied: list[tuple[int, int]] = []
+    for start, end, frag in found:
+        if any(start < e and end > s for s, e in occupied):
+            continue
+        kept.append((start, end, frag))
+        occupied.append((start, end))
+    kept.sort(key=lambda t: t[0])
+    out: list[str] = []
+    i = 0
+    for start, end, frag in kept:
+        out.append(esc(text[i:start]))
+        vi = L2_CLOZE_VI_LC.get(frag.lower(), "")
+        out.append(
+            f'<span class="lr-cloze" data-en="{esc(frag)}" data-vi="{esc(vi)}">{esc(frag)}</span>'
+        )
+        i = end
+    out.append(esc(text[i:]))
+    return "".join(out)
 
 
 def _lesson2_think_card_html(q: str, ideas: list[dict]) -> str:
@@ -11024,10 +11079,25 @@ def _lesson2_think_card_html(q: str, ideas: list[dict]) -> str:
                   </details>
                 </section>"""
         )
+    scroll_qas = []
+    for idea in ideas:
+        scroll_qas.append(
+            _pair_answer_html(
+                kind="sample",
+                en_html=_l2_cloze_html(idea["sample"]),
+                vi=idea["vi"],
+                plain=idea["sample"],
+                ipa="",
+                q=q,
+            )
+        )
     return f"""              <article class="lr-food-ex-card lr-think-card">
 {_ex_card_q_html(q)}
                 <p class="lr-mm-hint">Đừng học thuộc một đoạn. Chọn <strong>1–2 ý</strong>, dùng từ khóa Lesson 2, rồi bấm <strong>Reveal answer</strong> để đối chiếu đoạn mẫu.</p>
 {chr(10).join(blocks)}
+                <div class="lr-think-scroll-src" hidden>
+{chr(10).join(scroll_qas)}
+                </div>
               </article>"""
 
 
