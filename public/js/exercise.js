@@ -90,6 +90,20 @@
     return a;
   };
 
+  const loadSheetBackend = () => {
+    if (window.SheetBackend) return Promise.resolve(window.SheetBackend);
+    return new Promise((resolve) => {
+      const self = document.querySelector('script[src*="exercise.js"]');
+      const s = document.createElement("script");
+      s.src = self
+        ? self.src.replace(/exercise\.js(\?.*)?$/, "sheet-sync.js?v=sheet1")
+        : "../../../../js/sheet-sync.js?v=sheet1";
+      s.onload = () => resolve(window.SheetBackend || null);
+      s.onerror = () => resolve(null);
+      document.head.appendChild(s);
+    });
+  };
+
   const loadVocab = () => {
     const raw = document.getElementById("exVocabData");
     if (raw && raw.textContent.trim()) {
@@ -1188,7 +1202,7 @@
     const hint = root.querySelector(".ex-flash-hint");
     if (hint) {
       hint.innerHTML =
-        'Pareto 80/20 — lật thẻ rồi phân loại: <strong>Đã biết</strong> · <strong>Phải học</strong> (dễ dùng, đa năng) · <strong>Không thông dụng</strong>. Tải <strong>.txt</strong> để lưu kết quả (refresh sẽ mất).';
+        'Pareto 80/20 — lật thẻ rồi phân loại: <strong>Đã biết</strong> · <strong>Phải học</strong> (dễ dùng, đa năng) · <strong>Không thông dụng</strong>. Tải <strong>.txt</strong> hoặc <strong>Lưu Sheet</strong> (Google Sheet).';
     }
     const stats = root.querySelector(".ex-flash-stats");
     if (stats) {
@@ -1210,7 +1224,8 @@
     }
   };
 
-  const initFlashcards = () => {
+  const initFlashcards = async () => {
+    await loadSheetBackend();
     const vocab = loadVocab();
     let section = document.getElementById("exFlash");
     if (!vocab.length) {
@@ -1227,7 +1242,7 @@
         <div class="ex-flash-head">
           <div>
             <h2>Flashcards</h2>
-            <p class="ex-flash-hint">Pareto 80/20 — lật thẻ rồi phân loại: <strong>Đã biết</strong> · <strong>Phải học</strong> (dễ dùng, đa năng) · <strong>Không thông dụng</strong>. Tải <strong>.txt</strong> để lưu kết quả (refresh sẽ mất).</p>
+            <p class="ex-flash-hint">Pareto 80/20 — lật thẻ rồi phân loại: <strong>Đã biết</strong> · <strong>Phải học</strong> (dễ dùng, đa năng) · <strong>Không thông dụng</strong>. Tải <strong>.txt</strong> hoặc <strong>Lưu Sheet</strong> (Google Sheet).</p>
           </div>
           <div class="ex-flash-controls">
             <div class="ex-flash-stats" aria-live="polite">
@@ -1384,9 +1399,10 @@
         stage.innerHTML = `<div class="ex-flash-done">
           <p>Hoàn thành sàng lọc Pareto.</p>
           <p class="ex-flash-done-meta">Phải học <strong>${classified.gold.length}</strong> · Đã biết ${classified.known.length} · Không thông dụng ${classified.trash.length}</p>
-          <p class="ex-flash-done-hint">Tải file .txt để giữ danh sách — đặc biệt nhóm <strong>Phải học</strong> (~20–30 từ vàng).</p>
+          <p class="ex-flash-done-hint">Tải .txt hoặc <strong>Lưu Sheet</strong> để giữ danh sách — đặc biệt nhóm <strong>Phải học</strong> (~20–30 từ vàng).</p>
           <div class="ex-flash-done-actions">
             <button type="button" class="ex-btn primary" id="btnFlashDownloadDone">Tải .txt</button>
+            <button type="button" class="ex-btn" id="btnFlashSheetDone">Lưu Sheet</button>
             <button type="button" class="ex-btn" id="btnFlashAgain">Luyện lại</button>
           </div>
         </div>`;
@@ -1394,6 +1410,9 @@
         again && again.addEventListener("click", () => restart(true));
         const dlDone = document.getElementById("btnFlashDownloadDone");
         dlDone && dlDone.addEventListener("click", downloadClassified);
+        document.getElementById("btnFlashSheetDone")?.addEventListener("click", () => {
+          document.getElementById("btnFlashSheetSave")?.click();
+        });
         return;
       }
 
@@ -1535,6 +1554,23 @@
     btnRestart &&
       btnRestart.addEventListener("click", () => {
         restart(true);
+      });
+
+    window.SheetBackend &&
+      window.SheetBackend.mount({
+        section,
+        deckKey: exportSlug,
+        vocab,
+        getLive: () => ({ deck, idx, classified }),
+        applyLive: (next) => {
+          deck = next.deck;
+          idx = next.idx;
+          classified.gold = next.gold;
+          classified.known = next.known;
+          classified.trash = next.trash;
+          renderCard();
+        },
+        showMsg,
       });
 
     restart(true);

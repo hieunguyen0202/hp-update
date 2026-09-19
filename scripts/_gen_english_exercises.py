@@ -772,7 +772,7 @@ def wrap_exercise(
         <div class="ex-flash-head">
           <div>
             <h2>Flashcards</h2>
-            <p class="ex-flash-hint">Pareto 80/20 — lật thẻ rồi phân loại: <strong>Đã biết</strong> · <strong>Phải học</strong> (dễ dùng, đa năng) · <strong>Không thông dụng</strong>. Tải <strong>.txt</strong> để lưu kết quả (refresh sẽ mất).</p>
+            <p class="ex-flash-hint">Pareto 80/20 — lật thẻ rồi phân loại: <strong>Đã biết</strong> · <strong>Phải học</strong> (dễ dùng, đa năng) · <strong>Không thông dụng</strong>. Tải <strong>.txt</strong> hoặc <strong>Lưu Sheet</strong> (Google Sheet).</p>
           </div>
           <div class="ex-flash-controls">
             <div class="ex-flash-stats" aria-live="polite">
@@ -838,7 +838,7 @@ def wrap_exercise(
 {body}
   </div>
   <script src="{home}js/docs.js"></script>
-  <script src="{home}js/exercise.js?v=article2"></script>
+  <script src="{home}js/exercise.js?v=sheet1"></script>
 </body>
 </html>
 """

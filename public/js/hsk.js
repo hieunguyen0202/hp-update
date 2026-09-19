@@ -29,6 +29,20 @@
     return a;
   };
 
+  const loadSheetBackend = () => {
+    if (window.SheetBackend) return Promise.resolve(window.SheetBackend);
+    return new Promise((resolve) => {
+      const self = document.querySelector('script[src*="hsk.js"]');
+      const s = document.createElement("script");
+      s.src = self
+        ? self.src.replace(/hsk\.js(\?.*)?$/, "sheet-sync.js?v=sheet1")
+        : "../../../js/sheet-sync.js?v=sheet1";
+      s.onload = () => resolve(window.SheetBackend || null);
+      s.onerror = () => resolve(null);
+      document.head.appendChild(s);
+    });
+  };
+
   const pickZhVoice = () => {
     if (!window.speechSynthesis) return null;
     const voices = speechSynthesis.getVoices();
@@ -60,7 +74,8 @@
   if (window.speechSynthesis) speechSynthesis.onvoiceschanged = () => {};
 
   /* ── Flashcards ───────────────────────────────────────────────────── */
-  const initFlashcards = () => {
+  const initFlashcards = async () => {
+    await loadSheetBackend();
     const stage = document.getElementById("flashStage");
     if (!stage || !vocab.length) return;
 
@@ -140,11 +155,15 @@
           <p class="ex-flash-done-meta">Phải học <strong>${classified.gold.length}</strong> · Đã biết ${classified.known.length} · Bỏ qua ${classified.trash.length}</p>
           <div class="ex-flash-done-actions">
             <button type="button" class="ex-btn primary" id="btnFlashDownloadDone">Tải .txt</button>
+            <button type="button" class="ex-btn" id="btnFlashSheetDone">Lưu Sheet</button>
             <button type="button" class="ex-btn" id="btnFlashAgain">Luyện lại</button>
           </div>
         </div>`;
         document.getElementById("btnFlashAgain")?.addEventListener("click", () => restart(true));
         document.getElementById("btnFlashDownloadDone")?.addEventListener("click", downloadClassified);
+        document.getElementById("btnFlashSheetDone")?.addEventListener("click", () => {
+          document.getElementById("btnFlashSheetSave")?.click();
+        });
         return;
       }
 
@@ -257,6 +276,32 @@
     btnDownload?.addEventListener("click", downloadClassified);
     btnShuffle?.addEventListener("click", () => restart(true));
     btnRestart?.addEventListener("click", () => restart(true));
+
+    const section = stage.closest(".ex-flash") || document.getElementById("exFlash");
+    const hint = section?.querySelector(".ex-flash-hint");
+    if (hint && !hint.dataset.sheetHint) {
+      hint.dataset.sheetHint = "1";
+      hint.innerHTML =
+        'Lật thẻ rồi phân loại. Tải <strong>.txt</strong> hoặc <strong>Lưu Sheet</strong> (Google Sheet).';
+    }
+
+    window.SheetBackend &&
+      window.SheetBackend.mount({
+        section,
+        deckKey: slug,
+        vocab,
+        getLive: () => ({ deck, idx, classified }),
+        applyLive: (next) => {
+          deck = next.deck;
+          idx = next.idx;
+          classified.gold = next.gold;
+          classified.known = next.known;
+          classified.trash = next.trash;
+          renderCard();
+        },
+        showMsg,
+      });
+
     restart(true);
   };
 
