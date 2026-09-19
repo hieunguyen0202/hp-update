@@ -54,6 +54,13 @@ _l6_think = importlib.util.module_from_spec(_l6_spec)
 assert _l6_spec and _l6_spec.loader
 _l6_spec.loader.exec_module(_l6_think)
 
+_l7_spec = importlib.util.spec_from_file_location(
+    "food_r2_l7_think", Path(__file__).with_name("_food_review2_l7_think.py")
+)
+_l7_think = importlib.util.module_from_spec(_l7_spec)
+assert _l7_spec and _l7_spec.loader
+_l7_spec.loader.exec_module(_l7_think)
+
 esc = _gen.esc
 collect_words = _gen.collect_words
 TOPICS = _gen.TOPICS
@@ -11361,6 +11368,119 @@ def _l6_cloze_html(text: str) -> str:
     return "".join(out)
 
 
+L7_CLOZE_VI = {
+    "Yes, it's very popular": "có, rất phổ biến",
+    "Yes, they are very popular": "có, rất phổ biến",
+    "Yes, it's very popular in Vietnam": "có, rất phổ biến ở Việt Nam",
+    "Yes, they are very popular in Vietnam": "có, rất phổ biến ở Việt Nam",
+    "No, not really": "không thực sự",
+    "the majority of": "phần lớn",
+    "a large number of": "một lượng lớn",
+    "a small proportion of": "một tỷ lệ nhỏ",
+    "account for": "chiếm",
+    "It depends on": "còn tùy vào",
+    "urban dwellers": "cư dân thành thị",
+    "rural dwellers": "cư dân nông thôn",
+    "clicking with people from all walks of life": "hợp với mọi tầng lớp",
+    "clicks with people from all walks of life": "hợp với mọi tầng lớp",
+    "click with people from all walks of life": "hợp với mọi tầng lớp",
+    "local speciality": "đặc sản địa phương",
+    "local specialities": "đặc sản địa phương",
+    "chow down": "ăn (nhiều / nhanh)",
+    "well-seasoned": "nêm đậm vị",
+    "a hearty start": "khởi đầu no đủ",
+    "can easily see": "có thể dễ dàng thấy",
+    "can see": "có thể thấy",
+    "hardly ever": "hiếm khi",
+    "not mainstream": "chưa phải xu hướng chủ đạo",
+    "not entirely mainstream": "chưa hoàn toàn chủ đạo",
+    "the rich and privileged": "người giàu và có đặc quyền",
+    "the rich": "người giàu",
+    "special occasions": "dịp đặc biệt",
+    "quality justifies the bill": "chất lượng xứng với giá",
+    "wine and dine": "chiêu đãi bữa thịnh soạn",
+    "cultural diversity": "sự đa dạng văn hóa",
+    "foreign cuisine": "ẩm thực nước ngoài",
+    "imprint in one's mind": "khắc sâu vào trí nhớ",
+    "elemental balance and harmony": "cân bằng và hài hòa nguyên tố",
+    "can't stand anything": "không chịu nổi",
+    "can't stand meals": "không chịu nổi những món",
+    "can't stand": "không chịu nổi",
+    "spice things up": "đổi gió",
+    "depends on": "tùy thuộc vào",
+}
+L7_CLOZE_VI_LC = {k.lower(): v for k, v in L7_CLOZE_VI.items()}
+L7_THINK_EXTRA_PATS = [
+    r"Yes, they are very popular in Vietnam",
+    r"Yes, it's very popular in Vietnam",
+    r"Yes, they are very popular",
+    r"Yes, it's very popular",
+    r"No, not really",
+    r"the majority of",
+    r"a large number of",
+    r"a small proportion of",
+    r"account for",
+    r"It depends on",
+    r"urban dwellers",
+    r"rural dwellers",
+    r"click(?:s|ing)? with people from all walks of life",
+    r"can easily see",
+    r"can see",
+    r"hardly ever",
+    r"not entirely mainstream",
+    r"not mainstream",
+    r"the rich and privileged",
+    r"the rich",
+    r"special occasions",
+    r"quality justifies the bill",
+    r"wine and dine",
+    r"spice things up",
+    r"can'?t stand(?: anything| meals)?",
+]
+
+
+def _l7_pats() -> list[re.Pattern[str]]:
+    return [
+        re.compile(p, re.I)
+        for p in L7_THINK_EXTRA_PATS
+        + (_food_notes.VOCAB_EXAMPLE_HIGHLIGHTS.get("7") or [])
+    ]
+
+
+def _l7_hl(text: str) -> str:
+    return _highlight_vocab_in_example(text, _l7_pats())
+
+
+def _l7_cloze_html(text: str) -> str:
+    pats = _l7_pats()
+    if not text or not pats:
+        return esc(text)
+    found: list[tuple[int, int, str]] = []
+    for pat in pats:
+        for m in pat.finditer(text):
+            found.append((m.start(), m.end(), m.group(0)))
+    found.sort(key=lambda t: (t[0], -(t[1] - t[0])))
+    kept: list[tuple[int, int, str]] = []
+    occupied: list[tuple[int, int]] = []
+    for start, end, frag in found:
+        if any(start < e and end > s for s, e in occupied):
+            continue
+        kept.append((start, end, frag))
+        occupied.append((start, end))
+    kept.sort(key=lambda t: t[0])
+    out: list[str] = []
+    i = 0
+    for start, end, frag in kept:
+        out.append(esc(text[i:start]))
+        vi = L7_CLOZE_VI_LC.get(frag.lower(), "")
+        out.append(
+            f'<span class="lr-cloze" data-en="{esc(frag)}" data-vi="{esc(vi)}">{esc(frag)}</span>'
+        )
+        i = end
+    out.append(esc(text[i:]))
+    return "".join(out)
+
+
 def _think_card_html(
     q: str,
     ideas: list[dict],
@@ -12029,6 +12149,24 @@ def _lesson6_think_practice_html() -> str:
         </div>"""
 
 
+def _lesson7_think_card_html(q: str, ideas: list[dict]) -> str:
+    return _think_card_html(
+        q, ideas, hl_fn=_l7_hl, cloze_fn=_l7_cloze_html, lesson_n="7"
+    )
+
+
+def _lesson7_think_practice_html() -> str:
+    cards = [
+        _lesson7_think_card_html(q, ideas) for q, ideas in _l7_think.LESSON7_THINK_QS
+    ]
+    return f"""
+        <div class="lr-food-examples lr-think-examples" id="food-examples-l7-think">
+          <h3 class="lr-core-subtitle">Ví dụ Food · Tư duy 3 ý</h3>
+          <p class="lr-mm-hint">Phát triển <strong>ý</strong> trước khi xem đoạn mẫu. Chọn 1–2 ý, lắp từ khóa Lesson 7, rồi bấm <strong>Reveal answer</strong>.</p>
+{chr(10).join(cards)}
+        </div>"""
+
+
 def _lesson2_practice_html(
     *,
     open_attr: str = "",
@@ -12599,7 +12737,11 @@ def lesson_highlights_html(
         if include_food_examples
         else food_lesson6_examples_html()
     )
-    examples_l7 = food_lesson7_examples_html() if include_food_examples else ""
+    examples_l7 = (
+        _lesson7_think_practice_html()
+        if include_food_examples
+        else food_lesson7_examples_html()
+    )
     examples_l8 = food_lesson8_examples_html() if include_food_examples else ""
     examples_l9 = food_lesson9_examples_html() if include_food_examples else ""
     examples_l10 = food_lesson10_examples_html() if include_food_examples else ""
@@ -12631,7 +12773,9 @@ def lesson_highlights_html(
     lesson6_scroll = lesson_scroll_read_html(
         "lesson6", title="Lesson 6", source_sel="#lesson6-scroll-source", memo_sel=ms["6"]
     )
-    lesson7_scroll = ""
+    lesson7_scroll = lesson_scroll_read_html(
+        "lesson7", title="Lesson 7", source_sel="#lesson7-scroll-source", memo_sel=ms["7"]
+    )
     lesson8_scroll = ""
     lesson9_scroll = ""
     lesson10_scroll = ""
@@ -12644,9 +12788,6 @@ def lesson_highlights_html(
     lesson17_scroll = ""
     lesson17_fav_scroll = ""
     if include_food_examples:
-        lesson7_scroll = lesson_scroll_read_html(
-            "lesson7", title="Lesson 7", source_sel="#lesson7-scroll-source", memo_sel=ms["7"]
-        )
         lesson8_scroll = lesson_scroll_read_html(
             "lesson8", title="Lesson 8", source_sel="#lesson8-scroll-source", memo_sel=ms["8"]
         )
