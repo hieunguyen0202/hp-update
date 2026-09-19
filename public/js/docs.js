@@ -1,4 +1,34 @@
 (() => {
+  if (!document.getElementById("docs-topbar-fix")) {
+    const navFix = document.createElement("style");
+    navFix.id = "docs-topbar-fix";
+    navFix.textContent = `
+@media (max-width: 860px) {
+  .docs-topbar {
+    height: var(--top, 56px);
+    min-height: var(--top, 56px);
+    max-height: var(--top, 56px);
+    overflow: hidden;
+    flex-wrap: nowrap;
+    padding: 0 12px;
+    gap: 8px;
+  }
+  .docs-brand {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 13px;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .docs-series,
+  .docs-cert-tabs,
+  .docs-topbar-spacer { display: none !important; }
+}
+`;
+    document.head.appendChild(navFix);
+  }
+
   const cursor = document.getElementById("cursor");
   const cursorRing = document.getElementById("cursorRing");
   if (cursor && cursorRing && window.matchMedia("(pointer: fine)").matches) {

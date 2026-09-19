@@ -35,8 +35,8 @@
       const self = document.querySelector('script[src*="hsk.js"]');
       const s = document.createElement("script");
       s.src = self
-        ? self.src.replace(/hsk\.js(\?.*)?$/, "sheet-sync.js?v=sheet3")
-        : "../../../js/sheet-sync.js?v=sheet3";
+        ? self.src.replace(/hsk\.js(\?.*)?$/, "sheet-sync.js?v=sheet4")
+        : "../../../js/sheet-sync.js?v=sheet4";
       s.onload = () => resolve(window.SheetBackend || null);
       s.onerror = () => resolve(null);
       document.head.appendChild(s);
@@ -135,6 +135,11 @@
 
     const current = () => deck[idx] || null;
     const peekWord = () => (idx + 1 < deck.length ? deck[idx + 1] : null);
+    const peekPrevWord = () => {
+      const rest = deck.slice(idx);
+      if (rest.length < 2) return null;
+      return rest[rest.length - 1];
+    };
 
     const browse = (dir) => {
       const rest = deck.slice(idx);
@@ -204,6 +209,7 @@
 
       const ex = (w.examples && w.examples[0]) || null;
       const next = peekWord();
+      const prev = peekPrevWord();
       stage.innerHTML = `
         <div class="ex-flash-deck">
           <div class="ex-flash-card" id="flashCard" tabindex="0" role="button" aria-label="Flashcard ${escapeHtml(w.hanzi)}">
@@ -249,8 +255,15 @@
           </div>
           ${
             next
-              ? `<div class="ex-flash-peek" aria-hidden="true">
+              ? `<div class="ex-flash-peek ex-flash-peek--next" aria-hidden="true">
                   <div class="ex-flash-peek-term hsk-flash-hanzi">${escapeHtml(next.hanzi)}</div>
+                </div>`
+              : ""
+          }
+          ${
+            prev
+              ? `<div class="ex-flash-peek ex-flash-peek--prev" aria-hidden="true">
+                  <div class="ex-flash-peek-term hsk-flash-hanzi">${escapeHtml(prev.hanzi)}</div>
                 </div>`
               : ""
           }

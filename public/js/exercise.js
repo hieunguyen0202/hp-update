@@ -96,8 +96,8 @@
       const self = document.querySelector('script[src*="exercise.js"]');
       const s = document.createElement("script");
       s.src = self
-        ? self.src.replace(/exercise\.js(\?.*)?$/, "sheet-sync.js?v=sheet3")
-        : "../../../../js/sheet-sync.js?v=sheet3";
+        ? self.src.replace(/exercise\.js(\?.*)?$/, "sheet-sync.js?v=sheet4")
+        : "../../../../js/sheet-sync.js?v=sheet4";
       s.onload = () => resolve(window.SheetBackend || null);
       s.onerror = () => resolve(null);
       document.head.appendChild(s);
@@ -1374,6 +1374,20 @@
       return deck[idx + 1];
     };
 
+    const peekPrevWord = () => {
+      const rest = deck.slice(idx);
+      if (rest.length < 2) return null;
+      return rest[rest.length - 1];
+    };
+
+    const peekHtml = (word, side) => {
+      if (!word) return "";
+      return `<div class="ex-flash-peek ex-flash-peek--${side}" aria-hidden="true">
+                  <div class="ex-flash-peek-term">${escapeHtml(word.form)}</div>
+                  ${posLabel(word.pos) ? `<div class="ex-flash-peek-pos">[${escapeHtml(posLabel(word.pos))}]</div>` : ""}
+                </div>`;
+    };
+
     const browse = (dir) => {
       const rest = deck.slice(idx);
       if (rest.length < 2) return;
@@ -1457,6 +1471,7 @@
       const pos = posLabel(w.pos);
       const ipa = w.ipa ? `/${w.ipa}/` : "";
       const next = peekWord();
+      const prev = peekPrevWord();
 
       stage.innerHTML = `
         <div class="ex-flash-deck">
@@ -1500,14 +1515,8 @@
               </div>
             </div>
           </div>
-          ${
-            next
-              ? `<div class="ex-flash-peek" aria-hidden="true">
-                  <div class="ex-flash-peek-term">${escapeHtml(next.form)}</div>
-                  ${posLabel(next.pos) ? `<div class="ex-flash-peek-pos">[${escapeHtml(posLabel(next.pos))}]</div>` : ""}
-                </div>`
-              : ""
-          }
+          ${peekHtml(next, "next")}
+          ${peekHtml(prev, "prev")}
         </div>
       `;
 

@@ -172,10 +172,14 @@ body.docs::before {
   top: 0;
   z-index: 40;
   height: var(--top);
+  min-height: var(--top);
+  max-height: var(--top);
   display: flex;
   align-items: center;
+  flex-wrap: nowrap;
   gap: 16px;
   padding: 0 24px;
+  overflow: hidden;
   background: rgba(10, 10, 15, 0.72);
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   backdrop-filter: blur(12px);
@@ -187,6 +191,10 @@ body.docs::before {
   font-size: 15px;
   color: var(--text);
   letter-spacing: -0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .docs-brand span {
@@ -210,8 +218,9 @@ body.docs::before {
 .docs-series {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 6px;
+  min-width: 0;
 }
 
 .docs-series a {
@@ -1442,6 +1451,27 @@ a.kk-card--biz:hover {
 @media (max-width: 860px) {
   .docs-menu-btn {
     display: inline-block;
+    flex: 0 0 auto;
+  }
+
+  .docs-topbar {
+    padding: 0 12px;
+    gap: 8px;
+  }
+
+  .docs-brand {
+    flex: 1 1 auto;
+    font-size: 13px;
+  }
+
+  .docs-series,
+  .docs-cert-tabs,
+  .docs-topbar-spacer {
+    display: none;
+  }
+
+  .docs-top-link {
+    flex: 0 0 auto;
   }
 
   .docs-sidebar-toggle {
@@ -2618,21 +2648,29 @@ a.kk-card--biz:hover {
 
 .ex-flash-peek {
   position: absolute;
-  top: 28px;
-  right: -42px;
+  top: 18px;
+  right: -18px;
   z-index: 1;
-  width: 72%;
-  min-height: 340px;
+  width: 100%;
+  height: calc(100% - 18px);
+  min-height: 0;
   padding: 48px 18px 24px;
   border-radius: 22px;
-  background: #e2e8f0;
+  background: #ffffff;
   color: #334155;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
-  opacity: 0.85;
+  opacity: 0.72;
   transform: scale(0.92);
+  transform-origin: center center;
   pointer-events: none;
   font-family: "Outfit", sans-serif;
   text-align: center;
+}
+
+.ex-flash-peek--prev {
+  right: auto;
+  left: -18px;
+  opacity: 0;
 }
 
 .ex-flash-peek-term {
@@ -2677,7 +2715,7 @@ a.kk-card--biz:hover {
   }
 
   .ex-flash-stage {
-    padding: 4px 0 8px;
+    padding: 6px 16px 10px 6px;
     overflow: hidden;
   }
 
@@ -2687,8 +2725,21 @@ a.kk-card--biz:hover {
     min-height: min(58dvh, 460px);
   }
 
-  .ex-flash-peek {
-    display: none;
+  .ex-flash-peek,
+  .ex-flash-peek--next {
+    display: block;
+    right: -10px;
+    left: auto;
+    top: 12px;
+    width: 100%;
+    height: calc(100% - 12px);
+  }
+
+  .ex-flash-peek--prev {
+    display: block;
+    left: -10px;
+    right: auto;
+    opacity: 0;
   }
 
   .ex-flash-grade-btn {

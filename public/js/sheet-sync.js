@@ -60,10 +60,13 @@
   font-family: Outfit, sans-serif;
 }
 .ex-flash-deck.is-dragging {
-  transition: none;
   cursor: grabbing;
 }
 .ex-flash-deck { touch-action: pan-y; }
+.ex-flash-card {
+  will-change: transform, opacity;
+}
+.ex-flash-peek--prev { opacity: 0; }
 .ex-flash-gold-badge {
   display: none;
   align-items: center;
@@ -89,12 +92,26 @@
   .ex-flash-controls { gap: 6px; }
   .ex-flash-stats { width: 100%; font-size: 0.72rem; gap: 8px 12px; }
   .ex-flash .ex-btn { padding: 6px 10px; font-size: 0.72rem; }
-  .ex-flash-stage { padding: 4px 0 8px; overflow: hidden; }
+  .ex-flash-stage { padding: 6px 16px 10px 6px; overflow: hidden; }
   .ex-flash-deck, .ex-flash-card {
     width: 100%;
     min-height: min(58dvh, 460px);
   }
-  .ex-flash-peek { display: none !important; }
+  .ex-flash-peek, .ex-flash-peek--next {
+    display: block !important;
+    right: -10px;
+    left: auto;
+    top: 12px;
+    width: 100%;
+    height: calc(100% - 12px);
+    min-height: 0;
+  }
+  .ex-flash-peek--prev {
+    display: block !important;
+    left: -10px;
+    right: auto;
+    opacity: 0;
+  }
   .ex-flash-grade--pareto { grid-template-columns: 1fr 1fr; min-height: 52px; }
   .ex-flash-grade-btn { font-size: 0.9rem; padding: 14px 8px; min-height: 48px; }
   .ex-flash-front-body { padding: 40px 16px 20px; }
@@ -418,7 +435,7 @@
   const bindCardSwipe = (deckEl, { onBrowseNext, onBrowsePrev, canBrowse }) => {
     if (!deckEl || deckEl.dataset.swipeBound) return;
     deckEl.dataset.swipeBound = "1";
-    const THRESH = 64;
+    const THRESH = 56;
     let startX = 0;
     let startY = 0;
     let dx = 0;
@@ -428,10 +445,58 @@
     let pid = null;
     let settled = false;
 
-    const setShift = (x, animate) => {
+    const cardEl = () => deckEl.querySelector("#flashCard");
+    const peekNextEl = () =>
+      deckEl.querySelector(".ex-flash-peek--next") ||
+      deckEl.querySelector(".ex-flash-peek:not(.ex-flash-peek--prev)");
+    const peekPrevEl = () => deckEl.querySelector(".ex-flash-peek--prev");
+
+    const resetEl = (el) => {
+      if (!el) return;
+      el.style.transform = "";
+      el.style.opacity = "";
+      el.style.transition = "";
+    };
+
+    const paint = (x, animate) => {
+      const card = cardEl();
+      const pNext = peekNextEl();
+      const pPrev = peekPrevEl();
+      const ease = animate ? "transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease" : "none";
       deckEl.classList.toggle("is-dragging", !animate && tracking);
-      deckEl.style.transition = animate ? "transform 0.22s ease" : "none";
-      deckEl.style.transform = x ? `translateX(${x}px)` : "";
+
+      if (!x) {
+        [card, pNext, pPrev].forEach((el) => {
+          if (!el) return;
+          el.style.transition = ease;
+          el.style.transform = "";
+          el.style.opacity = "";
+        });
+        return;
+      }
+
+      const width = Math.max(deckEl.getBoundingClientRect().width, 1);
+      const p = Math.min(1, Math.abs(x) / (width * 0.7));
+      const goingNext = x < 0;
+      const incoming = goingNext ? pNext : pPrev;
+      const idle = goingNext ? pPrev : pNext;
+
+      if (card) {
+        card.style.transition = ease;
+        card.style.transform = `translate3d(${x}px, 0, 0) scale(${1 - 0.18 * p}) rotate(${x * 0.045}deg)`;
+        card.style.opacity = String(1 - 0.55 * p);
+      }
+      if (incoming) {
+        const from = goingNext ? 22 : -22;
+        incoming.style.transition = ease;
+        incoming.style.opacity = String(0.4 + 0.6 * p);
+        incoming.style.transform = `translate3d(${from * (1 - p)}px, 0, 0) scale(${0.86 + 0.14 * p})`;
+      }
+      if (idle) {
+        idle.style.transition = ease;
+        idle.style.opacity = "0";
+        idle.style.transform = "";
+      }
     };
 
     const ignore = (t) => !!(t && t.closest && t.closest("button, a, input, textarea"));
@@ -440,13 +505,15 @@
       if (settled) return;
       settled = true;
       const width = Math.max(deckEl.getBoundingClientRect().width, 280);
-      setShift(dir * (width + 40), true);
+      paint(dir * width * 1.2, true);
       window.setTimeout(() => {
-        deckEl.style.transition = "none";
-        deckEl.style.transform = "";
+        resetEl(cardEl());
+        resetEl(peekNextEl());
+        resetEl(peekPrevEl());
+        deckEl.classList.remove("is-dragging");
         if (dir < 0) onBrowseNext && onBrowseNext();
         else onBrowsePrev && onBrowsePrev();
-      }, 200);
+      }, 280);
     };
 
     const onMove = (e) => {
@@ -458,7 +525,7 @@
       }
       if (axis !== "x") return;
       if (e.cancelable) e.preventDefault();
-      setShift(dx, false);
+      paint(dx, false);
     };
 
     const onUp = (e) => {
@@ -468,7 +535,7 @@
       window.removeEventListener("pointerup", onUp);
       window.removeEventListener("pointercancel", onUp);
       if (axis === "x" && Math.abs(dx) >= THRESH && (!canBrowse || canBrowse())) finish(dx > 0 ? 1 : -1);
-      else setShift(0, true);
+      else paint(0, true);
       axis = null;
       pid = null;
     };
