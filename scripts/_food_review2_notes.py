@@ -73,12 +73,12 @@ VOCABS: dict[str, list[tuple[str, str, str]]] = {
     "8": [
         ("… is the best time for …", "là thời gian tốt nhất cho…", "Frame Lesson 8: evening is the best time for a family dinner."),
         ("as long as …", "miễn là…", "Điều kiện mềm: ăn muộn cũng được, miễn là ngồi cùng bàn."),
-        ("catch up over a meal", "vừa ăn vừa kể chuyện ngày", "Family dinner = quality time (ECE Part 3 share meals)."),
-        ("hearty breakfast", "bữa sáng no đủ", "Phở / xôi buổi sáng — OWL seasonal contrast."),
+        ("catch up over a meal", "vừa ăn vừa kể chuyện / cập nhật tình hình", "Family dinner = quality time (ECE Part 3 share meals)."),
+        ("hearty breakfast", "bữa sáng no đủ, thịnh soạn", "Phở / xôi buổi sáng — OWL seasonal contrast."),
         ("seasonal produce", "nông sản theo mùa", "Hè dưa hấu, đông stew — OWL times of the year."),
-        ("wholesome meals (stews / soups)", "bữa lành mạnh, ấm bụng", "Mùa lạnh chọn món nóng, no."),
-        ("opt for / go for", "chọn", "Hè opt for salads; đông go for soups."),
-        ("cool down", "làm mát cơ thể", "Món nhẹ, trái cây mùa nóng."),
+        ("wholesome meals (stews / soups)", "bữa ăn lành mạnh, ấm bụng như món hầm / canh", "Mùa lạnh chọn món nóng, no."),
+        ("opt for / go for", "chọn, nghiêng về lựa chọn", "Hè opt for salads; đông go for soups."),
+        ("cool down", "làm mát cơ thể, giải nhiệt", "Món nhẹ, trái cây mùa nóng."),
     ],
     "9": [
         ("As far as I can remember, …", "Theo như tôi còn nhớ…", "Mở bài first/last time khi không chốt đúng ngày."),
@@ -1372,6 +1372,184 @@ VOCAB_EXAMPLES: dict[str, dict[str, list[tuple[str, str]]]] = {
             ),
         ],
     },
+    "8": {
+        "… is the best time for …": [
+            (
+                "Evening is the best time for a family dinner to catch up after a long day.",
+                "Buổi tối là thời gian tốt nhất cho bữa cơm gia đình để trò chuyện sau một ngày dài.",
+            ),
+            (
+                "Early morning is the best time for a hearty breakfast like a hot bowl of phở.",
+                "Sáng sớm là thời gian tốt nhất cho một bữa sáng thịnh soạn như một tô phở nóng.",
+            ),
+            (
+                "Weekends are the best time for foodies to explore authentic local specialities.",
+                "Cuối tuần là thời gian tốt nhất cho những người mê ẩm thực khám phá các đặc sản địa phương chính gốc.",
+            ),
+            (
+                "Summer evenings are the best time for enjoying refreshing fruit salads to cool down.",
+                "Những buổi tối mùa hè là thời gian tốt nhất để thưởng thức các món salad trái cây thanh mát nhằm giải nhiệt.",
+            ),
+            (
+                "Dinner is the best time for winding down and recharging your batteries with a home-cooked meal.",
+                "Bữa tối là thời gian tốt nhất để thư giãn và nạp lại năng lượng với một bữa cơm nhà.",
+            ),
+        ],
+        "as long as …": [
+            (
+                "We can eat dinner late as long as we all sit together at the table.",
+                "Chúng ta có thể ăn tối muộn miễn là tất cả chúng ta đều ngồi cùng nhau bên bàn ăn.",
+            ),
+            (
+                "You can experiment with any spices as long as the dish remains well-seasoned.",
+                "Bạn có thể thử nghiệm với bất kỳ loại gia vị nào miễn là món ăn vẫn được nêm nếm vừa vặn.",
+            ),
+            (
+                "Dining out is fine as long as you still stay in control of what you consume.",
+                "Việc đi ăn ngoài hoàn toàn ổn miễn là bạn vẫn kiểm soát được những gì mình tiêu thụ.",
+            ),
+            (
+                "It doesn't matter what we eat as long as it is wholesome and nutritious.",
+                "Không quan trọng chúng ta ăn gì miễn là nó lành mạnh và giàu dinh dưỡng.",
+            ),
+            (
+                "You can try street food as long as you pick a clean and trusted stall.",
+                "Bạn có thể thử đồ ăn đường phố miễn là bạn chọn một quán sạch sẽ và đáng tin cậy.",
+            ),
+        ],
+        "catch up over a meal": [
+            (
+                "Family dinners are precious moments to catch up over a meal after a busy week.",
+                "Các bữa cơm gia đình là những khoảnh khắc quý giá để vừa ăn vừa trò chuyện cập nhật tình hình sau một tuần bận rộn.",
+            ),
+            (
+                "I love meeting my old friends at a local café to catch up over a meal.",
+                "Tôi rất thích gặp gỡ những người bạn cũ tại một quán cà phê địa phương để vừa ăn vừa tâm sự.",
+            ),
+            (
+                "Instead of chatting online, we prefer to catch up over a meal during special occasions.",
+                "Thay vì trò chuyện trực tuyến, chúng tôi thích vừa ăn vừa chia sẻ câu chuyện cùng nhau trong những dịp đặc biệt.",
+            ),
+            (
+                "Catching up over a meal makes the culinary experience much more meaningful.",
+                "Việc vừa ăn vừa trò chuyện khiến trải nghiệm ẩm thực trở nên ý nghĩa hơn rất nhiều.",
+            ),
+            (
+                "We decided to dine out and catch up over a meal to spice things up.",
+                "Chúng tôi quyết định đi ăn ngoài và trò chuyện bên bàn ăn để đổi gió.",
+            ),
+        ],
+        "hearty breakfast": [
+            (
+                "Having a hearty breakfast like phở or sticky rice gives me a great start to the day.",
+                "Việc ăn một bữa sáng thịnh soạn như phở hoặc xôi mang lại cho tôi khởi đầu ngày mới tuyệt vời.",
+            ),
+            (
+                "Workers usually need a hearty breakfast to maintain their physical strength through the morning.",
+                "Những công nhân thường cần một bữa sáng no đủ để duy trì thể lực suốt cả buổi sáng.",
+            ),
+            (
+                "Instead of skipping meals, I always make time for a hearty breakfast.",
+                "Thay vì bỏ bữa, tôi luôn dành thời gian cho một bữa sáng đầy đủ dưỡng chất.",
+            ),
+            (
+                "Traditional Vietnamese cuisine offers many options for a hearty breakfast.",
+                "Ẩm thực truyền thống Việt Nam cung cấp rất nhiều lựa chọn cho một bữa sáng thịnh soạn.",
+            ),
+            (
+                "A hearty breakfast keeps me full so I don't get the munchies before lunchtime.",
+                "Một bữa sáng no đủ giúp tôi no lâu để không bị thèm ăn vặt trước giờ ăn trưa.",
+            ),
+        ],
+        "seasonal produce": [
+            (
+                "Cooking with seasonal produce ensures that your meals are both fresh and bursting with flavor.",
+                "Nấu ăn với nông sản theo mùa đảm bảo rằng các bữa ăn của bạn vừa tươi ngon vừa ngập tràn hương vị.",
+            ),
+            (
+                "In summer, we enjoy juicy watermelons and other fresh seasonal produce to cool down.",
+                "Vào mùa hè, chúng tôi thưởng thức dưa hấu mọng nước và các loại nông sản theo mùa tươi ngon khác để giải nhiệt.",
+            ),
+            (
+                "Markets are always packed with wonderful seasonal produce depending on the time of the year.",
+                "Các khu chợ luôn ngập tràn nông sản theo mùa tuyệt vời tùy thuộc vào thời điểm trong năm.",
+            ),
+            (
+                "Using seasonal produce is a great way to make wholesome meals from scratch.",
+                "Sử dụng nông sản theo mùa là một cách tuyệt vời để làm ra những bữa ăn lành mạnh từ nguyên liệu tươi.",
+            ),
+            (
+                "Chefs prefer seasonal produce because it offers the best taste and nutritional value.",
+                "Các đầu bếp thích nông sản theo mùa vì nó mang lại hương vị và giá trị dinh dưỡng tốt nhất.",
+            ),
+        ],
+        "wholesome meals (stews / soups)": [
+            (
+                "During cold winter days, nothing beats hot and wholesome meals like beef stews.",
+                "Vào những ngày mùa đông lạnh giá, không gì sánh bằng những bữa ăn lành mạnh ấm bụng như món thịt bò hầm.",
+            ),
+            (
+                "Eating wholesome meals like vegetable soups helps you avoid the health risks of junk food.",
+                "Việc ăn các bữa ăn lành mạnh như súp rau củ giúp bạn tránh được các rủi ro sức khỏe từ đồ ăn vặt.",
+            ),
+            (
+                "Home-cooked wholesome meals are essential for maintaining a balanced diet.",
+                "Những bữa ăn lành mạnh tự nấu tại nhà là điều thiết yếu để duy trì một chế độ ăn uống cân bằng.",
+            ),
+            (
+                "Preparing wholesome meals from scratch allows you to stay in control of what you consume.",
+                "Việc chuẩn bị các bữa ăn lành mạnh từ đầu cho phép bạn kiểm soát những gì mình tiêu thụ.",
+            ),
+            (
+                "A bowl of traditional soup makes one of the most wholesome meals you can have.",
+                "Một tô canh truyền thống tạo nên một trong những bữa ăn lành mạnh nhất mà bạn có thể dùng.",
+            ),
+        ],
+        "opt for / go for": [
+            (
+                "In summer, I usually opt for light salads, but in winter I go for warm soups.",
+                "Vào mùa hè, tôi thường chọn các món salad nhẹ nhàng, nhưng vào mùa đông tôi lại chọn các món súp ấm nóng.",
+            ),
+            (
+                "When dining at an authentic restaurant, I always go for the local speciality.",
+                "Khi dùng bữa tại một nhà hàng chính gốc, tôi luôn chọn món đặc sản địa phương.",
+            ),
+            (
+                "Instead of fast food, health-conscious people opt for nutritious and wholesome meals.",
+                "Thay vì đồ ăn nhanh, những người quan tâm đến sức khỏe chọn các bữa ăn giàu dinh dưỡng và lành mạnh.",
+            ),
+            (
+                "If I have a sweet tooth, I go for a mouth-watering chocolate cheesecake.",
+                "Nếu tôi hảo ngọt, tôi sẽ chọn ngay một miếng bánh cheesecake sô-cô-la ngon ngất ngây.",
+            ),
+            (
+                "Customers tend to opt for restaurants where quality justifies the bill.",
+                "Khách hàng có xu hướng chọn những nhà hàng mà chất lượng tương xứng với giá tiền.",
+            ),
+        ],
+        "cool down": [
+            (
+                "On hot summer afternoons, an iced fruit smoothie is the best way to cool down.",
+                "Vào những buổi chiều hè oi ả, một ly sinh tố trái cây đá xay là cách tuyệt vời nhất để giải nhiệt.",
+            ),
+            (
+                "Eating fresh salads and seasonal fruits helps you cool down during heatwaves.",
+                "Ăn các món salad tươi và trái cây theo mùa giúp bạn làm mát cơ thể trong những đợt nắng nóng.",
+            ),
+            (
+                "We drank some cold lemonade to cool down after walking around the night market.",
+                "Chúng tôi đã uống chút nước chanh lạnh để giải nhiệt sau khi đi dạo quanh chợ đêm.",
+            ),
+            (
+                "Light and refreshing dishes are ideal to cool down your body in tropical weather.",
+                "Các món ăn nhẹ nhàng và thanh mát là lý tưởng để làm mát cơ thể trong thời tiết nhiệt đới.",
+            ),
+            (
+                "A bowl of chilled sweet soup can easily cool down your body on a scorching day.",
+                "Một chén chè mát lạnh có thể dễ dàng giải nhiệt cơ thể bạn vào một ngày nắng cháy da.",
+            ),
+        ],
+    },
 }
 
 # Longest-first regexes to highlight Lesson vocab inside example sentences.
@@ -1452,6 +1630,34 @@ VOCAB_EXAMPLE_HIGHLIGHTS: dict[str, list[str]] = {
         r"well-seasoned",
         r"\bdepends on\b",
         r"chow down",
+    ],
+    "8": [
+        r"catch(?:ing)? up over a meal",
+        r"(?:is|are) the best time for",
+        r"hearty breakfast",
+        r"seasonal produce",
+        r"wholesome meals",
+        r"as long as",
+        r"opt for",
+        r"go for",
+        r"cool down",
+        r"stay in control of what you consume",
+        r"quality justifies the bill",
+        r"authentic local specialit(?:y|ies)",
+        r"traditional Vietnamese cuisine",
+        r"culinary experience",
+        r"special occasions",
+        r"spice things up",
+        r"bursting with flavor",
+        r"from scratch",
+        r"well-seasoned",
+        r"local speciality",
+        r"ha(?:ve|s) a sweet tooth",
+        r"mouth-watering",
+        r"(?:get|got) the munchies",
+        r"dine out",
+        r"\bwholesome\b",
+        r"\bnutritious\b",
     ],
 }
 

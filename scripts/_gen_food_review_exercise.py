@@ -61,6 +61,13 @@ _l7_think = importlib.util.module_from_spec(_l7_spec)
 assert _l7_spec and _l7_spec.loader
 _l7_spec.loader.exec_module(_l7_think)
 
+_l8_spec = importlib.util.spec_from_file_location(
+    "food_r2_l8_think", Path(__file__).with_name("_food_review2_l8_think.py")
+)
+_l8_think = importlib.util.module_from_spec(_l8_spec)
+assert _l8_spec and _l8_spec.loader
+_l8_spec.loader.exec_module(_l8_think)
+
 esc = _gen.esc
 collect_words = _gen.collect_words
 TOPICS = _gen.TOPICS
@@ -11481,6 +11488,110 @@ def _l7_cloze_html(text: str) -> str:
     return "".join(out)
 
 
+L8_CLOZE_VI = {
+    "is the ideal time to": "là thời điểm lý tưởng để",
+    "are the ideal time to": "là thời điểm lý tưởng để",
+    "is the best time for": "là thời gian tốt nhất cho",
+    "are the best time for": "là thời gian tốt nhất cho",
+    "is the greatest time to": "là thời điểm tuyệt nhất để",
+    "are the perfect time to": "là thời điểm hoàn hảo để",
+    "hearty breakfast": "bữa sáng thịnh soạn",
+    "function efficiently": "hoạt động hiệu quả",
+    "find myself": "thấy bản thân",
+    "grab a quick bite": "ăn vội một chút",
+    "It depends on": "còn tùy vào",
+    "catch up over a meal": "vừa ăn vừa kể chuyện",
+    "wholesome meal": "bữa lành mạnh",
+    "wholesome meals": "bữa lành mạnh",
+    "making it much easier to": "khiến việc … dễ hơn nhiều",
+    "making it easier to": "khiến việc … dễ hơn",
+    "as long as": "miễn là",
+    "cools down": "mát hơn / hạ nhiệt",
+    "cool down": "giải nhiệt",
+    "from scratch": "từ nguyên liệu tươi / từ đầu",
+    "seasonal produce": "nông sản theo mùa",
+    "opt for": "chọn",
+    "spice things up": "đổi gió",
+    "foreign cuisine": "ẩm thực nước ngoài",
+    "dine out": "ăn ngoài",
+    "local specialities": "đặc sản địa phương",
+    "local speciality": "đặc sản địa phương",
+    "comfort food": "món ăn an ủi",
+    "special occasions": "dịp đặc biệt",
+    "light meal": "bữa nhẹ",
+}
+L8_CLOZE_VI_LC = {k.lower(): v for k, v in L8_CLOZE_VI.items()}
+L8_THINK_EXTRA_PATS = [
+    r"(?:is|are) the ideal time to",
+    r"(?:is|are) the best time for",
+    r"is the greatest time to",
+    r"are the perfect time to",
+    r"hearty breakfast",
+    r"function efficiently",
+    r"find myself",
+    r"grab a quick bite",
+    r"It depends on",
+    r"catch up over a meal",
+    r"wholesome meals?",
+    r"making it much easier to",
+    r"making it easier to",
+    r"as long as",
+    r"cools? down",
+    r"from scratch",
+    r"seasonal produce",
+    r"opt for",
+    r"spice things up",
+    r"foreign cuisine",
+    r"dine out",
+    r"local specialit(?:y|ies)",
+    r"comfort food",
+    r"special occasions",
+    r"light meal",
+]
+
+
+def _l8_pats() -> list[re.Pattern[str]]:
+    return [
+        re.compile(p, re.I)
+        for p in L8_THINK_EXTRA_PATS
+        + (_food_notes.VOCAB_EXAMPLE_HIGHLIGHTS.get("8") or [])
+    ]
+
+
+def _l8_hl(text: str) -> str:
+    return _highlight_vocab_in_example(text, _l8_pats())
+
+
+def _l8_cloze_html(text: str) -> str:
+    pats = _l8_pats()
+    if not text or not pats:
+        return esc(text)
+    found: list[tuple[int, int, str]] = []
+    for pat in pats:
+        for m in pat.finditer(text):
+            found.append((m.start(), m.end(), m.group(0)))
+    found.sort(key=lambda t: (t[0], -(t[1] - t[0])))
+    kept: list[tuple[int, int, str]] = []
+    occupied: list[tuple[int, int]] = []
+    for start, end, frag in found:
+        if any(start < e and end > s for s, e in occupied):
+            continue
+        kept.append((start, end, frag))
+        occupied.append((start, end))
+    kept.sort(key=lambda t: t[0])
+    out: list[str] = []
+    i = 0
+    for start, end, frag in kept:
+        out.append(esc(text[i:start]))
+        vi = L8_CLOZE_VI_LC.get(frag.lower(), "")
+        out.append(
+            f'<span class="lr-cloze" data-en="{esc(frag)}" data-vi="{esc(vi)}">{esc(frag)}</span>'
+        )
+        i = end
+    out.append(esc(text[i:]))
+    return "".join(out)
+
+
 def _think_card_html(
     q: str,
     ideas: list[dict],
@@ -12167,6 +12278,24 @@ def _lesson7_think_practice_html() -> str:
         </div>"""
 
 
+def _lesson8_think_card_html(q: str, ideas: list[dict]) -> str:
+    return _think_card_html(
+        q, ideas, hl_fn=_l8_hl, cloze_fn=_l8_cloze_html, lesson_n="8"
+    )
+
+
+def _lesson8_think_practice_html() -> str:
+    cards = [
+        _lesson8_think_card_html(q, ideas) for q, ideas in _l8_think.LESSON8_THINK_QS
+    ]
+    return f"""
+        <div class="lr-food-examples lr-think-examples" id="food-examples-l8-think">
+          <h3 class="lr-core-subtitle">Ví dụ Food · Tư duy 3 ý</h3>
+          <p class="lr-mm-hint">Phát triển <strong>ý</strong> trước khi xem đoạn mẫu. Chọn 1–2 ý, lắp từ khóa Lesson 8, rồi bấm <strong>Reveal answer</strong>.</p>
+{chr(10).join(cards)}
+        </div>"""
+
+
 def _lesson2_practice_html(
     *,
     open_attr: str = "",
@@ -12742,7 +12871,11 @@ def lesson_highlights_html(
         if include_food_examples
         else food_lesson7_examples_html()
     )
-    examples_l8 = food_lesson8_examples_html() if include_food_examples else ""
+    examples_l8 = (
+        _lesson8_think_practice_html()
+        if include_food_examples
+        else food_lesson8_examples_html()
+    )
     examples_l9 = food_lesson9_examples_html() if include_food_examples else ""
     examples_l10 = food_lesson10_examples_html() if include_food_examples else ""
     examples_l11 = food_lesson11_examples_html() if include_food_examples else ""
@@ -12776,7 +12909,9 @@ def lesson_highlights_html(
     lesson7_scroll = lesson_scroll_read_html(
         "lesson7", title="Lesson 7", source_sel="#lesson7-scroll-source", memo_sel=ms["7"]
     )
-    lesson8_scroll = ""
+    lesson8_scroll = lesson_scroll_read_html(
+        "lesson8", title="Lesson 8", source_sel="#lesson8-scroll-source", memo_sel=ms["8"]
+    )
     lesson9_scroll = ""
     lesson10_scroll = ""
     lesson11_scroll = ""
@@ -12788,9 +12923,6 @@ def lesson_highlights_html(
     lesson17_scroll = ""
     lesson17_fav_scroll = ""
     if include_food_examples:
-        lesson8_scroll = lesson_scroll_read_html(
-            "lesson8", title="Lesson 8", source_sel="#lesson8-scroll-source", memo_sel=ms["8"]
-        )
         lesson9_scroll = lesson_scroll_read_html(
             "lesson9", title="Lesson 9", source_sel="#lesson9-scroll-source", memo_sel=ms["9"]
         )
