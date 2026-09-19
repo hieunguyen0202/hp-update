@@ -11007,66 +11007,8 @@ def _l2_hl(text: str) -> str:
     return _highlight_vocab_in_example(text, pats)
 
 
-def _lesson2_home_think_card_html() -> str:
+def _lesson2_think_card_html(q: str, ideas: list[dict]) -> str:
     """Review Exercise 2: develop 3 ideas, then reveal a sample paragraph."""
-    ideas = [
-        {
-            "title": "Ý 1: Về sức khỏe & kiểm soát",
-            "en": "Health & Control",
-            "keys": [
-                "stay in control of what I consume",
-                "processed food",
-                "pose a health risk",
-            ],
-            "think": "Tự nấu giúp mình kiểm soát được lượng dầu mỡ, muối, đảm bảo tươi ngon hơn so với đồ ăn nhanh bên ngoài.",
-            "sample": (
-                "Many people love home-cooked meals because it is a great way to stay in control of what they consume. "
-                "Unlike eating out at restaurants, which often relies heavily on processed food and can pose a health risk "
-                "over time, preparing meals by yourself allows you to carefully manage the amount of oil and salt, "
-                "ensuring that every dish is much fresher and healthier."
-            ),
-            "vi": (
-                "Nhiều người thích bữa cơm nhà vì đó là cách tuyệt vời để kiểm soát những gì mình ăn. "
-                "Khác với ăn ngoài — thường dựa nhiều vào thực phẩm chế biến sẵn và có thể gây rủi ro sức khỏe lâu dài — "
-                "tự nấu giúp bạn kiểm soát lượng dầu và muối, mỗi món tươi và lành mạnh hơn."
-            ),
-        },
-        {
-            "title": "Ý 2: Về tinh thần & sự thư giãn",
-            "en": "Mental & Relaxation",
-            "keys": [
-                "unwind / recharge my batteries",
-                "comfort food",
-                "mouth-watering",
-            ],
-            "think": "Nấu ăn hoặc thưởng thức bữa cơm nhà là cách để giải tỏa căng thẳng, tìm lại cảm giác thư thái, ấm cúng.",
-            "sample": (
-                "Enjoying a warm, home-cooked meal is also a wonderful way to unwind and recharge my batteries "
-                "after a long and stressful day at work. It serves as true comfort food that eases the mind, "
-                "while the delicious, mouth-watering aroma brings a cozy, relaxing atmosphere right into your home."
-            ),
-            "vi": (
-                "Thưởng thức một bữa cơm nhà ấm nóng cũng là cách tuyệt để thư giãn và nạp lại năng lượng sau ngày làm việc căng thẳng. "
-                "Nó như món ăn an ủi giúp đầu óc nhẹ lại, còn mùi thơm ngon miệng mang cảm giác ấm cúng vào nhà."
-            ),
-        },
-        {
-            "title": "Ý 3: Về sự sáng tạo",
-            "en": "Creativity",
-            "keys": ["experiment with spices and recipes"],
-            "think": "Ta có cơ hội tự thử nghiệm các gia vị và công thức nấu nướng mới lạ để tạo ra món ăn hấp dẫn theo ý thích.",
-            "sample": (
-                "Finally, cooking at home gives me the chance to experiment with spices and recipes. "
-                "Instead of eating the same repetitive dishes outside, you have the full freedom to mix different "
-                "ingredients together, turning a simple cooking session into an exciting experience to create your favorite meals."
-            ),
-            "vi": (
-                "Cuối cùng, nấu ở nhà cho mình cơ hội thử gia vị và công thức mới. "
-                "Thay vì ăn mãi những món lặp lại bên ngoài, bạn tự do kết hợp nguyên liệu, "
-                "biến buổi nấu thành trải nghiệm thú vị để tạo món mình thích."
-            ),
-        },
-    ]
     blocks = []
     for idea in ideas:
         keys = ", ".join(f'<mark class="vocab">{esc(k)}</mark>' for k in idea["keys"])
@@ -11083,10 +11025,177 @@ def _lesson2_home_think_card_html() -> str:
                 </section>"""
         )
     return f"""              <article class="lr-food-ex-card lr-think-card">
-{_ex_card_q_html("Why do people like home-cooked meals?")}
+{_ex_card_q_html(q)}
                 <p class="lr-mm-hint">Đừng học thuộc một đoạn. Chọn <strong>1–2 ý</strong>, dùng từ khóa Lesson 2, rồi bấm <strong>Reveal answer</strong> để đối chiếu đoạn mẫu.</p>
 {chr(10).join(blocks)}
               </article>"""
+
+
+LESSON2_THINK_HOME = [
+    {
+        "title": "Ý 1: Về sức khỏe & kiểm soát",
+        "en": "Health & Control",
+        "keys": [
+            "stay in control of what I consume",
+            "processed food",
+            "pose a health risk",
+        ],
+        "think": "Tự nấu giúp mình kiểm soát được lượng dầu mỡ, muối, đảm bảo tươi ngon hơn so với đồ ăn nhanh bên ngoài.",
+        "sample": (
+            "Many people love home-cooked meals because it is a great way to stay in control of what they consume. "
+            "Unlike eating out at restaurants, which often relies heavily on processed food and can pose a health risk "
+            "over time, preparing meals by yourself allows you to carefully manage the amount of oil and salt, "
+            "ensuring that every dish is much fresher and healthier."
+        ),
+        "vi": (
+            "Nhiều người thích bữa cơm nhà vì đó là cách tuyệt vời để kiểm soát những gì mình ăn. "
+            "Khác với ăn ngoài — thường dựa nhiều vào thực phẩm chế biến sẵn và có thể gây rủi ro sức khỏe lâu dài — "
+            "tự nấu giúp bạn kiểm soát lượng dầu và muối, mỗi món tươi và lành mạnh hơn."
+        ),
+    },
+    {
+        "title": "Ý 2: Về tinh thần & sự thư giãn",
+        "en": "Mental & Relaxation",
+        "keys": [
+            "unwind / recharge my batteries",
+            "comfort food",
+            "mouth-watering",
+        ],
+        "think": "Nấu ăn hoặc thưởng thức bữa cơm nhà là cách để giải tỏa căng thẳng, tìm lại cảm giác thư thái, ấm cúng.",
+        "sample": (
+            "Enjoying a warm, home-cooked meal is also a wonderful way to unwind and recharge my batteries "
+            "after a long and stressful day at work. It serves as true comfort food that eases the mind, "
+            "while the delicious, mouth-watering aroma brings a cozy, relaxing atmosphere right into your home."
+        ),
+        "vi": (
+            "Thưởng thức một bữa cơm nhà ấm nóng cũng là cách tuyệt để thư giãn và nạp lại năng lượng sau ngày làm việc căng thẳng. "
+            "Nó như món ăn an ủi giúp đầu óc nhẹ lại, còn mùi thơm ngon miệng mang cảm giác ấm cúng vào nhà."
+        ),
+    },
+    {
+        "title": "Ý 3: Về sự sáng tạo",
+        "en": "Creativity",
+        "keys": ["experiment with spices and recipes"],
+        "think": "Ta có cơ hội tự thử nghiệm các gia vị và công thức nấu nướng mới lạ để tạo ra món ăn hấp dẫn theo ý thích.",
+        "sample": (
+            "Finally, cooking at home gives me the chance to experiment with spices and recipes. "
+            "Instead of eating the same repetitive dishes outside, you have the full freedom to mix different "
+            "ingredients together, turning a simple cooking session into an exciting experience to create your favorite meals."
+        ),
+        "vi": (
+            "Cuối cùng, nấu ở nhà cho mình cơ hội thử gia vị và công thức mới. "
+            "Thay vì ăn mãi những món lặp lại bên ngoài, bạn tự do kết hợp nguyên liệu, "
+            "biến buổi nấu thành trải nghiệm thú vị để tạo món mình thích."
+        ),
+    },
+]
+
+LESSON2_THINK_NUTRITION = [
+    {
+        "title": "Ý 1: Về sự am hiểu khẩu phần và tránh rủi ro sức khỏe",
+        "en": "Health Risks & Control",
+        "keys": ["pose a health risk", "processed food", "eat like a horse"],
+        "think": "Đọc về dinh dưỡng giúp mình nhận ra việc lạm dụng đồ chế biến sẵn có thể gây hại thế nào, từ đó tránh tình trạng ăn quá nhiều những thứ không tốt cho cơ thể.",
+        "sample": (
+            "Yes, I really enjoy reading about food and nutrition because it is a great way to understand how "
+            "processed food can pose a health risk if we consume too much. Knowing about nutrition prevents me "
+            "from eating improperly or trying to eat like a horse with unhealthy snacks, helping me stay fit and healthy."
+        ),
+        "vi": (
+            "Có, tôi rất thích đọc về ẩm thực và dinh dưỡng vì đó là cách tuyệt để hiểu thực phẩm chế biến sẵn có thể gây rủi ro sức khỏe nếu ăn quá nhiều. "
+            "Biết về dinh dưỡng giúp tôi không ăn lung tung hay ăn quá nhiều đồ ăn vặt không lành mạnh, từ đó giữ dáng và khỏe hơn."
+        ),
+    },
+    {
+        "title": "Ý 2: Về sở thích khám phá món ăn ngon và giải trí",
+        "en": "Pleasure & Relaxation",
+        "keys": ["mouth-watering", "have a sweet tooth", "got the munchies"],
+        "think": "Đọc các bài viết về ẩm thực, các món ngon ngọt hoặc món ăn vặt giúp tâm trạng hào hứng hơn và giải tỏa áp lực rất tốt.",
+        "sample": (
+            "I also love reading about food because discovering articles about mouth-watering dishes helps me "
+            "unwind and recharge my batteries after work. As someone who tends to have a sweet tooth, reading "
+            "about delicious desserts whenever I got the munchies brings me a lot of joy and relaxation."
+        ),
+        "vi": (
+            "Tôi cũng thích đọc về ẩm thực vì những bài viết về món ngon miệng giúp tôi thư giãn và nạp lại năng lượng sau giờ làm. "
+            "Là người hảo ngọt, đọc về món tráng miệng mỗi khi thèm ăn vặt mang lại nhiều niềm vui và sự thư thái."
+        ),
+    },
+    {
+        "title": "Ý 3: Về tốc độ ăn uống và thói quen sinh hoạt lành mạnh",
+        "en": "Habits & Mindset",
+        "keys": [
+            "to bolt something down",
+            "grab a bite to eat",
+            "stay in control of what I consume",
+        ],
+        "think": "Sách báo về dinh dưỡng nhắc nhở mình không nên ăn vội vàng hay nuốt chửng thức ăn khi bận rộn, mà phải kiểm soát tốt những gì nạp vào cơ thể.",
+        "sample": (
+            "Furthermore, reading about healthy diets gives me the chance to stay in control of what I consume. "
+            "It reminds me to slow down instead of just trying to grab a bite to eat quickly or to bolt something down "
+            "when busy, ensuring a much healthier lifestyle."
+        ),
+        "vi": (
+            "Hơn nữa, đọc về chế độ ăn lành mạnh giúp tôi kiểm soát những gì mình nạp vào cơ thể. "
+            "Nó nhắc mình chậm lại thay vì chỉ ăn vội hay nuốt chửng khi bận, để lối sống khỏe hơn."
+        ),
+    },
+]
+
+LESSON2_THINK_VEG = [
+    {
+        "title": "Ý 1: Về lợi ích sức khỏe và tránh các rủi ro",
+        "en": "Health Risks & Balanced Diet",
+        "keys": ["pose a health risk", "processed food", "eat like a horse"],
+        "think": "Việc ăn nhiều rau xanh giúp cân bằng khẩu phần ăn, tránh việc lạm dụng đồ chế biến sẵn hay ăn quá nhiều những món nhiều dầu mỡ gây hại sức khỏe.",
+        "sample": (
+            "Yes, I really love eating vegetables because it is a great way to avoid relying on processed food, "
+            "which can pose a health risk over time. Eating enough greens helps me maintain a balanced diet instead "
+            "of trying to eat like a horse with unhealthy, heavy meals."
+        ),
+        "vi": (
+            "Có, tôi rất thích ăn rau vì đó là cách tuyệt để tránh phụ thuộc vào thực phẩm chế biến sẵn — thứ có thể gây rủi ro sức khỏe lâu dài. "
+            "Ăn đủ rau xanh giúp tôi giữ chế độ ăn cân bằng thay vì ăn quá nhiều những bữa nặng, không lành mạnh."
+        ),
+    },
+    {
+        "title": "Ý 2: Về sự tự chủ trong việc chọn nguyên liệu",
+        "en": "Control & Fresh Ingredients",
+        "keys": [
+            "stay in control of what I consume",
+            "experiment with spices and recipes",
+        ],
+        "think": "Ăn rau củ tự nấu giúp mình hoàn toàn làm chủ được những gì mình nạp vào cơ thể, đồng thời có cơ hội sáng tạo nhiều món rau trộn hoặc gia vị mới lạ.",
+        "sample": (
+            "I also enjoy eating vegetables because it allows me to stay in control of what I consume every day. "
+            "Preparing green meals gives me the chance to experiment with spices and recipes, turning simple vegetables "
+            "into delicious and exciting dishes."
+        ),
+        "vi": (
+            "Tôi cũng thích ăn rau vì nó giúp tôi kiểm soát những gì mình nạp mỗi ngày. "
+            "Tự chuẩn bị món rau cho cơ hội thử gia vị và công thức mới, biến rau củ đơn giản thành món ngon, thú vị."
+        ),
+    },
+    {
+        "title": "Ý 3: Về cảm giác thư giãn và thưởng thức món ăn",
+        "en": "Comfort & Enjoyment",
+        "keys": [
+            "mouth-watering",
+            "comfort food",
+            "unwind / recharge my batteries",
+        ],
+        "think": "Nhiều món ăn chế biến từ rau củ tươi ngon, thanh đạm cũng có thể trở thành món ăn an ủi tinh thần tuyệt vời giúp giải tỏa căng thẳng sau giờ làm việc.",
+        "sample": (
+            "Furthermore, a bowl of fresh, carefully prepared green soup or salad can be a true comfort food. "
+            "Enjoying these mouth-watering and healthy dishes helps me unwind and recharge my batteries after a long, "
+            "stressful workday."
+        ),
+        "vi": (
+            "Hơn nữa, một tô canh rau hoặc salad tươi, nấu cẩn thận có thể là món ăn an ủi thực sự. "
+            "Thưởng thức những món ngon miệng và lành mạnh này giúp tôi thư giãn và nạp lại năng lượng sau ngày làm việc căng thẳng."
+        ),
+    },
+]
 
 
 def _lesson2_practice_html(
@@ -11098,7 +11207,7 @@ def _lesson2_practice_html(
 ) -> str:
     """Lesson 2 practice — Thích + Không thích đều có dropdown ngữ cảnh.
 
-    think_first: Review Exercise 2 replaces the first card with idea-development + Reveal answer.
+    think_first: Review Exercise 2 uses idea-development + Reveal answer for all Lesson 2 questions.
     """
     home_yes_tpl = (
         "I think because it's a great way to {relax_phrase} — especially when they're tired after work. "
@@ -11153,25 +11262,25 @@ def _lesson2_practice_html(
         taste_complaint=phrase_pick("taste_complaint", 2),
     )
 
-    home_card = (
-        _lesson2_home_think_card_html()
-        if think_first
-        else f"""              <article class="lr-food-ex-card">
+    if think_first:
+        hint = "Phát triển <strong>ý</strong> trước khi xem đoạn mẫu. Chọn 1–2 ý, lắp từ khóa Lesson 2, rồi bấm <strong>Reveal answer</strong>."
+        cards = f"""
+            <div class="lr-practice-source" id="lesson2-practice">
+{_lesson2_think_card_html("Why do people like home-cooked meals?", LESSON2_THINK_HOME)}
+{_lesson2_think_card_html("Do you like reading about food & nutrition?", LESSON2_THINK_NUTRITION)}
+{_lesson2_think_card_html("Do you like eating vegetables?", LESSON2_THINK_VEG)}
+            </div>"""
+    else:
+        hint = "Cùng format hình 1: <strong>Thích</strong> và <strong>Không thích</strong> đều có dropdown (đổi cụm lý do Lesson 2). Hover cả đoạn → 1 tooltip VI. Bật <strong>Hiện IPA</strong> trên mỗi card để xem phiên âm dưới câu trả lời."
+        cards = f"""
+            <div class="lr-practice-source" id="lesson2-practice">
+              <article class="lr-food-ex-card">
 {_ex_card_q_html("Why do people like home-cooked meals?")}
                 <div class="lr-food-ex-pair">
 {_pair_answer_html(kind="yes", en_html=home_yes, vi="Tôi nghĩ vì đó là cách tuyệt vời để thư giãn — nhất là khi mệt sau giờ làm. Ở trong bếp cũng giúp tạm quên áp lực công việc.", plain="I think because it's a great way to unwind and recharge their batteries — especially when they're tired after work. Being in the kitchen also helps them temporarily forget all the pressures from their work.", ipa="/aɪ θɪŋk bɪˈkɒz ɪts ə ɡreɪt weɪ tuː…/", q="Why do people like home-cooked meals?", ex_en=home_yes_tpl)}
 {_pair_answer_html(kind="no", en_html=home_no, vi="Một số người không thích nấu ở nhà vì việc nấu khiến họ kiệt sức và phải làm những việc lặp lại mỗi ngày.", plain="Well, some people don't enjoy home-cooked meals because cooking makes them exhausted and they have to deal with the same tasks every day.", ipa="/wel səm ˈpiːpl…/", q="Why do people like home-cooked meals?", ex_en=home_no_tpl)}
                 </div>
-              </article>"""
-    )
-    hint = (
-        "Phát triển <strong>ý</strong> trước khi xem đoạn mẫu. Câu còn lại vẫn là <strong>Thích / Không thích</strong> + dropdown."
-        if think_first
-        else "Cùng format hình 1: <strong>Thích</strong> và <strong>Không thích</strong> đều có dropdown (đổi cụm lý do Lesson 2). Hover cả đoạn → 1 tooltip VI. Bật <strong>Hiện IPA</strong> trên mỗi card để xem phiên âm dưới câu trả lời."
-    )
-    cards = f"""
-            <div class="lr-practice-source" id="lesson2-practice">
-{home_card}
+              </article>
               <article class="lr-food-ex-card">
 {_ex_card_q_html("Do you like reading about food & nutrition?")}
                 <div class="lr-food-ex-pair">
