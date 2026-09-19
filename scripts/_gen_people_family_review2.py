@@ -2568,7 +2568,7 @@ def build_page_review2() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr23"></script>
-  <script src="{home}js/linear-review.js?v=lr46"></script>
+  <script src="{home}js/linear-review.js?v=lr47"></script>
 </body>
 </html>"""
 

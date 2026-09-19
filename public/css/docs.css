@@ -2834,11 +2834,17 @@ a.kk-card--biz:hover {
 }
 
 .scroll-word {
-  display: inline;
+  display: inline-block;
   position: relative;
   vertical-align: baseline;
   margin: 0;
   padding: 0;
+  white-space: nowrap;
+}
+
+/* Keep mouth-watering / home-cooked on one line; IPA sits on each half. */
+.scroll-hyphen-word {
+  display: inline-block;
   white-space: nowrap;
 }
 

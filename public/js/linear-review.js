@@ -615,6 +615,54 @@
         return span;
       };
 
+      /**
+       * Split "mouth-watering," into overlay pieces so each IPA token sits on
+       * its EN half. A single column-flex blank for the whole compound wraps
+       * apart from the following words (aroma / brings / …).
+       */
+      const splitHyphenPieces = (part) => {
+        const raw = String(part || "");
+        if (!raw || isPunctOnly(raw)) return [{ type: "punct", text: raw }];
+        const trailM = raw.match(/[.,;:!?…—–]+$/);
+        const trail = trailM ? trailM[0] : "";
+        const body = trail ? raw.slice(0, -trail.length) : raw;
+        const bits = body.split("-").filter(Boolean);
+        if (bits.length <= 1) return [{ type: "word", text: raw }];
+        const out = [];
+        bits.forEach((bit, i) => {
+          if (i) out.push({ type: "hyphen", text: "-" });
+          out.push({
+            type: "word",
+            text: i === bits.length - 1 ? bit + trail : bit,
+            ipaFrom: bit,
+          });
+        });
+        return out;
+      };
+
+      const appendHyphenWord = (parent, part) => {
+        const pieces = splitHyphenPieces(part);
+        if (pieces.length === 1 && pieces[0].type === "word") {
+          parent.appendChild(makeWord(part, takeIpaForEn(part)));
+          return;
+        }
+        if (pieces.length === 1 && pieces[0].type === "punct") {
+          syncPunctOnly(part);
+          parent.appendChild(document.createTextNode(part));
+          return;
+        }
+        const wrap = document.createElement("span");
+        wrap.className = "scroll-hyphen-word";
+        pieces.forEach((p) => {
+          if (p.type === "hyphen") {
+            wrap.appendChild(document.createTextNode("-"));
+            return;
+          }
+          wrap.appendChild(makeWord(p.text, takeIpaForEn(p.ipaFrom || p.text)));
+        });
+        parent.appendChild(wrap);
+      };
+
       const wrapTextNode = (textNode) => {
         const raw = textNode.textContent;
         if (!raw || !raw.trim()) return;
@@ -631,7 +679,7 @@
             frag.appendChild(document.createTextNode(part));
             return;
           }
-          frag.appendChild(makeWord(part, takeIpaForEn(part)));
+          appendHyphenWord(frag, part);
         });
         textNode.parentNode.replaceChild(frag, textNode);
       };
@@ -644,27 +692,48 @@
         if (node.nodeType !== Node.ELEMENT_NODE) return;
         if (node.classList.contains("scroll-blank")) {
           const form = (node.dataset.answer || "").trim();
-          const words = form ? form.split(/\s+/).filter(Boolean) : [""];
-          const ipas = words.map((w) => {
-            if (isPunctOnly(w)) {
-              syncPunctOnly(w);
-              return "";
-            }
-            return takeIpaForEn(w);
-          });
-          if (node.classList.contains("is-revealed") && words.length > 1) {
+          const chunks = form
+            ? form.split(/(\s+)/).filter((p) => p !== "")
+            : [""];
+          const spaceWords = form.split(/\s+/).filter(Boolean);
+          const hyphenated = /[A-Za-z0-9]-(?:[A-Za-z0-9])/.test(form);
+          // Revealed multi-piece blanks (spaces or hyphens) become per-word
+          // units so IPA stays glued to each EN token when the line wraps.
+          if (
+            node.classList.contains("is-revealed") &&
+            (spaceWords.length > 1 || hyphenated)
+          ) {
             const frag = document.createDocumentFragment();
-            words.forEach((w, i) => {
-              if (i) frag.appendChild(document.createTextNode(" "));
-              if (isPunctOnly(w)) {
-                frag.appendChild(document.createTextNode(w));
+            chunks.forEach((chunk) => {
+              if (/^\s+$/.test(chunk)) {
+                frag.appendChild(document.createTextNode(chunk));
                 return;
               }
-              frag.appendChild(makeWord(w, ipas[i] || ""));
+              if (isPunctOnly(chunk)) {
+                syncPunctOnly(chunk);
+                frag.appendChild(document.createTextNode(chunk));
+                return;
+              }
+              appendHyphenWord(frag, chunk);
             });
             node.replaceWith(frag);
             return;
           }
+          const ipas = [];
+          chunks.forEach((chunk) => {
+            if (/^\s+$/.test(chunk) || isPunctOnly(chunk)) {
+              if (isPunctOnly(chunk)) syncPunctOnly(chunk);
+              return;
+            }
+            splitHyphenPieces(chunk).forEach((p) => {
+              if (p.type !== "word") return;
+              if (isPunctOnly(p.text)) {
+                syncPunctOnly(p.text);
+                return;
+              }
+              ipas.push(takeIpaForEn(p.ipaFrom || p.text));
+            });
+          });
           const ipaJoined = ipas.filter(Boolean).join(" ");
           if (ipaJoined) {
             const ipaEl = document.createElement("span");
