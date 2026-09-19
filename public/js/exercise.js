@@ -96,8 +96,8 @@
       const self = document.querySelector('script[src*="exercise.js"]');
       const s = document.createElement("script");
       s.src = self
-        ? self.src.replace(/exercise\.js(\?.*)?$/, "sheet-sync.js?v=sheet4")
-        : "../../../../js/sheet-sync.js?v=sheet4";
+        ? self.src.replace(/exercise\.js(\?.*)?$/, "sheet-sync.js?v=sheet5")
+        : "../../../../js/sheet-sync.js?v=sheet5";
       s.onload = () => resolve(window.SheetBackend || null);
       s.onerror = () => resolve(null);
       document.head.appendChild(s);
@@ -1202,7 +1202,7 @@
     const hint = root.querySelector(".ex-flash-hint");
     if (hint) {
       hint.innerHTML =
-        'Pareto 80/20 — lật thẻ rồi phân loại: <strong>Đã biết</strong> · <strong>Phải học</strong>. Vuốt trái/phải để xem thẻ khác (không chấm điểm). <strong>Lưu Sheet</strong> / <strong>Ôn phải học</strong>.';
+        'Pareto 80/20 — chạm thẻ để lật. Vuốt trái = <strong>Đã biết</strong> (xanh) · Vuốt phải = <strong>Phải học</strong> (đỏ). <strong>Lưu Sheet</strong> / <strong>Ôn phải học</strong>.';
     }
     const stats = root.querySelector(".ex-flash-stats");
     if (stats) {
@@ -1245,7 +1245,7 @@
         <div class="ex-flash-head">
           <div>
             <h2>Flashcards</h2>
-            <p class="ex-flash-hint">Pareto 80/20 — lật thẻ rồi phân loại: <strong>Đã biết</strong> · <strong>Phải học</strong>. Vuốt trái/phải để xem thẻ khác (không chấm điểm). <strong>Lưu Sheet</strong> / <strong>Ôn phải học</strong>.</p>
+            <p class="ex-flash-hint">Pareto 80/20 — chạm thẻ để lật. Vuốt trái = <strong>Đã biết</strong> (xanh) · Vuốt phải = <strong>Phải học</strong> (đỏ). <strong>Lưu Sheet</strong> / <strong>Ôn phải học</strong>.</p>
           </div>
           <div class="ex-flash-controls">
             <div class="ex-flash-stats" aria-live="polite">
@@ -1288,7 +1288,7 @@
     let mode = "all";
     let goldPool = [];
     const hintAll =
-      'Pareto 80/20 — lật thẻ rồi phân loại: <strong>Đã biết</strong> · <strong>Phải học</strong>. Vuốt trái/phải để xem thẻ khác (không chấm điểm). <strong>Lưu Sheet</strong> / <strong>Ôn phải học</strong>.';
+      'Pareto 80/20 — chạm thẻ để lật. Vuốt trái = <strong>Đã biết</strong> (xanh) · Vuốt phải = <strong>Phải học</strong> (đỏ). <strong>Lưu Sheet</strong> / <strong>Ôn phải học</strong>.';
 
     const paintMode = () => {
       section.classList.toggle("ex-flash--gold", mode === "gold");
@@ -1374,30 +1374,39 @@
       return deck[idx + 1];
     };
 
-    const peekPrevWord = () => {
-      const rest = deck.slice(idx);
-      if (rest.length < 2) return null;
-      return rest[rest.length - 1];
+    const SPEAK_SVG = `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>`;
+    const FLIP_SVG = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>`;
+
+    const frontFaceHtml = (word, live) => {
+      const pos = posLabel(word.pos);
+      const ipa = word.ipa ? `/${word.ipa}/` : "";
+      const speak = live
+        ? `<button type="button" class="ex-flash-speak" id="flashSpeak" aria-label="Phát âm ${escapeHtml(word.form)}">${SPEAK_SVG}</button>`
+        : `<span class="ex-flash-speak" aria-hidden="true">${SPEAK_SVG}</span>`;
+      return `
+              ${speak}
+              <div class="ex-flash-front-body">
+                <div class="ex-flash-term">${escapeHtml(word.form)}</div>
+                ${pos ? `<div class="ex-flash-pos">[${escapeHtml(pos)}]</div>` : ""}
+                ${
+                  ipa
+                    ? `<div class="ex-flash-ipa"><span class="ex-flash-flag" title="US">🇺🇸</span> ${escapeHtml(ipa)}</div>`
+                    : ""
+                }
+              </div>
+              <div class="ex-flash-flipbar"${live ? ' id="flashFlip"' : ""} aria-hidden="true">
+                ${FLIP_SVG}
+                Xem Định nghĩa
+              </div>`;
     };
 
-    const peekHtml = (word, side) => {
+    const peekHtml = (word) => {
       if (!word) return "";
-      return `<div class="ex-flash-peek ex-flash-peek--${side}" aria-hidden="true">
-                  <div class="ex-flash-peek-term">${escapeHtml(word.form)}</div>
-                  ${posLabel(word.pos) ? `<div class="ex-flash-peek-pos">[${escapeHtml(posLabel(word.pos))}]</div>` : ""}
-                </div>`;
-    };
-
-    const browse = (dir) => {
-      const rest = deck.slice(idx);
-      if (rest.length < 2) return;
-      if (dir === "next") {
-        deck = [...deck.slice(0, idx), ...rest.slice(1), rest[0]];
-      } else {
-        deck = [...deck.slice(0, idx), rest[rest.length - 1], ...rest.slice(0, -1)];
-      }
-      flipped = false;
-      renderCard();
+      return `<div class="ex-flash-peek ex-flash-peek--next" aria-hidden="true">
+            <div class="ex-flash-face ex-flash-face--front">
+              ${frontFaceHtml(word, false)}
+            </div>
+          </div>`;
     };
 
     const stripMd = (s) => String(s || "").replace(/\*\*([^*]+)\*\*/g, "$1");
@@ -1468,31 +1477,15 @@
         return;
       }
 
-      const pos = posLabel(w.pos);
-      const ipa = w.ipa ? `/${w.ipa}/` : "";
       const next = peekWord();
-      const prev = peekPrevWord();
 
       stage.innerHTML = `
         <div class="ex-flash-deck">
           <div class="ex-flash-card${flipped ? " is-flipped" : ""}" id="flashCard" tabindex="0" role="button" aria-label="Flashcard ${escapeHtml(w.form)}">
+            <div class="ex-flash-wash ex-flash-wash--known" aria-hidden="true"><span>Đã biết</span></div>
+            <div class="ex-flash-wash ex-flash-wash--gold" aria-hidden="true"><span>Phải học</span></div>
             <div class="ex-flash-face ex-flash-face--front">
-              <button type="button" class="ex-flash-speak" id="flashSpeak" aria-label="Phát âm ${escapeHtml(w.form)}">
-                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-              </button>
-              <div class="ex-flash-front-body">
-                <div class="ex-flash-term">${escapeHtml(w.form)}</div>
-                ${pos ? `<div class="ex-flash-pos">[${escapeHtml(pos)}]</div>` : ""}
-                ${
-                  ipa
-                    ? `<div class="ex-flash-ipa"><span class="ex-flash-flag" title="US">🇺🇸</span> ${escapeHtml(ipa)}</div>`
-                    : ""
-                }
-              </div>
-              <button type="button" class="ex-flash-flipbar" id="flashFlip">
-                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
-                Xem Định nghĩa
-              </button>
+              ${frontFaceHtml(w, true)}
             </div>
             <div class="ex-flash-face ex-flash-face--back">
               <button type="button" class="ex-flash-backnav" id="flashUnflip" aria-label="Quay lại mặt trước">
@@ -1515,8 +1508,7 @@
               </div>
             </div>
           </div>
-          ${peekHtml(next, "next")}
-          ${peekHtml(prev, "prev")}
+          ${peekHtml(next)}
         </div>
       `;
 
@@ -1533,13 +1525,6 @@
         speakBtn.addEventListener("click", (e) => {
           e.stopPropagation();
           speakWord(w);
-        });
-
-      const flipBtn = document.getElementById("flashFlip");
-      flipBtn &&
-        flipBtn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          setFlip(true);
         });
 
       const unflipBtn = document.getElementById("flashUnflip");
@@ -1578,12 +1563,21 @@
       goldBtn && goldBtn.addEventListener("click", () => advance("gold"));
 
       const deckEl = stage.querySelector(".ex-flash-deck");
-      window.SheetBackend &&
+      if (window.SheetBackend) {
         window.SheetBackend.bindCardSwipe(deckEl, {
-          onBrowseNext: () => browse("next"),
-          onBrowsePrev: () => browse("prev"),
-          canBrowse: () => deck.slice(idx).length >= 2,
+          onGradeLeft: () => advance("known"),
+          onGradeRight: () => advance("gold"),
+          onTap: () => setFlip(!flipped),
         });
+      } else {
+        card &&
+          card.addEventListener("click", (e) => {
+            if (e.target.closest(".ex-flash-speak, .ex-flash-grade-btn, .ex-flash-example-speak, .ex-flash-backnav")) {
+              return;
+            }
+            setFlip(!flipped);
+          });
+      }
     };
 
     const restart = (doShuffle, opts = {}) => {
@@ -1641,7 +1635,7 @@
       const hintSwipe = document.createElement("p");
       hintSwipe.className = "ex-flash-swipe-hint";
       hintSwipe.textContent =
-        "Vuốt trái = thẻ sau · Vuốt phải = thẻ trước · không chấm Đã biết / Phải học";
+        "Chạm thẻ để lật · Vuốt trái = Đã biết · Vuốt phải = Phải học";
       stage.insertAdjacentElement("afterend", hintSwipe);
     }
 

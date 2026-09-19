@@ -35,8 +35,8 @@
       const self = document.querySelector('script[src*="hsk.js"]');
       const s = document.createElement("script");
       s.src = self
-        ? self.src.replace(/hsk\.js(\?.*)?$/, "sheet-sync.js?v=sheet4")
-        : "../../../js/sheet-sync.js?v=sheet4";
+        ? self.src.replace(/hsk\.js(\?.*)?$/, "sheet-sync.js?v=sheet5")
+        : "../../../js/sheet-sync.js?v=sheet5";
       s.onload = () => resolve(window.SheetBackend || null);
       s.onerror = () => resolve(null);
       document.head.appendChild(s);
@@ -112,7 +112,7 @@
         hint.innerHTML =
           mode === "gold"
             ? `Đang ôn <strong>${goldPool.length} từ phải học</strong> từ Sheet. Shuffle = xáo nhóm này · Restart = về đủ bộ.`
-            : "Lật thẻ rồi phân loại: <strong>Đã biết</strong> · <strong>Phải học</strong>. Vuốt trái/phải để xem thẻ khác (không chấm điểm).";
+            : "Chạm thẻ để lật. Vuốt trái = <strong>Đã biết</strong> (xanh) · Vuốt phải = <strong>Phải học</strong> (đỏ).";
       }
     };
 
@@ -135,22 +135,29 @@
 
     const current = () => deck[idx] || null;
     const peekWord = () => (idx + 1 < deck.length ? deck[idx + 1] : null);
-    const peekPrevWord = () => {
-      const rest = deck.slice(idx);
-      if (rest.length < 2) return null;
-      return rest[rest.length - 1];
+    const SPEAK_SVG = `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>`;
+
+    const frontFaceHtml = (word, live) => {
+      const speak = live
+        ? `<button type="button" class="ex-flash-speak" id="flashSpeak" aria-label="Phát âm">${SPEAK_SVG}</button>`
+        : `<span class="ex-flash-speak" aria-hidden="true">${SPEAK_SVG}</span>`;
+      return `
+              ${speak}
+              <div class="ex-flash-front-body">
+                <div class="ex-flash-term hsk-flash-hanzi">${escapeHtml(word.hanzi)}</div>
+                <div class="ex-flash-ipa hsk-flash-py">${escapeHtml(word.pinyin || "")}</div>
+                ${word.pos ? `<div class="ex-flash-pos">[${escapeHtml(word.pos)}]</div>` : ""}
+              </div>
+              <div class="ex-flash-flipbar"${live ? ' id="flashFlip"' : ""} aria-hidden="true">Xem nghĩa · ví dụ</div>`;
     };
 
-    const browse = (dir) => {
-      const rest = deck.slice(idx);
-      if (rest.length < 2) return;
-      if (dir === "next") {
-        deck = [...deck.slice(0, idx), ...rest.slice(1), rest[0]];
-      } else {
-        deck = [...deck.slice(0, idx), rest[rest.length - 1], ...rest.slice(0, -1)];
-      }
-      flipped = false;
-      renderCard();
+    const peekHtml = (word) => {
+      if (!word) return "";
+      return `<div class="ex-flash-peek ex-flash-peek--next" aria-hidden="true">
+            <div class="ex-flash-face ex-flash-face--front">
+              ${frontFaceHtml(word, false)}
+            </div>
+          </div>`;
     };
 
     const downloadClassified = () => {
@@ -209,20 +216,13 @@
 
       const ex = (w.examples && w.examples[0]) || null;
       const next = peekWord();
-      const prev = peekPrevWord();
       stage.innerHTML = `
         <div class="ex-flash-deck">
           <div class="ex-flash-card" id="flashCard" tabindex="0" role="button" aria-label="Flashcard ${escapeHtml(w.hanzi)}">
+            <div class="ex-flash-wash ex-flash-wash--known" aria-hidden="true"><span>Đã biết</span></div>
+            <div class="ex-flash-wash ex-flash-wash--gold" aria-hidden="true"><span>Phải học</span></div>
             <div class="ex-flash-face ex-flash-face--front">
-              <button type="button" class="ex-flash-speak" id="flashSpeak" aria-label="Phát âm">
-                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-              </button>
-              <div class="ex-flash-front-body">
-                <div class="ex-flash-term hsk-flash-hanzi">${escapeHtml(w.hanzi)}</div>
-                <div class="ex-flash-ipa hsk-flash-py">${escapeHtml(w.pinyin || "")}</div>
-                ${w.pos ? `<div class="ex-flash-pos">[${escapeHtml(w.pos)}]</div>` : ""}
-              </div>
-              <button type="button" class="ex-flash-flipbar" id="flashFlip">Xem nghĩa · ví dụ</button>
+              ${frontFaceHtml(w, true)}
             </div>
             <div class="ex-flash-face ex-flash-face--back">
               <button type="button" class="ex-flash-backnav" id="flashUnflip" aria-label="Quay lại">←</button>
@@ -253,20 +253,7 @@
               </div>
             </div>
           </div>
-          ${
-            next
-              ? `<div class="ex-flash-peek ex-flash-peek--next" aria-hidden="true">
-                  <div class="ex-flash-peek-term hsk-flash-hanzi">${escapeHtml(next.hanzi)}</div>
-                </div>`
-              : ""
-          }
-          ${
-            prev
-              ? `<div class="ex-flash-peek ex-flash-peek--prev" aria-hidden="true">
-                  <div class="ex-flash-peek-term hsk-flash-hanzi">${escapeHtml(prev.hanzi)}</div>
-                </div>`
-              : ""
-          }
+          ${peekHtml(next)}
         </div>
       `;
 
@@ -284,10 +271,6 @@
       document.getElementById("flashSpeakEx")?.addEventListener("click", (e) => {
         e.stopPropagation();
         speakZh(ex?.zh || "");
-      });
-      document.getElementById("flashFlip")?.addEventListener("click", (e) => {
-        e.stopPropagation();
-        setFlip(true);
       });
       document.getElementById("flashUnflip")?.addEventListener("click", (e) => {
         e.stopPropagation();
@@ -308,12 +291,21 @@
       };
       document.getElementById("flashKnownBtn")?.addEventListener("click", () => advance("known"));
       document.getElementById("flashGoldBtn")?.addEventListener("click", () => advance("gold"));
-      window.SheetBackend &&
-        window.SheetBackend.bindCardSwipe(stage.querySelector(".ex-flash-deck"), {
-          onBrowseNext: () => browse("next"),
-          onBrowsePrev: () => browse("prev"),
-          canBrowse: () => deck.slice(idx).length >= 2,
+      const deckEl = stage.querySelector(".ex-flash-deck");
+      if (window.SheetBackend) {
+        window.SheetBackend.bindCardSwipe(deckEl, {
+          onGradeLeft: () => advance("known"),
+          onGradeRight: () => advance("gold"),
+          onTap: () => setFlip(!flipped),
         });
+      } else {
+        card?.addEventListener("click", (e) => {
+          if (e.target.closest(".ex-flash-speak, .ex-flash-grade-btn, .ex-flash-example-speak, .ex-flash-backnav")) {
+            return;
+          }
+          setFlip(!flipped);
+        });
+      }
     };
 
     const restart = (doShuffle, opts = {}) => {
@@ -340,7 +332,7 @@
     if (hint && !hint.dataset.sheetHint) {
       hint.dataset.sheetHint = "1";
       hint.innerHTML =
-        'Lật thẻ rồi phân loại: <strong>Đã biết</strong> · <strong>Phải học</strong>. Vuốt trái/phải để xem thẻ khác (không chấm điểm).';
+        'Chạm thẻ để lật. Vuốt trái = <strong>Đã biết</strong> (xanh) · Vuốt phải = <strong>Phải học</strong> (đỏ).';
     }
 
     window.SheetBackend &&
@@ -373,7 +365,7 @@
       const hintSwipe = document.createElement("p");
       hintSwipe.className = "ex-flash-swipe-hint";
       hintSwipe.textContent =
-        "Vuốt trái = thẻ sau · Vuốt phải = thẻ trước · không chấm Đã biết / Phải học";
+        "Chạm thẻ để lật · Vuốt trái = Đã biết · Vuốt phải = Phải học";
       stage.insertAdjacentElement("afterend", hintSwipe);
     }
 

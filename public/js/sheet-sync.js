@@ -62,11 +62,11 @@
 .ex-flash-deck.is-dragging {
   cursor: grabbing;
 }
-.ex-flash-deck { touch-action: pan-y; }
+.ex-flash-deck { touch-action: pan-y; user-select: none; }
 .ex-flash-card {
   will-change: transform, opacity;
 }
-.ex-flash-peek--prev { opacity: 0; }
+.ex-flash-peek--prev { display: none !important; }
 .ex-flash-gold-badge {
   display: none;
   align-items: center;
@@ -98,20 +98,12 @@
     min-height: min(58dvh, 460px);
   }
   .ex-flash-peek, .ex-flash-peek--next {
-    display: block !important;
-    right: -10px;
-    left: auto;
-    top: 12px;
+    inset: 0 !important;
     width: 100%;
-    height: calc(100% - 12px);
-    min-height: 0;
+    height: 100%;
+    transform: scale(0.96) translate3d(10px, 8px, 0);
   }
-  .ex-flash-peek--prev {
-    display: block !important;
-    left: -10px;
-    right: auto;
-    opacity: 0;
-  }
+  .ex-flash-peek--prev { display: none !important; }
   .ex-flash-grade--pareto { grid-template-columns: 1fr 1fr; min-height: 52px; }
   .ex-flash-grade-btn { font-size: 0.9rem; padding: 14px 8px; min-height: 48px; }
   .ex-flash-front-body { padding: 40px 16px 20px; }
@@ -432,10 +424,13 @@
     });
   };
 
-  const bindCardSwipe = (deckEl, { onBrowseNext, onBrowsePrev, canBrowse }) => {
+  const bindCardSwipe = (deckEl, { onGradeLeft, onGradeRight, onTap, onBrowseNext, onBrowsePrev }) => {
     if (!deckEl || deckEl.dataset.swipeBound) return;
     deckEl.dataset.swipeBound = "1";
-    const THRESH = 56;
+    const THRESH = 72;
+    const TAP_MAX = 12;
+    const gradeLeft = onGradeLeft || onBrowsePrev;
+    const gradeRight = onGradeRight || onBrowseNext;
     let startX = 0;
     let startY = 0;
     let dx = 0;
@@ -449,71 +444,81 @@
     const peekNextEl = () =>
       deckEl.querySelector(".ex-flash-peek--next") ||
       deckEl.querySelector(".ex-flash-peek:not(.ex-flash-peek--prev)");
-    const peekPrevEl = () => deckEl.querySelector(".ex-flash-peek--prev");
-
-    const resetEl = (el) => {
-      if (!el) return;
-      el.style.transform = "";
-      el.style.opacity = "";
-      el.style.transition = "";
-    };
+    const washKnownEl = () => deckEl.querySelector(".ex-flash-wash--known");
+    const washGoldEl = () => deckEl.querySelector(".ex-flash-wash--gold");
 
     const paint = (x, animate) => {
       const card = cardEl();
-      const pNext = peekNextEl();
-      const pPrev = peekPrevEl();
-      const ease = animate ? "transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease" : "none";
+      const peek = peekNextEl();
+      const washKnown = washKnownEl();
+      const washGold = washGoldEl();
+      const ease = animate
+        ? "transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.32s ease"
+        : "none";
       deckEl.classList.toggle("is-dragging", !animate && tracking);
 
+      const setWash = (el, op) => {
+        if (!el) return;
+        el.style.transition = animate ? "opacity 0.22s ease" : "none";
+        el.style.opacity = op;
+      };
+
       if (!x) {
-        [card, pNext, pPrev].forEach((el) => {
+        [card, peek].forEach((el) => {
           if (!el) return;
           el.style.transition = ease;
           el.style.transform = "";
           el.style.opacity = "";
         });
+        setWash(washKnown, "");
+        setWash(washGold, "");
         return;
       }
 
       const width = Math.max(deckEl.getBoundingClientRect().width, 1);
-      const p = Math.min(1, Math.abs(x) / (width * 0.7));
-      const goingNext = x < 0;
-      const incoming = goingNext ? pNext : pPrev;
-      const idle = goingNext ? pPrev : pNext;
+      const p = Math.min(1, Math.abs(x) / (width * 0.62));
+      const pWash = Math.min(1, Math.abs(x) / (width * 0.38));
+      const goingLeft = x < 0;
 
       if (card) {
         card.style.transition = ease;
-        card.style.transform = `translate3d(${x}px, 0, 0) scale(${1 - 0.18 * p}) rotate(${x * 0.045}deg)`;
-        card.style.opacity = String(1 - 0.55 * p);
+        card.style.transform = `translate3d(${x}px, ${Math.abs(x) * 0.035}px, 0) rotate(${x * 0.055}deg)`;
+        card.style.opacity = String(1 - 0.18 * p);
       }
-      if (incoming) {
-        const from = goingNext ? 22 : -22;
-        incoming.style.transition = ease;
-        incoming.style.opacity = String(0.4 + 0.6 * p);
-        incoming.style.transform = `translate3d(${from * (1 - p)}px, 0, 0) scale(${0.86 + 0.14 * p})`;
+      if (peek) {
+        peek.style.transition = ease;
+        peek.style.opacity = "1";
+        peek.style.transform = `scale(${0.94 + 0.06 * p}) translate3d(${16 * (1 - p)}px, ${10 * (1 - p)}px, 0)`;
       }
-      if (idle) {
-        idle.style.transition = ease;
-        idle.style.opacity = "0";
-        idle.style.transform = "";
+      if (goingLeft) {
+        setWash(washKnown, String(pWash));
+        setWash(washGold, "0");
+      } else {
+        setWash(washGold, String(pWash));
+        setWash(washKnown, "0");
       }
     };
 
-    const ignore = (t) => !!(t && t.closest && t.closest("button, a, input, textarea"));
+    const ignore = (t) =>
+      !!(
+        t &&
+        t.closest &&
+        t.closest(
+          ".ex-flash-speak, .ex-flash-grade-btn, .ex-flash-example-speak, .ex-flash-backnav, a, input, textarea"
+        )
+      );
 
     const finish = (dir) => {
       if (settled) return;
       settled = true;
       const width = Math.max(deckEl.getBoundingClientRect().width, 280);
-      paint(dir * width * 1.2, true);
+      paint(dir * width * 1.18, true);
+      deckEl.style.pointerEvents = "none";
       window.setTimeout(() => {
-        resetEl(cardEl());
-        resetEl(peekNextEl());
-        resetEl(peekPrevEl());
         deckEl.classList.remove("is-dragging");
-        if (dir < 0) onBrowseNext && onBrowseNext();
-        else onBrowsePrev && onBrowsePrev();
-      }, 280);
+        if (dir < 0) gradeLeft && gradeLeft();
+        else gradeRight && gradeRight();
+      }, 300);
     };
 
     const onMove = (e) => {
@@ -534,8 +539,15 @@
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerup", onUp);
       window.removeEventListener("pointercancel", onUp);
-      if (axis === "x" && Math.abs(dx) >= THRESH && (!canBrowse || canBrowse())) finish(dx > 0 ? 1 : -1);
-      else paint(0, true);
+      const isSwipe = axis === "x" && Math.abs(dx) >= THRESH;
+      if (isSwipe) {
+        finish(dx > 0 ? 1 : -1);
+      } else {
+        paint(0, true);
+        if (axis !== "x" && Math.abs(dx) < TAP_MAX && Math.abs(dy) < TAP_MAX && onTap) {
+          onTap();
+        }
+      }
       axis = null;
       pid = null;
     };

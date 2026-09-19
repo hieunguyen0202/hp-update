@@ -30,7 +30,7 @@ def page(
   <link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../css/docs.css?v=nav1">
+  <link rel="stylesheet" href="../../../css/docs.css?v=sheet5">
 </head>
 <body class="docs hsk-page">
   <div class="cursor" id="cursor"></div>
@@ -98,7 +98,7 @@ def page(
             <h2>Flashcards · {words} từ mới</h2>
             <p class="ex-flash-hint">
               Mặt trước: 汉字 + pinyin. Lật thẻ: nghĩa VI / EN + ví dụ từ bài.
-              Phân loại <strong>Đã biết</strong> · <strong>Phải học</strong>. Vuốt trái/phải để xem thẻ khác.
+              Phân loại <strong>Đã biết</strong> · <strong>Phải học</strong>. Chạm thẻ để lật. Vuốt trái = đã biết · Vuốt phải = phải học.
             </p>
           </div>
           <div class="ex-flash-controls">
@@ -196,7 +196,7 @@ def page(
   </div>
   <script src="../../../js/docs.js?v=nav1"></script>
   <script src="../../../js/hsk-lesson-{lesson}-data.js"></script>
-  <script src="../../../js/hsk.js?v=sheet4"></script>
+  <script src="../../../js/hsk.js?v=sheet5"></script>
 </body>
 </html>
 """
