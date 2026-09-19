@@ -40,6 +40,13 @@ assert _notes_spec and _notes_spec.loader
 _notes_spec.loader.exec_module(_food_notes)
 FOOD_VOCABS = _food_notes.VOCABS
 
+_l5_spec = importlib.util.spec_from_file_location(
+    "food_r2_l5_think", Path(__file__).with_name("_food_review2_l5_think.py")
+)
+_l5_think = importlib.util.module_from_spec(_l5_spec)
+assert _l5_spec and _l5_spec.loader
+_l5_spec.loader.exec_module(_l5_think)
+
 esc = _gen.esc
 collect_words = _gen.collect_words
 TOPICS = _gen.TOPICS
@@ -11134,6 +11141,87 @@ def _l3_cloze_html(text: str) -> str:
     return "".join(out)
 
 
+L5_CLOZE_VI = {
+    "I would go for": "tôi sẽ chọn",
+    "I would opt for": "tôi sẽ chọn / nghiêng về",
+    "would have to be": "chắc chắn phải là",
+    "go for": "chọn",
+    "opt for": "chọn / nghiêng về",
+    "cooked from scratch": "nấu từ nguyên liệu tươi",
+    "made from scratch": "làm từ nguyên liệu tươi",
+    "from scratch": "từ nguyên liệu tươi",
+    "wholesome": "lành mạnh, bổ dưỡng",
+    "hearty": "thịnh soạn, đầy đặn",
+    "bursting with flavor": "tràn đầy hương vị",
+    "hits the spot": "đúng ý, rất đã",
+    "hit the spot": "đúng ý, rất đã",
+    "a culinary delight": "một niềm vui ẩm thực",
+    "culinary delight": "niềm vui ẩm thực",
+    "can't get enough of": "không bao giờ chán",
+    "get a craving for": "đột nhiên rất thèm",
+    "nutritious": "nhiều dinh dưỡng",
+    "aromatic": "thơm hấp dẫn",
+    "traditional Vietnamese cuisine": "ẩm thực truyền thống Việt Nam",
+    "traditional cuisine": "ẩm thực truyền thống",
+    "authentic local speciality": "đặc sản địa phương chính gốc",
+    "whet my appetite": "kích thích vị giác",
+    "culinary experience": "trải nghiệm ẩm thực",
+    "foodie": "người mê ẩm thực",
+}
+L5_CLOZE_VI_LC = {k.lower(): v for k, v in L5_CLOZE_VI.items()}
+L5_THINK_EXTRA_PATS = [
+    r"I would go for",
+    r"I would opt for",
+    r"traditional(?: Vietnamese)? cuisine",
+    r"authentic local specialit(?:y|ies)",
+    r"whet(?:s|ted)? (?:my|your) appetite",
+    r"culinary experience(?:s)?",
+    r"\bfoodie\b",
+]
+
+
+def _l5_pats() -> list[re.Pattern[str]]:
+    return [
+        re.compile(p, re.I)
+        for p in L5_THINK_EXTRA_PATS
+        + (_food_notes.VOCAB_EXAMPLE_HIGHLIGHTS.get("5") or [])
+    ]
+
+
+def _l5_hl(text: str) -> str:
+    return _highlight_vocab_in_example(text, _l5_pats())
+
+
+def _l5_cloze_html(text: str) -> str:
+    pats = _l5_pats()
+    if not text or not pats:
+        return esc(text)
+    found: list[tuple[int, int, str]] = []
+    for pat in pats:
+        for m in pat.finditer(text):
+            found.append((m.start(), m.end(), m.group(0)))
+    found.sort(key=lambda t: (t[0], -(t[1] - t[0])))
+    kept: list[tuple[int, int, str]] = []
+    occupied: list[tuple[int, int]] = []
+    for start, end, frag in found:
+        if any(start < e and end > s for s, e in occupied):
+            continue
+        kept.append((start, end, frag))
+        occupied.append((start, end))
+    kept.sort(key=lambda t: t[0])
+    out: list[str] = []
+    i = 0
+    for start, end, frag in kept:
+        out.append(esc(text[i:start]))
+        vi = L5_CLOZE_VI_LC.get(frag.lower(), "")
+        out.append(
+            f'<span class="lr-cloze" data-en="{esc(frag)}" data-vi="{esc(vi)}">{esc(frag)}</span>'
+        )
+        i = end
+    out.append(esc(text[i:]))
+    return "".join(out)
+
+
 def _think_card_html(
     q: str,
     ideas: list[dict],
@@ -11766,6 +11854,24 @@ def _lesson3_think_practice_html() -> str:
         </div>"""
 
 
+def _lesson5_think_card_html(q: str, ideas: list[dict]) -> str:
+    return _think_card_html(
+        q, ideas, hl_fn=_l5_hl, cloze_fn=_l5_cloze_html, lesson_n="5"
+    )
+
+
+def _lesson5_think_practice_html() -> str:
+    cards = [
+        _lesson5_think_card_html(q, ideas) for q, ideas in _l5_think.LESSON5_THINK_QS
+    ]
+    return f"""
+        <div class="lr-food-examples lr-think-examples" id="food-examples-l5">
+          <h3 class="lr-core-subtitle">Ví dụ Food · Tư duy 3 ý</h3>
+          <p class="lr-mm-hint">Phát triển <strong>ý</strong> trước khi xem đoạn mẫu. Chọn 1–2 ý, lắp từ khóa Lesson 5, rồi bấm <strong>Reveal answer</strong>.</p>
+{chr(10).join(cards)}
+        </div>"""
+
+
 def _lesson2_practice_html(
     *,
     open_attr: str = "",
@@ -12326,7 +12432,11 @@ def lesson_highlights_html(
         if include_food_examples
         else food_lesson_examples_html()
     )
-    examples_l5 = food_lesson5_examples_html() if include_food_examples else ""
+    examples_l5 = (
+        _lesson5_think_practice_html()
+        if include_food_examples
+        else food_lesson5_examples_html()
+    )
     examples_l6 = food_lesson6_examples_html() if include_food_examples else ""
     examples_l7 = food_lesson7_examples_html() if include_food_examples else ""
     examples_l8 = food_lesson8_examples_html() if include_food_examples else ""
@@ -12354,7 +12464,9 @@ def lesson_highlights_html(
     lesson3_scroll = lesson_scroll_read_html(
         "lesson3", title="Lesson 3", source_sel="#lesson3-scroll-source", memo_sel=ms["3"]
     )
-    lesson5_scroll = ""
+    lesson5_scroll = lesson_scroll_read_html(
+        "lesson5", title="Lesson 5", source_sel="#lesson5-scroll-source", memo_sel=ms["5"]
+    )
     lesson6_scroll = ""
     lesson7_scroll = ""
     lesson8_scroll = ""
@@ -12369,9 +12481,6 @@ def lesson_highlights_html(
     lesson17_scroll = ""
     lesson17_fav_scroll = ""
     if include_food_examples:
-        lesson5_scroll = lesson_scroll_read_html(
-            "lesson5", title="Lesson 5", source_sel="#lesson5-scroll-source", memo_sel=ms["5"]
-        )
         lesson6_scroll = lesson_scroll_read_html(
             "lesson6", title="Lesson 6", source_sel="#lesson6-scroll-source", memo_sel=ms["6"]
         )
