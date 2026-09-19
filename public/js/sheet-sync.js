@@ -553,16 +553,26 @@
     };
   };
 
-  const paintMastery = (knownN, goldN) => {
+  const paintMastery = (knownN, goldN, totalN) => {
     const known = Number(knownN || 0);
     const gold = Number(goldN || 0);
-    const total = known + gold;
-    const pct = total ? Math.round((known / total) * 100) : 0;
+    const done = known + gold;
+    const total = Number.isFinite(Number(totalN)) && Number(totalN) > 0 ? Number(totalN) : done;
+    const left = Math.max(0, total - done);
+    const pct = total ? Math.round((done / total) * 100) : 0;
+    const knownPct = total ? (known / total) * 100 : 0;
+    const goldPct = total ? (gold / total) * 100 : 0;
     const label = document.getElementById("flashMasteryLabel");
-    const fill = document.getElementById("flashMasteryFill");
-    const track = fill && fill.parentElement;
-    if (label) label.textContent = total ? `${known}/${total} · ${pct}%` : "Chưa phân loại";
-    if (fill) fill.style.width = `${pct}%`;
+    const knownFill = document.getElementById("flashMasteryKnown");
+    const goldFill = document.getElementById("flashMasteryGold");
+    const track = document.querySelector(".ex-flash-mastery-track");
+    const caption = document.getElementById("flashMasteryCaption");
+    if (caption) caption.textContent = "Đã phân loại";
+    if (label) {
+      label.textContent = total ? `${done}/${total} · còn ${left}` : "Chưa phân loại";
+    }
+    if (knownFill) knownFill.style.width = `${knownPct}%`;
+    if (goldFill) goldFill.style.width = `${goldPct}%`;
     if (track) track.setAttribute("aria-valuenow", String(pct));
   };
 
@@ -574,11 +584,12 @@
     el.className = "ex-flash-mastery";
     el.innerHTML = `
       <div class="ex-flash-mastery-row">
-        <span>Tiến độ phải học → đã biết</span>
+        <span id="flashMasteryCaption">Đã phân loại</span>
         <strong id="flashMasteryLabel">0/0</strong>
       </div>
       <div class="ex-flash-mastery-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-        <div class="ex-flash-mastery-fill" id="flashMasteryFill"></div>
+        <div class="ex-flash-mastery-fill ex-flash-mastery-fill--known" id="flashMasteryKnown"></div>
+        <div class="ex-flash-mastery-fill ex-flash-mastery-fill--gold" id="flashMasteryGold"></div>
       </div>
     `;
     const head = section.querySelector(".ex-flash-head");
@@ -850,7 +861,7 @@
       }
       if (typeof applyGrade === "function") applyGrade(word, ok);
       paintSessionBar(cleared, startTotal);
-      paintMastery(state.known.length, state.gold.length);
+      paintMastery(state.known.length, state.gold.length, (state.deck || []).length);
       setStatus(ok ? "Đúng — chuyển sang Đã biết, đang lưu Sheet…" : "Sai — vẫn Phải học, đang lưu Sheet…", ok ? "ok" : "bad");
       try {
         await persist();
@@ -884,7 +895,7 @@
         queue = shuffle(state.gold || []);
         if (!queue.length) {
           board.innerHTML = `<div class="ex-cloze-empty"><p>Không còn từ <strong>Phải học</strong>. Sàng lọc flashcards hoặc ôn bộ khác.</p></div>`;
-          paintMastery(state.known.length, 0);
+          paintMastery(state.known.length, state.gold.length, (state.deck || []).length);
           paintSessionBar(0, 0);
           setStatus("Hết từ phải học.", "ok");
           return;
@@ -896,7 +907,7 @@
         wrongN = 0;
         busy = false;
         paintSessionBar(0, startTotal);
-        paintMastery(state.known.length, state.gold.length);
+        paintMastery(state.known.length, state.gold.length, (state.deck || []).length);
         setStatus(`Ôn ${startTotal} từ phải học.`);
         renderQuestion();
       } catch (err) {

@@ -2216,6 +2216,7 @@ a.kk-card--biz:hover {
 
 .ex-flash-mastery-track,
 .ex-cloze-progress-track {
+  display: flex;
   height: 10px;
   border-radius: 999px;
   background: rgba(148, 163, 184, 0.18);
@@ -2226,10 +2227,22 @@ a.kk-card--biz:hover {
 .ex-cloze-progress-fill {
   height: 100%;
   width: 0%;
+  flex: 0 0 auto;
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ex-cloze-progress-fill {
   border-radius: inherit;
   background: linear-gradient(90deg, #16a34a, #4ade80);
   box-shadow: 0 0 16px rgba(74, 222, 128, 0.35);
-  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ex-flash-mastery-fill--known {
+  background: #22c55e;
+}
+
+.ex-flash-mastery-fill--gold {
+  background: #f59e0b;
 }
 
 .ex-cloze-board {

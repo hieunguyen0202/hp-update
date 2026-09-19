@@ -96,8 +96,8 @@
       const self = document.querySelector('script[src*="exercise.js"]');
       const s = document.createElement("script");
       s.src = self
-        ? self.src.replace(/exercise\.js(\?.*)?$/, "sheet-sync.js?v=sheet9")
-        : "../../../../js/sheet-sync.js?v=sheet9";
+        ? self.src.replace(/exercise\.js(\?.*)?$/, "sheet-sync.js?v=sheet10")
+        : "../../../../js/sheet-sync.js?v=sheet10";
       s.onload = () => resolve(window.SheetBackend || null);
       s.onerror = () => resolve(null);
       document.head.appendChild(s);
@@ -1366,7 +1366,11 @@
       if (elGold) elGold.textContent = String(classified.gold.length);
       if (elKnown) elKnown.textContent = String(classified.known.length);
       window.SheetBackend &&
-        window.SheetBackend.paintMastery(classified.known.length, classified.gold.length);
+        window.SheetBackend.paintMastery(
+          classified.known.length,
+          classified.gold.length,
+          deck.length
+        );
     };
 
     const current = () => deck[idx] || null;
