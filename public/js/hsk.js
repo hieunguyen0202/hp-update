@@ -35,8 +35,8 @@
       const self = document.querySelector('script[src*="hsk.js"]');
       const s = document.createElement("script");
       s.src = self
-        ? self.src.replace(/hsk\.js(\?.*)?$/, "sheet-sync.js?v=sheet7")
-        : "../../../js/sheet-sync.js?v=sheet7";
+        ? self.src.replace(/hsk\.js(\?.*)?$/, "sheet-sync.js?v=sheet8")
+        : "../../../js/sheet-sync.js?v=sheet8";
       s.onload = () => resolve(window.SheetBackend || null);
       s.onerror = () => resolve(null);
       document.head.appendChild(s);

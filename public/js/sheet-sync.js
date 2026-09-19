@@ -446,6 +446,70 @@
   const termOf = (w) => String((w && (w.form || w.hanzi || w.word)) || "").trim();
   const stemOf = (w) => termOf(w).replace(/^to\s+/i, "").trim() || termOf(w);
 
+  const foldText = (s) =>
+    String(s || "")
+      .normalize("NFD")
+      .replace(/\p{M}/gu, "")
+      .toLowerCase();
+
+  const inflectionOf = (token, needle) => {
+    if (token === needle) return true;
+    if (token.length < needle.length) return false;
+    if (
+      token === needle + "s" ||
+      token === needle + "es" ||
+      token === needle + "ed" ||
+      token === needle + "ing" ||
+      token === needle + "er" ||
+      token === needle + "est"
+    ) {
+      return true;
+    }
+    if (needle.endsWith("y") && token === needle.slice(0, -1) + "ies") return true;
+    if (needle.endsWith("e") && (token === needle + "d" || token === needle.slice(0, -1) + "ing")) {
+      return true;
+    }
+    return false;
+  };
+
+  const tokensOf = (s) => {
+    const re = /[\p{L}\p{N}]+(?:['\u2019-][\p{L}\p{N}]+)*/gu;
+    const out = [];
+    let m;
+    while ((m = re.exec(s))) {
+      out.push({ text: m[0], start: m.index, end: m.index + m[0].length });
+    }
+    return out;
+  };
+
+  const findClozeSpan = (sentence, needles) => {
+    const text = String(sentence || "");
+    if (!text) return null;
+    const uniq = [...new Set((needles || []).map((n) => String(n || "").trim()).filter(Boolean))].sort(
+      (a, b) => b.length - a.length
+    );
+    for (const p of uniq) {
+      if (!/[\u3400-\u9fff]/.test(p)) continue;
+      const i = text.indexOf(p);
+      if (i >= 0) return { start: i, end: i + p.length };
+    }
+    const tokens = tokensOf(text);
+    const foldedNeedles = uniq.map((n) => foldText(n).replace(/\s+/g, " ").trim()).filter(Boolean);
+    for (const n of foldedNeedles) {
+      const nWords = n.split(" ").filter(Boolean);
+      if (!nWords.length || nWords.length > tokens.length) continue;
+      for (let i = 0; i <= tokens.length - nWords.length; i++) {
+        const slice = tokens.slice(i, i + nWords.length);
+        const folded = slice.map((t) => foldText(t.text));
+        const exact = folded.every((t, k) => t === nWords[k]);
+        const inflected =
+          nWords.length === 1 && folded[0] && inflectionOf(folded[0], nWords[0]);
+        if (exact || inflected) return { start: slice[0].start, end: slice[slice.length - 1].end };
+      }
+    }
+    return null;
+  };
+
   const exampleOf = (w) => {
     if (!w) return { en: "", vi: "", zh: "", py: "" };
     const ex = (w.examples && w.examples[0]) || null;
@@ -461,7 +525,6 @@
     const ex = exampleOf(w);
     const sentence = ex.zh || ex.en;
     const answer = termOf(w);
-    const stem = stemOf(w);
     const vi = ex.vi;
     if (!sentence) {
       return {
@@ -469,32 +532,18 @@
         vi: "",
       };
     }
-    const needles = [...new Set([answer, stem].filter(Boolean))].sort(
-      (a, b) => b.length - a.length
-    );
-    let idx = -1;
-    let len = 0;
-    needles.forEach((p) => {
-      if (idx >= 0) return;
-      const cjk = /[\u3400-\u9fff]/.test(p);
-      const re = cjk ? new RegExp(escapeRegExp(p)) : new RegExp(`\\b${escapeRegExp(p)}\\b`, "i");
-      const m = sentence.match(re);
-      if (m) {
-        idx = sentence.search(re);
-        len = m[0].length;
-      }
-    });
-    if (idx < 0) {
+    const span = findClozeSpan(sentence, [answer, w && w.word, stemOf(w)]);
+    if (!span) {
       return {
-        html: `${escapeHtml(sentence)} <span class="ex-cloze-blank">______</span>`,
+        html: `Chọn từ điền vào: <strong>${escapeHtml(sentence)}</strong>`,
         vi,
       };
     }
     return {
       html:
-        escapeHtml(sentence.slice(0, idx)) +
+        escapeHtml(sentence.slice(0, span.start)) +
         `<span class="ex-cloze-blank">______</span>` +
-        escapeHtml(sentence.slice(idx + len)),
+        escapeHtml(sentence.slice(span.end)),
       vi,
     };
   };

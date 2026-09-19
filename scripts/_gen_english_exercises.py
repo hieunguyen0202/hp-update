@@ -837,7 +837,7 @@ def wrap_exercise(
 {body}
   </div>
   <script src="{home}js/docs.js?v=nav1"></script>
-  <script src="{home}js/exercise.js?v=sheet7"></script>
+  <script src="{home}js/exercise.js?v=sheet8"></script>
 </body>
 </html>
 """
