@@ -35,8 +35,8 @@
       const self = document.querySelector('script[src*="hsk.js"]');
       const s = document.createElement("script");
       s.src = self
-        ? self.src.replace(/hsk\.js(\?.*)?$/, "sheet-sync.js?v=sheet1")
-        : "../../../js/sheet-sync.js?v=sheet1";
+        ? self.src.replace(/hsk\.js(\?.*)?$/, "sheet-sync.js?v=sheet2")
+        : "../../../js/sheet-sync.js?v=sheet2";
       s.onload = () => resolve(window.SheetBackend || null);
       s.onerror = () => resolve(null);
       document.head.appendChild(s);
@@ -93,6 +93,25 @@
     let idx = 0;
     const classified = { known: [], gold: [], trash: [] };
     let flipped = false;
+    let mode = "all";
+    let goldPool = [];
+
+    const paintMode = () => {
+      const root = stage.closest(".ex-flash") || document.getElementById("exFlash");
+      if (root) root.classList.toggle("ex-flash--gold", mode === "gold");
+      const badge = document.getElementById("flashGoldMode");
+      if (badge) {
+        badge.textContent =
+          mode === "gold" ? `Ôn phải học · ${goldPool.length}` : "Ôn phải học";
+      }
+      const hint = root?.querySelector(".ex-flash-hint");
+      if (hint) {
+        hint.innerHTML =
+          mode === "gold"
+            ? `Đang ôn <strong>${goldPool.length} từ phải học</strong> từ Sheet. Shuffle = xáo nhóm này · Restart = về đủ bộ.`
+            : "Lật thẻ rồi phân loại. Tải <strong>.txt</strong> / <strong>Lưu Sheet</strong>. <strong>Ôn phải học</strong> = chỉ từ vàng đã lưu trên Sheet.";
+      }
+    };
 
     const formatWordLine = (w) =>
       [w.hanzi, w.pinyin, w.vi, w.en].filter(Boolean).join(" | ");
@@ -150,16 +169,21 @@
       showMsg("");
       renderStats();
       if (!w) {
+        const goldDone = mode === "gold";
         stage.innerHTML = `<div class="ex-flash-done">
-          <p>Đã ôn xong ${vocab.length} từ bài 14.</p>
+          <p>${goldDone ? "Đã ôn xong nhóm phải học." : `Đã ôn xong ${vocab.length} từ.`}</p>
           <p class="ex-flash-done-meta">Phải học <strong>${classified.gold.length}</strong> · Đã biết ${classified.known.length} · Bỏ qua ${classified.trash.length}</p>
           <div class="ex-flash-done-actions">
             <button type="button" class="ex-btn primary" id="btnFlashDownloadDone">Tải .txt</button>
             <button type="button" class="ex-btn" id="btnFlashSheetDone">Lưu Sheet</button>
-            <button type="button" class="ex-btn" id="btnFlashAgain">Luyện lại</button>
+            <button type="button" class="ex-btn" id="btnFlashAgain">${goldDone ? "Ôn lại nhóm này" : "Luyện lại"}</button>
+            ${goldDone ? `<button type="button" class="ex-btn" id="btnFlashFull">Về đủ bộ</button>` : ""}
           </div>
         </div>`;
         document.getElementById("btnFlashAgain")?.addEventListener("click", () => restart(true));
+        document.getElementById("btnFlashFull")?.addEventListener("click", () =>
+          restart(true, { exitGold: true })
+        );
         document.getElementById("btnFlashDownloadDone")?.addEventListener("click", downloadClassified);
         document.getElementById("btnFlashSheetDone")?.addEventListener("click", () => {
           document.getElementById("btnFlashSheetSave")?.click();
@@ -264,25 +288,31 @@
       document.getElementById("flashTrashBtn")?.addEventListener("click", () => advance("trash"));
     };
 
-    const restart = (doShuffle) => {
-      deck = doShuffle ? shuffle(vocab) : vocab.slice();
+    const restart = (doShuffle, opts = {}) => {
+      if (opts.exitGold) {
+        mode = "all";
+        goldPool = [];
+      }
+      const pool = mode === "gold" && goldPool.length ? goldPool : vocab;
+      deck = doShuffle ? shuffle(pool) : pool.slice();
       idx = 0;
       classified.known = [];
       classified.gold = [];
       classified.trash = [];
+      paintMode();
       renderCard();
     };
 
     btnDownload?.addEventListener("click", downloadClassified);
     btnShuffle?.addEventListener("click", () => restart(true));
-    btnRestart?.addEventListener("click", () => restart(true));
+    btnRestart?.addEventListener("click", () => restart(true, { exitGold: true }));
 
     const section = stage.closest(".ex-flash") || document.getElementById("exFlash");
     const hint = section?.querySelector(".ex-flash-hint");
     if (hint && !hint.dataset.sheetHint) {
       hint.dataset.sheetHint = "1";
       hint.innerHTML =
-        'Lật thẻ rồi phân loại. Tải <strong>.txt</strong> hoặc <strong>Lưu Sheet</strong> (Google Sheet).';
+        'Lật thẻ rồi phân loại. Tải <strong>.txt</strong> / <strong>Lưu Sheet</strong>. <strong>Ôn phải học</strong> = chỉ từ vàng đã lưu trên Sheet.';
     }
 
     window.SheetBackend &&
@@ -290,14 +320,22 @@
         section,
         deckKey: slug,
         vocab,
-        getLive: () => ({ deck, idx, classified }),
+        getLive: () => ({ deck, idx, classified, mode }),
         applyLive: (next) => {
+          mode = "all";
+          goldPool = [];
           deck = next.deck;
           idx = next.idx;
           classified.gold = next.gold;
           classified.known = next.known;
           classified.trash = next.trash;
+          paintMode();
           renderCard();
+        },
+        applyGoldReview: (words) => {
+          mode = "gold";
+          goldPool = words.slice();
+          restart(true);
         },
         showMsg,
       });

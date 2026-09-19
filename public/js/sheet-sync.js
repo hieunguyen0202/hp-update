@@ -52,6 +52,18 @@
   font-family: "JetBrains Mono", monospace;
 }
 .ex-flash-sheet-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.ex-flash-gold-badge {
+  display: none;
+  align-items: center;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.45);
+  background: rgba(251, 191, 36, 0.12);
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+.ex-flash--gold .ex-flash-gold-badge { display: inline-flex; }
 `;
     document.head.appendChild(el);
   };
@@ -144,7 +156,28 @@
     return { deck, idx, gold, known, trash };
   };
 
-  const mount = ({ section, deckKey, vocab, getLive, applyLive, showMsg }) => {
+  const wordKey = (w) => {
+    if (w && w.id != null && w.id !== "") return `id:${w.id}`;
+    return `form:${String((w && (w.form || w.hanzi)) || "").toLowerCase()}`;
+  };
+
+  const mergeGoldReview = (base, live) => {
+    const pending = (live.deck || []).slice(live.idx || 0);
+    const stillGold = [...(live.classified.gold || []), ...pending];
+    const toKnown = live.classified.known || [];
+    const toTrash = live.classified.trash || [];
+    const moved = new Set([...stillGold, ...toKnown, ...toTrash].map(wordKey));
+    const keep = (arr) => (arr || []).filter((w) => !moved.has(wordKey(w)));
+    return {
+      deck: base.deck && base.deck.length ? base.deck : live.deck || [],
+      idx: base.idx || 0,
+      gold: stillGold,
+      known: [...keep(base.known), ...toKnown],
+      trash: [...keep(base.trash), ...toTrash],
+    };
+  };
+
+  const mount = ({ section, deckKey, vocab, getLive, applyLive, applyGoldReview, showMsg }) => {
     if (!section) return;
     injectCss();
     const controls = section.querySelector(".ex-flash-controls");
@@ -164,7 +197,18 @@
 
     const btnSave = addBtn("btnFlashSheetSave", "Lưu Sheet");
     const btnLoad = addBtn("btnFlashSheetLoad", "Tải Sheet");
+    const btnGold = addBtn("btnFlashSheetGold", "Ôn phải học");
+    btnGold.classList.add("primary");
     const btnCfg = addBtn("btnFlashSheetCfg", "Sheet…");
+
+    const stats = section.querySelector(".ex-flash-stats");
+    if (stats && !document.getElementById("flashGoldMode")) {
+      const badge = document.createElement("span");
+      badge.id = "flashGoldMode";
+      badge.className = "ex-flash-gold-badge";
+      badge.textContent = "Ôn phải học";
+      stats.appendChild(badge);
+    }
 
     const panel = document.createElement("div");
     panel.className = "ex-flash-sheet-panel";
@@ -244,10 +288,32 @@
       }
       btnSave.disabled = true;
       try {
-        const payload = snapshot(live.deck, live.idx, live.classified);
+        let payload;
+        if (live.mode === "gold") {
+          const data = await load(keyOf());
+          if (!data.found || !data.payload) {
+            showMsg("Sheet chưa có bản Pareto đầy đủ. Sàng lọc đủ bộ rồi Lưu Sheet trước.", false);
+            return;
+          }
+          const base = restore(data.payload, vocab);
+          const merged = mergeGoldReview(base, live);
+          payload = snapshot(merged.deck, merged.idx, {
+            gold: merged.gold,
+            known: merged.known,
+            trash: merged.trash,
+          });
+        } else {
+          payload = snapshot(live.deck, live.idx, live.classified);
+        }
         payload.savedAt = new Date().toISOString();
         await save(keyOf(), payload);
-        showMsg(`Đã lưu ${keyOf()} lên Google Sheet.`, true);
+        const nGold = (payload.gold || []).length;
+        showMsg(
+          live.mode === "gold"
+            ? `Đã cập nhật nhóm Phải học trên Sheet (${nGold} từ).`
+            : `Đã lưu ${keyOf()} lên Google Sheet.`,
+          true
+        );
       } catch (err) {
         showMsg(err.message || String(err), false);
       } finally {
@@ -280,6 +346,30 @@
         btnLoad.disabled = false;
       }
     });
+
+    btnGold.addEventListener("click", async () => {
+      if (needConfig()) return;
+      if (typeof applyGoldReview !== "function") return;
+      btnGold.disabled = true;
+      try {
+        const data = await load(keyOf());
+        if (!data.found || !data.payload) {
+          showMsg("Sheet chưa có dữ liệu. Phân loại rồi Lưu Sheet trước.", false);
+          return;
+        }
+        const next = restore(data.payload, vocab);
+        if (!next.gold.length) {
+          showMsg("Sheet chưa có từ Phải học cho bộ thẻ này.", false);
+          return;
+        }
+        applyGoldReview(next.gold);
+        showMsg(`Ôn ${next.gold.length} từ phải học từ Sheet.`, true);
+      } catch (err) {
+        showMsg(err.message || String(err), false);
+      } finally {
+        btnGold.disabled = false;
+      }
+    });
   };
 
   window.SheetBackend = {
@@ -291,6 +381,7 @@
     ping,
     snapshot,
     restore,
+    mergeGoldReview,
     wordRef,
     mount,
   };
