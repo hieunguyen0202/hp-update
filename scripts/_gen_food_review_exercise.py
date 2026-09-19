@@ -47,6 +47,13 @@ _l5_think = importlib.util.module_from_spec(_l5_spec)
 assert _l5_spec and _l5_spec.loader
 _l5_spec.loader.exec_module(_l5_think)
 
+_l6_spec = importlib.util.spec_from_file_location(
+    "food_r2_l6_think", Path(__file__).with_name("_food_review2_l6_think.py")
+)
+_l6_think = importlib.util.module_from_spec(_l6_spec)
+assert _l6_spec and _l6_spec.loader
+_l6_spec.loader.exec_module(_l6_think)
+
 esc = _gen.esc
 collect_words = _gen.collect_words
 TOPICS = _gen.TOPICS
@@ -11222,6 +11229,138 @@ def _l5_cloze_html(text: str) -> str:
     return "".join(out)
 
 
+L6_CLOZE_VI = {
+    "I prefer eating at home to eating out": "thích ăn nhà hơn ăn ngoài",
+    "I prefer cooking myself to ordering takeaway": "thích tự nấu hơn gọi mang về",
+    "I prefer savoury food to sweet food": "thích món mặn hơn món ngọt",
+    "I prefer eating with my family to eating alone": "thích ăn cùng gia đình hơn ăn một mình",
+    "I prefer coffee to tea": "thích cà phê hơn trà",
+    "I prefer healthy food to fast food": "thích đồ lành mạnh hơn fast food",
+    "I prefer spicy food to mild food": "thích món cay hơn món nhạt",
+    "I prefer eating in a restaurant to grabbing street food": "thích ăn nhà hàng hơn đồ đường phố",
+    "I prefer cooking fresh every day to preparing meals in advance": "thích nấu tươi mỗi ngày hơn chuẩn bị sẵn",
+    "I prefer sharing food photos online to keeping them private": "thích chia sẻ ảnh đồ ăn hơn giữ riêng",
+    "prefer to dine out rather than stay home": "thích ra ngoài hơn ở nhà",
+    "prefer to order takeaway rather than starve": "thích gọi mang về hơn là nhịn",
+    "prefer to enjoy a sweet dessert rather than stick strictly to savoury food": "thích món ngọt hơn là chỉ ăn mặn",
+    "prefer to eat alone rather than join a big gathering": "thích ăn một mình hơn họp mặt đông",
+    "prefer to enjoy a premium specialty tea rather than stick strictly to my daily coffee": "thích trà thượng hạng hơn cà phê hằng ngày",
+    "prefer to eat a quick takeaway rather than starve": "thích suất mang về nhanh hơn là nhịn",
+    "prefer to enjoy mild, traditional dishes rather than heavy, spicy foods": "thích món truyền thống thanh hơn món cay nặng",
+    "prefer to explore night markets and eat street food rather than book a fancy restaurant": "thích chợ đêm / đồ đường phố hơn nhà hàng sang",
+    "prefer to meal-prep in advance rather than skip meals entirely": "thích chuẩn bị sẵn hơn bỏ bữa",
+    "prefer to share those joyful food moments online rather than keep them hidden in my gallery": "thích chia sẻ khoảnh khắc hơn cất kín",
+    "stay in control of what I consume": "kiểm soát những gì mình ăn",
+    "stay in control of my diet": "kiểm soát chế độ ăn",
+    "stay in control": "kiểm soát",
+    "make meals from scratch": "nấu từ nguyên liệu tươi",
+    "from scratch": "từ nguyên liệu tươi",
+    "love the feeling of": "thích cảm giác",
+    "lean towards": "nghiêng về",
+    "leans towards": "nghiêng về",
+    "while": "trong khi (đối chiếu)",
+    "dining out": "ăn ngoài",
+    "eating out": "ăn ngoài",
+    "spice things up": "đổi gió",
+    "treat myself": "tự thưởng",
+    "special occasions": "dịp đặc biệt",
+    "quality justifies the bill": "chất lượng xứng với giá",
+    "wine and dine": "chiêu đãi bữa thịnh soạn",
+    "pose a threat to health": "đe dọa sức khỏe",
+    "it takes too much time to cook": "tốn quá nhiều thời gian để nấu",
+    "it takes too much time to prepare a full meal": "tốn quá nhiều thời gian để nấu cả bữa",
+    "it takes too much time to cook from zero": "tốn quá nhiều thời gian để nấu từ đầu",
+    "have a sweet tooth": "hảo ngọt",
+    "function properly": "hoạt động tốt",
+    "wholesome": "lành mạnh, bổ dưỡng",
+    "nutritious": "nhiều dinh dưỡng",
+    "hearty": "thịnh soạn, đầy đặn",
+    "bursting with flavor": "tràn đầy hương vị",
+    "whet my appetite": "kích thích vị giác",
+    "culinary experience": "trải nghiệm ẩm thực",
+}
+L6_CLOZE_VI_LC = {k.lower(): v for k, v in L6_CLOZE_VI.items()}
+L6_THINK_EXTRA_PATS = [
+    r"I prefer sharing food photos online to keeping them private",
+    r"I prefer cooking fresh every day to preparing meals in advance",
+    r"I prefer eating in a restaurant to grabbing street food",
+    r"I prefer eating with my family to eating alone",
+    r"I prefer cooking myself to ordering takeaway",
+    r"I prefer eating at home to eating out",
+    r"I prefer savoury food to sweet food",
+    r"I prefer healthy food to fast food",
+    r"I prefer spicy food to mild food",
+    r"I prefer coffee to tea",
+    r"prefer to explore night markets and eat street food rather than book a fancy restaurant",
+    r"prefer to share those joyful food moments online rather than keep them hidden in my gallery",
+    r"prefer to enjoy a premium specialty tea rather than stick strictly to my daily coffee",
+    r"prefer to enjoy a sweet dessert rather than stick strictly to savoury food",
+    r"prefer to enjoy mild, traditional dishes rather than heavy, spicy foods",
+    r"prefer to meal-prep in advance rather than skip meals entirely",
+    r"prefer to eat a quick takeaway rather than starve",
+    r"prefer to order takeaway rather than starve",
+    r"prefer to dine out rather than stay home",
+    r"prefer to eat alone rather than join a big gathering",
+    r"it takes too much time to prepare a full meal",
+    r"it takes too much time to cook from zero",
+    r"it takes too much time to cook",
+    r"stay in control of what I consume",
+    r"stay in control of my diet",
+    r"pose a threat to(?: my)? health",
+    r"ha(?:ve|s|ving) a sweet tooth",
+    r"function properly",
+    r"bursting with flavor",
+    r"whet my appetite",
+    r"culinary experience(?:s)?",
+    r"\bwholesome\b",
+    r"\bnutritious\b",
+    r"\bhearty\b",
+    r"\bwhile\b",
+]
+
+
+def _l6_pats() -> list[re.Pattern[str]]:
+    return [
+        re.compile(p, re.I)
+        for p in L6_THINK_EXTRA_PATS
+        + (_food_notes.VOCAB_EXAMPLE_HIGHLIGHTS.get("6") or [])
+    ]
+
+
+def _l6_hl(text: str) -> str:
+    return _highlight_vocab_in_example(text, _l6_pats())
+
+
+def _l6_cloze_html(text: str) -> str:
+    pats = _l6_pats()
+    if not text or not pats:
+        return esc(text)
+    found: list[tuple[int, int, str]] = []
+    for pat in pats:
+        for m in pat.finditer(text):
+            found.append((m.start(), m.end(), m.group(0)))
+    found.sort(key=lambda t: (t[0], -(t[1] - t[0])))
+    kept: list[tuple[int, int, str]] = []
+    occupied: list[tuple[int, int]] = []
+    for start, end, frag in found:
+        if any(start < e and end > s for s, e in occupied):
+            continue
+        kept.append((start, end, frag))
+        occupied.append((start, end))
+    kept.sort(key=lambda t: t[0])
+    out: list[str] = []
+    i = 0
+    for start, end, frag in kept:
+        out.append(esc(text[i:start]))
+        vi = L6_CLOZE_VI_LC.get(frag.lower(), "")
+        out.append(
+            f'<span class="lr-cloze" data-en="{esc(frag)}" data-vi="{esc(vi)}">{esc(frag)}</span>'
+        )
+        i = end
+    out.append(esc(text[i:]))
+    return "".join(out)
+
+
 def _think_card_html(
     q: str,
     ideas: list[dict],
@@ -11872,6 +12011,24 @@ def _lesson5_think_practice_html() -> str:
         </div>"""
 
 
+def _lesson6_think_card_html(q: str, ideas: list[dict]) -> str:
+    return _think_card_html(
+        q, ideas, hl_fn=_l6_hl, cloze_fn=_l6_cloze_html, lesson_n="6"
+    )
+
+
+def _lesson6_think_practice_html() -> str:
+    cards = [
+        _lesson6_think_card_html(q, ideas) for q, ideas in _l6_think.LESSON6_THINK_QS
+    ]
+    return f"""
+        <div class="lr-food-examples lr-think-examples" id="food-examples-l6-think">
+          <h3 class="lr-core-subtitle">Ví dụ Food · Tư duy 3 ý</h3>
+          <p class="lr-mm-hint">Phát triển <strong>ý</strong> trước khi xem đoạn mẫu. Chọn 1–2 ý, lắp từ khóa Lesson 6, rồi bấm <strong>Reveal answer</strong>.</p>
+{chr(10).join(cards)}
+        </div>"""
+
+
 def _lesson2_practice_html(
     *,
     open_attr: str = "",
@@ -12437,7 +12594,11 @@ def lesson_highlights_html(
         if include_food_examples
         else food_lesson5_examples_html()
     )
-    examples_l6 = food_lesson6_examples_html() if include_food_examples else ""
+    examples_l6 = (
+        _lesson6_think_practice_html()
+        if include_food_examples
+        else food_lesson6_examples_html()
+    )
     examples_l7 = food_lesson7_examples_html() if include_food_examples else ""
     examples_l8 = food_lesson8_examples_html() if include_food_examples else ""
     examples_l9 = food_lesson9_examples_html() if include_food_examples else ""
@@ -12467,7 +12628,9 @@ def lesson_highlights_html(
     lesson5_scroll = lesson_scroll_read_html(
         "lesson5", title="Lesson 5", source_sel="#lesson5-scroll-source", memo_sel=ms["5"]
     )
-    lesson6_scroll = ""
+    lesson6_scroll = lesson_scroll_read_html(
+        "lesson6", title="Lesson 6", source_sel="#lesson6-scroll-source", memo_sel=ms["6"]
+    )
     lesson7_scroll = ""
     lesson8_scroll = ""
     lesson9_scroll = ""
@@ -12481,9 +12644,6 @@ def lesson_highlights_html(
     lesson17_scroll = ""
     lesson17_fav_scroll = ""
     if include_food_examples:
-        lesson6_scroll = lesson_scroll_read_html(
-            "lesson6", title="Lesson 6", source_sel="#lesson6-scroll-source", memo_sel=ms["6"]
-        )
         lesson7_scroll = lesson_scroll_read_html(
             "lesson7", title="Lesson 7", source_sel="#lesson7-scroll-source", memo_sel=ms["7"]
         )
