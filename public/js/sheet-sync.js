@@ -52,6 +52,18 @@
   font-family: "JetBrains Mono", monospace;
 }
 .ex-flash-sheet-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.ex-flash-swipe-hint {
+  margin: 8px 0 0;
+  text-align: center;
+  font-size: 0.78rem;
+  color: rgba(226,232,240,.5);
+  font-family: Outfit, sans-serif;
+}
+.ex-flash-deck.is-dragging {
+  transition: none;
+  cursor: grabbing;
+}
+.ex-flash-deck { touch-action: pan-y; }
 .ex-flash-gold-badge {
   display: none;
   align-items: center;
@@ -64,6 +76,37 @@
   padding: 4px 10px;
 }
 .ex-flash--gold .ex-flash-gold-badge { display: inline-flex; }
+.ex-flash { overflow: hidden; }
+.ex-flash-grade--pareto { grid-template-columns: 1fr 1fr; }
+@media (max-width: 640px) {
+  .ex-flash {
+    padding: 10px 8px 16px;
+    margin-bottom: 24px;
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+  }
+  .ex-flash-head { gap: 8px; margin-bottom: 10px; }
+  .ex-flash-hint { font-size: 0.8rem; max-width: none; }
+  .ex-flash-controls { gap: 6px; }
+  .ex-flash-stats { width: 100%; font-size: 0.72rem; gap: 8px 12px; }
+  .ex-flash .ex-btn { padding: 6px 10px; font-size: 0.72rem; }
+  .ex-flash-stage { padding: 4px 0 8px; overflow: hidden; }
+  .ex-flash-deck, .ex-flash-card {
+    width: 100%;
+    min-height: min(58dvh, 460px);
+  }
+  .ex-flash-peek { display: none !important; }
+  .ex-flash-grade--pareto { grid-template-columns: 1fr 1fr; min-height: 52px; }
+  .ex-flash-grade-btn { font-size: 0.9rem; padding: 14px 8px; min-height: 48px; }
+  .ex-flash-front-body { padding: 40px 16px 20px; }
+  .ex-flash-back-body { padding: 44px 14px 10px; gap: 8px; }
+  .docs-main .ex-flash-term { font-size: clamp(1.4rem, 7vw, 2rem); }
+  .ex-flash-photo img { max-width: min(100%, 220px); max-height: 132px; }
+  .ex-flash-sheet-panel { max-width: none; }
+}
+@media (max-width: 640px) and (max-height: 720px) {
+  .ex-flash-deck, .ex-flash-card { min-height: min(52dvh, 400px); }
+  .ex-flash-photo img { max-height: 96px; }
+}
 `;
     document.head.appendChild(el);
   };
@@ -372,6 +415,80 @@
     });
   };
 
+  const bindCardSwipe = (deckEl, { onBrowseNext, onBrowsePrev, canBrowse }) => {
+    if (!deckEl || deckEl.dataset.swipeBound) return;
+    deckEl.dataset.swipeBound = "1";
+    const THRESH = 64;
+    let startX = 0;
+    let startY = 0;
+    let dx = 0;
+    let dy = 0;
+    let tracking = false;
+    let axis = null;
+    let pid = null;
+    let settled = false;
+
+    const setShift = (x, animate) => {
+      deckEl.classList.toggle("is-dragging", !animate && tracking);
+      deckEl.style.transition = animate ? "transform 0.22s ease" : "none";
+      deckEl.style.transform = x ? `translateX(${x}px)` : "";
+    };
+
+    const ignore = (t) => !!(t && t.closest && t.closest("button, a, input, textarea"));
+
+    const finish = (dir) => {
+      if (settled) return;
+      settled = true;
+      const width = Math.max(deckEl.getBoundingClientRect().width, 280);
+      setShift(dir * (width + 40), true);
+      window.setTimeout(() => {
+        deckEl.style.transition = "none";
+        deckEl.style.transform = "";
+        if (dir < 0) onBrowseNext && onBrowseNext();
+        else onBrowsePrev && onBrowsePrev();
+      }, 200);
+    };
+
+    const onMove = (e) => {
+      if (!tracking || e.pointerId !== pid) return;
+      dx = e.clientX - startX;
+      dy = e.clientY - startY;
+      if (axis == null && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
+        axis = Math.abs(dx) > Math.abs(dy) * 1.15 ? "x" : "y";
+      }
+      if (axis !== "x") return;
+      if (e.cancelable) e.preventDefault();
+      setShift(dx, false);
+    };
+
+    const onUp = (e) => {
+      if (!tracking || (e.pointerId != null && e.pointerId !== pid)) return;
+      tracking = false;
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+      window.removeEventListener("pointercancel", onUp);
+      if (axis === "x" && Math.abs(dx) >= THRESH && (!canBrowse || canBrowse())) finish(dx > 0 ? 1 : -1);
+      else setShift(0, true);
+      axis = null;
+      pid = null;
+    };
+
+    deckEl.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      if (ignore(e.target)) return;
+      tracking = true;
+      settled = false;
+      axis = null;
+      pid = e.pointerId;
+      startX = e.clientX;
+      startY = e.clientY;
+      dx = dy = 0;
+      window.addEventListener("pointermove", onMove, { passive: false });
+      window.addEventListener("pointerup", onUp);
+      window.addEventListener("pointercancel", onUp);
+    });
+  };
+
   window.SheetBackend = {
     getConfig,
     setConfig,
@@ -384,5 +501,6 @@
     mergeGoldReview,
     wordRef,
     mount,
+    bindCardSwipe,
   };
 })();

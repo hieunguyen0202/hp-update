@@ -98,7 +98,7 @@ def page(
             <h2>Flashcards · {words} từ mới</h2>
             <p class="ex-flash-hint">
               Mặt trước: 汉字 + pinyin. Lật thẻ: nghĩa VI / EN + ví dụ từ bài.
-              Phân loại <strong>Đã biết</strong> · <strong>Phải học</strong> · <strong>Bỏ qua</strong>.
+              Phân loại <strong>Đã biết</strong> · <strong>Phải học</strong>. Vuốt trái/phải để xem thẻ khác.
             </p>
           </div>
           <div class="ex-flash-controls">
@@ -106,7 +106,6 @@ def page(
               <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
               <span>Phải học <strong id="flashGold">0</strong></span>
               <span>Đã biết <strong id="flashKnown">0</strong></span>
-              <span>Bỏ qua <strong id="flashTrash">0</strong></span>
             </div>
             <button type="button" class="ex-btn" id="btnFlashDownload">Tải .txt</button>
             <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
@@ -197,7 +196,7 @@ def page(
   </div>
   <script src="../../../js/docs.js"></script>
   <script src="../../../js/hsk-lesson-{lesson}-data.js"></script>
-  <script src="../../../js/hsk.js?v=sheet2"></script>
+  <script src="../../../js/hsk.js?v=sheet3"></script>
 </body>
 </html>
 """

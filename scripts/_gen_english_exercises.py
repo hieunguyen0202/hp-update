@@ -772,14 +772,13 @@ def wrap_exercise(
         <div class="ex-flash-head">
           <div>
             <h2>Flashcards</h2>
-            <p class="ex-flash-hint">Pareto 80/20 — lật thẻ rồi phân loại: <strong>Đã biết</strong> · <strong>Phải học</strong> (dễ dùng, đa năng) · <strong>Không thông dụng</strong>. Tải <strong>.txt</strong> hoặc <strong>Lưu Sheet</strong> (Google Sheet).</p>
+            <p class="ex-flash-hint">Pareto 80/20 — lật thẻ rồi phân loại: <strong>Đã biết</strong> · <strong>Phải học</strong>. Vuốt trái/phải để xem thẻ khác (không chấm điểm). Tải <strong>.txt</strong> hoặc <strong>Lưu Sheet</strong>.</p>
           </div>
           <div class="ex-flash-controls">
             <div class="ex-flash-stats" aria-live="polite">
               <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
               <span>Phải học <strong id="flashGold">0</strong></span>
               <span>Đã biết <strong id="flashKnown">0</strong></span>
-              <span>Không thông dụng <strong id="flashTrash">0</strong></span>
             </div>
             <button type="button" class="ex-btn" id="btnFlashDownload">Tải .txt</button>
             <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
@@ -838,7 +837,7 @@ def wrap_exercise(
 {body}
   </div>
   <script src="{home}js/docs.js"></script>
-  <script src="{home}js/exercise.js?v=sheet2"></script>
+  <script src="{home}js/exercise.js?v=sheet3"></script>
 </body>
 </html>
 """

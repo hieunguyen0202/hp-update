@@ -96,8 +96,8 @@
       const self = document.querySelector('script[src*="exercise.js"]');
       const s = document.createElement("script");
       s.src = self
-        ? self.src.replace(/exercise\.js(\?.*)?$/, "sheet-sync.js?v=sheet2")
-        : "../../../../js/sheet-sync.js?v=sheet2";
+        ? self.src.replace(/exercise\.js(\?.*)?$/, "sheet-sync.js?v=sheet3")
+        : "../../../../js/sheet-sync.js?v=sheet3";
       s.onload = () => resolve(window.SheetBackend || null);
       s.onerror = () => resolve(null);
       document.head.appendChild(s);
@@ -1202,15 +1202,14 @@
     const hint = root.querySelector(".ex-flash-hint");
     if (hint) {
       hint.innerHTML =
-        'Pareto 80/20 — lật thẻ rồi phân loại: <strong>Đã biết</strong> · <strong>Phải học</strong> (dễ dùng, đa năng) · <strong>Không thông dụng</strong>. Tải <strong>.txt</strong> / <strong>Lưu Sheet</strong>. <strong>Ôn phải học</strong> = chỉ các từ vàng đã lưu trên Sheet.';
+        'Pareto 80/20 — lật thẻ rồi phân loại: <strong>Đã biết</strong> · <strong>Phải học</strong>. Vuốt trái/phải để xem thẻ khác (không chấm điểm). <strong>Lưu Sheet</strong> / <strong>Ôn phải học</strong>.';
     }
     const stats = root.querySelector(".ex-flash-stats");
     if (stats) {
       stats.innerHTML = `
               <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
               <span>Phải học <strong id="flashGold">0</strong></span>
-              <span>Đã biết <strong id="flashKnown">0</strong></span>
-              <span>Không thông dụng <strong id="flashTrash">0</strong></span>`;
+              <span>Đã biết <strong id="flashKnown">0</strong></span>`;
     }
     const controls = root.querySelector(".ex-flash-controls");
     if (controls && !document.getElementById("btnFlashDownload")) {
@@ -1224,8 +1223,12 @@
     }
   };
 
-  const initFlashcards = async () => {
+    const initFlashcards = async () => {
     await loadSheetBackend();
+    const vp = document.querySelector('meta[name="viewport"]');
+    if (vp) {
+      vp.setAttribute("content", "width=device-width, initial-scale=1, viewport-fit=cover");
+    }
     const vocab = loadVocab();
     let section = document.getElementById("exFlash");
     if (!vocab.length) {
@@ -1242,14 +1245,13 @@
         <div class="ex-flash-head">
           <div>
             <h2>Flashcards</h2>
-            <p class="ex-flash-hint">Pareto 80/20 — lật thẻ rồi phân loại: <strong>Đã biết</strong> · <strong>Phải học</strong> (dễ dùng, đa năng) · <strong>Không thông dụng</strong>. Tải <strong>.txt</strong> / <strong>Lưu Sheet</strong>. <strong>Ôn phải học</strong> = chỉ các từ vàng đã lưu trên Sheet.</p>
+            <p class="ex-flash-hint">Pareto 80/20 — lật thẻ rồi phân loại: <strong>Đã biết</strong> · <strong>Phải học</strong>. Vuốt trái/phải để xem thẻ khác (không chấm điểm). <strong>Lưu Sheet</strong> / <strong>Ôn phải học</strong>.</p>
           </div>
           <div class="ex-flash-controls">
             <div class="ex-flash-stats" aria-live="polite">
               <span>Card <strong id="flashIndex">0</strong>/<strong id="flashTotal">0</strong></span>
               <span>Phải học <strong id="flashGold">0</strong></span>
               <span>Đã biết <strong id="flashKnown">0</strong></span>
-              <span>Không thông dụng <strong id="flashTrash">0</strong></span>
             </div>
             <button type="button" class="ex-btn" id="btnFlashDownload">Tải .txt</button>
             <button type="button" class="ex-btn" id="btnFlashShuffle">Shuffle</button>
@@ -1273,7 +1275,6 @@
     const elTotal = document.getElementById("flashTotal");
     const elGold = document.getElementById("flashGold");
     const elKnown = document.getElementById("flashKnown");
-    const elTrash = document.getElementById("flashTrash");
     const elMsg = document.getElementById("flashMsg");
     const btnShuffle = document.getElementById("btnFlashShuffle");
     const btnRestart = document.getElementById("btnFlashRestart");
@@ -1287,7 +1288,7 @@
     let mode = "all";
     let goldPool = [];
     const hintAll =
-      'Pareto 80/20 — lật thẻ rồi phân loại: <strong>Đã biết</strong> · <strong>Phải học</strong> (dễ dùng, đa năng) · <strong>Không thông dụng</strong>. Tải <strong>.txt</strong> / <strong>Lưu Sheet</strong>. <strong>Ôn phải học</strong> = chỉ các từ vàng đã lưu trên Sheet.';
+      'Pareto 80/20 — lật thẻ rồi phân loại: <strong>Đã biết</strong> · <strong>Phải học</strong>. Vuốt trái/phải để xem thẻ khác (không chấm điểm). <strong>Lưu Sheet</strong> / <strong>Ôn phải học</strong>.';
 
     const paintMode = () => {
       section.classList.toggle("ex-flash--gold", mode === "gold");
@@ -1331,9 +1332,6 @@
         "",
         `## Đã biết — ${classified.known.length}`,
         ...classified.known.map(formatWordLine),
-        "",
-        `## Không thông dụng — ${classified.trash.length}`,
-        ...classified.trash.map(formatWordLine),
       ];
       if (pending.length) {
         lines.push("", `## Chưa phân loại — ${pending.length}`, ...pending.map(formatWordLine));
@@ -1367,7 +1365,6 @@
       if (elTotal) elTotal.textContent = String(deck.length);
       if (elGold) elGold.textContent = String(classified.gold.length);
       if (elKnown) elKnown.textContent = String(classified.known.length);
-      if (elTrash) elTrash.textContent = String(classified.trash.length);
     };
 
     const current = () => deck[idx] || null;
@@ -1375,6 +1372,18 @@
     const peekWord = () => {
       if (idx + 1 >= deck.length) return null;
       return deck[idx + 1];
+    };
+
+    const browse = (dir) => {
+      const rest = deck.slice(idx);
+      if (rest.length < 2) return;
+      if (dir === "next") {
+        deck = [...deck.slice(0, idx), ...rest.slice(1), rest[0]];
+      } else {
+        deck = [...deck.slice(0, idx), rest[rest.length - 1], ...rest.slice(0, -1)];
+      }
+      flipped = false;
+      renderCard();
     };
 
     const stripMd = (s) => String(s || "").replace(/\*\*([^*]+)\*\*/g, "$1");
@@ -1419,7 +1428,7 @@
         const goldDone = mode === "gold";
         stage.innerHTML = `<div class="ex-flash-done">
           <p>${goldDone ? "Đã ôn xong nhóm phải học." : "Hoàn thành sàng lọc Pareto."}</p>
-          <p class="ex-flash-done-meta">Phải học <strong>${classified.gold.length}</strong> · Đã biết ${classified.known.length} · Không thông dụng ${classified.trash.length}</p>
+          <p class="ex-flash-done-meta">Phải học <strong>${classified.gold.length}</strong> · Đã biết ${classified.known.length}</p>
           <p class="ex-flash-done-hint">${
             goldDone
               ? "Từ vẫn bấm <strong>Phải học</strong> sẽ ở lại nhóm vàng. Lưu Sheet để cập nhật danh sách."
@@ -1482,14 +1491,11 @@
                 ${renderLanGeekBack(w)}
               </div>
               <div class="ex-flash-grade ex-flash-grade--pareto">
-                <button type="button" class="ex-flash-grade-btn ex-flash-grade-btn--known" id="flashKnownBtn" title="Nhóm 3 — đã quen, bỏ qua">
+                <button type="button" class="ex-flash-grade-btn ex-flash-grade-btn--known" id="flashKnownBtn" title="Đã quen — không cần ôn dày">
                   Đã biết
                 </button>
-                <button type="button" class="ex-flash-grade-btn ex-flash-grade-btn--gold" id="flashGoldBtn" title="Nhóm 2 — giữ lại, tập trung học">
+                <button type="button" class="ex-flash-grade-btn ex-flash-grade-btn--gold" id="flashGoldBtn" title="Giữ lại, tập trung học">
                   ★ Phải học
-                </button>
-                <button type="button" class="ex-flash-grade-btn ex-flash-grade-btn--trash" id="flashTrashBtn" title="Nhóm 1 — hiếm dùng, gạt bỏ">
-                  Không thông dụng
                 </button>
               </div>
             </div>
@@ -1559,10 +1565,16 @@
 
       const knownBtn = document.getElementById("flashKnownBtn");
       const goldBtn = document.getElementById("flashGoldBtn");
-      const trashBtn = document.getElementById("flashTrashBtn");
       knownBtn && knownBtn.addEventListener("click", () => advance("known"));
       goldBtn && goldBtn.addEventListener("click", () => advance("gold"));
-      trashBtn && trashBtn.addEventListener("click", () => advance("trash"));
+
+      const deckEl = stage.querySelector(".ex-flash-deck");
+      window.SheetBackend &&
+        window.SheetBackend.bindCardSwipe(deckEl, {
+          onBrowseNext: () => browse("next"),
+          onBrowsePrev: () => browse("prev"),
+          canBrowse: () => deck.slice(idx).length >= 2,
+        });
     };
 
     const restart = (doShuffle, opts = {}) => {
@@ -1615,6 +1627,14 @@
         },
         showMsg,
       });
+
+    if (!section.querySelector(".ex-flash-swipe-hint")) {
+      const hintSwipe = document.createElement("p");
+      hintSwipe.className = "ex-flash-swipe-hint";
+      hintSwipe.textContent =
+        "Vuốt trái = thẻ sau · Vuốt phải = thẻ trước · không chấm Đã biết / Phải học";
+      stage.insertAdjacentElement("afterend", hintSwipe);
+    }
 
     restart(true);
   };

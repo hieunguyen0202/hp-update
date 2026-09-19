@@ -35,8 +35,8 @@
       const self = document.querySelector('script[src*="hsk.js"]');
       const s = document.createElement("script");
       s.src = self
-        ? self.src.replace(/hsk\.js(\?.*)?$/, "sheet-sync.js?v=sheet2")
-        : "../../../js/sheet-sync.js?v=sheet2";
+        ? self.src.replace(/hsk\.js(\?.*)?$/, "sheet-sync.js?v=sheet3")
+        : "../../../js/sheet-sync.js?v=sheet3";
       s.onload = () => resolve(window.SheetBackend || null);
       s.onerror = () => resolve(null);
       document.head.appendChild(s);
@@ -76,6 +76,10 @@
   /* ── Flashcards ───────────────────────────────────────────────────── */
   const initFlashcards = async () => {
     await loadSheetBackend();
+    const vp = document.querySelector('meta[name="viewport"]');
+    if (vp) {
+      vp.setAttribute("content", "width=device-width, initial-scale=1, viewport-fit=cover");
+    }
     const stage = document.getElementById("flashStage");
     if (!stage || !vocab.length) return;
 
@@ -83,7 +87,6 @@
     const elTotal = document.getElementById("flashTotal");
     const elGold = document.getElementById("flashGold");
     const elKnown = document.getElementById("flashKnown");
-    const elTrash = document.getElementById("flashTrash");
     const elMsg = document.getElementById("flashMsg");
     const btnShuffle = document.getElementById("btnFlashShuffle");
     const btnRestart = document.getElementById("btnFlashRestart");
@@ -109,7 +112,7 @@
         hint.innerHTML =
           mode === "gold"
             ? `Đang ôn <strong>${goldPool.length} từ phải học</strong> từ Sheet. Shuffle = xáo nhóm này · Restart = về đủ bộ.`
-            : "Lật thẻ rồi phân loại. Tải <strong>.txt</strong> / <strong>Lưu Sheet</strong>. <strong>Ôn phải học</strong> = chỉ từ vàng đã lưu trên Sheet.";
+            : "Lật thẻ rồi phân loại: <strong>Đã biết</strong> · <strong>Phải học</strong>. Vuốt trái/phải để xem thẻ khác (không chấm điểm).";
       }
     };
 
@@ -128,11 +131,22 @@
       if (elTotal) elTotal.textContent = String(deck.length);
       if (elGold) elGold.textContent = String(classified.gold.length);
       if (elKnown) elKnown.textContent = String(classified.known.length);
-      if (elTrash) elTrash.textContent = String(classified.trash.length);
     };
 
     const current = () => deck[idx] || null;
     const peekWord = () => (idx + 1 < deck.length ? deck[idx + 1] : null);
+
+    const browse = (dir) => {
+      const rest = deck.slice(idx);
+      if (rest.length < 2) return;
+      if (dir === "next") {
+        deck = [...deck.slice(0, idx), ...rest.slice(1), rest[0]];
+      } else {
+        deck = [...deck.slice(0, idx), rest[rest.length - 1], ...rest.slice(0, -1)];
+      }
+      flipped = false;
+      renderCard();
+    };
 
     const downloadClassified = () => {
       const title = data.title || `HSK Lesson ${lessonNo}`;
@@ -146,9 +160,6 @@
         "",
         `## Đã biết — ${classified.known.length}`,
         ...classified.known.map(formatWordLine),
-        "",
-        `## Không thông dụng — ${classified.trash.length}`,
-        ...classified.trash.map(formatWordLine),
       ];
       if (pending.length) {
         lines.push("", `## Chưa phân loại — ${pending.length}`, ...pending.map(formatWordLine));
@@ -172,7 +183,7 @@
         const goldDone = mode === "gold";
         stage.innerHTML = `<div class="ex-flash-done">
           <p>${goldDone ? "Đã ôn xong nhóm phải học." : `Đã ôn xong ${vocab.length} từ.`}</p>
-          <p class="ex-flash-done-meta">Phải học <strong>${classified.gold.length}</strong> · Đã biết ${classified.known.length} · Bỏ qua ${classified.trash.length}</p>
+          <p class="ex-flash-done-meta">Phải học <strong>${classified.gold.length}</strong> · Đã biết ${classified.known.length}</p>
           <div class="ex-flash-done-actions">
             <button type="button" class="ex-btn primary" id="btnFlashDownloadDone">Tải .txt</button>
             <button type="button" class="ex-btn" id="btnFlashSheetDone">Lưu Sheet</button>
@@ -233,7 +244,6 @@
               <div class="ex-flash-grade ex-flash-grade--pareto">
                 <button type="button" class="ex-flash-grade-btn ex-flash-grade-btn--known" id="flashKnownBtn">Đã biết</button>
                 <button type="button" class="ex-flash-grade-btn ex-flash-grade-btn--gold" id="flashGoldBtn">★ Phải học</button>
-                <button type="button" class="ex-flash-grade-btn ex-flash-grade-btn--trash" id="flashTrashBtn">Bỏ qua</button>
               </div>
             </div>
           </div>
@@ -285,7 +295,12 @@
       };
       document.getElementById("flashKnownBtn")?.addEventListener("click", () => advance("known"));
       document.getElementById("flashGoldBtn")?.addEventListener("click", () => advance("gold"));
-      document.getElementById("flashTrashBtn")?.addEventListener("click", () => advance("trash"));
+      window.SheetBackend &&
+        window.SheetBackend.bindCardSwipe(stage.querySelector(".ex-flash-deck"), {
+          onBrowseNext: () => browse("next"),
+          onBrowsePrev: () => browse("prev"),
+          canBrowse: () => deck.slice(idx).length >= 2,
+        });
     };
 
     const restart = (doShuffle, opts = {}) => {
@@ -312,7 +327,7 @@
     if (hint && !hint.dataset.sheetHint) {
       hint.dataset.sheetHint = "1";
       hint.innerHTML =
-        'Lật thẻ rồi phân loại. Tải <strong>.txt</strong> / <strong>Lưu Sheet</strong>. <strong>Ôn phải học</strong> = chỉ từ vàng đã lưu trên Sheet.';
+        'Lật thẻ rồi phân loại: <strong>Đã biết</strong> · <strong>Phải học</strong>. Vuốt trái/phải để xem thẻ khác (không chấm điểm).';
     }
 
     window.SheetBackend &&
@@ -339,6 +354,15 @@
         },
         showMsg,
       });
+
+    document.getElementById("flashTrash")?.closest("span")?.remove();
+    if (section && !section.querySelector(".ex-flash-swipe-hint")) {
+      const hintSwipe = document.createElement("p");
+      hintSwipe.className = "ex-flash-swipe-hint";
+      hintSwipe.textContent =
+        "Vuốt trái = thẻ sau · Vuốt phải = thẻ trước · không chấm Đã biết / Phải học";
+      stage.insertAdjacentElement("afterend", hintSwipe);
+    }
 
     restart(true);
   };
