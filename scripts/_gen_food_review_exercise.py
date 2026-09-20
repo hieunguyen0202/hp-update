@@ -82,6 +82,13 @@ _l10_think = importlib.util.module_from_spec(_l10_spec)
 assert _l10_spec and _l10_spec.loader
 _l10_spec.loader.exec_module(_l10_think)
 
+_l11_spec = importlib.util.spec_from_file_location(
+    "food_r2_l11_think", Path(__file__).with_name("_food_review2_l11_think.py")
+)
+_l11_think = importlib.util.module_from_spec(_l11_spec)
+assert _l11_spec and _l11_spec.loader
+_l11_spec.loader.exec_module(_l11_think)
+
 esc = _gen.esc
 collect_words = _gen.collect_words
 TOPICS = _gen.TOPICS
@@ -11831,6 +11838,96 @@ def _l10_cloze_html(text: str) -> str:
     return "".join(out)
 
 
+L11_CLOZE_VI = {
+    "Yes, I think so": "tôi nghĩ vậy",
+    "No, not really": "không hẳn",
+    "No, I don't think so": "tôi không nghĩ vậy",
+    "It depends": "còn tùy",
+    "in search of": "tìm kiếm",
+    "local dish": "món địa phương",
+    "In addition": "ngoài ra",
+    "give their friends as a gift": "tặng bạn bè làm quà",
+    "nutritious foods": "thực phẩm bổ dưỡng",
+    "That said": "tuy nhiên",
+    "pose a health risk": "gây rủi ro sức khỏe",
+    "health-conscious": "có ý thức sức khỏe",
+    "immune system": "hệ miễn dịch",
+    "chronic diseases": "bệnh mãn tính",
+    "sluggish": "uể oải",
+    "steer clear of": "tránh xa",
+    "balanced diet": "chế độ ăn cân bằng",
+    "take their health for granted": "xem nhẹ sức khỏe",
+    "take your health for granted": "xem nhẹ sức khỏe",
+    "cut down on processed foods": "cắt giảm đồ chế biến sẵn",
+    "a piece of cake": "dễ như ăn kẹo",
+    "If a street stall sells overly oily and unhygienic snacks, then": "nếu quán vỉa hè bán đồ quá nhiều dầu và kém vệ sinh, thì",
+    "If the stalls fail to maintain high hygiene standards, then": "nếu gian hàng không giữ tiêu chuẩn vệ sinh cao, thì",
+    "grab a quick bite": "ăn vội một chút",
+    "comfort food": "món ăn an ủi",
+    "home-cooked": "nhà nấu",
+}
+L11_CLOZE_VI_LC = {k.lower(): v for k, v in L11_CLOZE_VI.items()}
+L11_THINK_EXTRA_PATS = [
+    r"Yes, I think so",
+    r"No, I don't think so",
+    r"No, not really",
+    r"It depends",
+    r"in search of",
+    r"give their friends as a gift",
+    r"In addition",
+    r"If a street stall sells overly oily and unhygienic snacks, then",
+    r"If the stalls fail to maintain high hygiene standards, then",
+    r"take their health for granted",
+    r"take your health for granted",
+    r"grab a quick bite",
+    r"comfort food",
+    r"home-cooked",
+    r"local dish",
+]
+
+
+def _l11_pats() -> list[re.Pattern[str]]:
+    return [
+        re.compile(p, re.I)
+        for p in L11_THINK_EXTRA_PATS
+        + (_food_notes.VOCAB_EXAMPLE_HIGHLIGHTS.get("11") or [])
+    ]
+
+
+def _l11_hl(text: str) -> str:
+    return _highlight_vocab_in_example(text, _l11_pats())
+
+
+def _l11_cloze_html(text: str) -> str:
+    pats = _l11_pats()
+    if not text or not pats:
+        return esc(text)
+    found: list[tuple[int, int, str]] = []
+    for pat in pats:
+        for m in pat.finditer(text):
+            found.append((m.start(), m.end(), m.group(0)))
+    found.sort(key=lambda t: (t[0], -(t[1] - t[0])))
+    kept: list[tuple[int, int, str]] = []
+    occupied: list[tuple[int, int]] = []
+    for start, end, frag in found:
+        if any(start < e and end > s for s, e in occupied):
+            continue
+        kept.append((start, end, frag))
+        occupied.append((start, end))
+    kept.sort(key=lambda t: t[0])
+    out: list[str] = []
+    i = 0
+    for start, end, frag in kept:
+        out.append(esc(text[i:start]))
+        vi = L11_CLOZE_VI_LC.get(frag.lower(), "")
+        out.append(
+            f'<span class="lr-cloze" data-en="{esc(frag)}" data-vi="{esc(vi)}">{esc(frag)}</span>'
+        )
+        i = end
+    out.append(esc(text[i:]))
+    return "".join(out)
+
+
 def _think_card_html(
     q: str,
     ideas: list[dict],
@@ -12571,6 +12668,24 @@ def _lesson10_think_practice_html() -> str:
         </div>"""
 
 
+def _lesson11_think_card_html(q: str, ideas: list[dict]) -> str:
+    return _think_card_html(
+        q, ideas, hl_fn=_l11_hl, cloze_fn=_l11_cloze_html, lesson_n="11"
+    )
+
+
+def _lesson11_think_practice_html() -> str:
+    cards = [
+        _lesson11_think_card_html(q, ideas) for q, ideas in _l11_think.LESSON11_THINK_QS
+    ]
+    return f"""
+        <div class="lr-food-examples lr-think-examples" id="food-examples-l11-think">
+          <h3 class="lr-core-subtitle">Ví dụ Food · Tư duy 3 ý</h3>
+          <p class="lr-mm-hint">Phát triển <strong>ý</strong> trước khi xem đoạn mẫu. Chọn 1–2 ý, lắp từ khóa Lesson 11, rồi bấm <strong>Reveal answer</strong>.</p>
+{chr(10).join(cards)}
+        </div>"""
+
+
 def _lesson2_practice_html(
     *,
     open_attr: str = "",
@@ -13161,7 +13276,11 @@ def lesson_highlights_html(
         if include_food_examples
         else ""
     )
-    examples_l11 = food_lesson11_examples_html() if include_food_examples else ""
+    examples_l11 = (
+        _lesson11_think_practice_html()
+        if include_food_examples
+        else ""
+    )
     examples_l12 = food_lesson12_examples_html() if include_food_examples else ""
     examples_l13 = food_lesson13_examples_html() if include_food_examples else ""
     examples_l14 = food_lesson14_examples_html() if include_food_examples else ""
