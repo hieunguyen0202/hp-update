@@ -13717,6 +13717,55 @@ def lesson_grammar_tree_html(
           </div>"""
 
 
+def speaking_part1_criteria_html() -> str:
+    """Toggle đầu trang · tiêu chí chấm IELTS Speaking Part 1 (ghi nhớ)."""
+    return """
+        <article class="lr-core-lesson" id="speaking-part1-criteria">
+          <header class="lr-core-lesson-head">
+            <h3>Tiêu chí chấm điểm IELTS Speaking Part 1</h3>
+          </header>
+          <div class="lr-criteria-note">
+            <p>IELTS Speaking Part 1 là phần khởi động của bài thi, kéo dài khoảng 4–5 phút với các câu hỏi quen thuộc về bản thân, học tập, công việc và đời sống hằng ngày. Dù là phần “dễ”, Part 1 vẫn được chấm điểm nghiêm ngặt theo 4 tiêu chí chính và có ảnh hưởng trực tiếp đến band điểm Speaking tổng thể.</p>
+
+            <h4 class="lr-criteria-h">Fluency and Coherence</h4>
+            <p>Ở Part 1, giám khảo tập trung đánh giá khả năng trả lời tự nhiên, liền mạch và đúng trọng tâm câu hỏi:</p>
+            <ul>
+              <li>Thí sinh cần trả lời trọn ý, tránh trả lời quá ngắn hoặc chỉ nói một từ.</li>
+              <li>Các câu trả lời nên được mở rộng vừa đủ, không lan man.</li>
+              <li>Việc sử dụng từ nối đơn giản giúp câu trả lời mạch lạc và dễ nghe.</li>
+              <li>Những khoảng dừng nhỏ để suy nghĩ là chấp nhận được, miễn không làm đứt mạch nói.</li>
+            </ul>
+
+            <h4 class="lr-criteria-h">Lexical Resource</h4>
+            <p>Tiêu chí này đánh giá khả năng sử dụng từ vựng phù hợp với các chủ đề đời sống:</p>
+            <ul>
+              <li>Có vốn từ đủ để diễn đạt ý tưởng quen thuộc một cách tự nhiên.</li>
+              <li>Biết dùng cụm từ thông dụng thay vì lặp lại các từ cơ bản.</li>
+              <li>Sử dụng từ đúng ngữ cảnh, tránh dùng từ học thuật không cần thiết.</li>
+              <li>Có khả năng diễn đạt lại ý khi bí từ, thay vì ngập ngừng hoặc dừng nói.</li>
+            </ul>
+
+            <h4 class="lr-criteria-h">Grammatical Range and Accuracy</h4>
+            <p>Giám khảo đánh giá mức độ chính xác và linh hoạt trong ngữ pháp:</p>
+            <ul>
+              <li>Sử dụng tốt các cấu trúc câu đơn và câu mở rộng ngắn.</li>
+              <li>Áp dụng đúng các thì cơ bản như hiện tại đơn, hiện tại tiếp diễn, quá khứ đơn.</li>
+              <li>Lỗi ngữ pháp nhỏ được chấp nhận nếu không gây hiểu nhầm.</li>
+              <li>Ở band cao, thí sinh thể hiện khả năng kiểm soát câu dài hơn một cách ổn định.</li>
+            </ul>
+
+            <h4 class="lr-criteria-h">Pronunciation</h4>
+            <p>Phát âm trong Part 1 được đánh giá dựa trên mức độ dễ hiểu:</p>
+            <ul>
+              <li>Phát âm rõ ràng, giám khảo có thể nghe và hiểu dễ dàng.</li>
+              <li>Trọng âm từ và câu tương đối chính xác.</li>
+              <li>Ngữ điệu tự nhiên, phù hợp với hội thoại.</li>
+              <li>Giọng địa phương không bị trừ điểm nếu không ảnh hưởng đến khả năng hiểu.</li>
+            </ul>
+          </div>
+        </article>"""
+
+
 def lesson_highlights_html(
     *,
     map_suffix: str = "",
@@ -14465,7 +14514,7 @@ def lesson_highlights_html(
     return f"""
 
       <div class="lr-core-lessons">
-
+{speaking_part1_criteria_html()}
         <article class="lr-core-lesson" id="lesson2-formulas">
           <header class="lr-core-lesson-head">
             <h3>Lesson 2 · Reasons like / dislike</h3>
@@ -16465,6 +16514,7 @@ def build_page_review2() -> str:
       </ul>
       <div class="docs-nav-label">Lessons</div>
       <ul class="docs-nav docs-nav--page" aria-label="Lessons on this page">
+        <li><a href="#speaking-part1-criteria">Tiêu chí chấm Part 1</a></li>
         <li><a href="#lesson2-formulas">Lesson 2 · Reasons</a></li>
         <li><a href="#lesson3-formulas">Lesson 3 · Do you like X?</a></li>
         <li><a href="#lesson5-formulas">Lesson 5 · What kind?</a></li>
@@ -16514,7 +16564,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr75">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr76">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
