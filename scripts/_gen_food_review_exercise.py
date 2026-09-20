@@ -75,6 +75,13 @@ _l9_think = importlib.util.module_from_spec(_l9_spec)
 assert _l9_spec and _l9_spec.loader
 _l9_spec.loader.exec_module(_l9_think)
 
+_l10_spec = importlib.util.spec_from_file_location(
+    "food_r2_l10_think", Path(__file__).with_name("_food_review2_l10_think.py")
+)
+_l10_think = importlib.util.module_from_spec(_l10_spec)
+assert _l10_spec and _l10_spec.loader
+_l10_spec.loader.exec_module(_l10_think)
+
 esc = _gen.esc
 collect_words = _gen.collect_words
 TOPICS = _gen.TOPICS
@@ -11718,6 +11725,112 @@ def _l9_cloze_html(text: str) -> str:
     return "".join(out)
 
 
+L10_CLOZE_VI = {
+    "Yes, I did": "có chứ",
+    "No, not really": "không hẳn",
+    "When I was a kid": "khi tôi còn nhỏ",
+    "when I was a kid": "khi tôi còn nhỏ",
+    "when I was in primary school": "khi tôi học tiểu học",
+    "sweet tooth": "hảo ngọt",
+    "fussy eater": "người kén ăn",
+    "turn my nose up at": "chê bai / không thèm nhìn",
+    "pester": "nài nỉ",
+    "wolf down": "ăn ngấu nghiến",
+    "palate has matured": "khẩu vị đã trưởng thành",
+    "cut down on processed foods": "cắt giảm thực phẩm chế biến sẵn",
+    "snack on junk food": "ăn vặt đồ không lành mạnh",
+    "did snack on junk food": "quả thật hay ăn vặt junk food",
+    "acquired taste": "sở thích hình thành theo thời gian",
+    "stick to a balanced diet": "duy trì chế độ ăn cân bằng",
+    "eat clean": "ăn sạch",
+    "eating clean": "ăn sạch",
+    "helped my mom with": "phụ mẹ",
+    "find new ingredients challenging": "thấy nguyên liệu mới rất khó",
+    "find trying any new local dish quite challenging": "thấy thử món địa phương mới khá khó",
+    "from scratch": "từ nguyên liệu tươi / từ đầu",
+    "home-cooked": "nhà nấu",
+    "did spend a lot of quality time": "quả thật đã dành nhiều thời gian chất lượng",
+    "wholesome meals": "bữa ăn lành mạnh",
+    "hearty breakfast": "bữa sáng thịnh soạn",
+    "grab a quick bite": "ăn vội một chút",
+    "not really interested in": "không thực sự hứng thú với",
+    "health-conscious": "có ý thức về sức khỏe",
+    "dined out": "đi ăn ngoài",
+    "dining out": "đi ăn ngoài",
+    "foreign cuisine": "ẩm thực nước ngoài",
+    "local dish": "món địa phương",
+}
+L10_CLOZE_VI_LC = {k.lower(): v for k, v in L10_CLOZE_VI.items()}
+L10_THINK_EXTRA_PATS = [
+    r"Yes, I did",
+    r"No, not really",
+    r"when I was in primary school",
+    r"[Ww]hen I was a kid",
+    r"did snack on junk food",
+    r"snack on junk food",
+    r"did spend a lot of quality time",
+    r"helped my mom with",
+    r"find new ingredients challenging",
+    r"find trying any new local dish quite challenging",
+    r"not really interested in",
+    r"grab a quick bite",
+    r"hearty breakfast",
+    r"home-cooked",
+    r"wholesome meals",
+    r"health-conscious",
+    r"dined out",
+    r"dining out",
+    r"foreign cuisine",
+    r"local dish",
+    r"from scratch",
+    r"eating clean",
+    r"eat clean",
+    r"sweet tooth",
+]
+
+
+def _l10_pats() -> list[re.Pattern[str]]:
+    return [
+        re.compile(p, re.I)
+        for p in L10_THINK_EXTRA_PATS
+        + (_food_notes.VOCAB_EXAMPLE_HIGHLIGHTS.get("10") or [])
+    ]
+
+
+def _l10_hl(text: str) -> str:
+    return _highlight_vocab_in_example(text, _l10_pats())
+
+
+def _l10_cloze_html(text: str) -> str:
+    pats = _l10_pats()
+    if not text or not pats:
+        return esc(text)
+    found: list[tuple[int, int, str]] = []
+    for pat in pats:
+        for m in pat.finditer(text):
+            found.append((m.start(), m.end(), m.group(0)))
+    found.sort(key=lambda t: (t[0], -(t[1] - t[0])))
+    kept: list[tuple[int, int, str]] = []
+    occupied: list[tuple[int, int]] = []
+    for start, end, frag in found:
+        if any(start < e and end > s for s, e in occupied):
+            continue
+        kept.append((start, end, frag))
+        occupied.append((start, end))
+    kept.sort(key=lambda t: t[0])
+    out: list[str] = []
+    i = 0
+    for start, end, frag in kept:
+        out.append(esc(text[i:start]))
+        vi = L10_CLOZE_VI_LC.get(frag.lower(), "")
+        out.append(
+            f'<span class="lr-cloze" data-en="{esc(frag)}" data-vi="{esc(vi)}">{esc(frag)}</span>'
+        )
+        i = end
+    out.append(esc(text[i:]))
+    return "".join(out)
+
+
 def _think_card_html(
     q: str,
     ideas: list[dict],
@@ -12440,6 +12553,24 @@ def _lesson9_think_practice_html() -> str:
         </div>"""
 
 
+def _lesson10_think_card_html(q: str, ideas: list[dict]) -> str:
+    return _think_card_html(
+        q, ideas, hl_fn=_l10_hl, cloze_fn=_l10_cloze_html, lesson_n="10"
+    )
+
+
+def _lesson10_think_practice_html() -> str:
+    cards = [
+        _lesson10_think_card_html(q, ideas) for q, ideas in _l10_think.LESSON10_THINK_QS
+    ]
+    return f"""
+        <div class="lr-food-examples lr-think-examples" id="food-examples-l10-think">
+          <h3 class="lr-core-subtitle">Ví dụ Food · Tư duy 3 ý</h3>
+          <p class="lr-mm-hint">Phát triển <strong>ý</strong> trước khi xem đoạn mẫu. Chọn 1–2 ý, lắp từ khóa Lesson 10, rồi bấm <strong>Reveal answer</strong>.</p>
+{chr(10).join(cards)}
+        </div>"""
+
+
 def _lesson2_practice_html(
     *,
     open_attr: str = "",
@@ -13025,7 +13156,11 @@ def lesson_highlights_html(
         if include_food_examples
         else ""
     )
-    examples_l10 = food_lesson10_examples_html() if include_food_examples else ""
+    examples_l10 = (
+        _lesson10_think_practice_html()
+        if include_food_examples
+        else ""
+    )
     examples_l11 = food_lesson11_examples_html() if include_food_examples else ""
     examples_l12 = food_lesson12_examples_html() if include_food_examples else ""
     examples_l13 = food_lesson13_examples_html() if include_food_examples else ""
