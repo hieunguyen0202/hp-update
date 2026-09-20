@@ -1711,10 +1711,16 @@
       if (!id) return;
       const el = document.getElementById(id);
       if (!el) return;
-      const article =
-        el.closest(".lr-core-lesson") ||
-        (el.classList.contains("lr-core-lesson") ? el : null);
-      if (article) setOpen(article, true);
+      let article = el.classList.contains("lr-core-lesson")
+        ? el
+        : el.closest(".lr-core-lesson");
+      // Nested lessons (e.g. L17 Building inside L16): open the whole ancestor chain.
+      while (article) {
+        setOpen(article, true);
+        article = article.parentElement
+          ? article.parentElement.closest(".lr-core-lesson")
+          : null;
+      }
       el.scrollIntoView({ behavior: "smooth", block: "start" });
     };
     openFromHash();

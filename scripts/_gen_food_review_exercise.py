@@ -10397,7 +10397,7 @@ def food_lesson16_examples_html() -> str:
     return f"""
         <div class="lr-food-examples" id="food-examples-l16">
           <h3 class="lr-core-subtitle">Ví dụ Part 2 · Food (bài nói đủ 5 phần)</h3>
-          <p class="lr-mm-hint">Mỗi card = <strong>1 cue card</strong> + bài nói đủ 5 phần (khung Lesson 16). Dropdown ở cụm khung. Bài <strong>L17 Building</strong> (Restaurant / café) nằm ngay sau Grammar note L17 phía trên.</p>
+          <p class="lr-mm-hint">Mỗi card = <strong>1 cue card</strong> + bài nói đủ 5 phần (khung Lesson 16). Dropdown ở cụm khung. Bài <strong>L17 Building</strong> (Restaurant / café) nằm trong lesson nhỏ expandable phía trên (sau khung 5 phần).</p>
 {_food_p2_cards_html(cards_data)}
         </div>"""
 
@@ -14804,12 +14804,17 @@ def lesson_highlights_html(
             min_width="1360px",
         )}
 {g16_frame}
+        <article class="lr-core-lesson lr-core-lesson--nested" id="lesson17-building">
+          <header class="lr-core-lesson-head">
+            <h3>L17 Building · Restaurant / café</h3>
+          </header>
 {g17_grammar}
           <div id="lesson17-scroll-source">
 {examples_l17}
           </div>
 
 {lesson17_scroll}
+        </article>
 {g16}
 {vn["16"]}
           <div id="lesson16-scroll-source">
@@ -16440,7 +16445,7 @@ def build_page() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr23"></script>
-  <script src="{home}js/linear-review.js?v=lr47"></script>
+  <script src="{home}js/linear-review.js?v=lr48"></script>
 </body>
 </html>"""
 
@@ -16509,7 +16514,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr74">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr75">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>
@@ -16533,7 +16538,7 @@ def build_page_review2() -> str:
 {body}
   </div>
   <script src="{home}js/docs.js?v=lr23"></script>
-  <script src="{home}js/linear-review.js?v=lr47"></script>
+  <script src="{home}js/linear-review.js?v=lr48"></script>
 </body>
 </html>"""
 
