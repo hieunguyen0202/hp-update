@@ -14864,6 +14864,10 @@ def lesson_highlights_html(
 
 {lesson17_scroll}
         </article>
+        <article class="lr-core-lesson lr-core-lesson--nested" id="lesson16-describe-food">
+          <header class="lr-core-lesson-head">
+            <h3>Describe a Food topic</h3>
+          </header>
 {g16}
 {vn["16"]}
           <div id="lesson16-scroll-source">
@@ -14871,6 +14875,7 @@ def lesson_highlights_html(
           </div>
 {mh["16"]}
 {lesson16_scroll}
+        </article>
         </article>
 {"" if not include_food_examples else f'''
         <article class="lr-core-lesson" id="lesson17-favorites">
@@ -16529,6 +16534,7 @@ def build_page_review2() -> str:
         <li><a href="#lesson14-formulas">Lesson 14 · How often?</a></li>
         <li><a href="#lesson15-formulas">Lesson 15 · How changed?</a></li>
         <li><a href="#lesson16-formulas">Lesson 16 · Part 2</a></li>
+        <li><a href="#lesson16-describe-food">Describe a Food topic</a></li>
         <li><a href="#lesson17-favorites">Lesson 17 · Food Test</a></li>
       </ul>
     </aside>
