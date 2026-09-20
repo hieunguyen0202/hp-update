@@ -40,6 +40,13 @@ assert _notes_spec and _notes_spec.loader
 _notes_spec.loader.exec_module(_food_notes)
 FOOD_VOCABS = _food_notes.VOCABS
 
+_l18_spec = importlib.util.spec_from_file_location(
+    "food_r2_l18_meal", Path(__file__).with_name("_food_review2_l18_meal.py")
+)
+_l18_meal = importlib.util.module_from_spec(_l18_spec)
+assert _l18_spec and _l18_spec.loader
+_l18_spec.loader.exec_module(_l18_meal)
+
 _l5_spec = importlib.util.spec_from_file_location(
     "food_r2_l5_think", Path(__file__).with_name("_food_review2_l5_think.py")
 )
@@ -1803,7 +1810,7 @@ WORD_SLOTS: dict[str, list[dict]] = {
             "vi": "Điều khiến nó có ý nghĩa với tôi là",
         },
     ],
-    # L17 Building · tip kéo dài tên (grammar note)
+    # L17 Place · tip kéo dài tên (grammar note)
     "p2_name_tip": [
         {"form": "It has quite a long name", "vi": "Nó có tên khá dài"},
         {
@@ -9982,9 +9989,12 @@ def lesson16_part2_frame_html() -> str:
         (
             "Restaurant / café",
             [
-                ("Describe a restaurant that you enjoyed going to (Cam 8)", "L17 Building"),
-                ("Describe a café / place where you often eat", "L17 Building"),
-                ("Describe a place where you go to relax (food/drink angle)", "L17 Building"),
+                ("Describe a restaurant that you enjoyed going to (Cam 8)", "L17 Place"),
+                ("Describe a café / place where you often eat", "L17 Place"),
+                ("Describe a place where you go to relax (food/drink angle)", "L17 Place"),
+                ("Describe a memorable / special meal you had", "L18 Meal"),
+                ("Describe a traditional food / dish in your country", "L18 Meal"),
+                ("Describe a food of another country you would like to try", "L18 Meal"),
             ],
         ),
         (
@@ -10020,7 +10030,7 @@ def lesson16_part2_frame_html() -> str:
 {part_cards}
             </div>
             <h4 class="lr-grammar-notes-title" style="margin-top:1rem">Cue card Food · lọc exam / Cambridge-style</h4>
-            <p class="lr-freq-hint">Ưu tiên Cam: <strong>8</strong> restaurant · <strong>11</strong> special meal · <strong>18</strong> learned to prepare. Tag khung: <strong>L17 Building</strong> · <strong>L19 Event</strong> · <strong>L20 Situation</strong> · <strong>Object</strong> (món thuần — chưa có lesson riêng). <em>L18 Place (city)</em> không map trực tiếp cue Food.</p>
+            <p class="lr-freq-hint">Ưu tiên Cam: <strong>8</strong> restaurant · <strong>11</strong> special meal · <strong>18</strong> learned to prepare. Tag khung: <strong>L17 Place</strong> · <strong>L18 Meal</strong> · <strong>L19 Event</strong> · <strong>L20 Situation</strong>. <em>L18 Place (city)</em> không map trực tiếp cue Food.</p>
             <div class="lr-lex-grid">
 {chr(10).join(cue_cols)}
             </div>
@@ -10057,7 +10067,7 @@ def _p2_sec(label: str, en: str, vi: str, plain: str | None = None) -> str:
 
 
 def lesson17_building_food_grammar_html() -> str:
-    """L17 Building · Food/Restaurant — grammar trees (folder style), multi-column."""
+    """L17 Describe a place (restaurant / café) — grammar trees."""
     tree_basic = lesson_grammar_tree_html(
         "L17 · Thông tin cơ bản",
         "THÔNG TIN CƠ BẢN",
@@ -10200,8 +10210,8 @@ def lesson17_building_food_grammar_html() -> str:
         footer=None,
     )
     return f"""
-          <div class="lr-grammar-notes lr-lex-boost-wrap" id="lesson17-building-grammar">
-            <h4 class="lr-grammar-notes-title">Grammar note · L17 Building (Restaurant / café)</h4>
+          <div class="lr-grammar-notes lr-lex-boost-wrap" id="lesson17-place-grammar">
+            <h4 class="lr-grammar-notes-title">Grammar note · L17 Describe a place (restaurant / café)</h4>
             <p class="lr-freq-hint">Khung: <strong>Tên · Vị trí · Diện tích · 1 câu đánh giá</strong> → <strong>Thiết kế (ngoài/trong)</strong> + <strong>Sản phẩm/Dịch vụ</strong> → cảm nhận/recommend → kết. Dạng <strong>cây thư mục</strong> (gốc → nhánh). Dùng <code>which…</code> để kéo dài.</p>
             <div class="lr-g-tree-grid lr-g-tree-grid--l17">
 {tree_basic}
@@ -10397,14 +10407,14 @@ def food_lesson16_examples_html() -> str:
     return f"""
         <div class="lr-food-examples" id="food-examples-l16">
           <h3 class="lr-core-subtitle">Ví dụ Part 2 · Food (bài nói đủ 5 phần)</h3>
-          <p class="lr-mm-hint">Mỗi card = <strong>1 cue card</strong> + bài nói đủ 5 phần (khung Lesson 16). Dropdown ở cụm khung. Bài <strong>L17 Building</strong> (Restaurant / café) nằm trong lesson nhỏ expandable phía trên (sau khung 5 phần).</p>
+          <p class="lr-mm-hint">Mỗi card = <strong>1 cue card</strong> + bài nói đủ 5 phần (khung Lesson 16). Dropdown ở cụm khung. Bài <strong>L17 Describe a place</strong> / <strong>L18 Describe a meal</strong> nằm trong lesson nhỏ expandable phía trên (sau khung 5 phần).</p>
 {_food_p2_cards_html(cards_data)}
         </div>"""
 
 
 
 def food_lesson17_examples_html() -> str:
-    """L17 Building · 3 full Part 2 talks (slide-length core).
+    """L17 Describe a place · 3 full Part 2 talks (slide-length core).
 
     Chia đều grammar note bằng *nhấn mạnh khác nhau*, không cắt cốt lõi:
     1) Marukame — tip kéo dài tên trong Thông tin cơ bản (+ design/menu/staff đủ)
@@ -10416,7 +10426,7 @@ def food_lesson17_examples_html() -> str:
     # ── 1) Marukame (Cam 8 restaurant) — tip tên ★ + cốt lõi đủ như slide ──
     cards_data.append({
         "cue": "Describe a restaurant that you enjoyed going to",
-        "fw": "L17 Building",
+        "fw": "L17 Place",
         "bullets": [
             "where the restaurant was",
             "why you chose this restaurant",
@@ -10474,7 +10484,7 @@ def food_lesson17_examples_html() -> str:
     # ── 2) Daily Grind (café) — thiết kế dày ★ + menu/staff đủ ──
     cards_data.append({
         "cue": "Describe a café / place where you often eat",
-        "fw": "L17 Building",
+        "fw": "L17 Place",
         "bullets": [
             "where it is",
             "why you go there",
@@ -10533,7 +10543,7 @@ def food_lesson17_examples_html() -> str:
     # ── 3) Teaspoon (place to relax) — atmosphere + menu/staff/recommend ★ ──
     cards_data.append({
         "cue": "Describe a place where you go to relax (food/drink angle)",
-        "fw": "L17 Building",
+        "fw": "L17 Place",
         "bullets": [
             "where it is",
             "how often you go there",
@@ -10593,11 +10603,24 @@ def food_lesson17_examples_html() -> str:
 
     return f"""
         <div class="lr-food-examples" id="food-examples-l17">
-          <h3 class="lr-core-subtitle">Ví dụ L17 Building · Restaurant / café (bài nói đủ 5 phần)</h3>
+          <h3 class="lr-core-subtitle">Ví dụ L17 Describe a place · Restaurant / café (bài nói đủ 5 phần)</h3>
           <p class="lr-mm-hint">Mỗi bài vẫn có <strong>cốt lõi dài như slide</strong>. Chỉ <em>nhấn</em> khác nhau: <strong>Marukame</strong> = tip kéo dài tên · <strong>Daily Grind</strong> = thiết kế ngoài→trong · <strong>Teaspoon</strong> = menu / giá / staff / recommend — gộp lại cover grammar note.</p>
 {_food_p2_cards_html(cards_data)}
         </div>"""
 
+
+def lesson18_meal_food_grammar_html() -> str:
+    return _l18_meal.lesson18_meal_food_grammar_html(
+        lesson_grammar_tree_html=lesson_grammar_tree_html,
+        g_mark=_g_mark,
+    )
+
+
+def food_lesson18_examples_html() -> str:
+    return _l18_meal.food_lesson18_examples_html(
+        phrase_pick=phrase_pick,
+        food_p2_cards_html=_food_p2_cards_html,
+    )
 
 
 def food_lesson15_examples_html() -> str:
@@ -13717,6 +13740,53 @@ def lesson_grammar_tree_html(
           </div>"""
 
 
+
+def speaking_band_descriptors_html() -> str:
+    """Toggle đầu trang · 4 tiêu chí IELTS Speaking overall (ZIM band descriptors)."""
+    return """
+        <article class="lr-core-lesson" id="speaking-band-descriptors">
+          <header class="lr-core-lesson-head">
+            <h3>IELTS Speaking Band Descriptors · 4 tiêu chí chấm điểm</h3>
+          </header>
+          <div class="lr-criteria-note">
+            <p>Khác Listening/Reading (receptive), Speaking là kỹ năng productive — giám khảo chấm trực tiếp. Để khách quan, điểm dựa trên <strong>IELTS Speaking band descriptors</strong> (thang 0–9) với <strong>4 tiêu chí</strong> trọng số ngang nhau. Tham khảo: <a href="https://zim.vn/ielts-speaking-band-descriptors" target="_blank" rel="noopener">ZIM · IELTS Speaking Band Descriptors</a>.</p>
+
+            <h4 class="lr-criteria-h">Fluency and Coherence</h4>
+            <p>Đánh giá độ trôi chảy (tốc độ, liên tục, ngập ngừng) và mạch lạc (sắp xếp ý, connectives / discourse markers). Band cao: nói dài không gượng, ngập ngừng chủ yếu vì nội dung chứ không phải tìm từ, phát triển chủ đề logic.</p>
+            <ul>
+              <li>Độ dài &amp; tính liên tục · tốc độ nói · hesitation</li>
+              <li>Repetition / self-correction</li>
+              <li>Connectives &amp; discourse markers (you know, actually, basically…)</li>
+              <li>Coherence khi triển khai chủ đề</li>
+            </ul>
+
+            <h4 class="lr-criteria-h">Lexical Resource</h4>
+            <p>Đánh giá vốn từ: độ rộng, độ chính xác/linh hoạt, collocation/idiom, và khả năng paraphrase.</p>
+            <ul>
+              <li>Đủ từ để nói cả chủ đề quen &amp; ít quen</li>
+              <li>Dùng từ đúng nghĩa; band 7+ thêm less common / idiomatic language</li>
+              <li>Paraphrase hiệu quả khi bí từ</li>
+            </ul>
+
+            <h4 class="lr-criteria-h">Grammatical Range and Accuracy</h4>
+            <p>Đánh giá đa dạng cấu trúc (câu đơn + phức) và mức độ lỗi ảnh hưởng giao tiếp.</p>
+            <ul>
+              <li>Band 6+: kết hợp câu ngắn/phức; lỗi phức tạp ít cản trở hiểu</li>
+              <li>Band 7+: dùng cấu trúc phức linh hoạt, phần lớn câu sạch lỗi</li>
+            </ul>
+
+            <h4 class="lr-criteria-h">Pronunciation</h4>
+            <p>Đánh giá mức độ dễ hiểu: âm đoạn, trọng âm từ/câu, ngữ điệu, nhịp. Giọng địa phương không bị trừ nếu vẫn rõ nghĩa.</p>
+            <ul>
+              <li>Band 6: nhìn chung dễ hiểu dù còn lỗi phát âm lẻ</li>
+              <li>Band 7–8: kiểm soát tốt stress / intonation; gần như luôn dễ follow</li>
+            </ul>
+
+            <p class="lr-freq-hint" style="margin-top:1rem">Part 1–3 đều chấm theo <strong>cùng 4 tiêu chí</strong>. Part 1 “dễ” về chủ đề nhưng vẫn ảnh hưởng band tổng — xem note Part 1 ngay bên dưới.</p>
+          </div>
+        </article>"""
+
+
 def speaking_part1_criteria_html() -> str:
     """Toggle đầu trang · tiêu chí chấm IELTS Speaking Part 1 (ghi nhớ)."""
     return """
@@ -13857,6 +13927,7 @@ def lesson_highlights_html(
     )
     examples_l16 = food_lesson16_examples_html() if include_food_examples else ""
     examples_l17 = food_lesson17_examples_html() if include_food_examples else ""
+    examples_l18 = food_lesson18_examples_html() if include_food_examples else ""
     vn = {
         n: vocab_notes_html(
             FOOD_VOCABS[n],
@@ -13893,6 +13964,7 @@ def lesson_highlights_html(
     lesson15_scroll = ""
     lesson16_scroll = ""
     lesson17_scroll = ""
+    lesson18_scroll = ""
     lesson17_fav_scroll = ""
     if include_food_examples:
         lesson9_scroll = lesson_scroll_read_html(
@@ -13920,7 +13992,10 @@ def lesson_highlights_html(
             "lesson16", title="Lesson 16 · Part 2", source_sel="#lesson16-scroll-source", memo_sel=ms["16"]
         )
         lesson17_scroll = lesson_scroll_read_html(
-            "lesson17", title="L17 Building · Restaurant / café", source_sel="#lesson17-scroll-source"
+            "lesson17", title="L17 Describe a place (restaurant, café)", source_sel="#lesson17-scroll-source"
+        )
+        lesson18_scroll = lesson_scroll_read_html(
+            "lesson18", title="L18 Describe a meal / food", source_sel="#lesson18-scroll-source"
         )
         lesson17_fav_scroll = lesson_scroll_read_html(
             "lesson17-fav",
@@ -14472,6 +14547,7 @@ def lesson_highlights_html(
     )
     g16_frame = lesson16_part2_frame_html()
     g17_grammar = lesson17_building_food_grammar_html()
+    g18_grammar = lesson18_meal_food_grammar_html()
     g16 = (
         lesson_grammar_tree_html(
             "Lesson 16 · Part 2",
@@ -14514,6 +14590,7 @@ def lesson_highlights_html(
     return f"""
 
       <div class="lr-core-lessons">
+{speaking_band_descriptors_html()}
 {speaking_part1_criteria_html()}
         <article class="lr-core-lesson" id="lesson2-formulas">
           <header class="lr-core-lesson-head">
@@ -14853,9 +14930,9 @@ def lesson_highlights_html(
             min_width="1360px",
         )}
 {g16_frame}
-        <article class="lr-core-lesson lr-core-lesson--nested" id="lesson17-building">
+        <article class="lr-core-lesson lr-core-lesson--nested" id="lesson17-place">
           <header class="lr-core-lesson-head">
-            <h3>L17 Building · Restaurant / café</h3>
+            <h3>L17 Describe a place (restaurant, café)</h3>
           </header>
 {g17_grammar}
           <div id="lesson17-scroll-source">
@@ -14863,6 +14940,17 @@ def lesson_highlights_html(
           </div>
 
 {lesson17_scroll}
+        </article>
+        <article class="lr-core-lesson lr-core-lesson--nested" id="lesson18-meal">
+          <header class="lr-core-lesson-head">
+            <h3>L18 Describe a meal / food</h3>
+          </header>
+{g18_grammar}
+          <div id="lesson18-scroll-source">
+{examples_l18}
+          </div>
+
+{lesson18_scroll}
         </article>
         <article class="lr-core-lesson lr-core-lesson--nested" id="lesson16-describe-food">
           <header class="lr-core-lesson-head">
@@ -16519,6 +16607,7 @@ def build_page_review2() -> str:
       </ul>
       <div class="docs-nav-label">Lessons</div>
       <ul class="docs-nav docs-nav--page" aria-label="Lessons on this page">
+        <li><a href="#speaking-band-descriptors">Band Descriptors · 4 tiêu chí</a></li>
         <li><a href="#speaking-part1-criteria">Tiêu chí chấm Part 1</a></li>
         <li><a href="#lesson2-formulas">Lesson 2 · Reasons</a></li>
         <li><a href="#lesson3-formulas">Lesson 3 · Do you like X?</a></li>
@@ -16534,6 +16623,8 @@ def build_page_review2() -> str:
         <li><a href="#lesson14-formulas">Lesson 14 · How often?</a></li>
         <li><a href="#lesson15-formulas">Lesson 15 · How changed?</a></li>
         <li><a href="#lesson16-formulas">Lesson 16 · Part 2</a></li>
+        <li><a href="#lesson17-place">L17 Describe a place</a></li>
+        <li><a href="#lesson18-meal">L18 Describe a meal / food</a></li>
         <li><a href="#lesson16-describe-food">Describe a Food topic</a></li>
         <li><a href="#lesson17-favorites">Lesson 17 · Food Test</a></li>
       </ul>
@@ -16570,7 +16661,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr76">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr77">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>

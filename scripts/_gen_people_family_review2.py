@@ -2230,6 +2230,52 @@ def lesson16_examples_html() -> str:
         </div>"""
 
 
+def speaking_band_descriptors_html() -> str:
+    """Toggle đầu trang · 4 tiêu chí IELTS Speaking overall (ZIM band descriptors)."""
+    return """
+        <article class="lr-core-lesson" id="speaking-band-descriptors">
+          <header class="lr-core-lesson-head">
+            <h3>IELTS Speaking Band Descriptors · 4 tiêu chí chấm điểm</h3>
+          </header>
+          <div class="lr-criteria-note">
+            <p>Khác Listening/Reading (receptive), Speaking là kỹ năng productive — giám khảo chấm trực tiếp. Để khách quan, điểm dựa trên <strong>IELTS Speaking band descriptors</strong> (thang 0–9) với <strong>4 tiêu chí</strong> trọng số ngang nhau. Tham khảo: <a href="https://zim.vn/ielts-speaking-band-descriptors" target="_blank" rel="noopener">ZIM · IELTS Speaking Band Descriptors</a>.</p>
+
+            <h4 class="lr-criteria-h">Fluency and Coherence</h4>
+            <p>Đánh giá độ trôi chảy (tốc độ, liên tục, ngập ngừng) và mạch lạc (sắp xếp ý, connectives / discourse markers). Band cao: nói dài không gượng, ngập ngừng chủ yếu vì nội dung chứ không phải tìm từ, phát triển chủ đề logic.</p>
+            <ul>
+              <li>Độ dài &amp; tính liên tục · tốc độ nói · hesitation</li>
+              <li>Repetition / self-correction</li>
+              <li>Connectives &amp; discourse markers (you know, actually, basically…)</li>
+              <li>Coherence khi triển khai chủ đề</li>
+            </ul>
+
+            <h4 class="lr-criteria-h">Lexical Resource</h4>
+            <p>Đánh giá vốn từ: độ rộng, độ chính xác/linh hoạt, collocation/idiom, và khả năng paraphrase.</p>
+            <ul>
+              <li>Đủ từ để nói cả chủ đề quen &amp; ít quen</li>
+              <li>Dùng từ đúng nghĩa; band 7+ thêm less common / idiomatic language</li>
+              <li>Paraphrase hiệu quả khi bí từ</li>
+            </ul>
+
+            <h4 class="lr-criteria-h">Grammatical Range and Accuracy</h4>
+            <p>Đánh giá đa dạng cấu trúc (câu đơn + phức) và mức độ lỗi ảnh hưởng giao tiếp.</p>
+            <ul>
+              <li>Band 6+: kết hợp câu ngắn/phức; lỗi phức tạp ít cản trở hiểu</li>
+              <li>Band 7+: dùng cấu trúc phức linh hoạt, phần lớn câu sạch lỗi</li>
+            </ul>
+
+            <h4 class="lr-criteria-h">Pronunciation</h4>
+            <p>Đánh giá mức độ dễ hiểu: âm đoạn, trọng âm từ/câu, ngữ điệu, nhịp. Giọng địa phương không bị trừ nếu vẫn rõ nghĩa.</p>
+            <ul>
+              <li>Band 6: nhìn chung dễ hiểu dù còn lỗi phát âm lẻ</li>
+              <li>Band 7–8: kiểm soát tốt stress / intonation; gần như luôn dễ follow</li>
+            </ul>
+
+            <p class="lr-freq-hint" style="margin-top:1rem">Part 1–3 đều chấm theo <strong>cùng 4 tiêu chí</strong>. Part 1 “dễ” về chủ đề nhưng vẫn ảnh hưởng band tổng — xem note Part 1 ngay bên dưới.</p>
+          </div>
+        </article>"""
+
+
 def speaking_part1_criteria_html() -> str:
     """Toggle đầu trang · tiêu chí chấm IELTS Speaking Part 1 (ghi nhớ)."""
     return """
@@ -2498,6 +2544,7 @@ def lesson_highlights_html() -> str:
 
     return f"""
       <div class="lr-core-lessons">
+{speaking_band_descriptors_html()}
 {speaking_part1_criteria_html()}
         <article class="lr-core-lesson" id="lesson2-formulas">
           <header class="lr-core-lesson-head">
@@ -2549,6 +2596,7 @@ def build_page_review2() -> str:
       </ul>
       <div class="docs-nav-label">Lessons</div>
       <ul class="docs-nav docs-nav--page" aria-label="Lessons on this page">
+        <li><a href="#speaking-band-descriptors">Band Descriptors · 4 tiêu chí</a></li>
         <li><a href="#speaking-part1-criteria">Tiêu chí chấm Part 1</a></li>
         <li><a href="#lesson2-formulas">Lesson 2 · Reasons</a></li>
         <li><a href="#lesson3-formulas">Lesson 3 · Do you like X?</a></li>
@@ -2595,7 +2643,7 @@ def build_page_review2() -> str:
   <link rel="icon" href="{home}favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{home}css/docs.css?v=lr76">
+  <link rel="stylesheet" href="{home}css/docs.css?v=lr77">
 </head>
 <body class="docs lr-body">
   <div class="cursor" id="cursor"></div>

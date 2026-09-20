@@ -5871,7 +5871,7 @@ mark.lr-hl,
   display: none;
 }
 
-/* Nested mini-lesson inside a parent lesson (e.g. L17 Building under L16) */
+/* Nested mini-lesson inside a parent lesson (e.g. L17 Place under L16) */
 .lr-core-lesson .lr-core-lesson {
   margin-top: 14px;
   border-color: rgba(148, 163, 184, 0.28);
