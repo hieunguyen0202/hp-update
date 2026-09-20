@@ -68,6 +68,13 @@ _l8_think = importlib.util.module_from_spec(_l8_spec)
 assert _l8_spec and _l8_spec.loader
 _l8_spec.loader.exec_module(_l8_think)
 
+_l9_spec = importlib.util.spec_from_file_location(
+    "food_r2_l9_think", Path(__file__).with_name("_food_review2_l9_think.py")
+)
+_l9_think = importlib.util.module_from_spec(_l9_spec)
+assert _l9_spec and _l9_spec.loader
+_l9_spec.loader.exec_module(_l9_think)
+
 esc = _gen.esc
 collect_words = _gen.collect_words
 TOPICS = _gen.TOPICS
@@ -11592,6 +11599,125 @@ def _l8_cloze_html(text: str) -> str:
     return "".join(out)
 
 
+L9_CLOZE_VI = {
+    "I can't remember exactly, but I guess": "tôi không nhớ chính xác, nhưng đoán là",
+    "I'm not really sure, but I guess": "tôi không chắc lắm, nhưng đoán là",
+    "I'm not really sure, but I guess it's been a couple of weeks since": "tôi không chắc, nhưng đoán đã vài tuần kể từ",
+    "it's been a couple of weeks since": "đã vài tuần kể từ",
+    "I'd like to recount a meal": "tôi muốn kể lại một bữa ăn",
+    "As far as I can remember": "theo như tôi còn nhớ",
+    "the first time I tried street food was when": "lần đầu tôi thử đồ ăn đường phố là khi",
+    "the first time I cooked a meal from scratch was": "lần đầu tôi nấu từ nguyên liệu tươi là",
+    "the first time I tried a foreign dish was": "lần đầu tôi thử món nước ngoài là",
+    "the first time I tried a local dish": "lần đầu tôi thử món địa phương",
+    "the last time I dined out was": "lần gần nhất tôi đi ăn ngoài là",
+    "the last time I ate in a hurry was": "lần gần nhất tôi ăn vội là",
+    "the last time I had a truly hearty breakfast was": "lần gần nhất tôi có bữa sáng thịnh soạn là",
+    "the last time I ate comfort food was": "lần gần nhất tôi ăn món an ủi là",
+    "the last time I cooked a slap-up meal was": "lần gần nhất tôi nấu bữa thịnh soạn là",
+    "when I was in high school": "khi tôi còn học cấp ba",
+    "left a mark on me": "để lại dấu ấn trong tôi",
+    "mouth-watering": "ngon đến chảy nước miếng",
+    "local dish": "món địa phương",
+    "grab a quick bite": "ăn vội một chút",
+    "grabbing a quick bite": "ăn vội một chút",
+    "had a great time together": "có khoảng thời gian rất vui bên nhau",
+    "slap-up meal": "bữa ăn thịnh soạn",
+    "came over": "ghé nhà / đến chơi",
+    "spent hours": "dành nhiều giờ",
+    "spend more time": "dành thêm thời gian",
+    "spending hours": "dành nhiều giờ",
+    "skipped my breakfast": "bỏ bữa sáng",
+    "I was very excited": "tôi rất hào hứng",
+    "cook from scratch": "nấu từ nguyên liệu tươi",
+    "from scratch": "từ nguyên liệu tươi / từ đầu",
+    "wholesome meals": "bữa ăn lành mạnh",
+    "homemade meal": "bữa ăn nhà nấu",
+    "catch up over a meal": "vừa ăn vừa trò chuyện",
+    "bland porridge": "cháo nhạt",
+    "delicacies": "món ngon tinh tế",
+    "topped with": "được phủ lên trên",
+    "made my mouth water": "khiến tôi thèm thuồng",
+    "makes my mouth water": "khiến tôi thèm thuồng",
+    "foreign cuisine": "ẩm thực nước ngoài",
+    "What a shame": "thật tiếc",
+    "hearty breakfast": "bữa sáng thịnh soạn",
+}
+L9_CLOZE_VI_LC = {k.lower(): v for k, v in L9_CLOZE_VI.items()}
+L9_THINK_EXTRA_PATS = [
+    r"I can't remember exactly, but I guess",
+    r"I'm not really sure, but I guess",
+    r"it's been a couple of weeks since",
+    r"I'd like to recount a meal",
+    r"the first time I tried street food was when",
+    r"the first time I cooked a meal from scratch was",
+    r"the first time I tried a foreign dish was",
+    r"the first time I tried a local dish",
+    r"the last time I dined out was",
+    r"the last time I ate in a hurry was",
+    r"the last time I had a truly hearty breakfast was",
+    r"the last time I ate comfort food was",
+    r"the last time I cooked a slap-up meal was",
+    r"when I was in high school",
+    r"had a great time together",
+    r"grabbing a quick bite",
+    r"grab a quick bite",
+    r"skipped my breakfast",
+    r"I was very excited",
+    r"came over",
+    r"spent hours",
+    r"spend more time",
+    r"spending hours",
+    r"What a shame",
+    r"foreign cuisine",
+    r"hearty breakfast",
+    r"local dish",
+    r"mouth-watering",
+]
+
+
+def _l9_pats() -> list[re.Pattern[str]]:
+    return [
+        re.compile(p, re.I)
+        for p in L9_THINK_EXTRA_PATS
+        + (_food_notes.VOCAB_EXAMPLE_HIGHLIGHTS.get("9") or [])
+    ]
+
+
+def _l9_hl(text: str) -> str:
+    return _highlight_vocab_in_example(text, _l9_pats())
+
+
+def _l9_cloze_html(text: str) -> str:
+    pats = _l9_pats()
+    if not text or not pats:
+        return esc(text)
+    found: list[tuple[int, int, str]] = []
+    for pat in pats:
+        for m in pat.finditer(text):
+            found.append((m.start(), m.end(), m.group(0)))
+    found.sort(key=lambda t: (t[0], -(t[1] - t[0])))
+    kept: list[tuple[int, int, str]] = []
+    occupied: list[tuple[int, int]] = []
+    for start, end, frag in found:
+        if any(start < e and end > s for s, e in occupied):
+            continue
+        kept.append((start, end, frag))
+        occupied.append((start, end))
+    kept.sort(key=lambda t: t[0])
+    out: list[str] = []
+    i = 0
+    for start, end, frag in kept:
+        out.append(esc(text[i:start]))
+        vi = L9_CLOZE_VI_LC.get(frag.lower(), "")
+        out.append(
+            f'<span class="lr-cloze" data-en="{esc(frag)}" data-vi="{esc(vi)}">{esc(frag)}</span>'
+        )
+        i = end
+    out.append(esc(text[i:]))
+    return "".join(out)
+
+
 def _think_card_html(
     q: str,
     ideas: list[dict],
@@ -12296,6 +12422,24 @@ def _lesson8_think_practice_html() -> str:
         </div>"""
 
 
+def _lesson9_think_card_html(q: str, ideas: list[dict]) -> str:
+    return _think_card_html(
+        q, ideas, hl_fn=_l9_hl, cloze_fn=_l9_cloze_html, lesson_n="9"
+    )
+
+
+def _lesson9_think_practice_html() -> str:
+    cards = [
+        _lesson9_think_card_html(q, ideas) for q, ideas in _l9_think.LESSON9_THINK_QS
+    ]
+    return f"""
+        <div class="lr-food-examples lr-think-examples" id="food-examples-l9-think">
+          <h3 class="lr-core-subtitle">Ví dụ Food · Tư duy 3 ý</h3>
+          <p class="lr-mm-hint">Phát triển <strong>ý</strong> trước khi xem đoạn mẫu. Chọn 1–2 ý, lắp từ khóa Lesson 9, rồi bấm <strong>Reveal answer</strong>.</p>
+{chr(10).join(cards)}
+        </div>"""
+
+
 def _lesson2_practice_html(
     *,
     open_attr: str = "",
@@ -12876,7 +13020,11 @@ def lesson_highlights_html(
         if include_food_examples
         else food_lesson8_examples_html()
     )
-    examples_l9 = food_lesson9_examples_html() if include_food_examples else ""
+    examples_l9 = (
+        _lesson9_think_practice_html()
+        if include_food_examples
+        else ""
+    )
     examples_l10 = food_lesson10_examples_html() if include_food_examples else ""
     examples_l11 = food_lesson11_examples_html() if include_food_examples else ""
     examples_l12 = food_lesson12_examples_html() if include_food_examples else ""
