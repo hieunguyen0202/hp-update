@@ -5,6 +5,9 @@ Lesson types match People & Family Review Exercise 2 (2, 3, 5–16; skip 4).
 """
 from __future__ import annotations
 
+import importlib.util
+from pathlib import Path
+
 VOCABS: dict[str, list[tuple[str, str, str]]] = {
     "2": [
         ("unwind / recharge my batteries", "thư giãn / nạp lại năng lượng", "Nấu ăn sau ngày làm việc để đầu óc nhẹ lại — Smartcom hay dùng cooking = unwind."),
@@ -1660,6 +1663,15 @@ VOCAB_EXAMPLE_HIGHLIGHTS: dict[str, list[str]] = {
         r"\bnutritious\b",
     ],
 }
+
+_l9_15_spec = importlib.util.spec_from_file_location(
+    "food_r2_l9_15_ex", Path(__file__).with_name("_food_review2_l9_15_examples.py")
+)
+_l9_15 = importlib.util.module_from_spec(_l9_15_spec)
+assert _l9_15_spec and _l9_15_spec.loader
+_l9_15_spec.loader.exec_module(_l9_15)
+VOCAB_EXAMPLES.update(_l9_15.VOCAB_EXAMPLES)
+VOCAB_EXAMPLE_HIGHLIGHTS.update(_l9_15.VOCAB_EXAMPLE_HIGHLIGHTS)
 
 
 def _memo_join(fn, text: str) -> str:
