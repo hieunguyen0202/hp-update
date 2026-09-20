@@ -103,6 +103,20 @@ _l13_think = importlib.util.module_from_spec(_l13_spec)
 assert _l13_spec and _l13_spec.loader
 _l13_spec.loader.exec_module(_l13_think)
 
+_l14_spec = importlib.util.spec_from_file_location(
+    "food_r2_l14_think", Path(__file__).with_name("_food_review2_l14_think.py")
+)
+_l14_think = importlib.util.module_from_spec(_l14_spec)
+assert _l14_spec and _l14_spec.loader
+_l14_spec.loader.exec_module(_l14_think)
+
+_l15_spec = importlib.util.spec_from_file_location(
+    "food_r2_l15_think", Path(__file__).with_name("_food_review2_l15_think.py")
+)
+_l15_think = importlib.util.module_from_spec(_l15_spec)
+assert _l15_spec and _l15_spec.loader
+_l15_spec.loader.exec_module(_l15_think)
+
 esc = _gen.esc
 collect_words = _gen.collect_words
 TOPICS = _gen.TOPICS
@@ -12132,6 +12146,221 @@ def _l13_cloze_html(text: str) -> str:
     return "".join(out)
 
 
+L14_CLOZE_VI = {
+    "almost every day": "hầu như mỗi ngày",
+    "make efforts to eat together": "nỗ lực ăn cùng nhau",
+    "touch base and catch up": "kết nối và cập nhật chuyện nhau",
+    "touch base": "kết nối",
+    "catch up": "cập nhật chuyện / trò chuyện",
+    "at the weekend when none of us have to work": "vào cuối tuần khi không ai phải làm việc",
+    "home-cooked": "nhà nấu",
+    "hectic world": "thế giới bận rộn",
+    "balanced diet": "chế độ ăn cân bằng",
+    "every now and then": "thỉnh thoảng",
+    "once in a blue moon": "năm thì mười họa",
+    "up to our ears": "bận ngập đầu",
+    "up to my ears": "bận ngập đầu",
+    "grab a bite": "ăn vội",
+    "grab a quick bite": "ăn vội một chút",
+    "cook from scratch": "nấu từ nguyên liệu tươi",
+    "from scratch": "từ nguyên liệu tươi",
+    "hardly ever": "hầu như không bao giờ",
+    "take a heavy toll on my health": "giáng đòn nặng lên sức khỏe",
+    "restrain my hunger": "kiềm chế cơn đói",
+    "greasy take-away": "đồ mang về nhiều dầu",
+    "fresh ingredients": "nguyên liệu tươi",
+    "nutritious foods": "thực phẩm bổ dưỡng",
+    "twice a week": "hai lần một tuần",
+}
+L14_CLOZE_VI_LC = {k.lower(): v for k, v in L14_CLOZE_VI.items()}
+L14_THINK_EXTRA_PATS = [
+    r"at the weekend when none of us have to work",
+    r"make efforts to eat together",
+    r"touch base and catch up",
+    r"touch base",
+    r"catch up",
+    r"almost every day",
+    r"every now and then",
+    r"once in a blue moon",
+    r"up to (?:our|my) ears",
+    r"grab a quick bite",
+    r"grab a bite",
+    r"cook from scratch",
+    r"from scratch",
+    r"hardly ever",
+    r"take a heavy toll on my health",
+    r"restrain my hunger",
+    r"greasy take-away",
+    r"fresh ingredients",
+    r"nutritious foods",
+    r"twice a week",
+    r"home-cooked",
+    r"hectic world",
+    r"balanced diet",
+]
+
+
+def _l14_pats() -> list[re.Pattern[str]]:
+    return [
+        re.compile(p, re.I)
+        for p in L14_THINK_EXTRA_PATS
+        + (_food_notes.VOCAB_EXAMPLE_HIGHLIGHTS.get("14") or [])
+    ]
+
+
+def _l14_hl(text: str) -> str:
+    return _highlight_vocab_in_example(text, _l14_pats())
+
+
+def _l14_cloze_html(text: str) -> str:
+    pats = _l14_pats()
+    if not text or not pats:
+        return esc(text)
+    found: list[tuple[int, int, str]] = []
+    for pat in pats:
+        for m in pat.finditer(text):
+            found.append((m.start(), m.end(), m.group(0)))
+    found.sort(key=lambda t: (t[0], -(t[1] - t[0])))
+    kept: list[tuple[int, int, str]] = []
+    occupied: list[tuple[int, int]] = []
+    for start, end, frag in found:
+        if any(start < e and end > s for s, e in occupied):
+            continue
+        kept.append((start, end, frag))
+        occupied.append((start, end))
+    kept.sort(key=lambda t: t[0])
+    out: list[str] = []
+    i = 0
+    for start, end, frag in kept:
+        out.append(esc(text[i:start]))
+        vi = L14_CLOZE_VI_LC.get(frag.lower(), "")
+        out.append(
+            f'<span class="lr-cloze" data-en="{esc(frag)}" data-vi="{esc(vi)}">{esc(frag)}</span>'
+        )
+        i = end
+    out.append(esc(text[i:]))
+    return "".join(out)
+
+
+L15_CLOZE_VI = {
+    "changed a great deal in recent years": "đã thay đổi rất nhiều trong những năm gần đây",
+    "has changed a great deal in recent years": "đã thay đổi rất nhiều trong những năm gần đây",
+    "has changed a great deal over the years": "đã thay đổi rất nhiều qua các năm",
+    "has changed a great deal since I was a child": "đã thay đổi rất nhiều từ khi tôi còn nhỏ",
+    "has changed a great deal": "đã thay đổi rất nhiều",
+    "changed a great deal": "đã thay đổi rất nhiều",
+    "has changed significantly in recent years": "đã thay đổi đáng kể trong những năm gần đây",
+    "has changed significantly": "đã thay đổi đáng kể",
+    "a shift towards": "sự chuyển dịch hướng tới",
+    "health-conscious consumers": "người tiêu dùng có ý thức sức khỏe",
+    "In the past": "trước đây",
+    "cook everything from scratch": "nấu toàn bộ từ nguyên liệu tươi",
+    "caught up in the rat race": "bị cuốn vào vòng xoáy bận rộn",
+    "have become more popular": "đã trở nên phổ biến hơn",
+    "processed foods and ready meals": "thực phẩm chế biến sẵn và bữa ăn làm sẵn",
+    "processed foods": "thực phẩm chế biến sẵn",
+    "ready meals": "bữa ăn làm sẵn",
+    "pushed home-cooked meals to the back burner": "gác bữa cơm nhà sang một bên",
+    "fallen into the trap of grabbing takeaway": "sa vào cạm bẫy đồ mang về",
+    "An increasing number of": "ngày càng nhiều",
+    "sustainable food sources": "nguồn thực phẩm bền vững",
+    "over the past five years": "trong năm năm qua",
+    "over the years": "qua nhiều năm",
+    "culinary traditions": "truyền thống ẩm thực",
+    "food culture": "văn hóa ẩm thực",
+    "culinary heritage": "di sản ẩm thực",
+    "the globalization of cuisine": "toàn cầu hóa ẩm thực",
+    "grab a quick bite": "ăn vội một chút",
+    "have come to appreciate": "đã biết trân trọng",
+    "home-cooked meals": "bữa cơm nhà",
+    "nutritional value": "giá trị dinh dưỡng",
+    "take a heavy toll on": "giáng đòn nặng lên",
+    "compared to the past": "so với quá khứ",
+    "make efforts to eat together": "nỗ lực ăn cùng nhau",
+    "touch base and catch up": "kết nối và cập nhật chuyện nhau",
+}
+L15_CLOZE_VI_LC = {k.lower(): v for k, v in L15_CLOZE_VI.items()}
+L15_THINK_EXTRA_PATS = [
+    r"has changed a great deal since I was a child",
+    r"has changed a great deal over the years",
+    r"has changed a great deal in recent years",
+    r"changed a great deal in recent years",
+    r"has changed significantly in recent years",
+    r"has changed significantly",
+    r"has changed a great deal",
+    r"changed a great deal",
+    r"a shift towards",
+    r"health-conscious consumers",
+    r"cook everything from scratch",
+    r"caught up in the rat race",
+    r"fallen into the trap of grabbing takeaway",
+    r"pushed home-cooked meals to the back burner",
+    r"processed foods and ready meals",
+    r"processed foods",
+    r"ready meals",
+    r"have become more popular",
+    r"An increasing number of",
+    r"sustainable food sources",
+    r"over the past five years",
+    r"over the years",
+    r"In the past",
+    r"compared to the past",
+    r"culinary traditions",
+    r"food culture",
+    r"culinary heritage",
+    r"the globalization of cuisine",
+    r"grab a quick bite",
+    r"have come to appreciate",
+    r"home-cooked meals",
+    r"nutritional value",
+    r"take a heavy toll on",
+    r"make efforts to eat together",
+    r"touch base and catch up",
+]
+
+
+def _l15_pats() -> list[re.Pattern[str]]:
+    return [
+        re.compile(p, re.I)
+        for p in L15_THINK_EXTRA_PATS
+        + (_food_notes.VOCAB_EXAMPLE_HIGHLIGHTS.get("15") or [])
+    ]
+
+
+def _l15_hl(text: str) -> str:
+    return _highlight_vocab_in_example(text, _l15_pats())
+
+
+def _l15_cloze_html(text: str) -> str:
+    pats = _l15_pats()
+    if not text or not pats:
+        return esc(text)
+    found: list[tuple[int, int, str]] = []
+    for pat in pats:
+        for m in pat.finditer(text):
+            found.append((m.start(), m.end(), m.group(0)))
+    found.sort(key=lambda t: (t[0], -(t[1] - t[0])))
+    kept: list[tuple[int, int, str]] = []
+    occupied: list[tuple[int, int]] = []
+    for start, end, frag in found:
+        if any(start < e and end > s for s, e in occupied):
+            continue
+        kept.append((start, end, frag))
+        occupied.append((start, end))
+    kept.sort(key=lambda t: t[0])
+    out: list[str] = []
+    i = 0
+    for start, end, frag in kept:
+        out.append(esc(text[i:start]))
+        vi = L15_CLOZE_VI_LC.get(frag.lower(), "")
+        out.append(
+            f'<span class="lr-cloze" data-en="{esc(frag)}" data-vi="{esc(vi)}">{esc(frag)}</span>'
+        )
+        i = end
+    out.append(esc(text[i:]))
+    return "".join(out)
+
+
 def _think_card_html(
     q: str,
     ideas: list[dict],
@@ -12926,6 +13155,42 @@ def _lesson13_think_practice_html() -> str:
         </div>"""
 
 
+def _lesson14_think_card_html(q: str, ideas: list[dict]) -> str:
+    return _think_card_html(
+        q, ideas, hl_fn=_l14_hl, cloze_fn=_l14_cloze_html, lesson_n="14"
+    )
+
+
+def _lesson14_think_practice_html() -> str:
+    cards = [
+        _lesson14_think_card_html(q, ideas) for q, ideas in _l14_think.LESSON14_THINK_QS
+    ]
+    return f"""
+        <div class="lr-food-examples lr-think-examples" id="food-examples-l14-think">
+          <h3 class="lr-core-subtitle">Ví dụ Food · Tư duy 3 ý</h3>
+          <p class="lr-mm-hint">Phát triển <strong>ý</strong> trước khi xem đoạn mẫu. Chọn 1–2 ý, lắp từ khóa Lesson 14, rồi bấm <strong>Reveal answer</strong>.</p>
+{chr(10).join(cards)}
+        </div>"""
+
+
+def _lesson15_think_card_html(q: str, ideas: list[dict]) -> str:
+    return _think_card_html(
+        q, ideas, hl_fn=_l15_hl, cloze_fn=_l15_cloze_html, lesson_n="15"
+    )
+
+
+def _lesson15_think_practice_html() -> str:
+    cards = [
+        _lesson15_think_card_html(q, ideas) for q, ideas in _l15_think.LESSON15_THINK_QS
+    ]
+    return f"""
+        <div class="lr-food-examples lr-think-examples" id="food-examples-l15-think">
+          <h3 class="lr-core-subtitle">Ví dụ Food · Tư duy 3 ý</h3>
+          <p class="lr-mm-hint">Phát triển <strong>ý</strong> trước khi xem đoạn mẫu. Chọn 1–2 ý, lắp từ khóa Lesson 15, rồi bấm <strong>Reveal answer</strong>.</p>
+{chr(10).join(cards)}
+        </div>"""
+
+
 def _lesson2_practice_html(
     *,
     open_attr: str = "",
@@ -13531,8 +13796,16 @@ def lesson_highlights_html(
         if include_food_examples
         else ""
     )
-    examples_l14 = food_lesson14_examples_html() if include_food_examples else ""
-    examples_l15 = food_lesson15_examples_html() if include_food_examples else ""
+    examples_l14 = (
+        _lesson14_think_practice_html()
+        if include_food_examples
+        else ""
+    )
+    examples_l15 = (
+        _lesson15_think_practice_html()
+        if include_food_examples
+        else ""
+    )
     examples_l16 = food_lesson16_examples_html() if include_food_examples else ""
     examples_l17 = food_lesson17_examples_html() if include_food_examples else ""
     vn = {
