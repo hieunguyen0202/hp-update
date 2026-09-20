@@ -89,6 +89,13 @@ _l11_think = importlib.util.module_from_spec(_l11_spec)
 assert _l11_spec and _l11_spec.loader
 _l11_spec.loader.exec_module(_l11_think)
 
+_l12_spec = importlib.util.spec_from_file_location(
+    "food_r2_l12_think", Path(__file__).with_name("_food_review2_l12_think.py")
+)
+_l12_think = importlib.util.module_from_spec(_l12_spec)
+assert _l12_spec and _l12_spec.loader
+_l12_spec.loader.exec_module(_l12_think)
+
 esc = _gen.esc
 collect_words = _gen.collect_words
 TOPICS = _gen.TOPICS
@@ -11928,6 +11935,107 @@ def _l11_cloze_html(text: str) -> str:
     return "".join(out)
 
 
+L12_CLOZE_VI = {
+    "It's very easy to": "rất dễ để",
+    "It's not really difficult to": "không thực sự khó để",
+    "It's quite challenging to": "khá thử thách để",
+    "It's quite difficult to": "khá khó để",
+    "It's very challenging to": "rất thử thách để",
+    "it's always quite difficult at the beginning": "lúc đầu luôn khá khó",
+    "is not an exception": "không phải ngoại lệ",
+    "at first": "lúc đầu",
+    "after a while": "sau một thời gian",
+    "things begin to get a bit easier": "mọi thứ bắt đầu dễ hơn một chút",
+    "follow a recipe": "làm theo công thức",
+    "cook from scratch": "nấu từ nguyên liệu tươi",
+    "from scratch": "từ nguyên liệu tươi",
+    "prepping vegetables": "sơ chế rau củ",
+    "prepping meat and vegetables": "sơ chế thịt và rau",
+    "prepping of vegetables": "sơ chế rau củ",
+    "simmer": "ninh / hầm lửa nhỏ",
+    "seasoning and blending": "nêm nếm và xay trộn",
+    "cooked to perfection": "nấu chín vừa tới",
+    "common ground": "điểm chung",
+    "local dish": "món địa phương",
+    "fresh ingredients": "nguyên liệu tươi",
+    "home-cooked": "nhà nấu",
+    "grab a quick bite": "ăn vội một chút",
+    "light meal": "bữa ăn nhẹ",
+    "nutritious foods": "thực phẩm bổ dưỡng",
+    "cut down on processed foods": "cắt giảm đồ chế biến sẵn",
+    "balanced diet": "chế độ ăn cân bằng",
+    "health-conscious": "có ý thức sức khỏe",
+    "nearby": "ở gần",
+}
+L12_CLOZE_VI_LC = {k.lower(): v for k, v in L12_CLOZE_VI.items()}
+L12_THINK_EXTRA_PATS = [
+    r"It's very easy to",
+    r"It's not really difficult to",
+    r"It's quite challenging to",
+    r"It's quite difficult to",
+    r"It's very challenging to",
+    r"it's always quite difficult at the beginning",
+    r"is not an exception",
+    r"things begin to get a bit easier",
+    r"after a while",
+    r"At first",
+    r"at first",
+    r"follow a recipe",
+    r"prepping meat and vegetables",
+    r"prepping of vegetables",
+    r"prepping vegetables",
+    r"seasoning and blending",
+    r"fresh ingredients",
+    r"home-cooked",
+    r"grab a quick bite",
+    r"light meal",
+    r"local dish",
+    r"nearby",
+]
+
+
+def _l12_pats() -> list[re.Pattern[str]]:
+    return [
+        re.compile(p, re.I)
+        for p in L12_THINK_EXTRA_PATS
+        + (_food_notes.VOCAB_EXAMPLE_HIGHLIGHTS.get("12") or [])
+    ]
+
+
+def _l12_hl(text: str) -> str:
+    return _highlight_vocab_in_example(text, _l12_pats())
+
+
+def _l12_cloze_html(text: str) -> str:
+    pats = _l12_pats()
+    if not text or not pats:
+        return esc(text)
+    found: list[tuple[int, int, str]] = []
+    for pat in pats:
+        for m in pat.finditer(text):
+            found.append((m.start(), m.end(), m.group(0)))
+    found.sort(key=lambda t: (t[0], -(t[1] - t[0])))
+    kept: list[tuple[int, int, str]] = []
+    occupied: list[tuple[int, int]] = []
+    for start, end, frag in found:
+        if any(start < e and end > s for s, e in occupied):
+            continue
+        kept.append((start, end, frag))
+        occupied.append((start, end))
+    kept.sort(key=lambda t: t[0])
+    out: list[str] = []
+    i = 0
+    for start, end, frag in kept:
+        out.append(esc(text[i:start]))
+        vi = L12_CLOZE_VI_LC.get(frag.lower(), "")
+        out.append(
+            f'<span class="lr-cloze" data-en="{esc(frag)}" data-vi="{esc(vi)}">{esc(frag)}</span>'
+        )
+        i = end
+    out.append(esc(text[i:]))
+    return "".join(out)
+
+
 def _think_card_html(
     q: str,
     ideas: list[dict],
@@ -12686,6 +12794,24 @@ def _lesson11_think_practice_html() -> str:
         </div>"""
 
 
+def _lesson12_think_card_html(q: str, ideas: list[dict]) -> str:
+    return _think_card_html(
+        q, ideas, hl_fn=_l12_hl, cloze_fn=_l12_cloze_html, lesson_n="12"
+    )
+
+
+def _lesson12_think_practice_html() -> str:
+    cards = [
+        _lesson12_think_card_html(q, ideas) for q, ideas in _l12_think.LESSON12_THINK_QS
+    ]
+    return f"""
+        <div class="lr-food-examples lr-think-examples" id="food-examples-l12-think">
+          <h3 class="lr-core-subtitle">Ví dụ Food · Tư duy 3 ý</h3>
+          <p class="lr-mm-hint">Phát triển <strong>ý</strong> trước khi xem đoạn mẫu. Chọn 1–2 ý, lắp từ khóa Lesson 12, rồi bấm <strong>Reveal answer</strong>.</p>
+{chr(10).join(cards)}
+        </div>"""
+
+
 def _lesson2_practice_html(
     *,
     open_attr: str = "",
@@ -13281,7 +13407,11 @@ def lesson_highlights_html(
         if include_food_examples
         else ""
     )
-    examples_l12 = food_lesson12_examples_html() if include_food_examples else ""
+    examples_l12 = (
+        _lesson12_think_practice_html()
+        if include_food_examples
+        else ""
+    )
     examples_l13 = food_lesson13_examples_html() if include_food_examples else ""
     examples_l14 = food_lesson14_examples_html() if include_food_examples else ""
     examples_l15 = food_lesson15_examples_html() if include_food_examples else ""
