@@ -96,6 +96,13 @@ _l12_think = importlib.util.module_from_spec(_l12_spec)
 assert _l12_spec and _l12_spec.loader
 _l12_spec.loader.exec_module(_l12_think)
 
+_l13_spec = importlib.util.spec_from_file_location(
+    "food_r2_l13_think", Path(__file__).with_name("_food_review2_l13_think.py")
+)
+_l13_think = importlib.util.module_from_spec(_l13_spec)
+assert _l13_spec and _l13_spec.loader
+_l13_spec.loader.exec_module(_l13_think)
+
 esc = _gen.esc
 collect_words = _gen.collect_words
 TOPICS = _gen.TOPICS
@@ -12036,6 +12043,95 @@ def _l12_cloze_html(text: str) -> str:
     return "".join(out)
 
 
+L13_CLOZE_VI = {
+    "Generally speaking, I love": "nói chung tôi thích",
+    "but the only thing I don't really like about": "nhưng điều duy nhất tôi không thực sự thích ở",
+    "Apart from that, I'm fine": "ngoài điều đó ra thì tôi ổn",
+    "There are a few things that I don't really love about": "có vài điều tôi không thực sự thích ở",
+    "Firstly": "thứ nhất",
+    "Secondly": "thứ hai",
+    "too crowded": "quá đông đúc",
+    "malodorous": "nặng mùi / khó chịu",
+    "can't really enjoy the meal": "không thể thưởng thức trọn vẹn bữa ăn",
+    "home-cooked": "nhà nấu",
+    "prepping vegetables": "sơ chế rau củ",
+    "strong tastes": "vị nồng",
+    "overpower other ingredients": "lấn át các nguyên liệu khác",
+    "overwhelming": "quá mạnh, choáng ngợp",
+    "follow a recipe": "làm theo công thức",
+    "greasy take-away": "đồ mang về nhiều dầu",
+    "greasy take-aways": "đồ mang về nhiều dầu",
+    "sluggish": "uể oải",
+    "balanced diet": "chế độ ăn cân bằng",
+    "take a heavy toll on my health": "giáng đòn nặng lên sức khỏe",
+    "restrain my hunger": "kiềm chế cơn đói",
+    "picky eater": "người kén ăn",
+    "monotonous": "nhàm chán, đơn điệu",
+    "nutritious foods": "thực phẩm bổ dưỡng",
+}
+L13_CLOZE_VI_LC = {k.lower(): v for k, v in L13_CLOZE_VI.items()}
+L13_THINK_EXTRA_PATS = [
+    r"Generally speaking, I love",
+    r"but the only thing I don't really like about",
+    r"Apart from that, I'm fine",
+    r"There are a few things that I don't really love about",
+    r"can't really enjoy the meal",
+    r"take a heavy toll on my health",
+    r"restrain my hunger",
+    r"overpower other ingredients",
+    r"strong tastes",
+    r"greasy take-aways?",
+    r"prepping vegetables",
+    r"too crowded",
+    r"home-cooked",
+    r"follow a recipe",
+    r"Firstly",
+    r"Secondly",
+]
+
+
+def _l13_pats() -> list[re.Pattern[str]]:
+    return [
+        re.compile(p, re.I)
+        for p in L13_THINK_EXTRA_PATS
+        + (_food_notes.VOCAB_EXAMPLE_HIGHLIGHTS.get("13") or [])
+    ]
+
+
+def _l13_hl(text: str) -> str:
+    return _highlight_vocab_in_example(text, _l13_pats())
+
+
+def _l13_cloze_html(text: str) -> str:
+    pats = _l13_pats()
+    if not text or not pats:
+        return esc(text)
+    found: list[tuple[int, int, str]] = []
+    for pat in pats:
+        for m in pat.finditer(text):
+            found.append((m.start(), m.end(), m.group(0)))
+    found.sort(key=lambda t: (t[0], -(t[1] - t[0])))
+    kept: list[tuple[int, int, str]] = []
+    occupied: list[tuple[int, int]] = []
+    for start, end, frag in found:
+        if any(start < e and end > s for s, e in occupied):
+            continue
+        kept.append((start, end, frag))
+        occupied.append((start, end))
+    kept.sort(key=lambda t: t[0])
+    out: list[str] = []
+    i = 0
+    for start, end, frag in kept:
+        out.append(esc(text[i:start]))
+        vi = L13_CLOZE_VI_LC.get(frag.lower(), "")
+        out.append(
+            f'<span class="lr-cloze" data-en="{esc(frag)}" data-vi="{esc(vi)}">{esc(frag)}</span>'
+        )
+        i = end
+    out.append(esc(text[i:]))
+    return "".join(out)
+
+
 def _think_card_html(
     q: str,
     ideas: list[dict],
@@ -12812,6 +12908,24 @@ def _lesson12_think_practice_html() -> str:
         </div>"""
 
 
+def _lesson13_think_card_html(q: str, ideas: list[dict]) -> str:
+    return _think_card_html(
+        q, ideas, hl_fn=_l13_hl, cloze_fn=_l13_cloze_html, lesson_n="13"
+    )
+
+
+def _lesson13_think_practice_html() -> str:
+    cards = [
+        _lesson13_think_card_html(q, ideas) for q, ideas in _l13_think.LESSON13_THINK_QS
+    ]
+    return f"""
+        <div class="lr-food-examples lr-think-examples" id="food-examples-l13-think">
+          <h3 class="lr-core-subtitle">Ví dụ Food · Tư duy 3 ý</h3>
+          <p class="lr-mm-hint">Phát triển <strong>ý</strong> trước khi xem đoạn mẫu. Chọn 1–2 ý, lắp từ khóa Lesson 13, rồi bấm <strong>Reveal answer</strong>.</p>
+{chr(10).join(cards)}
+        </div>"""
+
+
 def _lesson2_practice_html(
     *,
     open_attr: str = "",
@@ -13412,7 +13526,11 @@ def lesson_highlights_html(
         if include_food_examples
         else ""
     )
-    examples_l13 = food_lesson13_examples_html() if include_food_examples else ""
+    examples_l13 = (
+        _lesson13_think_practice_html()
+        if include_food_examples
+        else ""
+    )
     examples_l14 = food_lesson14_examples_html() if include_food_examples else ""
     examples_l15 = food_lesson15_examples_html() if include_food_examples else ""
     examples_l16 = food_lesson16_examples_html() if include_food_examples else ""
