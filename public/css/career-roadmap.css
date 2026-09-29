@@ -161,6 +161,7 @@
   top: 12px;
   bottom: 0;
   left: 50%;
+  z-index: 1;
   width: 2px;
   transform: translateX(-50%);
   background: linear-gradient(
