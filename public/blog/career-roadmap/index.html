@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../css/docs.css?v=career24">
-  <link rel="stylesheet" href="../../css/career-roadmap.css?v=career24">
+  <link rel="stylesheet" href="../../css/career-roadmap.css?v=career26">
 </head>
 <body class="docs">
   <div class="cursor" id="cursor"></div>
@@ -49,6 +49,8 @@
       </div>
 
       <div class="kk-legend" aria-label="Track colors">
+        <span class="kk-legend__item kk-legend__item--sd">System Design</span>
+        <span class="kk-legend__item kk-legend__item--ai">AI</span>
         <span class="kk-legend__item kk-legend__item--tech">Tech</span>
         <span class="kk-legend__item kk-legend__item--lead">Leadership</span>
         <span class="kk-legend__item kk-legend__item--biz">Business / Finance</span>
@@ -95,7 +97,7 @@
             <img class="kk-phase__node-icon" src="icons/calendar-q1.svg" alt="" width="36" height="36">
             <span class="kk-phase__node-label">Q1 · System Design + AI<br><small>Months 1–4 · Sep–Dec 2026</small></span>
           </div>
-          <div class="kk-phase__rail kk-phase__rail--left">
+          <div class="kk-phase__rail kk-phase__rail--left kk-phase__rail--sd">
             <p class="kk-rail-label">Practical System Design</p>
             <a class="kk-card kk-card--tech" href="https://www.youtube.com/watch?v=SE2KF-vxvS0&amp;list=PLPOrzEadD7Ew" target="_blank" rel="noopener noreferrer">
               <img class="kk-card__thumb" src="https://i.ytimg.com/vi/SE2KF-vxvS0/mqdefault.jpg" alt="" width="96" height="54" loading="lazy">
@@ -193,7 +195,7 @@
               <span class="kk-card__go" aria-hidden="true">↗</span>
             </a>
           </div>
-          <div class="kk-phase__rail kk-phase__rail--right">
+          <div class="kk-phase__rail kk-phase__rail--right kk-phase__rail--ai">
             <p class="kk-rail-label">Learn AI with KodeKloud</p>
             <a class="kk-card kk-card--tech" href="https://www.youtube.com/watch?v=ZaPbP9DwBOE&amp;list=PL2We04F3Y_43f3x3n9pawcEuAwru7bcMG" target="_blank" rel="noopener noreferrer">
               <img class="kk-card__thumb" src="https://i.ytimg.com/vi/ZaPbP9DwBOE/mqdefault.jpg" alt="" width="96" height="54" loading="lazy">
@@ -906,6 +908,9 @@
       }
 
       function trackLineColor(card) {
+        var rail = card.closest(".kk-phase__rail");
+        if (rail && rail.classList.contains("kk-phase__rail--sd")) return "rgba(59, 130, 246, 0.7)";
+        if (rail && rail.classList.contains("kk-phase__rail--ai")) return "rgba(255, 59, 59, 0.7)";
         if (card.classList.contains("kk-card--lead")) return "rgba(245, 200, 66, 0.28)";
         if (card.classList.contains("kk-card--biz")) return "rgba(255, 77, 154, 0.28)";
         return "rgba(46, 230, 214, 0.28)";
@@ -1002,13 +1007,16 @@
             var isLeft = rail.classList.contains("kk-phase__rail--left");
             var nx = (isLeft ? nr.left : nr.right) - phaseRect.left;
 
-            var cardData = Array.prototype.map.call(cards, function (card) {
+            var cardData = [];
+            Array.prototype.forEach.call(cards, function (card) {
+              if (card.classList.contains("kk-card--extra") && !rail.classList.contains("is-open")) return;
               var rect = card.getBoundingClientRect();
-              return {
+              if (rect.height < 1) return;
+              cardData.push({
                 cy: rect.top - phaseRect.top + rect.height / 2,
                 edge: isLeft ? rect.right - phaseRect.left : rect.left - phaseRect.left,
                 color: trackLineColor(card),
-              };
+              });
             });
 
             drawRailBus(svg, nx, ny, cardData);
@@ -1021,6 +1029,28 @@
         clearTimeout(redrawTimer);
         redrawTimer = setTimeout(drawConnectors, 50);
       }
+
+      var previewCount = 5;
+      document.querySelectorAll(".kk-phase__rail--sd, .kk-phase__rail--ai").forEach(function (rail) {
+        var cards = rail.querySelectorAll(":scope > .kk-card");
+        if (cards.length <= previewCount) return;
+        var extra = cards.length - previewCount;
+        for (var i = previewCount; i < cards.length; i++) cards[i].classList.add("kk-card--extra");
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "kk-rail-more";
+        btn.setAttribute("aria-expanded", "false");
+        btn.setAttribute("aria-label", "Show " + extra + " more lessons");
+        btn.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        rail.appendChild(btn);
+        btn.addEventListener("click", function () {
+          var open = btn.getAttribute("aria-expanded") === "true";
+          btn.setAttribute("aria-expanded", open ? "false" : "true");
+          btn.setAttribute("aria-label", open ? "Show " + extra + " more lessons" : "Show fewer lessons");
+          rail.classList.toggle("is-open", !open);
+          scheduleRedraw();
+        });
+      });
 
       drawConnectors();
       window.addEventListener("resize", scheduleRedraw);

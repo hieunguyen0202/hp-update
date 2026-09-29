@@ -21,6 +21,14 @@
   --kk-goal-2: #ff8fa3;
   --kk-goal-soft: rgba(255, 77, 106, 0.16);
   --kk-goal-glow: rgba(255, 77, 106, 0.35);
+
+  --kk-sd: #3b82f6;
+  --kk-sd-2: #7cb3ff;
+  --kk-sd-soft: rgba(59, 130, 246, 0.16);
+
+  --kk-ai: #ff3b3b;
+  --kk-ai-2: #ff8a8a;
+  --kk-ai-soft: rgba(255, 59, 59, 0.16);
 }
 
 .kk-legend {
@@ -56,6 +64,18 @@
   color: var(--kk-biz-2);
   border-color: var(--kk-biz);
   background: var(--kk-biz-soft);
+}
+
+.kk-legend__item--sd {
+  color: var(--kk-sd-2);
+  border-color: var(--kk-sd);
+  background: var(--kk-sd-soft);
+}
+
+.kk-legend__item--ai {
+  color: var(--kk-ai-2);
+  border-color: var(--kk-ai);
+  background: var(--kk-ai-soft);
 }
 
 .career-estimator--compact {
@@ -259,6 +279,79 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--kk-tech-2);
+}
+
+.kk-phase__rail--sd .kk-rail-label,
+.kk-phase__rail--sd .kk-card__go {
+  color: var(--kk-sd-2);
+}
+
+.kk-phase__rail--sd .kk-card--tech,
+.kk-phase__rail--sd a.kk-card--tech:hover {
+  border-color: var(--kk-sd);
+}
+
+.kk-phase__rail--sd a.kk-card--tech:hover {
+  border-color: var(--kk-sd-2);
+}
+
+.kk-phase__rail--ai .kk-rail-label,
+.kk-phase__rail--ai .kk-card__go {
+  color: var(--kk-ai-2);
+}
+
+.kk-phase__rail--ai .kk-card--tech,
+.kk-phase__rail--ai a.kk-card--tech:hover {
+  border-color: var(--kk-ai);
+}
+
+.kk-phase__rail--ai a.kk-card--tech:hover {
+  border-color: var(--kk-ai-2);
+}
+
+.kk-card.kk-card--extra {
+  display: none !important;
+}
+
+.kk-phase__rail.is-open .kk-card.kk-card--extra {
+  display: flex !important;
+}
+
+.kk-rail-more {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  margin-top: 2px;
+  padding: 0;
+  border-radius: 999px;
+  border: 1px solid rgba(226, 232, 240, 0.28);
+  background: rgba(12, 14, 22, 0.94);
+  color: #e2e8f0;
+  cursor: pointer;
+}
+
+.kk-rail-more svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+  transition: transform 0.15s ease;
+}
+
+.kk-rail-more[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
+.kk-phase__rail--sd .kk-rail-more {
+  border-color: var(--kk-sd);
+  color: var(--kk-sd-2);
+}
+
+.kk-phase__rail--ai .kk-rail-more {
+  border-color: var(--kk-ai);
+  color: var(--kk-ai-2);
 }
 
 /* Q8 finale */
