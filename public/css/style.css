@@ -923,16 +923,17 @@ section {
 
 .cert-track {
   position: relative;
+  display: flex;
   width: 100%;
-  min-width: 1000px;
-  height: 158px;
+  min-width: 1040px;
+  height: 188px;
 }
 
 .cert-rail {
   position: absolute;
-  left: 6%;
-  right: 9%;
-  top: 76px;
+  left: calc(100% / 16);
+  right: calc(100% / 16);
+  top: 102px;
   height: 2px;
   background: linear-gradient(
     90deg,
@@ -945,11 +946,10 @@ section {
 }
 
 .cert-node {
-  position: absolute;
-  left: var(--at);
-  top: 0;
-  width: 72px;
-  transform: translateX(-50%);
+  position: relative;
+  z-index: 1;
+  flex: 1 1 0;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -962,13 +962,13 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 58px;
-  height: 58px;
+  width: 84px;
+  height: 84px;
 }
 
 .cert-badge img {
-  width: 52px;
-  height: 52px;
+  width: 78px;
+  height: 78px;
   object-fit: contain;
   transition: transform 0.22s ease;
   filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.45));
@@ -1082,7 +1082,7 @@ section {
 }
 
 .cert-node:first-child .cert-tip::after {
-  left: 22px;
+  left: 37px;
   transform: none;
 }
 
@@ -1099,7 +1099,7 @@ section {
 
 .cert-node:last-child .cert-tip::after {
   left: auto;
-  right: 18px;
+  right: 37px;
   transform: none;
 }
 
