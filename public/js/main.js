@@ -173,85 +173,10 @@
 
   const stackFlow = document.getElementById("stackFlow");
   if (stackFlow) {
-    const svg = stackFlow.querySelector(".flow-svg");
-    const VB_W = 1040;
-    const VB_H = 500;
-    const boxOf = (id) => {
-      const el = stackFlow.querySelector(`[data-node="${id}"]`);
-      const root = stackFlow.getBoundingClientRect();
-      const rect = el.parentElement.getBoundingClientRect();
-      const x = (n) => ((n - root.left) / root.width) * VB_W;
-      const y = (n) => ((n - root.top) / root.height) * VB_H;
-      return {
-        cx: x(rect.left + rect.width / 2),
-        cy: y(rect.top + rect.height / 2),
-        l: x(rect.left),
-        r: x(rect.right),
-        t: y(rect.top),
-        b: y(rect.bottom),
-      };
-    };
-    const setPath = (id, d) => {
-      const el = svg.querySelector("#" + id);
-      if (el) el.setAttribute("d", d);
-    };
-    const across = (a, b) => {
-      const y = (a.cy + b.cy) / 2;
-      return `M ${a.r + 10} ${y} H ${b.l - 10}`;
-    };
-    const measure = () => {
-      const root = stackFlow.getBoundingClientRect();
-      if (root.width < 40) return;
-      const gitlab = boxOf("gitlab");
-      const trivy = boxOf("trivy");
-      const argocd = boxOf("argocd");
-      const k8s = boxOf("k8s");
-      const openstack = boxOf("openstack");
-      const kro = boxOf("kro");
-      const kubescape = boxOf("kubescape");
-      const grafana = boxOf("grafana");
-      const gap = 10;
-
-      setPath("pCommit", across(gitlab, trivy));
-      setPath("pScan", across(trivy, argocd));
-      setPath("pSync", across(argocd, k8s));
-      setPath("pCloud", across(openstack, kro));
-
-      const pinX = k8s.l + (k8s.r - k8s.l) * 0.32;
-      const watchX = k8s.l + (k8s.r - k8s.l) * 0.7;
-      const r = 16;
-      const riseTop = k8s.b + gap;
-      const riseY = kro.cy;
-      if (pinX - kro.r > r + 20 && riseY - riseTop > r + 12) {
-        setPath(
-          "pProvision",
-          `M ${kro.r + gap} ${riseY} H ${pinX - r} A ${r} ${r} 0 0 0 ${pinX} ${riseY - r} V ${riseTop}`
-        );
-      } else {
-        setPath("pProvision", `M ${kro.r + gap} ${riseY} H ${pinX} V ${riseTop}`);
-      }
-
-      const span = Math.min(kubescape.t, grafana.t) - (k8s.b + gap);
-      const busY = k8s.b + gap + Math.max(36, span * 0.55);
-      const stemTop = k8s.b + gap;
-      const leftX = kubescape.cx;
-      const rightX = grafana.cx;
-      const cardTop = (node) => node.t - gap;
-      setPath(
-        "pWatch",
-        [
-          `M ${watchX} ${stemTop} V ${busY}`,
-          `M ${watchX} ${busY} H ${leftX} V ${cardTop(kubescape)}`,
-          `M ${watchX} ${busY} H ${rightX} V ${cardTop(grafana)}`,
-        ].join(" ")
-      );
-    };
-
     let played = false;
     const play = () => {
       if (played) return;
       played = true;
-      measure();
       if (reduceMotion) {
         stackFlow.classList.add("is-on");
         return;
@@ -262,7 +187,6 @@
     };
 
     const watch = () => {
-      measure();
       if (reduceMotion) {
         stackFlow.classList.add("is-on");
         return;
@@ -273,12 +197,11 @@
           play();
           flowObserver.disconnect();
         },
-        { threshold: 0.42 }
+        { threshold: 0.28 }
       );
       flowObserver.observe(stackFlow);
     };
 
-    window.addEventListener("resize", measure);
     setTimeout(watch, reduceMotion ? 0 : 3700);
   }
 
