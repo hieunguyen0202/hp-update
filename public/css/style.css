@@ -1257,10 +1257,19 @@ section {
 }
 
 .arch-zone--cluster {
-  border-color: rgba(34, 211, 238, 0.45);
-  background: rgba(34, 211, 238, 0.045);
+  /* match other panels — only LIVE badge signals special state */
+  border-color: rgba(161, 161, 170, 0.22);
+  background: rgba(255, 255, 255, 0.03);
   width: 100%;
   gap: 8px;
+}
+
+.arch-title-badges {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  margin-left: auto;
 }
 
 .arch-zone-title {
@@ -1450,31 +1459,22 @@ section {
 
 .arch-cluster-map {
   display: grid;
-  grid-template-columns: minmax(160px, 1.1fr) minmax(28px, 0.6fr) minmax(180px, 1.3fr) minmax(28px, 0.6fr) minmax(140px, 1fr);
+  grid-template-columns: minmax(150px, 1.05fr) minmax(28px, 0.55fr) minmax(200px, 1.35fr) minmax(28px, 0.55fr) minmax(150px, 1fr);
   grid-template-rows: auto auto;
   grid-template-areas:
     "ingress h1 pods h2 side"
-    ".       .  mlink .  side";
-  align-items: center;
+    ".       .  mlink mlink side";
+  align-items: stretch;
   column-gap: 8px;
-  row-gap: 8px;
+  row-gap: 10px;
   width: 100%;
   padding: 4px 2px 2px;
 }
 
-.arch-node--ingress {
-  align-items: stretch;
-  width: 100%;
-}
-
-.arch-node--pods {
-  width: 100%;
-}
-
 .arch-node--ingress { grid-area: ingress; }
-.arch-hlink--route { grid-area: h1; }
+.arch-hlink--route { grid-area: h1; align-self: center; }
 .arch-node--pods { grid-area: pods; }
-.arch-hlink--db { grid-area: h2; }
+.arch-hlink--db { grid-area: h2; align-self: center; }
 .arch-mlink { grid-area: mlink; }
 
 .arch-side-stack {
@@ -1510,13 +1510,6 @@ section {
   letter-spacing: 0.3px;
   text-transform: uppercase;
   color: #93c5fd;
-}
-
-.arch-node--pods {
-  padding: 6px 8px;
-  border-radius: 8px;
-  border: 1px solid rgba(96, 165, 250, 0.28);
-  background: rgba(37, 99, 235, 0.08);
 }
 
 .arch-pods {
@@ -1612,33 +1605,70 @@ section {
 .arch-mlink {
   display: flex;
   align-items: center;
-  justify-content: center;
-  align-self: stretch;
+  justify-content: flex-start;
+  align-self: center;
   position: relative;
-  min-height: 28px;
+  min-height: 24px;
   width: 100%;
+  padding-left: 18%;
+  box-sizing: border-box;
 }
 
+/* vertical drop from pods */
 .arch-mlink::before {
   content: "";
   position: absolute;
-  top: -6px;
-  bottom: 50%;
-  left: 50%;
+  top: -12px;
+  height: 12px;
+  left: 18%;
   width: 1.5px;
-  background: rgba(52, 211, 153, 0.7);
+  background: rgba(52, 211, 153, 0.75);
   transform: translateX(-50%);
 }
 
+/* horizontal run into Control plane */
 .arch-mlink::after {
   content: "";
   position: absolute;
   top: 50%;
-  left: 50%;
-  right: -12px;
+  left: 18%;
+  right: 0;
   height: 1.5px;
-  background: rgba(52, 211, 153, 0.7);
+  background: rgba(52, 211, 153, 0.75);
   box-shadow: 0 0 6px rgba(52, 211, 153, 0.3);
+  transform: translateY(-50%);
+}
+
+.arch-mlink .arch-lock {
+  margin-left: 0;
+}
+
+.arch-side-stack .arch-subbox--cp {
+  position: relative;
+}
+
+/* tip of mTLS line into control-plane box */
+.arch-side-stack .arch-subbox--cp::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  width: 10px;
+  height: 1.5px;
+  background: rgba(52, 211, 153, 0.75);
+  transform: translateY(-50%);
+}
+
+.arch-side-stack .arch-subbox--cp::after {
+  content: "";
+  position: absolute;
+  left: -3px;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  border-right: 1.5px solid rgba(52, 211, 153, 0.95);
+  border-top: 1.5px solid rgba(52, 211, 153, 0.95);
+  transform: translateY(-50%) rotate(45deg);
 }
 
 .arch-lock {
@@ -1747,13 +1777,15 @@ section {
   color: #71717a;
 }
 
-.arch-zone--eq .arch-pipeline {
+.arch-zone--eq .arch-subbox--pipe,
+.arch-zone--eq .arch-fill.arch-subbox {
   width: 100%;
-  flex: 1;
 }
 
-.arch-zone--eq .arch-note {
-  margin-top: auto;
+.arch-subbox--pipe {
+  border-style: dashed;
+  border-color: rgba(34, 211, 238, 0.32);
+  background: rgba(34, 211, 238, 0.03);
 }
 
 .arch-note {
@@ -1881,10 +1913,15 @@ section {
       "ingress"
       "h1"
       "pods"
+      "mlink"
       "h2"
-      "side"
-      "mlink";
-    justify-items: center;
+      "side";
+    justify-items: stretch;
+  }
+
+  .arch-side-stack .arch-subbox--cp::before,
+  .arch-side-stack .arch-subbox--cp::after {
+    display: none;
   }
 
   .arch-side-stack {
