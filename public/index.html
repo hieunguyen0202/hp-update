@@ -8,7 +8,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=3">
+  <link rel="stylesheet" href="css/style.css?v=6">
 </head>
 <body>
   <div class="cursor" id="cursor"></div>
@@ -349,30 +349,107 @@
 
     <section id="stack">
       <div class="section-label"># 05. STACK</div>
-      <div class="stack-grid">
-        <div class="stack-card reveal">
-          <h3><span class="dot-acc"></span>Orchestration</h3>
-          <div class="stack-tags"><span>Kubernetes</span><span>AKS</span><span>GKE</span><span>EKS</span><span>OpenShift</span><span>Helm</span><span>Docker</span></div>
-        </div>
-        <div class="stack-card reveal">
-          <h3><span class="dot-acc"></span>CI/CD &amp; GitOps</h3>
-          <div class="stack-tags"><span>Jenkins</span><span>GitHub Actions</span><span>GitLab CI</span><span>ArgoCD</span><span>Git</span></div>
-        </div>
-        <div class="stack-card reveal">
-          <h3><span class="dot-acc"></span>Infrastructure as Code</h3>
-          <div class="stack-tags"><span>Terraform</span><span>Ansible</span><span>Helm Charts</span></div>
-        </div>
-        <div class="stack-card reveal">
-          <h3><span class="dot-acc"></span>Cloud Platforms</h3>
-          <div class="stack-tags"><span>Azure</span><span>AWS</span><span>GCP</span><span>IAM</span><span>VPC</span><span>Key Vault</span></div>
-        </div>
-        <div class="stack-card reveal">
-          <h3><span class="dot-acc"></span>Observability &amp; Security</h3>
-          <div class="stack-tags"><span>Prometheus</span><span>Grafana</span><span>Loki</span><span>Trivy</span><span>Snyk</span><span>SonarQube</span></div>
-        </div>
-        <div class="stack-card reveal">
-          <h3><span class="dot-acc"></span>Systems</h3>
-          <div class="stack-tags"><span>Linux</span><span>Bash</span><span>Python</span><span>Nginx</span><span>MySQL</span><span>Networking</span></div>
+      <p class="hero-desc" style="max-width:640px;margin-bottom:0">
+        Preview the change, scan it, then sync. A branch that fails the gate never reaches the cluster.
+      </p>
+      <div class="flow-scroll">
+        <div class="flow" id="stackFlow">
+          <svg class="flow-svg" viewBox="0 0 1040 540" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <path class="flow-draw flow-rail" pathLength="1" style="--d:.05s" d="M188 270 H1000"/>
+            <circle class="flow-dot" style="--d:.35s" cx="210" cy="270" r="5"/>
+            <circle class="flow-dot" style="--d:.55s" cx="390" cy="270" r="4"/>
+            <circle class="flow-dot" style="--d:.9s" cx="700" cy="270" r="4"/>
+            <circle class="flow-dot flow-dot--land" style="--d:1.7s" cx="980" cy="270" r="5"/>
+
+            <path class="flow-dash" style="--d:.5s" d="M390 270 V188"/>
+            <path class="flow-dash" style="--d:.75s" d="M452 168 C480 120, 490 96, 500 78"/>
+            <path class="flow-draw flow-ok" pathLength="1" style="--d:1.05s" d="M690 78 H910 C1010 78, 1024 170, 980 270"/>
+
+            <path class="flow-dash" style="--d:.7s" d="M210 270 V348"/>
+            <path class="flow-dash" style="--d:.95s" d="M210 396 V430"/>
+            <path class="flow-draw flow-bad" pathLength="1" style="--d:1.2s" d="M300 454 H640"/>
+
+            <path class="flow-dash" style="--d:1.15s" d="M700 270 V378 H660"/>
+            <path class="flow-dash" style="--d:1.4s" d="M760 400 L820 454"/>
+          </svg>
+
+          <div class="flow-abs" style="left:8px;top:50%;transform:translateY(-50%)">
+            <div class="flow-live flow-piece" style="--d:.2s">
+              <span class="flow-live-tag">LIVE</span>
+              <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><circle cx="8" cy="8" r="2" fill="#326ce5"/><path fill="#326ce5" d="M8 1.2l.9 2.2 2.2-.2-1.2 1.8.8 2.1L8 6.2 5.3 7.1l.8-2.1L4.9 3.2l2.2.2zM8 14.8l-.9-2.2-2.2.2 1.2-1.8-.8-2.1L8 9.8l2.7-.9-.8 2.1 1.2 1.8-2.2-.2zM1.2 8l2.2-.9-.2-2.2 1.8 1.2 2.1-.8L6.2 8l.9 2.7-2.1-.8-1.8 1.2.2-2.2zM14.8 8l-2.2.9.2 2.2-1.8-1.2-2.1.8L9.8 8l-.9-2.7 2.1.8 1.8-1.2-.2 2.2z"/></svg>
+              Kubernetes
+            </div>
+          </div>
+
+          <div class="flow-abs" style="left:20.2%;top:43%"><span class="flow-time flow-piece" style="--d:.4s">09:45</span></div>
+          <div class="flow-abs" style="left:37.5%;top:43%"><span class="flow-time flow-piece" style="--d:.55s">11:45</span></div>
+          <div class="flow-abs" style="left:67.3%;top:43%"><span class="flow-time flow-piece" style="--d:.9s">16:45</span></div>
+          <div class="flow-abs" style="left:94.2%;top:43%"><span class="flow-time flow-piece" style="--d:1.7s">18:45</span></div>
+
+          <div class="flow-abs" style="left:37.5%;top:31%">
+            <div class="flow-pill flow-piece" style="--d:.6s">
+              <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="#e24329" d="M8.2 1.4l5.2 3.2v6.4l-5.2 3.2L3 11V4.6z"/><path fill="#fc6d26" d="M8.2 6.2l3.2 1.9v3.2L8.2 13V6.2z"/><path fill="#fca326" d="M8.2 6.2V13L5 11.1V7.9z"/></svg>
+              GitLab
+            </div>
+          </div>
+          <div class="flow-abs" style="left:56%;top:14.5%">
+            <div class="flow-card flow-piece" style="--d:.9s">
+              <span class="flow-tag">PREVIEW</span>
+              <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="#7b42bc" d="M5 2h6l3 5.2L8 14 2 7.2z"/><path fill="#c49af0" d="M5 2l3 5.2L5 2zm6 0L8 7.2 11 2z"/></svg>
+              Terraform
+            </div>
+          </div>
+          <div class="flow-abs" style="left:73%;top:14.5%">
+            <div class="flow-status flow-status--ok flow-piece" style="--d:1.25s">
+              <i>✓</i>
+              CNCF
+            </div>
+          </div>
+          <div class="flow-abs" style="left:86%;top:14.5%">
+            <div class="flow-status flow-status--ok flow-piece" style="--d:1.5s">
+              <i>↑</i>
+              ArgoCD
+            </div>
+          </div>
+
+          <div class="flow-abs" style="left:20.2%;top:68%">
+            <div class="flow-pill flow-piece" style="--d:.8s">
+              <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="#ed1944" stroke-width="1.6"/><circle cx="8" cy="8" r="2.2" fill="#ed1944"/></svg>
+              OpenStack
+            </div>
+          </div>
+          <div class="flow-abs" style="left:20.2%;top:84%">
+            <div class="flow-card flow-piece" style="--d:1.05s">
+              <span class="flow-tag">PREVIEW</span>
+              <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><rect x="2" y="3" width="12" height="9" rx="1.2" fill="#111"/><path stroke="#34d399" stroke-width="1.3" d="M4 8h3M4 10.2h5"/></svg>
+              System
+            </div>
+          </div>
+          <div class="flow-abs" style="left:42%;top:84%">
+            <div class="flow-status flow-status--bad flow-piece" style="--d:1.4s">
+              <i>!</i>
+              Trivy
+            </div>
+          </div>
+          <div class="flow-abs" style="left:56%;top:84%">
+            <div class="flow-status flow-status--bad flow-piece" style="--d:1.65s">
+              <i>×</i>
+              Kubescape
+            </div>
+          </div>
+
+          <div class="flow-abs" style="left:62%;top:70%">
+            <div class="flow-pill flow-piece" style="--d:1.25s">
+              <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="#f46800" d="M8 1.5a6.5 6.5 0 1 0 5.8 9.4 5 5 0 1 1-4.2-8.2A6.5 6.5 0 0 0 8 1.5z"/></svg>
+              Grafana
+            </div>
+          </div>
+          <div class="flow-abs" style="left:84%;top:84%">
+            <div class="flow-card flow-piece" style="--d:1.55s">
+              <span class="flow-tag">PREVIEW</span>
+              LGTM
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -519,6 +596,6 @@
     <div>exit 0 <span>✓</span></div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=2"></script>
 </body>
 </html>

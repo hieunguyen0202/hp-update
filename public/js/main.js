@@ -171,6 +171,21 @@
   );
   document.querySelectorAll(".skills-section").forEach((el) => skillObserver.observe(el));
 
+  const stackFlow = document.getElementById("stackFlow");
+  if (stackFlow) {
+    const flowObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          stackFlow.classList.add("is-on");
+          flowObserver.unobserve(stackFlow);
+        });
+      },
+      { threshold: 0.28 }
+    );
+    flowObserver.observe(stackFlow);
+  }
+
   const animateCount = (el) => {
     const target = Number(el.dataset.count);
     const suffix = el.dataset.suffix || "";
