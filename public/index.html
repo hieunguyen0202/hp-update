@@ -8,7 +8,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=10">
+  <link rel="stylesheet" href="css/style.css?v=13">
 </head>
 <body>
   <div class="cursor" id="cursor"></div>
@@ -345,199 +345,127 @@
           <div class="arch-grid" aria-hidden="true"></div>
 
           <div class="arch-row">
-            <article class="arch-zone arch-piece" style="--d:.1s">
-              <header class="arch-zone-title">Developer</header>
+            <div class="arch-solo arch-piece" style="--d:.1s">
+              <span class="arch-kicker">Developer</span>
               <div class="arch-card">
-                <img class="arch-ico" src="img/stack/developer.svg" alt="" width="24" height="24">
-                <div>
-                  <strong>Platform Eng</strong>
-                  <span>Commit code</span>
-                </div>
+                <img class="arch-ico" src="img/stack/developer.svg" alt="" width="18" height="18">
+                <strong>Platform Eng</strong>
               </div>
-            </article>
+            </div>
 
-            <div class="arch-arrow arch-piece" style="--d:.25s"><span>commit</span></div>
+            <div class="arch-arrow arch-piece" style="--d:.2s"><span>commit</span></div>
 
-            <article class="arch-zone arch-piece" style="--d:.35s">
+            <article class="arch-zone arch-piece" style="--d:.3s">
               <header class="arch-zone-title">Source &amp; CI</header>
               <div class="arch-card">
-                <img class="arch-ico" src="img/stack/gitlab.svg" alt="" width="24" height="24">
-                <div>
-                  <strong>GitLab</strong>
-                  <span>Source control</span>
-                </div>
+                <img class="arch-ico" src="img/stack/gitlab.svg" alt="" width="18" height="18">
+                <strong>GitLab</strong>
               </div>
               <div class="arch-sub">
-                <div class="arch-sub-label">CI Pipeline</div>
+                <div class="arch-sub-label">CI</div>
                 <div class="arch-card arch-card--sm">
-                  <img class="arch-ico" src="img/stack/trivy.svg" alt="" width="22" height="22">
-                  <div>
-                    <strong>Trivy</strong>
-                    <span>Source scan</span>
-                  </div>
+                  <img class="arch-ico" src="img/stack/trivy.svg" alt="" width="16" height="16">
+                  <strong>Trivy</strong>
                 </div>
                 <div class="arch-card arch-card--sm">
-                  <img class="arch-ico" src="img/stack/anchore.png" alt="" width="22" height="22">
-                  <div>
-                    <strong>Anchore</strong>
-                    <span>Image scan</span>
-                  </div>
+                  <img class="arch-ico" src="img/stack/anchore.png" alt="" width="16" height="16">
+                  <strong>Anchore</strong>
                 </div>
                 <div class="arch-card arch-card--sm">
-                  <img class="arch-ico" src="img/stack/kubescape.png" alt="" width="22" height="22">
-                  <div>
-                    <strong>Kubescape</strong>
-                    <span>IaC scan</span>
-                  </div>
+                  <img class="arch-ico" src="img/stack/kubescape.png" alt="" width="16" height="16">
+                  <strong>Kubescape</strong>
                 </div>
               </div>
-              <div class="arch-note arch-note--ok">
-                <i>✓</i>
-                −70% CVE
-              </div>
+              <div class="arch-note arch-note--ok"><i>✓</i> −70% CVE</div>
             </article>
 
-            <div class="arch-arrow arch-piece" style="--d:.7s"><span>manifests</span></div>
+            <div class="arch-arrow arch-piece" style="--d:.55s"><span>manifests</span></div>
 
-            <article class="arch-zone arch-piece" style="--d:.85s">
-              <header class="arch-zone-title">Artifact &amp; GitOps</header>
-              <div class="arch-card">
-                <img class="arch-ico" src="img/stack/docker.svg" alt="" width="24" height="24">
-                <div>
-                  <strong>Registry</strong>
-                  <span>Container images</span>
-                </div>
+            <article class="arch-zone arch-piece" style="--d:.7s">
+              <header class="arch-zone-title">GitOps</header>
+              <div class="arch-card arch-card--sm">
+                <img class="arch-ico" src="img/stack/docker.svg" alt="" width="16" height="16">
+                <strong>Registry</strong>
               </div>
-              <div class="arch-card">
-                <img class="arch-ico" src="img/stack/gitlab.svg" alt="" width="24" height="24">
-                <div>
-                  <strong>Manifests</strong>
-                  <span>GitOps repo</span>
-                </div>
+              <div class="arch-card arch-card--sm">
+                <img class="arch-ico" src="img/stack/gitlab.svg" alt="" width="16" height="16">
+                <strong>Manifests</strong>
               </div>
-              <div class="arch-card">
-                <img class="arch-ico" src="img/stack/argo.svg" alt="" width="24" height="24">
-                <div>
-                  <strong>Argo CD</strong>
-                  <span>Sync / monitor</span>
-                </div>
+              <div class="arch-card arch-card--sm">
+                <img class="arch-ico" src="img/stack/argo.svg" alt="" width="16" height="16">
+                <strong>Argo CD</strong>
               </div>
-              <div class="arch-note arch-note--ok">
-                <i>↑</i>
-                Synced
-              </div>
+              <div class="arch-note arch-note--ok"><i>↑</i> Synced</div>
             </article>
 
-            <div class="arch-arrow arch-piece arch-arrow--green" style="--d:1.2s"><span>provision</span></div>
+            <div class="arch-arrow arch-piece arch-arrow--green" style="--d:.95s"><span>provision</span></div>
 
-            <article class="arch-zone arch-piece" style="--d:1.35s">
-              <header class="arch-zone-title">Infra Control Plane</header>
-              <div class="arch-card">
-                <img class="arch-ico" src="img/stack/kro.svg" alt="" width="24" height="24">
-                <div>
-                  <strong>KRO</strong>
-                  <span>Provision infra</span>
-                </div>
+            <article class="arch-zone arch-piece" style="--d:1.1s">
+              <header class="arch-zone-title">Infra</header>
+              <div class="arch-card arch-card--sm">
+                <img class="arch-ico" src="img/stack/kro.svg" alt="" width="16" height="16">
+                <strong>KRO</strong>
               </div>
-              <div class="arch-card">
-                <img class="arch-ico" src="img/stack/openstack.svg" alt="" width="24" height="24">
-                <div>
-                  <strong>OpenStack</strong>
-                  <span>Cloud platform</span>
-                </div>
+              <div class="arch-card arch-card--sm">
+                <img class="arch-ico" src="img/stack/openstack.svg" alt="" width="16" height="16">
+                <strong>OpenStack</strong>
               </div>
-              <div class="arch-card">
-                <img class="arch-ico" src="img/stack/terraform.svg" alt="" width="24" height="24">
-                <div>
-                  <strong>Terraform</strong>
-                  <span>IaC modules</span>
-                </div>
+              <div class="arch-card arch-card--sm">
+                <img class="arch-ico" src="img/stack/terraform.svg" alt="" width="16" height="16">
+                <strong>Terraform</strong>
               </div>
-              <div class="arch-note arch-note--ok">
-                <i>✓</i>
-                Auto-provision
-              </div>
+              <div class="arch-note arch-note--ok"><i>✓</i> Auto-provision</div>
             </article>
 
-            <div class="arch-arrow arch-piece arch-arrow--cyan" style="--d:1.7s"><span>deploy</span></div>
+            <div class="arch-arrow arch-piece arch-arrow--cyan" style="--d:1.35s"><span>deploy</span></div>
 
-            <article class="arch-zone arch-zone--cluster arch-piece" style="--d:1.85s">
+            <article class="arch-zone arch-zone--cluster arch-piece" style="--d:1.5s">
               <header class="arch-zone-title">
-                Production Cluster
+                Cluster
                 <span class="arch-live"><i></i> LIVE</span>
               </header>
-              <div class="arch-card">
-                <img class="arch-ico" src="img/stack/kubernetes.svg" alt="" width="24" height="24">
-                <div>
-                  <strong>Kubernetes</strong>
-                  <span>Workload runtime</span>
-                </div>
+              <div class="arch-card arch-card--sm">
+                <img class="arch-ico" src="img/stack/kubernetes.svg" alt="" width="16" height="16">
+                <strong>Kubernetes</strong>
               </div>
               <div class="arch-cluster-grid">
                 <div class="arch-card arch-card--sm">
-                  <img class="arch-ico" src="img/stack/apisix.svg" alt="" width="22" height="22">
-                  <div>
-                    <strong>APISIX</strong>
-                    <span>Ingress / gateway</span>
-                  </div>
+                  <img class="arch-ico" src="img/stack/apisix.svg" alt="" width="16" height="16">
+                  <strong>APISIX</strong>
                 </div>
                 <div class="arch-card arch-card--sm">
-                  <img class="arch-ico" src="img/stack/docker.svg" alt="" width="22" height="22">
-                  <div>
-                    <strong>Microservices</strong>
-                    <span>App pods</span>
-                  </div>
+                  <img class="arch-ico" src="img/stack/docker.svg" alt="" width="16" height="16">
+                  <strong>Pods</strong>
                 </div>
                 <div class="arch-card arch-card--sm">
-                  <img class="arch-ico" src="img/stack/postgresql.svg" alt="" width="22" height="22">
-                  <div>
-                    <strong>Postgres / Ceph</strong>
-                    <span>Data layer</span>
-                  </div>
+                  <img class="arch-ico" src="img/stack/postgresql.svg" alt="" width="16" height="16">
+                  <strong>Postgres</strong>
                 </div>
                 <div class="arch-card arch-card--sm">
-                  <img class="arch-ico" src="img/stack/etcd.svg" alt="" width="22" height="22">
-                  <div>
-                    <strong>etcd</strong>
-                    <span>mTLS locked</span>
-                  </div>
+                  <img class="arch-ico" src="img/stack/etcd.svg" alt="" width="16" height="16">
+                  <strong>etcd</strong>
                 </div>
               </div>
             </article>
           </div>
 
-          <div class="arch-observe arch-piece" style="--d:2.25s">
-            <header class="arch-zone-title">Observability &amp; Compliance</header>
+          <div class="arch-observe arch-piece" style="--d:1.85s">
+            <header class="arch-zone-title">Observability</header>
             <div class="arch-observe-row">
-              <div class="arch-card">
-                <img class="arch-ico" src="img/stack/prometheus.svg" alt="" width="24" height="24">
-                <div>
-                  <strong>Prometheus</strong>
-                  <span>Collect metrics</span>
-                </div>
+              <div class="arch-card arch-card--sm">
+                <img class="arch-ico" src="img/stack/prometheus.svg" alt="" width="16" height="16">
+                <strong>Prometheus</strong>
               </div>
-              <div class="arch-card">
-                <img class="arch-ico" src="img/stack/grafana.svg" alt="" width="24" height="24">
-                <div>
-                  <strong>Grafana</strong>
-                  <span>Visualize / alert</span>
-                </div>
+              <div class="arch-card arch-card--sm">
+                <img class="arch-ico" src="img/stack/grafana.svg" alt="" width="16" height="16">
+                <strong>Grafana</strong>
               </div>
-              <div class="arch-card">
-                <img class="arch-ico" src="img/stack/kubescape.png" alt="" width="24" height="24">
-                <div>
-                  <strong>Kubescape</strong>
-                  <span>K8s security posture</span>
-                </div>
+              <div class="arch-card arch-card--sm">
+                <img class="arch-ico" src="img/stack/kubescape.png" alt="" width="16" height="16">
+                <strong>Kubescape</strong>
               </div>
-              <div class="arch-note arch-note--alert">
-                <i>!</i>
-                Alert firing
-              </div>
-              <div class="arch-note arch-note--ok">
-                <i>✓</i>
-                CIS pass
-              </div>
+              <div class="arch-note arch-note--alert"><i>!</i> Alert firing</div>
+              <div class="arch-note arch-note--ok"><i>✓</i> CIS pass</div>
             </div>
           </div>
         </div>
