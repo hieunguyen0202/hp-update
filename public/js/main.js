@@ -175,7 +175,7 @@
   if (stackFlow) {
     const svg = stackFlow.querySelector(".flow-svg");
     const VB_W = 1040;
-    const VB_H = 540;
+    const VB_H = 500;
     const boxOf = (id) => {
       const el = stackFlow.querySelector(`[data-node="${id}"]`);
       const root = stackFlow.getBoundingClientRect();
@@ -195,78 +195,55 @@
       const el = svg.querySelector("#" + id);
       if (el) el.setAttribute("d", d);
     };
-    const hookUpRight = (x, yFrom, xTo, yTo) => {
-      const roomY = yFrom - yTo;
-      const roomX = xTo - x;
-      const rad = Math.min(28, roomY - 6, roomX - 6);
-      if (rad < 10) return `M ${x} ${yFrom} V ${yTo} H ${xTo}`;
-      return `M ${x} ${yFrom} V ${yTo + rad} A ${rad} ${rad} 0 0 0 ${x + rad} ${yTo} H ${xTo}`;
-    };
-    const hookDownRight = (x, yFrom, xTo, yTo) => {
-      const roomY = yTo - yFrom;
-      const roomX = xTo - x;
-      const rad = Math.min(28, roomY - 6, roomX - 6);
-      if (rad < 10) return `M ${x} ${yFrom} V ${yTo} H ${xTo}`;
-      return `M ${x} ${yFrom} V ${yTo - rad} A ${rad} ${rad} 0 0 1 ${x + rad} ${yTo} H ${xTo}`;
+    const across = (a, b) => {
+      const y = (a.cy + b.cy) / 2;
+      return `M ${a.r + 10} ${y} H ${b.l - 10}`;
     };
     const measure = () => {
       const root = stackFlow.getBoundingClientRect();
       if (root.width < 40) return;
-      const live = boxOf("live");
-      const t1 = boxOf("t1");
-      const t2 = boxOf("t2");
-      const t3 = boxOf("t3");
-      const t4 = boxOf("t4");
       const gitlab = boxOf("gitlab");
-      const terraform = boxOf("terraform");
+      const trivy = boxOf("trivy");
       const argocd = boxOf("argocd");
+      const k8s = boxOf("k8s");
       const openstack = boxOf("openstack");
-      const system = boxOf("system");
+      const kro = boxOf("kro");
       const kubescape = boxOf("kubescape");
       const grafana = boxOf("grafana");
-      const lgtm = boxOf("lgtm");
-      const railY = VB_H / 2;
-      const gap = 8;
-      const dot = (id, x) => {
-        const c = svg.querySelector("#" + id);
-        c.setAttribute("cx", x);
-        c.setAttribute("cy", railY);
-      };
+      const gap = 10;
 
-      setPath("rail", `M ${live.r + 16} ${railY} H ${t4.cx}`);
-      dot("d1", t1.cx);
-      dot("d2", t2.cx);
-      dot("d3", t3.cx);
-      dot("d4", t4.cx);
+      setPath("pCommit", across(gitlab, trivy));
+      setPath("pScan", across(trivy, argocd));
+      setPath("pSync", across(argocd, k8s));
+      setPath("pCloud", across(openstack, kro));
 
-      setPath("toGitlab", `M ${t2.cx} ${railY} V ${gitlab.b + gap}`);
+      const pinX = k8s.l + (k8s.r - k8s.l) * 0.32;
+      const watchX = k8s.l + (k8s.r - k8s.l) * 0.7;
+      const r = 16;
+      const riseTop = k8s.b + gap;
+      const riseY = kro.cy;
+      if (pinX - kro.r > r + 20 && riseY - riseTop > r + 12) {
+        setPath(
+          "pProvision",
+          `M ${kro.r + gap} ${riseY} H ${pinX - r} A ${r} ${r} 0 0 0 ${pinX} ${riseY - r} V ${riseTop}`
+        );
+      } else {
+        setPath("pProvision", `M ${kro.r + gap} ${riseY} H ${pinX} V ${riseTop}`);
+      }
+
+      const span = Math.min(kubescape.t, grafana.t) - (k8s.b + gap);
+      const busY = k8s.b + gap + Math.max(36, span * 0.55);
+      const stemTop = k8s.b + gap;
+      const leftX = kubescape.cx;
+      const rightX = grafana.cx;
+      const cardTop = (node) => node.t - gap;
       setPath(
-        "toTerraform",
-        hookUpRight(t2.cx, gitlab.t - gap, terraform.l - gap, terraform.cy)
-      );
-
-      const topY = terraform.cy;
-      const greenStart = terraform.r + gap;
-      const quarter = t4.cx - (railY - topY);
-      const arcStart = Math.min(
-        t4.cx - 28,
-        Math.max(greenStart + 12, argocd.r + 16, quarter)
-      );
-      const rx = t4.cx - arcStart;
-      const ry = railY - topY;
-      setPath(
-        "green",
-        `M ${greenStart} ${topY} H ${arcStart} A ${rx} ${ry} 0 0 1 ${t4.cx} ${railY}`
-      );
-
-      setPath("toOpenstack", `M ${t1.cx} ${railY} V ${openstack.t - gap}`);
-      setPath("toSystem", `M ${t1.cx} ${openstack.b + gap} V ${system.t - gap}`);
-      setPath("red", `M ${system.r + gap} ${system.cy} H ${kubescape.cx + 6}`);
-
-      setPath("toGrafana", `M ${t3.cx} ${railY} V ${grafana.t - gap}`);
-      setPath(
-        "toLgtm",
-        hookDownRight(t3.cx, grafana.b + gap, lgtm.l - gap, lgtm.cy)
+        "pWatch",
+        [
+          `M ${watchX} ${stemTop} V ${busY}`,
+          `M ${watchX} ${busY} H ${leftX} V ${cardTop(kubescape)}`,
+          `M ${watchX} ${busY} H ${rightX} V ${cardTop(grafana)}`,
+        ].join(" ")
       );
     };
 

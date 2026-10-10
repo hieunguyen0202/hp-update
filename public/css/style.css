@@ -1150,9 +1150,10 @@ section {
   position: relative;
   width: 100%;
   min-width: 920px;
-  aspect-ratio: 1040 / 540;
+  aspect-ratio: 1040 / 500;
   border-radius: 18px;
   overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .flow-grid {
@@ -1178,10 +1179,52 @@ section {
   pointer-events: none;
 }
 
-.flow-svg path {
+.flow-line {
   fill: none;
+  stroke: rgba(228, 228, 231, 0.8);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
   shape-rendering: geometricPrecision;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.flow-line--sync {
+  stroke: #22d3ee;
+}
+
+.flow-line--provision {
+  stroke: #34d399;
+}
+
+.flow-line--watch {
+  stroke: rgba(212, 212, 216, 0.72);
+}
+
+.flow.is-on .flow-line {
+  animation: flow-draw var(--draw, 0.45s) linear forwards;
+  animation-delay: var(--d, 0s);
+}
+
+.flow-ico {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  display: block;
+  flex: none;
+}
+
+.flow-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.4px;
+  color: #e4e4e7;
+  background: #101016;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  padding: 2px 7px;
 }
 
 .flow-rail {
@@ -1856,7 +1899,8 @@ footer span {
   }
 
   .flow-draw,
-  .flow-dash {
+  .flow-dash,
+  .flow-line {
     stroke-dashoffset: 0 !important;
   }
 }
