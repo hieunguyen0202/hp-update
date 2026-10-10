@@ -8,7 +8,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=8">
+  <link rel="stylesheet" href="css/style.css?v=9">
 </head>
 <body>
   <div class="cursor" id="cursor"></div>
@@ -80,19 +80,7 @@
         <div class="stats-bar reveal">
           <div class="stats-walker" aria-hidden="true">
             <div class="pixel-bot">
-              <svg class="pixel-bot__sprite" viewBox="0 0 16 16" width="44" height="44" shape-rendering="crispEdges">
-                <rect x="1" y="0" width="6" height="2" fill="#f4f4f5"/>
-                <rect x="2" y="2" width="5" height="2" fill="#d4d4d8"/>
-                <rect x="2" y="3" width="12" height="9" fill="#22d3ee"/>
-                <rect x="2" y="3" width="2" height="9" fill="#a5f3fc"/>
-                <rect x="12" y="3" width="2" height="9" fill="#0891b2"/>
-                <rect x="5" y="6" width="2" height="2" fill="#041016"/>
-                <rect x="10" y="6" width="2" height="2" fill="#041016"/>
-                <rect x="5" y="6" width="1" height="1" fill="#ecfeff"/>
-                <rect x="10" y="6" width="1" height="1" fill="#ecfeff"/>
-                <rect class="bot-leg bot-leg--a" x="4" y="12" width="3" height="4" fill="#0e7490"/>
-                <rect class="bot-leg bot-leg--b" x="10" y="12" width="3" height="4" fill="#0e7490"/>
-              </svg>
+              <span class="pixel-bot__sprite"></span>
             </div>
           </div>
           <div class="stat-item">
@@ -377,6 +365,12 @@
               Trivy
             </div>
           </div>
+          <div class="flow-abs" style="left:33%;top:8%">
+            <div class="flow-note flow-note--ok flow-piece" style="--d:1.05s">
+              <i>✓</i>
+              −70% CVE
+            </div>
+          </div>
           <div class="flow-abs" style="left:43.5%;top:22%"><span class="flow-label flow-piece" style="--d:.95s">scan</span></div>
           <div class="flow-abs" style="left:54%;top:22%">
             <div class="flow-card flow-piece" data-node="argocd" style="--d:1.2s">
@@ -384,11 +378,23 @@
               Argo CD
             </div>
           </div>
+          <div class="flow-abs" style="left:54%;top:8%">
+            <div class="flow-note flow-note--ok flow-piece" style="--d:1.55s">
+              <i>↑</i>
+              Synced
+            </div>
+          </div>
           <div class="flow-abs" style="left:67%;top:22%"><span class="flow-label flow-piece" style="--d:1.5s">sync</span></div>
           <div class="flow-abs" style="left:80%;top:22%">
             <div class="flow-card flow-piece" data-node="k8s" style="--d:1.85s">
               <img class="flow-ico" src="img/stack/kubernetes.svg" alt="" width="26" height="26">
               Kubernetes
+            </div>
+          </div>
+          <div class="flow-abs" style="left:93%;top:22%">
+            <div class="flow-live flow-piece" style="--d:2.05s">
+              <span class="flow-live-tag">LIVE</span>
+              Cluster
             </div>
           </div>
 
@@ -405,6 +411,12 @@
               KRO
             </div>
           </div>
+          <div class="flow-abs" style="left:54%;top:68%">
+            <div class="flow-note flow-note--ok flow-piece" style="--d:2.95s">
+              <i>✓</i>
+              Auto-provision
+            </div>
+          </div>
           <div class="flow-abs" style="left:68%;top:40%"><span class="flow-label flow-piece" style="--d:2.85s">provision</span></div>
 
           <div class="flow-abs" style="left:66%;top:84%">
@@ -414,6 +426,12 @@
             </div>
           </div>
           <div class="flow-abs" style="left:66%;top:72%"><span class="flow-label flow-piece" style="--d:3.7s">posture</span></div>
+          <div class="flow-abs" style="left:52%;top:84%">
+            <div class="flow-note flow-note--ok flow-piece" style="--d:3.8s">
+              <i>✓</i>
+              CIS pass
+            </div>
+          </div>
           <div class="flow-abs" style="left:90%;top:84%">
             <div class="flow-card flow-piece" data-node="grafana" style="--d:3.85s">
               <img class="flow-ico" src="img/stack/grafana.svg" alt="" width="26" height="26">
@@ -421,6 +439,12 @@
             </div>
           </div>
           <div class="flow-abs" style="left:90%;top:72%"><span class="flow-label flow-piece" style="--d:3.95s">metrics</span></div>
+          <div class="flow-abs" style="left:90%;top:58%">
+            <div class="flow-note flow-note--alert flow-piece" style="--d:4.15s">
+              <i>!</i>
+              Alert firing
+            </div>
+          </div>
         </div>
       </div>
     </section>
