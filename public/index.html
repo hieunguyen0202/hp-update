@@ -78,6 +78,23 @@
         </div>
 
         <div class="stats-bar reveal">
+          <div class="stats-walker" aria-hidden="true">
+            <div class="pixel-bot">
+              <svg class="pixel-bot__sprite" viewBox="0 0 16 16" width="44" height="44" shape-rendering="crispEdges">
+                <rect x="1" y="0" width="6" height="2" fill="#f4f4f5"/>
+                <rect x="2" y="2" width="5" height="2" fill="#d4d4d8"/>
+                <rect x="2" y="3" width="12" height="9" fill="#22d3ee"/>
+                <rect x="2" y="3" width="2" height="9" fill="#a5f3fc"/>
+                <rect x="12" y="3" width="2" height="9" fill="#0891b2"/>
+                <rect x="5" y="6" width="2" height="2" fill="#041016"/>
+                <rect x="10" y="6" width="2" height="2" fill="#041016"/>
+                <rect x="5" y="6" width="1" height="1" fill="#ecfeff"/>
+                <rect x="10" y="6" width="1" height="1" fill="#ecfeff"/>
+                <rect class="bot-leg bot-leg--a" x="4" y="12" width="3" height="4" fill="#0e7490"/>
+                <rect class="bot-leg bot-leg--b" x="10" y="12" width="3" height="4" fill="#0e7490"/>
+              </svg>
+            </div>
+          </div>
           <div class="stat-item">
             <span class="stat-num" data-count="3" data-suffix="+">0</span>
             <span class="stat-label">yrs experience</span>
@@ -174,49 +191,92 @@
       <div class="section-label"># 03. CERTS</div>
       <div class="reveal">
         <p class="hero-desc" style="max-width:640px;margin-bottom:0">
-          Kubernetes certs — click a badge to open the certificate PDF or Credly.
+          Click a badge to open the certificate PDF or Credly.
         </p>
-        <div class="badge-grid">
-          <a class="badge-card" href="https://www.credly.com/badges/f5c7af1f-71e5-4b78-9b8d-399489f22b39/linked_in_profile" target="_blank" rel="noopener noreferrer">
-            <img src="badges/kubestronaut.png" alt="Kubestronaut">
-            <div class="badge-name">Kubestronaut</div>
-            <div class="badge-org">The Linux Foundation · CNCF</div>
-          </a>
-          <a class="badge-card" href="certs/NXH-CKA.pdf" target="_blank" rel="noopener">
-            <img src="badges/cka.png" alt="Certified Kubernetes Administrator">
-            <div class="badge-name">CKA — Kubernetes Administrator</div>
-            <div class="badge-org">The Linux Foundation</div>
-          </a>
-          <a class="badge-card" href="certs/NXH-CKAD.pdf" target="_blank" rel="noopener">
-            <img src="badges/ckad.png" alt="Certified Kubernetes Application Developer">
-            <div class="badge-name">CKAD — Application Developer</div>
-            <div class="badge-org">The Linux Foundation</div>
-          </a>
-          <a class="badge-card" href="certs/NXH-CKS.pdf" target="_blank" rel="noopener">
-            <img src="badges/cks.png" alt="Certified Kubernetes Security Specialist">
-            <div class="badge-name">CKS — Security Specialist</div>
-            <div class="badge-org">The Linux Foundation</div>
-          </a>
-          <a class="badge-card" href="certs/NXH-KCSA.pdf" target="_blank" rel="noopener">
-            <img src="badges/kcsa.png" alt="Kubernetes and Cloud Native Security Associate">
-            <div class="badge-name">KCSA — Cloud Native Security</div>
-            <div class="badge-org">The Linux Foundation</div>
-          </a>
-          <a class="badge-card" href="certs/NXH-KCNA.pdf" target="_blank" rel="noopener">
-            <img src="badges/kcna.png" alt="Kubernetes and Cloud Native Associate">
-            <div class="badge-name">KCNA — Cloud Native Associate</div>
-            <div class="badge-org">The Linux Foundation</div>
-          </a>
-          <a class="badge-card" href="certs/NXH-Azure-Administrator.pdf" target="_blank" rel="noopener">
-            <img src="badges/azure-admin.svg" alt="Microsoft Certified Azure Administrator Associate">
-            <div class="badge-name">Azure Administrator Associate</div>
-            <div class="badge-org">Microsoft</div>
-          </a>
-          <a class="badge-card" href="certs/NXH-GCP-PCA.pdf" target="_blank" rel="noopener">
-            <img src="badges/gcp-pca.png" alt="Google Cloud Professional Cloud Architect">
-            <div class="badge-name">Professional Cloud Architect</div>
-            <div class="badge-org">Google Cloud</div>
-          </a>
+        <div class="cert-timeline">
+          <div class="cert-track">
+            <div class="cert-rail" aria-hidden="true"></div>
+
+            <a class="cert-node" style="--at: 6%" href="certs/NXH-GCP-PCA.pdf" target="_blank" rel="noopener" aria-label="Google Cloud Certified Professional Cloud Architect, May 16, 2024">
+              <span class="cert-badge">
+                <span class="cert-tip">Google Cloud Certified<br>Professional Cloud Architect</span>
+                <img src="badges/gcp-pca.png" alt="">
+              </span>
+              <span class="cert-stem" aria-hidden="true"></span>
+              <span class="cert-dot" aria-hidden="true"></span>
+              <time datetime="2024-05-16">May 16<span>2024</span></time>
+            </a>
+
+            <a class="cert-node" style="--at: 21%" href="certs/NXH-Azure-Administrator.pdf" target="_blank" rel="noopener" aria-label="Microsoft Certified: Azure Administrator Associate, January 14, 2025">
+              <span class="cert-badge">
+                <span class="cert-tip">Microsoft Certified:<br>Azure Administrator Associate</span>
+                <img src="badges/azure-admin.svg" alt="">
+              </span>
+              <span class="cert-stem" aria-hidden="true"></span>
+              <span class="cert-dot" aria-hidden="true"></span>
+              <time datetime="2025-01-14">Jan 14<span>2025</span></time>
+            </a>
+
+            <a class="cert-node" style="--at: 51%" href="certs/NXH-CKA.pdf" target="_blank" rel="noopener" aria-label="CKA — Certified Kubernetes Administrator, May 24, 2026">
+              <span class="cert-badge">
+                <span class="cert-tip">CKA — Certified<br>Kubernetes Administrator</span>
+                <img src="badges/cka.png" alt="">
+              </span>
+              <span class="cert-stem" aria-hidden="true"></span>
+              <span class="cert-dot" aria-hidden="true"></span>
+              <time datetime="2026-05-24">May 24<span>2026</span></time>
+            </a>
+
+            <a class="cert-node" style="--at: 59%" href="certs/NXH-CKAD.pdf" target="_blank" rel="noopener" aria-label="CKAD — Certified Kubernetes Application Developer, June 6, 2026">
+              <span class="cert-badge">
+                <span class="cert-tip">CKAD — Certified Kubernetes<br>Application Developer</span>
+                <img src="badges/ckad.png" alt="">
+              </span>
+              <span class="cert-stem" aria-hidden="true"></span>
+              <span class="cert-dot" aria-hidden="true"></span>
+              <time datetime="2026-06-06">Jun 06<span>2026</span></time>
+            </a>
+
+            <a class="cert-node" style="--at: 67%" href="certs/NXH-KCNA.pdf" target="_blank" rel="noopener" aria-label="KCNA — Kubernetes and Cloud Native Associate, June 13, 2026">
+              <span class="cert-badge">
+                <span class="cert-tip">KCNA — Kubernetes and<br>Cloud Native Associate</span>
+                <img src="badges/kcna.png" alt="">
+              </span>
+              <span class="cert-stem" aria-hidden="true"></span>
+              <span class="cert-dot" aria-hidden="true"></span>
+              <time datetime="2026-06-13">Jun 13<span>2026</span></time>
+            </a>
+
+            <a class="cert-node" style="--at: 75%" href="certs/NXH-KCSA.pdf" target="_blank" rel="noopener" aria-label="KCSA — Kubernetes and Cloud Native Security Associate, July 10, 2026">
+              <span class="cert-badge">
+                <span class="cert-tip">KCSA — Kubernetes and<br>Cloud Native Security Associate</span>
+                <img src="badges/kcsa.png" alt="">
+              </span>
+              <span class="cert-stem" aria-hidden="true"></span>
+              <span class="cert-dot" aria-hidden="true"></span>
+              <time datetime="2026-07-10">Jul 10<span>2026</span></time>
+            </a>
+
+            <a class="cert-node" style="--at: 83%" href="certs/NXH-CKS.pdf" target="_blank" rel="noopener" aria-label="CKS — Certified Kubernetes Security Specialist, August 17, 2026">
+              <span class="cert-badge">
+                <span class="cert-tip">CKS — Certified Kubernetes<br>Security Specialist</span>
+                <img src="badges/cks.png" alt="">
+              </span>
+              <span class="cert-stem" aria-hidden="true"></span>
+              <span class="cert-dot" aria-hidden="true"></span>
+              <time datetime="2026-08-17">Aug 17<span>2026</span></time>
+            </a>
+
+            <a class="cert-node" style="--at: 91%" href="https://www.credly.com/badges/f5c7af1f-71e5-4b78-9b8d-399489f22b39/linked_in_profile" target="_blank" rel="noopener noreferrer" aria-label="Kubestronaut, August 23, 2026">
+              <span class="cert-badge">
+                <span class="cert-tip">Kubestronaut</span>
+                <img src="badges/kubestronaut.png" alt="">
+              </span>
+              <span class="cert-stem" aria-hidden="true"></span>
+              <span class="cert-dot" aria-hidden="true"></span>
+              <time datetime="2026-08-23">Aug 23<span>2026</span></time>
+            </a>
+          </div>
         </div>
       </div>
     </section>
