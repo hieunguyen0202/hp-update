@@ -8,7 +8,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=16">
+  <link rel="stylesheet" href="css/style.css?v=18">
 </head>
 <body>
   <div class="cursor" id="cursor"></div>
@@ -431,63 +431,103 @@
               <span>Deploy</span>
             </div>
 
-            <!-- col 5: production cluster -->
-            <article class="arch-zone arch-zone--cluster arch-piece" style="--d:1.2s">
-              <header class="arch-zone-title">
-                Production Cluster
-                <span class="arch-live"><i></i> LIVE</span>
-              </header>
-              <div class="arch-pill">
-                <img class="arch-ico" src="img/stack/apisix.svg" alt="" width="14" height="14">
-                <span>APISIX</span>
-                <em>Ingress</em>
-              </div>
-              <div class="arch-vlink">Route</div>
-              <div class="arch-pods">
-                <div class="arch-pod">
-                  <img src="img/stack/kubernetes.svg" alt="" width="18" height="18">
-                  <span>svc-a</span>
-                </div>
-                <div class="arch-pod">
-                  <img src="img/stack/kubernetes.svg" alt="" width="18" height="18">
-                  <span>svc-b</span>
-                </div>
-                <div class="arch-pod">
-                  <img src="img/stack/kubernetes.svg" alt="" width="18" height="18">
-                  <span>svc-c</span>
-                </div>
-              </div>
-              <div class="arch-cluster-grid">
-                <div class="arch-pill">
-                  <img class="arch-ico" src="img/stack/postgresql.svg" alt="" width="14" height="14">
-                  <span>Postgres</span>
-                </div>
-                <span class="arch-lock">mTLS</span>
-                <div class="arch-pill">
-                  <img class="arch-ico" src="img/stack/etcd.svg" alt="" width="14" height="14">
-                  <span>etcd</span>
-                </div>
-              </div>
-            </article>
+            <!-- col 5: production cluster + drop links + observability -->
+            <div class="arch-cluster-stack arch-piece" style="--d:1.2s">
+              <article class="arch-zone arch-zone--cluster">
+                <header class="arch-zone-title">
+                  <span class="arch-zone-title-k">
+                    <img class="arch-ico" src="img/stack/kubernetes.svg" alt="" width="12" height="12">
+                    Production Cluster
+                  </span>
+                  <span class="arch-live"><i></i> LIVE</span>
+                </header>
 
-            <!-- row 2: observability under right side -->
-            <div class="arch-observe arch-piece" style="--d:1.45s">
-              <header class="arch-zone-title">Observability &amp; Compliance</header>
-              <div class="arch-observe-row">
-                <div class="arch-pill">
-                  <img class="arch-ico" src="img/stack/prometheus.svg" alt="" width="14" height="14">
-                  <span>Prometheus</span>
+                <div class="arch-cluster-map">
+                  <div class="arch-node arch-node--ingress">
+                    <div class="arch-pill">
+                      <img class="arch-ico" src="img/stack/apisix.svg" alt="" width="14" height="14">
+                      <span>APISIX</span>
+                    </div>
+                    <p class="arch-node-cap">Ingress · API gateway</p>
+                  </div>
+
+                  <div class="arch-hlink arch-hlink--route" aria-hidden="true"><span>Route traffic</span></div>
+
+                  <div class="arch-node arch-node--pods">
+                    <div class="arch-node-label">Microservices Pods</div>
+                    <div class="arch-pods">
+                      <div class="arch-pod">
+                        <img src="img/stack/kubernetes.svg" alt="" width="18" height="18">
+                        <span>svc-a</span>
+                      </div>
+                      <div class="arch-pod">
+                        <img src="img/stack/kubernetes.svg" alt="" width="18" height="18">
+                        <span>svc-b</span>
+                      </div>
+                      <div class="arch-pod">
+                        <img src="img/stack/kubernetes.svg" alt="" width="18" height="18">
+                        <span>svc-c</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="arch-hlink arch-hlink--db" aria-hidden="true"><span>Database access</span></div>
+
+                  <div class="arch-side-stack">
+                    <div class="arch-subbox arch-subbox--db">
+                      <div class="arch-subbox-title">Database</div>
+                      <div class="arch-pill">
+                        <img class="arch-ico" src="img/stack/postgresql.svg" alt="" width="14" height="14">
+                        <span>Postgres / Ceph</span>
+                      </div>
+                    </div>
+                    <div class="arch-subbox arch-subbox--etcd">
+                      <div class="arch-subbox-title">etcd Cluster</div>
+                      <div class="arch-pill">
+                        <img class="arch-ico" src="img/stack/etcd.svg" alt="" width="14" height="14">
+                        <span>etcd</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="arch-mlink" aria-hidden="true">
+                    <span class="arch-lock"><i></i> mTLS</span>
+                  </div>
                 </div>
-                <div class="arch-pill">
-                  <img class="arch-ico" src="img/stack/grafana.svg" alt="" width="14" height="14">
-                  <span>Grafana</span>
+              </article>
+
+              <div class="arch-drop-links" aria-hidden="true">
+                <span class="arch-drop-link">Collect metrics</span>
+                <span class="arch-drop-link">Visualize posture</span>
+              </div>
+
+              <div class="arch-observe">
+                <header class="arch-zone-title">Observability &amp; Compliance</header>
+                <div class="arch-observe-row">
+                  <div class="arch-observe-item">
+                    <div class="arch-pill">
+                      <img class="arch-ico" src="img/stack/prometheus.svg" alt="" width="14" height="14">
+                      <span>Prometheus</span>
+                    </div>
+                    <em>Collect metrics</em>
+                  </div>
+                  <div class="arch-observe-item">
+                    <div class="arch-pill">
+                      <img class="arch-ico" src="img/stack/grafana.svg" alt="" width="14" height="14">
+                      <span>Grafana</span>
+                    </div>
+                    <em>Visualize</em>
+                  </div>
+                  <div class="arch-observe-item">
+                    <div class="arch-pill">
+                      <img class="arch-ico" src="img/stack/kubescape.png" alt="" width="14" height="14">
+                      <span>Kubescape</span>
+                    </div>
+                    <em>K8s posture</em>
+                  </div>
+                  <div class="arch-note arch-note--alert"><i>!</i> Alert</div>
+                  <div class="arch-note arch-note--ok"><i>✓</i> CIS</div>
                 </div>
-                <div class="arch-pill">
-                  <img class="arch-ico" src="img/stack/kubescape.png" alt="" width="14" height="14">
-                  <span>Kubescape</span>
-                </div>
-                <div class="arch-note arch-note--alert"><i>!</i> Alert</div>
-                <div class="arch-note arch-note--ok"><i>✓</i> CIS</div>
               </div>
             </div>
           </div>
