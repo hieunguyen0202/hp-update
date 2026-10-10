@@ -8,7 +8,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=19">
+  <link rel="stylesheet" href="css/style.css?v=23">
 </head>
 <body>
   <div class="cursor" id="cursor"></div>
@@ -363,31 +363,47 @@
                   <img class="arch-ico" src="img/stack/gitlab.svg" alt="" width="14" height="14">
                   <span>GitLab</span>
                 </div>
+                <div class="arch-pill arch-item">
+                  <img class="arch-ico" src="img/stack/tekton.svg" alt="" width="14" height="14">
+                  <span>Tekton</span>
+                </div>
+                <div class="arch-pill arch-item">
+                  <img class="arch-ico" src="img/stack/backstage.svg" alt="" width="14" height="14">
+                  <span>Backstage</span>
+                </div>
               </div>
-              <div class="arch-pipeline">
-                <div class="arch-pipeline-title">CI Pipeline</div>
-                <div class="arch-pill arch-item">
-                  <img class="arch-ico" src="img/stack/trivy.svg" alt="" width="14" height="14">
-                  <span>Trivy</span>
-                  <em>Source</em>
-                </div>
-                <div class="arch-vlink"></div>
-                <div class="arch-pill arch-item">
-                  <img class="arch-ico" src="img/stack/anchore.png" alt="" width="14" height="14">
-                  <span>Anchore</span>
-                  <em>Image</em>
-                </div>
-                <div class="arch-vlink"></div>
-                <div class="arch-pill arch-item">
-                  <img class="arch-ico" src="img/stack/kubescape.png" alt="" width="14" height="14">
-                  <span>Kubescape</span>
-                  <em>IaC</em>
-                </div>
-                <div class="arch-vlink"></div>
-                <div class="arch-pill arch-item">
-                  <img class="arch-ico" src="img/stack/secobserve.svg" alt="" width="14" height="14">
-                  <span>SecObserve</span>
-                  <em>AppSec</em>
+              <div class="arch-fill">
+                <div class="arch-pipeline">
+                  <div class="arch-pipeline-title">CI Pipeline</div>
+                  <div class="arch-pill arch-item">
+                    <img class="arch-ico" src="img/stack/trivy.svg" alt="" width="14" height="14">
+                    <span>Trivy</span>
+                    <em>Source</em>
+                  </div>
+                  <div class="arch-vlink"></div>
+                  <div class="arch-pill arch-item">
+                    <img class="arch-ico" src="img/stack/anchore.png" alt="" width="14" height="14">
+                    <span>Anchore</span>
+                    <em>Image</em>
+                  </div>
+                  <div class="arch-vlink"></div>
+                  <div class="arch-pill arch-item">
+                    <img class="arch-ico" src="img/stack/kubescape.png" alt="" width="14" height="14">
+                    <span>Kubescape</span>
+                    <em>IaC</em>
+                  </div>
+                  <div class="arch-vlink"></div>
+                  <div class="arch-pill arch-item">
+                    <img class="arch-ico" src="img/stack/secobserve.svg" alt="" width="14" height="14">
+                    <span>SecObserve</span>
+                    <em>AppSec</em>
+                  </div>
+                  <div class="arch-vlink"></div>
+                  <div class="arch-pill arch-item">
+                    <img class="arch-ico" src="img/stack/falco.svg" alt="" width="14" height="14">
+                    <span>Falco</span>
+                    <em>Runtime</em>
+                  </div>
                 </div>
               </div>
               <div class="arch-note arch-note--ok arch-item"><i>✓</i> −70% CVE</div>
@@ -409,18 +425,38 @@
                   <span>Helm</span>
                 </div>
                 <div class="arch-pill arch-item">
-                  <img class="arch-ico" src="img/stack/gitlab.svg" alt="" width="14" height="14">
+                  <img class="arch-ico" src="img/stack/manifests.svg" alt="" width="14" height="14">
                   <span>Manifests</span>
                 </div>
                 <div class="arch-pill arch-item">
                   <img class="arch-ico" src="img/stack/vault.svg" alt="" width="14" height="14">
                   <span>Vault</span>
                 </div>
+                <div class="arch-pill arch-item">
+                  <img class="arch-ico" src="img/stack/containerd.svg" alt="" width="14" height="14">
+                  <span>containerd</span>
+                </div>
               </div>
-              <div class="arch-vlink">↕ Sync</div>
-              <div class="arch-pill arch-item">
-                <img class="arch-ico" src="img/stack/argo.svg" alt="" width="14" height="14">
-                <span>Argo CD</span>
+              <div class="arch-fill">
+                <div class="arch-vlink">↕ Sync</div>
+                <div class="arch-pill-row">
+                  <div class="arch-pill arch-item">
+                    <img class="arch-ico" src="img/stack/argo.svg" alt="" width="14" height="14">
+                    <span>Argo CD</span>
+                  </div>
+                  <div class="arch-pill arch-item">
+                    <img class="arch-ico" src="img/stack/argorollouts.svg" alt="" width="14" height="14">
+                    <span>Argo Rollouts</span>
+                  </div>
+                  <div class="arch-pill arch-item">
+                    <img class="arch-ico" src="img/stack/kargo.svg" alt="" width="14" height="14">
+                    <span>Kargo</span>
+                  </div>
+                  <div class="arch-pill arch-item">
+                    <img class="arch-ico" src="img/stack/flux.svg" alt="" width="14" height="14">
+                    <span>Flux</span>
+                  </div>
+                </div>
               </div>
               <div class="arch-note arch-note--ok arch-item"><i>↑</i> Synced</div>
             </article>
@@ -452,7 +488,20 @@
                   <img class="arch-ico" src="img/stack/eks.svg" alt="" width="14" height="14">
                   <span>EKS</span>
                 </div>
+                <div class="arch-pill arch-item">
+                  <img class="arch-ico" src="img/stack/crossplane.svg" alt="" width="14" height="14">
+                  <span>Crossplane</span>
+                </div>
+                <div class="arch-pill arch-item">
+                  <img class="arch-ico" src="img/stack/externaldns.svg" alt="" width="14" height="14">
+                  <span>ExternalDNS</span>
+                </div>
+                <div class="arch-pill arch-item">
+                  <img class="arch-ico" src="img/stack/certmanager.svg" alt="" width="14" height="14">
+                  <span>cert-manager</span>
+                </div>
               </div>
+              <div class="arch-fill" aria-hidden="true"></div>
               <div class="arch-note arch-note--ok arch-item"><i>✓</i> Auto-provision</div>
             </article>
 
@@ -488,6 +537,10 @@
                         <span>NGINX</span>
                       </div>
                       <div class="arch-pill arch-item">
+                        <img class="arch-ico" src="img/stack/envoy.svg" alt="" width="14" height="14">
+                        <span>Envoy</span>
+                      </div>
+                      <div class="arch-pill arch-item">
                         <img class="arch-ico" src="img/stack/payment.svg" alt="" width="14" height="14">
                         <span>Payment Gateway</span>
                       </div>
@@ -518,12 +571,40 @@
                         <span>Cilium</span>
                       </div>
                       <div class="arch-pill arch-item">
+                        <img class="arch-ico" src="img/stack/istio.svg" alt="" width="14" height="14">
+                        <span>Istio</span>
+                      </div>
+                      <div class="arch-pill arch-item">
+                        <img class="arch-ico" src="img/stack/linkerd.svg" alt="" width="14" height="14">
+                        <span>Linkerd</span>
+                      </div>
+                      <div class="arch-pill arch-item">
+                        <img class="arch-ico" src="img/stack/dapr.svg" alt="" width="14" height="14">
+                        <span>Dapr</span>
+                      </div>
+                      <div class="arch-pill arch-item">
+                        <img class="arch-ico" src="img/stack/knative.svg" alt="" width="14" height="14">
+                        <span>Knative</span>
+                      </div>
+                      <div class="arch-pill arch-item">
                         <img class="arch-ico" src="img/stack/kafka.svg" alt="" width="14" height="14">
                         <span>Kafka</span>
                       </div>
                       <div class="arch-pill arch-item">
                         <img class="arch-ico" src="img/stack/rabbitmq.svg" alt="" width="14" height="14">
                         <span>RabbitMQ</span>
+                      </div>
+                      <div class="arch-pill arch-item">
+                        <img class="arch-ico" src="img/stack/keycloak.svg" alt="" width="14" height="14">
+                        <span>Keycloak</span>
+                      </div>
+                      <div class="arch-pill arch-item">
+                        <img class="arch-ico" src="img/stack/kyverno.svg" alt="" width="14" height="14">
+                        <span>Kyverno</span>
+                      </div>
+                      <div class="arch-pill arch-item">
+                        <img class="arch-ico" src="img/stack/gatekeeper.svg" alt="" width="14" height="14">
+                        <span>Gatekeeper</span>
                       </div>
                       <div class="arch-pill arch-item">
                         <img class="arch-ico" src="img/stack/headlamp.svg" alt="" width="14" height="14">
@@ -547,10 +628,14 @@
                       </div>
                     </div>
                     <div class="arch-subbox arch-item">
-                      <div class="arch-subbox-title">etcd Cluster</div>
+                      <div class="arch-subbox-title">Control plane</div>
                       <div class="arch-pill">
                         <img class="arch-ico" src="img/stack/etcd.svg" alt="" width="14" height="14">
                         <span>etcd</span>
+                      </div>
+                      <div class="arch-pill">
+                        <img class="arch-ico" src="img/stack/coredns.svg" alt="" width="14" height="14">
+                        <span>CoreDNS</span>
                       </div>
                     </div>
                   </div>
@@ -610,6 +695,20 @@
                       <span>OpenTelemetry</span>
                     </div>
                     <em>Telemetry</em>
+                  </div>
+                  <div class="arch-observe-item arch-item">
+                    <div class="arch-pill">
+                      <img class="arch-ico" src="img/stack/jaeger.svg" alt="" width="14" height="14">
+                      <span>Jaeger</span>
+                    </div>
+                    <em>Tracing</em>
+                  </div>
+                  <div class="arch-observe-item arch-item">
+                    <div class="arch-pill">
+                      <img class="arch-ico" src="img/stack/thanos.svg" alt="" width="14" height="14">
+                      <span>Thanos</span>
+                    </div>
+                    <em>Metrics HA</em>
                   </div>
                   <div class="arch-observe-item arch-item">
                     <div class="arch-pill">
@@ -777,6 +876,6 @@
     <div>exit 0 <span>✓</span></div>
   </footer>
 
-  <script src="js/main.js?v=7"></script>
+  <script src="js/main.js?v=8"></script>
 </body>
 </html>

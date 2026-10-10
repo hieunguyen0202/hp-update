@@ -1131,6 +1131,7 @@ section {
     "dev src l1 git l2 inf"
     "down down down down down down"
     "cluster cluster cluster cluster cluster cluster";
+  grid-template-rows: 320px auto auto;
   gap: 10px 8px;
   align-items: stretch;
   width: 100%;
@@ -1156,9 +1157,33 @@ section {
 
 .arch-zone--eq {
   width: 100%;
-  min-height: 248px;
   height: 100%;
+  min-height: 0;
+  align-self: stretch;
   justify-content: flex-start;
+  gap: 8px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.arch-area-src,
+.arch-area-git,
+.arch-area-inf {
+  height: 320px;
+  max-height: 320px;
+}
+
+.arch-zone--eq .arch-pill-row {
+  align-content: flex-start;
+}
+
+.arch-zone--eq .arch-fill {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  min-height: 0;
 }
 
 .arch-pill-row {
@@ -1837,8 +1862,17 @@ section {
     gap: 10px;
   }
 
-  .arch-zone--eq {
+  .arch-board {
+    grid-template-rows: none;
+  }
+
+  .arch-zone--eq,
+  .arch-area-src,
+  .arch-area-git,
+  .arch-area-inf {
     min-height: 0;
+    height: auto;
+    max-height: none;
   }
 
   .arch-cluster-map {

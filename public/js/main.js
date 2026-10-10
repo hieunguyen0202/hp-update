@@ -179,7 +179,7 @@
       stackFlow.querySelectorAll(".arch-piece").forEach((piece) => {
         const items = piece.querySelectorAll(".arch-item");
         items.forEach((el, index) => {
-          el.style.setProperty("--i", `${0.1 + index * 0.07}s`);
+          el.style.setProperty("--i", `${0.08 + index * 0.05}s`);
         });
       });
     };
