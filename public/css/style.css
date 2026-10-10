@@ -1460,31 +1460,55 @@ section {
 
 .arch-cluster-map {
   display: grid;
-  grid-template-columns: minmax(150px, 1.05fr) minmax(28px, 0.55fr) minmax(200px, 1.35fr) minmax(28px, 0.55fr) minmax(150px, 1fr);
+  grid-template-columns: minmax(150px, 1.05fr) 40px minmax(200px, 1.35fr) 40px minmax(150px, 1fr);
   grid-template-rows: auto auto;
   grid-template-areas:
-    "ingress h1 pods h2 side"
-    ".       .  mlink mlink side";
-  align-items: start;
+    "ingress h1 pods h2 db"
+    ".       .  mlink mlink cp";
+  align-items: center;
   column-gap: 8px;
-  row-gap: 8px;
+  row-gap: 14px;
   width: 100%;
   padding: 2px 0 0;
 }
 
-.arch-node--ingress { grid-area: ingress; align-self: start; height: auto; }
-.arch-hlink--route { grid-area: h1; align-self: center; }
-.arch-node--pods { grid-area: pods; align-self: start; height: auto; }
-.arch-hlink--db { grid-area: h2; align-self: start; margin-top: 28px; }
-.arch-mlink { grid-area: mlink; }
+.arch-node--ingress {
+  grid-area: ingress;
+  align-self: center;
+  height: auto;
+}
 
-.arch-side-stack {
-  grid-area: side;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-self: start;
-  min-width: 0;
+.arch-hlink--route {
+  grid-area: h1;
+  align-self: center;
+}
+
+.arch-node--pods {
+  grid-area: pods;
+  align-self: center;
+  height: auto;
+}
+
+.arch-hlink--db {
+  grid-area: h2;
+  align-self: center;
+  margin-top: 0;
+}
+
+.arch-node--db {
+  grid-area: db;
+  align-self: center;
+  height: auto;
+}
+
+.arch-mlink {
+  grid-area: mlink;
+  align-self: center;
+}
+
+.arch-node--cp {
+  grid-area: cp;
+  align-self: center;
   height: auto;
 }
 
@@ -1608,36 +1632,34 @@ section {
 .arch-mlink {
   display: flex;
   align-items: center;
-  gap: 6px;
-  align-self: start;
+  justify-content: flex-start;
   position: relative;
   min-height: 22px;
   width: 100%;
-  margin-top: 2px;
-  padding: 0 0 0 12px;
+  padding-left: 10px;
   box-sizing: border-box;
 }
 
-/* vertical from pods bottom-center */
+/* stem up into Microservices box */
 .arch-mlink::before {
   content: "";
   position: absolute;
-  top: -10px;
-  left: 22px;
+  bottom: 50%;
+  left: 18px;
   width: 1.5px;
-  height: 10px;
-  background: rgba(52, 211, 153, 0.8);
+  height: 16px;
+  background: rgba(52, 211, 153, 0.85);
 }
 
-/* horizontal into Control plane */
+/* full horizontal bar into Control plane edge */
 .arch-mlink::after {
   content: "";
   position: absolute;
   top: 50%;
-  left: 22px;
+  left: 18px;
   right: -8px;
   height: 1.5px;
-  background: rgba(52, 211, 153, 0.8);
+  background: rgba(52, 211, 153, 0.85);
   box-shadow: 0 0 6px rgba(52, 211, 153, 0.3);
   transform: translateY(-50%);
 }
@@ -1646,44 +1668,36 @@ section {
   position: relative;
   z-index: 1;
   flex: none;
+  margin-left: 14px;
 }
 
-.arch-mlink-cap {
-  position: relative;
-  z-index: 1;
-  font-family: var(--mono);
-  font-size: 7px;
-  color: #86efac;
-  white-space: nowrap;
-  background: rgba(10, 10, 15, 0.92);
-  padding: 0 3px;
-}
-
-.arch-side-stack .arch-subbox--cp {
+/* flush arrow tip on Control plane left border */
+.arch-node--cp {
   position: relative;
 }
 
-/* arrow tip into Control plane */
-.arch-side-stack .arch-subbox--cp::before {
+.arch-node--cp::before {
   content: "";
   position: absolute;
-  left: -9px;
-  top: 14px;
-  width: 9px;
+  left: -8px;
+  top: 50%;
+  width: 8px;
   height: 1.5px;
-  background: rgba(52, 211, 153, 0.8);
+  background: rgba(52, 211, 153, 0.85);
+  transform: translateY(-50%);
 }
 
-.arch-side-stack .arch-subbox--cp::after {
+.arch-node--cp::after {
   content: "";
   position: absolute;
-  left: -4px;
-  top: 11px;
-  width: 5px;
-  height: 5px;
+  left: -1px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
   border-right: 1.5px solid rgba(52, 211, 153, 0.95);
   border-top: 1.5px solid rgba(52, 211, 153, 0.95);
-  transform: rotate(45deg);
+  transform: translate(-50%, -50%) rotate(45deg);
+  z-index: 1;
 }
 
 .arch-lock {
@@ -1928,19 +1942,26 @@ section {
       "ingress"
       "h1"
       "pods"
-      "mlink"
       "h2"
-      "side";
+      "db"
+      "mlink"
+      "cp";
     justify-items: stretch;
+    align-items: stretch;
   }
 
-  .arch-side-stack .arch-subbox--cp::before,
-  .arch-side-stack .arch-subbox--cp::after {
+  .arch-node--cp::before,
+  .arch-node--cp::after {
     display: none;
   }
 
-  .arch-side-stack {
-    width: min(100%, 220px);
+  .arch-mlink::before,
+  .arch-mlink::after {
+    display: none;
+  }
+
+  .arch-hlink--db {
+    align-self: center;
   }
 
   .arch-hlink {

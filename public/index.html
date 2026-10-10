@@ -8,7 +8,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=25">
+  <link rel="stylesheet" href="css/style.css?v=27">
 </head>
 <body>
   <div class="cursor" id="cursor"></div>
@@ -381,7 +381,7 @@
                 <div class="arch-subbox-title">CI Pipeline</div>
                 <div class="arch-pill-row">
                   <div class="arch-pill arch-item">
-                    <img class="arch-ico" src="img/stack/trivy.svg" alt="" width="14" height="14">
+                    <img class="arch-ico" src="img/stack/trivy.png" alt="" width="14" height="14">
                     <span>Trivy</span>
                     <em>Source</em>
                   </div>
@@ -454,7 +454,7 @@
                     <span>Argo Rollouts</span>
                   </div>
                   <div class="arch-pill arch-item">
-                    <img class="arch-ico" src="img/stack/kargo.svg" alt="" width="14" height="14">
+                    <img class="arch-ico" src="img/stack/kargo.png" alt="" width="14" height="14">
                     <span>Kargo</span>
                   </div>
                   <div class="arch-pill arch-item">
@@ -603,7 +603,7 @@
                         <span>Knative</span>
                       </div>
                       <div class="arch-pill">
-                        <img class="arch-ico" src="img/stack/kafka.svg" alt="" width="14" height="14">
+                        <img class="arch-ico" src="img/stack/kafka.png" alt="" width="14" height="14">
                         <span>Kafka</span>
                       </div>
                       <div class="arch-pill">
@@ -611,11 +611,11 @@
                         <span>RabbitMQ</span>
                       </div>
                       <div class="arch-pill">
-                        <img class="arch-ico" src="img/stack/keycloak.svg" alt="" width="14" height="14">
+                        <img class="arch-ico" src="img/stack/keycloak.png" alt="" width="14" height="14">
                         <span>Keycloak</span>
                       </div>
                       <div class="arch-pill">
-                        <img class="arch-ico" src="img/stack/kyverno.svg" alt="" width="14" height="14">
+                        <img class="arch-ico" src="img/stack/kyverno.png" alt="" width="14" height="14">
                         <span>Kyverno</span>
                       </div>
                       <div class="arch-pill">
@@ -623,7 +623,7 @@
                         <span>Gatekeeper</span>
                       </div>
                       <div class="arch-pill">
-                        <img class="arch-ico" src="img/stack/headlamp.svg" alt="" width="14" height="14">
+                        <img class="arch-ico" src="img/stack/headlamp.png" alt="" width="14" height="14">
                         <span>Headlamp</span>
                       </div>
                     </div>
@@ -631,50 +631,48 @@
 
                   <div class="arch-hlink arch-hlink--db" aria-hidden="true"><span>Data access</span></div>
 
-                  <div class="arch-side-stack">
-                    <div class="arch-subbox arch-item">
-                      <div class="arch-subbox-title">Database</div>
-                      <div class="arch-pill-row">
-                        <div class="arch-pill">
-                          <img class="arch-ico" src="img/stack/postgresql.svg" alt="" width="14" height="14">
-                          <span>Postgres / Ceph</span>
-                        </div>
-                        <div class="arch-pill">
-                          <img class="arch-ico" src="img/stack/elasticsearch.svg" alt="" width="14" height="14">
-                          <span>Elasticsearch</span>
-                        </div>
+                  <div class="arch-subbox arch-node--db arch-item">
+                    <div class="arch-subbox-title">Database</div>
+                    <div class="arch-pill-row">
+                      <div class="arch-pill">
+                        <img class="arch-ico" src="img/stack/postgresql.svg" alt="" width="14" height="14">
+                        <span>Postgres / Ceph</span>
                       </div>
-                    </div>
-                    <div class="arch-subbox arch-subbox--cp arch-item">
-                      <div class="arch-subbox-title">Control plane</div>
-                      <div class="arch-pill-row">
-                        <div class="arch-pill">
-                          <img class="arch-ico" src="img/stack/etcd.svg" alt="" width="14" height="14">
-                          <span>etcd</span>
-                        </div>
-                        <div class="arch-pill">
-                          <img class="arch-ico" src="img/stack/coredns.svg" alt="" width="14" height="14">
-                          <span>CoreDNS</span>
-                        </div>
-                        <div class="arch-pill">
-                          <img class="arch-ico" src="img/stack/apiserver.svg" alt="" width="14" height="14">
-                          <span>API Server</span>
-                        </div>
-                        <div class="arch-pill">
-                          <img class="arch-ico" src="img/stack/controller.svg" alt="" width="14" height="14">
-                          <span>Controller</span>
-                        </div>
-                        <div class="arch-pill">
-                          <img class="arch-ico" src="img/stack/scheduler.svg" alt="" width="14" height="14">
-                          <span>Scheduler</span>
-                        </div>
+                      <div class="arch-pill">
+                        <img class="arch-ico" src="img/stack/elasticsearch.svg" alt="" width="14" height="14">
+                        <span>Elasticsearch</span>
                       </div>
                     </div>
                   </div>
 
                   <div class="arch-mlink arch-item" aria-hidden="true">
                     <span class="arch-lock"><i></i> mTLS</span>
-                    <span class="arch-mlink-cap">pods → control plane</span>
+                  </div>
+
+                  <div class="arch-subbox arch-node--cp arch-item">
+                    <div class="arch-subbox-title">Control plane</div>
+                    <div class="arch-pill-row">
+                      <div class="arch-pill">
+                        <img class="arch-ico" src="img/stack/etcd.svg" alt="" width="14" height="14">
+                        <span>etcd</span>
+                      </div>
+                      <div class="arch-pill">
+                        <img class="arch-ico" src="img/stack/coredns.svg" alt="" width="14" height="14">
+                        <span>CoreDNS</span>
+                      </div>
+                      <div class="arch-pill">
+                        <img class="arch-ico" src="img/stack/apiserver.svg" alt="" width="14" height="14">
+                        <span>API Server</span>
+                      </div>
+                      <div class="arch-pill">
+                        <img class="arch-ico" src="img/stack/controller.svg" alt="" width="14" height="14">
+                        <span>Controller</span>
+                      </div>
+                      <div class="arch-pill">
+                        <img class="arch-ico" src="img/stack/scheduler.svg" alt="" width="14" height="14">
+                        <span>Scheduler</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </article>
@@ -730,7 +728,7 @@
                   </div>
                   <div class="arch-observe-item arch-item">
                     <div class="arch-pill">
-                      <img class="arch-ico" src="img/stack/opentelemetry.svg" alt="" width="14" height="14">
+                      <img class="arch-ico" src="img/stack/opentelemetry.png" alt="" width="14" height="14">
                       <span>OpenTelemetry</span>
                     </div>
                     <em>Telemetry</em>
