@@ -173,17 +173,136 @@
 
   const stackFlow = document.getElementById("stackFlow");
   if (stackFlow) {
-    const flowObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (!e.isIntersecting) return;
-          stackFlow.classList.add("is-on");
-          flowObserver.unobserve(stackFlow);
-        });
-      },
-      { threshold: 0.28 }
-    );
-    flowObserver.observe(stackFlow);
+    const svg = stackFlow.querySelector(".flow-svg");
+    const VB_W = 1040;
+    const VB_H = 540;
+    const boxOf = (id) => {
+      const el = stackFlow.querySelector(`[data-node="${id}"]`);
+      const root = stackFlow.getBoundingClientRect();
+      const rect = el.parentElement.getBoundingClientRect();
+      const x = (n) => ((n - root.left) / root.width) * VB_W;
+      const y = (n) => ((n - root.top) / root.height) * VB_H;
+      return {
+        cx: x(rect.left + rect.width / 2),
+        cy: y(rect.top + rect.height / 2),
+        l: x(rect.left),
+        r: x(rect.right),
+        t: y(rect.top),
+        b: y(rect.bottom),
+      };
+    };
+    const setPath = (id, d) => {
+      const el = svg.querySelector("#" + id);
+      if (el) el.setAttribute("d", d);
+    };
+    const hookUpRight = (x, yFrom, xTo, yTo) => {
+      const roomY = yFrom - yTo;
+      const roomX = xTo - x;
+      const rad = Math.min(28, roomY - 6, roomX - 6);
+      if (rad < 10) return `M ${x} ${yFrom} V ${yTo} H ${xTo}`;
+      return `M ${x} ${yFrom} V ${yTo + rad} A ${rad} ${rad} 0 0 0 ${x + rad} ${yTo} H ${xTo}`;
+    };
+    const hookDownRight = (x, yFrom, xTo, yTo) => {
+      const roomY = yTo - yFrom;
+      const roomX = xTo - x;
+      const rad = Math.min(28, roomY - 6, roomX - 6);
+      if (rad < 10) return `M ${x} ${yFrom} V ${yTo} H ${xTo}`;
+      return `M ${x} ${yFrom} V ${yTo - rad} A ${rad} ${rad} 0 0 1 ${x + rad} ${yTo} H ${xTo}`;
+    };
+    const measure = () => {
+      const root = stackFlow.getBoundingClientRect();
+      if (root.width < 40) return;
+      const live = boxOf("live");
+      const t1 = boxOf("t1");
+      const t2 = boxOf("t2");
+      const t3 = boxOf("t3");
+      const t4 = boxOf("t4");
+      const gitlab = boxOf("gitlab");
+      const terraform = boxOf("terraform");
+      const argocd = boxOf("argocd");
+      const openstack = boxOf("openstack");
+      const system = boxOf("system");
+      const kubescape = boxOf("kubescape");
+      const grafana = boxOf("grafana");
+      const lgtm = boxOf("lgtm");
+      const railY = VB_H / 2;
+      const gap = 8;
+      const dot = (id, x) => {
+        const c = svg.querySelector("#" + id);
+        c.setAttribute("cx", x);
+        c.setAttribute("cy", railY);
+      };
+
+      setPath("rail", `M ${live.r + 16} ${railY} H ${t4.cx}`);
+      dot("d1", t1.cx);
+      dot("d2", t2.cx);
+      dot("d3", t3.cx);
+      dot("d4", t4.cx);
+
+      setPath("toGitlab", `M ${t2.cx} ${railY} V ${gitlab.b + gap}`);
+      setPath(
+        "toTerraform",
+        hookUpRight(t2.cx, gitlab.t - gap, terraform.l - gap, terraform.cy)
+      );
+
+      const topY = terraform.cy;
+      const greenStart = terraform.r + gap;
+      const quarter = t4.cx - (railY - topY);
+      const arcStart = Math.min(
+        t4.cx - 28,
+        Math.max(greenStart + 12, argocd.r + 16, quarter)
+      );
+      const rx = t4.cx - arcStart;
+      const ry = railY - topY;
+      setPath(
+        "green",
+        `M ${greenStart} ${topY} H ${arcStart} A ${rx} ${ry} 0 0 1 ${t4.cx} ${railY}`
+      );
+
+      setPath("toOpenstack", `M ${t1.cx} ${railY} V ${openstack.t - gap}`);
+      setPath("toSystem", `M ${t1.cx} ${openstack.b + gap} V ${system.t - gap}`);
+      setPath("red", `M ${system.r + gap} ${system.cy} H ${kubescape.cx + 6}`);
+
+      setPath("toGrafana", `M ${t3.cx} ${railY} V ${grafana.t - gap}`);
+      setPath(
+        "toLgtm",
+        hookDownRight(t3.cx, grafana.b + gap, lgtm.l - gap, lgtm.cy)
+      );
+    };
+
+    let played = false;
+    const play = () => {
+      if (played) return;
+      played = true;
+      measure();
+      if (reduceMotion) {
+        stackFlow.classList.add("is-on");
+        return;
+      }
+      stackFlow.classList.remove("is-on");
+      void stackFlow.offsetWidth;
+      stackFlow.classList.add("is-on");
+    };
+
+    const watch = () => {
+      measure();
+      if (reduceMotion) {
+        stackFlow.classList.add("is-on");
+        return;
+      }
+      const flowObserver = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((e) => e.isIntersecting)) return;
+          play();
+          flowObserver.disconnect();
+        },
+        { threshold: 0.42 }
+      );
+      flowObserver.observe(stackFlow);
+    };
+
+    window.addEventListener("resize", measure);
+    setTimeout(watch, reduceMotion ? 0 : 3700);
   }
 
   const animateCount = (el) => {
