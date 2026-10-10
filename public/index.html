@@ -8,7 +8,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=18">
+  <link rel="stylesheet" href="css/style.css?v=19">
 </head>
 <body>
   <div class="cursor" id="cursor"></div>
@@ -343,96 +343,125 @@
       <div class="arch-scroll">
         <div class="arch" id="stackFlow">
           <div class="arch-board">
-            <!-- col 1: developer -->
+            <!-- row 1: developer + 3 equal control panels -->
             <div class="arch-solo arch-piece" style="--d:.06s">
-              <div class="arch-pill">
+              <div class="arch-pill arch-item">
                 <img class="arch-ico" src="img/stack/developer.svg" alt="" width="14" height="14">
                 <span>Developer</span>
+              </div>
+              <div class="arch-pill arch-item">
+                <img class="arch-ico" src="img/stack/ai.svg" alt="" width="14" height="14">
+                <span>AI Assistant</span>
               </div>
               <span class="arch-edge">Commit code →</span>
             </div>
 
-            <!-- col 2: source + CI -->
-            <article class="arch-zone arch-piece" style="--d:.18s">
+            <article class="arch-zone arch-zone--eq arch-piece arch-area-src" style="--d:.18s">
               <header class="arch-zone-title">Source Control &amp; CI</header>
-              <div class="arch-pill">
-                <img class="arch-ico" src="img/stack/gitlab.svg" alt="" width="14" height="14">
-                <span>GitLab</span>
+              <div class="arch-pill-row">
+                <div class="arch-pill arch-item">
+                  <img class="arch-ico" src="img/stack/gitlab.svg" alt="" width="14" height="14">
+                  <span>GitLab</span>
+                </div>
               </div>
               <div class="arch-pipeline">
                 <div class="arch-pipeline-title">CI Pipeline</div>
-                <div class="arch-pill">
+                <div class="arch-pill arch-item">
                   <img class="arch-ico" src="img/stack/trivy.svg" alt="" width="14" height="14">
                   <span>Trivy</span>
                   <em>Source</em>
                 </div>
                 <div class="arch-vlink"></div>
-                <div class="arch-pill">
+                <div class="arch-pill arch-item">
                   <img class="arch-ico" src="img/stack/anchore.png" alt="" width="14" height="14">
                   <span>Anchore</span>
                   <em>Image</em>
                 </div>
                 <div class="arch-vlink"></div>
-                <div class="arch-pill">
+                <div class="arch-pill arch-item">
                   <img class="arch-ico" src="img/stack/kubescape.png" alt="" width="14" height="14">
                   <span>Kubescape</span>
                   <em>IaC</em>
                 </div>
+                <div class="arch-vlink"></div>
+                <div class="arch-pill arch-item">
+                  <img class="arch-ico" src="img/stack/secobserve.svg" alt="" width="14" height="14">
+                  <span>SecObserve</span>
+                  <em>AppSec</em>
+                </div>
               </div>
-              <div class="arch-note arch-note--ok"><i>✓</i> −70% CVE</div>
+              <div class="arch-note arch-note--ok arch-item"><i>✓</i> −70% CVE</div>
             </article>
 
-            <div class="arch-col-link arch-piece" style="--d:.4s" aria-hidden="true">
+            <div class="arch-col-link arch-piece arch-area-l1" style="--d:.4s" aria-hidden="true">
               <span>Update</span>
             </div>
 
-            <!-- col 3: artifacts + gitops -->
-            <article class="arch-zone arch-piece" style="--d:.5s">
+            <article class="arch-zone arch-zone--eq arch-piece arch-area-git" style="--d:.5s">
               <header class="arch-zone-title">Artifact &amp; GitOps</header>
-              <div class="arch-pill">
-                <img class="arch-ico" src="img/stack/docker.svg" alt="" width="14" height="14">
-                <span>Registry</span>
-              </div>
-              <div class="arch-pill">
-                <img class="arch-ico" src="img/stack/gitlab.svg" alt="" width="14" height="14">
-                <span>Manifests</span>
+              <div class="arch-pill-row">
+                <div class="arch-pill arch-item">
+                  <img class="arch-ico" src="img/stack/harbor.svg" alt="" width="14" height="14">
+                  <span>Harbor</span>
+                </div>
+                <div class="arch-pill arch-item">
+                  <img class="arch-ico" src="img/stack/helm.svg" alt="" width="14" height="14">
+                  <span>Helm</span>
+                </div>
+                <div class="arch-pill arch-item">
+                  <img class="arch-ico" src="img/stack/gitlab.svg" alt="" width="14" height="14">
+                  <span>Manifests</span>
+                </div>
+                <div class="arch-pill arch-item">
+                  <img class="arch-ico" src="img/stack/vault.svg" alt="" width="14" height="14">
+                  <span>Vault</span>
+                </div>
               </div>
               <div class="arch-vlink">↕ Sync</div>
-              <div class="arch-pill">
+              <div class="arch-pill arch-item">
                 <img class="arch-ico" src="img/stack/argo.svg" alt="" width="14" height="14">
                 <span>Argo CD</span>
               </div>
-              <div class="arch-note arch-note--ok"><i>↑</i> Synced</div>
+              <div class="arch-note arch-note--ok arch-item"><i>↑</i> Synced</div>
             </article>
 
-            <div class="arch-col-link arch-piece arch-col-link--green" style="--d:.75s" aria-hidden="true">
+            <div class="arch-col-link arch-piece arch-col-link--green arch-area-l2" style="--d:.75s" aria-hidden="true">
               <span>Provision</span>
             </div>
 
-            <!-- col 4: infra -->
-            <article class="arch-zone arch-piece" style="--d:.85s">
+            <article class="arch-zone arch-zone--eq arch-piece arch-area-inf" style="--d:.85s">
               <header class="arch-zone-title">Infrastructure Control Plane</header>
-              <div class="arch-pill">
-                <img class="arch-ico" src="img/stack/kro.svg" alt="" width="14" height="14">
-                <span>KRO</span>
+              <div class="arch-pill-row">
+                <div class="arch-pill arch-item">
+                  <img class="arch-ico" src="img/stack/kro.svg" alt="" width="14" height="14">
+                  <span>KRO</span>
+                </div>
+                <div class="arch-pill arch-item">
+                  <img class="arch-ico" src="img/stack/openstack.svg" alt="" width="14" height="14">
+                  <span>OpenStack</span>
+                </div>
+                <div class="arch-pill arch-item">
+                  <img class="arch-ico" src="img/stack/terraform.svg" alt="" width="14" height="14">
+                  <span>Terraform</span>
+                </div>
+                <div class="arch-pill arch-item">
+                  <img class="arch-ico" src="img/stack/ansible.svg" alt="" width="14" height="14">
+                  <span>Ansible</span>
+                </div>
+                <div class="arch-pill arch-item">
+                  <img class="arch-ico" src="img/stack/eks.svg" alt="" width="14" height="14">
+                  <span>EKS</span>
+                </div>
               </div>
-              <div class="arch-pill">
-                <img class="arch-ico" src="img/stack/openstack.svg" alt="" width="14" height="14">
-                <span>OpenStack</span>
-              </div>
-              <div class="arch-pill">
-                <img class="arch-ico" src="img/stack/terraform.svg" alt="" width="14" height="14">
-                <span>Terraform</span>
-              </div>
-              <div class="arch-note arch-note--ok"><i>✓</i> Auto-provision</div>
+              <div class="arch-note arch-note--ok arch-item"><i>✓</i> Auto-provision</div>
             </article>
 
-            <div class="arch-col-link arch-piece arch-col-link--cyan" style="--d:1.1s" aria-hidden="true">
-              <span>Deploy</span>
+            <div class="arch-down-link arch-piece arch-area-down" style="--d:1.05s" aria-hidden="true">
+              <span>Deploy to cluster</span>
             </div>
 
-            <!-- col 5: production cluster + drop links + observability -->
-            <div class="arch-cluster-stack arch-piece" style="--d:1.2s">
+            <!-- row 2: production cluster -->
+            <div class="arch-cluster-stack arch-piece arch-area-cluster" style="--d:1.2s">
               <article class="arch-zone arch-zone--cluster">
                 <header class="arch-zone-title">
                   <span class="arch-zone-title-k">
@@ -444,44 +473,80 @@
 
                 <div class="arch-cluster-map">
                   <div class="arch-node arch-node--ingress">
-                    <div class="arch-pill">
-                      <img class="arch-ico" src="img/stack/apisix.svg" alt="" width="14" height="14">
-                      <span>APISIX</span>
+                    <div class="arch-node-label">Ingress / Gateway</div>
+                    <div class="arch-pill-row arch-pill-row--center">
+                      <div class="arch-pill arch-item">
+                        <img class="arch-ico" src="img/stack/apisix.svg" alt="" width="14" height="14">
+                        <span>APISIX</span>
+                      </div>
+                      <div class="arch-pill arch-item">
+                        <img class="arch-ico" src="img/stack/kong.svg" alt="" width="14" height="14">
+                        <span>Kong</span>
+                      </div>
+                      <div class="arch-pill arch-item">
+                        <img class="arch-ico" src="img/stack/nginx.svg" alt="" width="14" height="14">
+                        <span>NGINX</span>
+                      </div>
+                      <div class="arch-pill arch-item">
+                        <img class="arch-ico" src="img/stack/payment.svg" alt="" width="14" height="14">
+                        <span>Payment Gateway</span>
+                      </div>
                     </div>
-                    <p class="arch-node-cap">Ingress · API gateway</p>
                   </div>
 
                   <div class="arch-hlink arch-hlink--route" aria-hidden="true"><span>Route traffic</span></div>
 
                   <div class="arch-node arch-node--pods">
-                    <div class="arch-node-label">Microservices Pods</div>
+                    <div class="arch-node-label">Microservices + Mesh</div>
                     <div class="arch-pods">
-                      <div class="arch-pod">
+                      <div class="arch-pod arch-item">
                         <img src="img/stack/kubernetes.svg" alt="" width="18" height="18">
                         <span>svc-a</span>
                       </div>
-                      <div class="arch-pod">
+                      <div class="arch-pod arch-item">
                         <img src="img/stack/kubernetes.svg" alt="" width="18" height="18">
                         <span>svc-b</span>
                       </div>
-                      <div class="arch-pod">
+                      <div class="arch-pod arch-item">
                         <img src="img/stack/kubernetes.svg" alt="" width="18" height="18">
                         <span>svc-c</span>
                       </div>
                     </div>
+                    <div class="arch-pill-row arch-pill-row--center">
+                      <div class="arch-pill arch-item">
+                        <img class="arch-ico" src="img/stack/cilium.svg" alt="" width="14" height="14">
+                        <span>Cilium</span>
+                      </div>
+                      <div class="arch-pill arch-item">
+                        <img class="arch-ico" src="img/stack/kafka.svg" alt="" width="14" height="14">
+                        <span>Kafka</span>
+                      </div>
+                      <div class="arch-pill arch-item">
+                        <img class="arch-ico" src="img/stack/rabbitmq.svg" alt="" width="14" height="14">
+                        <span>RabbitMQ</span>
+                      </div>
+                      <div class="arch-pill arch-item">
+                        <img class="arch-ico" src="img/stack/headlamp.svg" alt="" width="14" height="14">
+                        <span>Headlamp</span>
+                      </div>
+                    </div>
                   </div>
 
-                  <div class="arch-hlink arch-hlink--db" aria-hidden="true"><span>Database access</span></div>
+                  <div class="arch-hlink arch-hlink--db" aria-hidden="true"><span>Data access</span></div>
 
                   <div class="arch-side-stack">
-                    <div class="arch-subbox arch-subbox--db">
+                    <div class="arch-subbox arch-item">
                       <div class="arch-subbox-title">Database</div>
                       <div class="arch-pill">
                         <img class="arch-ico" src="img/stack/postgresql.svg" alt="" width="14" height="14">
                         <span>Postgres / Ceph</span>
                       </div>
+                      <div class="arch-pill">
+                        <img class="arch-ico" src="img/stack/elasticsearch.svg" alt="" width="14" height="14">
+                        <span>Elasticsearch</span>
+                      </div>
                     </div>
-                    <div class="arch-subbox arch-subbox--etcd">
+                    <div class="arch-subbox arch-item">
                       <div class="arch-subbox-title">etcd Cluster</div>
                       <div class="arch-pill">
                         <img class="arch-ico" src="img/stack/etcd.svg" alt="" width="14" height="14">
@@ -490,7 +555,7 @@
                     </div>
                   </div>
 
-                  <div class="arch-mlink" aria-hidden="true">
+                  <div class="arch-mlink arch-item" aria-hidden="true">
                     <span class="arch-lock"><i></i> mTLS</span>
                   </div>
                 </div>
@@ -504,29 +569,64 @@
               <div class="arch-observe">
                 <header class="arch-zone-title">Observability &amp; Compliance</header>
                 <div class="arch-observe-row">
-                  <div class="arch-observe-item">
+                  <div class="arch-observe-item arch-item">
                     <div class="arch-pill">
                       <img class="arch-ico" src="img/stack/prometheus.svg" alt="" width="14" height="14">
                       <span>Prometheus</span>
                     </div>
-                    <em>Collect metrics</em>
+                    <em>Metrics</em>
                   </div>
-                  <div class="arch-observe-item">
+                  <div class="arch-observe-item arch-item">
                     <div class="arch-pill">
                       <img class="arch-ico" src="img/stack/grafana.svg" alt="" width="14" height="14">
                       <span>Grafana</span>
                     </div>
-                    <em>Visualize</em>
+                    <em>Dashboards</em>
                   </div>
-                  <div class="arch-observe-item">
+                  <div class="arch-observe-item arch-item">
+                    <div class="arch-pill">
+                      <img class="arch-ico" src="img/stack/loki.svg" alt="" width="14" height="14">
+                      <span>Loki</span>
+                    </div>
+                    <em>Logs</em>
+                  </div>
+                  <div class="arch-observe-item arch-item">
+                    <div class="arch-pill">
+                      <img class="arch-ico" src="img/stack/tempo.svg" alt="" width="14" height="14">
+                      <span>Tempo</span>
+                    </div>
+                    <em>Traces</em>
+                  </div>
+                  <div class="arch-observe-item arch-item">
+                    <div class="arch-pill">
+                      <img class="arch-ico" src="img/stack/mimir.svg" alt="" width="14" height="14">
+                      <span>Mimir</span>
+                    </div>
+                    <em>Long-term</em>
+                  </div>
+                  <div class="arch-observe-item arch-item">
+                    <div class="arch-pill">
+                      <img class="arch-ico" src="img/stack/opentelemetry.svg" alt="" width="14" height="14">
+                      <span>OpenTelemetry</span>
+                    </div>
+                    <em>Telemetry</em>
+                  </div>
+                  <div class="arch-observe-item arch-item">
                     <div class="arch-pill">
                       <img class="arch-ico" src="img/stack/kubescape.png" alt="" width="14" height="14">
                       <span>Kubescape</span>
                     </div>
-                    <em>K8s posture</em>
+                    <em>Posture</em>
                   </div>
-                  <div class="arch-note arch-note--alert"><i>!</i> Alert</div>
-                  <div class="arch-note arch-note--ok"><i>✓</i> CIS</div>
+                  <div class="arch-observe-item arch-item">
+                    <div class="arch-pill">
+                      <img class="arch-ico" src="img/stack/pcidss.svg" alt="" width="14" height="14">
+                      <span>PCI DSS</span>
+                    </div>
+                    <em>Compliance</em>
+                  </div>
+                  <div class="arch-note arch-note--alert arch-item"><i>!</i> Alert</div>
+                  <div class="arch-note arch-note--ok arch-item"><i>✓</i> CIS</div>
                 </div>
               </div>
             </div>
@@ -677,6 +777,6 @@
     <div>exit 0 <span>✓</span></div>
   </footer>
 
-  <script src="js/main.js?v=6"></script>
+  <script src="js/main.js?v=7"></script>
 </body>
 </html>

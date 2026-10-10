@@ -174,9 +174,22 @@
   const stackFlow = document.getElementById("stackFlow");
   if (stackFlow) {
     let played = false;
+
+    const prepareStackItems = () => {
+      stackFlow.querySelectorAll(".arch-piece").forEach((piece) => {
+        const items = piece.querySelectorAll(".arch-item");
+        items.forEach((el, index) => {
+          el.style.setProperty("--i", `${0.1 + index * 0.07}s`);
+        });
+      });
+    };
+
+    prepareStackItems();
+
     const play = () => {
       if (played) return;
       played = true;
+      prepareStackItems();
       if (reduceMotion) {
         stackFlow.classList.add("is-on");
         return;

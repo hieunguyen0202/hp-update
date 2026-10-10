@@ -1122,25 +1122,93 @@ section {
   display: grid;
   grid-template-columns:
     max-content
-    max-content
+    minmax(0, 1fr)
     18px
-    max-content
+    minmax(0, 1fr)
     18px
-    max-content
-    18px
-    minmax(280px, 1.35fr);
-  gap: 8px 5px;
-  align-items: start;
+    minmax(0, 1fr);
+  grid-template-areas:
+    "dev src l1 git l2 inf"
+    "down down down down down down"
+    "cluster cluster cluster cluster cluster cluster";
+  gap: 10px 8px;
+  align-items: stretch;
   width: 100%;
 }
 
 .arch-solo {
+  grid-area: dev;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 6px;
   align-self: center;
+}
+
+.arch-area-src { grid-area: src; }
+.arch-area-l1 { grid-area: l1; }
+.arch-area-git { grid-area: git; }
+.arch-area-l2 { grid-area: l2; }
+.arch-area-inf { grid-area: inf; }
+.arch-area-down { grid-area: down; }
+.arch-area-cluster { grid-area: cluster; }
+
+.arch-zone--eq {
+  width: 100%;
+  min-height: 248px;
+  height: 100%;
+  justify-content: flex-start;
+}
+
+.arch-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  width: 100%;
+  align-content: flex-start;
+}
+
+.arch-pill-row--center {
+  justify-content: center;
+}
+
+.arch-down-link {
+  position: relative;
+  justify-self: center;
+  width: 2px;
+  height: 28px;
+  background: rgba(34, 211, 238, 0.75);
+  border-radius: 999px;
+  box-shadow: 0 0 8px rgba(34, 211, 238, 0.35);
+  margin: 2px 0;
+}
+
+.arch-down-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -1px;
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid rgba(103, 232, 249, 0.95);
+  border-bottom: 1.5px solid rgba(103, 232, 249, 0.95);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.arch-down-link span {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--mono);
+  font-size: 8px;
+  color: #67e8f9;
+  white-space: nowrap;
+  background: rgba(10, 10, 15, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  padding: 1px 6px;
 }
 
 .arch-edge {
@@ -1357,16 +1425,25 @@ section {
 
 .arch-cluster-map {
   display: grid;
-  grid-template-columns: auto minmax(36px, 1fr) auto minmax(36px, 1fr) minmax(128px, 0.95fr);
+  grid-template-columns: minmax(160px, 1.1fr) minmax(28px, 0.6fr) minmax(180px, 1.3fr) minmax(28px, 0.6fr) minmax(140px, 1fr);
   grid-template-rows: auto auto;
   grid-template-areas:
     "ingress h1 pods h2 side"
     ".       .  mlink .  side";
   align-items: center;
-  column-gap: 6px;
-  row-gap: 6px;
+  column-gap: 8px;
+  row-gap: 8px;
   width: 100%;
-  padding: 2px 0 0;
+  padding: 4px 2px 2px;
+}
+
+.arch-node--ingress {
+  align-items: stretch;
+  width: 100%;
+}
+
+.arch-node--pods {
+  width: 100%;
 }
 
 .arch-node--ingress { grid-area: ingress; }
@@ -1630,14 +1707,6 @@ section {
   margin-top: 2px;
 }
 
-.arch-observe-row {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr)) auto auto;
-  gap: 8px 10px;
-  align-items: end;
-  width: 100%;
-}
-
 .arch-observe-item {
   display: flex;
   flex-direction: column;
@@ -1651,6 +1720,15 @@ section {
   font-style: normal;
   font-size: 7px;
   color: #71717a;
+}
+
+.arch-zone--eq .arch-pipeline {
+  width: 100%;
+  flex: 1;
+}
+
+.arch-zone--eq .arch-note {
+  margin-top: auto;
 }
 
 .arch-note {
@@ -1710,10 +1788,57 @@ section {
   }
 }
 
+/* stagger icons/text inside each panel after the panel pops in */
+.arch-item {
+  opacity: 0;
+  transform: translateY(7px) scale(0.96);
+}
+
+.arch.is-on .arch-item {
+  animation: arch-item-in 0.34s cubic-bezier(0.34, 1.45, 0.64, 1) forwards;
+  animation-delay: calc(var(--d, 0s) + var(--i, 0.12s));
+}
+
+@keyframes arch-item-in {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arch-item {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
+}
+
+.arch-observe-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: flex-end;
+  width: 100%;
+}
+
 @media (max-width: 960px) {
   .arch-board {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "dev"
+      "src"
+      "l1"
+      "git"
+      "l2"
+      "inf"
+      "down"
+      "cluster";
     gap: 10px;
+  }
+
+  .arch-zone--eq {
+    min-height: 0;
   }
 
   .arch-cluster-map {
@@ -1730,10 +1855,6 @@ section {
 
   .arch-side-stack {
     width: min(100%, 220px);
-  }
-
-  .arch-observe-row {
-    grid-template-columns: 1fr;
   }
 
   .arch-hlink {
@@ -1783,6 +1904,10 @@ section {
     top: 50%;
     left: 12px;
     transform: translateY(-50%);
+  }
+
+  .arch-down-link {
+    height: 24px;
   }
 }
 
