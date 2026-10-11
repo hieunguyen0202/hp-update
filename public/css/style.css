@@ -901,7 +901,7 @@ section {
   color: var(--muted);
 }
 
-/* —— Certification roadmap (long S-curve, no horizontal scroll) —— */
+/* —— Certification roadmap (peak/valley wave L→R, no horizontal scroll) —— */
 .cert-roadmap {
   margin-top: 28px;
   width: 100%;
@@ -912,8 +912,8 @@ section {
   position: relative;
   width: 100%;
   max-width: 100%;
-  aspect-ratio: 1000 / 900;
-  min-height: 480px;
+  aspect-ratio: 1000 / 560;
+  min-height: 360px;
 }
 
 .cert-road {
@@ -1135,7 +1135,7 @@ section {
 
 @media (max-width: 900px) {
   .cert-roadmap-canvas {
-    min-height: 380px;
+    min-height: 300px;
   }
 
   .cert-badge {
@@ -1155,7 +1155,7 @@ section {
 
 @media (max-width: 560px) {
   .cert-roadmap-canvas {
-    min-height: 340px;
+    min-height: 260px;
   }
 
   .cert-badge {
