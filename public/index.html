@@ -8,7 +8,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=34">
+  <link rel="stylesheet" href="css/style.css?v=35">
 </head>
 <body>
   <div class="cursor" id="cursor"></div>
@@ -184,39 +184,39 @@
 
         <div class="cert-roadmap" aria-label="Certification roadmap">
           <div class="cert-roadmap-canvas" role="list">
-            <svg class="cert-road" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <svg class="cert-road" viewBox="0 0 1024 600" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
               <defs>
-                <filter id="roadShadow" x="-3%" y="-6%" width="106%" height="112%">
-                  <feDropShadow dx="0" dy="7" stdDeviation="7" flood-color="#000" flood-opacity="0.48"/>
+                <filter id="roadShadow" x="-4%" y="-8%" width="108%" height="116%">
+                  <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.55"/>
                 </filter>
                 <linearGradient id="roadEdge" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.55"/>
-                  <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.4"/>
-                  <stop offset="100%" stop-color="#22d3ee" stop-opacity="0.3"/>
+                  <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.7"/>
+                  <stop offset="55%" stop-color="#67e8f9" stop-opacity="0.45"/>
+                  <stop offset="100%" stop-color="#22d3ee" stop-opacity="0.28"/>
                 </linearGradient>
               </defs>
               <!--
-                Matched to timeline-infographic reference:
-                flat start → peak → deep valley → higher peak → wide valley → highest peak → valley → end rise
+                Timeline-infographic road: horizontal runs joined by round corners.
+                entry → valley → crest → mid shelf → lower shelf → tall arch → exit shelf
               -->
               <path class="cert-road-bed"
-                d="M40 300 C110 300 130 190 165 155 C200 120 245 340 295 475 C340 560 380 200 435 95 C490 20 530 380 585 485 C640 560 690 130 745 65 C800 20 825 340 870 455 C910 540 945 310 980 285"
-                fill="none" stroke="url(#roadEdge)" stroke-width="34" stroke-linecap="round" filter="url(#roadShadow)"/>
+                d="M0 336 H120 A28 28 0 0 1 148 364 V420 A28 28 0 0 0 176 448 H238 A28 28 0 0 0 266 420 V268 A28 28 0 0 1 294 240 H360 A28 28 0 0 1 388 268 V296 A28 28 0 0 0 416 324 H470 A28 28 0 0 1 498 352 V388 A28 28 0 0 0 526 416 H560 A28 28 0 0 0 588 388 V200 A28 28 0 0 1 616 172 H740 A28 28 0 0 1 768 200 V342 A28 28 0 0 0 796 370 H868 A28 28 0 0 1 896 398 V404 A28 28 0 0 0 924 432 H1024"
+                fill="none" stroke="url(#roadEdge)" stroke-width="36" stroke-linecap="butt" filter="url(#roadShadow)"/>
               <path class="cert-road-surface"
-                d="M40 300 C110 300 130 190 165 155 C200 120 245 340 295 475 C340 560 380 200 435 95 C490 20 530 380 585 485 C640 560 690 130 745 65 C800 20 825 340 870 455 C910 540 945 310 980 285"
-                fill="none" stroke="#1c1c28" stroke-width="26" stroke-linecap="round"/>
+                d="M0 336 H120 A28 28 0 0 1 148 364 V420 A28 28 0 0 0 176 448 H238 A28 28 0 0 0 266 420 V268 A28 28 0 0 1 294 240 H360 A28 28 0 0 1 388 268 V296 A28 28 0 0 0 416 324 H470 A28 28 0 0 1 498 352 V388 A28 28 0 0 0 526 416 H560 A28 28 0 0 0 588 388 V200 A28 28 0 0 1 616 172 H740 A28 28 0 0 1 768 200 V342 A28 28 0 0 0 796 370 H868 A28 28 0 0 1 896 398 V404 A28 28 0 0 0 924 432 H1024"
+                fill="none" stroke="#14141c" stroke-width="26" stroke-linecap="butt"/>
               <path class="cert-road-lane"
-                d="M40 300 C110 300 130 190 165 155 C200 120 245 340 295 475 C340 560 380 200 435 95 C490 20 530 380 585 485 C640 560 690 130 745 65 C800 20 825 340 870 455 C910 540 945 310 980 285"
-                fill="none" stroke="rgba(244,244,245,0.5)" stroke-width="2.4" stroke-linecap="round"
-                stroke-dasharray="12 16"/>
-              <!-- earned through Kubestronaut @ highest peak -->
+                d="M0 336 H120 A28 28 0 0 1 148 364 V420 A28 28 0 0 0 176 448 H238 A28 28 0 0 0 266 420 V268 A28 28 0 0 1 294 240 H360 A28 28 0 0 1 388 268 V296 A28 28 0 0 0 416 324 H470 A28 28 0 0 1 498 352 V388 A28 28 0 0 0 526 416 H560 A28 28 0 0 0 588 388 V200 A28 28 0 0 1 616 172 H740 A28 28 0 0 1 768 200 V342 A28 28 0 0 0 796 370 H868 A28 28 0 0 1 896 398 V404 A28 28 0 0 0 924 432 H1024"
+                fill="none" stroke="rgba(244,244,245,0.72)" stroke-width="2.2" stroke-linecap="butt"
+                stroke-dasharray="12 14"/>
+              <!-- earned through Kubestronaut, on the arch crown -->
               <path class="cert-road-done"
-                d="M40 300 C110 300 130 190 165 155 C200 120 245 340 295 475 C340 560 380 200 435 95 C490 20 530 380 585 485 C640 560 690 130 745 65"
-                fill="none" stroke="rgba(34,211,238,0.55)" stroke-width="3" stroke-linecap="round"/>
+                d="M0 336 H120 A28 28 0 0 1 148 364 V420 A28 28 0 0 0 176 448 H238 A28 28 0 0 0 266 420 V268 A28 28 0 0 1 294 240 H360 A28 28 0 0 1 388 268 V296 A28 28 0 0 0 416 324 H470 A28 28 0 0 1 498 352 V388 A28 28 0 0 0 526 416 H560 A28 28 0 0 0 588 388 V200 A28 28 0 0 1 616 172 H678"
+                fill="none" stroke="rgba(34,211,238,0.85)" stroke-width="2.6" stroke-linecap="round"/>
             </svg>
 
-            <!-- 1 start — label below (like MARKETING) -->
-            <a class="cert-stop cert-stop--below" role="listitem" style="--x:4.0%; --y:50.0%"
+            <!-- 1 entry shelf — label below -->
+            <a class="cert-stop cert-stop--below" role="listitem" style="--x:7.6%; --y:56.0%"
                href="certs/NXH-GCP-PCA.pdf" target="_blank" rel="noopener"
                aria-label="Google Cloud Certified Professional Cloud Architect, May 16, 2024">
               <span class="cert-pin" aria-hidden="true"></span>
@@ -229,8 +229,8 @@
               </span>
             </a>
 
-            <!-- 2 peak 1 — above -->
-            <a class="cert-stop cert-stop--above" role="listitem" style="--x:16.9%; --y:25.3%"
+            <!-- 2 valley floor — below -->
+            <a class="cert-stop cert-stop--below" role="listitem" style="--x:20.2%; --y:74.7%"
                href="certs/NXH-Azure-Administrator.pdf" target="_blank" rel="noopener"
                aria-label="Microsoft Certified: Azure Administrator Associate, January 14, 2025">
               <span class="cert-pin" aria-hidden="true"></span>
@@ -243,8 +243,8 @@
               </span>
             </a>
 
-            <!-- 3 valley 1 — below -->
-            <a class="cert-stop cert-stop--below" role="listitem" style="--x:30.4%; --y:81.0%"
+            <!-- 3 crest — above -->
+            <a class="cert-stop cert-stop--above" role="listitem" style="--x:31.9%; --y:40.0%"
                href="certs/NXH-CKA.pdf" target="_blank" rel="noopener"
                aria-label="CKA — Certified Kubernetes Administrator, May 24, 2026">
               <span class="cert-pin" aria-hidden="true"></span>
@@ -257,8 +257,8 @@
               </span>
             </a>
 
-            <!-- 4 climb — above into open bowl -->
-            <a class="cert-stop cert-stop--above" role="listitem" style="--x:37.7%; --y:48.2%"
+            <!-- 4 mid shelf — above, clear of the shelf below -->
+            <a class="cert-stop cert-stop--above" role="listitem" style="--x:43.3%; --y:54.0%"
                href="certs/NXH-CKAD.pdf" target="_blank" rel="noopener"
                aria-label="CKAD — Certified Kubernetes Application Developer, June 6, 2026">
               <span class="cert-pin" aria-hidden="true"></span>
@@ -271,8 +271,8 @@
               </span>
             </a>
 
-            <!-- 5 peak 2 — above -->
-            <a class="cert-stop cert-stop--above" role="listitem" style="--x:44.6%; --y:14.3%"
+            <!-- 5 lower shelf — below -->
+            <a class="cert-stop cert-stop--below" role="listitem" style="--x:53.0%; --y:69.3%"
                href="certs/NXH-KCNA.pdf" target="_blank" rel="noopener"
                aria-label="KCNA — Kubernetes and Cloud Native Associate, June 13, 2026">
               <span class="cert-pin" aria-hidden="true"></span>
@@ -285,8 +285,8 @@
               </span>
             </a>
 
-            <!-- 6 valley 2 — below -->
-            <a class="cert-stop cert-stop--below" role="listitem" style="--x:59.3%; --y:82.2%"
+            <!-- 6 climb into the arch — label to the left -->
+            <a class="cert-stop cert-stop--left" role="listitem" style="--x:57.4%; --y:57.5%"
                href="certs/NXH-KCSA.pdf" target="_blank" rel="noopener"
                aria-label="KCSA — Kubernetes and Cloud Native Security Associate, July 10, 2026">
               <span class="cert-pin" aria-hidden="true"></span>
@@ -299,8 +299,8 @@
               </span>
             </a>
 
-            <!-- 7 climb — below -->
-            <a class="cert-stop cert-stop--below" role="listitem" style="--x:68.0%; --y:40.0%"
+            <!-- 7 higher on the arch climb — label to the left -->
+            <a class="cert-stop cert-stop--left" role="listitem" style="--x:57.4%; --y:38.3%"
                href="certs/NXH-CKS.pdf" target="_blank" rel="noopener"
                aria-label="CKS — Certified Kubernetes Security Specialist, August 17, 2026">
               <span class="cert-pin" aria-hidden="true"></span>
@@ -313,8 +313,8 @@
               </span>
             </a>
 
-            <!-- 8 highest peak — above (Kubestronaut) -->
-            <a class="cert-stop cert-stop--above" role="listitem" style="--x:75.0%; --y:10.3%"
+            <!-- 8 arch crown — above (Kubestronaut) -->
+            <a class="cert-stop cert-stop--above" role="listitem" style="--x:66.2%; --y:28.7%"
                href="https://www.credly.com/badges/f5c7af1f-71e5-4b78-9b8d-399489f22b39/linked_in_profile"
                target="_blank" rel="noopener noreferrer"
                aria-label="Kubestronaut, August 23, 2026">
@@ -328,8 +328,8 @@
               </span>
             </a>
 
-            <!-- 9 descend — below to clear Kubestronaut on the peak -->
-            <div class="cert-stop cert-stop--below cert-stop--target" role="listitem" style="--x:80.2%; --y:26.3%"
+            <!-- 9 down the right leg of the arch — label to the right -->
+            <div class="cert-stop cert-stop--right cert-stop--target" role="listitem" style="--x:75.0%; --y:45.8%"
                  aria-label="Target: AWS Certified Solutions Architect Associate, 2026">
               <span class="cert-pin" aria-hidden="true"></span>
               <span class="cert-card">
@@ -341,8 +341,8 @@
               </span>
             </div>
 
-            <!-- 10 valley 3 — below -->
-            <div class="cert-stop cert-stop--below cert-stop--target" role="listitem" style="--x:88.4%; --y:78.8%"
+            <!-- 10 shelf after the arch — below -->
+            <div class="cert-stop cert-stop--below cert-stop--target" role="listitem" style="--x:81.3%; --y:61.7%"
                  aria-label="Target: AWS Certified DevOps Engineer Professional, 2026">
               <span class="cert-pin" aria-hidden="true"></span>
               <span class="cert-card">
@@ -354,8 +354,8 @@
               </span>
             </div>
 
-            <!-- 11 end plateau — above -->
-            <div class="cert-stop cert-stop--above cert-stop--target" role="listitem" style="--x:98.0%; --y:47.5%"
+            <!-- 11 exit shelf — above -->
+            <div class="cert-stop cert-stop--above cert-stop--target" role="listitem" style="--x:94.5%; --y:72.0%"
                  aria-label="Target: AWS Certified AI Practitioner, 2026">
               <span class="cert-pin" aria-hidden="true"></span>
               <span class="cert-card">

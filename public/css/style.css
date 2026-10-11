@@ -912,8 +912,7 @@ section {
   position: relative;
   width: 100%;
   max-width: 100%;
-  aspect-ratio: 1000 / 600;
-  min-height: 380px;
+  aspect-ratio: 1024 / 600;
 }
 
 .cert-road {
@@ -980,6 +979,23 @@ section {
 .cert-stop--below .cert-card {
   top: 16px;
   flex-direction: column-reverse;
+}
+
+.cert-stop--left .cert-card,
+.cert-stop--right .cert-card {
+  top: 0;
+  bottom: auto;
+  flex-direction: column;
+  transform: translateY(-50%);
+}
+
+.cert-stop--left .cert-card {
+  left: auto;
+  right: 18px;
+}
+
+.cert-stop--right .cert-card {
+  left: 18px;
 }
 
 .cert-badge {
@@ -1134,10 +1150,6 @@ section {
 }
 
 @media (max-width: 900px) {
-  .cert-roadmap-canvas {
-    min-height: 300px;
-  }
-
   .cert-badge {
     width: 48px;
     height: 48px;
@@ -1154,10 +1166,6 @@ section {
 }
 
 @media (max-width: 560px) {
-  .cert-roadmap-canvas {
-    min-height: 260px;
-  }
-
   .cert-badge {
     width: 40px;
     height: 40px;
