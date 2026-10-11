@@ -901,7 +901,7 @@ section {
   color: var(--muted);
 }
 
-/* —— Certification roadmap (3-lane snake, no horizontal scroll) —— */
+/* —— Certification roadmap (long S-curve, no horizontal scroll) —— */
 .cert-roadmap {
   margin-top: 28px;
   width: 100%;
@@ -912,8 +912,8 @@ section {
   position: relative;
   width: 100%;
   max-width: 100%;
-  aspect-ratio: 1000 / 800;
-  min-height: 420px;
+  aspect-ratio: 1000 / 900;
+  min-height: 480px;
 }
 
 .cert-road {

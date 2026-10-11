@@ -8,7 +8,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=31">
+  <link rel="stylesheet" href="css/style.css?v=32">
 </head>
 <body>
   <div class="cursor" id="cursor"></div>
@@ -184,35 +184,35 @@
 
         <div class="cert-roadmap" aria-label="Certification roadmap">
           <div class="cert-roadmap-canvas" role="list">
-            <svg class="cert-road" viewBox="0 0 1000 800" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <svg class="cert-road" viewBox="0 0 1000 900" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
               <defs>
                 <filter id="roadShadow" x="-6%" y="-6%" width="112%" height="112%">
                   <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#000" flood-opacity="0.5"/>
                 </filter>
-                <linearGradient id="roadEdge" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.5"/>
-                  <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.35"/>
+                <linearGradient id="roadEdge" x1="0" y1="1" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.55"/>
+                  <stop offset="55%" stop-color="#38bdf8" stop-opacity="0.35"/>
                   <stop offset="100%" stop-color="#22d3ee" stop-opacity="0.25"/>
                 </linearGradient>
               </defs>
+              <!-- long S-curve (original style), stretched for spacing -->
               <path class="cert-road-bed"
-                d="M80 700 H880 C940 700 950 560 880 420 H120 C60 420 50 280 120 160 H900"
+                d="M80 820 C200 820 240 700 300 620 S420 480 500 540 S620 660 700 560 S800 400 860 320 S920 200 940 140"
                 fill="none" stroke="url(#roadEdge)" stroke-width="30" stroke-linecap="round" filter="url(#roadShadow)"/>
               <path class="cert-road-surface"
-                d="M80 700 H880 C940 700 950 560 880 420 H120 C60 420 50 280 120 160 H900"
+                d="M80 820 C200 820 240 700 300 620 S420 480 500 540 S620 660 700 560 S800 400 860 320 S920 200 940 140"
                 fill="none" stroke="#1c1c28" stroke-width="22" stroke-linecap="round"/>
               <path class="cert-road-lane"
-                d="M80 700 H880 C940 700 950 560 880 420 H120 C60 420 50 280 120 160 H900"
+                d="M80 820 C200 820 240 700 300 620 S420 480 500 540 S620 660 700 560 S800 400 860 320 S920 200 940 140"
                 fill="none" stroke="rgba(244,244,245,0.42)" stroke-width="2" stroke-linecap="round"
                 stroke-dasharray="9 13"/>
-              <!-- earned through Kubestronaut (stop 8) -->
+              <!-- earned through Kubestronaut -->
               <path class="cert-road-done"
-                d="M80 700 H880 C940 700 950 560 880 420 H120 C60 420 50 280 74 290"
+                d="M80 820 C200 820 240 700 300 620 S420 480 500 540 S620 660 700 560 S780 460 749 494"
                 fill="none" stroke="rgba(34,211,238,0.55)" stroke-width="3" stroke-linecap="round"/>
             </svg>
 
-            <!-- bottom lane L→R -->
-            <a class="cert-stop cert-stop--above" role="listitem" style="--x:17.6%; --y:87.5%"
+            <a class="cert-stop cert-stop--above" role="listitem" style="--x:13.2%; --y:90.1%"
                href="certs/NXH-GCP-PCA.pdf" target="_blank" rel="noopener"
                aria-label="Google Cloud Certified Professional Cloud Architect, May 16, 2024">
               <span class="cert-pin" aria-hidden="true"></span>
@@ -225,7 +225,7 @@
               </span>
             </a>
 
-            <a class="cert-stop cert-stop--above" role="listitem" style="--x:44.8%; --y:87.5%"
+            <a class="cert-stop cert-stop--below" role="listitem" style="--x:22.0%; --y:82.2%"
                href="certs/NXH-Azure-Administrator.pdf" target="_blank" rel="noopener"
                aria-label="Microsoft Certified: Azure Administrator Associate, January 14, 2025">
               <span class="cert-pin" aria-hidden="true"></span>
@@ -238,7 +238,7 @@
               </span>
             </a>
 
-            <a class="cert-stop cert-stop--above" role="listitem" style="--x:72.0%; --y:87.5%"
+            <a class="cert-stop cert-stop--above" role="listitem" style="--x:28.6%; --y:71.1%"
                href="certs/NXH-CKA.pdf" target="_blank" rel="noopener"
                aria-label="CKA — Certified Kubernetes Administrator, May 24, 2026">
               <span class="cert-pin" aria-hidden="true"></span>
@@ -251,7 +251,7 @@
               </span>
             </a>
 
-            <a class="cert-stop cert-stop--above" role="listitem" style="--x:92.9%; --y:75.8%"
+            <a class="cert-stop cert-stop--below" role="listitem" style="--x:36.2%; --y:61.0%"
                href="certs/NXH-CKAD.pdf" target="_blank" rel="noopener"
                aria-label="CKAD — Certified Kubernetes Application Developer, June 6, 2026">
               <span class="cert-pin" aria-hidden="true"></span>
@@ -264,8 +264,7 @@
               </span>
             </a>
 
-            <!-- mid lane R→L -->
-            <a class="cert-stop cert-stop--below" role="listitem" style="--x:78.9%; --y:52.5%"
+            <a class="cert-stop cert-stop--above" role="listitem" style="--x:47.2%; --y:58.1%"
                href="certs/NXH-KCNA.pdf" target="_blank" rel="noopener"
                aria-label="KCNA — Kubernetes and Cloud Native Associate, June 13, 2026">
               <span class="cert-pin" aria-hidden="true"></span>
@@ -278,7 +277,7 @@
               </span>
             </a>
 
-            <a class="cert-stop cert-stop--below" role="listitem" style="--x:51.5%; --y:52.5%"
+            <a class="cert-stop cert-stop--below" role="listitem" style="--x:56.7%; --y:65.8%"
                href="certs/NXH-KCSA.pdf" target="_blank" rel="noopener"
                aria-label="KCSA — Kubernetes and Cloud Native Security Associate, July 10, 2026">
               <span class="cert-pin" aria-hidden="true"></span>
@@ -291,7 +290,7 @@
               </span>
             </a>
 
-            <a class="cert-stop cert-stop--below" role="listitem" style="--x:24.2%; --y:52.5%"
+            <a class="cert-stop cert-stop--above" role="listitem" style="--x:67.3%; --y:65.4%"
                href="certs/NXH-CKS.pdf" target="_blank" rel="noopener"
                aria-label="CKS — Certified Kubernetes Security Specialist, August 17, 2026">
               <span class="cert-pin" aria-hidden="true"></span>
@@ -304,7 +303,7 @@
               </span>
             </a>
 
-            <a class="cert-stop cert-stop--below" role="listitem" style="--x:7.4%; --y:36.2%"
+            <a class="cert-stop cert-stop--below" role="listitem" style="--x:74.9%; --y:54.9%"
                href="https://www.credly.com/badges/f5c7af1f-71e5-4b78-9b8d-399489f22b39/linked_in_profile"
                target="_blank" rel="noopener noreferrer"
                aria-label="Kubestronaut, August 23, 2026">
@@ -318,8 +317,7 @@
               </span>
             </a>
 
-            <!-- top lane L→R — 2026 targets -->
-            <div class="cert-stop cert-stop--above cert-stop--target" role="listitem" style="--x:25.9%; --y:20.0%"
+            <div class="cert-stop cert-stop--above cert-stop--target" role="listitem" style="--x:80.9%; --y:44.1%"
                  aria-label="Target: AWS Certified Solutions Architect Associate, 2026">
               <span class="cert-pin" aria-hidden="true"></span>
               <span class="cert-card">
@@ -331,7 +329,7 @@
               </span>
             </div>
 
-            <div class="cert-stop cert-stop--above cert-stop--target" role="listitem" style="--x:53.6%; --y:20.0%"
+            <div class="cert-stop cert-stop--below cert-stop--target" role="listitem" style="--x:87.6%; --y:33.0%"
                  aria-label="Target: AWS Certified DevOps Engineer Professional, 2026">
               <span class="cert-pin" aria-hidden="true"></span>
               <span class="cert-card">
@@ -343,7 +341,7 @@
               </span>
             </div>
 
-            <div class="cert-stop cert-stop--above cert-stop--target" role="listitem" style="--x:81.3%; --y:20.0%"
+            <div class="cert-stop cert-stop--above cert-stop--target" role="listitem" style="--x:92.5%; --y:21.1%"
                  aria-label="Target: AWS Certified AI Practitioner, 2026">
               <span class="cert-pin" aria-hidden="true"></span>
               <span class="cert-card">
