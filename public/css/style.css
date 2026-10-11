@@ -901,23 +901,19 @@ section {
   color: var(--muted);
 }
 
-/* —— Certification roadmap (winding path) —— */
+/* —— Certification roadmap (3-lane snake, no horizontal scroll) —— */
 .cert-roadmap {
   margin-top: 28px;
   width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(34, 211, 238, 0.35) transparent;
+  overflow: hidden;
 }
 
 .cert-roadmap-canvas {
   position: relative;
   width: 100%;
-  min-width: 920px;
-  aspect-ratio: 1000 / 640;
-  min-height: 520px;
-  max-height: 700px;
+  max-width: 100%;
+  aspect-ratio: 1000 / 800;
+  min-height: 420px;
 }
 
 .cert-road {
@@ -943,60 +939,69 @@ section {
   cursor: pointer;
 }
 
-/* map pin sits on the road coordinate */
 .cert-pin {
   position: absolute;
   left: 0;
   top: 0;
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   border-radius: 50% 50% 50% 0;
   background: var(--accent);
   border: 2px solid rgba(10, 10, 15, 0.9);
-  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.2), 0 0 14px rgba(34, 211, 238, 0.55);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.18), 0 0 12px rgba(34, 211, 238, 0.5);
   transform: translate(-50%, -30%) rotate(-45deg);
-  z-index: 1;
+  z-index: 3;
 }
 
 .cert-pin::after {
   content: "";
   position: absolute;
-  inset: 3px;
+  inset: 2px;
   border-radius: 50%;
   background: var(--bg);
 }
 
-.cert-badge {
+.cert-card {
   position: absolute;
+  left: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 76px;
-  height: 76px;
+  gap: 3px;
+  width: 72px;
+  transform: translateX(-50%);
   z-index: 2;
 }
 
-.cert-stop--left .cert-badge {
-  right: 14px;
-  bottom: 10px;
+.cert-stop--above .cert-card {
+  bottom: 12px;
 }
 
-.cert-stop--right .cert-badge {
-  left: 14px;
-  bottom: 10px;
+.cert-stop--below .cert-card {
+  top: 12px;
+  flex-direction: column-reverse;
+}
+
+.cert-badge {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
 }
 
 .cert-badge img {
-  width: 70px;
-  height: 70px;
+  width: 52px;
+  height: 52px;
   object-fit: contain;
   transition: transform 0.22s ease, filter 0.22s ease;
-  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.45));
+  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.45));
 }
 
 .cert-stop:hover img,
 .cert-stop:focus-visible img {
-  transform: translateY(-4px) scale(1.08);
+  transform: translateY(-3px) scale(1.08);
 }
 
 .cert-stop:focus-visible {
@@ -1005,77 +1010,42 @@ section {
 
 .cert-stop:focus-visible .cert-badge {
   outline: 1px solid var(--accent);
-  outline-offset: 4px;
+  outline-offset: 3px;
   border-radius: 8px;
 }
 
 .cert-stop time {
-  position: absolute;
-  top: 16px;
-  width: 88px;
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
-  font-size: 9px;
-  line-height: 1.3;
-  letter-spacing: 0.7px;
+  justify-content: center;
+  gap: 3px;
+  width: 100%;
+  font-size: 8px;
+  line-height: 1.25;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
   color: var(--text);
-  white-space: nowrap;
-}
-
-.cert-stop--left time {
-  right: 10px;
-  justify-content: flex-end;
-  text-align: right;
-}
-
-.cert-stop--right time {
-  left: 10px;
-  justify-content: flex-start;
-  text-align: left;
+  text-align: center;
+  white-space: normal;
 }
 
 .cert-stop time span {
   color: var(--muted);
-  letter-spacing: 1.2px;
-}
-
-.cert-target-tag {
-  position: absolute;
-  top: -10px;
-  display: inline-flex;
-  align-items: center;
-  padding: 1px 6px;
-  border-radius: 999px;
-  border: 1px dashed rgba(251, 191, 36, 0.55);
-  background: rgba(251, 191, 36, 0.08);
-  color: var(--amber);
-  font-size: 8px;
-  letter-spacing: 1.2px;
-  line-height: 1.4;
-}
-
-.cert-stop--left .cert-target-tag {
-  right: 22px;
-}
-
-.cert-stop--right .cert-target-tag {
-  left: 22px;
+  letter-spacing: 0.8px;
 }
 
 .cert-stop--target {
   cursor: default;
-  opacity: 0.78;
+  opacity: 0.82;
 }
 
 .cert-stop--target .cert-badge img {
-  filter: grayscale(0.55) brightness(0.9) drop-shadow(0 6px 8px rgba(0, 0, 0, 0.4));
+  filter: grayscale(0.5) brightness(0.92) drop-shadow(0 5px 6px rgba(0, 0, 0, 0.4));
 }
 
 .cert-stop--target .cert-pin {
   background: var(--amber);
-  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.18), 0 0 12px rgba(251, 191, 36, 0.4);
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.16), 0 0 10px rgba(251, 191, 36, 0.4);
 }
 
 .cert-stop--target:hover img,
@@ -1090,17 +1060,17 @@ section {
 .cert-tip {
   position: absolute;
   left: 50%;
-  bottom: calc(100% + 10px);
-  z-index: 4;
+  bottom: calc(100% + 8px);
+  z-index: 5;
   width: max-content;
-  max-width: 210px;
-  padding: 8px 10px;
+  max-width: 180px;
+  padding: 7px 9px;
   border: 1px solid rgba(34, 211, 238, 0.35);
   background: rgba(12, 14, 22, 0.96);
   color: var(--white);
   font-family: var(--mono);
-  font-size: 11px;
-  line-height: 1.45;
+  font-size: 10px;
+  line-height: 1.4;
   letter-spacing: 0.2px;
   text-align: center;
   text-transform: none;
@@ -1109,16 +1079,16 @@ section {
   pointer-events: none;
   transform: translateX(-50%) translateY(4px);
   transition: opacity 0.18s ease, transform 0.18s ease;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45), 0 0 16px rgba(34, 211, 238, 0.12);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
 }
 
 .cert-tip em {
   display: block;
-  margin-top: 4px;
+  margin-top: 3px;
   font-style: normal;
   color: var(--amber);
-  font-size: 10px;
-  letter-spacing: 0.6px;
+  font-size: 9px;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
 }
 
@@ -1138,12 +1108,16 @@ section {
   transform: translateX(-50%) translateY(0);
 }
 
-.cert-stop--left .cert-tip {
-  left: 30%;
+.cert-stop--below .cert-tip {
+  bottom: auto;
+  top: calc(100% + 8px);
 }
 
-.cert-stop--right .cert-tip {
-  left: 70%;
+.cert-stop--below .cert-tip::after {
+  top: auto;
+  bottom: 100%;
+  border-top-color: transparent;
+  border-bottom-color: rgba(34, 211, 238, 0.45);
 }
 
 .cert-stop--target .cert-tip {
@@ -1154,37 +1128,52 @@ section {
   border-top-color: rgba(251, 191, 36, 0.45);
 }
 
+.cert-stop--target.cert-stop--below .cert-tip::after {
+  border-top-color: transparent;
+  border-bottom-color: rgba(251, 191, 36, 0.45);
+}
+
 @media (max-width: 900px) {
   .cert-roadmap-canvas {
-    min-width: 860px;
-    min-height: 480px;
+    min-height: 380px;
   }
 
   .cert-badge {
-    width: 64px;
-    height: 64px;
+    width: 48px;
+    height: 48px;
   }
 
   .cert-badge img {
-    width: 58px;
-    height: 58px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .cert-card {
+    width: 64px;
   }
 }
 
 @media (max-width: 560px) {
   .cert-roadmap-canvas {
-    min-width: 780px;
-    min-height: 440px;
+    min-height: 340px;
   }
 
   .cert-badge {
-    width: 56px;
-    height: 56px;
+    width: 40px;
+    height: 40px;
   }
 
   .cert-badge img {
-    width: 52px;
-    height: 52px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .cert-card {
+    width: 56px;
+  }
+
+  .cert-stop time {
+    font-size: 7px;
   }
 }
 
