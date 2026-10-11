@@ -1598,8 +1598,8 @@ section {
 
 .arch-mlink {
   grid-area: mlink;
-  /* top of row 2 = bottom of Microservices panel (row-gap: 0) */
-  align-self: start;
+  /* stretch with Control plane so L-elbow sits at CP mid-height */
+  align-self: stretch;
 }
 
 .arch-node--cp {
@@ -1726,52 +1726,53 @@ section {
 }
 
 .arch-mlink {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  --mtls-x: calc((100% - 48px) / 2); /* center of Mesh column (mlink = pods + gap + h2) */
+  --mtls-line: 2px;
+  --mtls-color: rgba(52, 211, 153, 0.9);
   position: relative;
-  min-height: 22px;
   width: 100%;
-  padding-left: 10px;
+  min-height: 28px;
+  margin-top: -1px;
   box-sizing: border-box;
-  /* hang from Mesh bottom border so L-connector is continuous */
-  margin-top: -2px;
   z-index: 2;
 }
 
-/* stem: lock center → up through Mesh bottom border (no gap) */
+/* vertical: center-bottom of Mesh → elbow */
 .arch-mlink::before {
   content: "";
   position: absolute;
-  left: 18px;
-  width: 1.5px;
+  left: var(--mtls-x);
+  top: 0;
   bottom: 50%;
-  /* half of mlink + overlap into Mesh panel */
-  height: calc(50% + 4px);
-  background: rgba(52, 211, 153, 0.85);
+  width: var(--mtls-line);
+  background: var(--mtls-color);
+  transform: translateX(-50%);
+  box-shadow: 0 0 6px rgba(52, 211, 153, 0.3);
 }
 
-/* full horizontal bar into Control plane edge */
+/* horizontal: elbow → Control plane left edge */
 .arch-mlink::after {
   content: "";
   position: absolute;
+  left: var(--mtls-x);
   top: 50%;
-  left: 18px;
   right: -8px;
-  height: 1.5px;
-  background: rgba(52, 211, 153, 0.85);
+  height: var(--mtls-line);
+  background: var(--mtls-color);
   box-shadow: 0 0 6px rgba(52, 211, 153, 0.3);
   transform: translateY(-50%);
 }
 
 .arch-mlink .arch-lock {
-  position: relative;
-  z-index: 1;
-  flex: none;
-  margin-left: 14px;
+  position: absolute;
+  left: var(--mtls-x);
+  top: 50%;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  margin: 0;
 }
 
-/* flush arrow tip on Control plane left border — align with mTLS line */
+/* bridge + solid arrow into mid-left of Control plane */
 .arch-node--cp {
   position: relative;
 }
@@ -1780,25 +1781,27 @@ section {
   content: "";
   position: absolute;
   left: -8px;
-  /* match mTLS lock center (start-aligned, margin-top -2px, min-height 22px) */
-  top: 9px;
+  top: 50%;
   width: 8px;
-  height: 1.5px;
-  background: rgba(52, 211, 153, 0.85);
-  transform: none;
+  height: 2px;
+  background: rgba(52, 211, 153, 0.9);
+  transform: translateY(-50%);
 }
 
+/* filled triangle — continuous with the line (no border-chevron) */
 .arch-node--cp::after {
   content: "";
   position: absolute;
-  left: -1px;
-  top: 9px;
-  width: 6px;
-  height: 6px;
-  border-right: 1.5px solid rgba(52, 211, 153, 0.95);
-  border-top: 1.5px solid rgba(52, 211, 153, 0.95);
-  transform: translate(-50%, -50%) rotate(45deg);
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 5px 0 5px 8px;
+  border-color: transparent transparent transparent rgba(52, 211, 153, 0.95);
+  transform: translate(-1px, -50%);
   z-index: 1;
+  box-shadow: none;
 }
 
 .arch-lock {
