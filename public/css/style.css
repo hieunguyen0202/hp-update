@@ -945,11 +945,51 @@ section {
   width: 12px;
   height: 12px;
   border-radius: 50% 50% 50% 0;
-  background: var(--accent);
+  background: #34d399;
   border: 2px solid rgba(10, 10, 15, 0.9);
-  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.18), 0 0 12px rgba(34, 211, 238, 0.5);
+  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.2), 0 0 12px rgba(52, 211, 153, 0.55);
   transform: translate(-50%, -30%) rotate(-45deg);
   z-index: 3;
+}
+
+.cert-stop::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  background: rgba(244, 244, 245, 0.82);
+}
+
+.cert-stop--above::before,
+.cert-stop--below::before {
+  left: 0;
+  width: 1.5px;
+  height: 22px;
+  transform: translateX(-50%);
+}
+
+.cert-stop--above::before {
+  bottom: 0;
+}
+
+.cert-stop--below::before {
+  top: 0;
+}
+
+.cert-stop--left::before,
+.cert-stop--right::before {
+  top: 0;
+  height: 1.5px;
+  width: 32px;
+  transform: translateY(-50%);
+}
+
+.cert-stop--left::before {
+  right: 0;
+}
+
+.cert-stop--right::before {
+  left: 0;
 }
 
 .cert-pin::after {
@@ -973,11 +1013,11 @@ section {
 }
 
 .cert-stop--above .cert-card {
-  bottom: 16px;
+  bottom: 22px;
 }
 
 .cert-stop--below .cert-card {
-  top: 16px;
+  top: 22px;
   flex-direction: column-reverse;
 }
 
@@ -991,11 +1031,11 @@ section {
 
 .cert-stop--left .cert-card {
   left: auto;
-  right: 18px;
+  right: 22px;
 }
 
 .cert-stop--right .cert-card {
-  left: 18px;
+  left: 22px;
 }
 
 .cert-badge {
@@ -1031,6 +1071,8 @@ section {
 }
 
 .cert-stop time {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -1043,11 +1085,12 @@ section {
   color: var(--text);
   text-align: center;
   white-space: normal;
+  text-shadow: 0 0 4px var(--bg), 0 0 4px var(--bg);
 }
 
 .cert-stop time span {
-  color: var(--muted);
-  letter-spacing: 0.8px;
+  color: inherit;
+  letter-spacing: 0.5px;
 }
 
 .cert-stop--target {
@@ -1060,8 +1103,8 @@ section {
 }
 
 .cert-stop--target .cert-pin {
-  background: var(--amber);
-  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.16), 0 0 10px rgba(251, 191, 36, 0.4);
+  background: #34d399;
+  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.2), 0 0 12px rgba(52, 211, 153, 0.55);
 }
 
 .cert-stop--target:hover img,
