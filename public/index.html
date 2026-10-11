@@ -8,7 +8,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=28">
+  <link rel="stylesheet" href="css/style.css?v=29">
 </head>
 <body>
   <div class="cursor" id="cursor"></div>
@@ -178,92 +178,174 @@
     <section id="certs">
       <div class="section-label"># 03. CERTS</div>
       <div class="reveal">
-        <p class="hero-desc" style="max-width:640px;margin-bottom:0">
-          Click a badge to open the certificate PDF or Credly.
+        <p class="hero-desc" style="max-width:720px;margin-bottom:0">
+          Earned badges open the PDF / Credly. Dim pins are <strong style="color:var(--amber);font-weight:500">2026 targets</strong> — not earned yet.
         </p>
-        <div class="cert-timeline">
-          <div class="cert-track">
-            <div class="cert-rail" aria-hidden="true"></div>
 
-            <a class="cert-node" href="certs/NXH-GCP-PCA.pdf" target="_blank" rel="noopener" aria-label="Google Cloud Certified Professional Cloud Architect, May 16, 2024">
-              <span class="cert-badge">
-                <span class="cert-tip">Google Cloud Certified<br>Professional Cloud Architect</span>
-                <img src="badges/gcp-pca.png" alt="">
-              </span>
-              <span class="cert-stem" aria-hidden="true"></span>
-              <span class="cert-dot" aria-hidden="true"></span>
-              <time datetime="2024-05-16">May 16<span>2024</span></time>
-            </a>
+        <div class="cert-roadmap" aria-label="Certification roadmap">
+          <div class="cert-roadmap-canvas" role="list">
+          <svg class="cert-road" viewBox="0 0 1000 640" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <defs>
+              <filter id="roadShadow" x="-8%" y="-8%" width="116%" height="116%">
+                <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000" flood-opacity="0.55"/>
+              </filter>
+              <linearGradient id="roadEdge" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.55"/>
+                <stop offset="55%" stop-color="#38bdf8" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="#22d3ee" stop-opacity="0.2"/>
+              </linearGradient>
+            </defs>
+            <!-- soft asphalt edge -->
+            <path class="cert-road-bed"
+              d="M70 560 C210 560 250 430 320 370 S470 250 520 310 S640 420 720 330 S860 160 940 120"
+              fill="none" stroke="url(#roadEdge)" stroke-width="34" stroke-linecap="round" filter="url(#roadShadow)"/>
+            <!-- road surface -->
+            <path class="cert-road-surface"
+              d="M70 560 C210 560 250 430 320 370 S470 250 520 310 S640 420 720 330 S860 160 940 120"
+              fill="none" stroke="#1c1c28" stroke-width="26" stroke-linecap="round"/>
+            <!-- lane dashes -->
+            <path class="cert-road-lane"
+              d="M70 560 C210 560 250 430 320 370 S470 250 520 310 S640 420 720 330 S860 160 940 120"
+              fill="none" stroke="rgba(244,244,245,0.45)" stroke-width="2.2" stroke-linecap="round"
+              stroke-dasharray="10 14"/>
+            <!-- progress glow covering earned stretch (through Kubestronaut) -->
+            <path class="cert-road-done"
+              d="M70 560 C210 560 250 430 320 370 S470 250 520 310 S640 420 720 330"
+              fill="none" stroke="rgba(34,211,238,0.55)" stroke-width="3" stroke-linecap="round"/>
+          </svg>
 
-            <a class="cert-node" href="certs/NXH-Azure-Administrator.pdf" target="_blank" rel="noopener" aria-label="Microsoft Certified: Azure Administrator Associate, January 14, 2025">
-              <span class="cert-badge">
-                <span class="cert-tip">Microsoft Certified:<br>Azure Administrator Associate</span>
-                <img src="badges/azure-admin.svg" alt="">
-              </span>
-              <span class="cert-stem" aria-hidden="true"></span>
-              <span class="cert-dot" aria-hidden="true"></span>
-              <time datetime="2025-01-14">Jan 14<span>2025</span></time>
-            </a>
+          <!-- 1 GCP -->
+          <a class="cert-stop cert-stop--left" role="listitem" style="--x:7.0%; --y:87.5%"
+             href="certs/NXH-GCP-PCA.pdf" target="_blank" rel="noopener"
+             aria-label="Google Cloud Certified Professional Cloud Architect, May 16, 2024">
+            <span class="cert-pin" aria-hidden="true"></span>
+            <span class="cert-badge">
+              <span class="cert-tip">Google Cloud Certified<br>Professional Cloud Architect</span>
+              <img src="badges/gcp-pca.png" alt="">
+            </span>
+            <time datetime="2024-05-16">May 16 <span>2024</span></time>
+          </a>
 
-            <a class="cert-node" href="certs/NXH-CKA.pdf" target="_blank" rel="noopener" aria-label="CKA — Certified Kubernetes Administrator, May 24, 2026">
-              <span class="cert-badge">
-                <span class="cert-tip">CKA — Certified<br>Kubernetes Administrator</span>
-                <img src="badges/cka.png" alt="">
-              </span>
-              <span class="cert-stem" aria-hidden="true"></span>
-              <span class="cert-dot" aria-hidden="true"></span>
-              <time datetime="2026-05-24">May 24<span>2026</span></time>
-            </a>
+          <!-- 2 Azure -->
+          <a class="cert-stop cert-stop--right" role="listitem" style="--x:17.3%; --y:82.9%"
+             href="certs/NXH-Azure-Administrator.pdf" target="_blank" rel="noopener"
+             aria-label="Microsoft Certified: Azure Administrator Associate, January 14, 2025">
+            <span class="cert-pin" aria-hidden="true"></span>
+            <span class="cert-badge">
+              <span class="cert-tip">Microsoft Certified:<br>Azure Administrator Associate</span>
+              <img src="badges/azure-admin.svg" alt="">
+            </span>
+            <time datetime="2025-01-14">Jan 14 <span>2025</span></time>
+          </a>
 
-            <a class="cert-node" href="certs/NXH-CKAD.pdf" target="_blank" rel="noopener" aria-label="CKAD — Certified Kubernetes Application Developer, June 6, 2026">
-              <span class="cert-badge">
-                <span class="cert-tip">CKAD — Certified Kubernetes<br>Application Developer</span>
-                <img src="badges/ckad.png" alt="">
-              </span>
-              <span class="cert-stem" aria-hidden="true"></span>
-              <span class="cert-dot" aria-hidden="true"></span>
-              <time datetime="2026-06-06">Jun 06<span>2026</span></time>
-            </a>
+          <!-- 3 CKA -->
+          <a class="cert-stop cert-stop--left" role="listitem" style="--x:25.2%; --y:70.3%"
+             href="certs/NXH-CKA.pdf" target="_blank" rel="noopener"
+             aria-label="CKA — Certified Kubernetes Administrator, May 24, 2026">
+            <span class="cert-pin" aria-hidden="true"></span>
+            <span class="cert-badge">
+              <span class="cert-tip">CKA — Certified<br>Kubernetes Administrator</span>
+              <img src="badges/cka.png" alt="">
+            </span>
+            <time datetime="2026-05-24">May 24 <span>2026</span></time>
+          </a>
 
-            <a class="cert-node" href="certs/NXH-KCNA.pdf" target="_blank" rel="noopener" aria-label="KCNA — Kubernetes and Cloud Native Associate, June 13, 2026">
-              <span class="cert-badge">
-                <span class="cert-tip">KCNA — Kubernetes and<br>Cloud Native Associate</span>
-                <img src="badges/kcna.png" alt="">
-              </span>
-              <span class="cert-stem" aria-hidden="true"></span>
-              <span class="cert-dot" aria-hidden="true"></span>
-              <time datetime="2026-06-13">Jun 13<span>2026</span></time>
-            </a>
+          <!-- 4 CKAD -->
+          <a class="cert-stop cert-stop--right" role="listitem" style="--x:32.0%; --y:57.8%"
+             href="certs/NXH-CKAD.pdf" target="_blank" rel="noopener"
+             aria-label="CKAD — Certified Kubernetes Application Developer, June 6, 2026">
+            <span class="cert-pin" aria-hidden="true"></span>
+            <span class="cert-badge">
+              <span class="cert-tip">CKAD — Certified Kubernetes<br>Application Developer</span>
+              <img src="badges/ckad.png" alt="">
+            </span>
+            <time datetime="2026-06-06">Jun 06 <span>2026</span></time>
+          </a>
 
-            <a class="cert-node" href="certs/NXH-KCSA.pdf" target="_blank" rel="noopener" aria-label="KCSA — Kubernetes and Cloud Native Security Associate, July 10, 2026">
-              <span class="cert-badge">
-                <span class="cert-tip">KCSA — Kubernetes and<br>Cloud Native Security Associate</span>
-                <img src="badges/kcsa.png" alt="">
-              </span>
-              <span class="cert-stem" aria-hidden="true"></span>
-              <span class="cert-dot" aria-hidden="true"></span>
-              <time datetime="2026-07-10">Jul 10<span>2026</span></time>
-            </a>
+          <!-- 5 KCNA -->
+          <a class="cert-stop cert-stop--left" role="listitem" style="--x:41.7%; --y:46.9%"
+             href="certs/NXH-KCNA.pdf" target="_blank" rel="noopener"
+             aria-label="KCNA — Kubernetes and Cloud Native Associate, June 13, 2026">
+            <span class="cert-pin" aria-hidden="true"></span>
+            <span class="cert-badge">
+              <span class="cert-tip">KCNA — Kubernetes and<br>Cloud Native Associate</span>
+              <img src="badges/kcna.png" alt="">
+            </span>
+            <time datetime="2026-06-13">Jun 13 <span>2026</span></time>
+          </a>
 
-            <a class="cert-node" href="certs/NXH-CKS.pdf" target="_blank" rel="noopener" aria-label="CKS — Certified Kubernetes Security Specialist, August 17, 2026">
-              <span class="cert-badge">
-                <span class="cert-tip">CKS — Certified Kubernetes<br>Security Specialist</span>
-                <img src="badges/cks.png" alt="">
-              </span>
-              <span class="cert-stem" aria-hidden="true"></span>
-              <span class="cert-dot" aria-hidden="true"></span>
-              <time datetime="2026-08-17">Aug 17<span>2026</span></time>
-            </a>
+          <!-- 6 KCSA -->
+          <a class="cert-stop cert-stop--right" role="listitem" style="--x:51.2%; --y:47.2%"
+             href="certs/NXH-KCSA.pdf" target="_blank" rel="noopener"
+             aria-label="KCSA — Kubernetes and Cloud Native Security Associate, July 10, 2026">
+            <span class="cert-pin" aria-hidden="true"></span>
+            <span class="cert-badge">
+              <span class="cert-tip">KCSA — Kubernetes and<br>Cloud Native Security Associate</span>
+              <img src="badges/kcsa.png" alt="">
+            </span>
+            <time datetime="2026-07-10">Jul 10 <span>2026</span></time>
+          </a>
 
-            <a class="cert-node" href="https://www.credly.com/badges/f5c7af1f-71e5-4b78-9b8d-399489f22b39/linked_in_profile" target="_blank" rel="noopener noreferrer" aria-label="Kubestronaut, August 23, 2026">
-              <span class="cert-badge">
-                <span class="cert-tip">Kubestronaut</span>
-                <img src="badges/kubestronaut.png" alt="">
-              </span>
-              <span class="cert-stem" aria-hidden="true"></span>
-              <span class="cert-dot" aria-hidden="true"></span>
-              <time datetime="2026-08-23">Aug 23<span>2026</span></time>
-            </a>
+          <!-- 7 CKS -->
+          <a class="cert-stop cert-stop--left" role="listitem" style="--x:59.9%; --y:58.3%"
+             href="certs/NXH-CKS.pdf" target="_blank" rel="noopener"
+             aria-label="CKS — Certified Kubernetes Security Specialist, August 17, 2026">
+            <span class="cert-pin" aria-hidden="true"></span>
+            <span class="cert-badge">
+              <span class="cert-tip">CKS — Certified Kubernetes<br>Security Specialist</span>
+              <img src="badges/cks.png" alt="">
+            </span>
+            <time datetime="2026-08-17">Aug 17 <span>2026</span></time>
+          </a>
+
+          <!-- 8 Kubestronaut -->
+          <a class="cert-stop cert-stop--right" role="listitem" style="--x:69.6%; --y:55.1%"
+             href="https://www.credly.com/badges/f5c7af1f-71e5-4b78-9b8d-399489f22b39/linked_in_profile"
+             target="_blank" rel="noopener noreferrer"
+             aria-label="Kubestronaut, August 23, 2026">
+            <span class="cert-pin" aria-hidden="true"></span>
+            <span class="cert-badge">
+              <span class="cert-tip">Kubestronaut</span>
+              <img src="badges/kubestronaut.png" alt="">
+            </span>
+            <time datetime="2026-08-23">Aug 23 <span>2026</span></time>
+          </a>
+
+          <!-- 9 AWS SAA — target -->
+          <div class="cert-stop cert-stop--left cert-stop--target" role="listitem" style="--x:77.7%; --y:41.4%"
+               aria-label="Target: AWS Certified Solutions Architect Associate, 2026">
+            <span class="cert-pin" aria-hidden="true"></span>
+            <span class="cert-badge">
+              <span class="cert-tip">AWS Certified<br>Solutions Architect — Associate<br><em>Target 2026</em></span>
+              <img src="badges/aws-saa.svg" alt="">
+            </span>
+            <span class="cert-target-tag">TARGET</span>
+            <time datetime="2026">2026 <span>goal</span></time>
+          </div>
+
+          <!-- 10 AWS DevOps Pro — target -->
+          <div class="cert-stop cert-stop--right cert-stop--target" role="listitem" style="--x:85.1%; --y:28.9%"
+               aria-label="Target: AWS Certified DevOps Engineer Professional, 2026">
+            <span class="cert-pin" aria-hidden="true"></span>
+            <span class="cert-badge">
+              <span class="cert-tip">AWS Certified<br>DevOps Engineer — Professional<br><em>Target 2026</em></span>
+              <img src="badges/aws-dop.svg" alt="">
+            </span>
+            <span class="cert-target-tag">TARGET</span>
+            <time datetime="2026">2026 <span>goal</span></time>
+          </div>
+
+          <!-- 11 AWS AI — target -->
+          <div class="cert-stop cert-stop--left cert-stop--target" role="listitem" style="--x:94.0%; --y:18.8%"
+               aria-label="Target: AWS Certified AI Practitioner, 2026">
+            <span class="cert-pin" aria-hidden="true"></span>
+            <span class="cert-badge">
+              <span class="cert-tip">AWS Certified<br>AI Practitioner<br><em>Target 2026</em></span>
+              <img src="badges/aws-ai.svg" alt="">
+            </span>
+            <span class="cert-target-tag">TARGET</span>
+            <time datetime="2026">2026 <span>goal</span></time>
+          </div>
           </div>
         </div>
       </div>
