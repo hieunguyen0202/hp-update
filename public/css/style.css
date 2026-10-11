@@ -1467,7 +1467,8 @@ section {
     ".       .  mlink mlink cp";
   align-items: center;
   column-gap: 8px;
-  row-gap: 14px;
+  /* mTLS sits flush under Mesh; CP keeps a small offset via its own margin */
+  row-gap: 0;
   width: 100%;
   padding: 2px 0 0;
 }
@@ -1487,6 +1488,8 @@ section {
   grid-area: pods;
   align-self: center;
   height: auto;
+  overflow: visible;
+  position: relative;
 }
 
 .arch-hlink--db {
@@ -1503,12 +1506,13 @@ section {
 
 .arch-mlink {
   grid-area: mlink;
-  align-self: center;
+  /* top of row 2 = bottom of Microservices panel (row-gap: 0) */
+  align-self: start;
 }
 
 .arch-node--cp {
   grid-area: cp;
-  align-self: center;
+  align-self: start;
   height: auto;
 }
 
@@ -1638,16 +1642,20 @@ section {
   width: 100%;
   padding-left: 10px;
   box-sizing: border-box;
+  /* hang from Mesh bottom border so L-connector is continuous */
+  margin-top: -2px;
+  z-index: 2;
 }
 
-/* stem up into Microservices box */
+/* stem: lock center → up through Mesh bottom border (no gap) */
 .arch-mlink::before {
   content: "";
   position: absolute;
-  bottom: 50%;
   left: 18px;
   width: 1.5px;
-  height: 16px;
+  bottom: 50%;
+  /* half of mlink + overlap into Mesh panel */
+  height: calc(50% + 4px);
   background: rgba(52, 211, 153, 0.85);
 }
 
@@ -1671,7 +1679,7 @@ section {
   margin-left: 14px;
 }
 
-/* flush arrow tip on Control plane left border */
+/* flush arrow tip on Control plane left border — align with mTLS line */
 .arch-node--cp {
   position: relative;
 }
@@ -1680,18 +1688,19 @@ section {
   content: "";
   position: absolute;
   left: -8px;
-  top: 50%;
+  /* match mTLS lock center (start-aligned, margin-top -2px, min-height 22px) */
+  top: 9px;
   width: 8px;
   height: 1.5px;
   background: rgba(52, 211, 153, 0.85);
-  transform: translateY(-50%);
+  transform: none;
 }
 
 .arch-node--cp::after {
   content: "";
   position: absolute;
   left: -1px;
-  top: 50%;
+  top: 9px;
   width: 6px;
   height: 6px;
   border-right: 1.5px solid rgba(52, 211, 153, 0.95);
