@@ -912,8 +912,8 @@ section {
   position: relative;
   width: 100%;
   max-width: 100%;
-  aspect-ratio: 1000 / 560;
-  min-height: 360px;
+  aspect-ratio: 1000 / 600;
+  min-height: 380px;
 }
 
 .cert-road {
@@ -974,11 +974,11 @@ section {
 }
 
 .cert-stop--above .cert-card {
-  bottom: 12px;
+  bottom: 16px;
 }
 
 .cert-stop--below .cert-card {
-  top: 12px;
+  top: 16px;
   flex-direction: column-reverse;
 }
 
@@ -987,13 +987,13 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 56px;
+  width: 50px;
+  height: 50px;
 }
 
 .cert-badge img {
-  width: 52px;
-  height: 52px;
+  width: 46px;
+  height: 46px;
   object-fit: contain;
   transition: transform 0.22s ease, filter 0.22s ease;
   filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.45));
