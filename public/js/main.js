@@ -272,6 +272,99 @@
   window.addEventListener("scroll", setActiveNav, { passive: true });
   setActiveNav();
 
+  const certRoadmap = document.querySelector(".cert-roadmap");
+  if (certRoadmap) {
+    const finishCertRoadmap = () => {
+      certRoadmap.classList.remove("is-pending");
+      certRoadmap.classList.add("is-complete");
+      certRoadmap.querySelectorAll(".cert-stop").forEach((stop) => {
+        stop.classList.add("is-on");
+      });
+    };
+
+    const pathProgressAt = (path, x, y) => {
+      const len = path.getTotalLength();
+      if (!len) return 0;
+      let best = 0;
+      let bestDist = Infinity;
+      const steps = 280;
+      for (let i = 0; i <= steps; i += 1) {
+        const p = path.getPointAtLength((i / steps) * len);
+        const d = (p.x - x) ** 2 + (p.y - y) ** 2;
+        if (d < bestDist) {
+          bestDist = d;
+          best = i / steps;
+        }
+      }
+      return best;
+    };
+
+    const playCertRoadmap = () => {
+      const svg = certRoadmap.querySelector(".cert-road");
+      const bed = certRoadmap.querySelector(".cert-road-bed");
+      const surface = certRoadmap.querySelector(".cert-road-surface");
+      const lane = certRoadmap.querySelector(".cert-road-lane");
+      const stops = [...certRoadmap.querySelectorAll(".cert-stop")];
+      if (!svg || !bed || !surface || !lane) {
+        finishCertRoadmap();
+        return;
+      }
+
+      const roadMs = 4400;
+      const drawPaths = [bed, surface, lane];
+      drawPaths.forEach((path) => {
+        const len = path.getTotalLength();
+        path.style.strokeDasharray = `${len}`;
+        path.style.strokeDashoffset = `${len}`;
+      });
+      void svg.getBoundingClientRect();
+      drawPaths.forEach((path) => {
+        path.style.transition = `stroke-dashoffset ${roadMs}ms cubic-bezier(0.4, 0, 0.2, 1)`;
+        path.style.strokeDashoffset = "0";
+      });
+
+      const vb = svg.viewBox.baseVal;
+      const vbW = vb && vb.width ? vb.width : 1024;
+      const vbH = vb && vb.height ? vb.height : 600;
+      stops
+        .map((stop) => {
+          const x = (parseFloat(getComputedStyle(stop).getPropertyValue("--x")) / 100) * vbW;
+          const y = (parseFloat(getComputedStyle(stop).getPropertyValue("--y")) / 100) * vbH;
+          return { stop, t: pathProgressAt(surface, x, y) };
+        })
+        .sort((a, b) => a.t - b.t)
+        .forEach(({ stop, t }) => {
+          const delay = Math.round(t * roadMs * 0.96);
+          setTimeout(() => stop.classList.add("is-on"), delay);
+        });
+
+      setTimeout(() => {
+        drawPaths.forEach((path) => {
+          path.style.transition = "none";
+          path.style.strokeDasharray = "";
+          path.style.strokeDashoffset = "";
+        });
+        lane.setAttribute("stroke-dasharray", "12 14");
+        certRoadmap.classList.remove("is-pending");
+        certRoadmap.classList.add("is-complete");
+      }, roadMs + 80);
+    };
+
+    if (reduceMotion) {
+      finishCertRoadmap();
+    } else {
+      const certObserver = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((e) => e.isIntersecting)) return;
+          playCertRoadmap();
+          certObserver.disconnect();
+        },
+        { threshold: 0.28 }
+      );
+      certObserver.observe(certRoadmap);
+    }
+  }
+
   const form = document.getElementById("contactForm");
   const status = document.getElementById("formStatus");
   form.addEventListener("submit", async (ev) => {

@@ -908,6 +908,69 @@ section {
   overflow: hidden;
 }
 
+.cert-roadmap.is-pending .cert-stop {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.cert-roadmap.is-pending .cert-stop.is-on {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.cert-roadmap.is-pending .cert-stop--target.is-on {
+  opacity: 0.82;
+}
+
+.cert-stop.is-on .cert-pin {
+  animation: cert-pin-pop 0.42s cubic-bezier(0.22, 1.2, 0.36, 1) both;
+}
+
+.cert-stop.is-on .cert-card {
+  animation: cert-card-in 0.4s ease both;
+}
+
+.cert-stop.is-on::before {
+  animation: cert-stem-in 0.35s ease both;
+}
+
+@keyframes cert-pin-pop {
+  0% {
+    transform: translate(-50%, -30%) rotate(-45deg) scale(0.15);
+    opacity: 0;
+  }
+  70% {
+    transform: translate(-50%, -30%) rotate(-45deg) scale(1.18);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -30%) rotate(-45deg) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes cert-card-in {
+  from {
+    opacity: 0;
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    filter: none;
+  }
+}
+
+@keyframes cert-stem-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .cert-roadmap-canvas {
   position: relative;
   width: 100%;
@@ -2627,5 +2690,15 @@ footer span {
 
   .arch-note--alert i {
     animation: none !important;
+  }
+
+  .cert-roadmap.is-pending .cert-stop {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .cert-roadmap.is-pending .cert-stop--target {
+    opacity: 0.82;
   }
 }
