@@ -173,8 +173,6 @@
 
   const stackFlow = document.getElementById("stackFlow");
   if (stackFlow) {
-    let played = false;
-
     const prepareStackItems = () => {
       stackFlow.querySelectorAll(".arch-piece").forEach((piece) => {
         const items = piece.querySelectorAll(".arch-item");
@@ -186,9 +184,7 @@
 
     prepareStackItems();
 
-    const play = () => {
-      if (played) return;
-      played = true;
+    const playStack = () => {
       prepareStackItems();
       if (reduceMotion) {
         stackFlow.classList.add("is-on");
@@ -207,13 +203,19 @@
       const flowObserver = new IntersectionObserver(
         (entries) => {
           if (!entries.some((e) => e.isIntersecting)) return;
-          play();
+          playStack();
           flowObserver.disconnect();
         },
         { threshold: 0.28 }
       );
       flowObserver.observe(stackFlow);
     };
+
+    stackFlow.setAttribute("title", "Click to replay animation");
+    stackFlow.addEventListener("click", () => {
+      if (reduceMotion) return;
+      playStack();
+    });
 
     setTimeout(watch, reduceMotion ? 0 : 3700);
   }
@@ -274,7 +276,15 @@
 
   const certRoadmap = document.querySelector(".cert-roadmap");
   if (certRoadmap) {
+    let certTimers = [];
+
+    const clearCertTimers = () => {
+      certTimers.forEach((id) => clearTimeout(id));
+      certTimers = [];
+    };
+
     const finishCertRoadmap = () => {
+      clearCertTimers();
       certRoadmap.classList.remove("is-pending");
       certRoadmap.classList.add("is-complete");
       certRoadmap.querySelectorAll(".cert-stop").forEach((stop) => {
@@ -310,17 +320,26 @@
         return;
       }
 
+      clearCertTimers();
+      certRoadmap.classList.add("is-pending");
+      certRoadmap.classList.remove("is-complete");
+      stops.forEach((stop) => stop.classList.remove("is-on"));
+
       const roadMs = 4400;
       const drawPaths = [bed, surface, lane];
       drawPaths.forEach((path) => {
+        path.style.transition = "none";
         const len = path.getTotalLength();
         path.style.strokeDasharray = `${len}`;
         path.style.strokeDashoffset = `${len}`;
       });
       void svg.getBoundingClientRect();
-      drawPaths.forEach((path) => {
-        path.style.transition = `stroke-dashoffset ${roadMs}ms cubic-bezier(0.4, 0, 0.2, 1)`;
-        path.style.strokeDashoffset = "0";
+
+      requestAnimationFrame(() => {
+        drawPaths.forEach((path) => {
+          path.style.transition = `stroke-dashoffset ${roadMs}ms cubic-bezier(0.4, 0, 0.2, 1)`;
+          path.style.strokeDashoffset = "0";
+        });
       });
 
       const vb = svg.viewBox.baseVal;
@@ -335,20 +354,30 @@
         .sort((a, b) => a.t - b.t)
         .forEach(({ stop, t }) => {
           const delay = Math.round(t * roadMs * 0.96);
-          setTimeout(() => stop.classList.add("is-on"), delay);
+          certTimers.push(setTimeout(() => stop.classList.add("is-on"), delay));
         });
 
-      setTimeout(() => {
-        drawPaths.forEach((path) => {
-          path.style.transition = "none";
-          path.style.strokeDasharray = "";
-          path.style.strokeDashoffset = "";
-        });
-        lane.setAttribute("stroke-dasharray", "12 14");
-        certRoadmap.classList.remove("is-pending");
-        certRoadmap.classList.add("is-complete");
-      }, roadMs + 80);
+      certTimers.push(
+        setTimeout(() => {
+          drawPaths.forEach((path) => {
+            path.style.transition = "none";
+            path.style.strokeDasharray = "";
+            path.style.strokeDashoffset = "";
+          });
+          lane.setAttribute("stroke-dasharray", "12 14");
+          certRoadmap.classList.remove("is-pending");
+          certRoadmap.classList.add("is-complete");
+        }, roadMs + 80)
+      );
     };
+
+    certRoadmap.setAttribute("title", "Click to replay animation");
+    certRoadmap.addEventListener("click", (ev) => {
+      if (reduceMotion) return;
+      if (ev.target.closest("a.cert-stop")) return;
+      ev.preventDefault();
+      playCertRoadmap();
+    });
 
     if (reduceMotion) {
       finishCertRoadmap();
