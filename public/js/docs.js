@@ -132,8 +132,8 @@
     };
     navEl.innerHTML = [
       link("overview", "Overview"),
-      link("etcd", "etcd · production cheatsheet"),
-      link("headlamp-presentation", "Headlamp · team presentation"),
+      link("headlamp-presentation", "Headlamp"),
+      link("iam-ecosystem", "Security (IAM) Ecosystem"),
     ].join("");
   } else if (navEl && sidebar?.dataset.nav === "kubestronaut") {
     const r = root;

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tech Hub — Hieu Nguyen</title>
-  <meta name="description" content="Tech Hub — notes thực chiến về Kubernetes, platform, và hạ tầng: etcd, Headlamp, gateway, observability…">
+  <meta name="description" content="Tech Hub — Headlamp presentation và Security (IAM) Ecosystem slides.">
   <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -39,49 +39,30 @@
         <span>Tech Hub</span>
       </div>
       <h1>Tech Hub</h1>
-      <p class="lede">
-        Nơi gom các bài viết kỹ thuật theo chủ đề — không phải lộ trình chứng chỉ,
-        mà là notes vận hành: etcd, gateway, platform, và những thứ hay gặp trên production.
-      </p>
-      <div class="docs-meta">
-        <span><strong>Focus:</strong> Platform · Kubernetes · Gateway</span>
-        <span><strong>Posts:</strong> 2 live</span>
-        <span><strong>Style:</strong> Deep-dive + runbook + slides</span>
-      </div>
 
       <div class="vocab-topic-grid">
-        <a class="vocab-topic-card" href="etcd/">
+        <a class="vocab-topic-card" href="headlamp-presentation/">
           <span class="vocab-topic-card__num">01</span>
-          <div class="vocab-topic-card__img" style="display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:#22d3ee;letter-spacing:0.04em;">etcd</div>
+          <div class="vocab-topic-card__img" style="display:grid;place-items:center;background:#0b1220;">
+            <img src="../../img/stack/headlamp.svg" alt="Headlamp" width="52" height="52" style="display:block;">
+          </div>
           <div class="vocab-topic-card__body">
-            <h2>etcd Production Cheatsheet</h2>
-            <p>
-              Raft quorum, multi-member ops, TLS/mTLS, backup/restore, kOps etcd-manager,
-              sơ đồ trực quan (7 tab), trashcan incident, S3 restore queue — Level 1–8 + labs.
-            </p>
-            <div class="vocab-topic-card__meta">
-              <span>Kubernetes · kOps · APISIX</span>
-              <span>Runbook + cheatsheet</span>
-            </div>
-            <span class="vocab-topic-card__cta">Đọc bài →</span>
+            <h2>Headlamp</h2>
+            <span class="vocab-topic-card__cta">Mở presentation →</span>
           </div>
         </a>
 
-        <a class="vocab-topic-card" href="headlamp-presentation/">
+        <a class="vocab-topic-card" href="iam-ecosystem/">
           <span class="vocab-topic-card__num">02</span>
-          <div class="vocab-topic-card__img" style="display:grid;place-items:center;background:radial-gradient(circle at 30% 30%,rgba(108,77,255,.18),transparent 55%),#0b1220;">
-            <img src="../../img/stack/headlamp.svg" alt="Headlamp" width="48" height="48" style="display:block;">
+          <div class="vocab-topic-card__img" style="display:grid;place-items:center;background:#0b1220;">
+            <svg width="52" height="52" viewBox="0 0 64 64" aria-hidden="true">
+              <path d="M32 8l20 8v14c0 14-8.5 22.5-20 26-11.5-3.5-20-12-20-26V16l20-8z" fill="none" stroke="#6C4DFF" stroke-width="3.5" stroke-linejoin="round"/>
+              <circle cx="32" cy="30" r="6" fill="#326CE5"/>
+              <path d="M32 36v8" stroke="#326CE5" stroke-width="3.5" stroke-linecap="round"/>
+            </svg>
           </div>
           <div class="vocab-topic-card__body">
-            <h2>Headlamp — Team Presentation</h2>
-            <p>
-              Slide animation giới thiệu Headlamp: UI Kubernetes mở rộng bằng plugin,
-              so sánh với Rancher, search / map / theme — visual-first, bấm là trình chiếu.
-            </p>
-            <div class="vocab-topic-card__meta">
-              <span>Headlamp · Plugins · Rancher</span>
-              <span>Animated slides</span>
-            </div>
+            <h2>Security (IAM) Ecosystem</h2>
             <span class="vocab-topic-card__cta">Mở presentation →</span>
           </div>
         </a>
