@@ -1281,7 +1281,41 @@ h3 {
   display: block;
   background: #0b1220;
   max-height: 360px;
-  object-fit: cover;
+  object-fit: contain;
+}
+
+/* Full Headlamp screenshots — never crop left/top */
+.stage-shot {
+  justify-content: flex-start;
+  padding-top: 0;
+}
+
+.stage-shot h2 {
+  margin-bottom: 4px;
+}
+
+.stage-shot .one-line {
+  margin-bottom: 12px;
+}
+
+.shot-frame {
+  width: min(1080px, 100%);
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.shot-frame .shot {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: min(58vh, 520px);
+  object-fit: contain;
+  object-position: top left;
+  background: #f7f8fb;
+}
+
+.slide {
+  padding: 78px 40px 64px;
 }
 
 .float-card {
