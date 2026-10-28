@@ -98,7 +98,18 @@
     cacheKey: "",
     raf: 0,
     sentenceRanges: [], // [{startWord, endWord, startTime, endTime, vi}]
+    engine: "neural", // neural | browser (GitHub Pages has no /api/tts)
+    virtualT: 0,
+    virtualDur: 0,
+    virtualAnchorWall: 0,
+    virtualAnchorT: 0,
   };
+
+  const TTS_ENDPOINTS = [
+    "/api/tts",
+    // Optional self-hosted proxy for static hosting, e.g. Cloudflare Worker
+    typeof window.IV_TTS_URL === "string" ? window.IV_TTS_URL : null,
+  ].filter(Boolean);
 
   const escapeHtml = (s) =>
     String(s)
@@ -328,13 +339,32 @@
     }
   };
 
+  const getDuration = () => {
+    if (state.engine === "neural") {
+      const a = els.audio;
+      if (a?.duration && Number.isFinite(a.duration)) return a.duration;
+    }
+    if (state.virtualDur) return state.virtualDur;
+    const last = state.words.at(-1);
+    return last ? last.t + (last.d || 0) : 0;
+  };
+
+  const getCurrentTime = () => {
+    if (state.engine === "neural") return els.audio?.currentTime || 0;
+    if (!state.playing) return state.virtualT;
+    const elapsed = (performance.now() - state.virtualAnchorWall) / 1000;
+    return Math.min(getDuration(), state.virtualAnchorT + elapsed);
+  };
+
+  const setVirtualTime = (t) => {
+    state.virtualT = Math.max(0, Math.min(getDuration() || t, t));
+    state.virtualAnchorT = state.virtualT;
+    state.virtualAnchorWall = performance.now();
+  };
+
   const updateProgress = () => {
-    const a = els.audio;
-    if (!a) return;
-    const dur = a.duration && Number.isFinite(a.duration) ? a.duration : state.words.at(-1)
-      ? state.words.at(-1).t + state.words.at(-1).d
-      : 0;
-    const cur = a.currentTime || 0;
+    const dur = getDuration();
+    const cur = getCurrentTime();
     if (els.seek) {
       els.seek.max = String(dur || 1);
       els.seek.value = String(cur);
@@ -344,9 +374,13 @@
 
   const tick = () => {
     if (!state.playing) return;
-    const t = els.audio?.currentTime || 0;
+    const t = getCurrentTime();
     highlightAt(t);
     updateProgress();
+    if (state.engine === "browser" && t >= getDuration() - 0.05) {
+      onEnded();
+      return;
+    }
     state.raf = requestAnimationFrame(tick);
   };
 
@@ -365,14 +399,89 @@
     }
   };
 
-  const fetchTts = async (text) => {
-    const key = `${state.voiceA}|${state.voiceB}|${SPEEDS[state.speedIdx].rate}|${text}`;
-    if (key === state.cacheKey && els.audio?.src) return true;
+  const stopBrowserSpeech = () => {
+    try {
+      window.speechSynthesis?.cancel();
+    } catch (_) {}
+  };
 
-    state.loading = true;
-    setStatus("Đang tạo audio (Aria/Guy Neural)…");
-    if (els.play) els.play.disabled = true;
+  const estimateTimelineFromDom = () => {
+    const spans = [...(els.karaoke?.querySelectorAll(".iv-w") || [])];
+    const pr = SPEEDS[state.speedIdx].pr || 1;
+    const wpm = 145 * pr;
+    let t = 0.12;
+    const words = spans.map((el) => {
+      const w = el.dataset.w || el.textContent || "";
+      const d = Math.max(0.12, (Math.max(1, w.length) / 5 / wpm) * 60);
+      const item = { t, d, w, el };
+      t += d + 0.04;
+      return item;
+    });
+    state.virtualDur = t + 0.3;
+    return words;
+  };
 
+  const prepareBrowserEngine = (text) => {
+    state.engine = "browser";
+    revokeAudio();
+    if (els.audio) {
+      els.audio.removeAttribute("src");
+      els.audio.load?.();
+    }
+    renderKaraokeShell(text);
+    state.words = estimateTimelineFromDom();
+    state.words.forEach((w) => w.el?.classList.add("is-future"));
+    const built = buildLessonText(state.lesson);
+    buildSentenceRanges(state.words, built.sentenceMeta);
+    setVirtualTime(0);
+    updateProgress();
+  };
+
+  const pickBrowserVoice = (preferFemale) => {
+    const voices = window.speechSynthesis?.getVoices?.() || [];
+    const en = voices.filter((v) => /^en(-|_)/i.test(v.lang) || /english/i.test(v.name));
+    if (!en.length) return null;
+    const scored = en.map((v) => {
+      let score = 0;
+      if (/en-US|United States/i.test(`${v.lang} ${v.name}`)) score += 2;
+      if (preferFemale && /female|samantha|victoria|karen|moira|zira|aria|jenny/i.test(v.name)) score += 4;
+      if (!preferFemale && /male|daniel|david|alex|fred|guy|tom/i.test(v.name)) score += 4;
+      return { v, score };
+    });
+    scored.sort((a, b) => b.score - a.score);
+    return scored[0]?.v || en[0];
+  };
+
+  const speakBrowserFromWord = (startIdx = 0) => {
+    stopBrowserSpeech();
+    if (state.muted || !window.speechSynthesis) return;
+    const slice = state.words.slice(Math.max(0, startIdx));
+    if (!slice.length) return;
+    const text = slice.map((w) => w.w).join(" ");
+    const u = new SpeechSynthesisUtterance(text);
+    u.rate = SPEEDS[state.speedIdx].pr;
+    const voice = pickBrowserVoice(true);
+    if (voice) u.voice = voice;
+    // Boundary sync is best-effort; clock remains source of truth for karaoke
+    window.speechSynthesis.speak(u);
+  };
+
+  const readJsonSafe = async (res) => {
+    const ctype = res.headers.get("content-type") || "";
+    const raw = await res.text();
+    if (!ctype.includes("application/json") && raw.trimStart().startsWith("<")) {
+      throw new Error(
+        "API TTS không có trên GitHub Pages (nhận HTML). Đang dùng giọng trình duyệt…"
+      );
+    }
+    try {
+      return JSON.parse(raw);
+    } catch (_) {
+      throw new Error("Phản hồi TTS không phải JSON");
+    }
+  };
+
+  const fetchNeuralTts = async (text) => {
     const body = new URLSearchParams({
       text,
       voice: state.voiceA,
@@ -381,52 +490,88 @@
     });
     if (state.voiceB) body.set("voice_b", state.voiceB);
 
-    const res = await fetch("/api/tts", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body,
-    });
-    const data = await res.json();
-    if (!res.ok || !data.ok) {
-      throw new Error(data.error || "TTS failed");
+    let lastErr = null;
+    for (const url of TTS_ENDPOINTS) {
+      try {
+        const res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body,
+        });
+        const data = await readJsonSafe(res);
+        if (!res.ok || !data.ok) {
+          lastErr = new Error(data.error || `TTS HTTP ${res.status}`);
+          continue;
+        }
+        return data;
+      } catch (err) {
+        lastErr = err;
+      }
+    }
+    throw lastErr || new Error("TTS unavailable");
+  };
+
+  const fetchTts = async (text) => {
+    const key = `${state.voiceA}|${state.voiceB}|${SPEEDS[state.speedIdx].rate}|${text}`;
+    if (key === state.cacheKey && (els.audio?.src || state.engine === "browser") && state.words.length) {
+      return true;
     }
 
-    const bin = Uint8Array.from(atob(data.audio), (c) => c.charCodeAt(0));
-    revokeAudio();
-    const url = URL.createObjectURL(new Blob([bin], { type: data.mime || "audio/mpeg" }));
-    state.audioUrl = url;
-    state.cacheKey = key;
-    els.audio.src = url;
-    els.audio.muted = state.muted;
-    els.audio.playbackRate = 1; // rate baked into TTS request
+    state.loading = true;
+    setStatus("Đang tạo audio…");
+    if (els.play) els.play.disabled = true;
 
-    renderKaraokeShell(text);
-    state.words = mapWordsToSpans(data.words || []);
-    state.words.forEach((w) => w.el?.classList.add("is-future"));
-    const built = buildLessonText(state.lesson);
-    buildSentenceRanges(state.words, built.sentenceMeta);
+    try {
+      const data = await fetchNeuralTts(text);
+      state.engine = "neural";
+      const bin = Uint8Array.from(atob(data.audio), (c) => c.charCodeAt(0));
+      revokeAudio();
+      const url = URL.createObjectURL(new Blob([bin], { type: data.mime || "audio/mpeg" }));
+      state.audioUrl = url;
+      state.cacheKey = key;
+      els.audio.src = url;
+      els.audio.muted = state.muted;
+      els.audio.playbackRate = 1;
 
-    await new Promise((resolve, reject) => {
-      const onReady = () => {
-        cleanup();
-        resolve();
-      };
-      const onErr = () => {
-        cleanup();
-        reject(new Error("Audio decode failed"));
-      };
-      const cleanup = () => {
-        els.audio.removeEventListener("canplaythrough", onReady);
-        els.audio.removeEventListener("error", onErr);
-      };
-      els.audio.addEventListener("canplaythrough", onReady, { once: true });
-      els.audio.addEventListener("error", onErr, { once: true });
-      els.audio.load();
-    });
+      renderKaraokeShell(text);
+      state.words = mapWordsToSpans(data.words || []);
+      state.words.forEach((w) => w.el?.classList.add("is-future"));
+      const built = buildLessonText(state.lesson);
+      buildSentenceRanges(state.words, built.sentenceMeta);
+      state.virtualDur =
+        data.duration ||
+        (state.words.at(-1) ? state.words.at(-1).t + state.words.at(-1).d : 0);
+
+      await new Promise((resolve, reject) => {
+        const onReady = () => {
+          cleanup();
+          resolve();
+        };
+        const onErr = () => {
+          cleanup();
+          reject(new Error("Audio decode failed"));
+        };
+        const cleanup = () => {
+          els.audio.removeEventListener("canplaythrough", onReady);
+          els.audio.removeEventListener("error", onErr);
+        };
+        els.audio.addEventListener("canplaythrough", onReady, { once: true });
+        els.audio.addEventListener("error", onErr, { once: true });
+        els.audio.load();
+      });
+      setStatus("", false);
+    } catch (err) {
+      // GitHub Pages / static host: no Node /api/tts → browser fallback
+      prepareBrowserEngine(text);
+      state.cacheKey = key;
+      setStatus(
+        "Đang dùng giọng trình duyệt (Pages không có /api/tts). Chạy `npm start` local để dùng Aria/Guy Neural.",
+        true
+      );
+    }
 
     state.loading = false;
     if (els.play) els.play.disabled = false;
-    setStatus("", false);
     updateProgress();
     return true;
   };
@@ -434,12 +579,23 @@
   const playFrom = async (time = 0) => {
     if (!state.lesson) return;
     try {
-      if (!els.audio.src || state.loading) {
+      if ((!els.audio?.src && state.engine !== "browser") || !state.words.length || state.loading) {
         await fetchTts(state.textEn);
       }
-      els.audio.currentTime = Math.max(0, time);
-      els.audio.muted = state.muted;
-      await els.audio.play();
+      const t0 = Math.max(0, time);
+      if (state.engine === "neural") {
+        stopBrowserSpeech();
+        els.audio.currentTime = t0;
+        els.audio.muted = state.muted;
+        await els.audio.play();
+      } else {
+        setVirtualTime(t0);
+        const idx = Math.max(
+          0,
+          state.words.findIndex((w) => t0 < w.t + w.d)
+        );
+        speakBrowserFromWord(idx === -1 ? 0 : idx);
+      }
       setPlayingUI(true);
       cancelAnimationFrame(state.raf);
       state.raf = requestAnimationFrame(tick);
@@ -452,14 +608,18 @@
   };
 
   const pause = () => {
-    els.audio?.pause();
+    if (state.engine === "neural") els.audio?.pause();
+    else {
+      state.virtualT = getCurrentTime();
+      stopBrowserSpeech();
+    }
     setPlayingUI(false);
     cancelAnimationFrame(state.raf);
     updateProgress();
   };
 
   const currentSentenceRange = () => {
-    const t = els.audio?.currentTime || 0;
+    const t = getCurrentTime();
     return (
       state.sentenceRanges.find((r) => t >= r.startTime && t <= r.endTime + 0.2) ||
       state.sentenceRanges[0]
@@ -467,6 +627,10 @@
   };
 
   const onEnded = () => {
+    if (state.engine === "browser") {
+      state.virtualT = getDuration();
+      stopBrowserSpeech();
+    }
     if (state.repeatSentence) {
       const r = currentSentenceRange();
       playFrom(r?.startTime || 0);
@@ -548,28 +712,44 @@
   };
 
   const speakSnippet = async (text, preferB = false) => {
-    // One-off listen for Q/A cards using same Neural voices
+    const voiceId = preferB && state.voiceB ? state.voiceB : state.voiceA;
     try {
       const body = new URLSearchParams({
         text,
-        voice: preferB && state.voiceB ? state.voiceB : state.voiceA,
+        voice: voiceId,
         rate: SPEEDS[state.speedIdx].rate,
         timeline: "1",
       });
-      const res = await fetch("/api/tts", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body,
-      });
-      const data = await res.json();
-      if (!res.ok || !data.ok) throw new Error(data.error || "TTS failed");
+      let data = null;
+      let lastErr = null;
+      for (const url of TTS_ENDPOINTS) {
+        try {
+          const res = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body,
+          });
+          data = await readJsonSafe(res);
+          if (res.ok && data.ok) break;
+          data = null;
+        } catch (err) {
+          lastErr = err;
+          data = null;
+        }
+      }
+      if (!data) throw lastErr || new Error("TTS unavailable");
       const bin = Uint8Array.from(atob(data.audio), (c) => c.charCodeAt(0));
-      const url = URL.createObjectURL(new Blob([bin], { type: "audio/mpeg" }));
-      const a = new Audio(url);
-      a.onended = () => URL.revokeObjectURL(url);
+      const blobUrl = URL.createObjectURL(new Blob([bin], { type: "audio/mpeg" }));
+      const a = new Audio(blobUrl);
+      a.onended = () => URL.revokeObjectURL(blobUrl);
       a.play();
-    } catch (err) {
-      console.warn(err);
+    } catch (_) {
+      stopBrowserSpeech();
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = SPEEDS[state.speedIdx].pr;
+      const voice = pickBrowserVoice(!preferB);
+      if (voice) u.voice = voice;
+      window.speechSynthesis?.speak(u);
     }
   };
 
@@ -629,9 +809,12 @@
     }
   };
 
-  // Audio events
-  els.audio?.addEventListener("ended", onEnded);
+  // Audio events (neural engine)
+  els.audio?.addEventListener("ended", () => {
+    if (state.engine === "neural") onEnded();
+  });
   els.audio?.addEventListener("timeupdate", () => {
+    if (state.engine !== "neural") return;
     if (!state.playing) {
       highlightAt(els.audio.currentTime || 0);
       updateProgress();
@@ -671,12 +854,18 @@
     if (t.id === "ivMute") {
       state.muted = !state.muted;
       if (els.audio) els.audio.muted = state.muted;
+      if (state.muted) stopBrowserSpeech();
       els.mute?.classList.toggle("active", state.muted);
       els.mute && (els.mute.textContent = state.muted ? "Unmute" : "Mute");
-      // Keep highlighting: if muted mid-play, audio still runs with muted=true
-      if (state.muted && !state.playing && els.audio?.src) {
-        // Convenience: if paused, start muted playback so chữ vẫn chạy for speaking
-        playFrom(els.audio.currentTime || 0);
+      // Keep highlighting while muted — clock/audio still advances
+      if (state.muted && !state.playing && state.words.length) {
+        playFrom(getCurrentTime());
+      } else if (!state.muted && state.playing && state.engine === "browser") {
+        const idx = Math.max(
+          0,
+          state.words.findIndex((w) => getCurrentTime() < w.t + w.d)
+        );
+        speakBrowserFromWord(idx === -1 ? 0 : idx);
       }
       return;
     }
@@ -692,25 +881,26 @@
     }
     if (t.id === "ivPlay") {
       if (state.playing) pause();
-      else playFrom(els.audio?.currentTime || 0);
+      else playFrom(getCurrentTime());
       return;
     }
     if (t.id === "ivBack5") {
-      const next = Math.max(0, (els.audio?.currentTime || 0) - 5);
+      const next = Math.max(0, getCurrentTime() - 5);
       if (state.playing) playFrom(next);
       else {
-        els.audio.currentTime = next;
+        if (state.engine === "neural") els.audio.currentTime = next;
+        else setVirtualTime(next);
         highlightAt(next);
         updateProgress();
       }
       return;
     }
     if (t.id === "ivFwd5") {
-      const dur = els.audio?.duration || 0;
-      const next = Math.min(dur, (els.audio?.currentTime || 0) + 5);
+      const next = Math.min(getDuration(), getCurrentTime() + 5);
       if (state.playing) playFrom(next);
       else {
-        els.audio.currentTime = next;
+        if (state.engine === "neural") els.audio.currentTime = next;
+        else setVirtualTime(next);
         highlightAt(next);
         updateProgress();
       }
@@ -719,18 +909,18 @@
     if (t.id === "ivSpeed") {
       state.speedIdx = (state.speedIdx + 1) % SPEEDS.length;
       els.speed.textContent = SPEEDS[state.speedIdx].label;
-      // Rate is baked into Neural TTS — refetch
       const was = state.playing;
-      const t0 = els.audio?.currentTime || 0;
-      const ratio = t0 / (els.audio?.duration || 1);
+      const t0 = getCurrentTime();
+      const ratio = t0 / (getDuration() || 1);
       pause();
       state.cacheKey = "";
       fetchTts(state.textEn)
         .then(() => {
-          const jump = ratio * (els.audio.duration || 0);
+          const jump = ratio * (getDuration() || 0);
           if (was) playFrom(jump);
           else {
-            els.audio.currentTime = jump;
+            if (state.engine === "neural") els.audio.currentTime = jump;
+            else setVirtualTime(jump);
             highlightAt(jump);
             updateProgress();
           }
@@ -761,7 +951,8 @@
     const t = Number(els.seek.value || 0);
     const was = state.playing;
     if (was) pause();
-    els.audio.currentTime = t;
+    if (state.engine === "neural") els.audio.currentTime = t;
+    else setVirtualTime(t);
     highlightAt(t);
     updateProgress();
     if (was) playFrom(t);
@@ -773,16 +964,17 @@
     updateVoiceLabel();
     if (!state.lesson) return;
     const was = state.playing;
-    const t0 = els.audio?.currentTime || 0;
-    const ratio = t0 / (els.audio?.duration || 1);
+    const t0 = getCurrentTime();
+    const ratio = t0 / (getDuration() || 1);
     pause();
     state.cacheKey = "";
     fetchTts(state.textEn)
       .then(() => {
-        const jump = ratio * (els.audio.duration || 0);
+        const jump = ratio * (getDuration() || 0);
         if (was) playFrom(jump);
         else {
-          els.audio.currentTime = jump;
+          if (state.engine === "neural") els.audio.currentTime = jump;
+          else setVirtualTime(jump);
           highlightAt(jump);
           updateProgress();
         }
