@@ -355,6 +355,19 @@
       link("lesson-15", "15 · 朋友的婚礼"),
       link("lesson-16", "16 · 我的一天"),
     ].join("");
+  } else if (navEl && sidebar?.dataset.nav === "interview-english") {
+    const r = root;
+    const lessons = (window.INTERVIEW_DATA?.lessons || []).slice(0, 16);
+    const items = [
+      `<li><a class="${active === "overview" ? "active" : ""}" href="${r}">Overview</a></li>`,
+      `<li><a href="${r}#all-questions">All 80 questions</a></li>`,
+    ];
+    lessons.forEach((l) => {
+      items.push(
+        `<li><a href="${r}?lesson=${l.id}">${String(l.num).padStart(2, "0")}. ${l.title}</a></li>`
+      );
+    });
+    navEl.innerHTML = items.join("");
   } else if (navEl) {
     navEl.innerHTML = [
       item("overview", "Overview"),
